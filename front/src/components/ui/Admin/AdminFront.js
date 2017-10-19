@@ -15,8 +15,10 @@ render() {
     return (
       <div>
 
-        <h1 style={{color: 'red'}}>IMPORTANT ANNOUNCEMENT!</h1>
+        <h1 style={{color: 'red', fontFamily: 'Exo'}}> IMPORTANT ANNOUNCEMENT!</h1>
         <p>On Mikki nyt merelle hukkunut</p>
+
+        <h1 style={{color: 'red', fontFamily: '"Exo 2"'}}>Existentiaalinen Exokriisi</h1>
       </div>
     );
   }

@@ -11,7 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
+      loggedIn: true,
 
     }
   }
@@ -23,7 +23,7 @@ class App extends Component {
     return (
       <div className="App">
 
-        <p>testi</p>
+
         {this.state.loggedIn ? <AdminFront /> : <Login />}
       </div>
 

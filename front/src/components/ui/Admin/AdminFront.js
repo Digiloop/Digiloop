@@ -14,7 +14,9 @@ constructor(props){
 render() {
     return (
       <div>
-        <h1>Nu har du loggade in</h1>
+
+        <h1 style={{color: 'red'}}>IMPORTANT ANNOUNCEMENT!</h1>
+        <p>On Mikki nyt merelle hukkunut</p>
       </div>
     );
   }

@@ -1,22 +1,30 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Login from './Login/Login.js'
+import Login from './components/ui/Login/Login.js';
+import AdminFront from './components/ui/Admin/AdminFront.js';
 // Author: Spagehetti Baker Bros & co.
 
 
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loggedIn: false,
+
+    }
+  }
+
+
+
+
   render() {
     return (
       <div className="App">
 
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome To Tikituuba</h1>
-        </header>
 
-        <Login />
+        {this.state.loggedIn ? <AdminFront /> : <Login />}
       </div>
 
 

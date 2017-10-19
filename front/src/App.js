@@ -23,7 +23,7 @@ class App extends Component {
     return (
       <div className="App">
 
-
+        <p>testi</p>
         {this.state.loggedIn ? <AdminFront /> : <Login />}
       </div>
 

@@ -34,7 +34,7 @@ app.get('/nimi', function (req, res){
 con.query('SELECT * FROM Category', (err,rows) => {
   if(err) throw err;
 
-  res.send('Data received from Db:\n'+rows[1]);
+  res.send('Data received from Db:\n'+rows[0]);
 });
 
 

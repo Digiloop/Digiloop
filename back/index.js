@@ -2,6 +2,7 @@ var mysql = require('mysql');
 var bodyParser = require("body-parser");
 const express = require('express');
 const app = express();
+var path = require("path");
 
 
 var con = mysql.createConnection({
@@ -20,9 +21,8 @@ con.connect(function(err) {
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 app.use(express.static('../front/public'));
-app.get('/index.html', function (req, res) {
-   res.sendFile( __dirname + "/" + "index.html" );
-   console.log(__dirname);
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, '../front/public', 'index.html'));
 })
 
 

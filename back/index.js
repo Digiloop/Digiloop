@@ -1,6 +1,6 @@
 var mysql = require('mysql');
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 
 
 var con = mysql.createConnection({
@@ -20,23 +20,21 @@ con.connect(function(err) {
 
 
 app.get('/', function (req, res) {
-  res.send('Hello World!')
-})
-
-app.listen(4302, function () {
-  console.log('Example app listening on port 4302 !')
-})
-
-
-app.get('/nimi', function (req, res){
-
-
-con.query('SELECT * FROM Category', (err,rows) => {
-  if(err) throw err;
-
-  res.send('Data received from Db:\n'+rows[0].CatName);
+    res.send('Hello World!');
 });
 
 
+app.listen(4302, function () {
+    console.log('Example app listening on port 4302 !');
+});
 
-})
+
+app.get('/nimi', function (req, res) {
+
+    con.query('SELECT * FROM Category', (err, rows) => {
+        if (err) throw err;
+
+        res.send('Data received from Db:\n' + rows[0].CatName);
+    });
+
+});

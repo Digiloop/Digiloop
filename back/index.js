@@ -15,13 +15,7 @@ con.connect(function(err) {
   console.log("Connected!");
 });
 
-// Create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-app.use(express.static('public'));
-app.get('/index.htm', function (req, res) {
-   res.sendFile( __dirname + "/" + "index.html" );
-})
 
 
 

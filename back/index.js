@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+var bodyParser = require("body-parser");
 const express = require('express');
 const app = express();
 
@@ -18,19 +19,12 @@ con.connect(function(err) {
 // Create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-app.use(express.static('public'));
-app.get('/index.htm', function (req, res) {
+app.use(express.static('../front/public'));
+app.get('/index.html', function (req, res) {
    res.sendFile( __dirname + "/" + "index.html" );
+   console.log(__dirname);
 })
 
-
-
-
-
-
-app.get('/', function (req, res) {
-    res.send('Hello World!');
-});
 
 
 app.listen(4302, function () {

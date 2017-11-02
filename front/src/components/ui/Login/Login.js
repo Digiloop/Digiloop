@@ -12,7 +12,7 @@ constructor(props){
   }
  }
 
- handleClick(event){
+ loginClick(event){
 
     var payload={
     "email":this.state.username,
@@ -45,7 +45,7 @@ render() {
                onChange = {(event,newValue) => this.setState({password:newValue})}
                />
              <br/>
-             <RaisedButton label="Kirjaudu" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+             <RaisedButton label="Kirjaudu" primary={true} style={style} onClick={(event) => this.loginClick(event)}/>
          </div>
          </MuiThemeProvider>
       </div>

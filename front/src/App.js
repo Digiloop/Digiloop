@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Login from './components/ui/Login/Login.js';
+import Login from './components/containers/Login/Login.js';
 //import Map from './components/ui/Map/map.js';
 import AdminFront from './components/ui/Admin/AdminFront.js';
 // Author: Spagehetti Baker Bros & co.

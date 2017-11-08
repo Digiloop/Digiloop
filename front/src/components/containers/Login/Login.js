@@ -13,7 +13,7 @@ const mapDispatchToProps = dispatch =>
   ({
     onNewLogin(Login){
       dispatch(
-        setLogin(login)
+        login(login)
       )
     }
   })

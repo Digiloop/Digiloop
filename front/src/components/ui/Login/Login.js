@@ -27,7 +27,7 @@ constructor(props){
     // TODO: Create data connection to backend here
   }
 
-login = f => f;
+
 
 
 render() {
@@ -52,7 +52,7 @@ render() {
                />
              <br/>
              <RaisedButton label="Kirjaudu" primary={true} style={style} onClick={(event) => this.loginClick(event)}/>
-             <RaisedButton label="Testirnä 9k1" primary={true} style={style} onClick={login(true)}/>
+             <RaisedButton label="Testirnä 9k1" primary={true} style={style} onClick={this.login()}/>
          </div>
          </MuiThemeProvider>
       </div>

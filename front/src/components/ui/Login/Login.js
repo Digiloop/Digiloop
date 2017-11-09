@@ -3,6 +3,10 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import { PropTypes } from 'react';
+
+
+
 class Login extends Component {
 constructor(props){
   super(props);
@@ -12,7 +16,7 @@ constructor(props){
   }
  }
 
- handleClick(event){
+ loginClick(event){
 
     var payload={
     "email":this.state.username,
@@ -22,6 +26,8 @@ constructor(props){
 
     // TODO: Create data connection to backend here
   }
+
+
 
 
 render() {
@@ -45,7 +51,8 @@ render() {
                onChange = {(event,newValue) => this.setState({password:newValue})}
                />
              <br/>
-             <RaisedButton label="Kirjaudu" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+             <RaisedButton label="Kirjaudu" primary={true} style={style} onClick={(event) => this.loginClick(event)}/>
+             <RaisedButton label="Testirnä 9k1" primary={true} style={style} onClick={this.login()}/>
          </div>
          </MuiThemeProvider>
       </div>
@@ -55,4 +62,7 @@ render() {
 const style = {
  margin: 15,
 };
+
+
+
 export default Login;

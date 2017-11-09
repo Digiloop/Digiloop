@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Map from './components/ui/Map/Map.js';
 import Login from './components/containers/Login/Login.js';
 //import Map from './components/ui/Map/map.js';
 import AdminFront from './components/ui/Admin/AdminFront.js';
@@ -14,7 +15,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
+      loggedIn: true,
 
     }
   }
@@ -27,7 +28,8 @@ class App extends Component {
       <div className="App">
 
         <p>testi</p>
-        {this.state.loggedIn ? <AdminFront /> : <Login />}
+        {this.state.loggedIn ? <Map /> : <AdminFront />}
+
       </div>
 
 

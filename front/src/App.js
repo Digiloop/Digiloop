@@ -28,7 +28,7 @@ class App extends Component {
       <div className="App">
 
         <p>testi</p>
-        {this.state.loggedIn ? <Map /> : <AdminFront />}
+        {this.state.loggedIn ? <Login /> : <AdminFront />}
 
       </div>
 

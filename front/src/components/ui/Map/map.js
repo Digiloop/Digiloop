@@ -10,7 +10,7 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "reac
 import  MarkerWithLabel from "react-google-maps/lib/components/addons/MarkerWithLabel"
 import PropTypes from 'prop-types'
 import InfoBox from "react-google-maps/lib/components/addons/InfoBox"
-
+// Pakotan commitin
 
 
 const MapComp = compose(

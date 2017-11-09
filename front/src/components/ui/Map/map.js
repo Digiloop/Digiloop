@@ -1,131 +1,116 @@
+/* eslint-disable no-undef */
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import google from ''
-//import { GoogleMap, Marker } from "react-google-maps"
+
+import { compose, withProps, withStateHandlers } from "recompose"
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
+import  MarkerWithLabel from "react-google-maps/lib/components/addons/MarkerWithLabel"
+import PropTypes from 'prop-types'
+import InfoBox from "react-google-maps/lib/components/addons/InfoBox"
+
+
+
+const MapComp = compose(
+ withProps({
+   googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyAN0SNyI8W4PSk8x6kbS0XRcXGLODokzBw",
+   loadingElement: <div style={{ height: `100%` }} />,
+   containerElement: <div style={{ height: `400px` }} />,
+   mapElement: <div style={{ height: `100%` }} />,
+   visible: false,
+   center: {  lat: 60.986466, lng: 25.643688 },
+ }),
+ withStateHandlers(() => ({
+    isOpen: false,
+  }), {
+    onToggleOpen: ({ isOpen }) => () => ({
+      isOpen: !isOpen,
+    })
+  }),
+ withScriptjs,
+ withGoogleMap
+)((props) =>
+ <GoogleMap
+   defaultZoom={8}
+   defaultCenter={{ lat: 60.986466, lng: 25.643688 }}
+ >
+
+
+<Marker
+  position={{ lat: 60.986466, lng: 25.643688 }}
+  onClick={props.onToggleOpen}
+>
+  {props.isOpen && <InfoBox
+    onCloseClick={props.onToggleOpen}
+    options={{ closeBoxURL: ``, enableEventPropagation: true }}
+  >
+    <div style={{ backgroundColor: `yellow`, opacity: 0.75, padding: `12px` }}>
+      <div style={{ fontSize: `16px`, fontColor: `#08233B` }}>
+        Kikki Hiiri was here!
+      </div>
+    </div>
+  </InfoBox>}
+</Marker>
+ </GoogleMap>
+);
 
 
 class Map extends Component {
+
+
+
+
 constructor(props){
   super(props);
-  const script = document.createElement("script");
-    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCBSXt4sghEhLPPji-NplhyXs9cjKT4Fpw&callback=initMap";
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
-  this.state={
 
+  this.state={
+      visible: false,
+      center: {
+          lat: 33.6890603,
+          lng: -78.8866943
+          },
+          markers: [],
+          true: true
   }
+  this.pressed = this.pressed.bind(this);
  }
 
+pressed(){
+  if (this.visible) {
+    this.visible=false;
+  }
+  else{
+    this.visible=true;
+  }
+  console.log("Hiiohoi");
+}
 
- homo(){console.log("hiiohoi");}
-      initMap() {
-        var Lahti = {lat: 60.986466, lng: 25.643688};
-        geocoder = new google.maps.Geocoder();
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: Lahti
-        });
+ debug(){
+   console.log("Hiiohoi");
+ }
 
-        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        var labelIndex = 1;
-        var items = 8;
-        var itemsArray = [];
-        var geocoder;
-
-      var iconBase = './icons/';
-        var icons = {
-          parking: {
-            icon: {
-              url: iconBase + 'icon.png',
-              //size: new google.maps.Size(20, 32),
-              size: new google.maps.Size(20, 20)
-              //origin: new google.maps.Point(0,0), // origin
-              //anchor: new google.maps.Point(0, 0) // anchor
-            }
-          },
-          library: {
-            icon: {
-              url: iconBase + 'iconL.png',
-              //size: new google.maps.Size(20, 32),
-              size: new google.maps.Size(30, 30)
-              //origin: new google.maps.Point(0,0), // origin
-              //anchor: new google.maps.Point(0, 0) // anchor
-              }
-          }/*,
-          info: {
-            icon: iconBase + 'info-i_maps.png'
-          }*/
-        };
-
-        var features = [
-          {
-            position: new google.maps.LatLng(60.786466, 25.653688),
-            type: 'parking'
-          }, {
-            position: new google.maps.LatLng(Lahti),
-            type: 'library'
-          }, {
-            position: new google.maps.LatLng(-33.91747, 151.22912),
-            type: 'parking'
-          }];
-
-          for (var i=1; i <= items; i++){
-              itemsArray[i] = i;
-              console.log(itemsArray[i]);
-          }
-
-          // Create markers.
-        features.forEach(function(feature) {
-          console.log(itemsArray);
-          var marker = new google.maps.Marker({
-            position: feature.position,
-            icon: icons[feature.type].icon,
-            //label: labels[labelIndex++ % labels.length],
-            label: " " +itemsArray[labelIndex++],
-            map: map
-          });
-        });
-
-        function codeAddress() {
-        var address = document.getElementById('address').value;
-        geocoder.geocode( { 'address': address}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-        });
-      } else {
-        alert('Geocode was not successful for the following reason: ' + status);
-      }
-    });}
-
-
-      /*var marker = new google.maps.Marker({
-        scaledSize: new google.maps.Size(10, 10),
-        position: Lahti,
-        map: map
-      });*/
-    }
-
+/*var markkerit = [{lat: 60.986466, lng: 25.643688, text: "Kikki Hiiri was here!"},
+{lat: 61.986466, lng: 26.643688, text: "Kikki Hiiri was here too!"}]
+console.log(markkerit[0]);*/
 
 
 render() {
     return (
       <div>
         <h3>My Google Maps Demo</h3>
-        <div id="map"></div>
-          <input id="address" type="textbox" value="Sydney, NSW"></input>
-          <input type="button" value="Geocode" onClick="codeAddress()"></input>
+
+
+          <MapComp />
+
+          <input id="address" type="textbox" defaultValue="Sydney, NSW"></input>
+          <input type="button" defaultValue="Geocode" onClick={this.pressed}></input>
+
 
       </div>
     );
   }
 
 }
-
 export default Map;

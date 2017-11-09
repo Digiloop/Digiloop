@@ -9,19 +9,26 @@ import { Provider } from 'react-redux'
 import storeFactory from './store'
 import sampleData from './initialState'
 
-// debug tools, don't leave in live version
-window.React = React
-window.Store = store
+
 
 const initialState = sampleData
+
+const saveState = () =>
+    localStorage["redux-store"] = JSON.stringify(store.getState())
 
 const store = storeFactory(initialState)
 
 
+// debug tools, don't leave in live version
+window.React = React
+window.Store = store
 
 
 
 
-
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>
+  , document.getElementById('root'));
 registerServiceWorker();

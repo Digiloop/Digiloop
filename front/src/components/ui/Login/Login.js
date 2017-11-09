@@ -3,6 +3,10 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import { PropTypes } from 'react';
+
+
+
 class Login extends Component {
 constructor(props){
   super(props);
@@ -12,7 +16,7 @@ constructor(props){
   }
  }
 
- handleClick(event){
+ loginClick(event){
 
     var payload={
     "email":this.state.username,
@@ -24,11 +28,13 @@ constructor(props){
   }
 
 
+
+
 render() {
     return (
       <div>
         <MuiThemeProvider>
-          <div>
+          
           <AppBar
              title="Kirjaudu sisään"
            />
@@ -45,9 +51,8 @@ render() {
                onChange = {(event,newValue) => this.setState({password:newValue})}
                />
              <br/>
-             <RaisedButton label="Kirjaudu" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
-         </div>
-         </MuiThemeProvider>
+             <RaisedButton label="Kirjaudu" primary={true} style={style} onClick={(event) => this.loginClick(event)} />
+        </MuiThemeProvider>
       </div>
     );
   }
@@ -55,4 +60,7 @@ render() {
 const style = {
  margin: 15,
 };
+
+
+
 export default Login;

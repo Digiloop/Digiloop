@@ -34,7 +34,7 @@ render() {
     return (
       <div>
         <MuiThemeProvider>
-          <div>
+          
           <AppBar
              title="Kirjaudu sisään"
            />
@@ -51,10 +51,8 @@ render() {
                onChange = {(event,newValue) => this.setState({password:newValue})}
                />
              <br/>
-             <RaisedButton label="Kirjaudu" primary={true} style={style} onClick={(event) => this.loginClick(event)}/>
-             <RaisedButton label="Testirnä 9k1" primary={true} style={style} onClick={this.login()}/>
-         </div>
-         </MuiThemeProvider>
+             <RaisedButton label="Kirjaudu" primary={true} style={style} onClick={(event) => this.loginClick(event)} />
+        </MuiThemeProvider>
       </div>
     );
   }

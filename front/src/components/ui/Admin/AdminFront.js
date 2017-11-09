@@ -13,6 +13,7 @@ constructor(props){
 
 render() {
     return (
+      <MuiThemeProvider>
       <div>
 
         <h1 style={{color: 'red', fontFamily: 'Kanit'}}> IMPORTANT ANNOUNCEMENT!</h1>
@@ -20,6 +21,8 @@ render() {
 
         <h1 style={{color: 'red', fontFamily: '"Kanit"'}}>Existentiaalinen Exokriisi</h1>
       </div>
+      </MuiThemeProvider>
+
     );
   }
 }

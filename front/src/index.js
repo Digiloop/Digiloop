@@ -6,7 +6,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 // debug tools, don't leave in live version
 window.React = React
-window.store = store
+// window.store = store
 
 
 

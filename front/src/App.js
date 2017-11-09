@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Map from './components/ui/Map/Map.js';
+import Map from './components/ui/Map/Gmap.js';
 import Login from './components/containers/Login/Login.js';
 //import Map from './components/ui/Map/map.js';
 import AdminFront from './components/ui/Admin/AdminFront.js';
@@ -28,7 +28,7 @@ class App extends Component {
       <div className="App">
 
         <p>testi</p>
-        {this.state.loggedIn ? <Login /> : <AdminFront />}
+        {this.state.loggedIn ? <Map /> : <AdminFront />}
 
       </div>
 

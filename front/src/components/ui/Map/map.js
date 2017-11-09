@@ -53,7 +53,6 @@ const MapComp = compose(
     </div>
   </InfoBox>}
 </Marker>
-   {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}
  </GoogleMap>
 );
 
@@ -92,6 +91,9 @@ pressed(){
    console.log("Hiiohoi");
  }
 
+/*var markkerit = [{lat: 60.986466, lng: 25.643688, text: "Kikki Hiiri was here!"},
+{lat: 61.986466, lng: 26.643688, text: "Kikki Hiiri was here too!"}]
+console.log(markkerit[0]);*/
 
 
 render() {

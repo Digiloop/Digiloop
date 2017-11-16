@@ -7,6 +7,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import Gmap from '.././Map/Gmap.js'
 // import Slider from 'material-ui/Slider';
 // import { Container, Row, Col } from 'reactstrap';
+import ReservationListing from './ReservationListing'
 
 class WasteProcessor extends Component {
 constructor(props){
@@ -71,7 +72,7 @@ render() {
           <div className="right">
             <h2>Varausluettelo<RaisedButton label="Asetukset" style={{float: 'right', marginRight: '10px'}} /></h2>
             <div className="subRight">
-            <p>Hhlkhlsdjsföolsjfsdöfdsflk</p>
+              <ReservationListing />
             </div>
           </div>
         </div>

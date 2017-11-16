@@ -4,8 +4,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 // import AppBar from 'material-ui/AppBar';
 import './WasteProcessor.css';
 import {Tabs, Tab} from 'material-ui/Tabs';
+import Gmap from '.././Map/Gmap.js'
 // import Slider from 'material-ui/Slider';
 // import { Container, Row, Col } from 'reactstrap';
+import ReservationListing from './ReservationListing'
 
 class WasteProcessor extends Component {
 constructor(props){
@@ -21,6 +23,7 @@ constructor(props){
      });
    };
 
+
 render() {
     return (
       <MuiThemeProvider>
@@ -32,10 +35,12 @@ render() {
         <div  className="map">
           <h2>Controllable Tab A</h2>
           <p>
+
             Tabs are also controllable if you want to programmatically pass them their values.
             This allows for more functionality in Tabs such as not
             having any Tab selected or assigning them different values.
           </p>
+          <p>{this.state.value} </p>
         </div>
       </Tab>
       <Tab className="menu" label="Tab B" value="b">
@@ -61,13 +66,13 @@ render() {
           <div className="left">
             <h2>Kartta</h2>
               <div className="subLeft">
-              <p>Hhlkhlsdjsföolsjfsdöfdsflk</p>
+              <Gmap />
               </div>
           </div>
           <div className="right">
             <h2>Varausluettelo<RaisedButton label="Asetukset" style={{float: 'right', marginRight: '10px'}} /></h2>
             <div className="subRight">
-            <p>Hhlkhlsdjsföolsjfsdöfdsflk</p>
+              <ReservationListing />
             </div>
           </div>
         </div>

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
 import logo from './logo.svg';
 import './App.css';
 import Map from './components/ui/Map/Gmap.js';
@@ -19,20 +21,29 @@ class App extends Component {
       loggedIn: true,
 
     }
+
+    this.handleClick = this.handleClick.bind(this)
   }
 
+  handleClick(){
+      //console.log('HERE!', this.contextTypes);
+        //this.state.loggedIn ? <Map /> : <AdminFront />;
+        this.setState({loggedIn: !this.state.loggedIn })
+        console.log(this.value);
+      // this.context.location.transitionTo('Map');
+    };
 
 
 
   render() {
     return (
+      <MuiThemeProvider>
       <div className="App">
-
-        <p>testi</p>
-        {this.state.loggedIn ? <Map /> : <AdminFront />}
-
+        <RaisedButton onClick={this.handleClick} label="Map" />
+        {/* <RaisedButton onClick={this.handleClick} label="Käsittelijä" /> */}
+         {this.state.loggedIn ? <WasteProcessor /> : <Map />}
       </div>
-
+      </MuiThemeProvider>
 
     );
   }

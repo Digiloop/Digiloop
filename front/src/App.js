@@ -39,8 +39,6 @@ class App extends Component {
     return (
       <MuiThemeProvider>
       <div className="App">
-
-        <p>testi</p>
         <RaisedButton onClick={this.handleClick} label="Map" />
         {/* <RaisedButton onClick={this.handleClick} label="Käsittelijä" /> */}
          {this.state.loggedIn ? <WasteProcessor /> : <Map />}

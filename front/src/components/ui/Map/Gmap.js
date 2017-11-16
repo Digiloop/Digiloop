@@ -12,6 +12,12 @@ import PropTypes from 'prop-types'
 import InfoBox from "react-google-maps/lib/components/addons/InfoBox"
 // Pakotan commitin
 
+const rows = [];
+
+for(let i = 0; i<3; i++){
+  rows.push(<Marker  position={{lat: markers[i].lat, lng: markers[i].lng }} />)
+}
+
 
 const MapComp = compose(
  withProps({
@@ -37,22 +43,8 @@ const MapComp = compose(
    defaultCenter={{ lat: 60.986466, lng: 25.643688 }}
  >
 
+ {markit}
 
-<Marker
-  position={{ lat: 60.986466, lng: 25.643688 }}
-  onClick={props.onToggleOpen}
->
-  {props.isOpen && <InfoBox
-    onCloseClick={props.onToggleOpen}
-    options={{ closeBoxURL: ``, enableEventPropagation: true }}
-  >
-    <div style={{ backgroundColor: `yellow`, opacity: 0.75, padding: `12px` }}>
-      <div style={{ fontSize: `16px`, fontColor: `#08233B` }}>
-        Kikki Hiiri was here!
-      </div>
-    </div>
-  </InfoBox>}
-</Marker>
  </GoogleMap>
 );
 
@@ -72,9 +64,12 @@ constructor(props){
           lng: -78.8866943
           },
           markers: [],
-          true: true
+          true: true,
+          paskaa: ["paskaa", "kusta", "reactia"],
+          paskacounter: 3
   }
   this.pressed = this.pressed.bind(this);
+  this.paskafunktio = this.paskafunktio.bind(this);
  }
 
 pressed(){
@@ -94,7 +89,11 @@ pressed(){
 /*var markkerit = [{lat: 60.986466, lng: 25.643688, text: "Kikki Hiiri was here!"},
 {lat: 61.986466, lng: 26.643688, text: "Kikki Hiiri was here too!"}]
 console.log(markkerit[0]);*/
-
+paskafunktio(){
+  for(var i = 0; i< this.state.paskacounter; i++){
+    return <marker this.state.paskaa[i] />
+  }
+}
 
 render() {
     return (
@@ -107,6 +106,7 @@ render() {
           <input id="address" type="textbox" defaultValue="Sydney, NSW"></input>
           <input type="button" defaultValue="Geocode" onClick={this.pressed}></input>
 
+          <p>{this.paskafunktio}</p>
 
       </div>
     );

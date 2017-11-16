@@ -12,12 +12,39 @@ import PropTypes from 'prop-types'
 import InfoBox from "react-google-maps/lib/components/addons/InfoBox"
 // Pakotan commitin
 
+
+var markers = [{"lat": 60.986466, "lng": 25.643688, "text": "Kikki Hiiri was here EBIN!"},
+{"lat": 61.986466, "lng": 26.643688, "text": "Kikki Hiiri was here too!"}];
+
 const rows = [];
 
-for(let i = 0; i<3; i++){
-  rows.push(<Marker  position={{lat: markers[i].lat, lng: markers[i].lng }} />)
+for(let i =0; i<markers.length; i++ ){
+  rows.push(<Marker
+    key={i}
+    position={{ lat:markers[i].lat, lng:markers[i].lng }} /> )
 }
+/*
 
+var tuloste;
+for (var i = 0; i < markers.length; i++) {
+  console.log(markers.length);
+
+tuloste += (<Marker
+  position={{ lat:markers[i].lat, lng:markers[i].lng}}
+  onClick={props.onToggleOpen}
+>
+  {props.isOpen && <InfoBox
+    onCloseClick={props.onToggleOpen}
+    options={{ closeBoxURL: ``, enableEventPropagation: true }}
+  >
+    <div style={{ backgroundColor: `yellow`, opacity: 0.75, padding: `12px` }}>
+      <div style={{ fontSize: `16px`, fontColor: `#08233B` }}>
+        {markers[i].text}
+      </div>
+    </div>
+  </InfoBox>}
+</Marker>);
+}*/
 
 const MapComp = compose(
  withProps({
@@ -42,17 +69,12 @@ const MapComp = compose(
    defaultZoom={8}
    defaultCenter={{ lat: 60.986466, lng: 25.643688 }}
  >
-
- {markit}
-
+{rows}
  </GoogleMap>
 );
 
 
 class Map extends Component {
-
-
-
 
 constructor(props){
   super(props);
@@ -64,50 +86,34 @@ constructor(props){
           lng: -78.8866943
           },
           markers: [],
-          true: true,
-          paskaa: ["paskaa", "kusta", "reactia"],
-          paskacounter: 3
+          true: true
   }
-  this.pressed = this.pressed.bind(this);
-  this.paskafunktio = this.paskafunktio.bind(this);
  }
 
-pressed(){
+
+/*pressed(){
   if (this.visible) {
     this.visible=false;
   }
   else{
     this.visible=true;
   }
+  var markers = [{"lat": 60.986466, "lng": 25.643688, "text": "Kikki Hiiri was here!"},
+  {"lat": 61.986466, "lng": 26.643688, "text": "Kikki Hiiri was here too!"}];
   console.log("Hiiohoi");
-}
+  console.log(markers[0].text);
+}*/
 
  debug(){
    console.log("Hiiohoi");
  }
 
-/*var markkerit = [{lat: 60.986466, lng: 25.643688, text: "Kikki Hiiri was here!"},
-{lat: 61.986466, lng: 26.643688, text: "Kikki Hiiri was here too!"}]
-console.log(markkerit[0]);*/
-paskafunktio(){
-  for(var i = 0; i< this.state.paskacounter; i++){
-    return <marker this.state.paskaa[i] />
-  }
-}
-
 render() {
     return (
       <div>
         <h3>My Google Maps Demo</h3>
-
-
           <MapComp />
-
-          <input id="address" type="textbox" defaultValue="Sydney, NSW"></input>
-          <input type="button" defaultValue="Geocode" onClick={this.pressed}></input>
-
-          <p>{this.paskafunktio}</p>
-
+          {markers[0].text}
       </div>
     );
   }

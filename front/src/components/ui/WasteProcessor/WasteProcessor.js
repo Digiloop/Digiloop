@@ -8,12 +8,14 @@ import Gmap from '.././Map/Gmap.js'
 // import Slider from 'material-ui/Slider';
 // import { Container, Row, Col } from 'reactstrap';
 import ReservationListing from './ReservationListing'
+import ReservationListOptions from './ReservationListOptions'
 
 class WasteProcessor extends Component {
 constructor(props){
   super(props);
   this.state={
     value: 'a',
+    showSO: false
   }
  }
 
@@ -22,6 +24,14 @@ constructor(props){
        value: value,
      });
    };
+
+
+showSearchOptions = () => {
+  console.log(this.state.showSO)
+   this.setState({
+     showSO: !this.state.showSO,
+   })
+ }
 
 
 render() {
@@ -70,9 +80,9 @@ render() {
               </div>
           </div>
           <div className="right">
-            <h2>Varausluettelo<RaisedButton label="Asetukset" style={{float: 'right', marginRight: '10px'}} /></h2>
+            <h2>Varausluettelo<RaisedButton label="Hakuehdot" onClick={this.showSearchOptions} style={{float: 'right', marginRight: '10px'}} /></h2>
             <div className="subRight">
-              <ReservationListing />
+              {this.state.showSO ? <ReservationListOptions /> : <ReservationListing />}
             </div>
           </div>
         </div>

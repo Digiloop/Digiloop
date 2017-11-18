@@ -18,6 +18,7 @@ constructor(props){
     items: [
       {
       cat: 'SER',
+      subCat: 'kategoria 1',
       amount: 12,
       size: 0.59,
       weight: 4.2,
@@ -26,6 +27,7 @@ constructor(props){
       },
       {
       cat: 'SER',
+      subCat: 'kategoria 3',
       amount: 10,
       size: 3.89,
       weight: 4.7,
@@ -34,6 +36,7 @@ constructor(props){
       },
       {
       cat: 'Ydinjäte',
+      subCat: 'kategoria 17',
       amount: 7,
       size: 0.96,
       weight: 1.2,
@@ -53,10 +56,10 @@ render() {
   for(let i = 0; i < this.state.itemCount; i++){
     items.push(
       <TableRow >
-        <TableRowColumn>{this.state.items[i].cat}<br/>Ilmoitettu: {this.state.items[i].date}</TableRowColumn>
-        <TableRowColumn>{this.state.items[i].amount}</TableRowColumn>
-        <TableRowColumn>{this.state.items[i].size}</TableRowColumn>
-        <TableRowColumn>{this.state.items[i].weight}</TableRowColumn>
+        <TableRowColumn>{this.state.items[i].cat} ({this.state.items[i].subCat})<br/>Ilmoitettu: {this.state.items[i].date}</TableRowColumn>
+        <TableRowColumn>{this.state.items[i].amount}kpl</TableRowColumn>
+        <TableRowColumn>{this.state.items[i].size}m<sup>3</sup></TableRowColumn>
+        <TableRowColumn>{this.state.items[i].weight}kg</TableRowColumn>
         {this.state.items[i].status == "free" ? <TableRowColumn><RaisedButton label="Varaa" /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
         <TableRowColumn>Tila {this.state.items[i].status == "reserv" ? "Varattu" : "Vapaa"}</TableRowColumn>
       </TableRow>

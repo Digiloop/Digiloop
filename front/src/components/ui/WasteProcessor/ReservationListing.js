@@ -18,7 +18,7 @@ constructor(props){
     items: [
       {
       cat: 'SER',
-      subCat: 'kategoria 1',
+      subCat: 'Data',
       amount: 12,
       size: 0.59,
       weight: 4.2,
@@ -27,7 +27,7 @@ constructor(props){
       },
       {
       cat: 'SER',
-      subCat: 'kategoria 3',
+      subCat: 'Iso',
       amount: 10,
       size: 3.89,
       weight: 4.7,
@@ -35,8 +35,8 @@ constructor(props){
       status: 'free'
       },
       {
-      cat: 'Ydinjäte',
-      subCat: 'kategoria 17',
+      cat: 'SER',
+      subCat: 'Pieni',
       amount: 7,
       size: 0.96,
       weight: 1.2,
@@ -55,7 +55,7 @@ render() {
 
   for(let i = 0; i < this.state.itemCount; i++){
     items.push(
-      <TableRow >
+      <TableRow key={i} >
         <TableRowColumn>{this.state.items[i].cat} ({this.state.items[i].subCat})<br/>Ilmoitettu: {this.state.items[i].date}</TableRowColumn>
         <TableRowColumn>{this.state.items[i].amount}kpl</TableRowColumn>
         <TableRowColumn>{this.state.items[i].size}m<sup>3</sup></TableRowColumn>

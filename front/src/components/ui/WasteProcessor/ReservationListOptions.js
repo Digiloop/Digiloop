@@ -8,14 +8,28 @@ constructor(props){
   }
  }
 
+ submit = e => {
+   e.preventDefault()
 
+}
 
 render() {
 
 
     return (
       <MuiThemeProvider>
-        <p>Options Page</p>
+        <form onSubmit={this.submit}>
+
+          SER <input type="checkbox" /><br/>
+          Akut <input type="checkbox" /><br/>
+          <br />
+          Paino: <br/>
+
+          <br />
+          Näytä varatut <input type="checkbox" /><br/>
+          <br />
+          <input type="submit"></input>
+        </form>
       </MuiThemeProvider>
     );
   }

@@ -3,6 +3,7 @@ body {
     color: #004225;
     font-weight: bold;
     font-family: kanit;
+    margin: auto;
 }
 p {
   text-align: left;
@@ -30,4 +31,6 @@ text-align: right;
   padding: 1rem;
   background-color: #004225;
   text-align: center;
+
+  margin: auto;
 }

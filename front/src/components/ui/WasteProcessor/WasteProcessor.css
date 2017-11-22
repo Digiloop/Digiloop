@@ -32,6 +32,8 @@ button.menu {
   width: 49%;
   margin: 10px 3px 0 3px;
   float: left;
+  max-width: auto;
+  min-width: 400px;
 }
 
 .subLeft {
@@ -44,6 +46,7 @@ button.menu {
   width: 49%;
   margin: 10px 3px 0 3px;
   float: left;
+  min-width: 400px;
 }
 
 .subRight {

@@ -10,6 +10,8 @@ import Gmap from '.././Map/Gmap.js'
 import ReservationListing from './ReservationListing'
 import ReservationListOptions from './ReservationListOptions'
 
+
+
 class WasteProcessor extends Component {
 constructor(props){
   super(props);
@@ -24,7 +26,6 @@ constructor(props){
        value: value,
      });
    };
-
 
 showSearchOptions = () => {
   console.log(this.state.showSO)
@@ -75,7 +76,7 @@ render() {
               </div>
           </div>
           <div className="right">
-            <h2>Varausluettelo<RaisedButton label="Hakuehdot" onClick={this.showSearchOptions} style={{float: 'right', marginRight: '10px'}} /></h2>
+            <h2>Varausluettelo<RaisedButton label="Hakuehdot" onClick={this.showSearchOptions} /></h2>
             <div className="subRight">
               {this.state.showSO ? <ReservationListOptions /> : <ReservationListing />}
             </div>

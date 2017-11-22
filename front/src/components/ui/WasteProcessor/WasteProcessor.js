@@ -41,33 +41,28 @@ render() {
       value={this.state.value}
       onChange={this.handleChange}
     >
-      <Tab className="menu" label="Tab A" value="a">
+      <Tab className="menu" label="Historia" value="a">
         <div  className="map">
-          <h2>Controllable Tab A</h2>
+          <h2>Käsitellyt jätteet</h2>
           <p>
-
-            Tabs are also controllable if you want to programmatically pass them their values.
-            This allows for more functionality in Tabs such as not
-            having any Tab selected or assigning them different values.
+            Tähän tulee tiedot käsitellyistä jätteistä.
           </p>
-          <p>{this.state.value} </p>
+          {/*<p>{this.state.value} </p>*/}
         </div>
       </Tab>
-      <Tab className="menu" label="Tab B" value="b">
+      <Tab className="menu" label="Varaukset" value="b">
         <div className="map">
-          <h2>Controllable Tab B</h2>
+          <h2>Varatut jätteet</h2>
           <p>
-            This is another example of a controllable tab. Remember, if you
-            use controllable Tabs, you need to give all of your tabs values or else
-            you wont be able to select them.
+            Tässä näkyy varatut jätteet
           </p>
         </div>
       </Tab>
       <Tab className="menu" label="Admin" value="c">
         <div  className="map">
-          <h2>Controllable Tab C</h2>
+          <h2>Admin-näkymä</h2>
           <p>
-            Jotain tekstii
+            Täällä voi muokata tietokannan rakennetta, esim. voi lisätä jätetyyppejä.
           </p>
         </div>
       </Tab>

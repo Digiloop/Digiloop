@@ -43,7 +43,7 @@ button.menu {
   position: relative;
   width: 49%;
   margin: 10px 3px 0 3px;
-  float: right;
+  float: left;
 }
 
 .subRight {

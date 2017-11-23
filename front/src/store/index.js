@@ -9,9 +9,8 @@ const consoleTest = store => next => action => {
   let result
 
   console.groupCollapsed(`dispatching action => ${action.type}`)
-  console.log('Logged in', store.getState().loggedIn)
+  console.log('ResListOpts:', store.getState().resListOpt)
   result = next(action)
-  console.log("test");
   console.groupEnd()
   return result
 }

@@ -12,6 +12,7 @@ const mapDispatchToProps = dispatch =>
     onNewOptions({ser, batteries, showRes}){
       dispatch(
         setResOpt(ser, batteries, showRes)
+        //setResOpt(true, true, true)
       )
     }
   })

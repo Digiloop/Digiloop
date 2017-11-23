@@ -14,19 +14,28 @@ import styles from './order.css';
 class Order extends Component {
 constructor(props){
   super(props);
-  this.state={
-
-  };
+  this.state = {value: ''};
+  this.handleChange = this.handleChange.bind(this);
+  this.handleSubmit = this.handleSubmit.bind(this);
  }
 
 handleChange = (event, index, value) => this.setState({value});
+handleSubmit(event) {
+  event.preventDefault();
+  console.log({Jäte:this.state.value });
+  alert('Jätteen tyyppi: ' + this.state.value);
+}
 
 render() {
+
+
 
   let s1 = {width: 150};  //tekstikenttien leveys
   let s2 = {backgroundColor: '#004225'}; //appbar tausta
   let s3 = {color: '#004225'}; //dropdownmenu otsikot
-  let s4 = {color: '#004225'}; //^^ kategoriat
+  let s4 = {color: '#004225'}; //^^
+  var style = { 'text-align': 'right' };
+
 
 
     return (
@@ -36,70 +45,77 @@ render() {
           <p> * merkityt kentät ovat pakollisia</p>
         </div>
 
+        <form onSubmit={this.handleSubmit}>
         <div>
-        <table id="tilaus">
+        <table name="tilaus">
+        <tbody>
 <tr>
-<th style={s1}>Jätteen tyyppi*</th>
-<th>
+<td style={s1}>Jätteen tyyppi*</td>
+<td>
         <DropDownMenu style={s1} value={this.state.value} onChange={this.handleChange}>
           <p style={s3}>SER-jäte</p>
-          <MenuItem style={s4} value={1} primaryText="Lamppu" />
-          <MenuItem style={s4} value={2} primaryText="Akku" />
-          <MenuItem style={s4} value={3} primaryText="Muu" />
+          <MenuItem style={s4} name="Lamppu" value={"Lamppu"} primaryText="Lamppu" />
+          <MenuItem style={s4} name="Akku" value={"Akku"} primaryText="Akku" />
+          <MenuItem style={s4} name="MuuSER" value={"Muu SER"} primaryText="Muu" />
           <p style={s3}>Muu</p>
-          <MenuItem style={s4} value={4} primaryText="Kupari" />
-          <MenuItem style={s4} value={5} primaryText="Alumiini" />
-          <MenuItem style={s4} value={6} primaryText="Muu" />
+          <MenuItem style={s4} name="Kupari" value={"Kupari"} primaryText="Kupari" />
+          <MenuItem style={s4} name="Alumiini" value={"Alumiini"} primaryText="Alumiini" />
+          <MenuItem style={s4} name="Muu" value={"Muu"} primaryText="Muu" />
         </DropDownMenu>
-        </th>
+        </td>
         </tr>
         <tr>
-          <th>Kappalemäärä*</th>
-          <th><TextField id="pcs" style={s1}/></th>
+          <td>Kappalemäärä*</td>
+          <td><TextField name="pcs" value={this.state.pcs} style={s1}/></td>
         </tr>
         <tr>
-          <th>Nouto-osoite*</th>
-          <th><TextField id="address" style={s1}/></th>
+          <td>Nouto-osoite*</td>
+          <td><TextField name="address" style={s1}/></td>
         </tr>
         <tr>
-          <th>Kuvaus*</th>
-          <th><TextField id="description" rows={3} rowsMax={7} style={s1}/></th>
+          <td>Kuvaus*</td>
+          <td><TextField name="description" rows={3} rowsMax={7} style={s1}/></td>
         </tr>
         <tr>
-          <th>Mitat*</th>
-          <th><TextField hintText="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m³" id="measurements" style={s1}/></th>
+          <td>Mitat*</td>
+          <td><TextField hintText="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m³" name="measurements"  style={s1}/></td>
         </tr>
           <tr>
-          <th>Paino</th>
-          <th><TextField hintText="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kg" type id="weight" style={s1}/></th>
+          <td>Paino</td>
+          <td><TextField hintText="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kg" name="weight" style={s1}/></td>
         </tr>
         <tr>
-          <th>Kuva</th>
-          <th>
+          <td>Kuva</td>
+          <td>
           <RaisedButton
           containerElement='label' // <-- Just add me!
           label='Valitse kuva'>
           <input type="file" style={{ display: 'none' }} />
           </RaisedButton>
-        </th>
+        </td>
         </tr>
+        </tbody>
         </table>
 
 <table id="buttons">
-<th>
+<tbody>
+<td>
         <IconButton tooltip="Edellinen">
           <Back />
         </IconButton>
-        
-</th>
-<th id="next">
-        <IconButton tooltip="Seuraava">
+
+</td>
+<td id="next">
+        <IconButton type="Submit" value="Submit" tooltip="Seuraava">
           <Forward />
         </IconButton>
-</th>
+</td>
+</tbody>
 </table>
         </div>
-        <div class="footer">
+        </form>
+
+        <div className="footer">
         </div>
       </MuiThemeProvider>
     );

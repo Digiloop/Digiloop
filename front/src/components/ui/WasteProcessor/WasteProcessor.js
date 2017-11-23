@@ -11,7 +11,6 @@ import ReservationListing from './ReservationListing'
 import ReservationListOptions from '../../containers/WasteProcessor/ReservationListOptions'
 
 
-
 class WasteProcessor extends Component {
 constructor(props){
   super(props);
@@ -76,7 +75,8 @@ render() {
               </div>
           </div>
           <div className="right">
-            <h2>Varausluettelo<RaisedButton label="Hakuehdot" onClick={this.showSearchOptions} /></h2>
+            <h2>Varausluettelo<RaisedButton label="Hakuehdot" onClick={this.showSearchOptions}
+            style={{float: 'right', backgroundColor: '#004225'}} /></h2>
             <div className="subRight">
               {this.state.showSO ? <ReservationListOptions /> : <ReservationListing />}
             </div>

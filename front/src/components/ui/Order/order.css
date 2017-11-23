@@ -3,6 +3,9 @@ body {
     color: #004225;
     font-weight: bold;
     font-family: kanit;
+    margin: auto;
+    max-width: 500px;
+
 }
 p {
   text-align: left;
@@ -15,6 +18,7 @@ table {
 
 #buttons {
   width:100%;
+  margin-bottom: 10%;
 }
 
 #next {
@@ -22,7 +26,7 @@ text-align: right;
 }
 
 .footer {
-  position: absolute;
+  position: fixed;
   height: 1px;
   right: 0;
   bottom: 0;
@@ -30,4 +34,7 @@ text-align: right;
   padding: 1rem;
   background-color: #004225;
   text-align: center;
+  margin: auto;
+  max-width: 500px;
+
 }

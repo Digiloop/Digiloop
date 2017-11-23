@@ -33,7 +33,9 @@ render() {
   let s1 = {width: 150};  //tekstikenttien leveys
   let s2 = {backgroundColor: '#004225'}; //appbar tausta
   let s3 = {color: '#004225'}; //dropdownmenu otsikot
-  let s4 = {color: '#004225'}; //^^ kategoriat
+  let s4 = {color: '#004225'}; //^^
+  var style = { 'text-align': 'right' };
+
 
 
     return (
@@ -76,7 +78,7 @@ render() {
         </tr>
         <tr>
           <td>Mitat*</td>
-          <td><TextField hintText="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m³" name="measurements" style={s1}/></td>
+          <td><TextField hintText="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m³" name="measurements"  style={s1}/></td>
         </tr>
           <tr>
           <td>Paino</td>

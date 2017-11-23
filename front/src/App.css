@@ -3,6 +3,7 @@
   background-color: #959480;
   width: 100%;
   height: 100vh;
+  min-width: 400px;
 }
 
 .App-logo {

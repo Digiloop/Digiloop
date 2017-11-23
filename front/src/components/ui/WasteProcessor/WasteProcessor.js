@@ -8,7 +8,7 @@ import Gmap from '.././Map/Gmap.js'
 // import Slider from 'material-ui/Slider';
 // import { Container, Row, Col } from 'reactstrap';
 import ReservationListing from './ReservationListing'
-import ReservationListOptions from './ReservationListOptions'
+import ReservationListOptions from '../../containers/WasteProcessor/ReservationListOptions'
 
 
 

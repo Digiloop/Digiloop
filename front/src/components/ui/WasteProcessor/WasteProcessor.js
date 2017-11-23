@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 // import AppBar from 'material-ui/AppBar';
 import './WasteProcessor.css';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import Gmap from '.././Map/Gmap.js'
+import Gmap from './Map/Gmap.js'
 // import Slider from 'material-ui/Slider';
 // import { Container, Row, Col } from 'reactstrap';
 import ReservationListing from './ReservationListing'

@@ -23,4 +23,19 @@ export const fetchResList = value => dispatch => {
   dispatch({
     type: C.FETCH_RESERVATION_LIST_ITEMS
   })
+
+//TODO create fetching from backend, insert into store
+  fetch('193.166.72.18/categories')
+    //.then( response => response.json())
+    .then(resList => {
+      dispatch({
+        type: C.SET_RLI,
+        payload: resList
+      })
+    })
+    .catch(error => {
+      dispatch({
+        type: C.CANCEL_RESLIST_FETCH
+      })
+    })
 }

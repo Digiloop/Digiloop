@@ -1,7 +1,26 @@
 {
 	"loggedIn": false,
 	"resList": {
-			"resListItems": [],
+			"resListItems": [
+				{
+	      "cat": "SER",
+	      "subCat": "Data",
+	      "amount": 12,
+	      "size": 0.59,
+	      "weight": 4.2,
+	      "date": "27-10-2017",
+	      "status": "free"
+	      },
+				{
+				"cat": "SER",
+				"subCat": "Data",
+				"amount": 12,
+				"size": 0.59,
+				"weight": 4.2,
+				"date": "27-10-2017",
+				"status": "free"
+				},
+			],
 			"fetching": false
 		},
 	"resListOpt":

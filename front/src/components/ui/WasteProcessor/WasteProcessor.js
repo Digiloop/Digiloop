@@ -10,6 +10,7 @@ import Gmap from './Map/Gmap.js'
 import ReservationListing from './ReservationListing'
 import ReservationListOptions from '../../containers/WasteProcessor/ReservationListOptions'
 
+//TODO take options from store, get list items from backend, filter and send to list & map
 
 class WasteProcessor extends Component {
 constructor(props){

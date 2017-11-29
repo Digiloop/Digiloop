@@ -12,5 +12,7 @@ export const resList = (state=[], action) =>
   (action.type === C.SET_RLI) ? action.payload : state
 
 export default combineReducers({
-  loggedIn
+  loggedIn,
+  resListOpt,
+  resList
 })

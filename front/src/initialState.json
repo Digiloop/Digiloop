@@ -1,3 +1,10 @@
 {
-	"loggedIn": false
+	"loggedIn": false,
+	"resList": [],
+	"resListOpt":
+		{
+			"showRes": false,
+			"ser": false,
+			"batteries": false
+		}
 }

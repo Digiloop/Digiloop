@@ -1,6 +1,9 @@
 {
 	"loggedIn": false,
-	"resList": [],
+	"resList": {
+			"resListItems": [],
+			"fetching": false
+		},
 	"resListOpt":
 		{
 			"showRes": false,

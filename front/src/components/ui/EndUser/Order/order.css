@@ -1,7 +1,6 @@
 body {
     background-color: #959480;
     margin: auto;
-    max-width: 800px;
 }
 
 .Container {
@@ -10,6 +9,7 @@ body {
   font-family: kanit;
   margin: auto;
   width: 50%;
+  max-width: 800px;
 }
 
 p {
@@ -17,6 +17,7 @@ p {
   padding-left: 7%;
 }
 table {
+  font-size: 115%;
   padding-left: 5%;
   text-align: left;
 }

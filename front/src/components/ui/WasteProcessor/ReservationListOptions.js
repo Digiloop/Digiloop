@@ -27,7 +27,7 @@ constructor(props){
 render() {
 
 
-
+    // TODO create styling for options
     return (
       <MuiThemeProvider>
         <form onSubmit={this.submit} className="ResListOptForm">

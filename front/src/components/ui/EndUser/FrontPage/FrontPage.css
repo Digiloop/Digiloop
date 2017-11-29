@@ -1,0 +1,38 @@
+body {
+  background-color: #959480;
+  color: #004225;
+  font-weight: bold;
+  font-family: kanit;
+  margin: auto;
+  max-width: 800px;
+}
+
+.frontpake {
+  position: relative;
+  min-width: 400px;
+}
+
+h1 {
+  text-align: center;
+  color: #004225;
+  font-family: kanit;
+}
+
+
+.newsbox {
+  margin: auto;
+  position: relative;
+  width: 93%;
+  height: 65vh;
+  margin: auto;
+  margin-bottom: 5vh;
+  max-width: auto;
+  border: 1px solid #004225;
+}
+
+.footer {
+  position: relative;
+  height: 1vh;
+  margin: auto;
+  margin-bottom: 2vh;
+}

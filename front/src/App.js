@@ -9,6 +9,7 @@ import Login from './components/containers/Login/Login.js';
 import AdminFront from './components/ui/WasteProcessor/Admin/AdminFront.js';
 import WasteProcessor from './components/containers/WasteProcessor/WasteProcessor.js';
 import Order from './components/ui/EndUser/Order/order.js';
+import FrontPage from './components/ui/EndUser/FrontPage/FrontPage.js';
 // Author: Spagehetti Baker Bros & co.
 
 

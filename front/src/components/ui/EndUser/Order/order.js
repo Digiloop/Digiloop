@@ -6,7 +6,6 @@ import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
-import ActionHome from 'material-ui/svg-icons/action/home';
 import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';
 import styles from './order.css';
@@ -34,16 +33,18 @@ render() {
   let s2 = {backgroundColor: '#004225'}; //appbar tausta
   let s3 = {color: '#004225'}; //dropdownmenu otsikot
   let s4 = {color: '#004225'}; //^^
-  var style = { 'text-align': 'right' };
 
 
 
     return (
       <MuiThemeProvider>
+
         <div>
           <AppBar style={s2} title="Tilauslomake" />
-          <p> * merkityt kentät ovat pakollisia</p>
         </div>
+
+<div className="Container">
+  <p> * merkityt kentät ovat pakollisia</p>
 
         <form onSubmit={this.handleSubmit}>
         <div>
@@ -114,9 +115,10 @@ render() {
 </table>
         </div>
         </form>
-
+        </div>
         <div className="footer">
         </div>
+
       </MuiThemeProvider>
     );
   }

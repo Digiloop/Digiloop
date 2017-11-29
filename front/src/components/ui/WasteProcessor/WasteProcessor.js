@@ -30,6 +30,7 @@ constructor(props){
 showSearchOptions = () => {
   console.log(this.state.showSO)
   console.log(this.props.rLOpt)
+  console.log(this.props.resListItems)
    this.setState({
      showSO: !this.state.showSO,
    })

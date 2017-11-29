@@ -14,9 +14,6 @@ import Geocoder from 'react-native-geocoding';
 // Pakotan commitin
 Geocoder.setApiKey('AIzaSyAMGoVUz1iQ1dDQRgK31rV3U2M_8vCFzE4');
 
-
-
-
   // Toimiva paske, Geocoding hoidetaan kun tallennetaan DBhen. On nyt demoamis vaiheessa tässä käytössä
   /*
   var markers = [{"lat": 60.986466, "lng": 25.643688, "text": "Kikki Hiiri was here EBIN!"},
@@ -29,13 +26,6 @@ Geocoder.setApiKey('AIzaSyAMGoVUz1iQ1dDQRgK31rV3U2M_8vCFzE4');
       key={i}
       position={{ lat:markers[i].lat, lng:markers[i].lng }} /> )
   }*/
-
-
-
-
-
-
-
 
 class Map extends Component {
 
@@ -53,11 +43,16 @@ constructor(props){
           markers: [],
           address: ["Kouvola", "Lahti", "Berlin"],
           rows: []
+
   }
  }
 
 
 
+clear(){
+    this.state.rows = [];
+    console.log("Cleared!");
+}
 
 
 /*pressed(){
@@ -78,16 +73,23 @@ constructor(props){
  }
 
 render() {
-  for ( let i = 0; i < this.state.address.length; i++ ){
-  Geocoder.getFromLocation(this.state.address[i]).then(
-        json => {
-          var location = json.results[0].geometry.location;
-            this.state.rows.push(<Marker
-              key={i}
-              position={{ lat:location.lat, lng:location.lng }} /> )
-        }
-      )
-    }
+  this.clear();
+    for ( let i = 0; i < this.state.address.length; i++ ){
+    Geocoder.getFromLocation(this.state.address[i]).then(
+
+          json => {
+            var location = json.results[0].geometry.location;
+              this.state.rows.push(<Marker
+                key= {i}
+                position={{ lat:location.lat, lng:location.lng }} /> )
+          }
+
+        )
+
+          console.log("Marker added");
+      }
+
+
   const MapComp = compose(
    withProps({
      googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyAN0SNyI8W4PSk8x6kbS0XRcXGLODokzBw",
@@ -114,6 +116,7 @@ render() {
   {this.state.rows}
    </GoogleMap>
   );
+
     return (
       <div>
           <MapComp />

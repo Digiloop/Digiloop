@@ -10,17 +10,10 @@ import styles from './FrontPage.css';
 class FrontPage extends Component {
 constructor(props){
   super(props);
-  this.state = {value: '', open: false};
-  this.handleChange = this.handleChange.bind(this);
-  this.handleSubmit = this.handleSubmit.bind(this);
+  this.state = {value: '',
+                open: false,
+              };
  }
-
-handleChange = (event, index, value) => this.setState({value});
-handleSubmit(event) {
-  event.preventDefault();
-  console.log({Jäte:this.state.value });
-  alert('Jätteen tyyppi: ' + this.state.value);
-}
 
 handleToggle = () => this.setState({open: !this.state.open});
 

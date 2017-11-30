@@ -109,13 +109,13 @@ render() {
   console.log(this.state.rows[0]);
   console.log(this.state.test[0]);
   console.log(this.props.items);
-    /*for ( let i = 0; i < this.state.address.length; i++ ){
+    for ( let i = 0; i < this.props.items.length; i++ ){
         this.state.rows[i] = <Marker
           key= {i}
           position={{ lat:this.props.items[i].lat, lng:this.props.items[i].long }} />
-          console.log(this.state.rows[0]);
+          console.log(this.props.items[i]);
           console.log("Marker added");
-      }*/
+      }
 
 
   const MapComp = compose(

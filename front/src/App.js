@@ -9,7 +9,9 @@ import Login from './components/containers/Login/Login.js';
 import AdminFront from './components/ui/WasteProcessor/Admin/AdminFront.js';
 import WasteProcessor from './components/containers/WasteProcessor/WasteProcessor.js';
 import Order from './components/ui/EndUser/Order/order.js';
+import Front from './components/ui/EndUser/EndUserFront.js';
 import FrontPage from './components/ui/EndUser/FrontPage/FrontPage.js';
+import Profile from './components/ui/EndUser/Profile/Profile.js';
 // Author: Spagehetti Baker Bros & co.
 
 
@@ -40,7 +42,7 @@ class App extends Component {
     handleChange = (value) => {
         this.setState({
           loggedIn: !this.state.loggedIn,
-          value: Order,
+          value: Front,
         });
         console.log(this.state.value);
       };

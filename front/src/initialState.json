@@ -9,7 +9,9 @@
 	      "size": 0.59,
 	      "weight": 4.2,
 	      "date": "27-10-2017",
-	      "status": "free"
+	      "status": "free",
+				"lat": 60.986358,
+				"long": 25.644209
 	      },
 				{
 				"cat": "SER",
@@ -18,7 +20,9 @@
 				"size": 0.59,
 				"weight": 4.2,
 				"date": "27-10-2017",
-				"status": "free"
+				"status": "reserv",
+				"lat": 60.870298,
+				"long": 26.701820
 				}
 			],
 			"fetching": false

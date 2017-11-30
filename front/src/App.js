@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-import logo from './logo.svg';
 import './App.css';
-import Map from './components/ui/WasteProcessor/Map/Gmap.js';
 import Login from './components/containers/Login/Login.js';
-//import Map from './components/ui/Map/map.js';
 import AdminFront from './components/ui/WasteProcessor/Admin/AdminFront.js';
 import WasteProcessor from './components/containers/WasteProcessor/WasteProcessor.js';
 import Order from './components/ui/EndUser/Order/order.js';

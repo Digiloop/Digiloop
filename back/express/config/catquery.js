@@ -1,5 +1,5 @@
 exports.catquery = function (req, res, next) {
-// database query {
+//ei vittu database query {
      res.locals.test = "queryResult";
      next();
 // }

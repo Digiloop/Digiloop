@@ -8,7 +8,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var app      = express();
-var port     = process.env.PORT || 4334;
+var port     = process.env.PORT || 80;
 
 var passport = require('passport');
 var flash    = require('connect-flash');

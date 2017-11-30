@@ -17,8 +17,29 @@ constructor(props){
   super(props);
   this.state={
     value: 'a',
-    showSO: false
+    showSO: false,
+    rliFilt: [
+      {
+      "cat": "SER",
+      "subCat": "Data",
+      "amount": 12,
+      "size": 0.59,
+      "weight": 4.2,
+      "date": "27-10-2017",
+      "status": "free"
+      },
+      {
+      "cat": "SER",
+      "subCat": "Data",
+      "amount": 12,
+      "size": 0.59,
+      "weight": 4.2,
+      "date": "27-10-2017",
+      "status": "reserv"
+      }
+    ]
   }
+  this.rliFiltering = this.rliFiltering.bind(this);
  }
 
  handleChange = (value) => {
@@ -27,17 +48,48 @@ constructor(props){
      });
    };
 
+
+   // the filter function, that leaves only the necessary stuff to be displayed
+  rliFiltering() {
+    let resListItemsFiltered = [];
+    let j = 0;
+
+    for(let i = 0; i < this.props.resListItems.length; i++){
+      //console.log(i);
+      console.log(this.props.resListItems[i]);
+
+      resListItemsFiltered[j] = this.props.resListItems[i];
+
+      j++;
+    }
+
+    console.log("ennen setstatee")
+    this.setState({
+      rliFilt: resListItemsFiltered
+    })
+    console.log("setstaten jälkee")
+  }
+
+
 showSearchOptions = () => {
-  console.log(this.state.showSO)
-  console.log(this.props.rLOpt)
-  console.log(this.props.resListItems)
-   this.setState({
-     showSO: !this.state.showSO,
-   })
+  //console.log(this.state.showSO)
+  //console.log(this.props.rLOpt)
+  //console.log(this.props.resListItems)
+  console.log(this.state.rliFilt);
+  // TODO instead of updating when returning from options page,
+  // update when options are saved.
+  this.rliFiltering();
+  console.log(this.state.rliFilt);
+
+  this.setState({
+    showSO: !this.state.showSO,
+  })
  }
 
 
+
 render() {
+
     return (
       <MuiThemeProvider>
       <Tabs className="map" inkBarStyle={{background: '#AFD43F', height: '3px'}}
@@ -74,14 +126,14 @@ render() {
           <div className="left">
             <h2>Kartta</h2>
               <div className="subLeft">
-              <Gmap />
+              <Gmap items={this.state.rliFlit}/>
               </div>
           </div>
           <div className="right">
             <h2>Varausluettelo<RaisedButton label="Hakuehdot" onClick={this.showSearchOptions}
             style={{float: 'right', backgroundColor: '#004225'}} /></h2>
             <div className="subRight">
-              {this.state.showSO ? <ReservationListOptions /> : <ReservationListing />}
+              {this.state.showSO ? <ReservationListOptions /> : <ReservationListing items={this.state.rliFilt}/>}
             </div>
           </div>
         </div>

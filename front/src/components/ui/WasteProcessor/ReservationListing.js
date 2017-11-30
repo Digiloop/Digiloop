@@ -14,7 +14,6 @@ class ReservationListing extends Component {
 constructor(props){
   super(props);
   this.state={
-    itemCount: 3,
     items: [
       {
       cat: 'SER',
@@ -53,15 +52,15 @@ render() {
 
   const items = [];
 
-  for(let i = 0; i < this.state.itemCount; i++){
+  for(let i = 0; i < this.props.items.length; i++){
     items.push(
       <TableRow key={i} >
-        <TableRowColumn>{this.state.items[i].cat} ({this.state.items[i].subCat})<br/>Ilmoitettu: {this.state.items[i].date}</TableRowColumn>
-        <TableRowColumn>{this.state.items[i].amount}kpl</TableRowColumn>
-        <TableRowColumn>{this.state.items[i].size}m<sup>3</sup></TableRowColumn>
-        <TableRowColumn>{this.state.items[i].weight}kg</TableRowColumn>
-        {this.state.items[i].status == "free" ? <TableRowColumn><RaisedButton label="Varaa" /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
-        <TableRowColumn>Tila {this.state.items[i].status == "reserv" ? "Varattu" : "Vapaa"}</TableRowColumn>
+        <TableRowColumn>{this.props.items[i].cat} ({this.props.items[i].subCat})<br/>Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
+        <TableRowColumn>{this.props.items[i].amount}kpl</TableRowColumn>
+        <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
+        <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
+        {this.props.items[i].status == "free" ? <TableRowColumn><RaisedButton label="Varaa" /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
+        <TableRowColumn>Tila {this.props.items[i].status == "reserv" ? "Varattu" : "Vapaa"}</TableRowColumn>
       </TableRow>
     )
   }

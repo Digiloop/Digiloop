@@ -1,15 +1,19 @@
-body {
+.frontpake {
+  position: relative;
   background-color: #959480;
   color: #004225;
   font-weight: bold;
   font-family: kanit;
   margin: auto;
   max-width: 800px;
+  min-width: 400px;
 }
 
-.frontpake {
+.frontDrawer {
   position: relative;
-  min-width: 400px;
+  margin: auto;
+  background-color: #004225;
+  font-family: kanit;
 }
 
 h1 {
@@ -17,7 +21,6 @@ h1 {
   color: #004225;
   font-family: kanit;
 }
-
 
 .newsbox {
   margin: auto;
@@ -30,9 +33,12 @@ h1 {
   border: 1px solid #004225;
 }
 
-.footer {
+.footter {
   position: relative;
-  height: 1vh;
-  margin: auto;
+  height: 10px;
+  right: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #004225;
   margin-bottom: 2vh;
 }

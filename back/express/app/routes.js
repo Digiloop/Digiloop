@@ -4,9 +4,31 @@ var source = require('../config/users.js');
 
 module.exports = function(app, passport, users) {
 
-	// =====================================
-	// HOME PAGE (with login links) ========
-	// =====================================
+	app.get('/categories', function(req, res) {
+
+		res.json(
+			{category : source.Category}
+		);
+	});
+
+	app.get('/subcat', function(req, res) {
+
+		res.json(
+			{category : source.subCat}
+		);
+	});
+
+	app.get('/junk', function(req, res) {
+
+		res.json(
+			{category : source.junk}
+		);
+	});
+
+	//---------------------------------------------------------------------------------------------------------
+
+
+
 	app.get('/', function(req, res) {
 		res.render('index.ejs'); // load the index.ejs file
 	});
@@ -20,26 +42,6 @@ module.exports = function(app, passport, users) {
 		// render the page and pass in any flash data if it exists
 		res.render('login.ejs', { message: req.flash('loginMessage') });
 	});
-
-	app.get('/categories', function(req, res) {
-		// render the page and pass in any flash data if it exists
-
-		res.json(
-			{category : source.Testi1}
-		);
-
-/*
-		res.render('categories.ejs',{
-		category : source.Testi1 // get the user out of session and pass to template
-		});
-*/
-
-
-		//console.log(source.Testi1);
-	});
-
-
-
 
 
 	// process the login form

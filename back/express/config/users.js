@@ -3,7 +3,7 @@ var router = express.Router();// load up the user model
 var mysql = require('mysql2');
 var dbconfig = require('./database');
 var connection = mysql.createConnection(dbconfig.connection);
-connection.query('USE ' + 'user_digiloop');
+connection.query('USE ' + dbconfig.database);
 
 connection.query('SELECT * FROM Category', (err, rows) => {
 exports.Category = rows;

@@ -108,21 +108,14 @@ clearTEST(){
 render() {
   console.log(this.state.rows[0]);
   console.log(this.state.test[0]);
-
-    for ( let i = 0; i < this.state.address.length; i++ ){
-    Geocoder.getFromLocation(this.state.address[i]).then(
-
-          json => {
-            var location = json.results[0].geometry.location;
-              this.state.rows[i] = <Marker
-                key= {i}
-                position={{ lat:location.lat, lng:location.lng }} />
-          }
-
-        )
+  console.log(this.props.items);
+    /*for ( let i = 0; i < this.state.address.length; i++ ){
+        this.state.rows[i] = <Marker
+          key= {i}
+          position={{ lat:this.props.items[i].lat, lng:this.props.items[i].long }} />
           console.log(this.state.rows[0]);
           console.log("Marker added");
-      }
+      }*/
 
 
   const MapComp = compose(

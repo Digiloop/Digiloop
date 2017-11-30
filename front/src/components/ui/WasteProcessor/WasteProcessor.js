@@ -26,7 +26,9 @@ constructor(props){
       "size": 0.59,
       "weight": 4.2,
       "date": "27-10-2017",
-      "status": "free"
+      "status": "free",
+      "lat": 33.0000000,
+      "long": 78.8888888
       },
       {
       "cat": "SER",
@@ -35,7 +37,9 @@ constructor(props){
       "size": 0.59,
       "weight": 4.2,
       "date": "27-10-2017",
-      "status": "reserv"
+      "status": "reserv",
+      "lat": 33.0000000,
+      "long": 78.8888888
       }
     ]
   }

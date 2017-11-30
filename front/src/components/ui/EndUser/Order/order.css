@@ -1,0 +1,44 @@
+body {
+    background-color: #959480;
+    margin: auto;
+}
+
+.Container {
+  color: #004225;
+  font-weight: bold;
+  font-family: kanit;
+  margin: auto;
+  width: 50%;
+  max-width: 800px;
+}
+
+p {
+  text-align: left;
+  padding-left: 7%;
+}
+table {
+  font-size: 115%;
+  padding-left: 5%;
+  text-align: left;
+}
+
+#buttons {
+  width:100%;
+  margin-bottom: 10%;
+}
+
+#next {
+text-align: right;
+}
+
+.footer {
+  position: fixed;
+  height: 1px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #004225;
+  text-align: center;
+  margin: auto;
+}

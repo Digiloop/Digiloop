@@ -18,30 +18,7 @@ constructor(props){
   this.state={
     value: 'a',
     showSO: false,
-    rliFilt: [
-      {
-      "cat": "SER",
-      "subCat": "Data",
-      "amount": 12,
-      "size": 0.59,
-      "weight": 4.2,
-      "date": "27-10-2017",
-      "status": "free",
-      "lat": 33.0000000,
-      "long": 78.8888888
-      },
-      {
-      "cat": "SER",
-      "subCat": "Data",
-      "amount": 12,
-      "size": 0.59,
-      "weight": 4.2,
-      "date": "27-10-2017",
-      "status": "reserv",
-      "lat": 33.0000000,
-      "long": 78.8888888
-      }
-    ]
+    rliFilt: []
   }
   this.rliFiltering = this.rliFiltering.bind(this);
  }
@@ -57,29 +34,25 @@ constructor(props){
   rliFiltering() {
     let resListItemsFiltered = [];
     let j = 0;
-
+    
+    // TODO add filtering
     for(let i = 0; i < this.props.resListItems.length; i++){
-      //console.log(i);
-      console.log(this.props.resListItems[i]);
 
       resListItemsFiltered[j] = this.props.resListItems[i];
-
       j++;
     }
 
-    console.log("ennen setstatee")
+    // set the filtered array in state, from which it's sent as props
     this.setState({
       rliFilt: resListItemsFiltered
     })
-    console.log("setstaten jälkee")
   }
 
+  componentDidMount(){
+    this.rliFiltering();
+  }
 
 showSearchOptions = () => {
-  //console.log(this.state.showSO)
-  //console.log(this.props.rLOpt)
-  //console.log(this.props.resListItems)
-  console.log(this.state.rliFilt);
   // TODO instead of updating when returning from options page,
   // update when options are saved.
   this.rliFiltering();

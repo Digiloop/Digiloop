@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
@@ -28,7 +27,11 @@ Geocoder.setApiKey('AIzaSyAMGoVUz1iQ1dDQRgK31rV3U2M_8vCFzE4');
   }*/
 
 class Map extends Component {
-
+componentWillMount(){
+  this.setState({
+      test:[]
+    })
+}
 
 constructor(props){
   super(props);
@@ -42,18 +45,48 @@ constructor(props){
           true: true,
           markers: [],
           address: ["Kouvola", "Lahti", "Berlin"],
-          rows: []
+          rows: [],
+          needClearing: true,
+          test: ["Kikki", "Hiiri"]
 
   }
  }
 
+/*componentDidUpdate(prevProps, prevState){
+
+if(this.state.test !== prevState.test){
+this.setState({
+    test:[]
+
+  })
+}
+}*/
 
 
 clear(){
-    this.state.rows = [];
-    console.log("Cleared!");
+  console.log(this.state.cleared);
+  if(this.state.needClearing){
+  this.setState({
+    rows: [],
+    needClearing: false,
+    test:["Dolan"]
+  });
+  console.log("Cleared!");
+}
+else{
+  this.setState({
+    needClearing:true
+  });
+}
 }
 
+clearTEST(){
+  this.setState({
+    test: []
+  });
+  console.log("Cleared!TEST");
+
+}
 
 /*pressed(){
   if (this.visible) {
@@ -73,19 +106,21 @@ clear(){
  }
 
 render() {
-  this.clear();
+  console.log(this.state.rows[0]);
+  console.log(this.state.test[0]);
+
     for ( let i = 0; i < this.state.address.length; i++ ){
     Geocoder.getFromLocation(this.state.address[i]).then(
 
           json => {
             var location = json.results[0].geometry.location;
-              this.state.rows.push(<Marker
+              this.state.rows[i] = <Marker
                 key= {i}
-                position={{ lat:location.lat, lng:location.lng }} /> )
+                position={{ lat:location.lat, lng:location.lng }} />
           }
 
         )
-
+          console.log(this.state.rows[0]);
           console.log("Marker added");
       }
 
@@ -120,6 +155,7 @@ render() {
     return (
       <div>
           <MapComp />
+          <button onClick={this.clear.bind(this)}>DEBUG</button>
       </div>
     );
   }

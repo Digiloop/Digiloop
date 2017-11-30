@@ -23,11 +23,19 @@ module.exports = function(app, passport, users) {
 
 	app.get('/categories', function(req, res) {
 		// render the page and pass in any flash data if it exists
+
+		res.json(
+			{category : source.Testi1}
+		);
+
+/*
 		res.render('categories.ejs',{
 		category : source.Testi1 // get the user out of session and pass to template
 		});
+*/
 
-		console.log(source.Testi1);
+
+		//console.log(source.Testi1);
 	});
 
 

@@ -14,35 +14,6 @@ class ReservationListing extends Component {
 constructor(props){
   super(props);
   this.state={
-    items: [
-      {
-      cat: 'SER',
-      subCat: 'Data',
-      amount: 12,
-      size: 0.59,
-      weight: 4.2,
-      date: "27-10-2017",
-      status: 'free'
-      },
-      {
-      cat: 'SER',
-      subCat: 'Iso',
-      amount: 10,
-      size: 3.89,
-      weight: 4.7,
-      date: "27-10-2017",
-      status: 'free'
-      },
-      {
-      cat: 'SER',
-      subCat: 'Pieni',
-      amount: 7,
-      size: 0.96,
-      weight: 1.2,
-      date: "26-10-2017",
-      status: 'reserv'
-      }
-    ] // items array end
   }
  }
 

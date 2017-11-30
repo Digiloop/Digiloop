@@ -126,7 +126,7 @@ render() {
           <div className="left">
             <h2>Kartta</h2>
               <div className="subLeft">
-              <Gmap items={this.state.rliFlit}/>
+              <Gmap items={this.state.rliFilt}/>
               </div>
           </div>
           <div className="right">

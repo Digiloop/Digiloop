@@ -27,8 +27,6 @@ handleSubmit(event) {
 
 render() {
 
-
-
   let s1 = {width: 150};  //tekstikenttien leveys
   let s2 = {backgroundColor: '#004225'}; //appbar tausta
   let s3 = {color: '#004225'}; //dropdownmenu otsikot

@@ -2,21 +2,14 @@ import React, { Component } from 'react';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 import Order from './Order.js';
-import History from './History.js';
 import './Profile.css';
 
 class Profile extends Component {
 constructor(props){
   super(props);
   this.state = {
-    value: History,
+    value: Order,
   };
-
-  this.isHidden = () => {
-    this.setState = ({
-      hidden: false,
-    })
-  }
   this.handleChange = this.handleChange.bind(this);
  }
 
@@ -24,11 +17,17 @@ handleChange = (event, value) => this.setState({value})
 
 render() {
     return (
-      <div>
-        {this.state.isHidden ? <Order /> : <RaisedButton label="Uusi Tilaus" onClick={this.handleChange} value={Order} />}
-
-        {this.state.value ? <History /> : <Order />}
-      </div>
+        <div className="news">
+          <div className="newOrder">
+          </div>
+          <h1>Tilaushistoria</h1>
+          <div className="newsbox">
+            <p>Tilaus 1</p>
+            <Divider />
+            <p>Tilaus 2</p>
+            <Divider />
+          </div>
+        </div>
     );
   }
 }

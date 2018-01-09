@@ -1,12 +1,18 @@
 .frontpake {
   position: relative;
-  background-color: #959480;
-  color: #004225;
+  background-color: #004225;
+  color: white;
   font-weight: bold;
   font-family: kanit;
   margin: auto;
   margin-top: 2vh;
   min-width: 400px;
+}
+.app-bar-title {
+    color: #004225;
+    font-family: kanit;
+    font-weight: bold;
+    margin: 0 5vh 0 0;
 }
 
 .frontDrawer {
@@ -18,7 +24,7 @@
 
 h1 {
   text-align: center;
-  color: #004225;
+  color: white;
   font-family: kanit;
 }
 
@@ -30,15 +36,21 @@ h1 {
   margin: auto;
   margin-bottom: 5vh;
   max-width: auto;
-  border: 1px solid #004225;
+  border: 1px solid white;
 }
 
 .footter {
+  background-image: url("./Materials/hirvikarhu.png"),
+                    url("./Materials/Kunpitää.png"),
+                    url("./Materials/tausta1.png");
+  background-position: left 10px bottom, top 20px right 60px ,top 10px right;
+  background-size: 100px, 150px, auto;
+  background-repeat: no-repeat, no-repeat;
   position: relative;
-  height: 10px;
+  height: 100px;
   right: 0;
   left: 0;
   padding: 1rem;
   background-color: #004225;
-  margin-bottom: 2vh;
+  margin-bottom: 1vh;
 }

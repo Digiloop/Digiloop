@@ -1,11 +1,8 @@
 body {
-    background-color: #004225;
     margin: auto;
 }
 
 .Container {
-  background-color: #004225;
-  color: white;
   font-weight: bold;
   font-family: kanit;
   margin: auto;
@@ -39,7 +36,6 @@ text-align: right;
   bottom: 0;
   left: 0;
   padding: 1rem;
-  background-color: #004225;
   text-align: center;
   margin: auto;
 }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -8,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';
-import styles from './order.css';
+import History from './History.js'
 
 class Order extends Component {
 constructor(props){
@@ -27,20 +26,16 @@ handleSubmit(event) {
 
 render() {
 
+
+
   let s1 = {width: 150};  //tekstikenttien leveys
-  let s2 = {backgroundColor: '#FFF'}; //appbar tausta
+  let s2 = {backgroundColor: '#FFFFFF'}; //appbar tausta
   let s3 = {color: '#004225'}; //dropdownmenu otsikot
   let s4 = {color: '#004225'}; //^^
 
 
 
     return (
-      <MuiThemeProvider>
-
-        <div>
-          <AppBar style={s2} title="Tilauslomake" />
-        </div>
-
 <div className="Container">
   <p> * merkityt kentät ovat pakollisia</p>
 
@@ -99,7 +94,7 @@ render() {
 <table id="buttons">
 <tbody>
 <td>
-        <IconButton tooltip="Edellinen">
+        <IconButton tooltip="Edellinen" >
           <Back />
         </IconButton>
 
@@ -114,10 +109,6 @@ render() {
         </div>
         </form>
         </div>
-        <div className="footer">
-        </div>
-
-      </MuiThemeProvider>
     );
   }
 }

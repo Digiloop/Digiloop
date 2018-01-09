@@ -39,7 +39,7 @@ class App extends Component {
     handleChange = (value) => {
         this.setState({
           loggedIn: !this.state.loggedIn,
-          value: Order,
+          value: Front,
         });
         console.log(this.state.value);
       };

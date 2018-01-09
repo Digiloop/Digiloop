@@ -13,21 +13,26 @@ import styles from './order.css';
 class Order extends Component {
 constructor(props){
   super(props);
-  this.state = {value: ''};
+  this.state = {value: '',email:''};
   this.handleChange = this.handleChange.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this);
  }
+
+
 
 handleChange = (event, index, value) => this.setState({value});
 handleSubmit(event) {
   event.preventDefault();
   console.log({Jäte:this.state.value });
-  alert('Jätteen tyyppi: ' + this.state.value);
+  alert('Jätteen tyyppi: ' + this.state.value + this.state.email);
 }
+
+
+
 
 render() {
 
-  let s1 = {width: 150};  //tekstikenttien leveys
+  let s1 = {width: 150, backgroundColor: 'white'};  //tekstikenttien leveys
   let s2 = {backgroundColor: '#004225'}; //appbar tausta
   let s3 = {color: '#004225'}; //dropdownmenu otsikot
   let s4 = {color: '#004225'}; //^^
@@ -49,7 +54,7 @@ render() {
         <table name="tilaus">
         <tbody>
 <tr>
-<td style={s1}>Jätteen tyyppi*</td>
+<td>Jätteen tyyppi*</td>
 <td>
         <DropDownMenu style={s1} value={this.state.value} onChange={this.handleChange}>
           <p style={s3}>SER-jäte</p>
@@ -65,7 +70,7 @@ render() {
         </tr>
         <tr>
           <td>Kappalemäärä*</td>
-          <td><TextField name="pcs" value={this.state.pcs} style={s1}/></td>
+          <td><TextField name="pcs" onChange={this.handleEmailChange} value={ this.state.email } style={s1}/></td>
         </tr>
         <tr>
           <td>Nouto-osoite*</td>
@@ -113,8 +118,6 @@ render() {
 </table>
         </div>
         </form>
-        </div>
-        <div className="footer">
         </div>
 
       </MuiThemeProvider>

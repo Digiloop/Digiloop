@@ -1,10 +1,11 @@
 body {
-    background-color: #959480;
+    background-color: #004225;
     margin: auto;
 }
 
 .Container {
-  color: #004225;
+  background-color: #004225;
+  color: white;
   font-weight: bold;
   font-family: kanit;
   margin: auto;

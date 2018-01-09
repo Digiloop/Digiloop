@@ -7,12 +7,13 @@ connection.query('USE ' + dbconfig.database);
 
 connection.query('SELECT * FROM Category', (err, rows) => {
 exports.Category = rows;
+
 });
 
 connection.query('SELECT * FROM subCat', (err, rows) => {
 exports.subCat = rows;
 });
 
-connection.query('SELECT * FROM junk', (err, rows) => {
-exports.junk = rows;
+connection.query('SELECT * FROM items', (err, rows) => {
+exports.items = rows;
 });

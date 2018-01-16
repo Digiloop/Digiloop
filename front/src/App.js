@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-import './App.css';
+import './index.css';
 import Login from './components/containers/Login/Login.js';
 import AdminFront from './components/ui/WasteProcessor/Admin/AdminFront.js';
 import WasteProcessor from './components/containers/WasteProcessor/WasteProcessor.js';

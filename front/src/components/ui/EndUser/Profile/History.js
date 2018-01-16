@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 import Order from './Order.js';
-
+import styles from '../../../../index.css';
 
 class Profile extends Component {
 constructor(props){

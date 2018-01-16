@@ -14,6 +14,6 @@ connection.query('SELECT * FROM subCat', (err, rows) => {
 exports.subCat = rows;
 });
 
-connection.query('SELECT * FROM items', (err, rows) => {
+connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID', (err, rows) => {
 exports.items = rows;
 });

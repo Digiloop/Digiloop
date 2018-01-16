@@ -1,10 +1,10 @@
 import C from './constants'
 import fetch from 'isomorphic-fetch'
 
-export const login = ( loginInfo ) =>
+export const login = ( username='Seppo Dangerous', password='DangerIsMyMiddleName12' ) =>
   ({
     type: C.LOG_IN,
-    payload: loginInfo
+    payload: {username, password}
   })
 
 export const setResOpt = (ser=false, batteries=false, showRes=false) =>

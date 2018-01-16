@@ -25,8 +25,6 @@ constructor(props){
     "password":this.state.password
     }
     console.log(payload);
-
-    // TODO: Create data connection to backend here
   }
 
 
@@ -43,9 +41,9 @@ render() {
            <div className='loginpage'>
            <p className="ohje">Sähköpostiosoite</p>
            <TextField
-           underlineShow={false}
+            underlineShow={false}
             color="#004225"
-            inputStyle={{color: '#004225', padding: '0 0'}}
+            inputStyle={{color: '#004225'}}
             style={{ backgroundColor: 'white', border: '2px solid #004225' }}
              hintText="Enter your Username"
              onChange = {(event,newValue) => this.setState({username:newValue})}
@@ -53,9 +51,12 @@ render() {
            <br/>
            <p className="ohje">Salasana</p>
              <TextField
+               underlineShow={false}
+               color="#004225"
+               inputStyle={{color: '#004225'}}
+               style={{ backgroundColor: 'white', border: '2px solid #004225' }}
                type="password"
                hintText="Enter your Password"
-               floatingLabelText="Password"
                onChange = {(event,newValue) => this.setState({password:newValue})}
                />
              <br/>

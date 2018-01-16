@@ -1,5 +1,8 @@
 {
-	"loggedIn": false,
+	"loggedIn": {
+		"username": "Seppo Dangerous",
+		"password": "DangerIsMyMiddleName12"
+	},
 	"resList": {
 			"resListItems": [
 				{

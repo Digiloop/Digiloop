@@ -7,10 +7,10 @@ export const login = ( loginInfo ) =>
     payload: loginInfo
   })
 
-export const setResOpt = (ser=false, batteries=false, showRes=false) =>
+export const setResOpt = (ser=false, batteries=false, showRes=false, weight=0) =>
   ({
       type: C.SET_RESOPT,
-      payload: {ser, batteries, showRes}
+      payload: {ser, batteries, showRes, weight}
   })
 
 export const setResList = (resList) =>

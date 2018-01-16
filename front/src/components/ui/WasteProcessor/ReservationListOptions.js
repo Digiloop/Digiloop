@@ -9,7 +9,8 @@ constructor(props){
   this.state={
     _ser: false,
     _batteries: false,
-    _showRes: false
+    _showRes: false,
+    _weight: 0
   }
  }
 
@@ -20,7 +21,8 @@ constructor(props){
    this.props.onNewOptions({
      ser: this.state._ser.checked,
      batteries: this.state._batteries.checked,
-     showRes: this.state._showRes.checked
+     showRes: this.state._showRes.checked,
+     weight: this.state._weight.value
    })
 }
 
@@ -35,7 +37,8 @@ render() {
           SER <input id="ser" ref={input => this.state._ser = input} type="checkbox" /><br/>
           Akut <input id="akut" ref={input => this.state._batteries = input} type="checkbox" /><br/>
           <br />
-          Paino: <br/>
+          Paino: <input id="weight" ref={input => this.state._weight = input} type="textbox" /> kg
+          <br/>
 
           <br />
           Näytä varatut <input id="sRes" ref={input => this.state._showRes = input} type="checkbox" /><br/>

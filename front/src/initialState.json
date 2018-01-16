@@ -31,6 +31,7 @@
 		{
 			"showRes": false,
 			"ser": false,
-			"batteries": false
+			"batteries": false,
+			"weight": 0
 		}
 }

@@ -43,9 +43,7 @@ app.get('/submit',function(req, res) {
 
 
 	app.get('/', function(req, res) {
-		res.render('index.ejs', {
-			user : req.user // get the user out of session and pass to template
-		}); // load the index.ejs file
+		res.render('index.ejs'); // load the index.ejs file
 	});
 
 	// =====================================

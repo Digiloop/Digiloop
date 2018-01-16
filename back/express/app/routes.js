@@ -53,7 +53,7 @@ app.get('/submit',function(req, res) {
 	app.get('/login', function(req, res) {
 
 		// render the page and pass in any flash data if it exists
-		res.render('login.ejs', { message: req.flash('loginMessage') });
+		res.render('login.ejs', { message: req.flash('loginMessage'), user : '-1' });
 	});
 
 
@@ -67,7 +67,7 @@ app.get('/submit',function(req, res) {
             console.log("hello");
 
             if (req.body.remember) {
-              req.session.cookie.maxAge = 1000 * 60 * 3;
+              req.session.cookie.maxAge = 1000 * 60 * 30;
             } else {
               req.session.cookie.expires = false;
             }

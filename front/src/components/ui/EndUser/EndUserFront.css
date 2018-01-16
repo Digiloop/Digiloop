@@ -42,11 +42,10 @@ h1 {
 .footter {
   background-image: url("./Materials/hirvikarhu.png"),
                     url("./Materials/Kunpitää.png"),
-                    url("./Materials/tausta1.png");
+                    url("./Materials/tausta2.png");
   background-position: left 10px bottom, top 20px right 60px ,top 10px right;
   background-size: 100px, 150px, auto;
   background-repeat: no-repeat, no-repeat;
-  position: relative;
   height: 100px;
   right: 0;
   left: 0;

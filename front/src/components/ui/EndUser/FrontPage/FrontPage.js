@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import IconButton from 'material-ui/IconButton';
 import Divider from 'material-ui/Divider';
-import './FrontPage.css';
+
 import Profile from '../Profile/Profile.js';
 
 class FrontPage extends Component {

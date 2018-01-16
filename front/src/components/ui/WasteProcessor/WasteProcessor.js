@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 // import AppBar from 'material-ui/AppBar';
-import '../../../index.css';
+import styles from '../../../index.css';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Gmap from './Map/Gmap.js'
 // import Slider from 'material-ui/Slider';

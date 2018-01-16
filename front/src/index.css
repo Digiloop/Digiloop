@@ -65,7 +65,7 @@ p.ohje {
 }
 
 .loginpage {
-  background-image: url("../EndUser/Materials/käsitausta.png");
+  background-image: url("components/ui/EndUser/Materials/käsitausta.png");
   background-repeat: no-repeat;
   background-size: 500px;
   background-position: top 10px left;
@@ -173,9 +173,9 @@ h1 {
 }
 
 .footter {
-  background-image: url("./Materials/hirvikarhu.png"),
-                    url("./Materials/Kunpitää.png"),
-                    url("./Materials/tausta2.png");
+background-image: url("components/ui/EndUser/Materials//hirvikarhu.png"),
+                    url("components/ui/EndUser/Materials/Kunpitää.png"),
+                    url("components/ui/EndUser/Materials/tausta2.png");
   background-position: left 10px bottom, top 20px right 60px ,top 10px right;
   background-size: 100px, 150px, auto;
   background-repeat: no-repeat, no-repeat;

@@ -9,7 +9,7 @@ import Divider from 'material-ui/Divider';
 import FrontPage from './FrontPage/FrontPage.js';
 import Profile from './Profile/Profile.js';
 import Order from './Order/order.js';
-import './EndUserFront.css';
+import styles from '../../../index.css';
 
 class EndUserFront extends Component {
 constructor(props){

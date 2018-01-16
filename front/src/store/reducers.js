@@ -2,8 +2,8 @@ import C from '../constants'
 import { combineReducers } from 'redux'
 
 
-export const loggedIn = (state=false, action) =>
-  (action.type === C.LOG_IN) ? true : state
+export const loggedIn = (state=[], action) =>
+  (action.type === C.LOG_IN) ? action.payload : state
 
 export const resListOpt = (state=[], action) =>
   (action.type === C.SET_RESOPT) ? action.payload : state

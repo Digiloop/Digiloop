@@ -3,7 +3,7 @@ import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 import Order from './Order.js';
 import History from './History.js';
-import './Profile.css';
+import styles from '../../../../index.css';
 
 class Profile extends Component {
 constructor(props){

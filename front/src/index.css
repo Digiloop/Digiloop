@@ -1,5 +1,286 @@
+/* INDEX.css */
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
 }
+
+/* APP.css */
+
+.App {
+  text-align: center;
+  background-color: #004225;
+  width: 100%;
+  height: 100vh;
+  min-width: 400px;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  margin: 0;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+/* LOGIN.css */
+
+.app-bar-title {
+    color: #004225;
+    font-family: kanit;
+    font-weight: bold;
+    margin: 0 5vh 0 0;
+}
+
+.loginpage {
+  height: 85vh;
+}
+
+p.ohje {
+  color: white;
+  font-family: kanit;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.loginpage {
+  background-image: url("../EndUser/Materials/käsitausta.png");
+  background-repeat: no-repeat;
+  background-size: 500px;
+  background-position: top 10px left;
+}
+
+/* WASTEPROCESSOR.css */
+
+h1 {
+  color: red;
+}
+
+h2 {
+  font-family: 'Kanit';
+  font-size: 32px;
+  text-align: center;
+}
+
+
+.menu {
+  background-color: #004225 !important;
+
+}
+
+button.menu {
+  font-family: 'Kanit' !important;
+}
+
+.map {
+  font-family: 'Kanit';
+  color: red;
+  fontSize: 48px;
+  paddingTop: 16px;
+  marginBottom: 12px;
+  fontWeight: 400;
+}
+
+.left {
+  position: relative;
+  width: 49%;
+  margin: 10px 3px 0 3px;
+  float: left;
+  max-width: auto;
+  min-width: 400px;
+}
+
+.subLeft {
+  border: 1px solid #004225;
+  height: 75vh;
+}
+
+.right {
+  position: relative;
+  width: 49%;
+  margin: 10px 3px 0 3px;
+  float: left;
+  min-width: 400px;
+}
+
+.subRight {
+  border: 1px solid #004225;
+  height: 75vh;
+}
+
+/* ENDUSERFRONT.css */
+
+.frontpake {
+  position: relative;
+  background-color: #004225;
+  color: white;
+  font-weight: bold;
+  font-family: kanit;
+  margin: auto;
+  margin-top: 2vh;
+  min-width: 400px;
+}
+.app-bar-title {
+    color: #004225;
+    font-family: kanit;
+    font-weight: bold;
+    margin: 0 5vh 0 0;
+}
+
+.frontDrawer {
+  position: relative;
+  margin: auto;
+  background-color: #004225;
+  font-family: kanit;
+}
+
+h1 {
+  text-align: center;
+  color: white;
+  font-family: kanit;
+}
+
+.newsbox {
+  margin: auto;
+  position: relative;
+  width: 93%;
+  height: 65vh;
+  margin: auto;
+  margin-bottom: 5vh;
+  max-width: auto;
+  border: 1px solid white;
+}
+
+.footter {
+  background-image: url("./Materials/hirvikarhu.png"),
+                    url("./Materials/Kunpitää.png"),
+                    url("./Materials/tausta2.png");
+  background-position: left 10px bottom, top 20px right 60px ,top 10px right;
+  background-size: 100px, 150px, auto;
+  background-repeat: no-repeat, no-repeat;
+  height: 100px;
+  right: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #004225;
+  margin-bottom: 1vh;
+}
+
+/* PROFILE.css */
+
+.newOrder {
+  margin-top: 8vh;
+  color: white;
+}
+
+/* ORDER.css */
+
+body {
+    margin: auto;
+}
+
+.Container {
+  font-weight: bold;
+  font-family: kanit;
+  margin: auto;
+  width: 50%;
+  max-width: 800px;
+}
+
+p {
+  text-align: left;
+  padding-left: 7%;
+}
+table {
+  font-size: 115%;
+  padding-left: 5%;
+  text-align: left;
+}
+
+#buttons {
+  width:100%;
+  margin-bottom: 10%;
+}
+
+#next {
+text-align: right;
+}
+
+.footer {
+  position: fixed;
+  height: 1px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
+  margin: auto;
+}
+
+/* FRONTPAGE.css */
+
+.frontpake {
+  position: relative;
+  color: #004225;
+  font-weight: bold;
+  font-family: kanit;
+  margin: auto;
+  margin-top: 2vh;
+  min-width: 400px;
+}
+
+.frontDrawer {
+  position: relative;
+  margin: auto;
+  background-color: #004225;
+  font-family: kanit;
+}
+
+h1 {
+  text-align: center;
+  color: #004225;
+  font-family: kanit;
+}
+
+.newsbox {
+  margin: auto;
+  position: relative;
+  width: 93%;
+  height: 65vh;
+  margin: auto;
+  margin-bottom: 5vh;
+  max-width: auto;
+  border: 1px solid #004225;
+}
+
+.footter {
+  position: relative;
+  height: 10px;
+  right: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #004225;
+  margin-bottom: 2vh;
+}
+

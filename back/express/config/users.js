@@ -14,6 +14,10 @@ connection.query('SELECT * FROM subCat', (err, rows) => {
 exports.subCat = rows;
 });
 
+<<<<<<< .merge_file_a22356
 connection.query('SELECT * FROM items', (err, rows) => {
+=======
+connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID', (err, rows) => {
+>>>>>>> .merge_file_a29360
 exports.items = rows;
 });

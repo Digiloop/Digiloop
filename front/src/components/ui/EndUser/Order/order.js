@@ -42,7 +42,7 @@ render() {
         </div>
 
 <div className="Container">
-  <p> * merkityt kentät ovat paskaa pakollisia</p>
+  <p> * merkityt kentät ovat pakollisia</p>
 
         <form onSubmit={this.handleSubmit}>
         <div>

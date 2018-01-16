@@ -28,7 +28,7 @@ handleSubmit(event) {
 render() {
 
   let s1 = {width: 150};  //tekstikenttien leveys
-  let s2 = {backgroundColor: '#FFF'}; //appbar tausta
+  let s2 = {backgroundColor: '#FFFFF'}; //appbar tausta
   let s3 = {color: '#004225'}; //dropdownmenu otsikot
   let s4 = {color: '#004225'}; //^^
 
@@ -114,9 +114,6 @@ render() {
         </div>
         </form>
         </div>
-        <div className="footer">
-        </div>
-
       </MuiThemeProvider>
     );
   }

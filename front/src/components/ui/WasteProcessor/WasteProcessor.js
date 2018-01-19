@@ -109,6 +109,7 @@ render() {
           <div className="right">
             <h2>Varausluettelo<RaisedButton label="Hakuehdot" onClick={this.showSearchOptions}
             style={{float: 'right', backgroundColor: '#004225'}} /></h2>
+            <button onClick={this.props.onGetItems()}>Fetcher</button>
             <div className="subRight">
               {this.state.showSO ? <ReservationListOptions /> : <ReservationListing items={this.state.rliFilt}/>}
             </div>

@@ -58,12 +58,21 @@ module.exports = function(passport) {
                     // create the user
                     var newUserMysql = {
                         username: username,
-                        password: bcrypt.hashSync(password, null, null)  // use the generateHash function in our user model
+                        password: bcrypt.hashSync(password, null, null),  // use the generateHash function in our user model
+                        fname: req.body.fname.toString(),
+                        lname: req.body.lname.toString(),
+                        email: req.body.email.toString(),
+                        phone: req.body.phone.toString(),
+                        address: req.body.address.toString(),
+                        zipcode: req.body.zipcode.toString(),
+                        city: req.body.city.toString(),
+                        company: req.body.company.toString(),
+                        userlvl: req.body.userlvl.toString()
                     };
 
-                    var insertQuery = "INSERT INTO users ( username, password ) values (?,?)";
+                    var insertQuery = "INSERT INTO users ( username, password, fname, lname, email, phone, address, zipcode, city, company, userlvl ) values (?,?,?,?,?,?,?,?,?,?,?)";
 
-                    connection.query(insertQuery,[newUserMysql.username, newUserMysql.password],function(err, rows) {
+                    connection.query(insertQuery,[newUserMysql.username, newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.company, newUserMysql.userlvl],function(err, rows) {
                         newUserMysql.id = rows.insertId;
 
                         return done(null, newUserMysql);

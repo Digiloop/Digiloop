@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import styles from '../../../index.css';
 import { PropTypes } from 'react';
+import App from '../../../App.js';
 
 
 
@@ -32,35 +33,41 @@ constructor(props){
 
 render() {
     return (
-      <div>
+      <div className="loginWrapper">
 
           <AppBar style={{backgroundColor: '#FFF'}}
              title={<div className="app-bar-title">Kirjautuminen</div>}
              showMenuIconButton={false}
            />
-           <div className='loginpage'>
-           <p className="ohje">Sähköpostiosoite</p>
-           <TextField
+           <div className='loginContent'>
+           <div className="loginGroup">
+           <p className="loginLabel">Sähköpostiosoite</p>
+           <TextField className="loginInputField"
             underlineShow={false}
-            color="#004225"
+            /*color="#004225"
             inputStyle={{color: '#004225'}}
-            style={{ backgroundColor: 'white', border: '2px solid #004225' }}
+            style={{ backgroundColor: 'white', border: '2px solid #004225' }} */
              hintText="Enter your Username"
              onChange = {(event,newValue) => this.setState({username:newValue})}
              />
+             </div>
            <br/>
-           <p className="ohje">Salasana</p>
-             <TextField
+           <div className="loginGroup">
+           <p className="loginLabel">Salasana</p>
+             <TextField className="loginInputField"
                underlineShow={false}
-               color="#004225"
-               inputStyle={{color: '#004225'}}
-               style={{ backgroundColor: 'white', border: '2px solid #004225' }}
                type="password"
                hintText="Enter your Password"
                onChange = {(event,newValue) => this.setState({password:newValue})}
                />
+               </div>
              <br/>
-             <RaisedButton label="Kirjaudu" primary={true} style={style} onClick={(event) => this.loginClick(event)} />
+             <RaisedButton label="Kirjaudu" primary={true} style={style} onClick={(event) => this.loginClick(event)} value="App" />
+             <div className="login-links">
+              <a href="#">Salasana?</a><br /><br />
+              <a href="#">Yrityskäyttäjä</a><br /><br />
+              <a href="#">tee hakemus</a><br /><br />
+             </div>
              </div>
       </div>
     );

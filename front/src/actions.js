@@ -25,7 +25,7 @@ export const fetchResList = value => dispatch => {
   })
 
 //TODO create fetching from backend, insert into store
-  fetch('193.166.72.18/categories')
+  fetch('193.166.72.18/items')
     //.then( response => response.json())
     .then(resList => {
       dispatch({

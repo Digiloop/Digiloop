@@ -28,12 +28,14 @@ export const fetchResList = value => dispatch => {
   fetch('193.166.72.18/items')
     //.then( response => response.json())
     .then(resList => {
+      console.log("Reslist heti fetchin jälkeen: " + resList)
       dispatch({
         type: C.SET_RLI,
         payload: resList
       })
     })
     .catch(error => {
+      console.log("errored")
       dispatch({
         type: C.CANCEL_RESLIST_FETCH
       })

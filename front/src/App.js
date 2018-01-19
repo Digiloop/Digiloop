@@ -52,7 +52,7 @@ class App extends Component {
       >
         <RaisedButton onClick={this.handleChange} label="Map" value="Map" />
         {/* <RaisedButton onClick={this.handleClick} label="Käsittelijä" /> */}
-        {console.log(this.state.value)}
+        {/* console.log(this.state.value) */}
          {this.state.loggedIn ? <WasteProcessor /> : <this.state.value />}
       </div>
       </MuiThemeProvider>

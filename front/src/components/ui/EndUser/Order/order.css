@@ -1,0 +1,30 @@
+body {
+    margin: auto;
+}
+
+.Container {
+  font-weight: bold;
+  font-family: kanit;
+  margin: auto;
+  width: 50%;
+  max-width: 800px;
+}
+
+p {
+  text-align: left;
+  padding-left: 7%;
+}
+table {
+  font-size: 115%;
+  padding-left: 5%;
+  text-align: left;
+}
+
+#buttons {
+  width:100%;
+  margin-bottom: 10%;
+}
+
+#next {
+text-align: right;
+}

@@ -28,7 +28,9 @@ render() {
 
 
 
-  let s1 = {width: 150};  //tekstikenttien leveys
+  let s1 = {width: 150, backgroundColor: '#FFFFFF', borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da'};  //tekstikenttien leveys
   let s2 = {backgroundColor: '#FFFFFF'}; //appbar tausta
   let s3 = {color: '#004225'}; //dropdownmenu otsikot
   let s4 = {color: '#004225'}; //^^
@@ -44,7 +46,7 @@ render() {
         <table name="tilaus">
         <tbody>
 <tr>
-<td style={s1}>Jätteen tyyppi*</td>
+<td>Jätteen tyyppi*</td>
 <td>
         <DropDownMenu style={s1} value={this.state.value} onChange={this.handleChange}>
           <p style={s3}>SER-jäte</p>

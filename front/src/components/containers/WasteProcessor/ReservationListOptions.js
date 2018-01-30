@@ -9,9 +9,9 @@ const mapStateToProps = (state, props) =>
 
 const mapDispatchToProps = dispatch =>
   ({
-    onNewOptions({ser, batteries, showRes}){
+    onNewOptions({ser, batteries, showRes, weight}){
       dispatch(
-        setResOpt(ser, batteries, showRes)
+        setResOpt(ser, batteries, showRes, weight)
         //setResOpt(true, true, true)
       )
     }

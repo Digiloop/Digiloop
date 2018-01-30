@@ -31,8 +31,8 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-app.set('view engine', 'ejs'); // set up ejs for templating not actually used in this project
-
+//app.set('view engine', 'ejs'); // set up ejs for templating not actually used in this project
+//app.set('views', __dirname, 'views');
 // required for passport
 app.use(session({
 	secret: 'helloworldisthreehundredfiftysixbilliontree',

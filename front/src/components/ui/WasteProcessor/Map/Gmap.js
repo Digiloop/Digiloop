@@ -64,14 +64,14 @@ this.setState({
 
 
 clear(){
-  console.log(this.state.cleared);
+  //console.log(this.state.cleared);
   if(this.state.needClearing){
   this.setState({
     rows: [],
     needClearing: false,
     test:["Dolan"]
   });
-  console.log("Cleared!");
+  //console.log("Cleared!");
 }
 else{
   this.setState({
@@ -84,7 +84,7 @@ clearTEST(){
   this.setState({
     test: []
   });
-  console.log("Cleared!TEST");
+  //console.log("Cleared!TEST");
 
 }
 
@@ -101,20 +101,21 @@ clearTEST(){
   console.log(markers[0].text);
 }*/
 
+/*
  debug(){
-   console.log("Hiiohoi");
- }
+   //console.log("Hiiohoi");
+ }*/
 
 render() {
-  console.log(this.state.rows[0]);
-  console.log(this.state.test[0]);
-  console.log(this.props.items);
+  //console.log(this.state.rows[0]);
+  //console.log(this.state.test[0]);
+  //console.log(this.props.items);
     for ( let i = 0; i < this.props.items.length; i++ ){
         this.state.rows[i] = <Marker
           key= {i}
           position={{ lat:this.props.items[i].lat, lng:this.props.items[i].long }} />
-          console.log(this.props.items[i]);
-          console.log("Marker added");
+          //console.log(this.props.items[i]);
+          //console.log("Marker added");
       }
 
 
@@ -148,7 +149,7 @@ render() {
     return (
       <div>
           <MapComp />
-          <button onClick={this.clear.bind(this)}>DEBUG</button>
+          
       </div>
     );
   }

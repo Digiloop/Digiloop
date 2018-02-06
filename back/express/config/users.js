@@ -5,12 +5,12 @@ var dbconfig = require('./database');
 var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
 
-connection.query('SELECT * FROM Category', (err, rows) => {
+connection.query('SELECT * FROM Category WHERE Status = 1', (err, rows) => {
 exports.Category = rows;
 
 });
 
-connection.query('SELECT * FROM subCat', (err, rows) => {
+connection.query('SELECT * FROM subCat WHERE Status = 1', (err, rows) => {
 exports.subCat = rows;
 });
 

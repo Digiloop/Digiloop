@@ -1,6 +1,7 @@
 // app/routes.js
 //var catquery = require('../config/catquery');
 var source = require('../config/users.js');
+var connection = mysql.createConnection(dbconfig.connection);
 
 module.exports = function(app, passport, users) {
 

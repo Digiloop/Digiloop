@@ -1,8 +1,9 @@
 /* INDEX.css */
 
 body {
-  margin: 0;
-  padding: 0;
+  margin: 0; 
+  color: #004225; 
+  background:#FFF; 
   font-family: sans-serif;
 }
 
@@ -56,19 +57,82 @@ body {
   height: 85vh;
 }
 
-p.ohje {
-  color: white;
-  font-family: kanit;
-  text-align: center;
-  font-weight: bold;
-  font-size: 20px;
+.loginInputField
+{
+  width: 20%;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #004225;
+  display: inline-block;
+
+  /*margin-bottom: 10px;*/
 }
 
-.loginpage {
-  background-image: url("components/ui/EndUser/Materials/käsitausta.png");
-  background-repeat: no-repeat;
-  background-size: 500px;
-  background-position: top 10px left;
+.loginWrapper {
+  /*background-image: url("components/ui/EndUser/Materials/käsitausta.png");*/
+  background-position: center;
+  width: 100%;
+  height: 100%; 
+  position:relative;
+  align-content: center;
+}
+
+.loginContent {
+  background: url("components/ui/EndUser/Materials/käsitausta.png") no-repeat center center fixed;
+  /*-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;*/
+  color: #004225;
+  font-size: 16px;
+  background-position-y: 50%;
+  margin-left: 20%;
+ margin-right: 20%;
+ width:50%;
+  height:50%;
+  max-width: 900px;   
+  min-height:700px;  
+  align-content: initial;
+  /*padding: 30% 10% 10% 40%;
+  background: transparent; */      
+  }  
+
+  p.loginlabel {
+    font-family: kanit;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  
+  .loginLabel
+  {
+    width: 100%;
+    padding-left: 30%;
+  }
+
+  .loginGroup {
+    line-height: 1.5;
+    margin: 5% 5% 5% 5%;
+}
+  
+.login-group button{
+  width: 100%;
+    text-align: left;
+    color: #FFF;
+    border: none;
+    background: #004225;
+    padding:10px 10px;
+}
+
+.login-links {
+  text-align: left;
+  padding-left: 30%;
+  padding-top: 10%;
+}
+
+a:link {
+  color:#004225;
+  text-decoration: none;
 }
 
 /* WASTEPROCESSOR.css */
@@ -212,6 +276,7 @@ p {
   text-align: left;
   padding-left: 7%;
 }
+
 table {
   font-size: 115%;
   padding-left: 5%;
@@ -236,6 +301,15 @@ text-align: right;
   padding: 1rem;
   text-align: center;
   margin: auto;
+}
+/* HISTORY.css */
+
+p.history {
+color: white;
+}
+
+h1.historytitle {
+  color: white;
 }
 
 /* FRONTPAGE.css */

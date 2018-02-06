@@ -20,11 +20,11 @@ render() {
         <div className="news">
           <div className="newOrder">
           </div>
-          <h1>Tilaushistoria</h1>
+          <h1 className="historytitle">Tilaushistoria</h1>
           <div className="newsbox">
-            <p>Tilaus 1</p>
+            <p className="history">Tilaus 1</p>
             <Divider />
-            <p>Tilaus 2</p>
+            <p className="history">Tilaus 2</p>
             <Divider />
           </div>
         </div>

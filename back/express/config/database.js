@@ -1,11 +1,11 @@
 // config/database.js
 module.exports = {
     'connection': {
-        'host': 'niisku.lamk.fi',
-        'user': 'digiloop',
-        'password': 'Koodaus1'
+        'host': '127.0.0.1',
+        'user': 'developer',
+        'password': 'Bailaus1'
     },
-	'database': 'user_digiloop',
+	'database': 'dev',
     'users_table': 'users',
     'Category_table': 'Category'
 };

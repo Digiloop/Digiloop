@@ -6,8 +6,6 @@ module.exports = function(app, passport, users) {
 
 	app.get('/categories',isLoggedIn, function(req, res) {
 
-
-
 		res.json(
 			{category : source.Category}
 		);
@@ -26,18 +24,23 @@ module.exports = function(app, passport, users) {
 			{category : source.items}
 		);
 	});
+/*
+	app.post('/subCatStatus', function(req, res) {
+		connection.query('UPDATE subCat SET Status = ? WHERE subId = ?',[req.body.Status, req.body.subCat], (err, rows) => {
+	})});
+	*/
 
+
+/*
 app.post('/submit',function(req, res, next) {
  console.log(req.body.junk);
 res.end();
-
-
 });
 
 app.get('/submit',function(req, res) {
-
 //res.write(req.body.junk);
 });
+*/
 	//---------------------------------------------------------------------------------------------------------
 
 

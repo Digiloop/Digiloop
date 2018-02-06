@@ -51,6 +51,7 @@ body {
     font-family: kanit;
     font-weight: bold;
     margin: 0 5vh 0 0;
+    display: inline-block;
 }
 
 .loginpage {
@@ -69,35 +70,34 @@ body {
 }
 
 .loginWrapper {
-  /*background-image: url("components/ui/EndUser/Materials/käsitausta.png");*/
   background-position: center;
   width: 100%;
   height: 100%; 
-  position:relative;
   align-content: center;
 }
 
 .loginContent {
   background: url("components/ui/EndUser/Materials/käsitausta.png") no-repeat center center fixed;
+  background-size: contain;
   /*-webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;*/
   color: #004225;
   font-size: 16px;
-  background-position-y: 50%;
-  margin-left: 20%;
- margin-right: 20%;
- width:50%;
-  height:50%;
+  padding: 10% 10% 10% 10%;
+ width: 50%;
+  height:100%;
   max-width: 900px;   
   min-height:700px;  
-  align-content: initial;
+  align-content: center;
+  position: relative;
   /*padding: 30% 10% 10% 40%;
   background: transparent; */      
   }  
 
   p.loginlabel {
+    position: fixed;
     font-family: kanit;
     text-align: center;
     font-weight: bold;
@@ -106,6 +106,8 @@ body {
   
   .loginLabel
   {
+    font-family: kanit;
+    font-size: 16px;
     width: 100%;
     padding-left: 30%;
   }
@@ -113,7 +115,9 @@ body {
   .loginGroup {
     line-height: 1.5;
     margin: 5% 5% 5% 5%;
-}
+    align-content: center;
+    padding-left: 50%;
+  }
   
 .login-group button{
   width: 100%;
@@ -121,12 +125,14 @@ body {
     color: #FFF;
     border: none;
     background: #004225;
-    padding:10px 10px;
+    padding-left: 50%;
 }
 
 .login-links {
+  font-family: kanit;
+  font-size: 16px;
   text-align: left;
-  padding-left: 30%;
+  padding-left: 60%;
   padding-top: 10%;
 }
 

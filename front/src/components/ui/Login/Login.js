@@ -65,7 +65,7 @@ render() {
                </div>
              
 
-             <RaisedButton label="Kirjaudu" primary={true} fullWidth={true} onClick={(event) => this.loginClick(event)} value="App" />
+             <RaisedButton label="Kirjaudu" fullWidth={true} onClick={(event) => this.loginClick(event)} value="App" />
              <br/>
              <div className="login-links">
               <a href="#">Salasana?</a><br /><br />

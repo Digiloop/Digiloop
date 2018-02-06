@@ -1,12 +1,6 @@
 // app/routes.js
 //var catquery = require('../config/catquery');
 var source = require('../config/users.js');
-// these are copypasted from users.js DO NOT DELETE :D
-var express = require('express');
-var router = express.Router();// load up the user model
-var mysql = require('mysql2');
-var dbconfig = require('./database');
-var connection = mysql.createConnection(dbconfig.connection);
 
 module.exports = function(app, passport, users) {
 
@@ -30,14 +24,11 @@ module.exports = function(app, passport, users) {
 			{category : source.items}
 		);
 	});
-
-	app.get('/subCatStatus', function(req, res) {
-		connection.query('SELECT * FROM subCat WHERE Status = 1', (err, rows) => {
-			res.json(
-				{category : rows}
-			);
-	})
-});
+/*
+	app.post('/subCatStatus', function(req, res) {
+		connection.query('UPDATE subCat SET Status = ? WHERE subId = ?',[req.body.Status, req.body.subCat], (err, rows) => {
+	})});
+	*/
 
 
 /*

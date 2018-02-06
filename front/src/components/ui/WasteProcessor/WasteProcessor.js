@@ -10,6 +10,9 @@ import Gmap from './Map/Gmap.js'
 import ReservationListing from './ReservationListing'
 import ReservationListOptions from '../../containers/WasteProcessor/ReservationListOptions'
 
+// fetch function
+import { getJunkData } from '../../../utils/fetchdata-api';
+
 //TODO take options from store, get list items from backend, filter and send to list & map
 
 class WasteProcessor extends Component {
@@ -18,7 +21,8 @@ constructor(props){
   this.state={
     value: 'a',
     showSO: false,
-    rliFilt: []
+    rliFilt: [],
+    junks: {category: []}
   }
   this.rliFiltering = this.rliFiltering.bind(this);
  }
@@ -29,12 +33,20 @@ constructor(props){
      });
    };
 
+   // fetch
+  getJunksData() {
+    getJunkData().then((junks) => {
+      this.setState({ junks });
+    });
+
+    console.log(typeof junks);
+  }
 
    // the filter function, that leaves only the necessary stuff to be displayed
   rliFiltering() {
     let resListItemsFiltered = [];
     let j = 0;
-    
+
     // TODO add filtering
     for(let i = 0; i < this.props.resListItems.length; i++){
 
@@ -50,6 +62,8 @@ constructor(props){
 
   componentDidMount(){
     this.rliFiltering();
+    //fetch
+    this.getJunksData();
   }
 
 showSearchOptions = () => {
@@ -67,6 +81,11 @@ showSearchOptions = () => {
 
 render() {
 
+    // fetch
+    const { junks } = this.state;
+    console.log("junkit: "+junks);
+    console.log(junks.category);
+
     return (
       <MuiThemeProvider>
       <Tabs className="map" inkBarStyle={{background: '#AFD43F', height: '3px'}}
@@ -79,6 +98,15 @@ render() {
           <p>
             Tähän tulee tiedot käsitellyistä jätteistä.
           </p>
+
+          // fetch
+        { junks.category.map((romu, index) => (
+          <div className="testi" key={index}>
+            <p> { romu.category } </p>
+            <p> { romu.ID } </p>
+          </div>
+        ))}
+        
           {/*<p>{this.state.value} </p>*/}
         </div>
       </Tab>

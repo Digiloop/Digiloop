@@ -18,3 +18,9 @@ exports.subCat = rows;
 connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID', (err, rows) => {
 exports.items = rows;
 });
+
+
+connection.query('UPDATE Category SET Status = 'Alfred Schmidt', City= 'Frankfurt'
+WHERE CustomerID = 1;', (err, rows) => {
+exports.subCat = rows;
+});

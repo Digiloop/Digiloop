@@ -25,6 +25,10 @@ module.exports = function(app, passport, users) {
 		);
 	});
 
+	app.post('/subCatStatus', function(req, res) {
+		connection.query('UPDATE subCat SET Status = ? WHERE subId = ?',[req.body.Status, req.body.subCat], (err, rows) => {
+	});
+
 
 /*
 app.post('/submit',function(req, res, next) {

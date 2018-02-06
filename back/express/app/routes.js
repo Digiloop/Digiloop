@@ -32,12 +32,13 @@ module.exports = function(app, passport, users) {
 	});
 
 	app.post('/subCatStatus', function(req, res) {
+		connection.query('SELECT * FROM subCat WHERE Status = 1', (err, rows) => {
 
-			res.json(
-				connection.query('SELECT * FROM subCat WHERE Status = 1', (err, rows) => {
-					})
-			);
-		});
+	})
+	res.json(
+		{category : rows}
+	);
+});
 
 
 /*

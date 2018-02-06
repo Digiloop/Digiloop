@@ -6,8 +6,6 @@ module.exports = function(app, passport, users) {
 
 	app.get('/categories',isLoggedIn, function(req, res) {
 
-
-
 		res.json(
 			{category : source.Category}
 		);
@@ -27,17 +25,17 @@ module.exports = function(app, passport, users) {
 		);
 	});
 
+
+/*
 app.post('/submit',function(req, res, next) {
  console.log(req.body.junk);
 res.end();
-
-
 });
 
 app.get('/submit',function(req, res) {
-
 //res.write(req.body.junk);
 });
+*/
 	//---------------------------------------------------------------------------------------------------------
 
 

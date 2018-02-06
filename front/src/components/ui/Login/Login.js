@@ -39,6 +39,7 @@ render() {
              title={<div className="app-bar-title">Kirjautuminen</div>}
              showMenuIconButton={false}
            />
+
            <div className='loginContent'>
            <div className="loginGroup">
            <p className="loginLabel">Sähköpostiosoite</p>
@@ -51,7 +52,8 @@ render() {
              onChange = {(event,newValue) => this.setState({username:newValue})}
              />
              </div>
-           <br/>
+           <br/> 
+
            <div className="loginGroup">
            <p className="loginLabel">Salasana</p>
              <TextField className="loginInputField"
@@ -61,8 +63,10 @@ render() {
                onChange = {(event,newValue) => this.setState({password:newValue})}
                />
                </div>
+             
+
+             <RaisedButton label="Kirjaudu" primary={true} fullWidth={true} onClick={(event) => this.loginClick(event)} value="App" />
              <br/>
-             <RaisedButton label="Kirjaudu" primary={true} style={style} onClick={(event) => this.loginClick(event)} value="App" />
              <div className="login-links">
               <a href="#">Salasana?</a><br /><br />
               <a href="#">Yrityskäyttäjä</a><br /><br />

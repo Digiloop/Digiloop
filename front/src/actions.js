@@ -15,7 +15,7 @@ export const setResOpt = (ser=false, batteries=false, showRes=false, weight=0) =
 
   }
   
-
+/*
 export const setResList = (resList) =>
   ({
       type: C.SET_RLI,
@@ -27,10 +27,33 @@ export const fetchResList = value => dispatch => {
   dispatch({
     type: C.FETCH_RESERVATION_LIST_ITEMS
   })
-  
+*/
+
+export const fetchItemsRequest = () => 
+({
+  type: 'FETCH_ITEMS_REQUEST'
+})
+
+export const receiveItems = () =>
+({
+  type: "RECEIVE_ITEMS",
+  items: {}
+})
+
+
+// Maybe not critical to implement yet, but needs to be done at some point
+export const fetchItemsFail = () => ({
+  type: 'FETCH_ITEMS_FAILURE',
+  error: 'Error' // necessary?
+})
+
 
 //TODO create fetching from backend, insert into store
 // return fetch('193.166.72.18/items')
+
+
+
+/*
   fetch('193.166.72.18/items')
     //.then( response => response.json())
     .then(resList => {
@@ -46,4 +69,7 @@ export const fetchResList = value => dispatch => {
         type: C.CANCEL_RESLIST_FETCH
       })
     })
+
+  
 }
+*/

@@ -63,14 +63,19 @@ render() {
                onChange = {(event,newValue) => this.setState({password:newValue})}
                />
                </div>
+               
+               <div className="loginGroup">
+               <RaisedButton label="Kirjaudu" 
+             style={{ backgroundColor: '#004225', border: '2px solid #004225' }}
+             onClick={(event) => this.loginClick(event)} 
+             value="App" />
+             </div>
              
-
-             <RaisedButton label="Kirjaudu" fullWidth={true} onClick={(event) => this.loginClick(event)} value="App" />
              <br/>
              <div className="login-links">
               <a href="#">Salasana?</a><br /><br />
               <a href="#">Yrityskäyttäjä</a><br /><br />
-              <a href="#">tee hakemus</a><br /><br />
+              <a href="#">Rekisteröidy</a><br /><br />
              </div>
              </div>
       </div>

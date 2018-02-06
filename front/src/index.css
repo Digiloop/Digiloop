@@ -109,7 +109,7 @@ body {
     font-family: kanit;
     font-size: 16px;
     width: 100%;
-    padding-left: 30%;
+    padding-left: 5%;
   }
 
   .loginGroup {
@@ -125,7 +125,7 @@ body {
     color: #FFF;
     border: none;
     background: #004225;
-    padding-left: 50%;
+    padding-left: 60%;
 }
 
 .login-links {

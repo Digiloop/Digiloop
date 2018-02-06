@@ -2,8 +2,8 @@
 
 body {
   margin: 0; 
-  color: #004225; 
-  background:#FFF; 
+  color: #FFF; 
+  background:#004225; 
   font-family: sans-serif;
 }
 
@@ -78,6 +78,7 @@ body {
 
 .loginContent {
   background: url("components/ui/EndUser/Materials/käsitausta.png") no-repeat center center fixed;
+  color: #004225;
   background-size: contain;
   /*-webkit-background-size: cover;
   -moz-background-size: cover;

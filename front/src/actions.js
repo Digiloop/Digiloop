@@ -34,10 +34,10 @@ export const fetchItemsRequest = () =>
   type: 'FETCH_ITEMS_REQUEST'
 })
 
-export const receiveItems = () =>
+export const receiveItems = (json) =>
 ({
   type: "RECEIVE_ITEMS",
-  items: {}
+  items: json.data //receiving dicks
 })
 
 
@@ -46,6 +46,26 @@ export const fetchItemsFail = () => ({
   type: 'FETCH_ITEMS_FAILURE',
   error: 'Error' // necessary?
 })
+
+
+
+export function fetchItems() {
+
+  return function (dispatch) {
+
+    dispatch(fetchItemsRequest())
+
+
+    return fetch(`193.166.72.18/items`)
+      .then(
+        response => response.json(),
+        error => console.log('An error occurred.', error)
+      )
+      .then(json =>
+        dispatch(receiveItems(json))
+      )
+  }
+}
 
 
 //TODO create fetching from backend, insert into store

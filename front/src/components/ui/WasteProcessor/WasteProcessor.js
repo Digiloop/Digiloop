@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-// import AppBar from 'material-ui/AppBar';
 import styles from '../../../index.css';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Gmap from './Map/Gmap.js'
-// import Slider from 'material-ui/Slider';
-// import { Container, Row, Col } from 'reactstrap';
 import ReservationListing from './ReservationListing'
 import ReservationListOptions from '../../containers/WasteProcessor/ReservationListOptions'
 
 // fetch function
 import { getJunkData } from '../../../utils/fetchdata-api';
 
-//TODO take options from store, get list items from backend, filter and send to list & map
+// import Slider from 'material-ui/Slider';
+// import { Container, Row, Col } from 'reactstrap';
+// import AppBar from 'material-ui/AppBar';
+
+
 
 class WasteProcessor extends Component {
 constructor(props){
@@ -28,12 +29,12 @@ constructor(props){
  }
 
  handleChange = (value) => {
-     this.setState({
+    this.setState({
        value: value,
-     });
-   };
+    });
+  };
 
-   // fetch
+   // fetch junk data
   getJunksData() {
     getJunkData().then((junks) => {
       this.setState({ junks });
@@ -42,6 +43,8 @@ constructor(props){
     console.log(typeof junks);
   }
 
+
+  
    // the filter function, that leaves only the necessary stuff to be displayed
   rliFiltering() {
     let resListItemsFiltered = [];
@@ -99,7 +102,7 @@ render() {
             Tähän tulee tiedot käsitellyistä jätteistä.
           </p>
 
-          // fetch
+          
         { junks.category.map((romu, index) => (
           <div className="testi" key={index}>
             <p> { romu.category } </p>

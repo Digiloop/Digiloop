@@ -15,6 +15,5 @@ export const resList = (state=[], action) =>
 export default combineReducers({
   loggedIn,
   resListOpt,
-  //items,
   resList
 })

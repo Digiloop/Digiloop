@@ -22,8 +22,7 @@ constructor(props){
   this.state={
     value: 'a',
     showSO: false,
-    rliFilt: [],
-    junks: {category: []}
+    rliFilt: []
   }
   this.rliFiltering = this.rliFiltering.bind(this);
  }
@@ -37,10 +36,15 @@ constructor(props){
    // fetch junk data
   getJunksData() {
     getJunkData().then((junks) => {
-      this.setState({ junks });
+      console.log(junks);
+      this.props.itemsToStore(junks.category);
+
+      //this.setState({ junks });
+
+
     });
 
-    console.log(typeof junks);
+    //console.log(typeof junks);
   }
 
 
@@ -51,29 +55,36 @@ constructor(props){
     let j = 0;
 
     // TODO add filtering
+    //console.log(this.props);
+    //console.log(this.props.resListItems);
+    console.log(this.props.resListItems);
+    console.log(this.props.resListItems.length);
+
+    
     for(let i = 0; i < this.props.resListItems.length; i++){
 
       resListItemsFiltered[j] = this.props.resListItems[i];
       j++;
     }
 
-    // set the filtered array in state, from which it's sent as props
+    // set the filtered array in state, from which it's sent as props to children
     this.setState({
       rliFilt: resListItemsFiltered
     })
   }
 
   componentDidMount(){
-    this.rliFiltering();
-    //fetch
-    this.getJunksData();
+    this.getJunksData(); // fetch data from backend
+    // TODO somehow wait for datafetch before attempting filtering
+    this.rliFiltering(); // filter data
   }
 
 showSearchOptions = () => {
   // TODO instead of updating when returning from options page,
   // update when options are saved.
   this.rliFiltering();
-  console.log(this.state.rliFilt);
+  //console.log(this.state);
+  //console.log(this.state.rliFilt);
 
   this.setState({
     showSO: !this.state.showSO,
@@ -86,8 +97,6 @@ render() {
 
     // fetch
     const { junks } = this.state;
-    console.log("junkit: "+junks);
-    console.log(junks.category);
 
     return (
       <MuiThemeProvider>
@@ -103,12 +112,7 @@ render() {
           </p>
 
           
-        { junks.category.map((romu, index) => (
-          <div className="testi" key={index}>
-            <p> { romu.category } </p>
-            <p> { romu.ID } </p>
-          </div>
-        ))}
+        
         
           {/*<p>{this.state.value} </p>*/}
         </div>
@@ -140,7 +144,7 @@ render() {
           <div className="right">
             <h2>Varausluettelo<RaisedButton label="Hakuehdot" onClick={this.showSearchOptions}
             style={{float: 'right', backgroundColor: '#004225'}} /></h2>
-            <button onClick={this.props.onGetItems()}>Fetcher</button>
+            
             <div className="subRight">
               {this.state.showSO ? <ReservationListOptions /> : <ReservationListing items={this.state.rliFilt}/>}
             </div>

@@ -1,22 +1,20 @@
 import WasteProcessor from '../../ui/WasteProcessor/WasteProcessor'
 import { connect } from 'react-redux'
-import { fetchResList } from '../../../actions';
+import { setResList } from '../../../actions';
 
 const mapStateToProps = (state, props) =>
   ({
     rLOpt: state.resListOpt,
-    resListItems: state.resList.resListItems,
+    resListItems: state.resList
 
   })
 
 const mapDispatchToProps = dispatch =>
   ({
-    onGetItems(){
-      /*
+    itemsToStore(resList){
       dispatch(
-        fetchResList()
+        setResList(resList)
       )
-      */
     }
   })
 

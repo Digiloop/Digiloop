@@ -13,7 +13,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 class ReservationListing extends Component {
 constructor(props){
   super(props);
-  this.state={
+  this.state = {
   }
  }
 
@@ -22,6 +22,7 @@ constructor(props){
 render() {
 
   const items = [];
+  console.log(this.props.items);
 
   for(let i = 0; i < this.props.items.length; i++){
     items.push(

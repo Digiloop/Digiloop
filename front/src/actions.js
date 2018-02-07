@@ -7,19 +7,18 @@ export const login = ( username='Seppo Dangerous', password='DangerIsMyMiddleNam
     payload: {username, password}
   })
 
-export const setResOpt = (ser=false, batteries=false, showRes=false, weight=0) => {
+export const setResOpt = (ser=false, batteries=false, showRes=false, weight=0) => 
   ({
     type: C.SET_RESOPT,
     payload: {ser, batteries, showRes, weight}
   })
 
-  }
   
 
 export const setResList = (resList) =>
   ({
       type: C.SET_RLI,
-      payload: {resList}
+      payload: resList
   })
 
 

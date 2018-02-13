@@ -10,7 +10,7 @@ var source = require('../config/users.js');
 
 
 module.exports = function(app, passport, users) {
-//	app.get('/categories',isLoggedIn, function(req, res)
+//	app.get('/categories',isLoggedIn, function(req, res) :DDD
 	app.get('/categories', function(req, res) {
 		connection.query('SELECT * FROM Category WHERE Status = 1', (err, rows) => {
 		if (err) throw err;

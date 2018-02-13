@@ -24,18 +24,14 @@ module.exports = function(app, passport, users) {
 	});
 
 	app.get('/subcat', function(req, res) {
-		connection.query('SELECT * FROM subCat WHERE Status = 1', (err, rows) => {
-		exports.subCat = rows;
+		connection.query('SELECT * FROM subCat WHERE Status = 1',
 		function (err, result){
 		if (err) throw err;
 		res.json(
-			{category : source.subCat}
+			{category : result}
 				);
-			}
 		});
-
-
-	});
+});
 
 	app.get('/items', function(req, res) {
 

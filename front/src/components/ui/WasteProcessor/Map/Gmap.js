@@ -113,7 +113,7 @@ render() {
     for ( let i = 0; i < this.props.items.length; i++ ){
         this.state.rows[i] = <Marker
           key= {i}
-          position={{ lat:this.props.items[i].lat, lng:this.props.items[i].long }} />
+          position={{ lat: parseInt(this.props.items[i].latitude), lng: parseInt(this.props.items[i].longitude) }} />
           //console.log(this.props.items[i]);
           //console.log("Marker added");
       }
@@ -149,7 +149,7 @@ render() {
     return (
       <div>
           <MapComp />
-          
+
       </div>
     );
   }

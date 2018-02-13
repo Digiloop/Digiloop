@@ -17,6 +17,33 @@ constructor(props){
   }
  }
 
+getStatus(status){
+  switch(status){
+    case 0:
+    return "Hidden";
+    break;
+
+    case 1:
+    return "Vapaa";
+    break;
+
+    case 2:
+    return "Varattu";
+    break;
+
+    case 3:
+    return "Matkalla";
+    break;
+
+    case 4:
+    return "Noudettu";
+    break;
+
+    default:
+    break;
+  }
+}
+
 
 
 render() {
@@ -27,12 +54,12 @@ render() {
   for(let i = 0; i < this.props.items.length; i++){
     items.push(
       <TableRow key={i} >
-        <TableRowColumn>{this.props.items[i].cat} ({this.props.items[i].subCat})<br/>Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].amount}kpl</TableRowColumn>
+        <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br/>Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
+        <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
         <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
         <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
-        {this.props.items[i].status == "free" ? <TableRowColumn><RaisedButton label="Varaa" /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
-        <TableRowColumn>Tila {this.props.items[i].status == "reserv" ? "Varattu" : "Vapaa"}</TableRowColumn>
+        {this.props.items[i].status == 1 ? <TableRowColumn><RaisedButton label="Varaa" /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
+        <TableRowColumn>Tila { this.getStatus( this.props.items[i].status ) }</TableRowColumn>
       </TableRow>
     )
   }

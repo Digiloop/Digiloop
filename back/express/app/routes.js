@@ -40,19 +40,7 @@ module.exports = function(app, passport, users) {
 		});
 		});
 
-/*
-		app.post('/subCatStatus', function(req, res) {
-			var query = 'UPDATE subCat SET Status = 0 WHERE subId = 8;';
-		connection.query( query, (err, rows) => {
-			if (err) throw err;
-     	console.log(rows.affectedRows + " record(s) updated");
-	});
-	console.log(req.body.Status," ",req.body.subIdStatus)
-		res.json(
-			{category : source.subCat}
-		);
-});
-*/
+
 // main code, muista x-www-form-urlencoded
 	app.post('/subCatStatus', function(req, res) {
 		connection.query('UPDATE subCat SET Status = ? WHERE subId = ?;',[req.body.Status, req.body.subIdStatus], (err, rows) => {
@@ -63,6 +51,43 @@ module.exports = function(app, passport, users) {
 		res.json(
 			{category : source.subCat}
 		);
+});
+
+//item Status
+app.post('/itemStatus', function(req, res) {
+	connection.query('UPDATE junk SET Status = ? WHERE junkID = ?;',[req.body.Status, req.body.subIdStatus], (err, rows) => {
+		if (err) throw err;
+		console.log(rows.affectedRows + " record(s) updated");
+});
+console.log(req.body.Status," ",req.body.subIdStatus)
+	res.json(
+		{category : source.subCat}
+	);
+});
+
+//itemi lisäys
+
+app.post('/itemADD', function(req, res) {
+	var newUserMysql = {
+			category: req.body.category.toString(),
+			subCat: req.body.subCat.toString(),  // use the generateHash function in our user model
+			weight: req.body.weight,
+			size: req.body.size,
+			description: req.body.description.toString(),
+			picture: req.body.picture.toString(),
+			pcs: req.body.pcs,
+			pickupaddr: req.body.pickupaddr.toString(),
+			junkdate: req.body.junkdate,
+			junkdateadded: req.body.junkdateadded,
+			status: req.body.status
+	};
+
+	var insertQuery = "INSERT INTO junk ( category, subCat, weight, size, description, picture, pcs, pickupaddr, junkdate, junkdateadded, status ) values (?,?,?,?,?,?,?,?,?,?,?)";
+
+	connection.query(insertQuery,[newUserMysql.category, newUserMysql.subCat, newUserMysql.weight, newUserMysql.size, newUserMysql.description, newUserMysql.picture, newUserMysql.pcs, newUserMysql.pickupaddr, newUserMysql.junkdate, newUserMysql.junkdateadded, newUserMysql.status],function(err, rows) {
+			//newUserMysql.id = rows.insertId;
+
+});
 });
 
 

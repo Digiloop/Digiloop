@@ -11,11 +11,13 @@ var source = require('../config/users.js');
 
 module.exports = function(app, passport, users) {
 //	app.get('/categories',isLoggedIn, function(req, res)
-	app.get('/categories', function(req, res) {
+	app.get('/categories', function(req, res, next) {
 		connection.query('SELECT * FROM Category WHERE Status = 1', (err, rows) => {
 		exports.Category = rows;
 		if (err) throw err;
+		next();
 		});
+
 		res.json(
 			{category : source.Category}
 		);

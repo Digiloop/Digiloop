@@ -86,6 +86,8 @@ app.post('/itemADD', function(req, res) {
 
 	connection.query(insertQuery,[newItem.category, newItem.subCat, newItem.weight, newItem.size, newItem.description, newItem.picture, newItem.pcs, newItem.pickupaddr, newItem.junkdate, newItem.junkdateadded, newItem.status],function(err, rows) {
 			//newItem.id = rows.insertId;
+			if (err) throw err;
+			console.log(rows.affectedRows + " record(s) updated");
 res.end();
 });
 });

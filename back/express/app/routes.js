@@ -180,8 +180,8 @@ app.get('/submit',function(req, res) {
 	// =====================================
 	app.get('/logout', function(req, res) {
 		req.logout();
-		//res.redirect('/login');
-		
+		res.redirect('/login');
+
 	});
 };
 

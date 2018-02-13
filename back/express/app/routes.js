@@ -93,7 +93,7 @@ connection.beginTransaction(function(err){
 			console.log(rows.affectedRows + " record(s) updated");
 		});
 		connection.query(insertQuery2,[newItem.latitude, newItem.longitude],function(err, rows) {
-	console.log(rows.affectedRows + " record(s) updated");
+	//console.log(rows.affectedRows + " record(s) updated");
 			});
 			connection.commit(function(err){
 				if (err) {

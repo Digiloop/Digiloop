@@ -130,8 +130,9 @@ app.get('/submit',function(req, res) {
 	// process the login form
 	app.post('/login', passport.authenticate('local-login', {
           //successRedirect : '/profile', // redirect to the secure profile section
-          failureRedirect : '/login', // redirect back to the signup page if there is an error
+          //failureRedirect : '/login', // redirect back to the signup page if there is an error
           //failureFlash : true // allow flash messages
+					res.end();
 		}),
         function(req, res) {
             console.log("hello");
@@ -141,7 +142,8 @@ app.get('/submit',function(req, res) {
             } else {
               req.session.cookie.expires = false;
             }
-        res.redirect('/');
+        //res.redirect('/');
+				res.end();
     });
 
 	// =====================================
@@ -155,9 +157,10 @@ app.get('/submit',function(req, res) {
 
 	// process the signup form
 	app.post('/signup', passport.authenticate('local-signup', {
-		successRedirect : '/profile', // redirect to the secure profile section
-		failureRedirect : '/signup', // redirect back to the signup page if there is an error
-		failureFlash : true // allow flash messages
+		//successRedirect : '/profile', // redirect to the secure profile section
+		//failureRedirect : '/signup', // redirect back to the signup page if there is an error
+		//failureFlash : true // allow flash messages
+		res.end();
 	}));
 
 	// =====================================
@@ -177,7 +180,8 @@ app.get('/submit',function(req, res) {
 	// =====================================
 	app.get('/logout', function(req, res) {
 		req.logout();
-		res.redirect('/login');
+		//res.redirect('/login');
+		res.end();
 	});
 };
 
@@ -189,5 +193,6 @@ function isLoggedIn(req, res, next) {
 		return next();
 
 	// if they aren't redirect them to the home page
-	res.redirect('/');
+	//res.redirect('/');
+	res.end();
 }

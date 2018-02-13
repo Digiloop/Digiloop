@@ -10,14 +10,15 @@ var source = require('../config/users.js');
 
 
 module.exports = function(app, passport, users) {
-//	app.get('/categories',isLoggedIn, function(req, res) :DDD
+//	app.get('/categories',isLoggedIn, function(req, res)
 	app.get('/categories', function(req, res) {
 		connection.query('SELECT * FROM Category WHERE Status = 1', (err, rows) => {
+		exports.Category = rows;
 		if (err) throw err;
 		console.log(rows.affectedRows + " record(s) updated");
 		});
 		res.json(
-			{category : rows}
+			{category : source.Category}
 		);
 	});
 

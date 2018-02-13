@@ -38,13 +38,8 @@ constructor(props){
     getJunkData().then((junks) => {
       console.log(junks);
       this.props.itemsToStore(junks.category);
-
-      //this.setState({ junks });
-
-
+      this.rliFiltering();
     });
-
-    //console.log(typeof junks);
   }
 
 
@@ -74,17 +69,17 @@ constructor(props){
   }
 
   componentDidMount(){
-    this.getJunksData(); // fetch data from backend
+    this.getJunksData();
+      //
+      // fetch data from backend
     // TODO somehow wait for datafetch before attempting filtering
-    this.rliFiltering(); // filter data
+     // filter data
   }
 
 showSearchOptions = () => {
   // TODO instead of updating when returning from options page,
   // update when options are saved.
   this.rliFiltering();
-  //console.log(this.state);
-  //console.log(this.state.rliFilt);
 
   this.setState({
     showSO: !this.state.showSO,

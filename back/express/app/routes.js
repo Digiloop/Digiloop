@@ -6,7 +6,7 @@ var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
 // app/routes.js
 //var catquery = require('../config/catquery');
-var source = require('../config/users.js');
+//var source = require('../config/users.js');
 
 
 module.exports = function(app, passport, users) {

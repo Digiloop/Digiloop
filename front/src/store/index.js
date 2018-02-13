@@ -3,14 +3,16 @@ import appReducer from './reducers'
 import { createStore, applyMiddleware } from 'redux'
 
 
+
+
 // Entire file is pretty much a test, don't include in prod
 const consoleTest = store => next => action => {
 
   let result
 
   console.groupCollapsed(`dispatching action => ${action.type}`)
-  console.log('ResListOpts:', store.getState().resListOpt)
-  
+  console.log('ResListOpts:', store.getState().resList)
+
   result = next(action)
   console.groupEnd()
   return result

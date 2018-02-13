@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-// import AppBar from 'material-ui/AppBar';
 import styles from '../../../index.css';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Gmap from './Map/Gmap.js'
-// import Slider from 'material-ui/Slider';
-// import { Container, Row, Col } from 'reactstrap';
 import ReservationListing from './ReservationListing'
 import ReservationListOptions from '../../containers/WasteProcessor/ReservationListOptions'
 
-//TODO take options from store, get list items from backend, filter and send to list & map
+// fetch function
+import { getJunkData } from '../../../utils/fetchdata-api';
+
+// import Slider from 'material-ui/Slider';
+// import { Container, Row, Col } from 'reactstrap';
+// import AppBar from 'material-ui/AppBar';
+
+
 
 class WasteProcessor extends Component {
 constructor(props){
@@ -24,39 +28,63 @@ constructor(props){
  }
 
  handleChange = (value) => {
-     this.setState({
+    this.setState({
        value: value,
-     });
-   };
+    });
+  };
+
+   // fetch junk data
+  getJunksData() {
+    getJunkData().then((junks) => {
+      console.log(junks);
+      this.props.itemsToStore(junks.category);
+
+      //this.setState({ junks });
 
 
+    });
+
+    //console.log(typeof junks);
+  }
+
+
+  
    // the filter function, that leaves only the necessary stuff to be displayed
   rliFiltering() {
     let resListItemsFiltered = [];
     let j = 0;
-    
+
     // TODO add filtering
+    //console.log(this.props);
+    //console.log(this.props.resListItems);
+    console.log(this.props.resListItems);
+    console.log(this.props.resListItems.length);
+
+    
     for(let i = 0; i < this.props.resListItems.length; i++){
 
       resListItemsFiltered[j] = this.props.resListItems[i];
       j++;
     }
 
-    // set the filtered array in state, from which it's sent as props
+    // set the filtered array in state, from which it's sent as props to children
     this.setState({
       rliFilt: resListItemsFiltered
     })
   }
 
   componentDidMount(){
-    this.rliFiltering();
+    this.getJunksData(); // fetch data from backend
+    // TODO somehow wait for datafetch before attempting filtering
+    this.rliFiltering(); // filter data
   }
 
 showSearchOptions = () => {
   // TODO instead of updating when returning from options page,
   // update when options are saved.
   this.rliFiltering();
-  console.log(this.state.rliFilt);
+  //console.log(this.state);
+  //console.log(this.state.rliFilt);
 
   this.setState({
     showSO: !this.state.showSO,
@@ -66,6 +94,9 @@ showSearchOptions = () => {
 
 
 render() {
+
+    // fetch
+    const { junks } = this.state;
 
     return (
       <MuiThemeProvider>
@@ -79,6 +110,10 @@ render() {
           <p>
             Tähän tulee tiedot käsitellyistä jätteistä.
           </p>
+
+          
+        
+        
           {/*<p>{this.state.value} </p>*/}
         </div>
       </Tab>
@@ -109,7 +144,7 @@ render() {
           <div className="right">
             <h2>Varausluettelo<RaisedButton label="Hakuehdot" onClick={this.showSearchOptions}
             style={{float: 'right', backgroundColor: '#004225'}} /></h2>
-            <button onClick={this.props.onGetItems()}>Fetcher</button>
+            
             <div className="subRight">
               {this.state.showSO ? <ReservationListOptions /> : <ReservationListing items={this.state.rliFilt}/>}
             </div>

@@ -6,11 +6,10 @@ import App from './components/containers/App'
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux'
 import storeFactory from './store'
-import sampleData from './initialState'
+import initialState from './initialState'
 
 
 
-const initialState = sampleData
 
 const saveState = () =>
     localStorage["redux-store"] = JSON.stringify(store.getState())

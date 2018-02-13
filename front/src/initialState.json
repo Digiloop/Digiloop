@@ -3,10 +3,7 @@
 		"username": "Seppo Dangerous",
 		"password": "DangerIsMyMiddleName12"
 	},
-	"resList": {
-		"fetching": false,
-		"didInvalidate": false,
-		"resListItems": [
+	"resList": [
 			{
 			"cat": "SER",
 			"subCat": "Data",
@@ -29,9 +26,7 @@
 			"lat": 60.870298,
 			"long": 26.701820
 			}
-		]
-			
-	},
+	],
 	
 	"resListOpt":
 		{

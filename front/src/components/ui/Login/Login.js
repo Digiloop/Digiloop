@@ -45,6 +45,7 @@ render() {
            <p className="loginLabel">Sähköpostiosoite</p>
            <TextField className="loginInputField"
             underlineShow={false}
+            style={{ backgroundColor: 'white', border: '2px solid #004225'}}
             /*color="#004225"
             inputStyle={{color: '#004225'}}
             style={{ backgroundColor: 'white', border: '2px solid #004225' }} */
@@ -58,19 +59,25 @@ render() {
            <p className="loginLabel">Salasana</p>
              <TextField className="loginInputField"
                underlineShow={false}
+               style={{ backgroundColor: 'white', border: '2px solid #004225'}}
                type="password"
                hintText="Enter your Password"
                onChange = {(event,newValue) => this.setState({password:newValue})}
                />
                </div>
-             
 
-             <RaisedButton label="Kirjaudu" primary={true} fullWidth={true} onClick={(event) => this.loginClick(event)} value="App" />
+               <div className="loginGroup">
+               <RaisedButton label="Kirjaudu" 
+             style={{ backgroundColor: '#004225', border: '2px solid #004225' }}
+             onClick={(event) => this.loginClick(event)} 
+             value="App" />
+             </div>
+             
              <br/>
              <div className="login-links">
               <a href="#">Salasana?</a><br /><br />
               <a href="#">Yrityskäyttäjä</a><br /><br />
-              <a href="#">tee hakemus</a><br /><br />
+              <a href="#">Rekisteröidy</a><br /><br />
              </div>
              </div>
       </div>

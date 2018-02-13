@@ -81,7 +81,8 @@ app.post('/itemADD', function(req, res) {
 			junkdateadded: req.body.junkdateadded,
 			status: req.body.status,
 			latitude: req.body.latitude,
-			longitude: req.body.longitude
+			longitude: req.body.longitude,
+			status2: req.body.status2
 	};
 	var insertQuery = "INSERT INTO junk ( category, subCat, weight, size, description, picture, pcs, pickupaddr, junkdate, junkdateadded, status ) values (?,?,?,?,?,?,?,?,?,?,?)";
 	var insertQuery2 = "INSERT INTO Coordinates ( latitude, longitude) values (?, ?)";
@@ -92,7 +93,7 @@ connection.beginTransaction(function(err){
 			//newItem.id = rows.insertId;
 			console.log(rows.affectedRows + " record(s) updated");
 		});
-		connection.query(insertQuery2,[newItem.latitude, newItem.longitude],function(err, rows) {
+		connection.query(insertQuery2,[newItem.latitude, newItem.longitude, newItem.status2],function(err, rows) {
 	//console.log(rows.affectedRows + " record(s) updated");
 			});
 			connection.commit(function(err){

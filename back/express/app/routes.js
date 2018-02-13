@@ -68,7 +68,7 @@ console.log(req.body.Status," ",req.body.subIdStatus)
 //itemi lisäys
 
 app.post('/itemADD', function(req, res) {
-	var newUserMysql = {
+	var newItem = {
 			category: req.body.category.toString(),
 			subCat: req.body.subCat.toString(),  // use the generateHash function in our user model
 			weight: req.body.weight,
@@ -84,9 +84,9 @@ app.post('/itemADD', function(req, res) {
 
 	var insertQuery = "INSERT INTO junk ( category, subCat, weight, size, description, picture, pcs, pickupaddr, junkdate, junkdateadded, status ) values (?,?,?,?,?,?,?,?,?,?,?)";
 
-	connection.query(insertQuery,[newUserMysql.category, newUserMysql.subCat, newUserMysql.weight, newUserMysql.size, newUserMysql.description, newUserMysql.picture, newUserMysql.pcs, newUserMysql.pickupaddr, newUserMysql.junkdate, newUserMysql.junkdateadded, newUserMysql.status],function(err, rows) {
-			//newUserMysql.id = rows.insertId;
-
+	connection.query(insertQuery,[newItem.category, newItem.subCat, newItem.weight, newItem.size, newItem.description, newItem.picture, newItem.pcs, newItem.pickupaddr, newItem.junkdate, newItem.junkdateadded, newItem.status],function(err, rows) {
+			//newItem.id = rows.insertId;
+res.end();
 });
 });
 

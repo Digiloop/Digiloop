@@ -6,7 +6,7 @@ var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
 // app/routes.js
 //var catquery = require('../config/catquery');
-var source = require('../config/users.js');
+//var source = require('../config/users.js');
 
 
 module.exports = function(app, passport, users) {
@@ -79,15 +79,30 @@ app.post('/itemADD', function(req, res) {
 			pickupaddr: req.body.pickupaddr.toString(),
 			junkdate: req.body.junkdate,
 			junkdateadded: req.body.junkdateadded,
-			status: req.body.status
+			status: req.body.status,
+			latitude: req.body.latitude,
+			longitude: req.body.longitude,
+			status2: req.body.status2
 	};
-
 	var insertQuery = "INSERT INTO junk ( category, subCat, weight, size, description, picture, pcs, pickupaddr, junkdate, junkdateadded, status ) values (?,?,?,?,?,?,?,?,?,?,?)";
-
+	var insertQuery2 = "INSERT INTO Coordinates ( latitude, longitude) values (?, ?)";
+connection.beginTransaction(function(err){
+	if (err) throw err;
 	connection.query(insertQuery,[newItem.category, newItem.subCat, newItem.weight, newItem.size, newItem.description, newItem.picture, newItem.pcs, newItem.pickupaddr, newItem.junkdate, newItem.junkdateadded, newItem.status],function(err, rows) {
+
 			//newItem.id = rows.insertId;
-			if (err) throw err;
 			console.log(rows.affectedRows + " record(s) updated");
+		});
+		connection.query(insertQuery2,[newItem.latitude, newItem.longitude, newItem.status2],function(err, rows) {
+	//console.log(rows.affectedRows + " record(s) updated");
+			});
+			connection.commit(function(err){
+				if (err) {
+					connection.rollback(function(){
+						throw err;
+					})
+				}
+			});
 res.end();
 });
 });
@@ -160,7 +175,7 @@ app.get('/submit',function(req, res) {
 		//successRedirect : '/profile', // redirect to the secure profile section
 		//failureRedirect : '/signup', // redirect back to the signup page if there is an error
 		//failureFlash : true // allow flash messages
-		
+
 	}));
 
 	// =====================================

@@ -15,7 +15,6 @@ module.exports = function(app, passport, users) {
 		connection.query('SELECT * FROM Category WHERE Status = 1', (err, rows) => {
 		exports.Category = rows;
 		if (err) throw err;
-		console.log(rows.affectedRows + " record(s) updated");
 		});
 		res.json(
 			{category : source.Category}
@@ -23,6 +22,10 @@ module.exports = function(app, passport, users) {
 	});
 
 	app.get('/subcat', function(req, res) {
+		connection.query('SELECT * FROM subCat WHERE Status = 1', (err, rows) => {
+		exports.subCat = rows;
+		if (err) throw err;
+		});
 
 		res.json(
 			{category : source.subCat}

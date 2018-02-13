@@ -132,7 +132,7 @@ app.get('/submit',function(req, res) {
           //successRedirect : '/profile', // redirect to the secure profile section
           //failureRedirect : '/login', // redirect back to the signup page if there is an error
           //failureFlash : true // allow flash messages
-					res.end();
+					
 		}),
         function(req, res) {
             console.log("hello");

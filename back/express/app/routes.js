@@ -12,16 +12,13 @@ var source = require('../config/users.js');
 module.exports = function(app, passport, users) {
 //	app.get('/categories',isLoggedIn, function(req, res)
 	app.get('/categories', function(req, res, next) {
-		connection.query('SELECT * FROM Category WHERE Status = 1', (err, rows) => {
-		exports.Category = rows;
+		connection.query('SELECT * FROM Category WHERE Status = 1', function (err, result){
 		if (err) throw err;
-		next();
-		});
-
 		res.json(
-			{category : source.Category}
-		);
-	});
+			{category : result}
+				);
+		});
+});
 
 	app.get('/subcat', function(req, res) {
 		connection.query('SELECT * FROM subCat WHERE Status = 1',
@@ -34,11 +31,14 @@ module.exports = function(app, passport, users) {
 });
 
 	app.get('/items', function(req, res) {
-
+		connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
+		function (err, result){
+		if (err) throw err;
 		res.json(
-			{category : source.items}
-		);
-	});
+			{category : result}
+				);
+		});
+		});
 
 /*
 		app.post('/subCatStatus', function(req, res) {

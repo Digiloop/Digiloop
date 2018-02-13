@@ -18,3 +18,9 @@ exports.subCat = rows;
 connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID', (err, rows) => {
 exports.items = rows;
 });
+
+/*
+connection.query('UPDATE subCat SET Status = 1 WHERE subId = 8', (err, rows) => {
+  console.log("this updated something");
+});
+*/

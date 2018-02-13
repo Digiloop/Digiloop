@@ -1,10 +1,17 @@
+var express = require('express');
+var router = express.Router();// load up the user model
+var mysql = require('mysql2');
+var dbconfig = require('./database');
+var connection = mysql.createConnection(dbconfig.connection);
+connection.query('USE ' + dbconfig.database);
 // app/routes.js
 //var catquery = require('../config/catquery');
 var source = require('../config/users.js');
 
-module.exports = function(app, passport, users) {
 
-	app.get('/categories',isLoggedIn, function(req, res) {
+module.exports = function(app, passport, users) {
+//	app.get('/categories',isLoggedIn, function(req, res)
+	app.get('/categories', function(req, res) {
 
 		res.json(
 			{category : source.Category}
@@ -24,11 +31,32 @@ module.exports = function(app, passport, users) {
 			{category : source.items}
 		);
 	});
+
 /*
+		app.post('/subCatStatus', function(req, res) {
+			var query = 'UPDATE subCat SET Status = 0 WHERE subId = 8;';
+		connection.query( query, (err, rows) => {
+			if (err) throw err;
+     	console.log(rows.affectedRows + " record(s) updated");
+	});
+	console.log(req.body.Status," ",req.body.subIdStatus)
+		res.json(
+			{category : source.subCat}
+		);
+});
+*/
+// main code, muista x-www-form-urlencoded
 	app.post('/subCatStatus', function(req, res) {
-		connection.query('UPDATE subCat SET Status = ? WHERE subId = ?',[req.body.Status, req.body.subCat], (err, rows) => {
-	})});
-	*/
+		connection.query('UPDATE subCat SET Status = ? WHERE subId = ?;',[req.body.Status, req.body.subIdStatus], (err, rows) => {
+			if (err) throw err;
+     	console.log(rows.affectedRows + " record(s) updated");
+	});
+	console.log(req.body.Status," ",req.body.subIdStatus)
+		res.json(
+			{category : source.subCat}
+		);
+});
+
 
 
 /*
@@ -66,7 +94,7 @@ app.get('/submit',function(req, res) {
 
 	// process the login form
 	app.post('/login', passport.authenticate('local-login', {
-          successRedirect : '/profile', // redirect to the secure profile section
+          //successRedirect : '/profile', // redirect to the secure profile section
           failureRedirect : '/login', // redirect back to the signup page if there is an error
           //failureFlash : true // allow flash messages
 		}),

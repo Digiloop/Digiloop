@@ -82,7 +82,7 @@ app.post('/itemADD', function(req, res) {
 			status: req.body.status
 	};
 
-	var insertQuery = "INSERT INTO junk ( category, subCat, weight, size, description, picture, pcs, pickupaddr, junkdate, junkdateadded, status ) values (?,?,?,?,?,?,?,?,?,?,?)";
+	var insertQuery = "START TRANSACTION; INSERT INTO junk ( category, subCat, weight, size, description, picture, pcs, pickupaddr, junkdate, junkdateadded, status ) values (?,?,?,?,?,?,?,?,?,?,?); COMMIT";
 
 	connection.query(insertQuery,[newItem.category, newItem.subCat, newItem.weight, newItem.size, newItem.description, newItem.picture, newItem.pcs, newItem.pickupaddr, newItem.junkdate, newItem.junkdateadded, newItem.status],function(err, rows) {
 			//newItem.id = rows.insertId;
@@ -160,7 +160,7 @@ app.get('/submit',function(req, res) {
 		//successRedirect : '/profile', // redirect to the secure profile section
 		//failureRedirect : '/signup', // redirect back to the signup page if there is an error
 		//failureFlash : true // allow flash messages
-		
+
 	}));
 
 	// =====================================

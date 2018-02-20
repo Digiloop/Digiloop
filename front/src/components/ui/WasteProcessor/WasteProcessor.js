@@ -59,7 +59,7 @@ constructor(props){
       
       pass = true;
 
-      if ( p.rLOpt.ser == true && p.resListItems.category != "SER"){
+      if ( p.rLOpt.ser == false && p.resListItems[i].category == "SER"){
         pass = false;
       }
 

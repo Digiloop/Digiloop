@@ -6,6 +6,8 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import Gmap from './Map/Gmap.js'
 import ReservationListing from './ReservationListing'
 import ReservationListOptions from '../../containers/WasteProcessor/ReservationListOptions'
+import HistoryListing from './HistoryListing'
+import ReservedListing from './ReservedListing'
 
 // fetch function
 import { getJunkData } from '../../../utils/fetchdata-api';
@@ -43,7 +45,7 @@ constructor(props){
   }
 
 
-  
+
    // the filter function, that leaves only the necessary stuff to be displayed
   rliFiltering() {
     let resListItemsFiltered = [];
@@ -55,7 +57,7 @@ constructor(props){
     console.log(this.props.resListItems);
     console.log(this.props.resListItems.length);
 
-    
+
     for(let i = 0; i < this.props.resListItems.length; i++){
 
       resListItemsFiltered[j] = this.props.resListItems[i];
@@ -105,10 +107,11 @@ render() {
           <p>
             Tähän tulee tiedot käsitellyistä jätteistä.
           </p>
+          <HistoryListing items={this.state.rliFilt}/>
 
-          
-        
-        
+
+
+
           {/*<p>{this.state.value} </p>*/}
         </div>
       </Tab>
@@ -118,6 +121,7 @@ render() {
           <p>
             Tässä näkyy varatut jätteet
           </p>
+          <ReservedListing items={this.state.rliFilt}/>
         </div>
       </Tab>
       <Tab className="menu" label="Admin" value="c">
@@ -139,7 +143,7 @@ render() {
           <div className="right">
             <h2>Varausluettelo<RaisedButton label="Hakuehdot" onClick={this.showSearchOptions}
             style={{float: 'right', backgroundColor: '#004225'}} /></h2>
-            
+
             <div className="subRight">
               {this.state.showSO ? <ReservationListOptions /> : <ReservationListing items={this.state.rliFilt}/>}
             </div>

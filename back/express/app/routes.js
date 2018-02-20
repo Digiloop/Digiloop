@@ -93,18 +93,15 @@ connection.beginTransaction(function(err){
 		connection.rollback(function() {
 			throw err;
 		});
-			//newItem.id = rows.insertId;
-			//console.log(rows.affectedRows + " record(s) updated");
-		});
+	}});
 		connection.query(insertQuery2,[newItem.latitude, newItem.longitude, newItem.status2],function(err, rows) {
 	//console.log(rows.affectedRows + " record(s) updated");
 	if (err) {
 	      connection.rollback(function() {
 	        throw err;
 	      });
+			}});
 
-
-			});
 			connection.commit(function(err){
 				if (err) {
 					connection.rollback(function(){
@@ -113,10 +110,10 @@ connection.beginTransaction(function(err){
 				}
 			});
 res.end();
+
 });
 });
-});
-});
+
 
 
 /*

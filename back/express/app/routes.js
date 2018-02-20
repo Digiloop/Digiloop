@@ -66,7 +66,7 @@ console.log(req.body.Status," ",req.body.subIdStatus)
 });
 
 //itemi lisäys
-
+/*
 app.post('/itemADD', function(req, res) {
 	var newItem = {
 			category: req.body.category.toString(),
@@ -113,7 +113,55 @@ res.end();
 
 });
 });
+*/
 
+app.post('/itemADD', function(req, res) {
+	var newItem = {
+			category: req.body.category.toString(),
+			subCat: req.body.subCat.toString(),  // use the generateHash function in our user model
+			weight: req.body.weight,
+			size: req.body.size,
+			description: req.body.description.toString(),
+			picture: req.body.picture.toString(),
+			pcs: req.body.pcs,
+			pickupaddr: req.body.pickupaddr.toString(),
+			junkdate: req.body.junkdate,
+			junkdateadded: req.body.junkdateadded,
+			status: req.body.status,
+			latitude: req.body.latitude,
+			longitude: req.body.longitude,
+			status2: req.body.status2
+	};
+	var insertQuery = "INSERT INTO junk ( category, subCat, weight, size, description, picture, pcs, pickupaddr, junkdate, junkdateadded, status ) values (?,?,?,?,?,?,?,?,?,?,?)";
+	var insertQuery2 = "INSERT INTO Coordinates ( latitude, longitude, status) values (?, ?, ?)";
+connection.beginTransaction(function(err) {
+  if (err) { throw err; }
+  connection.query(insertQuery,[newItem.category, newItem.subCat, newItem.weight, newItem.size, newItem.description, newItem.picture, newItem.pcs, newItem.pickupaddr, newItem.junkdate, newItem.junkdateadded, newItem.status], function(err, result) {
+    if (err) {
+      connection.rollback(function() {
+        throw err;
+      });
+    }
+
+    connection.query(insertQuery2,[newItem.latitude, newItem.longitude, newItem.status2], function(err, result) {
+      if (err) {
+        connection.rollback(function() {
+          throw err;
+        });
+      }
+      connection.commit(function(err) {
+        if (err) {
+          connection.rollback(function() {
+            throw err;
+          });
+        }
+        console.log('success!');
+      });
+    });
+  });
+});
+res.end();
+});
 
 
 /*

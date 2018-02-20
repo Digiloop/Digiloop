@@ -89,17 +89,19 @@ app.post('/itemADD', function(req, res) {
 connection.beginTransaction(function(err){
 	if (err) throw err;
 	connection.query(insertQuery,[newItem.category, newItem.subCat, newItem.weight, newItem.size, newItem.description, newItem.picture, newItem.pcs, newItem.pickupaddr, newItem.junkdate, newItem.junkdateadded, newItem.status],function(err, rows) {
-			if (err) {
-				throw err;
-			}
+		if (err) {
+		connection.rollback(function() {
+			throw err;
+		});
 			//newItem.id = rows.insertId;
 			//console.log(rows.affectedRows + " record(s) updated");
 		});
 		connection.query(insertQuery2,[newItem.latitude, newItem.longitude, newItem.status2],function(err, rows) {
 	//console.log(rows.affectedRows + " record(s) updated");
-			if (err) {
-				throw err;
-			}
+	if (err) {
+	      connection.rollback(function() {
+	        throw err;
+	      });
 
 
 			});

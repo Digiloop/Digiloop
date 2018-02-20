@@ -8,6 +8,9 @@ import IconButton from 'material-ui/IconButton';
 import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';
 import History from './History.js'
+import Checkbox from 'material-ui/Checkbox';
+
+import { getJunkCatData } from '../../../../utils/fetchcategories';
 
 class Order extends Component {
 constructor(props){
@@ -15,6 +18,8 @@ constructor(props){
   this.state = {value: ''};
   this.handleChange = this.handleChange.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this);
+  this.onChange = this.onChange.bind(this);
+
  }
 
 handleChange = (event, index, value) => this.setState({value});
@@ -24,16 +29,51 @@ handleSubmit(event) {
   alert('Jätteen tyyppi: ' + this.state.value);
 }
 
+
+handleChange(e) {
+  this.setState({check: e.target.value})
+}
+
+// fetch junk data
+getJunksData() {
+ getJunkCatData().then((junks) => {
+   console.log(junks);
+//   this.props.itemsToStore(junks.category);
+
+  // this.setState({ junks });
+
+
+ });
+
+ //console.log(typeof junks);
+}
+
+// the filter function, that leaves only the necessary stuff to be displayed
+
+componentDidMount(){
+ this.getJunksData(); // fetch data from backend
+ // TODO somehow wait for datafetch before attempting filtering
+
+}
+
+onChange(e) {
+  this.setState({ value: e.target.value });
+}
+
+updateCheck() {
+  this.setState((oldState) => {
+    return {
+      checked: !oldState.checked,
+    };
+  });
+}
+
 render() {
 
 
-
-  let s1 = {width: 150, backgroundColor: '#FFFFFF', borderRadius: 4,
+const dropmenu = {width: 150, backgroundColor: '#FFFFFF', borderRadius: 4,
     borderWidth: 0.5,
-    borderColor: '#d6d7da'};  //tekstikenttien leveys
-  let s2 = {backgroundColor: '#FFFFFF'}; //appbar tausta
-  let s3 = {color: '#004225'}; //dropdownmenu otsikot
-  let s4 = {color: '#004225'}; //^^
+    borderColor: '#d6d7da'};  // dropdownmenu leveys väri yms
 
 
 
@@ -45,54 +85,41 @@ render() {
         <div>
         <table name="tilaus">
         <tbody>
-<tr>
-<td>Jätteen tyyppi*</td>
-<td>
-        <DropDownMenu style={s1} value={this.state.value} onChange={this.handleChange}>
-          <p style={s3}>SER-jäte</p>
-          <MenuItem style={s4} name="Lamppu" value={"Lamppu"} primaryText="Lamppu" />
-          <MenuItem style={s4} name="Akku" value={"Akku"} primaryText="Akku" />
-          <MenuItem style={s4} name="MuuSER" value={"Muu SER"} primaryText="Muu" />
-          <p style={s3}>Muu</p>
-          <MenuItem style={s4} name="Kupari" value={"Kupari"} primaryText="Kupari" />
-          <MenuItem style={s4} name="Alumiini" value={"Alumiini"} primaryText="Alumiini" />
-          <MenuItem style={s4} name="Muu" value={"Muu"} primaryText="Muu" />
-        </DropDownMenu>
-        </td>
+
+
+        <tr>
+          <td>Hakuosoite*</td>
+          <td><TextField name="address"  style={dropmenu}/></td>
         </tr>
         <tr>
-          <td>Kappalemäärä*</td>
-          <td><TextField name="pcs" value={this.state.pcs} style={s1}/></td>
+          <td>Postinumero*</td>
+          <td><TextField name="zipcode" style={dropmenu}/></td>
         </tr>
         <tr>
-          <td>Nouto-osoite*</td>
-          <td><TextField name="address" style={s1}/></td>
+          <td>Postitoimipaikka*</td>
+          <td><TextField name="city" style={dropmenu}/></td>
         </tr>
         <tr>
-          <td>Kuvaus*</td>
-          <td><TextField name="description" rows={3} rowsMax={7} style={s1}/></td>
-        </tr>
-        <tr>
-          <td>Mitat*</td>
-          <td><TextField hintText="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m³" name="measurements"  style={s1}/></td>
-        </tr>
-          <tr>
-          <td>Paino</td>
-          <td><TextField hintText="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kg" name="weight" style={s1}/></td>
-        </tr>
-        <tr>
-          <td>Kuva</td>
-          <td>
-          <RaisedButton
-          containerElement='label' // <-- Just add me!
-          label='Valitse kuva'>
-          <input type="file" style={{ display: 'none' }} />
-          </RaisedButton>
-        </td>
+          <td>Puhelinnumero</td>
+          <td><TextField name="phone"  style={dropmenu}/></td>
         </tr>
         </tbody>
         </table>
 
+        <Checkbox
+          label="Hyväksyn käyttöehdot ja vakuutan tiedot oikeiksi"
+          checked={this.state.checked}
+          onCheck={this.updateCheck.bind(this)}
+        />
+
+          <TextField
+  disabled={true}
+  defaultValue="Luovutan omaisuuteni tikituuballe ja menetän sieluni saatanalle.
+  Käyttöehtoja voidaan muokata mielivaltaisesti hyväksymisen jälkeen."
+  multiLine={true}
+  rows={4}
+  rowsMax={4}
+/>
 <table id="buttons">
 <tbody>
 <td>
@@ -102,7 +129,7 @@ render() {
 
 </td>
 <td id="next">
-        <IconButton type="Submit" value="Submit" tooltip="Seuraava">
+        <IconButton type="Submit" value="Submit" disabled={!this.state.checked} tooltip="Seuraava">
           <Forward />
         </IconButton>
 </td>

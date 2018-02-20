@@ -7,10 +7,10 @@ export const login = ( username='Seppo Dangerous', password='DangerIsMyMiddleNam
     payload: {username, password}
   })
 
-export const setResOpt = (ser=false, batteries=false, showRes=false, weight=0) => 
+export const setResOpt = (options) => 
   ({
     type: C.SET_RESOPT,
-    payload: {ser, batteries, showRes, weight}
+    payload: options
   })
 
   

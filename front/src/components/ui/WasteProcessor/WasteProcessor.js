@@ -50,18 +50,32 @@ constructor(props){
   rliFiltering() {
     let resListItemsFiltered = [];
     let j = 0;
-
-    // TODO add filtering
-    //console.log(this.props);
-    //console.log(this.props.resListItems);
     console.log(this.props.resListItems);
-    console.log(this.props.resListItems.length);
-
+    console.log(this.props.rLOpt);
+    const p = this.props;
+    let pass = true;
 
     for(let i = 0; i < this.props.resListItems.length; i++){
+      
+      pass = true;
 
-      resListItemsFiltered[j] = this.props.resListItems[i];
-      j++;
+      if ( p.rLOpt.ser == true && p.resListItems.category != "SER"){
+        pass = false;
+      }
+
+
+
+      if(pass)
+      {
+        resListItemsFiltered[j] = this.props.resListItems[i];
+        j++;
+      }
+      
+
+      /*
+        resListItemsFiltered[j] = this.props.resListItems[i];
+        j++;
+        */
     }
 
     // set the filtered array in state, from which it's sent as props to children

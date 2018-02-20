@@ -39,7 +39,7 @@ class App extends Component {
     handleChange = (value) => {
         this.setState({
           loggedIn: !this.state.loggedIn,
-          value: Front,
+          value: Login,
         });
         console.log(this.state.value);
       };
@@ -52,7 +52,7 @@ class App extends Component {
       >
         <RaisedButton onClick={this.handleChange} label="Map" value="Map" />
         {/* <RaisedButton onClick={this.handleClick} label="Käsittelijä" /> */}
-        {/* console.log(this.state.value) */}
+        {console.log(this.state.value)}
          {this.state.loggedIn ? <WasteProcessor /> : <this.state.value />}
       </div>
       </MuiThemeProvider>

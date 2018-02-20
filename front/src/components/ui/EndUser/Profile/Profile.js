@@ -25,9 +25,7 @@ handleChange = (event, value) => this.setState({value})
 render() {
     return (
       <div>
-        {this.state.isHidden ? <Order /> : <RaisedButton label="Uusi Tilaus" onClick={this.handleChange} value={Order} />}
-
-        {this.state.value ? <History /> : <Order />}
+        <History />
       </div>
     );
   }

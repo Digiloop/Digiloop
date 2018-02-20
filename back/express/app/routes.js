@@ -107,7 +107,7 @@ module.exports = function(app, passport, users) {
                                 throw err;
                             });
                         }
-                        console.log('success!');
+                        console.log('Item added success!');
                     });
                 });
             });
@@ -115,6 +115,7 @@ module.exports = function(app, passport, users) {
         res.end();
     });
 
+// Esimerkki userlvl tarkastuksesta routessa, ei käytössä
     app.get('/items2', isLoggedIn, function(req, res) {
       if (req.user.userlvl <= 1){
         connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
@@ -172,7 +173,7 @@ module.exports = function(app, passport, users) {
 
         }),
         function(req, res) {
-            console.log("hello");
+            console.log(req.user.username + " logged in.");
 
             if (req.body.remember) {
                 req.session.cookie.maxAge = 1000 * 60 * 30;

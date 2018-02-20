@@ -115,6 +115,21 @@ module.exports = function(app, passport, users) {
         res.end();
     });
 
+    app.get('/items2', isLoggedIn, function(req, res) {
+      if (req.user.userlvl <= 1){
+        connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
+            function(err, result) {
+                if (err) throw err;
+                res.json({
+                    category: result
+                });
+            });
+        }
+          else{
+            console.log("FAIIIIL");
+            res.end();
+          }
+    });
 
     /*
     app.post('/submit',function(req, res, next) {

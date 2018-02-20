@@ -3,23 +3,30 @@ import IconButton from 'material-ui/IconButton';
 import Divider from 'material-ui/Divider';
 import styles from '../../../../index.css';
 import Profile from '../Profile/Profile.js';
+import Order from '../Profile/Order.js';
+import Notification from '../Profile/Notification.js';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class FrontPage extends Component {
 constructor(props){
   super(props);
   this.state = {
+    value: Notification
   }
+  this.handleChange = this.handleChange.bind(this);
  }
+
+handleChange = (event, value) => this.setState({value})
+
+
 
 render() {
     return (
-        <div className="news">
-          <h1>Ilmoitukset</h1>
-          <div className="newsbox">
-            <p>Lava tulloo, ootteko valmiita</p>            
-            <Divider style={{backgroundColor: '#004225'}}/>
-          </div>
-        </div>
+      <div>
+      <RaisedButton label="Uusi Tilaus" onClick={this.handleChange}  />
+      {this.state.value ? <Notification /> : <Order />}
+      </div>
+
     );
   }
 }

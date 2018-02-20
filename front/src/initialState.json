@@ -12,8 +12,8 @@
 			"weight": 4.2,
 			"date": "27-10-2017",
 			"status": 1,
-			"lat": 60.986358,
-			"long": 25.644209
+			"latitude": 60.986358,
+			"longitude": 25.644209
 			},
 			{
 			"cat": "SER",
@@ -22,12 +22,23 @@
 			"size": 0.59,
 			"weight": 4.2,
 			"date": "27-10-2017",
-			"status": 2,
-			"lat": 60.870298,
-			"long": 26.701820
-			}
+			"status": 4,
+			"latitude": 60.870298,
+			"longitude": 26.701820
+		},
+		{
+		"cat": "AKKU",
+		"subCat": "Data",
+		"amount": 12,
+		"size": 0.59,
+		"weight": 4.2,
+		"date": "27-10-2017",
+		"status": 2,
+		"latitude": 63.986358,
+		"longitude": 27.644209
+		}
 	],
-	
+
 	"resListOpt":
 		{
 			"showRes": false,

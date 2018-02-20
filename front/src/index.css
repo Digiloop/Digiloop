@@ -71,29 +71,29 @@ body {
 }
 
 .loginWrapper {
-  background-position: center;
   width: 100%;
   height: 100%; 
   align-content: center;
+  position: fixed;
+  background: transparent;
 }
 
 .loginContent {
-  background: url("components/ui/EndUser/Materials/käsitausta.png") no-repeat center center fixed;
-  color: #004225;
+  background: url("components/ui/EndUser/Materials/käsitausta.png") no-repeat fixed;
+  background-position: top 102px center;
   background-size: contain;
-  /*-webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;*/
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
   color: #004225;
   font-size: 16px;
   padding: 10% 10% 10% 10%;
- width: 50%;
+  width: 50%;
   height:100%;
   max-width: 900px;   
   min-height:700px;  
   align-content: center;
-  position: relative;
+  position: fixed;
   /*padding: 30% 10% 10% 40%;
   background: transparent; */      
   }  
@@ -104,21 +104,15 @@ body {
     text-align: center;
     font-weight: bold;
     font-size: 20px;
-  }
-  
-  .loginLabel
-  {
-    font-family: kanit;
-    font-size: 16px;
     width: 100%;
     padding-left: 5%;
   }
 
   .loginGroup {
     line-height: 1.5;
-    margin: 5% 5% 5% 5%;
-    align-content: center;
-    padding-left: 50%;
+    align-content: left;
+    padding-left: 55%;
+    padding-top: 5%;
   }
   
 .login-group button{
@@ -134,7 +128,7 @@ body {
   font-size: 16px;
   text-align: left;
   padding-left: 60%;
-  padding-top: 10%;
+  padding-top: 5%;
 }
 
 a:link {
@@ -167,10 +161,6 @@ button.menu {
 .map {
   font-family: 'Kanit';
   color: red;
-  fontSize: 48px;
-  paddingTop: 16px;
-  marginBottom: 12px;
-  fontWeight: 400;
 }
 
 .left {
@@ -324,7 +314,7 @@ h1.historytitle {
 
 .frontpake {
   position: relative;
-  color: #004225;
+  color: #FFFFFF;
   font-weight: bold;
   font-family: kanit;
   margin: auto;
@@ -341,7 +331,7 @@ h1.historytitle {
 
 h1 {
   text-align: center;
-  color: #004225;
+  color: #FFFFFF;
   font-family: kanit;
 }
 

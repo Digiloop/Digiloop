@@ -53,7 +53,6 @@ render() {
              onChange = {(event,newValue) => this.setState({username:newValue})}
              />
              </div>
-           <br/> 
 
            <div className="loginGroup">
            <p className="loginLabel">Salasana</p>
@@ -73,11 +72,11 @@ render() {
              value="App" />
              </div>
              
-             <br/>
+             
              <div className="login-links">
-              <a href="#">Salasana?</a><br /><br />
-              <a href="#">Yrityskäyttäjä</a><br /><br />
-              <a href="#">Rekisteröidy</a><br /><br />
+              <a href="#">Salasana?</a><br />
+              <a href="#">Yrityskäyttäjä</a><br />
+              <a href="#">Rekisteröidy</a><br />
              </div>
              </div>
       </div>

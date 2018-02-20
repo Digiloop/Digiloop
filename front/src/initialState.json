@@ -22,12 +22,12 @@
 			"size": 0.59,
 			"weight": 4.2,
 			"date": "27-10-2017",
-			"status": 2,
+			"status": 4,
 			"lat": 60.870298,
 			"long": 26.701820
 			}
 	],
-	
+
 	"resListOpt":
 		{
 			"showRes": false,

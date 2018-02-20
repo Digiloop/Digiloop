@@ -11,7 +11,7 @@ const consoleTest = store => next => action => {
   let result
 
   console.groupCollapsed(`dispatching action => ${action.type}`)
-  console.log('ResListOpts:', store.getState().resList)
+  console.log('ResListOpts:', store.getState().resListOpt)
 
   result = next(action)
   console.groupEnd()

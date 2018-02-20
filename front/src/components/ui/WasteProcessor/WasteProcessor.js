@@ -6,6 +6,8 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import Gmap from './Map/Gmap.js'
 import ReservationListing from './ReservationListing'
 import ReservationListOptions from '../../containers/WasteProcessor/ReservationListOptions'
+import HistoryListing from './HistoryListing'
+import ReservedListing from './ReservedListing'
 
 // fetch function
 import { getJunkData } from '../../../utils/fetchdata-api';
@@ -38,33 +40,42 @@ constructor(props){
     getJunkData().then((junks) => {
       console.log(junks);
       this.props.itemsToStore(junks.category);
-
-      //this.setState({ junks });
-
-
+      this.rliFiltering();
     });
-
-    //console.log(typeof junks);
   }
 
 
-  
+
    // the filter function, that leaves only the necessary stuff to be displayed
   rliFiltering() {
     let resListItemsFiltered = [];
     let j = 0;
-
-    // TODO add filtering
-    //console.log(this.props);
-    //console.log(this.props.resListItems);
     console.log(this.props.resListItems);
-    console.log(this.props.resListItems.length);
+    console.log(this.props.rLOpt);
+    const p = this.props;
+    let pass = true;
 
-    
     for(let i = 0; i < this.props.resListItems.length; i++){
+      
+      pass = true;
 
-      resListItemsFiltered[j] = this.props.resListItems[i];
-      j++;
+      if ( p.rLOpt.ser == true && p.resListItems.category != "SER"){
+        pass = false;
+      }
+
+
+
+      if(pass)
+      {
+        resListItemsFiltered[j] = this.props.resListItems[i];
+        j++;
+      }
+      
+
+      /*
+        resListItemsFiltered[j] = this.props.resListItems[i];
+        j++;
+        */
     }
 
     // set the filtered array in state, from which it's sent as props to children
@@ -74,17 +85,17 @@ constructor(props){
   }
 
   componentDidMount(){
-    this.getJunksData(); // fetch data from backend
+    this.getJunksData();
+      //
+      // fetch data from backend
     // TODO somehow wait for datafetch before attempting filtering
-    this.rliFiltering(); // filter data
+     // filter data
   }
 
 showSearchOptions = () => {
   // TODO instead of updating when returning from options page,
   // update when options are saved.
   this.rliFiltering();
-  //console.log(this.state);
-  //console.log(this.state.rliFilt);
 
   this.setState({
     showSO: !this.state.showSO,
@@ -110,10 +121,11 @@ render() {
           <p>
             Tähän tulee tiedot käsitellyistä jätteistä.
           </p>
+          <HistoryListing items={this.state.rliFilt}/>
 
-          
-        
-        
+
+
+
           {/*<p>{this.state.value} </p>*/}
         </div>
       </Tab>
@@ -123,6 +135,7 @@ render() {
           <p>
             Tässä näkyy varatut jätteet
           </p>
+          <ReservedListing items={this.state.rliFilt}/>
         </div>
       </Tab>
       <Tab className="menu" label="Admin" value="c">
@@ -144,7 +157,7 @@ render() {
           <div className="right">
             <h2>Varausluettelo<RaisedButton label="Hakuehdot" onClick={this.showSearchOptions}
             style={{float: 'right', backgroundColor: '#004225'}} /></h2>
-            
+
             <div className="subRight">
               {this.state.showSO ? <ReservationListOptions /> : <ReservationListing items={this.state.rliFilt}/>}
             </div>

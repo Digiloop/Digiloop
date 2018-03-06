@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import styles from '../../../ArtunCSSsaadot.css';
 
 //let _ser, _batteries, _showRes
 
@@ -34,16 +35,57 @@ render() {
       <MuiThemeProvider>
         <form onSubmit={this.submit} className="ResListOptForm">
 
-          SER <input id="ser" ref={input => this.state._ser = input} type="checkbox" /><br/>
-          Akut <input id="akut" ref={input => this.state._batteries = input} type="checkbox" /><br/>
-          <br />
-          Paino: <input id="weight" ref={input => this.state._weight = input} type="textbox" /> kg
-          <br/>
+        <div id="ResListOptionsPohjadiv">
+          <div id="ResListOptionsColorDiv">
+            <table>
+              <tr>
+                <td>Paino (kg)</td>
+                <td id="weightField"><input id="weight" ref={input => this.state._weight = input} type="textbox" maxlength="6"/> - <input id="weight" ref={input => this.state._weight = input} type="textbox" maxlength="6"/></td>
+              </tr>
+              <tr>
+                <td>Koko (m<sup>3</sup>)</td>
+                <td id="sizeField"><input id="size" ref={input => this.state._weight = input} type="textbox" maxlength="6" /> - <input id="size" ref={input => this.state._weight = input} type="textbox" maxlength="6"/></td>
+              </tr>
+              <tr>
+                <td>Etäisyys (km)</td>
+                <td id="distanceField"><input id="distance" ref={input => this.state._weight = input} type="textbox" maxlength="6"/></td>
+              </tr>
+              <tr>
+                <td> &nbsp; </td>
+              </tr>
+            </table>
 
-          <br />
-          Näytä varatut <input id="sRes" ref={input => this.state._showRes = input} type="checkbox" /><br/>
-          <br />
-          <input type="submit"></input>
+            <table>
+              <tr>
+                <td class="type">Ser</td>
+                <td><input id="ser" ref={input => this.state._ser = input} type="checkbox" /></td>
+                <td class="type"> </td>
+                <td class="type">Iso SER</td>
+                <td><input id="ser" ref={input => this.state._ser = input} type="checkbox" /></td>
+              </tr>
+              <tr>
+                <td class="type">Akut</td>
+                <td><input id="akut" ref={input => this.state._batteries = input} type="checkbox" /></td>
+                <td class="type"> </td>
+                <td class="type">Tietoturva</td>
+                <td><input id="akut" ref={input => this.state._batteries = input} type="checkbox" /></td>
+              </tr>
+              <tr>
+                <td> &nbsp; </td>
+              </tr>
+            </table>
+
+            <table>
+            <tr>
+              <td>Näytä varatut</td>
+              <td><input id="sRes" ref={input => this.state._showRes = input} type="checkbox" /></td>
+            </tr>
+            </table>
+            
+            <input type="submit" id="submitButt"></input>
+
+          </div>
+        </div>
         </form>
       </MuiThemeProvider>
     );

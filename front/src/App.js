@@ -20,7 +20,7 @@ class App extends Component {
     super(props);
     this.state = {
       loggedIn: true,
-      value: 'Order',
+      value: 'Front',
     }
 
     this.handleClick = this.handleClick.bind(this)

@@ -41,9 +41,9 @@
 
 	"resListOpt":
 		{
-			"showRes": false,
-			"ser": false,
-			"batteries": false,
+			"showRes": true,
+			"ser": true,
+			"batteries": true,
 			"weight": 0
 		}
 }

@@ -56,10 +56,10 @@ constructor(props){
     let pass = true;
 
     for(let i = 0; i < this.props.resListItems.length; i++){
-      
+
       pass = true;
 
-      if ( p.rLOpt.ser == true && p.resListItems.category != "SER"){
+      if ( p.rLOpt.ser == false && p.resListItems[i].category == "SER"){
         pass = false;
       }
 
@@ -70,7 +70,7 @@ constructor(props){
         resListItemsFiltered[j] = this.props.resListItems[i];
         j++;
       }
-      
+
 
       /*
         resListItemsFiltered[j] = this.props.resListItems[i];
@@ -118,9 +118,6 @@ render() {
       <Tab className="menu" label="Historia" value="a">
         <div  className="map">
           <h2>Käsitellyt jätteet</h2>
-          <p>
-            Tähän tulee tiedot käsitellyistä jätteistä.
-          </p>
           <HistoryListing items={this.state.rliFilt}/>
 
 
@@ -132,9 +129,6 @@ render() {
       <Tab className="menu" label="Varaukset" value="b">
         <div className="map">
           <h2>Varatut jätteet</h2>
-          <p>
-            Tässä näkyy varatut jätteet
-          </p>
           <ReservedListing items={this.state.rliFilt}/>
         </div>
       </Tab>

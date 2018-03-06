@@ -31,7 +31,7 @@ module.exports = function(app, passport, users) {
     });
 
     app.get('/items', function(req, res) {
-        connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
+        connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID WHERE Status >= 1',
             function(err, result) {
                 if (err) throw err;
                 res.json({
@@ -80,7 +80,7 @@ module.exports = function(app, passport, users) {
             status: req.body.status,
             latitude: req.body.latitude,
             longitude: req.body.longitude,
-            status2: req.body.status2
+            CoordStatus: req.body.CoordStatus
         };
         var insertQuery = "INSERT INTO junk ( category, subCat, weight, size, description, picture, pcs, pickupaddr, junkdate, junkdateadded, status ) values (?,?,?,?,?,?,?,?,?,?,?)";
         var insertQuery2 = "INSERT INTO Coordinates ( latitude, longitude, status) values (?, ?, ?)";
@@ -95,7 +95,7 @@ module.exports = function(app, passport, users) {
                     });
                 }
 
-                connection.query(insertQuery2, [newItem.latitude, newItem.longitude, newItem.status2], function(err, result) {
+                connection.query(insertQuery2, [newItem.latitude, newItem.longitude, newItem.CoordStatus], function(err, result) {
                     if (err) {
                         connection.rollback(function() {
                             throw err;

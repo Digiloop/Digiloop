@@ -20,7 +20,7 @@ class App extends Component {
     super(props);
     this.state = {
       loggedIn: true,
-      value: 'Order',
+      value: 'Front',
     }
 
     this.handleClick = this.handleClick.bind(this)
@@ -39,7 +39,7 @@ class App extends Component {
     handleChange = (value) => {
         this.setState({
           loggedIn: !this.state.loggedIn,
-          value: Login,
+          value: Front,
         });
         console.log(this.state.value);
       };

@@ -51,48 +51,54 @@ render() {
         <div id="ResListOptionsPohjadiv">
           <div id="ResListOptionsColorDiv">
             <table>
-              <tr>
-                <td>Paino (kg)</td>
-                <td id="weightField"><input id="weight" ref={input => this.state._minWeight = input} type="textbox" maxlength="6"/> - <input id="weight" ref={input => this.state._maxWeight = input} type="textbox" maxlength="6"/></td>
-              </tr>
-              <tr>
-                <td>Koko (m<sup>3</sup>)</td>
-                <td id="sizeField"><input id="size" ref={input => this.state._minSize = input} type="textbox" maxlength="6" /> - <input id="size" ref={input => this.state._maxSize = input} type="textbox" maxlength="6"/></td>
-              </tr>
-              <tr>
-                <td>Etäisyys (km)</td>
-                <td id="distanceField"><input id="distance" ref={input => this.state._distance = input} type="textbox" maxlength="6"/></td>
-              </tr>
-              <tr>
-                <td> &nbsp; </td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td>Paino (kg)</td>
+                  <td id="weightField"><input id="weight" ref={input => this.state._minWeight = input} type="textbox" maxLength="6"/> - <input id="weight" ref={input => this.state._maxWeight = input} type="textbox" maxLength="6"/></td>
+                </tr>
+                <tr>
+                  <td>Koko (m<sup>3</sup>)</td>
+                  <td id="sizeField"><input id="size" ref={input => this.state._minSize = input} type="textbox" maxLength="6" /> - <input id="size" ref={input => this.state._maxSize = input} type="textbox" maxLength="6"/></td>
+                </tr>
+                <tr>
+                  <td>Etäisyys (km)</td>
+                  <td id="distanceField"><input id="distance" ref={input => this.state._distance = input} type="textbox" maxLength="6"/></td>
+                </tr>
+                <tr>
+                  <td> &nbsp; </td>
+                </tr>
+              </tbody>
             </table>
 
             <table>
-              <tr>
-                <td class="type">Ser</td>
-                <td><input id="ser" ref={input => this.state._ser = input} type="checkbox" /></td>
-                <td class="type"> </td>
-                <td class="type">Iso SER</td>
-                <td><input id="ser" ref={input => this.state._ser = input} type="checkbox" /></td>
-              </tr>
-              <tr>
-                <td class="type">Akut</td>
-                <td><input id="akut" ref={input => this.state._batteries = input} type="checkbox" /></td>
-                <td class="type"> </td>
-                <td class="type">Tietoturva</td>
-                <td><input id="akut" ref={input => this.state._batteries = input} type="checkbox" /></td>
-              </tr>
-              <tr>
-                <td> &nbsp; </td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td className="type">Ser</td>
+                  <td><input id="ser" ref={input => this.state._ser = input} type="checkbox" /></td>
+                  <td className="type"> </td>
+                  <td className="type">Iso SER</td>
+                  <td><input id="ser" ref={input => this.state._ser = input} type="checkbox" /></td>
+                </tr>
+                <tr>
+                  <td className="type">Akut</td>
+                  <td><input id="akut" ref={input => this.state._batteries = input} type="checkbox" /></td>
+                  <td className="type"> </td>
+                  <td className="type">Tietoturva</td>
+                  <td><input id="akut" ref={input => this.state._batteries = input} type="checkbox" /></td>
+                </tr>
+                <tr>
+                  <td> &nbsp; </td>
+                </tr>
+              </tbody>
             </table>
 
             <table>
-            <tr>
-              <td>Näytä varatut</td>
-              <td><input id="sRes" ref={input => this.state._showRes = input} type="checkbox" /></td>
-            </tr>
+              <tbody>
+                <tr>
+                  <td>Näytä varatut</td>
+                  <td><input id="sRes" ref={input => this.state._showRes = input} type="checkbox" /></td>
+                </tr>
+              </tbody>
             </table>
             
             <input type="submit" id="submitButt"></input>

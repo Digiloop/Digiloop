@@ -10,7 +10,7 @@ constructor(props){
     _ser: false,
     _batteries: false,
     _showRes: false,
-    _weight: 0
+    _minWeight: 0
   }
  }
 
@@ -22,7 +22,7 @@ constructor(props){
      ser: this.state._ser.checked,
      batteries: this.state._batteries.checked,
      showRes: this.state._showRes.checked,
-     weight: this.state._weight.value
+     minwWeight: this.state._minWeight.value
    })
 }
 

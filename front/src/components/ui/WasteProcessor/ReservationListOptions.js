@@ -11,7 +11,11 @@ constructor(props){
     _ser: false,
     _batteries: false,
     _showRes: false,
-    _weight: 0
+    _minWeight: 0,
+    _maxWeight: 0,
+    _minSize: 0,
+    _maxSize: 0,
+    _distance: 0
   }
  }
 
@@ -23,7 +27,7 @@ constructor(props){
      ser: this.state._ser.checked,
      batteries: this.state._batteries.checked,
      showRes: this.state._showRes.checked,
-     weight: this.state._weight.value
+     minwWeight: this.state._minWeight.value
    })
 }
 
@@ -40,15 +44,15 @@ render() {
             <table>
               <tr>
                 <td>Paino (kg)</td>
-                <td id="weightField"><input id="weight" ref={input => this.state._weight = input} type="textbox" maxlength="6"/> - <input id="weight" ref={input => this.state._weight = input} type="textbox" maxlength="6"/></td>
+                <td id="weightField"><input id="weight" ref={input => this.state._minWeight = input} type="textbox" maxlength="6"/> - <input id="weight" ref={input => this.state._maxWeight = input} type="textbox" maxlength="6"/></td>
               </tr>
               <tr>
                 <td>Koko (m<sup>3</sup>)</td>
-                <td id="sizeField"><input id="size" ref={input => this.state._weight = input} type="textbox" maxlength="6" /> - <input id="size" ref={input => this.state._weight = input} type="textbox" maxlength="6"/></td>
+                <td id="sizeField"><input id="size" ref={input => this.state._minSize = input} type="textbox" maxlength="6" /> - <input id="size" ref={input => this.state._maxSize = input} type="textbox" maxlength="6"/></td>
               </tr>
               <tr>
                 <td>Etäisyys (km)</td>
-                <td id="distanceField"><input id="distance" ref={input => this.state._weight = input} type="textbox" maxlength="6"/></td>
+                <td id="distanceField"><input id="distance" ref={input => this.state._distance = input} type="textbox" maxlength="6"/></td>
               </tr>
               <tr>
                 <td> &nbsp; </td>

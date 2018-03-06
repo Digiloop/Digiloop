@@ -17,7 +17,6 @@ import { getJunkData } from '../../../utils/fetchdata-api';
 // import AppBar from 'material-ui/AppBar';
 
 
-
 class WasteProcessor extends Component {
 constructor(props){
   super(props);
@@ -29,7 +28,7 @@ constructor(props){
   this.rliFiltering = this.rliFiltering.bind(this);
  }
 
- handleChange = (value) => {
+  handleChange = (value) => {
     this.setState({
        value: value,
     });
@@ -62,7 +61,12 @@ constructor(props){
       if ( p.rLOpt.ser == false && p.resListItems[i].category == "SER"){
         pass = false;
       }
-
+      if ( p.rLOpt.batteries == false && p.resListItems[i].category == "Akut"){
+        pass = false;
+      }
+      if ( p.rLOpt.ser == false && p.resListItems[i].category == "Tietoturva"){
+        pass = false;
+      }
 
 
       if(pass)

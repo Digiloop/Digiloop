@@ -8,9 +8,28 @@ class ReservationListOptions extends Component {
 constructor(props){
   super(props);
   this.state={
-    _ser: false,
-    _batteries: false,
-    _showRes: false,
+    // categories
+    _ser: true,
+    _batteries: true,
+    _infoSecurity: true,
+
+    // subcategories
+    _serSmallSer: true,
+    _serBigSer: true,
+    _serDataSer: true,
+    _serLampSer: true,
+
+    _battNickelKadium: true,
+    _battNickelMetal: true,
+    _battOther: true,
+
+    _infosecDataSer: true,
+    _infosecPaper: true,
+
+    // show reserved
+    _showRes: true,
+
+    // properties
     _minWeight: 0,
     _maxWeight: 0,
     _minSize: 0,
@@ -27,11 +46,25 @@ submit = e => {
     // categories
     ser: this.state._ser.checked,
     batteries: this.state._batteries.checked,
+    infoSecurity: this.state._infoSecurity.checked,
+
+    // subcats
+    serSmallSer: this.state._serSmallSer.checked,
+    serBigSer: this.state._serBigSer.checked,
+    serDataSer: this.state._serDataSer.checked,
+    serLampSer: this.state._serLampSer.checked,
+
+    battNickelKadium: this.state._battNickelKadium.checked,
+    battNickelMetal: this.state._battNickelMetal.checked,
+    battOther: this.state._battOther.checked,
+
+    infosecDataSer: this.state._infosecDataSer.checked,
+    infosecPapaer: this.state._infosecPaper.checked,
 
     // show reserved
     showRes: this.state._showRes.checked,
 
-    // size & distance
+    // properties
     minWeight: this.state._minWeight.value,
     maxWeight: this.state._maxWeight.value,
     minSize: this.state._minSize.value,
@@ -75,17 +108,44 @@ render() {
                 <tr>
                   <td className="type">Ser</td>
                   <td><input id="ser" ref={input => this.state._ser = input} type="checkbox" /></td>
-                  <td className="type"> </td>
-                  <td className="type">Iso SER</td>
-                  <td><input id="ser" ref={input => this.state._ser = input} type="checkbox" /></td>
-                </tr>
-                <tr>
+
                   <td className="type">Akut</td>
                   <td><input id="akut" ref={input => this.state._batteries = input} type="checkbox" /></td>
-                  <td className="type"> </td>
+
                   <td className="type">Tietoturva</td>
-                  <td><input id="akut" ref={input => this.state._batteries = input} type="checkbox" /></td>
+                  <td><input id="akut" ref={input => this.state._infoSecurity = input} type="checkbox" /></td>
                 </tr>
+
+                <tr>
+                  <td className="type">SER - Pieni SER</td>
+                  <td><input id="ser" ref={input => this.state._serSmallSer = input} type="checkbox" /></td>
+
+                  <td className="type">SER - Iso SER</td>
+                  <td><input id="ser" ref={input => this.state._serBigSer = input} type="checkbox" /></td>
+
+                  <td className="type">SER - Data SER</td>
+                  <td><input id="ser" ref={input => this.state._serDataSer = input} type="checkbox" /></td>
+
+                  <td className="type">SER - Lamppu SER</td>
+                  <td><input id="ser" ref={input => this.state._serLampSer = input} type="checkbox" /></td>
+
+                  <td className="type">Akut - Nikkelikadium</td>
+                  <td><input id="ser" ref={input => this.state._battNickelKadium = input} type="checkbox" /></td>
+
+                  <td className="type">Akut - Nikkelimetallihybridi</td>
+                  <td><input id="ser" ref={input => this.state._battNickelMetal = input} type="checkbox" /></td>
+
+                  <td className="type">Akut - Muut</td>
+                  <td><input id="ser" ref={input => this.state._battOther = input} type="checkbox" /></td>
+
+                  <td className="type">Tietoturva - Data SER</td>
+                  <td><input id="ser" ref={input => this.state._infosecDataSer = input} type="checkbox" /></td>
+
+                  <td className="type">Tietoturva - Paperi</td>
+                  <td><input id="ser" ref={input => this.state._infosecPaper = input} type="checkbox" /></td>
+
+                </tr>
+
                 <tr>
                   <td> &nbsp; </td>
                 </tr>

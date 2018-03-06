@@ -21,14 +21,23 @@ constructor(props){
 
 
 
- submit = e => {
-   e.preventDefault()
-   this.props.onNewOptions({
-     ser: this.state._ser.checked,
-     batteries: this.state._batteries.checked,
-     showRes: this.state._showRes.checked,
-     minwWeight: this.state._minWeight.value
-   })
+submit = e => {
+  e.preventDefault()
+  this.props.onNewOptions({
+    // categories
+    ser: this.state._ser.checked,
+    batteries: this.state._batteries.checked,
+
+    // show reserved
+    showRes: this.state._showRes.checked,
+
+    // size & distance
+    minWeight: this.state._minWeight.value,
+    maxWeight: this.state._maxWeight.value,
+    minSize: this.state._minSize.value,
+    maxSize: this.state._maxSize.value,
+    distance: this.state._distance.value,
+  })
 }
 
 render() {

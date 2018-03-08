@@ -42,8 +42,27 @@
 	"resListOpt":
 		{
 			"showRes": true,
+
 			"ser": true,
 			"batteries": true,
-			"weight": 0
+			"infoSecurity": true,
+
+			"serSmallSer": true,
+			"serBigSer": true,
+			"serDataSer": true,
+			"serLampSer": true,
+
+			"battNickelKadium": true,
+			"battNickelMetal": true,
+			"battOther": true,
+
+			"infosecDataSer": true,
+			"infosecPaper": true,
+
+			"minWeight": 0,
+			"maxWeight": 0,
+			"minSize": 0,
+			"maxSize": 0,
+			"distance": 0
 		}
 }

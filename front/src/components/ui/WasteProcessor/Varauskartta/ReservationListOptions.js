@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import styles from '../../../ArtunCSSsaadot.css';
+import styles from '../../../../ArtunCSSsaadot.css';
 
 //let _ser, _batteries, _showRes
 

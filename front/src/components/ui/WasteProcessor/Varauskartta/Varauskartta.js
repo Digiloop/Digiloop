@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-import styles from '../../../index.css';
-import {Tabs, Tab} from 'material-ui/Tabs';
-
-
-import HistoryListing from './HistoryListing'
-import ReservedListing from './ReservedListing'
-
+import styles from '../../../../index.css';
 
 import Gmap from './Map/Gmap.js'
 import ReservationListing from './ReservationListing'
-import ReservationListOptions from '../../containers/WasteProcessor/ReservationListOptions'
-import { getJunkData } from '../../../utils/fetchdata-api';
+import ReservationListOptions from '../../../containers/WasteProcessor/Varauskartta/ReservationListOptions'
+import { getJunkData } from '../../../../utils/fetchdata-api';
 // fetch function
 
 
@@ -156,36 +150,7 @@ render() {
 
     return (
       <MuiThemeProvider>
-      <Tabs className="map" inkBarStyle={{background: '#AFD43F', height: '3px'}}
-      value={this.state.value}
-      onChange={this.handleChange}
-    >
-      <Tab className="menu" label="Historia" value="a">
-        <div  className="map">
-          <h2>Käsitellyt jätteet</h2>
-          <HistoryListing items={this.state.rliFilt}/>
-
-
-
-
-          {/*<p>{this.state.value} </p>*/}
-        </div>
-      </Tab>
-      <Tab className="menu" label="Varaukset" value="b">
-        <div className="map">
-          <h2>Varatut jätteet</h2>
-          <ReservedListing items={this.state.rliFilt}/>
-        </div>
-      </Tab>
-      <Tab className="menu" label="Admin" value="c">
-        <div  className="map">
-          <h2>Admin-näkymä</h2>
-          <p>
-            Täällä voi muokata tietokannan rakennetta, esim. voi lisätä jätetyyppejä.
-          </p>
-        </div>
-      </Tab>
-      <Tab className="menu" label="Varauskartta" value="d">
+      
         <div className="map">
           <div className="left">
             <h2>Kartta</h2>
@@ -202,8 +167,6 @@ render() {
             </div>
           </div>
         </div>
-      </Tab>
-    </Tabs>
 
       </MuiThemeProvider>
     );

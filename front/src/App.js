@@ -10,6 +10,7 @@ import Front from './components/ui/EndUser/EndUserFront.js';
 import FrontPage from './components/ui/EndUser/FrontPage/FrontPage.js';
 import Profile from './components/ui/EndUser/Profile/Profile.js';
 // Author: Spagehetti Baker Bros & co.
+//Testikommentti
 
 
 
@@ -20,7 +21,7 @@ class App extends Component {
     super(props);
     this.state = {
       loggedIn: true,
-      value: 'Order',
+      value: 'Front',
     }
 
     this.handleClick = this.handleClick.bind(this)

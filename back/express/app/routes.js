@@ -181,7 +181,10 @@ module.exports = function(app, passport, users) {
                 req.session.cookie.expires = false;
             }
             //res.redirect('/');
-            res.end();
+            //res.end();
+			res.json({
+            user: 'Logged in.!'
+        });
         });
 
     // =====================================

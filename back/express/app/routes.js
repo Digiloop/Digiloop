@@ -183,7 +183,7 @@ module.exports = function(app, passport, users) {
             //res.redirect('/');
             //res.end();
 			res.json({
-            user: 'Logged in.'
+            user: 'Logged in.!'
         });
         });
 

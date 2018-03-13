@@ -3,7 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import './index.css';
 import Login from './components/containers/Login/Login.js';
-import AdminFront from './components/ui/WasteProcessor/Admin/AdminFront.js';
+import Admin from './components/ui/WasteProcessor/Admin/Admin.js';
 
 import WasteProcessor from './components/containers/WasteProcessor/WasteProcessor.js';
 

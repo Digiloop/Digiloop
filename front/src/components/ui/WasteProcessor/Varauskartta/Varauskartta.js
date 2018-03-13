@@ -150,7 +150,7 @@ render() {
 
     return (
       <MuiThemeProvider>
-      
+
         <div className="map">
           <div className="left">
             <h2>Kartta</h2>

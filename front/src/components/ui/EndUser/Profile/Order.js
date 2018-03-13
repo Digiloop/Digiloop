@@ -10,7 +10,7 @@ import Back from 'material-ui/svg-icons/navigation/arrow-back';
 import History from './History.js'
 import Checkbox from 'material-ui/Checkbox';
 
-import { getJunkCatData } from '../../../../utils/fetchcategories';
+import { getCats } from '../../../../utils/fetchcategories';
 
 class Order extends Component {
 constructor(props){
@@ -36,7 +36,7 @@ handleChange(e) {
 
 // fetch junk data
 getJunksData() {
- getJunkCatData().then((junks) => {
+ getCats().then((junks) => {
    console.log(junks);
 //   this.props.itemsToStore(junks.category);
 

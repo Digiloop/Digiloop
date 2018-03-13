@@ -10,8 +10,8 @@ import {
 } from 'material-ui/Table';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import { getJunkCatData } from '../../../../utils/fetchcategories';
-import { getSubCatData } from '../../../../utils/fetchcategories';
+import { getCats } from '../../../../utils/fetchcategories';
+import { getSubCats } from '../../../../utils/fetchcategories';
 
 class Admin extends Component {
 constructor(props){
@@ -26,16 +26,16 @@ constructor(props){
 
  // fetch junk data
 getCategories() {
-  getJunkCatData().then((categories) => {
-    console.log(categories);
+  getCats().then((categories) => {
+    // console.log(categories);
     this.setState({cats: (categories.category)});
     // this.props.catsToStore(categories.category);
   });
 }
 
 getSubCategories() {
-  getSubCatData().then((subCategories) => {
-    console.log(subCategories);
+  getSubCats().then((subCategories) => {
+    // console.log(subCategories);
     this.setState({subCats: (subCategories.category)});
     // this.props.catsToStore(categories.category);
   });
@@ -66,11 +66,12 @@ render() {
   console.log(this.state.cats);
   console.log(this.state.cats.length);
   console.log(this.state.subCats.length);
+  console.log(this.state.subCats);
 
   for(let i = 0; i < this.state.cats.length; i++){
     cats.push(
       <div value={this.state.cats[i].CatName} onClick={() =>
-        this.getCat(this.state.cats[i].CatName)} key={i} >
+        this.getCat(this.state.cats[i].CatId)} key={i} >
         <h3>{this.state.cats[i].CatName}</h3>
 
 
@@ -79,12 +80,22 @@ render() {
     )
   }
 
+  for(let j = 0; j < this.state.subCats.length; j++){
+    if(this.state.subCats[j].CatId === this.state.value){
+    subCats.push(
+       <p key={j} >
+        {this.state.subCats[j].subName}
+      </p>
+    )
+    }
+  }
+
     return (
       <MuiThemeProvider>
       <div>
         <div className='categories'>
           <h1>Nykyiset Kategoriat</h1>
-            {cats}
+            {cats} {subCats}
         </div>
         <div className='addCategory'>
           <p className='addCatLabel'>Lisää kategoria</p>

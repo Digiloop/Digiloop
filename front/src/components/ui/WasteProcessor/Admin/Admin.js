@@ -11,6 +11,7 @@ import {
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { getJunkCatData } from '../../../../utils/fetchcategories';
+import { getSubCatData } from '../../../../utils/fetchcategories';
 
 class Admin extends Component {
 constructor(props){
@@ -18,6 +19,7 @@ constructor(props){
   this.state={
     value: '',
     cats: [],
+    subCats: [],
     addCat: ''
   }
  }
@@ -31,6 +33,14 @@ getCategories() {
   });
 }
 
+getSubCategories() {
+  getSubCatData().then((subCategories) => {
+    console.log(subCategories);
+    this.setState({subCats: (subCategories.category)});
+    // this.props.catsToStore(categories.category);
+  });
+}
+
 getCat = (value) => {
   this.setState({
     value: value
@@ -38,12 +48,13 @@ getCat = (value) => {
   console.log(this.state.value);
 }
 
-addCategory(event) {
+addCategory() {
   console.log(this.state.addCat);
 }
 
 componentDidMount() {
   this.getCategories();
+  this.getSubCategories();
 }
 
 
@@ -51,21 +62,26 @@ componentDidMount() {
 render() {
 
   const cats = [];
+  const subCats = [];
   console.log(this.state.cats);
   console.log(this.state.cats.length);
+  console.log(this.state.subCats.length);
 
   for(let i = 0; i < this.state.cats.length; i++){
     cats.push(
-      <p value={this.state.cats[i].CatName} onClick={() =>
+      <div value={this.state.cats[i].CatName} onClick={() =>
         this.getCat(this.state.cats[i].CatName)} key={i} >
-        {this.state.cats[i].CatName}
+        <h3>{this.state.cats[i].CatName}</h3>
+
+
         {/*<RaisedButton label="Muokkaa" />*/}
-      </p>
+      </div>
     )
   }
 
     return (
       <MuiThemeProvider>
+      <div>
         <div className='categories'>
           <h1>Nykyiset Kategoriat</h1>
             {cats}
@@ -76,11 +92,12 @@ render() {
           underlineShow={false}
           style={{ backgroundColor: 'white', border: '2px solid #004225'}}
           hintText='Uusi kategoria'
-          /*onChange = {(event, newValue) => this.setState({addCat: newValue})}*/
+          onChange = {(event, newValue) => this.setState({addCat: newValue})}
         />
         <p>{this.state.addCat}</p>
         <RaisedButton label='Lisää' onClick={() => this.addCategory()} />
         </div>
+      </div>
       </MuiThemeProvider>
 
     );

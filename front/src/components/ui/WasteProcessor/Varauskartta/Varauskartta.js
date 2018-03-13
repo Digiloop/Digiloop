@@ -6,7 +6,9 @@ import styles from '../../../../index.css';
 import Gmap from './Map/Gmap.js'
 import ReservationListing from './ReservationListing'
 import ReservationListOptions from '../../../containers/WasteProcessor/Varauskartta/ReservationListOptions'
+
 import { getJunkData } from '../../../../utils/fetchdata-api';
+import { getJunkCatData, getSubCatData } from '../../../../utils/fetchcategories'; 
 // fetch function
 
 

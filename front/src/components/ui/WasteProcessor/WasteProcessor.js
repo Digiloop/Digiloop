@@ -5,8 +5,8 @@ import styles from '../../../index.css';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
 
-import HistoryListing from './HistoryListing'
-import ReservedListing from './ReservedListing'
+import HistoryListing from '../../containers/WasteProcessor/HistoryListing'
+import ReservedListing from '../../containers/WasteProcessor/ReservedListing'
 
 import Varauskartta from '../../containers/WasteProcessor/Varauskartta/Varauskartta'
 import Admin from '../../containers/WasteProcessor/Admin/Admin'
@@ -42,6 +42,7 @@ render() {
         <div  className="map">
           <h2>Käsitellyt jätteet</h2>
           <p>Historylisting poistettu tästä</p>
+          <HistoryListing />
           {/*<p>{this.state.value} </p>*/}
         </div>
       </Tab>
@@ -49,6 +50,7 @@ render() {
         <div className="map">
           <h2>Varatut jätteet</h2>
           <p>Reserved listing poistettu tästä</p>
+          <ReservedListing />
         </div>
       </Tab>
       <Tab className="menu" label="Admin" value="c">

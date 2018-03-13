@@ -9,13 +9,57 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
+import { getJunkData } from '../../../utils/fetchdata-api';
 
 class HistoryListing extends Component {
 constructor(props){
   super(props);
   this.state = {
+    itemList: []
   }
+  this.listHistory = this.listHistory.bind(this);
  }
+
+
+
+ // fetch junk data
+getJunksData() {
+  getJunkData().then((junks) => {
+    console.log(junks);
+    this.props.itemsToStore(junks.category);
+    this.listHistory();
+  });
+}
+
+
+listHistory(){
+  const items = [];
+  for(let i = 0; i < this.props.items.length; i++){
+    if(this.props.items[i].status == 4){
+    items.push(
+      <TableRow key={i} >
+        <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br/>Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
+        <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
+        <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
+        <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
+        <TableRowColumn>Tila { this.getStatus( this.props.items[i].status ) }</TableRowColumn>
+      </TableRow>
+    )
+  }
+  }
+
+  this.setState({
+    itemList: items
+  })
+}
+
+componentDidMount(){
+  this.getJunksData();
+    //
+    // fetch data from backend
+  // TODO somehow wait for datafetch before attempting filtering
+   // filter data
+}
 
 getStatus(status){
   switch(status){
@@ -48,26 +92,13 @@ getStatus(status){
 
 render() {
 
-  const items = [];
-  for(let i = 0; i < this.props.items.length; i++){
-    if(this.props.items[i].status == 4){
-    items.push(
-      <TableRow key={i} >
-        <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br/>Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
-        <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
-        <TableRowColumn>Tila { this.getStatus( this.props.items[i].status ) }</TableRowColumn>
-      </TableRow>
-    )
-  }
-  }
+
 
     return (
       <MuiThemeProvider>
         <Table>
           <TableBody displayRowCheckbox={false}>
-            {items}
+            {this.state.itemList}
           </TableBody>
         </Table>
       </MuiThemeProvider>

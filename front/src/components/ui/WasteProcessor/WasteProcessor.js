@@ -9,6 +9,7 @@ import HistoryListing from './HistoryListing'
 import ReservedListing from './ReservedListing'
 
 import Varauskartta from '../../containers/WasteProcessor/Varauskartta/Varauskartta'
+import Admin from '../../containers/WasteProcessor/Admin/Admin'
 
 
 
@@ -22,7 +23,7 @@ constructor(props){
 
   handleChange = (value) => {
     this.setState({
-       value: value,
+       value: value
     });
   };
 
@@ -41,10 +42,6 @@ render() {
         <div  className="map">
           <h2>Käsitellyt jätteet</h2>
           <p>Historylisting poistettu tästä</p>
-
-
-
-
           {/*<p>{this.state.value} </p>*/}
         </div>
       </Tab>
@@ -55,15 +52,18 @@ render() {
         </div>
       </Tab>
       <Tab className="menu" label="Admin" value="c">
-        <div  className="map">
-          <h2>Admin-näkymä</h2>
-          <p>
-            Täällä voi muokata tietokannan rakennetta, esim. voi lisätä jätetyyppejä.
-          </p>
-        </div>
+        <Admin />
       </Tab>
       <Tab className="menu" label="Varauskartta" value="d">
         <Varauskartta />
+      </Tab>
+      <Tab className="menu" label="Ilmoitukset" value="e">
+        <div className="map">
+          <h2>Ilmoitukset-näkymä</h2>
+          <p>
+            Täällä voi tehdä ilmoituksia
+          </p>
+        </div>
       </Tab>
     </Tabs>
 

@@ -3,13 +3,16 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import './index.css';
 import Login from './components/containers/Login/Login.js';
-import AdminFront from './components/ui/WasteProcessor/Admin/AdminFront.js';
+import Admin from './components/ui/WasteProcessor/Admin/Admin.js';
+
 import WasteProcessor from './components/containers/WasteProcessor/WasteProcessor.js';
+
 import Order from './components/ui/EndUser/Order/order.js';
 import Front from './components/ui/EndUser/EndUserFront.js';
 import FrontPage from './components/ui/EndUser/FrontPage/FrontPage.js';
 import Profile from './components/ui/EndUser/Profile/Profile.js';
 // Author: Spagehetti Baker Bros & co.
+//Testikommentti
 
 
 

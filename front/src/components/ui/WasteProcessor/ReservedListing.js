@@ -32,7 +32,6 @@ getJunksData() {
 listReserved(){
   const items = [];
   for(let i = 0; i < this.props.items.length; i++){
-    console.log(this.props.items[i].status);
     if(this.props.items[i].status == 2){
     items.push(
       <TableRow key={i} >
@@ -51,6 +50,11 @@ listReserved(){
   })
 }
 
+componentDidMount(){
+  this.getJunksData();
+    //
+    // fetch data from backend
+}
 
 getStatus(status){
   switch(status){

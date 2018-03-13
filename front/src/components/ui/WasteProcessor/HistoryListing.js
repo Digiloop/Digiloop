@@ -57,8 +57,6 @@ componentDidMount(){
   this.getJunksData();
     //
     // fetch data from backend
-  // TODO somehow wait for datafetch before attempting filtering
-   // filter data
 }
 
 getStatus(status){

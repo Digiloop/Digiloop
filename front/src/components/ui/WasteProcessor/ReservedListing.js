@@ -50,6 +50,11 @@ listReserved(){
   })
 }
 
+componentDidMount(){
+  this.getJunksData();
+    //
+    // fetch data from backend
+}
 
 getStatus(status){
   switch(status){

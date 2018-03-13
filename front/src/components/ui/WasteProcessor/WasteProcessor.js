@@ -17,55 +17,38 @@ class WasteProcessor extends Component {
 constructor(props){
   super(props);
   this.state={
-    value: 'a'
+    value: 'a',
+    index: 0
   }
  }
 
   handleChange = (value) => {
+
     this.setState({
-       value: value
+       index: value
     });
   };
 
 render() {
 
-    // fetch
-    const { junks } = this.state;
 
     return (
       <MuiThemeProvider>
-      <Tabs className="map" inkBarStyle={{background: '#AFD43F', height: '3px'}}
-      value={this.state.value}
-      onChange={this.handleChange}
-    >
-      <Tab className="menu" label="Historia" value="a">
-        <div  className="map">
-          <h2>Käsitellyt jätteet</h2>
-          <p>Historylisting poistettu tästä</p>
-          {/*<p>{this.state.value} </p>*/}
-        </div>
-      </Tab>
-      <Tab className="menu" label="Varaukset" value="b">
-        <div className="map">
-          <h2>Varatut jätteet</h2>
-          <p>Reserved listing poistettu tästä</p>
-        </div>
-      </Tab>
-      <Tab className="menu" label="Admin" value="c">
-        <Admin />
-      </Tab>
-      <Tab className="menu" label="Varauskartta" value="d">
-        <Varauskartta />
-      </Tab>
-      <Tab className="menu" label="Ilmoitukset" value="e">
-        <div className="map">
-          <h2>Ilmoitukset-näkymä</h2>
-          <p>
-            Täällä voi tehdä ilmoituksia
-          </p>
-        </div>
-      </Tab>
-    </Tabs>
+      <div>
+      <Tabs index={this.state.index} onChange={this.handleChange}>
+        <Tab label="Historia" value={0} />
+        <Tab label="Varaukset" value={1} />
+        <Tab label="Admin" value={2} />
+        <Tab label="Varauskartta" value={3} />
+        <Tab label="Ilmoitukset" value={4} />
+      </Tabs>
+      {this.state.index === 0 && <div>{'Historia'}</div>}
+      {this.state.index === 1 && <div>{'Historia'}</div>}
+      {this.state.index === 2 && <Admin />}
+      {this.state.index === 3 && <Varauskartta />}
+      {this.state.index === 4 && <div>{'Ilmoitukset'}</div>}
+      </div>
+
 
       </MuiThemeProvider>
     );

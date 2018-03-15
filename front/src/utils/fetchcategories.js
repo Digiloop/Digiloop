@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = 'https://cors-anywhere.herokuapp.com/http://193.166.72.18';
 
-export {getCats, getSubCats, getAllCats};
+export {getCats, getSubCats};
 
 // fetching cats and creating new fetches in .then() causes chrome to crash.
 // might be some solution in axios.all?

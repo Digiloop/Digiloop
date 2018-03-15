@@ -8,7 +8,7 @@ import ReservationListing from './ReservationListing'
 import ReservationListOptions from '../../../containers/WasteProcessor/Varauskartta/ReservationListOptions'
 
 import { getJunkData } from '../../../../utils/fetchdata-api';
-import { getCats, getSubCats, getAllCats } from '../../../../utils/fetchcategories'; 
+import { getCats, getSubCats} from '../../../../utils/fetchcategories'; 
 // fetch function
 
 

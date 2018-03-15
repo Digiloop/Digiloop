@@ -238,6 +238,13 @@ module.exports = function(app, passport, users) {
                 userlvl:req.user.userlvl
             });
             res.end();
+/*
+            //res.end();
+			res.json({
+            user: 'Logged in.!'
+        });
+*/
+
         });
 
     // =====================================

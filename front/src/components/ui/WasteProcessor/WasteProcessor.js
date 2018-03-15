@@ -3,18 +3,14 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import styles from '../../../index.css';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import Gmap from './Map/Gmap.js'
-import ReservationListing from './ReservationListing'
-import ReservationListOptions from '../../containers/WasteProcessor/ReservationListOptions'
-import HistoryListing from './HistoryListing'
-import ReservedListing from './ReservedListing'
 
-// fetch function
-import { getJunkData } from '../../../utils/fetchdata-api';
 
-// import Slider from 'material-ui/Slider';
-// import { Container, Row, Col } from 'reactstrap';
-// import AppBar from 'material-ui/AppBar';
+import HistoryListing from '../../containers/WasteProcessor/HistoryListing'
+import ReservedListing from '../../containers/WasteProcessor/ReservedListing'
+
+import Varauskartta from '../../containers/WasteProcessor/Varauskartta/Varauskartta'
+import Admin from '../../containers/WasteProcessor/Admin/Admin'
+
 
 
 class WasteProcessor extends Component {
@@ -22,147 +18,36 @@ constructor(props){
   super(props);
   this.state={
     value: 'a',
-    showSO: false,
-    rliFilt: []
+    index: 0
   }
-  this.rliFiltering = this.rliFiltering.bind(this);
  }
 
-  handleChange = (value) => {
-    this.setState({
-       value: value,
-    });
-  };
-
-   // fetch junk data
-  getJunksData() {
-    getJunkData().then((junks) => {
-      console.log(junks);
-      this.props.itemsToStore(junks.category);
-      this.rliFiltering();
-    });
-  }
-
-
-
-   // the filter function, that leaves only the necessary stuff to be displayed
-  rliFiltering() {
-    let resListItemsFiltered = [];
-    let j = 0;
-    console.log(this.props.resListItems);
-    console.log(this.props.rLOpt);
-    const p = this.props;
-    let pass = true;
-
-    for(let i = 0; i < this.props.resListItems.length; i++){
-
-      pass = true;
-
-      if ( p.rLOpt.ser == false && p.resListItems[i].category == "SER"){
-        pass = false;
-      }
-      if ( p.rLOpt.batteries == false && p.resListItems[i].category == "Akut"){
-        pass = false;
-      }
-      if ( p.rLOpt.ser == false && p.resListItems[i].category == "Tietoturva"){
-        pass = false;
-      }
-
-
-      if(pass)
-      {
-        resListItemsFiltered[j] = this.props.resListItems[i];
-        j++;
-      }
-
-
-      /*
-        resListItemsFiltered[j] = this.props.resListItems[i];
-        j++;
-        */
-    }
-
-    // set the filtered array in state, from which it's sent as props to children
-    this.setState({
-      rliFilt: resListItemsFiltered
-    })
-  }
-
-  componentDidMount(){
-    this.getJunksData();
-      //
-      // fetch data from backend
-    // TODO somehow wait for datafetch before attempting filtering
-     // filter data
-  }
-
-showSearchOptions = () => {
-  // TODO instead of updating when returning from options page,
-  // update when options are saved.
-  this.rliFiltering();
-
+handleChange = (value) => {
   this.setState({
-    showSO: !this.state.showSO,
-  })
- }
-
-
+    index: value
+  });
+};
 
 render() {
 
-    // fetch
-    const { junks } = this.state;
 
     return (
       <MuiThemeProvider>
-      <Tabs className="map" inkBarStyle={{background: '#AFD43F', height: '3px'}}
-      value={this.state.value}
-      onChange={this.handleChange}
-    >
-      <Tab className="menu" label="Historia" value="a">
-        <div  className="map">
-          <h2>Käsitellyt jätteet</h2>
-          <HistoryListing items={this.state.rliFilt}/>
+      <div>
+      <Tabs index={this.state.index} onChange={this.handleChange} inkBarStyle={{background: '#AFD43F', height: '3px'}}>
+        <Tab label="Historia" className="menu" value={0} />
+        <Tab label="Varaukset" className="menu" value={1} />
+        <Tab label="Admin" className="menu" value={2} />
+        <Tab label="Varauskartta" className="menu" value={3} />
+        <Tab label="Ilmoitukset" className="menu" value={4} />
+      </Tabs>
+      {this.state.index === 0 && <HistoryListing />}
+      {this.state.index === 1 && <ReservedListing />}
+      {this.state.index === 2 && <Admin />}
+      {this.state.index === 3 && <Varauskartta />}
+      {this.state.index === 4 && <div>{'Ilmoitukset'}</div>}
+      </div>
 
-
-
-
-          {/*<p>{this.state.value} </p>*/}
-        </div>
-      </Tab>
-      <Tab className="menu" label="Varaukset" value="b">
-        <div className="map">
-          <h2>Varatut jätteet</h2>
-          <ReservedListing items={this.state.rliFilt}/>
-        </div>
-      </Tab>
-      <Tab className="menu" label="Admin" value="c">
-        <div  className="map">
-          <h2>Admin-näkymä</h2>
-          <p>
-            Täällä voi muokata tietokannan rakennetta, esim. voi lisätä jätetyyppejä.
-          </p>
-        </div>
-      </Tab>
-      <Tab className="menu" label="Varauskartta" value="d">
-        <div className="map">
-          <div className="left">
-            <h2>Kartta</h2>
-              <div className="subLeft">
-              <Gmap items={this.state.rliFilt}/>
-              </div>
-          </div>
-          <div className="right">
-            <h2>Varausluettelo<RaisedButton label="Hakuehdot" onClick={this.showSearchOptions}
-            style={{float: 'right', backgroundColor: '#004225'}} /></h2>
-
-            <div className="subRight">
-              {this.state.showSO ? <ReservationListOptions /> : <ReservationListing items={this.state.rliFilt}/>}
-            </div>
-          </div>
-        </div>
-      </Tab>
-    </Tabs>
 
       </MuiThemeProvider>
     );

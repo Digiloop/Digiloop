@@ -1,6 +1,6 @@
-import ReservationListOptions from '../../ui/WasteProcessor/ReservationListOptions'
+import ReservationListOptions from '../../../ui/WasteProcessor/Varauskartta/ReservationListOptions'
 import { connect } from 'react-redux'
-import { setResOpt } from '../../../actions'
+import { setResOpt } from '../../../../actions'
 
 const mapStateToProps = (state, props) =>
   ({

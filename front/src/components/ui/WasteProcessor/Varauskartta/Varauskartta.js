@@ -8,7 +8,7 @@ import ReservationListing from './ReservationListing'
 import ReservationListOptions from '../../../containers/WasteProcessor/Varauskartta/ReservationListOptions'
 
 import { getJunkData } from '../../../../utils/fetchdata-api';
-import { getJunkCatData, getSubCatData } from '../../../../utils/fetchcategories'; 
+import { getCats, getSubCats, getAllCats } from '../../../../utils/fetchcategories'; 
 // fetch function
 
 
@@ -23,23 +23,56 @@ constructor(props){
   this.state={
     value: 'a',
     showSO: false,
-    rliFilt: []
+    rliFilt: [],
+    categories: [],
+    subCategories: []
   }
   this.rliFiltering = this.rliFiltering.bind(this);
  }
 
   handleChange = (value) => {
     this.setState({
-       value: value,
+       value: value
     });
   };
 
    // fetch junk data
   getJunksData() {
+
+    
+
     getJunkData().then((junks) => {
       console.log(junks);
       this.props.itemsToStore(junks.category);
       this.rliFiltering();
+
+      /*
+      getCats().then((cats) => {
+        this.setState({
+          cats: cats.category
+        })
+        
+      });
+      
+      
+      getAllCats().then((cats) => {
+        console.log(cats);
+      });
+      
+      
+        
+        
+
+        getSubCats().then((subCats) => {
+          this.setState({
+            subCats: subCats
+          })
+          this.rliFiltering();
+        })
+        
+      })
+      
+     */
     });
   }
 
@@ -47,6 +80,12 @@ constructor(props){
 
    // the filter function, that leaves only the necessary stuff to be displayed
   rliFiltering() {
+
+    console.log(this.state.cats);
+    console.log(this.state.subCats);
+
+    //var dynVar;
+
     let resListItemsFiltered = [];
     let j = 0;
 
@@ -72,6 +111,15 @@ constructor(props){
       if ( o.infoSecurity == false && pi.category == "Tietoturva"){
         pass = false;
       }
+
+      /*
+      for (var i = 0; i < this.state.cats.length; i++){
+
+        if ( o.serSmallSer && pi.category == this.state.cats[i].CatName){
+          pass = false;
+        }
+      }
+      
 
       /*
       // Sub categories

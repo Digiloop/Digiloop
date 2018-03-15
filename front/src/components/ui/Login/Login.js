@@ -39,7 +39,7 @@ render() {
              title={<div className="app-bar-title">Kirjautuminen</div>}
              showMenuIconButton={false}
            />
-
+          
            <div className='loginContent'>
            <div className="loginGroup">
            <p className="loginLabel">Sähköpostiosoite</p>
@@ -73,12 +73,13 @@ render() {
              </div>
              
              
-             <div className="login-links">
+             <div className="loginGroup">
               <a href="#">Salasana?</a><br />
               <a href="#">Yrityskäyttäjä</a><br />
               <a href="#">Rekisteröidy</a><br />
              </div>
-             </div>
+             </div> 
+             
       </div>
     );
   }

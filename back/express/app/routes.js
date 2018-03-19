@@ -31,7 +31,7 @@ module.exports = function(app, passport, users) {
     });
 
     app.get('/items', function(req, res) {
-        connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID WHERE Status >= 1',
+        connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
             function(err, result) {
                 if (err) throw err;
                 res.json({
@@ -65,6 +65,45 @@ module.exports = function(app, passport, users) {
         });
     });
 
+    app.post('/catADD', function(req,res) {
+      var newCat = {
+        catname:req.body.catname,
+        catstatus:req.body.catstatus
+      };
+      var insertQuery = "INSERT INTO Category ( CatName, Status ) values (?,?)";
+      connection.query(insertQuery, [newCat.catname, newCat.catstatus], function(err, result) {
+          if (err) {
+              connection.rollback(function() {
+                  throw err;
+              });
+          }});
+          res.end();
+    });
+
+//Error: Field 'subId' doesn't have a default value
+//subcattiin tarvitsee auto incrementin
+    app.post('/subcatADD', function(req,res) {
+      var newsubCat = {
+        catid:req.body.catid,
+        subcatname:req.body.subcatname.toString(),
+        subcatstatus:req.body.subcatstatus
+      };
+      var insertQuery = "INSERT INTO subCat ( CatId, subName, Status ) values (?,?,?)";
+      connection.query(insertQuery, [newsubCat.catid, newsubCat.subcatname, newsubCat.subcatstatus], function(err, result) {
+          if (err) {
+              connection.rollback(function() {
+                  throw err;
+              });
+          }});
+          res.end();
+    });
+
+
+
+
+
+
+
     app.post('/itemADD', function(req, res) {
         var newItem = {
             category: req.body.category.toString(),
@@ -80,7 +119,7 @@ module.exports = function(app, passport, users) {
             status: req.body.status,
             latitude: req.body.latitude,
             longitude: req.body.longitude,
-            CoordStatus: req.body.CoordStatus
+            status2: req.body.status2
         };
         var insertQuery = "INSERT INTO junk ( category, subCat, weight, size, description, picture, pcs, pickupaddr, junkdate, junkdateadded, status ) values (?,?,?,?,?,?,?,?,?,?,?)";
         var insertQuery2 = "INSERT INTO Coordinates ( latitude, longitude, status) values (?, ?, ?)";
@@ -95,7 +134,7 @@ module.exports = function(app, passport, users) {
                     });
                 }
 
-                connection.query(insertQuery2, [newItem.latitude, newItem.longitude, newItem.CoordStatus], function(err, result) {
+                connection.query(insertQuery2, [newItem.latitude, newItem.longitude, newItem.status2], function(err, result) {
                     if (err) {
                         connection.rollback(function() {
                             throw err;
@@ -132,6 +171,18 @@ module.exports = function(app, passport, users) {
           }
     });
 
+
+
+    app.get('/items3',passport.authenticate('bearer', { session: false }), function(req, res) {
+        connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
+            function(err, result) {
+                if (err) throw err;
+                res.json({
+                    category: result
+                });
+            });
+    });
+
     /*
     app.post('/submit',function(req, res, next) {
      console.log(req.body.junk);
@@ -166,6 +217,8 @@ module.exports = function(app, passport, users) {
 
 
     // process the login form
+    //mahdollinen ratkaisu palautukseen ilman flashia
+    //https://github.com/jaredhanson/passport-local/issues/4
     app.post('/login', passport.authenticate('local-login', {
             //successRedirect : '/profile', // redirect to the secure profile section
             //failureRedirect : '/login', // redirect back to the signup page if there is an error
@@ -181,10 +234,17 @@ module.exports = function(app, passport, users) {
                 req.session.cookie.expires = false;
             }
             //res.redirect('/');
+            res.json({
+                userlvl:req.user.userlvl
+            });
+            res.end();
+/*
             //res.end();
 			res.json({
             user: 'Logged in.!'
         });
+*/
+
         });
 
     // =====================================

@@ -28,9 +28,6 @@ constructor(props){
     console.log(payload);
   }
 
-
-// TEST SHIT
-
 render() {
     return (
       <div className="loginWrapper">
@@ -39,7 +36,7 @@ render() {
              title={<div className="app-bar-title">Kirjautuminen</div>}
              showMenuIconButton={false}
            />
-          
+
            <div className='loginContent'>
            <div className="loginGroup">
            <p className="loginLabel">Sähköpostiosoite</p>
@@ -66,20 +63,20 @@ render() {
                </div>
 
                <div className="loginGroup">
-               <RaisedButton label="Kirjaudu" 
+               <RaisedButton label="Kirjaudu"
              style={{ backgroundColor: '#004225', border: '2px solid #004225' }}
-             onClick={(event) => this.loginClick(event)} 
+             onClick={(event) => this.loginClick(event)}
              value="App" />
              </div>
-             
-             
+
+
              <div className="loginGroup">
               <a href="#">Salasana?</a><br />
               <a href="#">Yrityskäyttäjä</a><br />
               <a href="#">Rekisteröidy</a><br />
              </div>
-             </div> 
-             
+             </div>
+
       </div>
     );
   }

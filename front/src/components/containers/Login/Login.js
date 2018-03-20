@@ -5,15 +5,15 @@ import { login } from '../../../actions'
 
 const mapStateToProps = (state, props) =>
   ({
-    
+
   })
 
 // check these
 const mapDispatchToProps = dispatch =>
   ({
-    onNewLogin(username, password){
+    onNewLogin(loginInfo){
       dispatch(
-        login(username, password)
+        login(loginInfo)
       )
     }
   })

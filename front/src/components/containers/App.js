@@ -1,11 +1,11 @@
 import App from '../../App'
 import { connect } from 'react-redux'
-//import { login } from '../../../actions'
+// import { login } from '../../../actions'
 
 
-const mapStateToProps = state =>
+const mapStateToProps = (state, props) =>
   ({
-
+      userLevel: state.loggedIn
   })
 
 // check these

@@ -15,7 +15,7 @@ var passport = require('passport');
 var flash    = require('connect-flash');
 
 var users;
-var source = require('./config/users.js');
+//var source = require('./config/users.js');
 // configuration ===============================================================
 // connect to our database
 //console.log('server' + source.Testi1);
@@ -61,7 +61,6 @@ app.use(session({
  } )); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
 
 
 // routes ======================================================================

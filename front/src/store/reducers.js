@@ -8,7 +8,6 @@ export const loggedIn = (state=[], action) =>
 export const resListOpt = (state=[], action) =>
   (action.type === C.SET_RESOPT) ? action.payload : state
 
-
 export const resList = (state=[], action) =>
   (action.type === C.SET_RLI) ? action.payload : state
 

@@ -52,7 +52,7 @@ class WasteProcessor extends Component {
       })
     })
   }
-  getSubCategories(){
+  getSubCategories() {
     getSubCats().then((subCats) => {
       this.setState({
         subCats: subCats.category
@@ -71,37 +71,51 @@ class WasteProcessor extends Component {
     let resListItemsFiltered = [];
     let j = 0;
 
+
+    // Abbreviations for props, reservelist options, catoptions & subcatoptions
     const p = this.props;
     const o = this.props.rLOpt;
+    const co = o.categories;
+    const sco = o.subCategories;
     let pi;
 
     let pass = true;
 
+
+    // move optioned cats and subcats to array for easier usage
+    let catOptions = [];
+    for (let key in co){
+      if (co.hasOwnProperty(key)){
+        catOptions = [...catOptions, co[key]]
+      }
+    }
+    console.log(catOptions);
+
     for (let i = 0; i < this.props.resListItems.length; i++) {
 
       pi = p.resListItems[i];
-
       pass = true;
 
-      // Main categories
+      /*
       if (o.ser == false && pi.category == "SER") {
         pass = false;
       }
-      if (o.batteries == false && pi.category == "Akut") {
-        pass = false;
-      }
-      if (o.infoSecurity == false && pi.category == "Tietoturva") {
-        pass = false;
-      }
+      */
 
+      if(this.state.cats){
+        console.log(this.state.cats.length);
+      }
+      
       /*
-      for (var i = 0; i < this.state.cats.length; i++){
-
-        if ( o.serSmallSer && pi.category == this.state.cats[i].CatName){
-          pass = false;
+      if(this.state.cats){
+        for (var i = 0; i < this.state.cats.length; i++) {
+          if (catOptions[i] == false && pi.category == this.state.cats[i].CatName) {
+            pass = false;
+          }
         }
       }
       */
+      
 
       if (pass) {
         resListItemsFiltered[j] = this.props.resListItems[i];
@@ -139,7 +153,7 @@ class WasteProcessor extends Component {
 
 
   render() {
-    
+
     // fetch
     const { junks } = this.state;
 

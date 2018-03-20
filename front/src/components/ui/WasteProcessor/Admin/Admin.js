@@ -110,7 +110,7 @@ render() {
           </div>
         </div>
         <div className='subCat' style={{float: 'right', width: '50%'}}>
-            {subCats.length != 0 ? <div className='addSubCategory' >
+            {subCats.length !== 0 ? <div className='addSubCategory' >
               <h1>{this.state.cat}-kategorian alakategoriat:</h1>
               {subCats}{console.log(subCats.length)} <br/>
                 <p className='addSubCatLabel'>Lisää alakategoria</p>

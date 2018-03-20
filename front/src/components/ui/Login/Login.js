@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField';
 import styles from '../../../index.css';
 import { PropTypes } from 'react';
 import App from '../../../App.js';
+import { getCredentials } from '../../../utils/login-api';
 
 
 
@@ -20,13 +21,24 @@ constructor(props){
  }
 
  loginClick(event){
-
+    /* this.setState ({
+      username: this.state.username,
+      password: this.state.password
+    }); */
     var payload={
-    "email":this.state.username,
+    "username":this.state.username,
     "password":this.state.password
-    }
-    console.log(payload);
   }
+    console.log(this.state.username);
+    this.getUserLevel();
+  }
+
+  getUserLevel() {
+    getCredentials(this.state.username, this.state.password).then((usrLevel) => {
+      console.log(usrLevel);
+    });
+  }
+
 
 render() {
     return (

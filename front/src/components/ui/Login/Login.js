@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField';
 import styles from '../../../index.css';
 import { PropTypes } from 'react';
 import App from '../../../App.js';
+import { getCredentials } from '../../../utils/login-api';
 
 
 
@@ -20,16 +21,24 @@ constructor(props){
  }
 
  loginClick(event){
-
+    /* this.setState ({
+      username: this.state.username,
+      password: this.state.password
+    }); */
     var payload={
-    "email":this.state.username,
+    "username":this.state.username,
     "password":this.state.password
-    }
-    console.log(payload);
+  }
+    console.log(this.state.username);
+    this.getUserLevel();
   }
 
+  getUserLevel() {
+    getCredentials(this.state.username, this.state.password).then((usrLevel) => {
+      console.log(usrLevel);
+    });
+  }
 
-// TEST SHIT
 
 render() {
     return (
@@ -39,7 +48,7 @@ render() {
              title={<div className="app-bar-title">Kirjautuminen</div>}
              showMenuIconButton={false}
            />
-          
+
            <div className='loginContent'>
            <div className="loginGroup">
            <p className="loginLabel">Sähköpostiosoite</p>
@@ -66,20 +75,20 @@ render() {
                </div>
 
                <div className="loginGroup">
-               <RaisedButton label="Kirjaudu" 
+               <RaisedButton label="Kirjaudu"
              style={{ backgroundColor: '#004225', border: '2px solid #004225' }}
-             onClick={(event) => this.loginClick(event)} 
+             onClick={(event) => this.loginClick(event)}
              value="App" />
              </div>
-             
-             
+
+
              <div className="loginGroup">
               <a href="#">Salasana?</a><br />
               <a href="#">Yrityskäyttäjä</a><br />
               <a href="#">Rekisteröidy</a><br />
              </div>
-             </div> 
-             
+             </div>
+
       </div>
     );
   }

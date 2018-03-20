@@ -116,9 +116,9 @@ class WasteProcessor extends Component {
   }
 
   componentDidMount() {
-    this.getJunksData();
     this.getCategories();
     this.getSubCategories();
+    this.getJunksData();
     this.rliFiltering();
   }
 

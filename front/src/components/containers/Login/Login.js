@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { login } from '../../../actions'
 
 
-const mapStateToProps = state =>
+const mapStateToProps = (state, props) =>
   ({
     
   })

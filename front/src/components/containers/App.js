@@ -1,6 +1,6 @@
 import App from '../../App'
 import { connect } from 'react-redux'
-// import { login } from '../../../actions'
+import { setCategories, setSubCategories } from '../../actions'
 
 
 const mapStateToProps = (state, props) =>
@@ -11,7 +11,16 @@ const mapStateToProps = (state, props) =>
 // check these
 const mapDispatchToProps = dispatch =>
   ({
-
+    setCategories(cats){
+      dispatch(
+        setCategories(cats)
+      )
+    },
+    setSubCategories(subCats){
+      dispatch(
+        setSubCategories(subCats)
+      )
+    }
   })
 
   export default connect(mapStateToProps, mapDispatchToProps)(App)

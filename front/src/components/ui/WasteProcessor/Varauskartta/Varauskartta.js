@@ -89,7 +89,8 @@ class WasteProcessor extends Component {
         catOptions = [...catOptions, co[key]]
       }
     }
-    console.log(catOptions);
+    console.log(this.props.cats);
+    console.log(this.props.subCats);
 
     for (let i = 0; i < this.props.resListItems.length; i++) {
 
@@ -101,20 +102,16 @@ class WasteProcessor extends Component {
         pass = false;
       }
       */
-
-      if(this.state.cats){
-        console.log(this.state.cats.length);
-      }
       
-      /*
-      if(this.state.cats){
+      
+      if(this.props.cats){
         for (var i = 0; i < this.state.cats.length; i++) {
           if (catOptions[i] == false && pi.category == this.state.cats[i].CatName) {
             pass = false;
           }
         }
       }
-      */
+      
       
 
       if (pass) {
@@ -130,8 +127,6 @@ class WasteProcessor extends Component {
   }
 
   componentDidMount() {
-    this.getCategories();
-    this.getSubCategories();
     this.getJunksData();
     this.rliFiltering();
   }

@@ -13,7 +13,7 @@ import FrontPage from './components/ui/EndUser/FrontPage/FrontPage.js';
 import Profile from './components/ui/EndUser/Profile/Profile.js';
 // Author: Spagehetti Baker Bros & co.
 //Testikommentti
-
+import { getCats, getSubCats } from './utils/fetchcategories'
 
 
 
@@ -28,65 +28,71 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick(){
-      //console.log('HERE!', this.contextTypes);
-        //this.state.loggedIn ? <Map /> : <AdminFront />;
-        this.setState({
-          loggedIn: !this.state.loggedIn,
-         })
-        console.log(this.state.value);
-      // this.context.location.transitionTo('Map');
-    };
+  handleClick() {
+    //console.log('HERE!', this.contextTypes);
+    //this.state.loggedIn ? <Map /> : <AdminFront />;
+    this.setState({
+      loggedIn: !this.state.loggedIn,
+    })
+    console.log(this.state.value);
+    // this.context.location.transitionTo('Map');
+  };
 
-    handleChange = () => {
-        this.setState({
-        });
-        console.log(this.state.userLevel);
+  handleChange = () => {
+    this.setState({
+    });
+    console.log(this.state.userLevel);
 
-      };
+  };
 
-  componentWillReceiveProps(){
+  componentWillReceiveProps() {
     console.log(this.props.userLevel.loginInfo.userLevel);
+  }
+
+  componentDidMount() {
+    getCats().then((cats) => {
+      this.props.setCategories(cats.category);
+    })
+
+    getSubCats().then((subCats) => {
+      this.props.setSubCategories(subCats.category);
+    })
   }
 
 
   render() {
     return (
       <MuiThemeProvider>
-      <div className="App"
-      >
-        <RaisedButton onClick={this.handleChange} label="Logout" value="-1" />
-        {/* <RaisedButton onClick={this.handleClick} label="Käsittelijä" /> */}
-        {console.log(this.state.value)}
+        <div className="App">
+          <RaisedButton onClick={this.handleChange} label="Logout" value="-1" />
+          {/* <RaisedButton onClick={this.handleClick} label="Käsittelijä" /> */}
+          {console.log(this.state.value)}
 
-        <div>
-         {
-             (() => {
-             switch(this.props.userLevel.loginInfo.userLevel){
-               case '0':
-                 return <WasteProcessor />;
-                 break;
+          <div>
+            {
+              (() => {
+                switch (this.props.userLevel.loginInfo.userLevel) {
+                  case '0':
+                    return <WasteProcessor />;
+                    break;
 
-               case '1':
-                 return <WasteProcessor />;
-                 break;
+                  case '1':
+                    return <WasteProcessor />;
+                    break;
 
-               case '2':
-                 return <Front />;
-                 break;
+                  case '2':
+                    return <Front />;
+                    break;
 
-               default:
-                  return <Login />;
-               break;
-             }
-           })()
-
-
-         }
-         </div>
-      </div>
+                  default:
+                    return <Login />;
+                    break;
+                }
+              })()
+            }
+          </div>
+        </div>
       </MuiThemeProvider>
-
     );
   }
 }

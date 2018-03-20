@@ -34,6 +34,7 @@ module.exports = function(app, passport, users) {
         connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
             function(err, result) {
                 if (err) throw err;
+                //console.log(req.user.id)
                 res.json({
                     category: result
                 });
@@ -48,27 +49,33 @@ module.exports = function(app, passport, users) {
             console.log(rows.affectedRows + " record(s) updated");
         });
         console.log(req.body.Status, " ", req.body.subIdStatus)
-        res.json({
-            category: source.subCat
-        });
+        res.end();
     });
 
     //item Status
     app.post('/itemStatus', function(req, res) {
-        connection.query('UPDATE junk SET Status = ? WHERE junkID = ?;', [req.body.Status, req.body.subIdStatus], (err, rows) => {
+        connection.query('UPDATE junk SET status = ? WHERE junkID = ?;', [req.body.status, req.body.subIdStatus], (err, rows) => {
             if (err) throw err;
             console.log(rows.affectedRows + " record(s) updated");
         });
-        console.log(req.body.Status, " ", req.body.subIdStatus)
-        res.json({
-            category: source.subCat
-        });
+        console.log(req.body.status, " ", req.body.subIdStatus)
+        res.end();
     });
+
+    app.post('/itemReserve', function(req, res) {
+        connection.query('UPDATE junk SET status = ?, fetcher = ? WHERE junkID = ?;', [req.body.status,req.body.fetcher, req.body.subIdStatus], (err, rows) => {
+            if (err) throw err;
+            console.log(rows.affectedRows + " record(s) updated");
+        });
+        console.log(req.body.status, " ",req.body.fetcher , " ", req.body.subIdStatus)
+        res.end();
+    });
+
 
     app.post('/catADD', function(req,res) {
       var newCat = {
         catname:req.body.catname,
-        catstatus:req.body.catstatus
+        catstatus:1
       };
       var insertQuery = "INSERT INTO Category ( CatName, Status ) values (?,?)";
       connection.query(insertQuery, [newCat.catname, newCat.catstatus], function(err, result) {
@@ -81,12 +88,12 @@ module.exports = function(app, passport, users) {
     });
 
 //Error: Field 'subId' doesn't have a default value
-//subcattiin tarvitsee auto incrementin
+//subcattiin tarvitsee auto incrementin //fixed
     app.post('/subcatADD', function(req,res) {
       var newsubCat = {
         catid:req.body.catid,
         subcatname:req.body.subcatname.toString(),
-        subcatstatus:req.body.subcatstatus
+        subcatstatus:1//req.body.subcatstatus
       };
       var insertQuery = "INSERT INTO subCat ( CatId, subName, Status ) values (?,?,?)";
       connection.query(insertQuery, [newsubCat.catid, newsubCat.subcatname, newsubCat.subcatstatus], function(err, result) {
@@ -100,10 +107,7 @@ module.exports = function(app, passport, users) {
 
 
 
-
-
-
-
+    //kaatuu ilman loggausta sisään
     app.post('/itemADD', function(req, res) {
         var newItem = {
             category: req.body.category.toString(),
@@ -117,24 +121,25 @@ module.exports = function(app, passport, users) {
             junkdate: req.body.junkdate,
             junkdateadded: req.body.junkdateadded,
             status: req.body.status,
+            owner: req.user.id,
             latitude: req.body.latitude,
             longitude: req.body.longitude,
-            status2: req.body.status2
+            coordstatus: req.body.status2
         };
-        var insertQuery = "INSERT INTO junk ( category, subCat, weight, size, description, picture, pcs, pickupaddr, junkdate, junkdateadded, status ) values (?,?,?,?,?,?,?,?,?,?,?)";
-        var insertQuery2 = "INSERT INTO Coordinates ( latitude, longitude, status) values (?, ?, ?)";
+        var insertQuery = "INSERT INTO junk ( category, subCat, weight, size, description, picture, pcs, pickupaddr, junkdate, junkdateadded, status, owner ) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+        var insertQuery2 = "INSERT INTO Coordinates ( latitude, longitude, coordstatus) values (?, ?, ?)";
         connection.beginTransaction(function(err) {
             if (err) {
                 throw err;
             }
-            connection.query(insertQuery, [newItem.category, newItem.subCat, newItem.weight, newItem.size, newItem.description, newItem.picture, newItem.pcs, newItem.pickupaddr, newItem.junkdate, newItem.junkdateadded, newItem.status], function(err, result) {
+            connection.query(insertQuery, [newItem.category, newItem.subCat, newItem.weight, newItem.size, newItem.description, newItem.picture, newItem.pcs, newItem.pickupaddr, newItem.junkdate, newItem.junkdateadded, newItem.status, newItem.owner], function(err, result) {
                 if (err) {
                     connection.rollback(function() {
                         throw err;
                     });
                 }
 
-                connection.query(insertQuery2, [newItem.latitude, newItem.longitude, newItem.status2], function(err, result) {
+                connection.query(insertQuery2, [newItem.latitude, newItem.longitude, newItem.coordstatus], function(err, result) {
                     if (err) {
                         connection.rollback(function() {
                             throw err;

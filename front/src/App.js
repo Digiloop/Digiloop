@@ -23,9 +23,8 @@ class App extends Component {
     super(props);
     this.state = {
       loggedIn: true,
-      value: 'Front',
+      value: ''
     }
-
     this.handleClick = this.handleClick.bind(this)
   }
 
@@ -39,13 +38,16 @@ class App extends Component {
       // this.context.location.transitionTo('Map');
     };
 
-    handleChange = (value) => {
+    handleChange = () => {
         this.setState({
-          loggedIn: !this.state.loggedIn,
-          value: Front,
         });
-        console.log(this.state.value);
+        console.log(this.state.userLevel);
+
       };
+
+  componentWillReceiveProps(){
+    console.log(this.props.userLevel.loginInfo.userLevel);
+  }
 
 
   render() {
@@ -53,10 +55,35 @@ class App extends Component {
       <MuiThemeProvider>
       <div className="App"
       >
-        <RaisedButton onClick={this.handleChange} label="Map" value="Map" />
+        <RaisedButton onClick={this.handleChange} label="Logout" value="-1" />
         {/* <RaisedButton onClick={this.handleClick} label="Käsittelijä" /> */}
         {console.log(this.state.value)}
-         {this.state.loggedIn ? <WasteProcessor /> : <this.state.value />}
+
+        <div>
+         {
+             (() => {
+             switch(this.props.userLevel.loginInfo.userLevel){
+               case '0':
+                 return <WasteProcessor />;
+                 break;
+
+               case '1':
+                 return <WasteProcessor />;
+                 break;
+
+               case '2':
+                 return <Front />;
+                 break;
+
+               default:
+                  return <Login />;
+               break;
+             }
+           })()
+
+
+         }
+         </div>
       </div>
       </MuiThemeProvider>
 

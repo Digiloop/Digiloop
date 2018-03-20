@@ -24,11 +24,11 @@ constructor(props){
     /* this.setState ({
       username: this.state.username,
       password: this.state.password
-    }); */
+    });
     var payload={
     "username":this.state.username,
     "password":this.state.password
-  }
+  }*/
     console.log(this.state.username);
     this.getUserLevel();
   }
@@ -36,6 +36,11 @@ constructor(props){
   getUserLevel() {
     getCredentials(this.state.username, this.state.password).then((usrLevel) => {
       console.log(usrLevel);
+
+      this.props.onNewLogin({
+        userLevel: usrLevel.userlvl
+      });
+
     });
   }
 

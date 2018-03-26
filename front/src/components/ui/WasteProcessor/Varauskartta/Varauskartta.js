@@ -61,6 +61,11 @@ class WasteProcessor extends Component {
     const p = this.props;
     const o = this.props.rLOpt;
 
+    console.log(this.props.cats);
+    console.log(this.props.subCats);
+    console.log(o.categories);
+    console.log(o.subCategories);
+
 
 
 
@@ -76,24 +81,18 @@ class WasteProcessor extends Component {
         catOptions = [...catOptions, o.categories[key]]
       }
     }
-    console.log(this.props.cats);
-    console.log(this.props.subCats);
+
 
     for (let i = 0; i < this.props.resListItems.length; i++) {
 
       pi = p.resListItems[i];
       pass = true;
 
-
-
       for (let j = 0; j < this.props.cats.length; j++) {
         if (catOptions[j] == false && pi.category == this.props.cats[j].CatName) {
           pass = false;
         }
       }
-
-
-
 
       if (pass) {
         resListItemsFiltered[j] = this.props.resListItems[i];

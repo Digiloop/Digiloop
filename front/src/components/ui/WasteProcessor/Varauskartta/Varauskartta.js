@@ -84,15 +84,15 @@ class WasteProcessor extends Component {
       pi = p.resListItems[i];
       pass = true;
 
-      /*
-      if (this.props.cats) {
-        for (var i = 0; i < this.props.cats.length; i++) {
-          if (catOptions[i] == false && pi.category == this.props.cats[i].CatName) {
-            pass = false;
-          }
+
+
+      for (let j = 0; j < this.props.cats.length; j++) {
+        if (catOptions[j] == false && pi.category == this.props.cats[j].CatName) {
+          pass = false;
         }
       }
-      */
+
+
 
 
       if (pass) {
@@ -119,7 +119,7 @@ class WasteProcessor extends Component {
   showSearchOptions = () => {
     // TODO instead of updating when returning from options page,
     // update when options are saved.
-    //this.rliFiltering();
+    this.rliFiltering();
 
     this.setState({
       showSO: !this.state.showSO,

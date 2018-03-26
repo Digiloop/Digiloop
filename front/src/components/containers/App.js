@@ -1,6 +1,8 @@
 import App from '../../App'
 import { connect } from 'react-redux'
 import { setCategories, setSubCategories } from '../../actions'
+import { login } from '../../actions'
+
 
 
 const mapStateToProps = (state, props) =>
@@ -19,6 +21,11 @@ const mapDispatchToProps = dispatch =>
     setSubCategories(subCats){
       dispatch(
         setSubCategories(subCats)
+      )
+    },
+    onNewLogin(loginInfo){
+      dispatch(
+        login(loginInfo)
       )
     }
   })

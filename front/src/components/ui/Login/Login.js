@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField';
 import styles from '../../../index.css';
 import { PropTypes } from 'react';
 import App from '../../../App.js';
+import Front from '../../ui/EndUser/EndUserFront.js';
 import { getCredentials } from '../../../utils/login-api';
 
 
@@ -42,6 +43,13 @@ constructor(props){
       });
 
     });
+  }
+
+  register = () => {
+    this.props.onNewLogin({
+      userLevel: 3
+    });
+    console.log(this.state.userLevel);
   }
 
 
@@ -90,7 +98,7 @@ render() {
              <div className="loginGroup">
               <a href="#">Salasana?</a><br />
               <a href="#">Yrityskäyttäjä</a><br />
-              <a href="#">Rekisteröidy</a><br />
+              <a href="#" onClick={() => {this.register()}}>Rekisteröidy</a><br />
              </div>
              </div>
 

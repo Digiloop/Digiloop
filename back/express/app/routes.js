@@ -43,6 +43,7 @@ module.exports = function(app, passport, users) {
     });
 
 
+
     // main code, muista x-www-form-urlencoded
     app.post('/subCatStatus', isLoggedIn, function(req, res) {
         connection.query('UPDATE subCat SET Status = ? WHERE subId = ?;', [req.body.Status, req.body.subIdStatus], (err, rows) => {
@@ -241,7 +242,7 @@ module.exports = function(app, passport, users) {
             }
             //res.redirect('/');
             res.json({
-                userlvl:req.user.userlvl
+                userlvl:req.user
             });
             res.end();
 /*
@@ -267,6 +268,11 @@ module.exports = function(app, passport, users) {
         //successRedirect : '/profile', // redirect to the secure profile section
         //failureRedirect : '/signup', // redirect back to the signup page if there is an error
         //failureFlash : true // allow flash messages
+
+    }));
+
+    app.post('/signupNormal', passport.authenticate('local-signup', {
+
 
     }));
 

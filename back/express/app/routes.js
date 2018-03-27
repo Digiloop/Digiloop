@@ -276,7 +276,7 @@ module.exports = function(app, passport, users) {
     }));
 
     app.post('/signupNormal', passport.authenticate('local-signup', {
-
+        req.leveli : 'moi'
 
     }));
 

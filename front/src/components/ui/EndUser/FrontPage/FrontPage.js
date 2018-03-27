@@ -25,6 +25,7 @@ render() {
     return (
       <div className="frontpageWrapper">
       <div className="Container"><br/>
+    
       <FlatButton label="Uusi Tilaus" onClick={this.handleChange}  
       backgroundColor="#FFFFFF"
       style={{ borderRadius: '0', 
@@ -35,6 +36,9 @@ render() {
       borderRadius: '0',
       fontSize: '30px',
       color: '#004225',}}/>
+      <br />
+      <h2>Tervetuloa, Jeppe!</h2> <br />
+
       {this.state.value ? <Notification /> : <Order />}
       </div>
       </div>

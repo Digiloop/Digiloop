@@ -128,11 +128,12 @@ class Register extends React.Component {
                         </tr>
                         <tr>
                             <td>
-                                <label className="leftRegisterLabel">Salasana: </label> </td>
+                                 </td>
                                 <td>   <TextField className="rightRegisterField" 
                                 type="password" hintText="Valitsemasi salasana" style={styles}
                                 style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225'}}
                                     onChange={(event, newValue) => this.setState({ password: newValue })} />
+                                    
                             </td>
                         </tr>
                     </tbody>

@@ -81,7 +81,7 @@ module.exports = function(passport) {
                         company: req.body.company.toString(),
                         userlvl: req.body.userlvl.toString()
                     };
-                    console.log(leveli + "  leveli");
+                    /*console.log(leveli + "  leveli");*/
                     var insertQuery = "INSERT INTO users ( username, password, fname, lname, email, phone, address, zipcode, city, company, userlvl ) values (?,?,?,?,?,?,?,?,?,?,?)";
 
                     connection.query(insertQuery,[newUserMysql.username, newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.company, newUserMysql.userlvl],function(err, rows) {

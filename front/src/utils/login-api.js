@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = 'http://193.166.72.18';
 
-export { getCredentials };
+export { getCredentials, logOut };
 
 function getCredentials(username, password) {
     return fetch(BASE_URL + '/login', {
@@ -22,4 +22,9 @@ function getCredentials(username, password) {
       .catch((error) => {
         console.error(error);
       });
+  }
+
+  function logOut() {
+    const url = BASE_URL + '/logout';
+    return axios.get(url).then(response => response.data);
   }

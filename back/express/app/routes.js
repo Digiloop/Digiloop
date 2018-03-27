@@ -190,6 +190,10 @@ module.exports = function(app, passport, users) {
             });
     });
 
+    app.post('/upload', function(req, res) {
+  console.log(req.files.foo); // the uploaded file object
+});
+
     /*
     app.post('/submit',function(req, res, next) {
      console.log(req.body.junk);

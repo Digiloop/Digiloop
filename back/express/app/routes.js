@@ -7,7 +7,8 @@ connection.query('USE ' + dbconfig.database);
 // app/routes.js
 //var catquery = require('../config/catquery');
 //var source = require('../config/users.js');
-
+//http://catlau.co/how-to-modularize-routes-with-the-express-router/
+//https://blog.grossman.io/expressjs-tips-for-large-applications/
 
 module.exports = function(app, passport, users) {
     //	app.get('/categories',isLoggedIn, function(req, res)

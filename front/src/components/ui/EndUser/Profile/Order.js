@@ -9,18 +9,24 @@ import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';
 import History from './History.js'
 import Checkbox from 'material-ui/Checkbox';
+import Organization from './Organization.js'
+
+
 
 import { getJunkCatData } from '../../../../utils/fetchcategories';
 
 class Order extends Component {
+
+
 constructor(props){
   super(props);
-  this.state = {value: ''};
+  //this.state = {value: ''};
   this.handleChange = this.handleChange.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this);
   this.onChange = this.onChange.bind(this);
 
  }
+
 
 handleChange = (event, index, value) => this.setState({value});
 handleSubmit(event) {
@@ -75,11 +81,17 @@ const dropmenu = {width: 150, backgroundColor: '#FFFFFF', borderRadius: 4,
     borderWidth: 0.5,
     borderColor: '#d6d7da'};  // dropdownmenu leveys väri yms
 
-
+const box = {    paddingTop:20,
+    paddingBottom:20,
+    color:'#fff',
+    textAlign:'center',
+    backgroundColor:'#68a0cf',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#fff'};
 
     return (
 <div className="Container">
-  <p> * merkityt kentät ovat pakollisia</p>
 
         <form onSubmit={this.handleSubmit}>
         <div>
@@ -88,53 +100,34 @@ const dropmenu = {width: 150, backgroundColor: '#FFFFFF', borderRadius: 4,
 
 
         <tr>
-          <td>Hakuosoite*</td>
+          <td>Hakuosoite</td>
           <td><TextField name="address"  style={dropmenu}/></td>
         </tr>
         <tr>
-          <td>Postinumero*</td>
+          <td>Postinumero</td>
           <td><TextField name="zipcode" style={dropmenu}/></td>
         </tr>
         <tr>
-          <td>Postitoimipaikka*</td>
+          <td>Postitoimipaikka</td>
           <td><TextField name="city" style={dropmenu}/></td>
         </tr>
         <tr>
           <td>Puhelinnumero</td>
-          <td><TextField name="phone"  style={dropmenu}/></td>
+          <td><TextField name="phone" style={dropmenu}/></td>
         </tr>
+        <tr>
+          <td>Nouto-ohje</td>
+          <td><TextField name="pickup" rows={3} rowsMax={7} style={dropmenu}/></td>
+        </tr>
+
+        <tr>
+          <td style={box}>Kotitalous</td>
+          <td style={box}>Organisaatio</td>
+        </tr>
+
         </tbody>
         </table>
 
-        <Checkbox
-          label="Hyväksyn käyttöehdot ja vakuutan tiedot oikeiksi"
-          checked={this.state.checked}
-          onCheck={this.updateCheck.bind(this)}
-        />
-
-          <TextField
-  disabled={true}
-  defaultValue="Luovutan omaisuuteni tikituuballe ja menetän sieluni saatanalle.
-  Käyttöehtoja voidaan muokata mielivaltaisesti hyväksymisen jälkeen."
-  multiLine={true}
-  rows={4}
-  rowsMax={4}
-/>
-<table id="buttons">
-<tbody>
-<td>
-        <IconButton tooltip="Edellinen" >
-          <Back />
-        </IconButton>
-
-</td>
-<td id="next">
-        <IconButton type="Submit" value="Submit" disabled={!this.state.checked} tooltip="Seuraava">
-          <Forward />
-        </IconButton>
-</td>
-</tbody>
-</table>
         </div>
         </form>
         </div>

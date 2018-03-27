@@ -13,7 +13,7 @@ import Organization from './Organization.js'
 
 
 
-import { getJunkCatData } from '../../../../utils/fetchcategories';
+import { getCats } from '../../../../utils/fetchcategories';
 
 class Order extends Component {
 
@@ -42,7 +42,7 @@ handleChange(e) {
 
 // fetch junk data
 getJunksData() {
- getJunkCatData().then((junks) => {
+ getCats().then((junks) => {
    console.log(junks);
 //   this.props.itemsToStore(junks.category);
 

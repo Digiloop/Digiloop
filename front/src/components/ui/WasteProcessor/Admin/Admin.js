@@ -1,49 +1,54 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import { getJunkCatData } from '../../../../utils/fetchcategories';
+import { getCats, getSubCats } from '../../../../utils/fetchcategories';
 
 class Admin extends Component {
 constructor(props){
   super(props);
   this.state={
     value: '',
+    cat: '',
     cats: [],
-    addCat: ''
+    subCats: [],
+    addCat: '',
+    addSubCat: []
   }
  }
 
  // fetch junk data
 getCategories() {
-  getJunkCatData().then((categories) => {
-    console.log(categories);
+  getCats().then((categories) => {
+    // console.log(categories);
     this.setState({cats: (categories.category)});
     // this.props.catsToStore(categories.category);
   });
 }
 
-getCat = (value) => {
+getSubCategories() {
+  getSubCats().then((subCategories) => {
+    // console.log(subCategories);
+    this.setState({subCats: (subCategories.category)});
+    // this.props.catsToStore(categories.category);
+  });
+}
+
+getCat = (value, cat) => {
   this.setState({
-    value: value
+    value: value,
+    cat: cat
   });
   console.log(this.state.value);
 }
 
-addCategory(event) {
+addCategory() {
   console.log(this.state.addCat);
 }
 
 componentDidMount() {
   this.getCategories();
+  this.getSubCategories();
 }
 
 
@@ -51,36 +56,67 @@ componentDidMount() {
 render() {
 
   const cats = [];
+  const subCats = [];
   console.log(this.state.cats);
   console.log(this.state.cats.length);
+  console.log(this.state.subCats.length);
+  console.log(this.state.subCats);
 
   for(let i = 0; i < this.state.cats.length; i++){
     cats.push(
-      <p value={this.state.cats[i].CatName} onClick={() =>
-        this.getCat(this.state.cats[i].CatName)} key={i} >
-        {this.state.cats[i].CatName}
+      <div value={this.state.cats[i].CatName} onClick={() =>
+        this.getCat(this.state.cats[i].CatId, this.state.cats[i].CatName)} key={i} >
+        <h3>{this.state.cats[i].CatName}</h3>
+
+
         {/*<RaisedButton label="Muokkaa" />*/}
-      </p>
+      </div>
     )
+  }
+
+  for(let j = 0; j < this.state.subCats.length; j++){
+    if(this.state.subCats[j].CatId === this.state.value){
+    subCats.push(
+       <div key={j} >
+        {this.state.subCats[j].subName}
+      </div>
+      )
+    }
   }
 
     return (
       <MuiThemeProvider>
+      <div>
         <div className='categories'>
-          <h1>Nykyiset Kategoriat</h1>
-            {cats}
+          <div className='cats' style={{float:'left', width: '50%'}}>
+            <h1>Kategoriat</h1>{cats}
+            <div className='addCategory' >
+              <p className='addCatLabel'>Lisää kategoria</p>
+              <TextField className='addCatField'
+              underlineShow={false}
+              style={{ backgroundColor: 'white', border: '2px solid #004225'}}
+              hintText='Uusi kategoria'
+              onChange = {(event, newValue) => this.setState({addCat: newValue})}
+            />
+            <RaisedButton label='Lisää' onClick={() => this.addCategory()} />
+          </div>
         </div>
-        <div className='addCategory'>
-          <p className='addCatLabel'>Lisää kategoria</p>
-          <TextField className='addCatField'
-          underlineShow={false}
-          style={{ backgroundColor: 'white', border: '2px solid #004225'}}
-          hintText='Uusi kategoria'
-          /*onChange = {(event, newValue) => this.setState({addCat: newValue})}*/
-        />
-        <p>{this.state.addCat}</p>
-        <RaisedButton label='Lisää' onClick={() => this.addCategory()} />
+        <div className='subCat' style={{float: 'right', width: '50%'}}>
+            {subCats.length !== 0 ? <div className='addSubCategory' >
+              <h1>{this.state.cat}-kategorian alakategoriat:</h1>
+              {subCats}{console.log(subCats.length)} <br/>
+                <p className='addSubCatLabel'>Lisää alakategoria</p>
+                <TextField className='addSubCatField'
+                underlineShow={false}
+                style={{ backgroundColor: 'white', border: '2px solid #004225'}}
+                hintText='Uusi alakategoria'
+                onChange = {(event, newValue) => this.setState({addSubCat: newValue})}
+              />
+              <RaisedButton label='Lisää' onClick={() => this.addSubCategory()} />
+            </div> :  <div>ei oo</div>}
+          </div>
         </div>
+      </div>
       </MuiThemeProvider>
 
     );

@@ -7,15 +7,15 @@ var session  = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
-var cors = require('cors');
+var cors = require('cors'); //tarttee devaukses koska front ei ole samalla palvelimella
 var app      = express();
 var port     = process.env.PORT || 80;
 
 var passport = require('passport');
-var flash    = require('connect-flash');
+//var flash    = require('connect-flash');
 
-var users;
-var source = require('./config/users.js');
+//var users;
+//var source = require('./config/users.js');
 // configuration ===============================================================
 // connect to our database
 //console.log('server' + source.Testi1);
@@ -61,11 +61,10 @@ app.use(session({
  } )); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
 
 
 // routes ======================================================================
-require('./app/routes.js')(app, passport, users); // load our routes and pass in our app and fully configured passport
+require('./app/routes.js')(app, passport, /*users*/); // load our routes and pass in our app and fully configured passport
 
 // launch ======================================================================
 app.listen(port);

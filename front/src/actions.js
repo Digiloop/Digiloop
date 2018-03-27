@@ -1,26 +1,32 @@
 import C from './constants'
 import fetch from 'isomorphic-fetch'
 
-export const login = ( username='Seppo Dangerous', password='DangerIsMyMiddleName12' ) =>
+export const login = (loginInfo) =>
   ({
     type: C.LOG_IN,
-    payload: {username, password}
+    payload: { loginInfo }
   })
 
-export const setResOpt = (options) => 
+export const setResOpt = (options) =>
   ({
     type: C.SET_RESOPT,
     payload: options
   })
 
-  
+export const setCategories = (cats) =>
+  ({
+    type: C.SET_CATEGORIES,
+    payload: cats
+  })
+
+export const setSubCategories = (subCats) =>
+  ({
+    type: C.SET_SUB_CATEGORIES,
+    payload: subCats
+  })
 
 export const setResList = (resList) =>
   ({
-      type: C.SET_RLI,
-      payload: resList
+    type: C.SET_RLI,
+    payload: resList
   })
-
-
-
-

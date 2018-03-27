@@ -5,7 +5,7 @@ var dbconfig = require('./database');
 var fileUpload = require('express-fileupload');
 var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
-app.use(fileUpload());
+/*app.use(fileUpload());*/
 // app/routes.js
 //var catquery = require('../config/catquery');
 //var source = require('../config/users.js');
@@ -48,18 +48,16 @@ module.exports = function(app, passport, users) {
             info: req.body.info.toString(),
             dateBegin: req.body.dateBegin.toString(), // use the generateHash function in our user model
             dateEnd: req.body.dateEnd,
-
         };
 
         var insertQuery = "INSERT INTO Announcements ( info, dateBegin, dateEnd) values (?, ?, ?)";
 
-            connection.query(insertQuery, [newItem.category, newItem.subCat, newItem.weight, newItem.size, newItem.description, newItem.picture, newItem.pcs, newItem.pickupaddr, newItem.junkdate, newItem.junkdateadded, newItem.status, newItem.owner], function(err, result) {
+            connection.query(insertQuery, [newItem.info, newItem.dateBegin, newItem.dateEnd], function(err, result) {
                 if (err) throw err;
-
-
             });
+            res.end();
         });
-        res.end();
+
 
 
 
@@ -141,7 +139,7 @@ module.exports = function(app, passport, users) {
           res.end();
     });
 
-    app.post('/upload', function(req, res) {
+    /*app.post('/upload', function(req, res) {
     if (!req.files)
       return res.status(400).send('No files were uploaded.');
 
@@ -156,7 +154,7 @@ module.exports = function(app, passport, users) {
       res.send('File uploaded!');
     });
   });
-
+*/
 
     //kaatuu ilman loggausta sisään
     app.post('/itemADD', isLoggedIn, function(req, res) {

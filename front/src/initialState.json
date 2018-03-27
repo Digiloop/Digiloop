@@ -1,8 +1,11 @@
 {
 	"loggedIn": {
-		"username": "Seppo Dangerous",
-		"password": "DangerIsMyMiddleName12"
+		"loginInfo":{
+			"userLevel": -1
+		}
+
 	},
+
 	"resList": [
 			{
 			"cat": "SER",

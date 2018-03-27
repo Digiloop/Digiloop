@@ -2,18 +2,25 @@ import C from '../constants'
 import { combineReducers } from 'redux'
 
 
-export const loggedIn = (state=[], action) =>
+export const loggedIn = (state = [], action) =>
   (action.type === C.LOG_IN) ? action.payload : state
 
-export const resListOpt = (state=[], action) =>
+export const resListOpt = (state = [], action) =>
   (action.type === C.SET_RESOPT) ? action.payload : state
 
-
-export const resList = (state=[], action) =>
+export const resList = (state = [], action) =>
   (action.type === C.SET_RLI) ? action.payload : state
+
+export const categories = (state = [], action) =>
+  (action.type === C.SET_CATEGORIES) ? action.payload : state
+
+export const subCategories = (state = [], action) =>
+  (action.type === C.SET_SUB_CATEGORIES) ? action.payload : state
 
 export default combineReducers({
   loggedIn,
   resListOpt,
-  resList
+  resList,
+  categories,
+  subCategories
 })

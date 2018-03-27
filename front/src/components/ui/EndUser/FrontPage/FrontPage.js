@@ -6,6 +6,7 @@ import Profile from '../Profile/Profile.js';
 import Order from '../Profile/Order.js';
 import Notification from '../Profile/Notification.js';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 
 class FrontPage extends Component {
 constructor(props){
@@ -22,9 +23,20 @@ handleChange = (event, value) => this.setState({value})
 
 render() {
     return (
-      <div>
-      <RaisedButton label="Uusi Tilaus" onClick={this.handleChange}  />
+      <div className="frontpageWrapper">
+      <div className="Container"><br/>
+      <FlatButton label="Uusi Tilaus" onClick={this.handleChange}  
+      backgroundColor="#FFFFFF"
+      style={{ borderRadius: '0', 
+      textAlign: 'center',
+      backgroundColor: 'white', 
+      border: '2px solid #004225',
+      fontFamily: 'kanit',
+      borderRadius: '0',
+      fontSize: '30px',
+      color: '#004225',}}/>
       {this.state.value ? <Notification /> : <Order />}
+      </div>
       </div>
 
     );

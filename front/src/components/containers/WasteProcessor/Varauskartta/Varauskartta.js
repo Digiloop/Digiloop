@@ -5,7 +5,9 @@ import { setResList } from '../../../../actions';
 const mapStateToProps = (state, props) =>
   ({
     rLOpt: state.resListOpt,
-    resListItems: state.resList
+    resListItems: state.resList,
+    cats: state.categories,
+    subCats: state.subCategories
 
   })
 

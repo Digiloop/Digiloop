@@ -8,7 +8,7 @@ import ReservationListing from './ReservationListing'
 import ReservationListOptions from '../../../containers/WasteProcessor/Varauskartta/ReservationListOptions'
 
 import { getJunkData } from '../../../../utils/fetchdata-api';
-import { getCats, getSubCats } from '../../../../utils/fetchcategories';
+//import { getCats, getSubCats } from '../../../../utils/fetchcategories';
 // fetch function
 
 
@@ -21,13 +21,13 @@ class WasteProcessor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 'a',
       showSO: false,
       rliFilt: [],
       categories: ["SER", "Akut", "Tietoturva"],
       subCategories: []
     }
     this.rliFiltering = this.rliFiltering.bind(this);
+    this.getJunksData = this.getJunksData.bind(this);
   }
 
   handleChange = (value) => {
@@ -42,29 +42,14 @@ class WasteProcessor extends Component {
     getJunkData().then((junks) => {
       console.log(junks);
       this.props.itemsToStore(junks.category);
+      this.rliFiltering();
     });
   }
 
-  getCategories() {
-    getCats().then((cats) => {
-      this.setState({
-        cats: cats.category
-      })
-    })
-  }
-  getSubCategories() {
-    getSubCats().then((subCats) => {
-      this.setState({
-        subCats: subCats.category
-      })
-    })
-  }
 
   // the filter function, that leaves only the necessary stuff to be displayed
   rliFiltering() {
 
-    console.log(this.state.cats);
-    console.log(this.state.subCats);
 
     //var dynVar;
 
@@ -75,8 +60,15 @@ class WasteProcessor extends Component {
     // Abbreviations for props, reservelist options, catoptions & subcatoptions
     const p = this.props;
     const o = this.props.rLOpt;
-    const co = o.categories;
-    const sco = o.subCategories;
+
+    console.log(this.props.cats);
+    console.log(this.props.subCats);
+    console.log(o.categories);
+    console.log(o.subCategories);
+
+
+
+
     let pi;
 
     let pass = true;
@@ -84,35 +76,23 @@ class WasteProcessor extends Component {
 
     // move optioned cats and subcats to array for easier usage
     let catOptions = [];
-    for (let key in co){
-      if (co.hasOwnProperty(key)){
-        catOptions = [...catOptions, co[key]]
+    for (let key in o.categories) {
+      if (o.categories.hasOwnProperty(key)) {
+        catOptions = [...catOptions, o.categories[key]]
       }
     }
-    console.log(this.props.cats);
-    console.log(this.props.subCats);
+
 
     for (let i = 0; i < this.props.resListItems.length; i++) {
 
       pi = p.resListItems[i];
       pass = true;
 
-      /*
-      if (o.ser == false && pi.category == "SER") {
-        pass = false;
-      }
-      */
-      
-      
-      if(this.props.cats){
-        for (var i = 0; i < this.props.cats.length; i++) {
-          if (catOptions[i] == false && pi.category == this.props.cats[i].CatName) {
-            pass = false;
-          }
+      for (let j = 0; j < this.props.cats.length; j++) {
+        if (catOptions[j] == false && pi.category == this.props.cats[j].CatName) {
+          pass = false;
         }
       }
-      
-      
 
       if (pass) {
         resListItemsFiltered[j] = this.props.resListItems[i];
@@ -128,11 +108,11 @@ class WasteProcessor extends Component {
 
   componentDidMount() {
     this.getJunksData();
-    this.rliFiltering();
+    //this.rliFiltering();
   }
 
   componentWillReceiveProps() {
-    this.rliFiltering();
+    //this.rliFiltering();
   }
 
   showSearchOptions = () => {
@@ -149,8 +129,6 @@ class WasteProcessor extends Component {
 
   render() {
 
-    // fetch
-    const { junks } = this.state;
 
     return (
       <MuiThemeProvider>

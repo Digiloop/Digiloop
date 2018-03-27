@@ -12,7 +12,7 @@ connection.query('USE ' + dbconfig.database);
 
 module.exports = function(app, passport, users) {
     //	app.get('/categories',isLoggedIn, function(req, res)
-    app.get('/categories', isLoggedIn, function(req, res, next) {
+    app.get('/categories', function(req, res, next) {
         connection.query('SELECT * FROM Category WHERE Status = 1', function(err, result) {
             if (err) throw err;
             res.json({
@@ -21,7 +21,7 @@ module.exports = function(app, passport, users) {
         });
     });
 
-    app.get('/subcat', isLoggedIn, function(req, res) {
+    app.get('/subcat', function(req, res) {
         connection.query('SELECT * FROM subCat WHERE Status = 1',
             function(err, result) {
                 if (err) throw err;
@@ -272,7 +272,7 @@ module.exports = function(app, passport, users) {
     }));
 
     app.post('/signupNormal', passport.authenticate('local-signup', {
-        'leveli' : 'moi'
+
 
     }));
 

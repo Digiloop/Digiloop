@@ -62,6 +62,7 @@ render() {
              showMenuIconButton={false}
            />
            <div className='loginContent'>
+           <form>
            <div className="loginGroup">
            <p className="loginLabel">Sähköpostiosoite</p>
            <TextField className="loginInputField"
@@ -85,9 +86,11 @@ render() {
                onChange = {(event,newValue) => this.setState({password:newValue})}
                />
                </div>
+               </form>
 
                <div className="loginGroup">
-               <FlatButton label="Kirjaudu"
+               <FlatButton type="submit" label="Kirjaudu"
+               disableTouchRipple = "true"
                style = {{marginTop: '20px'}}
                labelStyle = {{
                 fontFamily: 'kanit',

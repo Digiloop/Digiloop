@@ -48,9 +48,9 @@ constructor(props){
 
   register = () => {
     this.props.onNewLogin({
-      userLevel: 3
+      userlvl: 3
     });
-    console.log(this.state.userLevel);
+    console.log(this.state.userLevel.userlvl);
   }
 
 

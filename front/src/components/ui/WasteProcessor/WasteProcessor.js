@@ -17,8 +17,7 @@ class WasteProcessor extends Component {
 constructor(props){
   super(props);
   this.state={
-    value: 'a',
-    index: 0
+    index: 4
   }
  }
 

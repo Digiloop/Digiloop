@@ -12,7 +12,7 @@ connection.query('USE ' + dbconfig.database);
 
 module.exports = function(app, passport, users) {
     //	app.get('/categories',isLoggedIn, function(req, res)
-    app.get('/categories', function(req, res, next) {
+    app.get('/categories', isLoggedIn, function(req, res, next) {
         connection.query('SELECT * FROM Category WHERE Status = 1', function(err, result) {
             if (err) throw err;
             res.json({
@@ -21,7 +21,7 @@ module.exports = function(app, passport, users) {
         });
     });
 
-    app.get('/subcat', function(req, res) {
+    app.get('/subcat', isLoggedIn, function(req, res) {
         connection.query('SELECT * FROM subCat WHERE Status = 1',
             function(err, result) {
                 if (err) throw err;
@@ -31,7 +31,7 @@ module.exports = function(app, passport, users) {
             });
     });
 
-    app.get('/items', function(req, res) {
+    app.get('/items', isLoggedIn, function(req, res) {
         connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
             function(err, result) {
                 if (err) throw err;
@@ -44,7 +44,7 @@ module.exports = function(app, passport, users) {
 
 
     // main code, muista x-www-form-urlencoded
-    app.post('/subCatStatus', function(req, res) {
+    app.post('/subCatStatus', isLoggedIn, function(req, res) {
         connection.query('UPDATE subCat SET Status = ? WHERE subId = ?;', [req.body.Status, req.body.subIdStatus], (err, rows) => {
             if (err) throw err;
             console.log(rows.affectedRows + " record(s) updated");
@@ -54,7 +54,7 @@ module.exports = function(app, passport, users) {
     });
 
     //item Status
-    app.post('/itemStatus', function(req, res) {
+    app.post('/itemStatus', isLoggedIn, function(req, res) {
         connection.query('UPDATE junk SET status = ? WHERE junkID = ?;', [req.body.status, req.body.subIdStatus], (err, rows) => {
             if (err) throw err;
             console.log(rows.affectedRows + " record(s) updated");
@@ -63,7 +63,7 @@ module.exports = function(app, passport, users) {
         res.end();
     });
 
-    app.post('/itemReserve', function(req, res) {
+    app.post('/itemReserve',isLoggedIn, function(req, res) {
         connection.query('UPDATE junk SET status = ?, fetcher = ? WHERE junkID = ?;', [req.body.status,req.body.fetcher, req.body.subIdStatus], (err, rows) => {
             if (err) throw err;
             console.log(rows.affectedRows + " record(s) updated");
@@ -73,7 +73,7 @@ module.exports = function(app, passport, users) {
     });
 
 
-    app.post('/catADD', function(req,res) {
+    app.post('/catADD', isLoggedIn, function(req,res) {
       var newCat = {
         catname:req.body.catname,
         catstatus:1
@@ -90,7 +90,7 @@ module.exports = function(app, passport, users) {
 
 //Error: Field 'subId' doesn't have a default value
 //subcattiin tarvitsee auto incrementin //fixed
-    app.post('/subcatADD', function(req,res) {
+    app.post('/subcatADD', isLoggedIn, function(req,res) {
       var newsubCat = {
         catid:req.body.catid,
         subcatname:req.body.subcatname.toString(),
@@ -109,7 +109,7 @@ module.exports = function(app, passport, users) {
 
 
     //kaatuu ilman loggausta sisään
-    app.post('/itemADD', function(req, res) {
+    app.post('/itemADD', isLoggedIn, function(req, res) {
         var newItem = {
             category: req.body.category.toString(),
             subCat: req.body.subCat.toString(), // use the generateHash function in our user model
@@ -285,7 +285,7 @@ module.exports = function(app, passport, users) {
     // =====================================
     // LOGOUT ==============================
     // =====================================
-    app.get('/logout', function(req, res) {
+    app.get('/logout', isLoggedIn, function(req, res) {
         req.logout();
         //res.redirect('/login');
         res.end();

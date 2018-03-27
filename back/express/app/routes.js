@@ -2,8 +2,10 @@ var express = require('express');
 var router = express.Router(); // load up the user model
 var mysql = require('mysql2');
 var dbconfig = require('./database');
+var fileUpload = require('express-fileupload');
 var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
+app.use(fileUpload());
 // app/routes.js
 //var catquery = require('../config/catquery');
 //var source = require('../config/users.js');
@@ -30,6 +32,38 @@ module.exports = function(app, passport, users) {
                 });
             });
     });
+
+    app.get('/announcements', function(req, res) {
+        connection.query('SELECT * FROM Announcements',
+            function(err, result) {
+                if (err) throw err;
+                res.json({
+                    category: result
+                });
+            });
+    });
+
+    app.post('/announcementADD', isLoggedIn, function(req, res) {
+        var newItem = {
+            info: req.body.info.toString(),
+            dateBegin: req.body.dateBegin.toString(), // use the generateHash function in our user model
+            dateEnd: req.body.dateEnd,
+
+        };
+
+        var insertQuery = "INSERT INTO Announcements ( info, dateBegin, dateEnd) values (?, ?, ?)";
+
+            connection.query(insertQuery, [newItem.category, newItem.subCat, newItem.weight, newItem.size, newItem.description, newItem.picture, newItem.pcs, newItem.pickupaddr, newItem.junkdate, newItem.junkdateadded, newItem.status, newItem.owner], function(err, result) {
+                if (err) throw err;
+
+
+            });
+        });
+        res.end();
+
+
+
+
 
     app.get('/items', isLoggedIn, function(req, res) {
         connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
@@ -107,6 +141,21 @@ module.exports = function(app, passport, users) {
           res.end();
     });
 
+    app.post('/upload', function(req, res) {
+    if (!req.files)
+      return res.status(400).send('No files were uploaded.');
+
+    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+    var sampleFile = req.files.sampleFile;
+
+    // Use the mv() method to place the file somewhere on your server
+    sampleFile.mv('//' + req.body.user +'/'+ 'test.jpg', function(err) {
+      if (err)
+        return res.status(500).send(err);
+
+      res.send('File uploaded!');
+    });
+  });
 
 
     //kaatuu ilman loggausta sisään

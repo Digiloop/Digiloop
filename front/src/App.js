@@ -7,7 +7,7 @@ import Register from './components/containers/Login/Register.js';
 import Front from './components/ui/EndUser/EndUserFront.js';
 import WasteProcessor from './components/containers/WasteProcessor/WasteProcessor.js';
 
-import Order from './components/ui/EndUser/Order/order.js';
+import Order from './components/ui/EndUser/Orderinho/Order.js';
 import FrontPage from './components/ui/EndUser/FrontPage/FrontPage.js';
 import Profile from './components/ui/EndUser/Profile/Profile.js';
 import Admin from './components/ui/WasteProcessor/Admin/Admin.js';

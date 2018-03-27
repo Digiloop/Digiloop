@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -7,7 +7,7 @@ import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';
 import { sendRegData } from '../../../utils/sendRegData';
 
-class Register extends React.Component {
+class Register extends Component {
     constructor(props) {
         super(props);
 

@@ -2,8 +2,10 @@ var express = require('express');
 var router = express.Router(); // load up the user model
 var mysql = require('mysql2');
 var dbconfig = require('./database');
+var fileUpload = require('express-fileupload');
 var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
+/*app.use(fileUpload());*/
 // app/routes.js
 //var catquery = require('../config/catquery');
 //var source = require('../config/users.js');
@@ -31,7 +33,37 @@ module.exports = function(app, passport, users) {
             });
     });
 
-    app.get('/items', function(req, res) {
+    app.get('/announcements', function(req, res) {
+        connection.query('SELECT * FROM Announcements',
+            function(err, result) {
+                if (err) throw err;
+                res.json({
+                    category: result
+                });
+            });
+    });
+
+    app.post('/announcementADD', isLoggedIn, function(req, res) {
+        var newItem = {
+            info: req.body.info.toString(),
+            dateBegin: req.body.dateBegin.toString(), // use the generateHash function in our user model
+            dateEnd: req.body.dateEnd,
+        };
+
+        var insertQuery = "INSERT INTO Announcements ( info, dateBegin, dateEnd) values (?, ?, ?)";
+
+            connection.query(insertQuery, [newItem.info, newItem.dateBegin, newItem.dateEnd], function(err, result) {
+                if (err) throw err;
+            });
+            res.end();
+        });
+
+
+
+
+
+
+    app.get('/items', isLoggedIn, function(req, res) {
         connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
             function(err, result) {
                 if (err) throw err;
@@ -43,8 +75,9 @@ module.exports = function(app, passport, users) {
     });
 
 
-    // main code, muista x-www-form-urlencode
-    app.post('/subCatStatus', function(req, res) {
+
+    // main code, muista x-www-form-urlencoded
+    app.post('/subCatStatus', isLoggedIn, function(req, res) {
         connection.query('UPDATE subCat SET Status = ? WHERE subId = ?;', [req.body.Status, req.body.subIdStatus], (err, rows) => {
             if (err) throw err;
             console.log(rows.affectedRows + " record(s) updated");
@@ -54,7 +87,7 @@ module.exports = function(app, passport, users) {
     });
 
     //item Status
-    app.post('/itemStatus', function(req, res) {
+    app.post('/itemStatus', isLoggedIn, function(req, res) {
         connection.query('UPDATE junk SET status = ? WHERE junkID = ?;', [req.body.status, req.body.subIdStatus], (err, rows) => {
             if (err) throw err;
             console.log(rows.affectedRows + " record(s) updated");
@@ -63,7 +96,7 @@ module.exports = function(app, passport, users) {
         res.end();
     });
 
-    app.post('/itemReserve', function(req, res) {
+    app.post('/itemReserve',isLoggedIn, function(req, res) {
         connection.query('UPDATE junk SET status = ?, fetcher = ? WHERE junkID = ?;', [req.body.status,req.body.fetcher, req.body.subIdStatus], (err, rows) => {
             if (err) throw err;
             console.log(rows.affectedRows + " record(s) updated");
@@ -73,7 +106,7 @@ module.exports = function(app, passport, users) {
     });
 
 
-    app.post('/catADD', function(req,res) {
+    app.post('/catADD', isLoggedIn, function(req,res) {
       var newCat = {
         catname:req.body.catname,
         catstatus:1
@@ -90,7 +123,7 @@ module.exports = function(app, passport, users) {
 
 //Error: Field 'subId' doesn't have a default value
 //subcattiin tarvitsee auto incrementin //fixed
-    app.post('/subcatADD', function(req,res) {
+    app.post('/subcatADD', isLoggedIn, function(req,res) {
       var newsubCat = {
         catid:req.body.catid,
         subcatname:req.body.subcatname.toString(),
@@ -106,10 +139,25 @@ module.exports = function(app, passport, users) {
           res.end();
     });
 
+    /*app.post('/upload', function(req, res) {
+    if (!req.files)
+      return res.status(400).send('No files were uploaded.');
 
+    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+    var sampleFile = req.files.sampleFile;
+
+    // Use the mv() method to place the file somewhere on your server
+    sampleFile.mv('//' + req.body.user +'/'+ 'test.jpg', function(err) {
+      if (err)
+        return res.status(500).send(err);
+
+      res.send('File uploaded!');
+    });
+  });
+*/
 
     //kaatuu ilman loggausta sisään
-    app.post('/itemADD', function(req, res) {
+    app.post('/itemADD', isLoggedIn, function(req, res) {
         var newItem = {
             category: req.body.category.toString(),
             subCat: req.body.subCat.toString(), // use the generateHash function in our user model
@@ -188,6 +236,10 @@ module.exports = function(app, passport, users) {
                 });
             });
     });
+
+    app.post('/upload', function(req, res) {
+  console.log(req.files.foo); // the uploaded file object
+});
 
     /*
     app.post('/submit',function(req, res, next) {
@@ -271,7 +323,7 @@ module.exports = function(app, passport, users) {
     }));
 
     app.post('/signupNormal', passport.authenticate('local-signup', {
-
+         //leveli = 'moi'
 
     }));
 
@@ -290,7 +342,7 @@ module.exports = function(app, passport, users) {
     // =====================================
     // LOGOUT ==============================
     // =====================================
-    app.get('/logout', function(req, res) {
+    app.get('/logout', isLoggedIn, function(req, res) {
         req.logout();
         //res.redirect('/login');
         res.end();

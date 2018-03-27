@@ -41,7 +41,7 @@ class App extends Component {
   handleChange = () => {
     this.setState({
     });
-    console.log(this.state.userLevel);
+    console.log(this.state.userLevel.userlvl);
 
   };
 
@@ -74,7 +74,7 @@ class App extends Component {
           <div>
             {
               (() => {
-                switch (this.props.userLevel.loginInfo.userLevel) {
+                switch (this.props.userLevel.loginInfo.userLevel.userlvl) {
                   case '0':
                     return <WasteProcessor />;
 

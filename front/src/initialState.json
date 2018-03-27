@@ -1,13 +1,13 @@
 {
 	"loggedIn": {
-		"loginInfo":{
-			"userLevel": -1
+		"loginInfo": {
+			"userLevel": {
+				"userlvl": -1
+			}
 		}
-
 	},
-
 	"resList": [
-			{
+		{
 			"cat": "SER",
 			"subCat": "Data",
 			"amount": 12,
@@ -17,8 +17,8 @@
 			"status": 1,
 			"latitude": 60.986358,
 			"longitude": 25.644209
-			},
-			{
+		},
+		{
 			"cat": "SER",
 			"subCat": "Data",
 			"amount": 12,
@@ -30,42 +30,35 @@
 			"longitude": 26.701820
 		},
 		{
-		"cat": "AKKU",
-		"subCat": "Data",
-		"amount": 12,
-		"size": 0.59,
-		"weight": 4.2,
-		"date": "27-10-2017",
-		"status": 2,
-		"latitude": 63.986358,
-		"longitude": 27.644209
+			"cat": "AKKU",
+			"subCat": "Data",
+			"amount": 12,
+			"size": 0.59,
+			"weight": 4.2,
+			"date": "27-10-2017",
+			"status": 2,
+			"latitude": 63.986358,
+			"longitude": 27.644209
 		}
 	],
-
-	"resListOpt":
-		{
-			"showRes": true,
-
-			"ser": true,
-			"batteries": true,
-			"infoSecurity": true,
-
-			"serSmallSer": true,
-			"serBigSer": true,
-			"serDataSer": true,
-			"serLampSer": true,
-
-			"battNickelKadium": true,
-			"battNickelMetal": true,
-			"battOther": true,
-
-			"infosecDataSer": true,
-			"infosecPaper": true,
-
-			"minWeight": 0,
-			"maxWeight": 0,
-			"minSize": 0,
-			"maxSize": 0,
-			"distance": 0
-		}
+	"resListOpt": {
+		"showRes": true,
+		"ser": true,
+		"batteries": true,
+		"infoSecurity": true,
+		"serSmallSer": true,
+		"serBigSer": true,
+		"serDataSer": true,
+		"serLampSer": true,
+		"battNickelKadium": true,
+		"battNickelMetal": true,
+		"battOther": true,
+		"infosecDataSer": true,
+		"infosecPaper": true,
+		"minWeight": 0,
+		"maxWeight": 0,
+		"minSize": 0,
+		"maxSize": 0,
+		"distance": 0
+	}
 }

@@ -34,6 +34,7 @@ getJunksData() {
 
 listHistory(){
   const items = [];
+  console.log(items);
   for(let i = 0; i < this.props.items.length; i++){
     if(this.props.items[i].status == 4){
     items.push(

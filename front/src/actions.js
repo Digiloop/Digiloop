@@ -30,3 +30,9 @@ export const setResList = (resList) =>
     type: C.SET_RLI,
     payload: resList
   })
+
+  export const setNotifications = (notifications) =>
+    ({
+      type: C.SET_NOTIF,
+      payload: notifications
+    })

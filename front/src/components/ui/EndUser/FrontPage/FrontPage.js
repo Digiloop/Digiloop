@@ -4,7 +4,7 @@ import Divider from 'material-ui/Divider';
 import styles from '../../../../index.css';
 import Profile from '../Profile/Profile.js';
 import Order from '../Profile/Order.js';
-import Notification from '../Profile/Notification.js';
+import Notification from '../../../containers/WasteProcessor/Notification'
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -25,12 +25,12 @@ render() {
     return (
       <div className="frontpageWrapper">
       <div className="Container"><br/>
-    
-      <FlatButton label="Uusi Tilaus" onClick={this.handleChange}  
+
+      <FlatButton label="Uusi Tilaus" onClick={this.handleChange}
       backgroundColor="#FFFFFF"
-      style={{ borderRadius: '0', 
+      style={{ borderRadius: '0',
       textAlign: 'center',
-      backgroundColor: 'white', 
+      backgroundColor: 'white',
       border: '2px solid #004225',
       fontFamily: 'kanit',
       borderRadius: '0',

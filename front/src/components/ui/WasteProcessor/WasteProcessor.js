@@ -11,6 +11,8 @@ import ReservedListing from '../../containers/WasteProcessor/ReservedListing'
 import Varauskartta from '../../containers/WasteProcessor/Varauskartta/Varauskartta'
 import Admin from '../../containers/WasteProcessor/Admin/Admin'
 
+import Notification from '../../containers/WasteProcessor/Notification'
+
 
 
 class WasteProcessor extends Component {
@@ -44,7 +46,7 @@ render() {
       {this.state.index === 1 && <ReservedListing />}
       {this.state.index === 2 && <Admin />}
       {this.state.index === 3 && <Varauskartta />}
-      {this.state.index === 4 && <div>{'Ilmoitukset'}</div>}
+      {this.state.index === 4 && <Notification />}
       </div>
 
 

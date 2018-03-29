@@ -17,10 +17,14 @@ export const categories = (state = [], action) =>
 export const subCategories = (state = [], action) =>
   (action.type === C.SET_SUB_CATEGORIES) ? action.payload : state
 
+  export const notifications = (state = [], action) =>
+    (action.type === C.SET_NOTIF) ? action.payload : state
+
 export default combineReducers({
   loggedIn,
   resListOpt,
   resList,
   categories,
-  subCategories
+  subCategories,
+  notifications
 })

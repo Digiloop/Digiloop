@@ -9,11 +9,12 @@ function getCredentials(username, password) {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
+        'Content-Type': 'application/json'
+      },         
       body: JSON.stringify({
         username, password
-      })
+      }),
+      // credentials: 'include'
     }).then((response) => response.json())
       .then((responseJson) => {
         console.log(responseJson);

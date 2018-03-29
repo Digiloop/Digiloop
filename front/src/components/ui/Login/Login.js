@@ -49,9 +49,11 @@ class Login extends Component {
 
   register = () => {
     this.props.onNewLogin({
-      userlvl: 3
+      userLevel: {
+        userlvl: 3
+      }
     });
-    console.log(this.state.userLevel.userlvl);
+    // console.log(this.state.userLevel.userlvl);
   }
 
 

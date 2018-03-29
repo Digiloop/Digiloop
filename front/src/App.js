@@ -47,8 +47,12 @@ class App extends Component {
   };
 
   logout = () => {
-    logOut().then((exit) => {
-      console.log(exit);
+    logOut().then(() => {
+    });
+    this.props.onNewLogin({
+      userLevel: {
+        userlvl: -1
+      }
     });
   }
 

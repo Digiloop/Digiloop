@@ -10,7 +10,7 @@ var morgan = require('morgan');
 var cors = require('cors'); //tarttee devaukses koska front ei ole samalla palvelimella
 var app      = express();
 var port     = process.env.PORT || 80;
-
+var fileUpload = require('express-fileupload')
 var passport = require('passport');
 //var flash    = require('connect-flash');
 
@@ -28,9 +28,13 @@ require('./config/passport')(passport); // pass passport for configuration
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.urlencoded({
+	limit:'50mb',
 	extended: true
 }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+	limit:'50mb'
+}));
+app.use(fileUpload());
 app.use(cors());
 // Add headers
 app.use(function (req, res, next) {

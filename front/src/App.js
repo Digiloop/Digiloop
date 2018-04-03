@@ -6,11 +6,12 @@ import Login from './components/containers/Login/Login.js';
 import Register from './components/containers/Login/Register.js';
 import Front from './components/ui/EndUser/EndUserFront.js';
 import WasteProcessor from './components/containers/WasteProcessor/WasteProcessor.js';
+import AdminWasteProcessor from './components/containers/Admin/WasteProcessor.js';
 
 import Order from './components/ui/EndUser/Orderinho/Order.js';
 import FrontPage from './components/ui/EndUser/FrontPage/FrontPage.js';
 import Profile from './components/ui/EndUser/Profile/Profile.js';
-import Admin from './components/ui/WasteProcessor/Admin/Admin.js';
+import Admin from './components/ui/Admin/Admin/Admin.js';
 // Author: Spagehetti Baker Bros & co.
 //Testikommentti
 import { getCats, getSubCats } from './utils/fetchcategories';
@@ -82,7 +83,7 @@ class App extends Component {
               (() => {
                 switch (this.props.userLevel.loginInfo.userLevel.userlvl) {
                   case '0':
-                    return <WasteProcessor />;
+                    return <AdminWasteProcessor />;
 
                   case '1':
                     return <WasteProcessor />;

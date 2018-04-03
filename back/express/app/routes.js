@@ -65,9 +65,9 @@ module.exports = function(app, passport, users) {
 
 
 
-    app.get('/items', function(req, res) {
+    app.get('/items',isLoggedIn function(req, res) {
         if (req.user.userlvl <= 1){
-        connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
+        connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID;',
             function(err, result) {
                 if (err) throw err;
                 res.json({
@@ -76,7 +76,7 @@ module.exports = function(app, passport, users) {
             });
           }
           else {
-            connection.query('SELECT * FROM junk WHERE owner = ? INNER JOIN Coordinates ON junk.junkID=Coordinates.ID', [req.user.id],
+            connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID WHERE owner = ?;', [req.user.id.toString()],
                 function(err, result) {
                     if (err) throw err;
                     res.json({
@@ -234,8 +234,8 @@ module.exports = function(app, passport, users) {
     });
 
 // Esimerkki userlvl tarkastuksesta routessa, ei käytössä
-    app.get('/items2', isLoggedIn, function(req, res) {
-      if (req.user.userlvl <= 1){
+    app.get('/items2', function(req, res) {
+      //if (req.user.userlvl <= 1){
         connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
             function(err, result) {
                 if (err) throw err;
@@ -243,11 +243,7 @@ module.exports = function(app, passport, users) {
                     category: result
                 });
             });
-        }
-          else{
-            console.log("FAIIIIL");
-            res.end();
-          }
+    //    }
     });
 
 

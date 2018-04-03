@@ -1,10 +1,12 @@
 /* INDEX.css */
 
 body {
-  margin: 0; 
+  margin: auto; 
   color: #FFF; 
   background:#004225; 
-  font-family: sans-serif;
+  font-weight: bold;
+  font-family: kanit;
+  margin: auto;
 }
 
 a:visited
@@ -125,12 +127,10 @@ color: #808080;
   -webkit-background-size: contain;
   -moz-background-size: contain;
   -o-background-size: contain;
-  position: absolute;
   padding-top: 150px;
   color: #004225;
   font-size: 200px;
   max-width: 949px;   
-  max-height: 100vh;
   min-width: 100%;
   min-height: 100vh; 
   border: 0;
@@ -147,9 +147,9 @@ color: #808080;
   }
 
  .loginGroup {
-    line-height: 1.5;
-    align-content: left;
-    font-family: kanit;
+  line-height: 1.5;
+  align-content: left;
+  font-family: kanit;
   font-size: 16px;
   text-align: left;
   padding-left: 2%;
@@ -299,10 +299,6 @@ background-image: url("components/ui/EndUser/Materials//hirvikarhu.png"),
 
 /* ORDER.css */
 
-body {
-    margin: auto;
-}
-
 .Container {
   font-weight: bold;
   font-family: kanit;
@@ -341,6 +337,7 @@ text-align: right;
   text-align: center;
   margin: auto;
 }
+
 /* HISTORY.css */
 
 p.history {

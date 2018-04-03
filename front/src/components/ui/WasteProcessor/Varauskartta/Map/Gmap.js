@@ -9,22 +9,6 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "reac
 import  MarkerWithLabel from "react-google-maps/lib/components/addons/MarkerWithLabel"
 import PropTypes from 'prop-types'
 import InfoBox from "react-google-maps/lib/components/addons/InfoBox"
-import Geocoder from 'react-native-geocoding';
-// Pakotan commitin
-Geocoder.setApiKey('AIzaSyAMGoVUz1iQ1dDQRgK31rV3U2M_8vCFzE4');
-
-  // Toimiva paske, Geocoding hoidetaan kun tallennetaan DBhen. On nyt demoamis vaiheessa tässä käytössä
-  /*
-  var markers = [{"lat": 60.986466, "lng": 25.643688, "text": "Kikki Hiiri was here EBIN!"},
-  {"lat": 61.986466, "lng": 26.643688, "text": "Kikki Hiiri was here too!"}];
-
-  const rows = [];
-
-  for(let i =0; i<markers.length; i++ ){
-    rows.push(<Marker
-      key={i}
-      position={{ lat:markers[i].lat, lng:markers[i].lng }} /> )
-  }*/
 
 class Map extends Component {
 componentWillMount(){

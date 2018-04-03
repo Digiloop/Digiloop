@@ -65,12 +65,8 @@ class WasteProcessor extends Component {
     console.log(this.props.subCats);
     console.log(o.categories);
     console.log(o.subCategories);
-
-
-
-
+    
     let pi;
-
     let pass = true;
 
 

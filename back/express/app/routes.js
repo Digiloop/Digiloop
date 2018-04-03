@@ -4,6 +4,7 @@ var mysql = require('mysql2');
 var dbconfig = require('./database');
 var fileUpload = require('express-fileupload');
 var connection = mysql.createConnection(dbconfig.connection);
+//var datenow = Date.now();
 const fs = require('fs');
 connection.query('USE ' + dbconfig.database);
 
@@ -65,14 +66,24 @@ module.exports = function(app, passport, users) {
 
 
     app.get('/items', function(req, res) {
+        if (req.user.userlvl <= 1){
         connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
             function(err, result) {
                 if (err) throw err;
-                //console.log(req.user.id)
                 res.json({
                     category: result
                 });
             });
+          }
+          else {
+            connection.query('SELECT * FROM junk WHERE owner = ? INNER JOIN Coordinates ON junk.junkID=Coordinates.ID', [req.user.id],
+                function(err, result) {
+                    if (err) throw err;
+                    res.json({
+                        category: result
+                    });
+                });
+          }
     });
 
 
@@ -142,23 +153,9 @@ module.exports = function(app, passport, users) {
 //-------------------------------------------------------------------
 //-------------------------------------------------------------------
 //-------------------------------------------------------------------
+
     app.post('/upload', function(req, res) {
-    if (!req.files)
-      return res.status(400).send('No files were uploaded.');
 
-    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-
-    var sampleFile = req.files.sampleFile;
-    var dir = './kuvat/' + req.user.username;
-    if(!fs.existsSync(dir)){
-      fs.mkdirSync(dir);
-    }
-    // Use the mv() method to place the file somewhere on your server
-    sampleFile.mv('./kuvat/'+ req.user.username + '/test.jpg', function(err) {
-      if (err)
-        return res.status(500).send(err);
-      res.send('File uploaded!');
-    });
   });
 //-------------------------------------------------------------------
 //-------------------------------------------------------------------
@@ -173,7 +170,7 @@ module.exports = function(app, passport, users) {
             weight: req.body.weight,
             size: req.body.size,
             description: req.body.description.toString(),
-            picture: req.body.picture.toString(),
+            picture: "",//req.body.picture.toString(),
             pcs: req.body.pcs,
             pickupaddr: req.body.pickupaddr.toString(),
             junkdate: req.body.junkdate,
@@ -184,6 +181,25 @@ module.exports = function(app, passport, users) {
             longitude: req.body.longitude,
             coordstatus: req.body.status2
         };
+
+        if (req.files){
+
+
+        // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+
+        var picture = req.files.picture;
+        var userfolder = './kuvat/' + req.user.username;
+        if(!fs.existsSync(userfolder)){
+          fs.mkdirSync(userfolder);
+        }
+        var filepath = './kuvat/'+ req.user.username+ '/' + Date.now() + '.' + picture.name.split('.').pop();
+        newItem.picture = filepath;
+        // Use the mv() method to place the file somewhere on your server
+        picture.mv(filepath, function(err) {
+          if (err)
+            return res.status(500).send(err);
+        })};
+
         var insertQuery = "INSERT INTO junk ( category, subCat, weight, size, description, picture, pcs, pickupaddr, junkdate, junkdateadded, status, owner ) values (?,?,?,?,?,?,?,?,?,?,?,?)";
         var insertQuery2 = "INSERT INTO Coordinates ( latitude, longitude, coordstatus) values (?, ?, ?)";
         connection.beginTransaction(function(err) {
@@ -246,9 +262,10 @@ module.exports = function(app, passport, users) {
             });
     });
 
-    app.post('/upload', function(req, res) {
+  /*  app.post('/upload', function(req, res) {
   console.log(req.files.foo); // the uploaded file object
 });
+*/
 
     /*
     app.post('/submit',function(req, res, next) {
@@ -266,6 +283,8 @@ module.exports = function(app, passport, users) {
 
     app.get('/', function(req, res) {
         //res.render('index.ejs'); // load the index.ejs file
+        /*res.sendFile('build/index.html',{root: __dirname});*/
+
     });
 
     // =====================================

@@ -46,8 +46,8 @@ render() {
         </AppBar>
         </div>
           {<this.state.value />}
-          <div className="footter">
-          </div>
+          {/* <div className="footter"></div> */}
+          
       </div>
       </MuiThemeProvider>
     );

@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { BASE_URL } from '../settings';
 
-const BASE_URL = 'https://cors-anywhere.herokuapp.com/http://193.166.72.18';
+
 
 export {getCats, getSubCats};
 
@@ -8,13 +9,11 @@ export {getCats, getSubCats};
 // might be some solution in axios.all?
 
 function getCats() {
-  const url = 'http://193.166.72.18/categories';
-  return axios.get(url).then(response => response.data);
+  return axios.get(BASE_URL+'/categories').then(response => response.data);
 }
 
 function getSubCats() {
-  const url = 'http://193.166.72.18/subcat';
-  return axios.get(url).then(response => response.data);
+  return axios.get(BASE_URL+'/subcat').then(response => response.data);
 }
 
 /*

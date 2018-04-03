@@ -9,11 +9,6 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "reac
 import  MarkerWithLabel from "react-google-maps/lib/components/addons/MarkerWithLabel"
 import PropTypes from 'prop-types'
 import InfoBox from "react-google-maps/lib/components/addons/InfoBox"
-import Geocoder from 'react-native-geocoding';
-// Pakotan commitin
-Geocoder.setApiKey('AIzaSyAMGoVUz1iQ1dDQRgK31rV3U2M_8vCFzE4');
-
-
 
 class Map extends Component {
 componentWillMount(){

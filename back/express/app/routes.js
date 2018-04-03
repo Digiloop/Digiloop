@@ -65,7 +65,7 @@ module.exports = function(app, passport, users) {
 
 
 
-    app.get('/items',isLoggedIn function(req, res) {
+    app.get('/items',isLoggedIn, function(req, res) {
         if (req.user.userlvl <= 1){
         connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID;',
             function(err, result) {
@@ -279,7 +279,7 @@ module.exports = function(app, passport, users) {
 
     app.get('/', function(req, res) {
         //res.render('index.ejs'); // load the index.ejs file
-        /*res.sendFile('build/index.html',{root: __dirname});*/
+        res.sendFile('index.html',{root: __dirname});
 
     });
 

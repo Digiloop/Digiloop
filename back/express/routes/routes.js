@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router(); // load up the user model
 var mysql = require('mysql2');
-var dbconfig = require('./database');
+var dbconfig = require('../app/database');
 var fileUpload = require('express-fileupload');
 var connection = mysql.createConnection(dbconfig.connection);
 //var datenow = Date.now();
@@ -13,7 +13,8 @@ connection.query('USE ' + dbconfig.database);
 //var source = require('../config/users.js');
 //http://catlau.co/how-to-modularize-routes-with-the-express-router/
 //https://blog.grossman.io/expressjs-tips-for-large-applications/
-
+//https://scotch.io/tutorials/keeping-api-routing-clean-using-express-routers
+//https://www.terlici.com/2014/09/29/express-router.html
 module.exports = function(app, passport, users) {
     //	app.get('/categories',isLoggedIn, function(req, res)
     app.get('/categories', function(req, res, next) {
@@ -154,13 +155,6 @@ module.exports = function(app, passport, users) {
 //-------------------------------------------------------------------
 //-------------------------------------------------------------------
 
-    app.post('/upload', function(req, res) {
-
-  });
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
-
 
     //kaatuu ilman loggausta sisään
     app.post('/itemADD', function(req, res) {
@@ -236,6 +230,7 @@ module.exports = function(app, passport, users) {
 // Esimerkki userlvl tarkastuksesta routessa, ei käytössä
     app.get('/items2', function(req, res) {
       //if (req.user.userlvl <= 1){
+      //res.send(__dirname);
         connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
             function(err, result) {
                 if (err) throw err;
@@ -279,8 +274,9 @@ module.exports = function(app, passport, users) {
 
     app.get('/', function(req, res) {
         //res.render('index.ejs'); // load the index.ejs file
-        res.sendFile('index.html',{root: __dirname});
-
+        //res.sendFile('index.html',{root: __dirname});
+        //res.sendFile('/home/projectmanager/Digiloop/front/build/index.html');
+        console.log(__dirname);
     });
 
     // =====================================
@@ -317,7 +313,7 @@ module.exports = function(app, passport, users) {
             }
             //res.redirect('/');
             res.json({
-                userlvl:req.user
+                userdata:req.user
             });
             res.end();
 /*

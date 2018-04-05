@@ -11,7 +11,7 @@ import AdminWasteProcessor from './components/containers/Admin/WasteProcessor.js
 import Order from './components/ui/EndUser/Orderinho/Order.js';
 import FrontPage from './components/ui/EndUser/FrontPage/FrontPage.js';
 import Profile from './components/ui/EndUser/Profile/Profile.js';
-import Admin from './components/ui/Admin/Admin/Admin.js';
+import Admin from './components/ui/Admin/Admin.js';
 // Author: Spagehetti Baker Bros & co.
 //Testikommentti
 import { getCats, getSubCats } from './utils/fetchcategories';

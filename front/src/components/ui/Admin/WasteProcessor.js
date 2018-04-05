@@ -9,7 +9,7 @@ import HistoryListing from '../../containers/Admin/HistoryListing'
 import ReservedListing from '../../containers/Admin/ReservedListing'
 
 import Varauskartta from '../../containers/Admin/Varauskartta/Varauskartta'
-import Admin from '../../containers/Admin/Admin/Admin'
+import Admin from '../../containers/Admin/Admin'
 
 import Notification from '../../containers/Admin/Notification'
 

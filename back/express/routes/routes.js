@@ -46,7 +46,7 @@ module.exports = function(app, passport, users) {
             });
     });
 	
-	 app.get('/getUsers', , isLoggedIn, function(req, res) {
+	 app.get('/getUsers',isLoggedIn, function(req, res) {
 		 if (req.user.userlvl == 0){
         connection.query('SELECT * FROM users',
             function(err, result) {

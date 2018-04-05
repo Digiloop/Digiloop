@@ -63,7 +63,6 @@ module.exports = function(app, passport, users) {
             if (err) throw err;
             console.log(rows.affectedRows + " record(s) updated");
         });
-        console.log(req.body.Status, " ", req.body.id)
         res.end();
 		 }
     });

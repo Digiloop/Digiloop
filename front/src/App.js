@@ -31,9 +31,7 @@ class App extends Component {
   logout = () => {
     logOut();
     this.props.onNewLogin({
-      loginInfo: {
-        userlvl: -1
-      }
+      userlvl: -1
     });
   }
 

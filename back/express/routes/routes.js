@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router(); // load up the user model
 var mysql = require('mysql2');
-var dbconfig = require('./database');
+var dbconfig = require('../app/database');
 var fileUpload = require('express-fileupload');
 var connection = mysql.createConnection(dbconfig.connection);
 //var datenow = Date.now();
@@ -13,7 +13,8 @@ connection.query('USE ' + dbconfig.database);
 //var source = require('../config/users.js');
 //http://catlau.co/how-to-modularize-routes-with-the-express-router/
 //https://blog.grossman.io/expressjs-tips-for-large-applications/
-
+//https://scotch.io/tutorials/keeping-api-routing-clean-using-express-routers
+//https://www.terlici.com/2014/09/29/express-router.html
 module.exports = function(app, passport, users) {
     //	app.get('/categories',isLoggedIn, function(req, res)
     app.get('/categories', function(req, res, next) {
@@ -43,6 +44,24 @@ module.exports = function(app, passport, users) {
                     category: result
                 });
             });
+    });
+	
+	 app.get('/getUsers', function(req, res) {
+        connection.query('SELECT * FROM users',
+            function(err, result) {
+                if (err) throw err;
+                res.json({
+                    category: result
+                });
+            });
+    });
+	 app.post('/deleteUser',  function(req, res) {
+        connection.query('UPDATE users SET Status = ? WHERE id = ?;', [req.body.Status, req.body.id, (err, rows) => {
+            if (err) throw err;
+            console.log(rows.affectedRows + " record(s) updated");
+        });
+        console.log(req.body.Status, " ", req.body.id)
+        res.end();
     });
 
     app.post('/announcementADD', isLoggedIn, function(req, res) {
@@ -154,13 +173,6 @@ module.exports = function(app, passport, users) {
 //-------------------------------------------------------------------
 //-------------------------------------------------------------------
 
-    app.post('/upload', function(req, res) {
-
-  });
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
-
 
     //kaatuu ilman loggausta sisään
     app.post('/itemADD', function(req, res) {
@@ -236,6 +248,7 @@ module.exports = function(app, passport, users) {
 // Esimerkki userlvl tarkastuksesta routessa, ei käytössä
     app.get('/items2', function(req, res) {
       //if (req.user.userlvl <= 1){
+      //res.send(__dirname);
         connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
             function(err, result) {
                 if (err) throw err;
@@ -279,8 +292,9 @@ module.exports = function(app, passport, users) {
 
     app.get('/', function(req, res) {
         //res.render('index.ejs'); // load the index.ejs file
-        res.sendFile('index.html',{root: __dirname});
-
+        //res.sendFile('index.html',{root: __dirname});
+        //res.sendFile('/home/projectmanager/Digiloop/front/build/index.html');
+        console.log(__dirname);
     });
 
     // =====================================
@@ -315,9 +329,11 @@ module.exports = function(app, passport, users) {
             } else {
                 req.session.cookie.expires = false;
             }
+			var userObject = {address:req.user.address, city:req.user.city, company:req.user.company, email:req.user.email,
+			fname:req.user.fname, id:req.user.id, lname:req.user.lname, phone:req.user.phone, userlvl:req.user.userlvl, username:req.user.username, zipcode:req.user.zipcode};
             //res.redirect('/');
             res.json({
-                userlvl:req.user
+                userdata:userObject
             });
             res.end();
 /*

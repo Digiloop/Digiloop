@@ -39,6 +39,8 @@ listReserved(){
         <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
         <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
         <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
+        <TableRowColumn>{this.props.items[i].owner}</TableRowColumn>
+        <TableRowColumn>{this.props.items[i].fetcher}</TableRowColumn>
         <TableRowColumn>Tila { this.getStatus( this.props.items[i].status ) }</TableRowColumn>
       </TableRow>
     )

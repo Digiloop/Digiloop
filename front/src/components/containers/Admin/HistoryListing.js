@@ -1,4 +1,4 @@
-import HistoryListing from '../../ui/WasteProcessor/HistoryListing'
+import HistoryListing from '../../ui/Admin/HistoryListing'
 import { connect } from 'react-redux'
 import { setResList } from '../../../actions';
 

@@ -1,4 +1,4 @@
-import ReservedListing from '../../ui/WasteProcessor/ReservedListing'
+import ReservedListing from '../../ui/Admin/ReservedListing'
 import { connect } from 'react-redux'
 import { setResList } from '../../../actions';
 

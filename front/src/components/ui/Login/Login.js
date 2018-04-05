@@ -23,14 +23,6 @@ class Login extends Component {
   }
 
   loginClick(event) {
-    /* this.setState ({
-      username: this.state.username,
-      password: this.state.password
-    });
-    var payload={
-    "username":this.state.username,
-    "password":this.state.password
-  }*/
     event.preventDefault();
     console.log(this.state.username);
     this.getUserLevel();
@@ -39,7 +31,7 @@ class Login extends Component {
   getUserLevel() {
     getCredentials(this.state.username, this.state.password).then((loginData) => {
       console.log(loginData);
-
+      localStorage.loginData = JSON.stringify(loginData);
       this.props.onNewLogin(loginData.userdata);
 
     });

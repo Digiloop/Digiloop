@@ -30,7 +30,8 @@ class App extends Component {
 
   logout = () => {
     logOut();
-    this.props.onNewLogin({
+    localStorage.clear();
+    this.props.onNewLogout({
       userlvl: -1
     });
   }
@@ -47,6 +48,12 @@ class App extends Component {
     getSubCats().then((subCats) => {
       this.props.setSubCategories(subCats.category);
     })
+
+    
+    if(localStorage.loginData){
+      let loginData = JSON.parse(localStorage.loginData);
+      this.props.localStorageLogin(loginData.userdata);
+    }
   }
 
 

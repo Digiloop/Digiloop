@@ -23,9 +23,14 @@ const mapDispatchToProps = dispatch =>
         setSubCategories(subCats)
       )
     },
-    onNewLogin(loginInfo){
+    onNewLogout(loginInfo){
       dispatch(
         login(loginInfo)
+      )
+    },
+    localStorageLogin(userData){
+      dispatch(
+        login(userData)
       )
     }
   })

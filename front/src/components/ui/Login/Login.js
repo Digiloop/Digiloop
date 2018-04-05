@@ -32,6 +32,7 @@ class Login extends Component {
     getCredentials(this.state.username, this.state.password).then((loginData) => {
       console.log(loginData);
       localStorage.loginData = JSON.stringify(loginData);
+
       this.props.onNewLogin(loginData.userdata);
 
     });

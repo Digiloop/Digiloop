@@ -40,9 +40,7 @@ class Login extends Component {
     getCredentials(this.state.username, this.state.password).then((loginData) => {
       console.log(loginData);
 
-      this.props.onNewLogin({
-        loginInfo: loginData.userdata
-      });
+      this.props.onNewLogin(loginData.userdata);
 
     });
   }

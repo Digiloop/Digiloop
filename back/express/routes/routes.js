@@ -46,7 +46,8 @@ module.exports = function(app, passport, users) {
             });
     });
 	
-	 app.get('/getUsers', function(req, res) {
+	 app.get('/getUsers', , isLoggedIn, function(req, res) {
+		 if (req.user.userlvl == 0){
         connection.query('SELECT * FROM users',
             function(err, result) {
                 if (err) throw err;
@@ -54,14 +55,17 @@ module.exports = function(app, passport, users) {
                     category: result
                 });
             });
+		 }
     });
-	 app.post('/deleteUser',  function(req, res) {
+	 app.post('/deleteUser', isLoggedIn, function(req, res) {
+		 if (req.user.userlvl == 0){
         connection.query('UPDATE users SET Status = ? WHERE id = ?;', [req.body.Status, req.body.id, (err, rows) => {
             if (err) throw err;
             console.log(rows.affectedRows + " record(s) updated");
         });
         console.log(req.body.Status, " ", req.body.id)
         res.end();
+		 }
     });
 
     app.post('/announcementADD', isLoggedIn, function(req, res) {

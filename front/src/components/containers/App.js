@@ -7,7 +7,7 @@ import { login } from '../../actions'
 
 const mapStateToProps = (state, props) =>
   ({
-      userLevel: state.loggedIn
+      loginInfo: state.loginInfo
   })
 
 // check these

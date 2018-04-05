@@ -1,9 +1,7 @@
 {
-	"loggedIn": {
-		"loginInfo": {
-			"userLevel": {
-				"userlvl": -1
-			}
+	"loginInfo": {
+		"userLevel": {
+			"userlvl": -1
 		}
 	},
 	"resList": [

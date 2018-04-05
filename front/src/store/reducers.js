@@ -2,7 +2,7 @@ import C from '../constants'
 import { combineReducers } from 'redux'
 
 
-export const loggedIn = (state = [], action) =>
+export const loginInfo = (state = [], action) =>
   (action.type === C.LOG_IN) ? action.payload : state
 
 export const resListOpt = (state = [], action) =>
@@ -21,7 +21,7 @@ export const subCategories = (state = [], action) =>
     (action.type === C.SET_NOTIF) ? action.payload : state
 
 export default combineReducers({
-  loggedIn,
+  loginInfo,
   resListOpt,
   resList,
   categories,

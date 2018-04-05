@@ -45,6 +45,24 @@ module.exports = function(app, passport, users) {
                 });
             });
     });
+	
+	 app.get('/getUsers', function(req, res) {
+        connection.query('SELECT * FROM users',
+            function(err, result) {
+                if (err) throw err;
+                res.json({
+                    category: result
+                });
+            });
+    });
+	 app.post('/deleteUser',  function(req, res) {
+        connection.query('UPDATE users SET Status = ? WHERE id = ?;', [req.body.Status, req.body.id, (err, rows) => {
+            if (err) throw err;
+            console.log(rows.affectedRows + " record(s) updated");
+        });
+        console.log(req.body.Status, " ", req.body.id)
+        res.end();
+    });
 
     app.post('/announcementADD', isLoggedIn, function(req, res) {
         var newItem = {
@@ -311,9 +329,11 @@ module.exports = function(app, passport, users) {
             } else {
                 req.session.cookie.expires = false;
             }
+			var userObject = {address:req.user.address, city:req.user.city, company:req.user.company, email:req.user.email,
+			fname:req.user.fname, id:req.user.id, lname:req.user.lname, phone:req.user.phone, userlvl:req.user.userlvl, username:req.user.username, zipcode:req.user.zipcode};
             //res.redirect('/');
             res.json({
-                userdata:req.user
+                userdata:userObject
             });
             res.end();
 /*

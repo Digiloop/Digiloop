@@ -24,32 +24,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loginInfo: true,
-      value: ''
     }
-    this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick() {
-    //console.log('HERE!', this.contextTypes);
-    //this.state.loggedIn ? <Map /> : <AdminFront />;
-    this.setState({
-      loginInfo: !this.state.loginInfo,
-    })
-    console.log(this.state.value);
-    // this.context.location.transitionTo('Map');
-  };
-
-  handleChange = () => {
-    this.setState({
-    });
-    console.log(this.state.loginInfo.userlvl);
-
-  };
 
   logout = () => {
-    logOut().then(() => {
-    });
+    logOut();
     this.props.onNewLogin({
       loginInfo: {
         userlvl: -1
@@ -58,7 +38,7 @@ class App extends Component {
   }
 
   componentWillReceiveProps() {
-    console.log(this.props.loginInfo.userlvl);
+
   }
 
   componentDidMount() {

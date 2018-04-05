@@ -37,11 +37,11 @@ class Login extends Component {
   }
 
   getUserLevel() {
-    getCredentials(this.state.username, this.state.password).then((usrLevel) => {
-      console.log(usrLevel);
+    getCredentials(this.state.username, this.state.password).then((loginData) => {
+      console.log(loginData);
 
       this.props.onNewLogin({
-        userLevel: usrLevel.userlvl
+        loginInfo: loginData.userdata
       });
 
     });
@@ -49,7 +49,7 @@ class Login extends Component {
 
   register = () => {
     this.props.onNewLogin({
-      userLevel: {
+      loginInfo: {
         userlvl: 3
       }
     });

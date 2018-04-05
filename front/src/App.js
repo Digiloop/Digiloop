@@ -11,7 +11,7 @@ import AdminWasteProcessor from './components/containers/Admin/WasteProcessor.js
 import Order from './components/ui/EndUser/Orderinho/Order.js';
 import FrontPage from './components/ui/EndUser/FrontPage/FrontPage.js';
 import Profile from './components/ui/EndUser/Profile/Profile.js';
-import Admin from './components/ui/Admin/Admin/Admin.js';
+import Admin from './components/ui/Admin/Admin.js';
 // Author: Spagehetti Baker Bros & co.
 //Testikommentti
 import { getCats, getSubCats } from './utils/fetchcategories';
@@ -24,7 +24,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: true,
+      loginInfo: true,
       value: ''
     }
     this.handleClick = this.handleClick.bind(this)
@@ -34,7 +34,7 @@ class App extends Component {
     //console.log('HERE!', this.contextTypes);
     //this.state.loggedIn ? <Map /> : <AdminFront />;
     this.setState({
-      loggedIn: !this.state.loggedIn,
+      loginInfo: !this.state.loginInfo,
     })
     console.log(this.state.value);
     // this.context.location.transitionTo('Map');
@@ -43,7 +43,7 @@ class App extends Component {
   handleChange = () => {
     this.setState({
     });
-    console.log(this.state.userLevel.userlvl);
+    console.log(this.state.loginInfo.userlvl);
 
   };
 
@@ -51,14 +51,14 @@ class App extends Component {
     logOut().then(() => {
     });
     this.props.onNewLogin({
-      userLevel: {
+      loginInfo: {
         userlvl: -1
       }
     });
   }
 
   componentWillReceiveProps() {
-    console.log(this.props.userLevel.loginInfo.userLevel.userlvl);
+    console.log(this.props.loginInfo.userlvl);
   }
 
   componentDidMount() {
@@ -81,7 +81,7 @@ class App extends Component {
           <div>
             {
               (() => {
-                switch (this.props.userLevel.loginInfo.userLevel.userlvl) {
+                switch (this.props.loginInfo.userlvl) {
                   case '0':
                     return <AdminWasteProcessor />;
 

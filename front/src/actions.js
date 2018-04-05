@@ -4,7 +4,7 @@ import fetch from 'isomorphic-fetch'
 export const login = (loginInfo) =>
   ({
     type: C.LOG_IN,
-    payload: { loginInfo }
+    payload: loginInfo 
   })
 
 export const setResOpt = (options) =>

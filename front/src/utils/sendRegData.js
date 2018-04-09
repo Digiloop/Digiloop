@@ -12,14 +12,12 @@ function sendRegData(regData) {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        regData
-      })
-    }).then((response) => response.json())
-      .then((responseJson) => {
+      body: JSON.stringify({ regData })
+    })/* .then((response) => response.json())
+       .then((responseJson) => {
         console.log(responseJson);
-        return responseJson;
-      })
+        // return responseJson;
+      }) */
       .catch((error) => {
         console.error(error);
       });

@@ -9,7 +9,7 @@ import WasteProcessor from './components/containers/WasteProcessor/WasteProcesso
 import AdminWasteProcessor from './components/containers/Admin/WasteProcessor.js';
 
 import Order from './components/ui/EndUser/Orderinho/Order.js';
-import FrontPage from './components/ui/EndUser/FrontPage/FrontPage.js';
+import FrontPage from './components/containers/EndUser/FrontPage/FrontPage.js';
 import Profile from './components/ui/EndUser/Profile/Profile.js';
 import Admin from './components/ui/Admin/Admin.js';
 // Author: Spagehetti Baker Bros & co.
@@ -49,7 +49,7 @@ class App extends Component {
       this.props.setSubCategories(subCats.category);
     })
 
-    
+
     if((localStorage.loginData != "undefined") && localStorage.loginData){
       let loginData = JSON.parse(localStorage.loginData);
       this.props.localStorageLogin(loginData.userdata);

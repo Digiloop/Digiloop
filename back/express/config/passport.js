@@ -62,7 +62,7 @@ module.exports = function(passport) {
             // we are checking to see if the user trying to login already exists
             connection.query("SELECT * FROM users WHERE username = ?",[username], function(err, rows) {
                 if (err)
-                    return done(err);
+                    return done("working just fine");
                 if (rows.length) {
                     return done(null, false, console.log('signupMessage', 'That username is already taken.'));
                 } else {
@@ -88,7 +88,7 @@ module.exports = function(passport) {
 
                     connection.query(insertQuery,[newUserMysql.username, newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.company, newUserMysql.userlvl, newUserMysql.Status],function(err, rows) {
                         //newUserMysql.id = rows.insertId;
-
+					
                         return done(null, newUserMysql);
                     });
                 }

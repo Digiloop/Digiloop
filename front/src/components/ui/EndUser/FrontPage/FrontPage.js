@@ -13,12 +13,18 @@ constructor(props){
   super(props);
   this.state = {
     value: Notification
+
   }
   this.handleChange = this.handleChange.bind(this);
  }
 
 handleChange = (event, value) => this.setState({value})
 
+
+componentDidMount(){
+  console.log(this.props.items);
+
+}
 
 
 render() {
@@ -37,7 +43,7 @@ render() {
       fontSize: '30px',
       color: '#004225',}}/>
       <br />
-      <h2>Tervetuloa, Jeppe!</h2> <br />
+      <h2>Tervetuloa, {this.props.items.username}!</h2> <br />
 
       {this.state.value ? <Notification /> : <Order />}
       </div>

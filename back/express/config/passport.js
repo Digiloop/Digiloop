@@ -91,7 +91,7 @@ module.exports = function(passport) {
 					passport.serializeUser(function(newUserMysql, done) {
 					  done(null, newUserMysql);
 					}); 
-                        return done(null, newUserMysql);
+                       
                     });
                 }
             });

@@ -11,7 +11,8 @@ function getCredentials(username, password) {
   })
     .then(response => response.data)
     .catch(function (error) {
-      console.log(error);
+      //console.log(error);
+      return error;
     });
 }
 

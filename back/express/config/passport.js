@@ -79,16 +79,18 @@ module.exports = function(passport) {
                         zipcode: req.body.zipcode.toString(),
                         city: req.body.city.toString(),
                         company: req.body.company.toString(),
-                        userlvl: req.body.userlvl.toString(),
-						Status: req.body.Status.toString()
-                    };
+                        Status: req.body.Status.toString()
+                  };
+                  //normi user check
+                  if (res.locals.level) {userlvl: res.locals.level}
+                  else {userlvl: req.body.userlvl.toString()}
 					if (newUserMysql.Status == undefined) newUserMysql.Status = 0;
                     /*console.log(leveli + "  leveli");*/
                     var insertQuery = "INSERT INTO users ( username, password, fname, lname, email, phone, address, zipcode, city, company, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?,?,?)";
 
                     connection.query(insertQuery,[newUserMysql.username, newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.company, newUserMysql.userlvl, newUserMysql.Status],function(err, rows) {
                         //newUserMysql.id = rows.insertId;
-					
+
                         return done(null, newUserMysql);
                     });
                 }

@@ -83,7 +83,7 @@ module.exports = function(passport) {
                         Status: req.body.Status.toString()
                   };
                   //normi user check
-                  if (typeof res.locals != 'undefined')
+                  if (typeof res != 'undefined')
                     newUserMysql.userlvl = res.locals.level
                   else
                   newUserMysql.userlvl = req.body.userlvl.toString();

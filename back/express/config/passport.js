@@ -62,9 +62,9 @@ module.exports = function(passport) {
             // we are checking to see if the user trying to login already exists
             connection.query("SELECT * FROM users WHERE username = ?",[username], function(err, rows) {
                 if (err)
-                    return done(err);
+                    return done("working just fine");
                 if (rows.length) {
-                    return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
+                    return done(null, false, console.log('signupMessage', 'That username is already taken.'));
                 } else {
                     // if there is no user with that username
                     // create the user
@@ -79,13 +79,17 @@ module.exports = function(passport) {
                         zipcode: req.body.zipcode.toString(),
                         city: req.body.city.toString(),
                         company: req.body.company.toString(),
-                        userlvl: req.body.userlvl.toString()
-                    };
+                        Status: req.body.Status.toString()
+                  };
+                  //normi user check
+                  if (res.locals.level) {userlvl: res.locals.level}
+                  else {userlvl: req.body.userlvl.toString()}
+					if (newUserMysql.Status == undefined) newUserMysql.Status = 0;
                     /*console.log(leveli + "  leveli");*/
-                    var insertQuery = "INSERT INTO users ( username, password, fname, lname, email, phone, address, zipcode, city, company, userlvl ) values (?,?,?,?,?,?,?,?,?,?,?)";
+                    var insertQuery = "INSERT INTO users ( username, password, fname, lname, email, phone, address, zipcode, city, company, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?,?,?)";
 
-                    connection.query(insertQuery,[newUserMysql.username, newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.company, newUserMysql.userlvl],function(err, rows) {
-                        newUserMysql.id = rows.insertId;
+                    connection.query(insertQuery,[newUserMysql.username, newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.company, newUserMysql.userlvl, newUserMysql.Status],function(err, rows) {
+                        //newUserMysql.id = rows.insertId;
 
                         return done(null, newUserMysql);
                     });

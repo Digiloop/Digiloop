@@ -12,13 +12,11 @@ var app      = express();
 var port     = process.env.PORT || 80;
 var fileUpload = require('express-fileupload')
 var passport = require('passport');
-//var flash    = require('connect-flash');
+var birds = require('./routes/birds')
+var cats = require('./routes/categories')
 
-//var users;
-//var source = require('./config/users.js');
 // configuration ===============================================================
 // connect to our database
-//console.log('server' + source.Testi1);
 
 require('./config/passport')(passport); // pass passport for configuration
 //require('./config/users')(users);
@@ -34,10 +32,13 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json({
 	limit:'50mb'
 }));
+
+//React path
 app.use(express.static("/home/projectmanager/Digiloop/front/build"));
-app.use(fileUpload());
+app.use(fileUpload()); // required for pictures
+
+//Cors
 app.use(cors());
-// Add headers
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
@@ -56,8 +57,8 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
-//app.set('view engine', 'ejs'); // set up ejs for templating not actually used in this project
-//app.set('views', __dirname, 'views');
+
+// XD
 // required for passport
 app.use(session({
 	secret: 'helloworldisthreehundredfiftysixbilliontree',
@@ -69,8 +70,11 @@ app.use(passport.session()); // persistent login sessions
 
 
 // routes ======================================================================
-require('./routes/routes.js')(app, passport, /*users*/); // load our routes and pass in our app and fully configured passport
-
+//https://expressjs.com/en/guide/routing.html
+require('./routes/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+//router.use(require('./routes/routes.js')(app, passport));
+app.use('/cat', cats); // http://193.166.72.18/cat/categories
+//app.use('/birds', birds) //<<- toimia esimerkki
 // launch ======================================================================
 app.listen(port);
 console.log('The magic happens on port ' + port);

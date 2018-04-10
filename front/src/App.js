@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import './index.css';
-import Login from './components/containers/Login/Login.js';
-import Register from './components/containers/Login/Register.js';
-import Front from './components/ui/EndUser/EndUserFront.js';
-import WasteProcessor from './components/containers/WasteProcessor/WasteProcessor.js';
+
+
+
+// switchin alasivut loginlevelin perusteella
 import AdminWasteProcessor from './components/containers/Admin/WasteProcessor.js';
+import WasteProcessor from './components/containers/WasteProcessor/WasteProcessor.js';
+import Front from './components/ui/EndUser/EndUserFront.js';
+import Register from './components/containers/Login/Register.js';
+import Login from './components/containers/Login/Login.js';
 
 import Order from './components/ui/EndUser/Orderinho/Order.js';
-import FrontPage from './components/ui/EndUser/FrontPage/FrontPage.js';
-import Profile from './components/ui/EndUser/Profile/Profile.js';
 import Admin from './components/ui/Admin/Admin.js';
-// Author: Spagehetti Baker Bros & co.
-//Testikommentti
 import { getCats, getSubCats } from './utils/fetchcategories';
 import { logOut } from './utils/login-api';
 
@@ -27,7 +27,7 @@ class App extends Component {
     }
   }
 
-
+  // logout clears session with backend, empties localStorage session and sets userlevel to logged out
   logout = () => {
     logOut();
     localStorage.clear();
@@ -36,21 +36,20 @@ class App extends Component {
     });
   }
 
-  componentWillReceiveProps() {
-
-  }
-
   componentDidMount() {
+
+    // fetch categories and subcategories upon opening, they only need to be loaded once per app use
+    // they change rarely, and can be updated on page with refresh
     getCats().then((cats) => {
       this.props.setCategories(cats.category);
     })
-
     getSubCats().then((subCats) => {
       this.props.setSubCategories(subCats.category);
     })
 
-    
-    if(localStorage.loginData){
+    // if we have an existing session going on, load that instantly upon opening app
+    // it will not remember the page the user was on though, only the login info of the previous session
+    if((localStorage.loginData != "undefined") && localStorage.loginData){
       let loginData = JSON.parse(localStorage.loginData);
       this.props.localStorageLogin(loginData.userdata);
     }

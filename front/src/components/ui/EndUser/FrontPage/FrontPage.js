@@ -13,6 +13,7 @@ constructor(props){
   super(props);
   this.state = {
     value: Notification
+
   }
   this.handleChange = this.handleChange.bind(this);
   var data = localStorage.loginData;
@@ -22,6 +23,11 @@ constructor(props){
 
 handleChange = (event, value) => this.setState({value})
 
+
+componentDidMount(){
+  console.log(this.props.items);
+
+}
 
 
 
@@ -41,7 +47,7 @@ render() {
       fontSize: '30px',
       color: '#004225',}}/>
       <br />
-      <h2>Tervetuloa, Jeppe!</h2> <br />
+      <h2>Tervetuloa, {this.props.items.fname}!</h2> <br />
 
       {this.state.value ? <Notification /> : <Order />}
       </div>

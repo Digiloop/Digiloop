@@ -50,12 +50,12 @@ listReserved(){
   })
 }
 
+// get the list of available junks
 componentDidMount(){
   this.getJunksData();
-    //
-    // fetch data from backend
 }
 
+// turns status id into a printable status
 getStatus(status){
   switch(status){
     case 0:
@@ -83,12 +83,7 @@ getStatus(status){
   }
 }
 
-
-
 render() {
-
-
-
     return (
       <MuiThemeProvider>
         <Table>

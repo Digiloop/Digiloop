@@ -11,7 +11,7 @@ function getCredentials(username, password) {
   })
     .then(response => response.data)
     .catch(function (error) {
-      //console.log(error);
+      // return the error to the component, so that a proper error message can be displayed
       return error;
     });
 }

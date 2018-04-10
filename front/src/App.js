@@ -49,8 +49,8 @@ class App extends Component {
       this.props.setSubCategories(subCats.category);
     })
 
-
-    if(localStorage.loginData){
+    
+    if((localStorage.loginData != "undefined") && localStorage.loginData){
       let loginData = JSON.parse(localStorage.loginData);
       this.props.localStorageLogin(loginData.userdata);
     }

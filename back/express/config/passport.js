@@ -64,7 +64,7 @@ module.exports = function(passport) {
                 if (err)
                     return done(err);
                 if (rows.length) {
-                    return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
+                    return done(null, false, console.log('signupMessage', 'That username is already taken.'));
                 } else {
                     // if there is no user with that username
                     // create the user
@@ -79,12 +79,13 @@ module.exports = function(passport) {
                         zipcode: req.body.zipcode.toString(),
                         city: req.body.city.toString(),
                         company: req.body.company.toString(),
-                        userlvl: req.body.userlvl.toString()
+                        userlvl: req.body.userlvl.toString(),
+						Status: req.body.Status.toString()
                     };
                     /*console.log(leveli + "  leveli");*/
-                    var insertQuery = "INSERT INTO users ( username, password, fname, lname, email, phone, address, zipcode, city, company, userlvl ) values (?,?,?,?,?,?,?,?,?,?,?)";
+                    var insertQuery = "INSERT INTO users ( username, password, fname, lname, email, phone, address, zipcode, city, company, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?,?,?)";
 
-                    connection.query(insertQuery,[newUserMysql.username, newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.company, newUserMysql.userlvl],function(err, rows) {
+                    connection.query(insertQuery,[newUserMysql.username, newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.company, newUserMysql.userlvl, newUserMysql.Status],function(err, rows) {
                         //newUserMysql.id = rows.insertId;
 
                         return done(null, newUserMysql);

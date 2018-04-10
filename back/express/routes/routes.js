@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router(); // load up the user model
 var mysql = require('mysql2');
-var dbconfig = require('./database');
+var dbconfig = require('../app/database');
 var fileUpload = require('express-fileupload');
 var connection = mysql.createConnection(dbconfig.connection);
+//var datenow = Date.now();
 const fs = require('fs');
 connection.query('USE ' + dbconfig.database);
 
@@ -12,7 +13,8 @@ connection.query('USE ' + dbconfig.database);
 //var source = require('../config/users.js');
 //http://catlau.co/how-to-modularize-routes-with-the-express-router/
 //https://blog.grossman.io/expressjs-tips-for-large-applications/
-
+//https://scotch.io/tutorials/keeping-api-routing-clean-using-express-routers
+//https://www.terlici.com/2014/09/29/express-router.html
 module.exports = function(app, passport, users) {
     //	app.get('/categories',isLoggedIn, function(req, res)
     app.get('/categories', function(req, res, next) {
@@ -44,6 +46,27 @@ module.exports = function(app, passport, users) {
             });
     });
 
+	 app.get('/getUsers',isLoggedIn, function(req, res) {
+		 if (req.user.userlvl == 0){
+        connection.query('SELECT * FROM users',
+            function(err, result) {
+                if (err) throw err;
+                res.json({
+                    category: result
+                });
+            });
+		 }
+    });
+	 app.post('/deleteUser', isLoggedIn, function(req, res) {
+		 if (req.user.userlvl == 0){
+        connection.query('UPDATE users SET Status = ? WHERE id = ?;', [req.body.Status, req.body.id], (err, rows) => {
+            if (err) throw err;
+            console.log(rows.affectedRows + " record(s) updated");
+        });
+        res.end();
+		 }
+    });
+
     app.post('/announcementADD', isLoggedIn, function(req, res) {
         var newItem = {
             info: req.body.info.toString(),
@@ -64,15 +87,25 @@ module.exports = function(app, passport, users) {
 
 
 
-    app.get('/items', function(req, res) {
-        connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
+    app.get('/items',isLoggedIn, function(req, res) {
+        if (req.user.userlvl <= 1){
+        connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID;',
             function(err, result) {
                 if (err) throw err;
-                //console.log(req.user.id)
                 res.json({
                     category: result
                 });
             });
+          }
+          else {
+            connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID WHERE owner = ?;', [req.user.id.toString()],
+                function(err, result) {
+                    if (err) throw err;
+                    res.json({
+                        category: result
+                    });
+                });
+          }
     });
 
 
@@ -142,27 +175,6 @@ module.exports = function(app, passport, users) {
 //-------------------------------------------------------------------
 //-------------------------------------------------------------------
 //-------------------------------------------------------------------
-    app.post('/upload', function(req, res) {
-    if (!req.files)
-      return res.status(400).send('No files were uploaded.');
-
-    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-
-    var sampleFile = req.files.sampleFile;
-    var dir = './kuvat/' + req.user.username;
-    if(!fs.existsSync(dir)){
-      fs.mkdirSync(dir);
-    }
-    // Use the mv() method to place the file somewhere on your server
-    sampleFile.mv('./kuvat/'+ req.user.username + '/test.jpg', function(err) {
-      if (err)
-        return res.status(500).send(err);
-      res.send('File uploaded!');
-    });
-  });
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
 
 
     //kaatuu ilman loggausta sisään
@@ -173,7 +185,7 @@ module.exports = function(app, passport, users) {
             weight: req.body.weight,
             size: req.body.size,
             description: req.body.description.toString(),
-            picture: req.body.picture.toString(),
+            picture: "",//req.body.picture.toString(),
             pcs: req.body.pcs,
             pickupaddr: req.body.pickupaddr.toString(),
             junkdate: req.body.junkdate,
@@ -184,6 +196,25 @@ module.exports = function(app, passport, users) {
             longitude: req.body.longitude,
             coordstatus: req.body.status2
         };
+
+        if (req.files){
+
+
+        // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+
+        var picture = req.files.picture;
+        var userfolder = './kuvat/' + req.user.username;
+        if(!fs.existsSync(userfolder)){
+          fs.mkdirSync(userfolder);
+        }
+        var filepath = './kuvat/'+ req.user.username+ '/' + Date.now() + '.' + picture.name.split('.').pop();
+        newItem.picture = filepath;
+        // Use the mv() method to place the file somewhere on your server
+        picture.mv(filepath, function(err) {
+          if (err)
+            return res.status(500).send(err);
+        })};
+
         var insertQuery = "INSERT INTO junk ( category, subCat, weight, size, description, picture, pcs, pickupaddr, junkdate, junkdateadded, status, owner ) values (?,?,?,?,?,?,?,?,?,?,?,?)";
         var insertQuery2 = "INSERT INTO Coordinates ( latitude, longitude, coordstatus) values (?, ?, ?)";
         connection.beginTransaction(function(err) {
@@ -218,8 +249,9 @@ module.exports = function(app, passport, users) {
     });
 
 // Esimerkki userlvl tarkastuksesta routessa, ei käytössä
-    app.get('/items2', isLoggedIn, function(req, res) {
-      if (req.user.userlvl <= 1){
+    app.get('/items2', function(req, res) {
+      //if (req.user.userlvl <= 1){
+      //res.send(__dirname);
         connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
             function(err, result) {
                 if (err) throw err;
@@ -227,11 +259,7 @@ module.exports = function(app, passport, users) {
                     category: result
                 });
             });
-        }
-          else{
-            console.log("FAIIIIL");
-            res.end();
-          }
+    //    }
     });
 
 
@@ -246,9 +274,10 @@ module.exports = function(app, passport, users) {
             });
     });
 
-    app.post('/upload', function(req, res) {
+  /*  app.post('/upload', function(req, res) {
   console.log(req.files.foo); // the uploaded file object
 });
+*/
 
     /*
     app.post('/submit',function(req, res, next) {
@@ -266,6 +295,9 @@ module.exports = function(app, passport, users) {
 
     app.get('/', function(req, res) {
         //res.render('index.ejs'); // load the index.ejs file
+        //res.sendFile('index.html',{root: __dirname});
+        //res.sendFile('/home/projectmanager/Digiloop/front/build/index.html');
+        console.log(__dirname);
     });
 
     // =====================================
@@ -300,9 +332,11 @@ module.exports = function(app, passport, users) {
             } else {
                 req.session.cookie.expires = false;
             }
+			var userObject = {address:req.user.address, city:req.user.city, company:req.user.company, email:req.user.email,
+			fname:req.user.fname, id:req.user.id, lname:req.user.lname, phone:req.user.phone, userlvl:req.user.userlvl, username:req.user.username, zipcode:req.user.zipcode};
             //res.redirect('/');
             res.json({
-                userlvl:req.user
+                userdata:userObject
             });
             res.end();
 /*

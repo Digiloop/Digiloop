@@ -23,37 +23,25 @@ class Login extends Component {
   }
 
   loginClick(event) {
-    /* this.setState ({
-      username: this.state.username,
-      password: this.state.password
-    });
-    var payload={
-    "username":this.state.username,
-    "password":this.state.password
-  }*/
     event.preventDefault();
     console.log(this.state.username);
     this.getUserLevel();
   }
 
   getUserLevel() {
-    getCredentials(this.state.username, this.state.password).then((usrLevel) => {
-      console.log(usrLevel);
+    getCredentials(this.state.username, this.state.password).then((loginData) => {
+      console.log(loginData);
+      localStorage.loginData = JSON.stringify(loginData);
 
-      this.props.onNewLogin({
-        userLevel: usrLevel.userlvl
-      });
+      this.props.onNewLogin(loginData.userdata);
 
     });
   }
 
   register = () => {
     this.props.onNewLogin({
-      userLevel: {
-        userlvl: 3
-      }
+      userlvl: 3
     });
-    // console.log(this.state.userLevel.userlvl);
   }
 
 

@@ -34,6 +34,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json({
 	limit:'50mb'
 }));
+app.use(express.static("/home/projectmanager/Digiloop/front/build"));
 app.use(fileUpload());
 app.use(cors());
 // Add headers
@@ -68,7 +69,7 @@ app.use(passport.session()); // persistent login sessions
 
 
 // routes ======================================================================
-require('./app/routes.js')(app, passport, /*users*/); // load our routes and pass in our app and fully configured passport
+require('./routes/routes.js')(app, passport, /*users*/); // load our routes and pass in our app and fully configured passport
 
 // launch ======================================================================
 app.listen(port);

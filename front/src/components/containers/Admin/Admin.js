@@ -1,6 +1,6 @@
-import Admin from '../../../ui/WasteProcessor/Admin/Admin'
+import Admin from '../../ui/Admin/Admin'
 import { connect } from 'react-redux'
-import { setResList } from '../../../../actions';
+import { setResList } from '../../../actions';
 
 const mapStateToProps = (state, props) =>
   ({

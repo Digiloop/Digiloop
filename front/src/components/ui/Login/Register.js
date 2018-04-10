@@ -32,16 +32,20 @@ class Register extends React.Component {
 
     Submit(event) {
         var regData = {
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            username: this.state.email,
-            password: this.state.password,
-            phone: this.state.phone,
-            streetAddress: this.state.streetAddress,
-            zipcode: this.state.zipcode,
-            city: this.state.city
+            'username': this.state.email,
+            'password': this.state.password,
+            'fname': this.state.firstName,
+            'lname': this.state.lastName,
+            'email': this.state.email,
+            'phone': this.state.phone,
+            'address': this.state.streetAddress,
+            'zipcode': this.state.zipcode,
+            'city': this.state.city,
+            'company': '99',
+            'userlvl': '2'
         }
         console.log(regData);
+        sendRegData(regData);
     }
 
     render() {

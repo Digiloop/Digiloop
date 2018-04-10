@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { BASE_URL } from './../settings';
 
-const BASE_URL = 'http://193.166.72.18';
+//const BASE_URL = 'http://193.166.72.18';
 
 export { sendRegData };
 
@@ -11,14 +12,12 @@ function sendRegData(regData) {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        regData
-      })
-    }).then((response) => response.json())
-      .then((responseJson) => {
+      body: JSON.stringify({ regData })
+    })/* .then((response) => response.json())
+       .then((responseJson) => {
         console.log(responseJson);
-        return responseJson;
-      })
+        // return responseJson;
+      }) */
       .catch((error) => {
         console.error(error);
       });

@@ -18,7 +18,8 @@ class Login extends Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      loginError: false
     }
   }
 
@@ -35,6 +36,8 @@ class Login extends Component {
         console.log(loginData);
         localStorage.loginData = JSON.stringify(loginData);
         this.props.onNewLogin(loginData.userdata);
+      } else {
+        this.setState({ loginError: true })
       }
       
     });
@@ -79,6 +82,14 @@ class Login extends Component {
                 onChange={(event, newValue) => this.setState({ password: newValue })}
               />
             </div>
+
+
+            {this.state.loginError ? <p style={{fontWeight: 400, fontSize: '12px', color: 'red'}}>
+            Kirjautuminen epäonnistui. Olet invaliidi.</p> : 
+            
+            <p style={{fontWeight: 400, fontSize: '12px', color: 'red'}}>
+            Are you wanna kirjautua??! Visut korjatkaa tää ku kerkeette.</p>}
+
 
             <div className="loginGroup">
               <FlatButton type="submit" label="Kirjaudu"

@@ -79,11 +79,14 @@ module.exports = function(passport) {
                         zipcode: req.body.zipcode.toString(),
                         city: req.body.city.toString(),
                         company: req.body.company.toString(),
+                        userlvl: null,
                         Status: req.body.Status.toString()
                   };
                   //normi user check
-                  if (res.locals.level) {userlvl: res.locals.level}
-                  else {userlvl: req.body.userlvl.toString()}
+                  if (typeof res != 'undefined')
+                    newUserMysql.userlvl = res.locals.level
+                  else
+                  newUserMysql.userlvl = req.body.userlvl.toString();
 					if (newUserMysql.Status == undefined) newUserMysql.Status = 0;
                     /*console.log(leveli + "  leveli");*/
                     var insertQuery = "INSERT INTO users ( username, password, fname, lname, email, phone, address, zipcode, city, company, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?,?,?)";

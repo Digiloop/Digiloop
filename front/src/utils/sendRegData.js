@@ -5,6 +5,16 @@ import { BASE_URL } from './../settings';
 
 export { sendRegData };
 
+/* function sendRegData(regData) {
+  return axios.post(BASE_URL + '/signup', {
+    regData    
+  })
+    .then(response => response.data)
+    .catch(function (error) {
+      console.log(regData);
+    });
+} */
+
 function sendRegData(regData) {
     return fetch(BASE_URL + '/signup', {
       method: 'POST',
@@ -12,12 +22,12 @@ function sendRegData(regData) {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ regData })
-    })/* .then((response) => response.json())
+      body: regData
+    }).then((response) => response.json())
        .then((responseJson) => {
         console.log(responseJson);
         // return responseJson;
-      }) */
+      }) 
       .catch((error) => {
         console.error(error);
       });

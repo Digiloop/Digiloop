@@ -23,7 +23,8 @@ class Register extends React.Component {
             streetAddress: '',
             zipcode: '',
             city: '',
-            submitted: false
+            submitted: false,
+            Status: ''
         };
     }
 
@@ -32,20 +33,21 @@ class Register extends React.Component {
 
     Submit(event) {
         var regData = {
-            'username': this.state.email,
-            'password': this.state.password,
-            'fname': this.state.firstName,
-            'lname': this.state.lastName,
-            'email': this.state.email,
-            'phone': this.state.phone,
-            'address': this.state.streetAddress,
-            'zipcode': this.state.zipcode,
-            'city': this.state.city,
-            'company': '99',
-            'userlvl': '2'
+            "username" : this.state.email,
+            "password" : this.state.password,
+            "fname" : this.state.firstName,
+            "lname" : this.state.lastName,
+            "email" : this.state.email,
+            "phone" : this.state.phone,
+            "address" : this.state.streetAddress,
+            "zipcode" : this.state.zipcode,
+            "city" : this.state.city,
+            "company" : "99",
+            "userlvl" : "2",
+            "Status" : "0"
         }
-        console.log(regData);
-        sendRegData(regData);
+        console.log(JSON.stringify(regData));
+        sendRegData(JSON.stringify(regData));
     }
 
     render() {

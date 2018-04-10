@@ -6,14 +6,16 @@ import Login from './components/containers/Login/Login.js';
 import Register from './components/containers/Login/Register.js';
 import Front from './components/ui/EndUser/EndUserFront.js';
 import WasteProcessor from './components/containers/WasteProcessor/WasteProcessor.js';
+import AdminWasteProcessor from './components/containers/Admin/WasteProcessor.js';
 
 import Order from './components/ui/EndUser/Orderinho/Order.js';
 import FrontPage from './components/ui/EndUser/FrontPage/FrontPage.js';
 import Profile from './components/ui/EndUser/Profile/Profile.js';
-import Admin from './components/ui/WasteProcessor/Admin/Admin.js';
+import Admin from './components/ui/Admin/Admin.js';
 // Author: Spagehetti Baker Bros & co.
 //Testikommentti
-import { getCats, getSubCats } from './utils/fetchcategories'
+import { getCats, getSubCats } from './utils/fetchcategories';
+import { logOut } from './utils/login-api';
 
 
 
@@ -22,36 +24,20 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: true,
-      value: ''
     }
-    this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick() {
-    //console.log('HERE!', this.contextTypes);
-    //this.state.loggedIn ? <Map /> : <AdminFront />;
-    this.setState({
-      loggedIn: !this.state.loggedIn,
-    })
-    console.log(this.state.value);
-    // this.context.location.transitionTo('Map');
-  };
-
-  handleChange = () => {
-    this.setState({
-    });
-    console.log(this.state.userLevel.userlvl);
-
-  };
 
   logout = () => {
-    this.props.onNewLogin({
+    logOut();
+    localStorage.clear();
+    this.props.onNewLogout({
+      userlvl: -1
     });
   }
 
   componentWillReceiveProps() {
-    console.log(this.props.userLevel.loginInfo.userLevel);
+
   }
 
   componentDidMount() {
@@ -62,6 +48,12 @@ class App extends Component {
     getSubCats().then((subCats) => {
       this.props.setSubCategories(subCats.category);
     })
+
+
+    if(localStorage.loginData){
+      let loginData = JSON.parse(localStorage.loginData);
+      this.props.localStorageLogin(loginData.userdata);
+    }
   }
 
 
@@ -74,9 +66,9 @@ class App extends Component {
           <div>
             {
               (() => {
-                switch (this.props.userLevel.loginInfo.userLevel.userlvl) {
+                switch (this.props.loginInfo.userlvl) {
                   case '0':
-                    return <WasteProcessor />;
+                    return <AdminWasteProcessor />;
 
                   case '1':
                     return <WasteProcessor />;

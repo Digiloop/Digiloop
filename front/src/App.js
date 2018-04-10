@@ -13,8 +13,7 @@ import Profile from './components/ui/EndUser/Profile/Profile.js';
 import Admin from './components/ui/WasteProcessor/Admin/Admin.js';
 // Author: Spagehetti Baker Bros & co.
 //Testikommentti
-import { getCats, getSubCats } from './utils/fetchcategories';
-import { logOut } from './utils/login-api';
+import { getCats, getSubCats } from './utils/fetchcategories'
 
 
 
@@ -47,17 +46,12 @@ class App extends Component {
   };
 
   logout = () => {
-    logOut().then(() => {
-    });
     this.props.onNewLogin({
-      userLevel: {
-        userlvl: -1
-      }
     });
   }
 
   componentWillReceiveProps() {
-    console.log(this.props.userLevel.loginInfo.userLevel.userlvl);
+    console.log(this.props.userLevel.loginInfo.userLevel);
   }
 
   componentDidMount() {

@@ -89,7 +89,7 @@ module.exports = function(passport) {
                     connection.query(insertQuery,[newUserMysql.username, newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.company, newUserMysql.userlvl, newUserMysql.Status],function(err, rows) {
                         //newUserMysql.id = rows.insertId;
 					passport.serializeUser(function(newUserMysql, done) {
-					  done(null, newUserMysql);
+					  return done(null, newUserMysql);
 					}); 
                        
                     });

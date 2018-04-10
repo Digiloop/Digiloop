@@ -16,6 +16,9 @@ constructor(props){
 
   }
   this.handleChange = this.handleChange.bind(this);
+  var data = localStorage.loginData;
+  console.log(data);
+  
  }
 
 handleChange = (event, value) => this.setState({value})
@@ -25,6 +28,7 @@ componentDidMount(){
   console.log(this.props.items);
 
 }
+
 
 
 render() {

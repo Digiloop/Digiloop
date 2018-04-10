@@ -367,7 +367,12 @@ module.exports = function(app, passport, users) {
 
     }));
 
-    app.post('/signupNormal', passport.authenticate('local-signup', {
+    app.post('/signupNormal', function (req, res, next) {
+    console.log('the response will be sent by the next function ...')
+    //set user level for normal user
+    res.locals.level = 3
+    next()
+    }, passport.authenticate('local-signup', {
          //leveli = 'moi'
 
     }));

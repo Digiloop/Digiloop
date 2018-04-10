@@ -16,7 +16,8 @@ connection.query('USE ' + dbconfig.database);
 //https://scotch.io/tutorials/keeping-api-routing-clean-using-express-routers
 //https://www.terlici.com/2014/09/29/express-router.html
 module.exports = function(app, passport, users) {
-    //	app.get('/categories',isLoggedIn, function(req, res)
+    //	app.get('/categories',isLoggedIn, function(req, res
+/*
     app.get('/categories', function(req, res, next) {
         connection.query('SELECT * FROM Category WHERE Status = 1', function(err, result) {
             if (err) throw err;
@@ -25,7 +26,7 @@ module.exports = function(app, passport, users) {
             });
         });
     });
-
+*/
     app.get('/subcat', function(req, res) {
         connection.query('SELECT * FROM subCat WHERE Status = 1',
             function(err, result) {
@@ -352,11 +353,12 @@ module.exports = function(app, passport, users) {
     // SIGNUP ==============================
     // =====================================
     // show the signup form
+    /*
     app.get('/signup', function(req, res) {
         // render the page and pass in any flash data if it exists
         //res.render('signup.ejs', { message: req.flash('signupMessage') });
     });
-
+*/
     // process the signup form
     app.post('/signup', passport.authenticate('local-signup', {
         //successRedirect : '/profile', // redirect to the secure profile section

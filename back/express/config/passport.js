@@ -85,7 +85,7 @@ module.exports = function(passport) {
                     var insertQuery = "INSERT INTO users ( username, password, fname, lname, email, phone, address, zipcode, city, company, userlvl ) values (?,?,?,?,?,?,?,?,?,?,?)";
 
                     connection.query(insertQuery,[newUserMysql.username, newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.company, newUserMysql.userlvl],function(err, rows) {
-                        newUserMysql.id = rows.insertId;
+                        //newUserMysql.id = rows.insertId;
 
                         return done(null, newUserMysql);
                     });

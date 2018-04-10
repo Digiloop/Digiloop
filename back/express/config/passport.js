@@ -82,6 +82,7 @@ module.exports = function(passport) {
                         userlvl: req.body.userlvl.toString(),
 						Status: req.body.Status.toString()
                     };
+					if (newUserMysql.Status == undefined) Status = 0;
                     /*console.log(leveli + "  leveli");*/
                     var insertQuery = "INSERT INTO users ( username, password, fname, lname, email, phone, address, zipcode, city, company, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?,?,?)";
 

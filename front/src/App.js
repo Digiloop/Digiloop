@@ -12,8 +12,6 @@ import Order from './components/ui/EndUser/Orderinho/Order.js';
 import FrontPage from './components/ui/EndUser/FrontPage/FrontPage.js';
 import Profile from './components/ui/EndUser/Profile/Profile.js';
 import Admin from './components/ui/Admin/Admin.js';
-// Author: Spagehetti Baker Bros & co.
-//Testikommentti
 import { getCats, getSubCats } from './utils/fetchcategories';
 import { logOut } from './utils/login-api';
 
@@ -41,15 +39,18 @@ class App extends Component {
   }
 
   componentDidMount() {
+
+    // fetch categories and subcategories upon opening, they only need to be loaded once per app use
+    // they change rarely, and can be updated on page with refresh
     getCats().then((cats) => {
       this.props.setCategories(cats.category);
     })
-
     getSubCats().then((subCats) => {
       this.props.setSubCategories(subCats.category);
     })
 
-    
+    // if we have an existing session going on, load that instantly upon opening app
+    // it will not remember the page the user was on though, only the login info of the previous session
     if((localStorage.loginData != "undefined") && localStorage.loginData){
       let loginData = JSON.parse(localStorage.loginData);
       this.props.localStorageLogin(loginData.userdata);

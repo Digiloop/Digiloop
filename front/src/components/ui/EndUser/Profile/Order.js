@@ -1,144 +1,150 @@
-import React, { Component } from 'react';
+import React from 'react';
 import AppBar from 'material-ui/AppBar';
-import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';
-import History from './History.js'
-import Checkbox from 'material-ui/Checkbox';
+import { sendRegData } from '../../../../utils/sendRegData';
+import styles from '../../../../index.css';
 
-import { getCats } from '../../../../utils/fetchcategories';
 
-class Order extends Component {
-constructor(props){
-  super(props);
-  this.state = {value: ''};
-  this.handleChange = this.handleChange.bind(this);
-  this.handleSubmit = this.handleSubmit.bind(this);
-  this.onChange = this.onChange.bind(this);
+class Order1 extends React.Component {
+    constructor(props) {
+        super(props);
 
- }
+        this.state = {
+            address: '',
+            zipcode: '',
+            city: '',
+            phone: '',
+            pickup: '',
+            submitted: false
+        };
+    }
 
-handleChange = (event, index, value) => this.setState({value});
-handleSubmit(event) {
-  event.preventDefault();
-  console.log({Jäte:this.state.value });
-  alert('Jätteen tyyppi: ' + this.state.value);
+    handleChange(event) {
+    }
+
+    Submit(event) {
+        var regData = {
+            address: this.state.address,
+            zipcode: this.state.zipcode,
+            city: this.state.city,
+            phone: this.state.phone,
+            pickup: this.state.pickup,
+        }
+        console.log(regData);
+    }
+
+    render() {
+
+        const styles = {
+            width: 250,
+            backgroundColor: '#FFFFFF',
+            borderRadius: 4,
+            borderWidth: 0.5,
+            borderColor: '#d6d7da'
+        };
+
+        const progress = {
+            borderRadius: 4, backgroundColor: '#FFFFFF', width: '10%', height: '1.5vh', margin: 5, float: 'left'
+        }
+        return (
+            <div className="registerWrapper">
+
+            <AppBar style={{backgroundColor: '#FFF'}}
+             title={<div className="app-bar-title">Noutolomake</div>}
+             showMenuIconButton={false}
+           />
+
+           <div className="progressBar" style={{display: 'flex',justifyContent: 'center'}}>
+               <div>Nuoli</div>
+               <div className="state1" style={{borderRadius: 4, backgroundColor: '#A6CE6B', width: '10%', height: '1.5vh', margin: 5, float: 'left'}}></div>
+               <div className="state2" style={progress}></div>
+               <div className="state3" style={progress}></div>
+               <div className="state4" style={progress}></div>
+               <div>Nuoli</div>
+           </div>
+
+            <div className="Container">
+
+                <table className="registerStructure">
+                    <tbody>
+                        <tr>
+                            <td>  <label className="leftRegisterLabel">Hakuosoite: </label> </td>
+                            <td>   <TextField className="rightRegisterField"
+                            type="text" hintText="esim. Ståhlberginkatu 10" style={styles}
+                                    onChange={(event, newValue) => this.setState({ address: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label className="leftRegisterLabel">Postinumero: </label> </td>
+                                <td>  <TextField className="rightRegisterField"
+                                type="text" hintText="esim. 15110" style={styles}
+                                    onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label className="leftRegisterLabel">Postitoimipaikka: </label> </td>
+                                <td> <TextField className="rightRegisterField"
+                                type="text" hintText="esim. Lahti" style={styles}
+                                    onChange={(event, newValue) => this.setState({ city: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label className="leftRegisterLabel">Puhelinnumero: </label> </td>
+                                <td>   <TextField className="rightRegisterField"
+                                type="text" hintText="esim. 044 708 1347​" style={styles}
+                                    onChange={(event, newValue) => this.setState({ phone: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label className="leftRegisterLabel">Nouto-ohjeet: </label></td>
+                                <td>    <TextField className="rightRegisterField"
+                                type="text" hintText="esim. Perjantai 30.4 klo 16:30. Käynti pääovesta. " style={styles}
+                                rows={3} rowsMax={7}
+                                    onChange={(event, newValue) => this.setState({ pickup: newValue })} />
+                            </td>
+                        </tr>
+
+                      <tr>
+
+                        <td>
+                        <img
+                            src={require('./home2.gif')}
+                            className="image-btn btn"
+                            alt="Special button"
+                            onClick={(event) => this.Submit(event)}
+                        />
+                        </td>
+                        <td style={{display: 'flex',justifyContent: 'center'}}>
+                        <img
+                            src={require('./organization2.gif')}
+                            className="image-btn btn"
+                            alt="Special button"
+                            onClick={(event) => this.Submit(event)}
+                        />
+                        </td>
+                      </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+            </div >
+            </div >
+        );
+    }
 }
 
-
-handleChange(e) {
-  this.setState({check: e.target.value})
-}
-
-// fetch junk data
-getJunksData() {
- getCats().then((junks) => {
-   console.log(junks);
-//   this.props.itemsToStore(junks.category);
-
-  // this.setState({ junks });
-
-
- });
-
- //console.log(typeof junks);
-}
-
-// the filter function, that leaves only the necessary stuff to be displayed
-
-componentDidMount(){
- this.getJunksData(); // fetch data from backend
- // TODO somehow wait for datafetch before attempting filtering
-
-}
-
-onChange(e) {
-  this.setState({ value: e.target.value });
-}
-
-updateCheck() {
-  this.setState((oldState) => {
-    return {
-      checked: !oldState.checked,
-    };
-  });
-}
-
-render() {
-
-
-const dropmenu = {width: 150, backgroundColor: '#FFFFFF', borderRadius: 4,
-    borderWidth: 0.5,
-    borderColor: '#d6d7da'};  // dropdownmenu leveys väri yms
-
-
-
-    return (
-<div className="Container">
-  <p> * merkityt kentät ovat pakollisia</p>
-
-        <form onSubmit={this.handleSubmit}>
-        <div>
-        <table name="tilaus">
-        <tbody>
-
-
-        <tr>
-          <td>Hakuosoite*</td>
-          <td><TextField name="address"  style={dropmenu}/></td>
-        </tr>
-        <tr>
-          <td>Postinumero*</td>
-          <td><TextField name="zipcode" style={dropmenu}/></td>
-        </tr>
-        <tr>
-          <td>Postitoimipaikka*</td>
-          <td><TextField name="city" style={dropmenu}/></td>
-        </tr>
-        <tr>
-          <td>Puhelinnumero</td>
-          <td><TextField name="phone"  style={dropmenu}/></td>
-        </tr>
-        </tbody>
-        </table>
-
-        <Checkbox
-          label="Hyväksyn käyttöehdot ja vakuutan tiedot oikeiksi"
-          checked={this.state.checked}
-          onCheck={this.updateCheck.bind(this)}
-        />
-
-          <TextField
-  disabled={true}
-  defaultValue="Luovutan omaisuuteni tikituuballe ja menetän sieluni saatanalle.
-  Käyttöehtoja voidaan muokata mielivaltaisesti hyväksymisen jälkeen."
-  multiLine={true}
-  rows={4}
-  rowsMax={4}
-/>
-<table id="buttons">
-<tbody>
-<td>
-        <IconButton tooltip="Edellinen" >
-          <Back />
-        </IconButton>
-
-</td>
-<td id="next">
-        <IconButton type="Submit" value="Submit" disabled={!this.state.checked} tooltip="Seuraava">
-          <Forward />
-        </IconButton>
-</td>
-</tbody>
-</table>
-        </div>
-        </form>
-        </div>
-    );
-  }
-}
-export default Order;
+export default Order1;

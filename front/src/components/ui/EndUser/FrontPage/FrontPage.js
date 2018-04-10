@@ -43,7 +43,7 @@ render() {
       fontSize: '30px',
       color: '#004225',}}/>
       <br />
-      <h2>Tervetuloa, {this.props.items.username}!</h2> <br />
+      <h2>Tervetuloa, {this.props.items.fname}!</h2> <br />
 
       {this.state.value ? <Notification /> : <Order />}
       </div>

@@ -1,6 +1,16 @@
 {
 	"loginInfo": {
-		"userlvl": -1
+		"address": null,
+		"city": null,
+		"company": null,
+		"email": null,
+		"fname": null,
+		"id": null,
+		"lname": null,
+		"phone": null,
+		"userlvl": -1,
+		"username": null,
+		"zipcode": null
 	},
 	"resList": [
 		{

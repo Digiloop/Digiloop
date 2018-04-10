@@ -90,7 +90,7 @@ module.exports = function(passport) {
                         //newUserMysql.id = rows.insertId;
 					passport.serializeUser(function(newUserMysql, done) {
 					  done(null, user);
-					});
+					}); 
                         return done(null, newUserMysql);
                     });
                 }

@@ -8,7 +8,7 @@ import './index.css';
 // switchin alasivut loginlevelin perusteella
 import AdminWasteProcessor from './components/containers/Admin/WasteProcessor.js';
 import WasteProcessor from './components/containers/WasteProcessor/WasteProcessor.js';
-import Front from './components/ui/EndUser/EndUserFront.js';
+import Front from './components/containers/EndUser/EndUserFront.js';
 import Register from './components/containers/Login/Register.js';
 import Login from './components/containers/Login/Login.js';
 

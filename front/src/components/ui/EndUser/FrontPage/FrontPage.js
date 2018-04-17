@@ -42,7 +42,7 @@ render() {
     fontSize: '30px',
     color: '#004225',}}/>)
     this.state.etusivu.push(
-    <h2>Tervetuloa, {this.props.items.fname}!</h2>)
+    <h2>Tervetuloa, {this.props.items.fname != null ? this.props.items.fname : this.props.items.username}!</h2>)
   }
   else{
     this.state.etusivu=[];

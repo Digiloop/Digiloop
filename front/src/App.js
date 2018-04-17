@@ -8,8 +8,9 @@ import './index.css';
 // switchin alasivut loginlevelin perusteella
 import AdminWasteProcessor from './components/containers/Admin/WasteProcessor.js';
 import WasteProcessor from './components/containers/WasteProcessor/WasteProcessor.js';
-import Front from './components/ui/EndUser/EndUserFront.js';
+import Front from './components/containers/EndUser/EndUserFront.js';
 import Register from './components/containers/Login/Register.js';
+import WasteRegister from './components/containers/Login/WasteRegister.js';
 import Login from './components/containers/Login/Login.js';
 
 import Order from './components/ui/EndUser/Orderinho/Order.js';
@@ -80,6 +81,12 @@ class App extends Component {
             {
               (() => {
                 switch (this.props.loginInfo.userlvl) {
+                  case -3:
+                    return <WasteRegister />;
+
+                  case -2:
+                    return <Register />;
+
                   case '0':
                     return <AdminWasteProcessor />;
 
@@ -88,9 +95,6 @@ class App extends Component {
 
                   case '2':
                     return <Front />;
-
-                  case 3:
-                    return <Register />;
 
                   default:
                     return <Login />;

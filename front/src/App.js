@@ -44,15 +44,29 @@ class App extends Component {
       this.props.setCategories(cats.category);
     })
     getSubCats().then((subCats) => {
-      this.props.setSubCategories(subCats.category);
-    })
 
-    // if we have an existing session going on, load that instantly upon opening app
-    // it will not remember the page the user was on though, only the login info of the previous session
-    if((localStorage.loginData != "undefined") && localStorage.loginData){
-      let loginData = JSON.parse(localStorage.loginData);
-      this.props.localStorageLogin(loginData.userdata);
-    }
+      // subcats will also be used as a check on the backend/network
+      // with a proper response, continue as usual to saving subcats into store and checking if there's a session in localstorage
+      if (subCats.category) {
+        this.props.setSubCategories(subCats.category);
+
+        // if we have an existing session going on, load that instantly upon opening app
+        // it will not remember the page the user was on though, only the login info of the previous session
+        if ((localStorage.loginData != "undefined") && localStorage.loginData) {
+          let loginData = JSON.parse(localStorage.loginData);
+          this.props.localStorageLogin(loginData.userdata);
+        }
+
+        // if the connection refused, clear login sessions and display error message
+      } else {
+
+        localStorage.clear();
+        this.props.onNewLogout({
+          userlvl: -1
+        });
+
+      }
+    })
   }
 
 

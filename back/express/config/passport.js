@@ -62,7 +62,7 @@ module.exports = function(passport) {
             // we are checking to see if the user trying to login already exists
             connection.query("SELECT * FROM users WHERE username = ?",[username], function(err, rows) {
                 if (err)
-                    return done(err);
+                    return done("working just fine");
                 if (rows.length) {
                     return done(null, false, console.log('signupMessage', 'That username is already taken.'));
                 } else {
@@ -79,9 +79,15 @@ module.exports = function(passport) {
                         zipcode: req.body.zipcode.toString(),
                         city: req.body.city.toString(),
                         company: req.body.company.toString(),
-                        userlvl: req.body.userlvl.toString(),
-						Status: req.body.Status.toString()
-                    };
+                        userlvl: null,
+                        Status: req.body.Status.toString()
+                  };
+                  //normi user check
+                  if (typeof res != 'undefined')
+                    newUserMysql.userlvl = res.locals.level
+                  else
+                  newUserMysql.userlvl = req.body.userlvl.toString();
+					if (newUserMysql.Status == undefined) newUserMysql.Status = 0;
                     /*console.log(leveli + "  leveli");*/
                     var insertQuery = "INSERT INTO users ( username, password, fname, lname, email, phone, address, zipcode, city, company, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?,?,?)";
 

@@ -58,7 +58,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-
+// XD
 // required for passport
 app.use(session({
 	secret: 'helloworldisthreehundredfiftysixbilliontree',

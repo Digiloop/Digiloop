@@ -13,7 +13,11 @@ function getCats() {
 }
 
 function getSubCats() {
-  return axios.get(BASE_URL+'/subcat').then(response => response.data);
+  return axios.get(BASE_URL+'/subcat')
+  .then(response => response.data)
+  .catch(function (error) {
+    return error;
+  });
 }
 
 /*

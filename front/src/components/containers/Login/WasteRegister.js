@@ -1,6 +1,6 @@
 import WasteRegister from '../../ui/Login/WasteRegister'
 import { connect } from 'react-redux'
-// import { login } from '../../../actions'
+import { login } from '../../../actions'
 
 
 const mapStateToProps = (state, props) =>
@@ -11,7 +11,11 @@ const mapStateToProps = (state, props) =>
 // check these
 const mapDispatchToProps = dispatch =>
   ({
-
+    onNewLogin(loginInfo) {
+      dispatch(
+        login(loginInfo)
+      )
+    }
   })
 
-  export default connect(mapStateToProps, mapDispatchToProps)(WasteRegister)
+export default connect(mapStateToProps, mapDispatchToProps)(WasteRegister)

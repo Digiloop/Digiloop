@@ -29,6 +29,12 @@ class Register extends React.Component {
     handleChange(event) {
     }
 
+    Cancel(event) {
+        this.props.onNewLogin({
+            userlvl: -1
+        });
+    }
+
     Submit(event) {
         //const x = this.state;
         let pass = true;
@@ -70,8 +76,8 @@ class Register extends React.Component {
     render() {
 
         const styles = {
-            width: 250, backgroundColor: '#FFFFFF', borderRadius: 4,
-            borderWidth: 0.5,
+            width: 250, backgroundColor: '#FFFFFF', borderRadius: 0,
+            borderWidth: 0.5, border: '2px solid #004225',
             borderColor: '#d6d7da'
         };
 
@@ -91,7 +97,6 @@ class Register extends React.Component {
                                 <td>  <label className="leftRegisterLabel">Etunimi: </label> </td>
                                 <td>   <TextField className="rightRegisterField"
                                     type="text" hintText="esim. Matti" style={styles}
-                                    style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                     onChange={(event, newValue) => this.setState({ firstName: newValue })} />
                                 </td>
                             </tr>
@@ -161,6 +166,21 @@ class Register extends React.Component {
                             </tr>
                         </tbody>
                     </table>
+                    <FlatButton className="cancelButton"
+                        label="Peruuta"
+                        backgroundColor="#FFFFFF"
+                        style={{
+                            borderRadius: '0',
+                            textAlign: 'center',
+                            backgroundColor: 'white',
+                            border: '2px solid #004225',
+                            fontFamily: 'kanit',
+                            borderRadius: '0',
+                            fontSize: '18px',
+                            color: '#004225',
+
+                        }}
+                        onClick={(event) => this.Cancel(event)} />
                     <FlatButton className="registerButton"
                         label="Rekisteröidy"
                         backgroundColor="#FFFFFF"

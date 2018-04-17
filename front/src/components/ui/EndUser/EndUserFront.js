@@ -39,7 +39,7 @@ render() {
       <MuiThemeProvider>
       <div className="frontpake">
         <div>
-        <AppBar style={{backgroundColor: '#FFF'}} title={<div className="app-bar-title">Etusivu</div>}
+        <AppBar style={{backgroundColor: '#FFF'}} iconStyleLeft={{ textColor: '#004225' }} title={<div className="app-bar-title">Etusivu</div>}
           onClick={this.handleToggle} >
           <div className="frontDrawer">
             <Drawer open={this.state.open} containerStyle={{backgroundColor: '#004225', marginTop: '50px'}}>

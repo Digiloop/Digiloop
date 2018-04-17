@@ -80,6 +80,12 @@ class App extends Component {
             {
               (() => {
                 switch (this.props.loginInfo.userlvl) {
+                  /* case -3:
+                    return <WasteRegister />; */
+
+                  case -2:
+                    return <Register />;
+
                   case '0':
                     return <AdminWasteProcessor />;
 
@@ -88,9 +94,6 @@ class App extends Component {
 
                   case '2':
                     return <Front />;
-
-                  case 3:
-                    return <Register />;
 
                   default:
                     return <Login />;

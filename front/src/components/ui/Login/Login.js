@@ -53,7 +53,13 @@ class Login extends Component {
 
   register = () => {
     this.props.onNewLogin({
-      userlvl: 3
+      userlvl: -2
+    });
+  }
+
+  wasteRegister = () => {
+    this.props.onNewLogin({
+      userlvl: -3
     });
   }
 
@@ -120,7 +126,7 @@ class Login extends Component {
 
             <div className="loginGroup">
               <a href="#">Salasana?</a><br />
-              <a href="#">Yrityskäyttäjä</a><br />
+              <a href="#" onClick={() => { this.wasteRegister() }} >Yrityskäyttäjä</a><br />
               <a href="#" onClick={() => { this.register() }}>Rekisteröidy</a><br />
             </div>
           </form> </div>

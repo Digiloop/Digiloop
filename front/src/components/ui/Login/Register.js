@@ -48,6 +48,9 @@ class Register extends React.Component {
         }
         console.log(JSON.stringify(regData));
         sendRegData(JSON.stringify(regData));
+        this.props.onNewLogin({
+            userlvl: -1
+          });
     }
 
     render() {

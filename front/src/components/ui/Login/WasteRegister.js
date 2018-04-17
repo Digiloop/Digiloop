@@ -34,20 +34,19 @@ class WasteRegister extends React.Component {
     Submit(event) {
         var regData = {
             "username" : this.state.email,
-            "fname" : this.state.firstName,
-            "lname" : this.state.lastName,
+            "company" : this.state.corpName,
+            "ytunnus" : this.state.ytunnus,
+            "contname" : this.state.contName,
             "email" : this.state.email,
             "phone" : this.state.phone,
             "address" : this.state.streetAddress,
             "zipcode" : this.state.zipcode,
             "city" : this.state.city,
-            "company" : "99",
-            "userlvl" : "2",
+            "userlvl" : "1",
             "Status" : "0",
-            "ytunnus" : this.state.ytunnus
         }
         console.log(JSON.stringify(regData));
-        sendRegData(JSON.stringify(regData));
+        //sendRegData(JSON.stringify(regData));
     }
 
     render() {
@@ -73,7 +72,7 @@ class WasteRegister extends React.Component {
                         <tr>
                             <td>  <label className="leftRegisterLabel">Yrityksen nimi: </label> </td>
                             <td>   <TextField className="rightRegisterField"
-                            type="text" hintText="esim. Matti" style={styles}
+                            type="text" hintText="esim. Jankon Betoni" style={styles}
                             style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225'}}
                                     onChange={(event, newValue) => this.setState({ corpName: newValue })} />
                             </td>

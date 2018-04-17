@@ -10,19 +10,19 @@ import Back from 'material-ui/svg-icons/navigation/arrow-back';
 import { sendRegData } from '../../../utils/sendRegData';
 import styles from '../../../index.css';
 
-class Register extends React.Component {
+class WasteRegister extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            firstName: '',
-            lastName: '',
-            username: '',
-            password: '',
-            phone: '',
+            corpName: '',
+            ytunnus: '',
             streetAddress: '',
             zipcode: '',
             city: '',
+            contName: '',
+            email: '',
+            phone: '',
             submitted: false,
             Status: ''
         };
@@ -34,23 +34,19 @@ class Register extends React.Component {
     Submit(event) {
         var regData = {
             "username" : this.state.email,
-            "password" : this.state.password,
-            "fname" : this.state.firstName,
-            "lname" : this.state.lastName,
+            "company" : this.state.corpName,
+            "ytunnus" : this.state.ytunnus,
+            "contname" : this.state.contName,
             "email" : this.state.email,
             "phone" : this.state.phone,
             "address" : this.state.streetAddress,
             "zipcode" : this.state.zipcode,
             "city" : this.state.city,
-            "company" : "99",
-            "userlvl" : "2",
-            "Status" : "0"
+            "userlvl" : "1",
+            "Status" : "0",
         }
         console.log(JSON.stringify(regData));
-        sendRegData(JSON.stringify(regData));
-        this.props.onNewLogin({
-            userlvl: -1
-          });
+        //sendRegData(JSON.stringify(regData));
     }
 
     render() {
@@ -70,48 +66,29 @@ class Register extends React.Component {
            />
 
             <div className="Container">
-            
+
                 <table className="registerStructure">
                     <tbody>
                         <tr>
-                            <td>  <label className="leftRegisterLabel">Etunimi: </label> </td>
-                            <td>   <TextField className="rightRegisterField" 
-                            type="text" hintText="esim. Matti" style={styles}
+                            <td>  <label className="leftRegisterLabel">Yrityksen nimi: </label> </td>
+                            <td>   <TextField className="rightRegisterField"
+                            type="text" hintText="esim. Jankon Betoni" style={styles}
                             style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225'}}
-                                    onChange={(event, newValue) => this.setState({ firstName: newValue })} />
+                                    onChange={(event, newValue) => this.setState({ corpName: newValue })} />
                             </td>
                         </tr>
                         <tr>
-                            <td>
-                                <label className="leftRegisterLabel">Sukunimi: </label> </td>
-                                <td>  <TextField className="rightRegisterField" 
-                                type="text" hintText="esim. Meikäläinen" style={styles}
-                                style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225'}}
-                                    onChange={(event, newValue) => this.setState({ lastName: newValue })} />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label className="leftRegisterLabel">Sähköposti: </label> </td>
-                                <td> <TextField className="rightRegisterField" 
-                                type="text" hintText="esim. etunimi.sukunimi@lamk.fi" style={styles}
-                                style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225'}}
-                                    onChange={(event, newValue) => this.setState({ email: newValue })} />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label className="leftRegisterLabel">Puhelinnumero: </label> </td>
-                                <td>   <TextField className="rightRegisterField" 
-                                type="text" hintText="esim. 044 708 1347​" style={styles}
-                                style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225'}}
-                                    onChange={(event, newValue) => this.setState({ phone: newValue })} />
+                            <td>  <label className="leftRegisterLabel">Y-tunnus: </label> </td>
+                            <td>   <TextField className="rightRegisterField"
+                            type="text" hintText="Kyl pitäis tietää" style={styles}
+                            style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225'}}
+                                    onChange={(event, newValue) => this.setState({ ytunnus: newValue })} />
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <label className="leftRegisterLabel">Katuosoite: </label></td>
-                                <td>    <TextField className="rightRegisterField" 
+                                <td>    <TextField className="rightRegisterField"
                                 type="text" hintText="esim. Ståhlberginkatu 10" style={styles}
                                 style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225'}}
                                     onChange={(event, newValue) => this.setState({ streetAddress: newValue })} />
@@ -120,7 +97,7 @@ class Register extends React.Component {
                         <tr>
                             <td>
                                 <label className="leftRegisterLabel">Postinumero: </label></td>
-                                <td>   <TextField className="rightRegisterField" 
+                                <td>   <TextField className="rightRegisterField"
                                 type="text" hintText="esim. 15110" style={styles}
                                 style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225'}}
                                     onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
@@ -137,12 +114,29 @@ class Register extends React.Component {
                         </tr>
                         <tr>
                             <td>
-                                 </td>
-                                <td>   <TextField className="rightRegisterField" 
-                                type="password" hintText="Valitsemasi salasana" style={styles}
+                                <label className="leftRegisterLabel">Yhteyshenkilö: </label> </td>
+                                <td>  <TextField className="rightRegisterField"
+                                type="text" hintText="esim. Matti Meikäläinen" style={styles}
                                 style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225'}}
-                                    onChange={(event, newValue) => this.setState({ password: newValue })} />
-                                    
+                                    onChange={(event, newValue) => this.setState({ contName: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label className="leftRegisterLabel">Sähköposti: </label> </td>
+                                <td> <TextField className="rightRegisterField"
+                                type="text" hintText="esim. etunimi.sukunimi@lamk.fi" style={styles}
+                                style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225'}}
+                                    onChange={(event, newValue) => this.setState({ email: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label className="leftRegisterLabel">Puhelinnumero: </label> </td>
+                                <td>   <TextField className="rightRegisterField"
+                                type="text" hintText="esim. 044 708 1347​" style={styles}
+                                style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225'}}
+                                    onChange={(event, newValue) => this.setState({ phone: newValue })} />
                             </td>
                         </tr>
                     </tbody>
@@ -150,15 +144,15 @@ class Register extends React.Component {
                 <FlatButton className="registerButton"
                 label= "Rekisteröidy"
                 backgroundColor="#FFFFFF"
-                style={{ borderRadius: '0', 
+                style={{ borderRadius: '0',
                 textAlign: 'center',
-                backgroundColor: 'white', 
+                backgroundColor: 'white',
                 border: '2px solid #004225',
                 fontFamily: 'kanit',
                 borderRadius: '0',
                 fontSize: '18px',
                 color: '#004225',
-               
+
 }}
                 onClick={(event) => this.Submit(event)} />
             </div >
@@ -167,4 +161,4 @@ class Register extends React.Component {
     }
 }
 
-export default Register;
+export default WasteRegister;

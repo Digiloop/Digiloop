@@ -10,6 +10,7 @@ import FrontPage from '../../containers/EndUser/FrontPage/FrontPage.js';
 import Profile from './Profile/Profile.js';
 import Order from './Order/order.js';
 import styles from '../../../index.css';
+import { logOut } from '../../../utils/login-api';
 
 class EndUserFront extends Component {
 constructor(props){
@@ -21,6 +22,15 @@ constructor(props){
   this.handleChange = this.handleChange.bind(this);
  }
 
+  // logout clears session with backend, empties localStorage session and sets userlevel to logged out
+  logout = () => {
+    logOut();
+    localStorage.clear();
+    this.props.onNewLogout({
+      userlvl: -1
+    });
+  }
+
 handleChange = (event, value) => this.setState({value})
 handleToggle = () => this.setState({open: !this.state.open})
 
@@ -29,7 +39,7 @@ render() {
       <MuiThemeProvider>
       <div className="frontpake">
         <div>
-        <AppBar style={{backgroundColor: '#FFF'}} title={<div className="app-bar-title">Etusivu</div>}
+        <AppBar style={{backgroundColor: '#FFF'}} iconStyleLeft={{ textColor: '#004225' }} title={<div className="app-bar-title">Etusivu</div>}
           onClick={this.handleToggle} >
           <div className="frontDrawer">
             <Drawer open={this.state.open} containerStyle={{backgroundColor: '#004225', marginTop: '50px'}}>
@@ -39,7 +49,7 @@ render() {
                 <MenuItem style={{color: 'white'}} value={'News'}>Ilmoitukset</MenuItem>
                 <Divider />
                 <br />
-                <MenuItem style={{color: 'white'}} value={'LogOut'}>Kirjaudu ulos</MenuItem>
+                <MenuItem style={{color: 'white'}} onClick={ this.logout } value={'Logout'}>Kirjaudu ulos</MenuItem>
               </Menu>
             </Drawer>
           </div>

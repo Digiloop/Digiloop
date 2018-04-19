@@ -17,7 +17,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      email: '',
       password: '',
       loginError: false
     }
@@ -25,27 +25,41 @@ class Login extends Component {
 
   loginClick(event) {
     event.preventDefault();
-    console.log(this.state.username);
+    console.log(this.state.email);
     this.getUserLevel();
   }
 
   getUserLevel() {
-    getCredentials(this.state.username, this.state.password).then((loginData) => {
+    getCredentials(this.state.email, this.state.password).then((loginData) => {
 
-      if(loginData){
+
+      // check that loginData is defined and is not an error
+      if (loginData.userdata) {
         console.log(loginData);
         localStorage.loginData = JSON.stringify(loginData);
         this.props.onNewLogin(loginData.userdata);
-      } else {
+
+        // shows error for wrong credentials
+      } else if (loginData.response) {
         this.setState({ loginError: true })
+
+        // server is down / other problems
+      } else {
+        console.log("PÄKKI KAATU");
       }
-      
+
     });
   }
 
   register = () => {
     this.props.onNewLogin({
-      userlvl: 3
+      userlvl: -2
+    });
+  }
+
+  wasteRegister = () => {
+    this.props.onNewLogin({
+      userlvl: -3
     });
   }
 
@@ -68,7 +82,7 @@ class Login extends Component {
                 inputStyle={{color: '#004225'}}
                 style={{ backgroundColor: 'white', border: '2px solid #004225' }} */
                 hintText="Enter your Username"
-                onChange={(event, newValue) => this.setState({ username: newValue })}
+                onChange={(event, newValue) => this.setState({ email: newValue })}
               />
             </div>
 
@@ -84,11 +98,11 @@ class Login extends Component {
             </div>
 
 
-            {this.state.loginError ? <p style={{fontWeight: 400, fontSize: '12px', color: 'red'}}>
-            Kirjautuminen epäonnistui. Olet invaliidi.</p> : 
-            
-            <p style={{fontWeight: 400, fontSize: '12px', color: 'red'}}>
-            Are you wanna kirjautua??! Visut korjatkaa tää ku kerkeette.</p>}
+            {this.state.loginError ? <p style={{ fontWeight: 400, fontSize: '12px', color: 'red' }}>
+              Kirjautuminen epäonnistui. Olet invaliidi.</p> :
+
+              <p style={{ fontWeight: 400, fontSize: '12px', color: 'red' }}>
+                Are you wanna kirjautua??! Visut korjatkaa tää ku kerkeette.</p>}
 
 
             <div className="loginGroup">
@@ -112,7 +126,7 @@ class Login extends Component {
 
             <div className="loginGroup">
               <a href="#">Salasana?</a><br />
-              <a href="#">Yrityskäyttäjä</a><br />
+              <a href="#" onClick={() => { this.wasteRegister() }} >Yrityskäyttäjä</a><br />
               <a href="#" onClick={() => { this.register() }}>Rekisteröidy</a><br />
             </div>
           </form> </div>

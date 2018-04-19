@@ -17,7 +17,8 @@ class Order2 extends React.Component {
 
         this.state = {
           showTietoturva: false,
-          showAkut: false
+          showAkut: false,
+          showSer: false
         };
     }
 
@@ -59,31 +60,31 @@ class Order2 extends React.Component {
 const results = (                <table className="registerStructure">
                     <tbody>
                     <tr>
-                        <td>  <label className="leftRegisterLabel">Alakategoria: </label> </td>
+                        <td>  <label className="leftRegisterLabel"><h2 style={{ textAlign: 'left' }}>Alakategoria:</h2> </label> </td>
                     </tr>
                     <tr>
-                    <td>
+                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
                     <img
-                        src={require('./home2.gif')}
+                        src={require('./tietoturva.gif')}
                         className="image-btn btn"
                         alt="Special button"
                         onClick={(event) => this.Submit(event)}
                     />
                     </td>
-                    <td>
+                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
                     <img
-                        src={require('./home2.gif')}
+                        src={require('./tietoturva1.gif')}
                         className="image-btn btn"
                         alt="Special button"
                         onClick={(event) => this.Submit(event)}
                     />
                     </td>
-                    <td style={{display: 'flex',justifyContent: 'center'}}>
+                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
                     <img
-                        src={require('./organization2.gif')}
+                        src={require('./tietoturva.gif')}
                         className="image-btn btn"
                         alt="Special button"
-                        onClick={this.tietoturvaHandler}
+                        onClick={(event) => this.Submit(event)}
                     />
                     </td>
                     </tr>
@@ -93,31 +94,31 @@ const results = (                <table className="registerStructure">
                 const resultsAkku = (                <table className="registerStructure">
                                     <tbody>
                                     <tr>
-                                        <td>  <label className="leftRegisterLabel">Alakategoria: </label> </td>
+                                        <td>  <label className="leftRegisterLabel"><h2>Alakategoria:</h2> </label> </td>
                                     </tr>
                                     <tr>
-                                    <td>
+                                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
                                     <img
-                                        src={require('./home2.gif')}
+                                        src={require('./akku.gif')}
                                         className="image-btn btn"
                                         alt="Special button"
                                         onClick={(event) => this.Submit(event)}
                                     />
                                     </td>
-                                    <td>
+                                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
                                     <img
-                                        src={require('./organization2.gif')}
+                                        src={require('./akku.gif')}
                                         className="image-btn btn"
                                         alt="Special button"
                                         onClick={(event) => this.Submit(event)}
                                     />
                                     </td>
-                                    <td style={{display: 'flex',justifyContent: 'center'}}>
+                                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
                                     <img
-                                        src={require('./organization2.gif')}
+                                        src={require('./akku.gif')}
                                         className="image-btn btn"
                                         alt="Special button"
-                                        onClick={this.tietoturvaHandler}
+                                        onClick={(event) => this.Submit(event)}
                                     />
                                     </td>
                                     </tr>
@@ -127,31 +128,31 @@ const results = (                <table className="registerStructure">
                 const resultsSer = (                <table className="registerStructure">
                                     <tbody>
                                     <tr>
-                                        <td>  <label className="leftRegisterLabel">Alakategoria: </label> </td>
+                                        <td>  <label className="leftRegisterLabel"><h2>Alakategoria:</h2> </label> </td>
                                     </tr>
                                     <tr>
-                                    <td>
+                                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
                                     <img
-                                        src={require('./organization2.gif')}
+                                        src={require('./tv.gif')}
                                         className="image-btn btn"
                                         alt="Special button"
                                         onClick={(event) => this.Submit(event)}
                                     />
                                     </td>
-                                    <td>
+                                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
                                     <img
-                                        src={require('./organization2.gif')}
+                                        src={require('./pesukone.gif')}
                                         className="image-btn btn"
                                         alt="Special button"
                                         onClick={(event) => this.Submit(event)}
                                     />
                                     </td>
-                                    <td style={{display: 'flex',justifyContent: 'center'}}>
+                                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
                                     <img
-                                        src={require('./organization2.gif')}
+                                        src={require('./kahvi.gif')}
                                         className="image-btn btn"
                                         alt="Special button"
-                                        onClick={this.tietoturvaHandler}
+                                        onClick={(event) => this.Submit(event)}
                                     />
                                     </td>
                                     </tr>
@@ -191,28 +192,28 @@ const results = (                <table className="registerStructure">
                 <table className="registerStructure">
                     <tbody>
                     <tr>
-                        <td>  <label className="leftRegisterLabel">Pääluokka: </label> </td>
+                        <td>  <label className="leftRegisterLabel"><h2 style={{ textAlign: 'left' }}>Pääluokka:</h2> </label> </td>
                     </tr>
                     <tr>
-                    <td>
+                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
                     <img
-                        src={require('./home2.gif')}
+                        src={require('./slaitteet.gif')}
                         className="image-btn btn"
                         alt="Special button"
                         onClick={this.serHandler}
                     />
                     </td>
-                    <td>
+                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
                     <img
-                        src={require('./home2.gif')}
+                        src={require('./akku.gif')}
                         className="image-btn btn"
                         alt="Special button"
                         onClick={this.akutHandler}
                     />
                     </td>
-                    <td style={{display: 'flex',justifyContent: 'center'}}>
+                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
                     <img
-                        src={require('./organization2.gif')}
+                        src={require('./tietoturva.gif')}
                         className="image-btn btn"
                         alt="Special button"
                         onClick={this.tietoturvaHandler}

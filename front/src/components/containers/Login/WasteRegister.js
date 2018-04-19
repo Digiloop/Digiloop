@@ -1,4 +1,4 @@
-import Register from '../../ui/Login/Register'
+import WasteRegister from '../../ui/Login/WasteRegister'
 import { connect } from 'react-redux'
 import { login } from '../../../actions'
 
@@ -18,4 +18,4 @@ const mapDispatchToProps = dispatch =>
     }
   })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register)
+export default connect(mapStateToProps, mapDispatchToProps)(WasteRegister)

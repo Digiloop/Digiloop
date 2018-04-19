@@ -48,7 +48,6 @@ class Register extends React.Component {
 
         if( pass ){
             var regData = {
-                "username": this.state.email,
                 "password": this.state.password,
                 "fname": this.state.firstName,
                 "lname": this.state.lastName,

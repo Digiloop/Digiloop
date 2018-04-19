@@ -15,6 +15,7 @@ connection.query('USE ' + dbconfig.database);
 //https://blog.grossman.io/expressjs-tips-for-large-applications/
 //https://scotch.io/tutorials/keeping-api-routing-clean-using-express-routers
 //https://www.terlici.com/2014/09/29/express-router.html
+//https://www.caffeinecoding.com/better-express-routing-for-nodejs/
 module.exports = function(app, passport, users) {
     //	app.get('/categories',isLoggedIn, function(req, res
 /*

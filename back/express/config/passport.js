@@ -53,27 +53,27 @@ module.exports = function(passport) {
         'local-signup',
         new LocalStrategy({
             // by default, local strategy uses username and password, we will override with email
-            usernameField : 'username',
+            usernameField : 'email',
             passwordField : 'password',
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
-        function(req, username, password, done) {
+        function(req, email, password, done) {
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
-            connection.query("SELECT * FROM users WHERE username = ?",[username], function(err, rows) {
+            connection.query("SELECT * FROM users WHERE email = ?",[email], function(err, rows) {
                 if (err)
                     return done("working just fine");
                 if (rows.length) {
-                    return done(null, false, console.log('signupMessage', 'That username is already taken.'));
+                    return done(null, false, console.log('signupMessage', 'That email is already taken.'));
                 } else {
                     // if there is no user with that username
                     // create the user
                     var newUserMysql = {
-                        username: username,
+                        email: email.toString(),
                         password: bcrypt.hashSync(password, null, null),  // use the generateHash function in our user model
                         fname: req.body.fname.toString(),
                         lname: req.body.lname.toString(),
-                        email: req.body.email.toString(),
+                        //email: req.body.email.toString(),
                         phone: req.body.phone.toString(),
                         address: req.body.address.toString(),
                         zipcode: req.body.zipcode.toString(),
@@ -89,9 +89,9 @@ module.exports = function(passport) {
                   newUserMysql.userlvl = req.body.userlvl.toString();
 					if (newUserMysql.Status == undefined) newUserMysql.Status = 0;
                     /*console.log(leveli + "  leveli");*/
-                    var insertQuery = "INSERT INTO users ( username, password, fname, lname, email, phone, address, zipcode, city, company, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+                    var insertQuery = "INSERT INTO users ( password, fname, lname, email, phone, address, zipcode, city, company, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?,?)";
 
-                    connection.query(insertQuery,[newUserMysql.username, newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.company, newUserMysql.userlvl, newUserMysql.Status],function(err, rows) {
+                    connection.query(insertQuery,[newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.company, newUserMysql.userlvl, newUserMysql.Status],function(err, rows) {
                         //newUserMysql.id = rows.insertId;
 
                         return done(null, newUserMysql);
@@ -111,17 +111,17 @@ module.exports = function(passport) {
         'local-login',
         new LocalStrategy({
             // by default, local strategy uses username and password, we will override with email
-            usernameField : 'username',
+            usernameField : 'email',
             passwordField : 'password',
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
-        function(req, username, password, done) { // callback with email and password from our form
-            connection.query("SELECT * FROM users WHERE username = ?",[username], function(err, rows){
+        function(req, email, password, done) { // callback with email and password from our form
+            connection.query("SELECT * FROM users WHERE email = ?",[email], function(err, rows){
                 if (err)
                     return done(err);
                 if (!rows.length) {
                     return done(null, false, {
-                      message:'username' // koita saada tämä routesin loginin failaukseen
+                      message:'email' // koita saada tämä routesin loginin failaukseen
                     })
                 };
 

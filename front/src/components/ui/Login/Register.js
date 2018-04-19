@@ -9,11 +9,13 @@ import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';
 import { sendRegData } from '../../../utils/sendRegData';
 import styles from '../../../index.css';
+import { Checkbox } from 'material-ui';
 
 class Register extends React.Component {
     constructor(props) {
         super(props);
 
+        // if more states are added, mare sure they don't clash with form submit checker
         this.state = {
             firstName: '',
             lastName: '',
@@ -22,7 +24,8 @@ class Register extends React.Component {
             streetAddress: '',
             zipcode: '',
             city: '',
-            submitted: false
+            submitted: false,
+            termsAndConditions: false
         };
     }
 
@@ -36,9 +39,8 @@ class Register extends React.Component {
     }
 
     Submit(event) {
-        //const x = this.state;
+
         let pass = true;
-        //console.log(this.state);
         for (var key in this.state) {
             if (this.state[key] === '') {
                 pass = false;
@@ -46,7 +48,7 @@ class Register extends React.Component {
         }
 
 
-        if( pass ){
+        if (pass) {
             var regData = {
                 "password": this.state.password,
                 "fname": this.state.firstName,
@@ -93,108 +95,158 @@ class Register extends React.Component {
                     <table className="registerStructure">
                         <tbody>
                             <tr>
-                                <td>  <label className="leftRegisterLabel">Etunimi: </label> </td>
-                                <td>   <TextField className="rightRegisterField"
-                                    type="text" hintText="esim. Matti" style={styles}
-                                    onChange={(event, newValue) => this.setState({ firstName: newValue })} />
+                                <td>
+                                    <label className="leftRegisterLabel">Etunimi: </label>
+                                </td>
+                                <td>
+                                    <TextField className="rightRegisterField"
+                                        type="text" hintText="esim. Matti" style={styles}
+                                        onChange={(event, newValue) => this.setState({ firstName: newValue })} />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Sukunimi: </label> </td>
-                                <td>  <TextField className="rightRegisterField"
-                                    type="text" hintText="esim. Meikäläinen" style={styles}
-                                    style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
-                                    onChange={(event, newValue) => this.setState({ lastName: newValue })} />
+                                    <label className="leftRegisterLabel">Sukunimi: </label>
+                                </td>
+                                <td>
+                                    <TextField className="rightRegisterField"
+                                        type="text" hintText="esim. Meikäläinen" style={styles}
+                                        style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
+                                        onChange={(event, newValue) => this.setState({ lastName: newValue })} />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Sähköposti: </label> </td>
-                                <td> <TextField className="rightRegisterField"
-                                    type="text" hintText="esim. etunimi.sukunimi@lamk.fi" style={styles}
-                                    style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
-                                    onChange={(event, newValue) => this.setState({ email: newValue })} />
+                                    <label className="leftRegisterLabel">Sähköposti: </label>
+                                </td>
+                                <td>
+                                    <TextField className="rightRegisterField"
+                                        type="text" hintText="esim. etunimi.sukunimi@lamk.fi" style={styles}
+                                        style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
+                                        onChange={(event, newValue) => this.setState({ email: newValue })} />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Puhelinnumero: </label> </td>
-                                <td>   <TextField className="rightRegisterField"
-                                    type="text" hintText="esim. 044 708 1347​" style={styles}
-                                    style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
-                                    onChange={(event, newValue) => this.setState({ phone: newValue })} />
+                                    <label className="leftRegisterLabel">Puhelinnumero: </label>
+                                </td>
+                                <td>
+                                    <TextField className="rightRegisterField"
+                                        type="text" hintText="esim. 044 708 1347​" style={styles}
+                                        style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
+                                        onChange={(event, newValue) => this.setState({ phone: newValue })} />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Katuosoite: </label></td>
-                                <td>    <TextField className="rightRegisterField"
-                                    type="text" hintText="esim. Ståhlberginkatu 10" style={styles}
-                                    style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
-                                    onChange={(event, newValue) => this.setState({ streetAddress: newValue })} />
+                                    <label className="leftRegisterLabel">Katuosoite: </label>
+                                </td>
+                                <td>
+                                    <TextField className="rightRegisterField"
+                                        type="text" hintText="esim. Ståhlberginkatu 10" style={styles}
+                                        style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
+                                        onChange={(event, newValue) => this.setState({ streetAddress: newValue })} />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Postinumero: </label></td>
-                                <td>   <TextField className="rightRegisterField"
-                                    type="text" hintText="esim. 15110" style={styles}
-                                    style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
-                                    onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
+                                    <label className="leftRegisterLabel">Postinumero: </label>
+                                </td>
+                                <td>
+                                    <TextField className="rightRegisterField"
+                                        type="text" hintText="esim. 15110" style={styles}
+                                        style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
+                                        onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Postitoimipaikka: </label></td>
-                                <td>   <TextField className="rightRegisterField"
-                                    type="text" hintText="esim. Lahti" style={styles}
-                                    style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
-                                    onChange={(event, newValue) => this.setState({ city: newValue })} />
+                                    <label className="leftRegisterLabel">Postitoimipaikka: </label>
+                                </td>
+                                <td>
+                                    <TextField className="rightRegisterField"
+                                        type="text" hintText="esim. Lahti" style={styles}
+                                        style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
+                                        onChange={(event, newValue) => this.setState({ city: newValue })} />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
+                                    <label className="leftRegisterLabel">Salasana: </label>
                                 </td>
-                                <td>   <TextField className="rightRegisterField"
-                                    type="password" hintText="Valitsemasi salasana" style={styles}
-                                    style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
-                                    onChange={(event, newValue) => this.setState({ password: newValue })} />
+                                <td>
+                                    <TextField className="rightRegisterField"
+                                        type="password" hintText="Valitsemasi salasana" style={styles}
+                                        style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
+                                        onChange={(event, newValue) => this.setState({ password: newValue })} />
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label className="leftRegisterLabel">Salasana uudelleen: </label>
+                                </td>
+                                <td>
+                                    <TextField className="rightRegisterField"
+                                        type="password" hintText="Valitsemasi salasana uudelleen" style={styles}
+                                        style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
+                                        onChange={(event, newValue) => this.setState({ password2: newValue })} />
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <Checkbox
+                                    label= "Vakuutan, että edellä antamani tiedot ovat oikein."
+                                    disabled={true}
+                                    />
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <FlatButton className="cancelButton"
+                                        label="Peruuta"
+                                        backgroundColor="#FFFFFF"
+                                        style={{
+                                            borderRadius: '0',
+                                            textAlign: 'center',
+                                            backgroundColor: 'white',
+                                            border: '2px solid #004225',
+                                            fontFamily: 'kanit',
+                                            borderRadius: '0',
+                                            fontSize: '18px',
+                                            color: '#004225',
+
+                                        }}
+                                        onClick={(event) => this.Cancel(event)} />
+                                    <FlatButton className="registerButton"
+                                        label="Rekisteröidy"
+                                        backgroundColor="#FFFFFF"
+                                        style={{
+                                            borderRadius: '0',
+                                            textAlign: 'center',
+                                            backgroundColor: 'white',
+                                            border: '2px solid #004225',
+                                            fontFamily: 'kanit',
+                                            borderRadius: '0',
+                                            fontSize: '18px',
+                                            color: '#004225',
+
+                                        }}
+                                        onClick={(event) => this.Submit(event)} />
 
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <FlatButton className="cancelButton"
-                        label="Peruuta"
-                        backgroundColor="#FFFFFF"
-                        style={{
-                            borderRadius: '0',
-                            textAlign: 'center',
-                            backgroundColor: 'white',
-                            border: '2px solid #004225',
-                            fontFamily: 'kanit',
-                            borderRadius: '0',
-                            fontSize: '18px',
-                            color: '#004225',
 
-                        }}
-                        onClick={(event) => this.Cancel(event)} />
-                    <FlatButton className="registerButton"
-                        label="Rekisteröidy"
-                        backgroundColor="#FFFFFF"
-                        style={{
-                            borderRadius: '0',
-                            textAlign: 'center',
-                            backgroundColor: 'white',
-                            border: '2px solid #004225',
-                            fontFamily: 'kanit',
-                            borderRadius: '0',
-                            fontSize: '18px',
-                            color: '#004225',
-
-                        }}
-                        onClick={(event) => this.Submit(event)} />
                 </div >
             </div >
         );

@@ -17,7 +17,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      email: '',
       password: '',
       loginError: false
     }
@@ -25,12 +25,12 @@ class Login extends Component {
 
   loginClick(event) {
     event.preventDefault();
-    console.log(this.state.username);
+    console.log(this.state.email);
     this.getUserLevel();
   }
 
   getUserLevel() {
-    getCredentials(this.state.username, this.state.password).then((loginData) => {
+    getCredentials(this.state.email, this.state.password).then((loginData) => {
 
 
       // check that loginData is defined and is not an error
@@ -82,7 +82,7 @@ class Login extends Component {
                 inputStyle={{color: '#004225'}}
                 style={{ backgroundColor: 'white', border: '2px solid #004225' }} */
                 hintText="Enter your Username"
-                onChange={(event, newValue) => this.setState({ username: newValue })}
+                onChange={(event, newValue) => this.setState({ email: newValue })}
               />
             </div>
 

@@ -17,14 +17,12 @@ class Register extends React.Component {
         this.state = {
             firstName: '',
             lastName: '',
-            username: '',
             password: '',
             phone: '',
             streetAddress: '',
             zipcode: '',
             city: '',
-            submitted: false,
-            Status: ''
+            submitted: false
         };
     }
 
@@ -38,25 +36,41 @@ class Register extends React.Component {
     }
 
     Submit(event) {
-        var regData = {
-            "username": this.state.email,
-            "password": this.state.password,
-            "fname": this.state.firstName,
-            "lname": this.state.lastName,
-            "email": this.state.email,
-            "phone": this.state.phone,
-            "address": this.state.streetAddress,
-            "zipcode": this.state.zipcode,
-            "city": this.state.city,
-            "company": "99",
-            "userlvl": "2",
-            "Status": "0"
+        //const x = this.state;
+        let pass = true;
+        //console.log(this.state);
+        for (var key in this.state) {
+            if (this.state[key] === '') {
+                pass = false;
+            }
         }
-        console.log(JSON.stringify(regData));
-        sendRegData(JSON.stringify(regData));
-        this.props.onNewLogin({
-            userlvl: -1
-        });
+
+
+        if( pass ){
+            var regData = {
+                "username": this.state.email,
+                "password": this.state.password,
+                "fname": this.state.firstName,
+                "lname": this.state.lastName,
+                "email": this.state.email,
+                "phone": this.state.phone,
+                "address": this.state.streetAddress,
+                "zipcode": this.state.zipcode,
+                "city": this.state.city,
+                "company": "99",
+                "userlvl": "2",
+                "Status": "0"
+            }
+            console.log(JSON.stringify(regData));
+            sendRegData(JSON.stringify(regData));
+            window.alert("Hyvin rekisteröidytty!");
+            this.props.onNewLogin({
+                userlvl: -1
+            });
+        } else {
+            window.alert("Ei saa jättää lootia tyhjiksi!");
+        }
+
     }
 
     render() {
@@ -133,7 +147,7 @@ class Register extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Kaupunki: </label></td>
+                                    <label className="leftRegisterLabel">Postitoimipaikka: </label></td>
                                 <td>   <TextField className="rightRegisterField"
                                     type="text" hintText="esim. Lahti" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}

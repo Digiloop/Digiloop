@@ -9,7 +9,7 @@ import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';
 import { sendRegData } from '../../../utils/sendRegData';
 import styles from '../../../index.css';
-import { Checkbox } from 'material-ui';
+import { Checkbox, EditorFormatListBulleted } from 'material-ui';
 
 class Register extends React.Component {
     constructor(props) {
@@ -20,16 +20,33 @@ class Register extends React.Component {
             firstName: '',
             lastName: '',
             password: '',
+            password2: '',
             phone: '',
             streetAddress: '',
             zipcode: '',
             city: '',
+
             submitted: false,
-            termsAndConditions: false
+            termsAndConditions: false,
+            allFilled: false,
+
+            passwordsMatch: false,
+            emailValid: false,
+            phoneNumberValid: false
         };
+        this.checkFill = this.checkFill.bind(this);
     }
 
-    handleChange(event) {
+    componentDidUpdate() {
+        this.checkFill();
+    }
+
+    updateCheckConfirm() {
+        this.setState((oldState) => {
+            return {
+                termsAndConditions: !oldState.termsAndConditions,
+            };
+        });
     }
 
     Cancel(event) {
@@ -38,17 +55,29 @@ class Register extends React.Component {
         });
     }
 
-    Submit(event) {
 
+    // function, that checks if all fields are filled, and updates allFilled -state accordingly
+    checkFill() {
         let pass = true;
         for (var key in this.state) {
             if (this.state[key] === '') {
                 pass = false;
             }
         }
+        if (pass && !this.state.allFilled) {
+            this.setState({ allFilled: true })
+        } else if (!pass && this.state.allFilled) {
+            this.setState({ termsAndConditions: false, allFilled: false })
+        }
+    }
 
 
-        if (pass) {
+
+
+    Submit(event) {
+
+
+        if (this.state.allFilled) {
             var regData = {
                 "password": this.state.password,
                 "fname": this.state.firstName,
@@ -74,7 +103,31 @@ class Register extends React.Component {
 
     }
 
+    
+
     render() {
+
+        const registerInactive = {
+            borderRadius: '0',
+            textAlign: 'center',
+            backgroundColor: "grey",
+            border: '2px solid #004225',
+            fontFamily: 'kanit',
+            borderRadius: '0',
+            fontSize: '18px',
+            color: '#004225',
+        };
+
+        const registerActive = {
+            borderRadius: '0',
+            textAlign: 'center',
+            backgroundColor: "white",
+            border: '2px solid #004225',
+            fontFamily: 'kanit',
+            borderRadius: '0',
+            fontSize: '18px',
+            color: '#004225',
+        };
 
         const styles = {
             width: 250, backgroundColor: '#FFFFFF', borderRadius: 0,
@@ -200,8 +253,11 @@ class Register extends React.Component {
                                 </td>
                                 <td>
                                     <Checkbox
-                                    label= "Vakuutan, että edellä antamani tiedot ovat oikein."
-                                    disabled={true}
+                                        id="confirmationCheck"
+                                        checked={this.state.termsAndConditions}
+                                        onCheck={this.updateCheckConfirm.bind(this)}
+                                        label="Vakuutan, että edellä antamani tiedot ovat oikein sekä hyväksyn palvelun käyttöehdot."
+                                        disabled={!this.state.allFilled}
                                     />
 
                                 </td>
@@ -229,17 +285,12 @@ class Register extends React.Component {
                                     <FlatButton className="registerButton"
                                         label="Rekisteröidy"
                                         backgroundColor="#FFFFFF"
-                                        style={{
-                                            borderRadius: '0',
-                                            textAlign: 'center',
-                                            backgroundColor: 'white',
-                                            border: '2px solid #004225',
-                                            fontFamily: 'kanit',
-                                            borderRadius: '0',
-                                            fontSize: '18px',
-                                            color: '#004225',
+                                        disabled= {!this.state.termsAndConditions}
+                                        
+                                        
+                                        style={this.state.termsAndConditions ? registerActive : registerInactive}
+                                        
 
-                                        }}
                                         onClick={(event) => this.Submit(event)} />
 
                                 </td>

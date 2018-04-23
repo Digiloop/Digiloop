@@ -42,7 +42,7 @@ class App extends Component {
     // fetch categories and subcategories upon opening, they only need to be loaded once per app use
     // they change rarely, and can be updated on page with refresh
     getCats().then((cats) => {
-      this.props.setCategories(cats.category);
+      this.props.setCategories(cats);
     })
     getSubCats().then((subCats) => {
 

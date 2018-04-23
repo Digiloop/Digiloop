@@ -89,9 +89,21 @@ class ReservationListOptions extends Component {
     return (
       <MuiThemeProvider>
         <form onSubmit={this.submit} className="ResListOptForm">
-
+          
           <div id="ResListOptionsPohjadiv">
             <div id="ResListOptionsColorDiv">
+
+            <input type="submit" id="submitButt"></input>
+
+              <table id="varatut">
+                <tbody>
+                  <tr>
+                    <td>Näytä varatut</td>
+                    <td><input id="sRes" ref={input => this.state._showRes = input} type="checkbox" /></td>
+                  </tr>
+                </tbody>
+              </table>
+
               <table>
                 <tbody>
                   <tr>
@@ -112,45 +124,71 @@ class ReservationListOptions extends Component {
                 </tbody>
               </table>
 
-              <table>
-                <tbody>
+              
+              
+              <table id="katit">
+              <h1 id="katetext">Kategoriat</h1>
+                <tbody id="kattibody">
                   <tr>
-                    <td className="type">Ser</td>
+                    <td className="type">Sähkölaitteet</td>
                     <td><input id="ser" ref={input => this.state._ser = input} type="checkbox" /></td>
-
+                  </tr>
+                  <tr>
                     <td className="type">Akut</td>
                     <td><input id="akut" ref={input => this.state._batteries = input} type="checkbox" /></td>
-
+                  </tr>
+                  <tr>
                     <td className="type">Tietoturva</td>
-                    <td><input id="akut" ref={input => this.state._infoSecurity = input} type="checkbox" /></td>
+                    <td><input id="tietoturva" ref={input => this.state._infoSecurity = input} type="checkbox" /></td>
+                  </tr>
+                </tbody>
+              </table>
+                  
+              <table id="alakatit">
+              <h1 id="alakatetext">Alakategoriat</h1>
+                <tbody id="alakattibody">
+
+                  <tr>Sähkölaitteet</tr>
+                  <tr>
+                    <td className="type">Pieni SER</td>
+                    <td><input id="ser" ref={input => this.state._serSmallSer = input} type="checkbox" /></td>
+                  </tr>
+                  <tr>
+                    <td className="type">Iso SER</td>
+                    <td><input id="ser" ref={input => this.state._serBigSer = input} type="checkbox" /></td>
+                  </tr>
+                  <tr>
+                    <td className="type">Data SER</td>
+                    <td><input id="ser" ref={input => this.state._serDataSer = input} type="checkbox" /></td>
+                  </tr>
+                  <tr>
+                    <td className="type">Lamppu SER</td>
+                    <td><input id="ser" ref={input => this.state._serLampSer = input} type="checkbox" /></td>
+                  </tr>
+                  
+                  <tr> &nbsp; </tr>
+                  <tr>Akut</tr>
+                  <tr>
+                    <td className="type">Nikkelikadium</td>
+                    <td><input id="ser" ref={input => this.state._battNickelKadium = input} type="checkbox" /></td>
+                  </tr>
+                  <tr>
+                    <td className="type">Nikkelimetallihybridi</td>
+                    <td><input id="ser" ref={input => this.state._battNickelMetal = input} type="checkbox" /></td>
+                  </tr>
+                  <tr>
+                    <td className="type">Muut</td>
+                    <td><input id="ser" ref={input => this.state._battOther = input} type="checkbox" /></td>
                   </tr>
 
+                  <tr> &nbsp; </tr>
+                  <tr>Tietoturva</tr>
                   <tr>
-                    <td className="type">SER - Pieni SER</td>
-                    <td><input id="ser" ref={input => this.state._serSmallSer = input} type="checkbox" /></td>
-
-                    <td className="type">SER - Iso SER</td>
-                    <td><input id="ser" ref={input => this.state._serBigSer = input} type="checkbox" /></td>
-
-                    <td className="type">SER - Data SER</td>
-                    <td><input id="ser" ref={input => this.state._serDataSer = input} type="checkbox" /></td>
-
-                    <td className="type">SER - Lamppu SER</td>
-                    <td><input id="ser" ref={input => this.state._serLampSer = input} type="checkbox" /></td>
-
-                    <td className="type">Akut - Nikkelikadium</td>
-                    <td><input id="ser" ref={input => this.state._battNickelKadium = input} type="checkbox" /></td>
-
-                    <td className="type">Akut - Nikkelimetallihybridi</td>
-                    <td><input id="ser" ref={input => this.state._battNickelMetal = input} type="checkbox" /></td>
-
-                    <td className="type">Akut - Muut</td>
-                    <td><input id="ser" ref={input => this.state._battOther = input} type="checkbox" /></td>
-
-                    <td className="type">Tietoturva - Data SER</td>
+                    <td className="type">Data SER</td>
                     <td><input id="ser" ref={input => this.state._infosecDataSer = input} type="checkbox" /></td>
-
-                    <td className="type">Tietoturva - Paperi</td>
+                   </tr>
+                  <tr>
+                    <td className="type">Paperi</td>
                     <td><input id="ser" ref={input => this.state._infosecPaper = input} type="checkbox" /></td>
 
                   </tr>
@@ -160,17 +198,6 @@ class ReservationListOptions extends Component {
                   </tr>
                 </tbody>
               </table>
-
-              <table>
-                <tbody>
-                  <tr>
-                    <td>Näytä varatut</td>
-                    <td><input id="sRes" ref={input => this.state._showRes = input} type="checkbox" /></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <input type="submit" id="submitButt"></input>
 
             </div>
           </div>

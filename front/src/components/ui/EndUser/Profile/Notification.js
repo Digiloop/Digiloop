@@ -24,7 +24,7 @@ class Notification extends Component{
 getNotifications() {
  getNotifications().then((notif) => {
    console.log(notif);
-   this.props.itemsToStore(notif.category);
+   this.props.itemsToStore(notif);
    this.listNotif();
  });
 }

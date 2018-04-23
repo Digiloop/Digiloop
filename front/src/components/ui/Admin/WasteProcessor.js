@@ -36,7 +36,7 @@ class AdminWasteProcessor extends Component {
   };
 
   handleAppbarChange = (event, value) => this.setState({ value })
-  handleToggle = () => this.setState({ open: !this.state.open })
+  // handleToggle = () => this.setState({ open: !this.state.open })
 
   render() {
 
@@ -44,14 +44,14 @@ class AdminWasteProcessor extends Component {
       <MuiThemeProvider>
         <div>
           <AppBar style={{ backgroundColor: '#004225' }}
-            onClick={this.handleToggle} >
+            onClick={this.handleToggle} title={
             <Tabs index={this.state.index} onChange={this.handleChange} style={{ width: '100%' }} inkBarStyle={{ background: '#AFD43F', height: '3px' }}>
               <Tab label="Historia" className="menu" value={0} />
               <Tab label="Varaukset" className="menu" value={1} />
               <Tab label="Admin" className="menu" value={2} />
               <Tab label="Varauskartta" className="menu" value={3} />
               <Tab label="Ilmoitukset" className="menu" value={4} />
-            </Tabs>
+            </Tabs> } >
             <div className="frontDrawer">
               <Drawer open={this.state.open} containerStyle={{ backgroundColor: '#004225', marginTop: '50px' }}>
                 <Menu value={this.state.value} onChange={this.handleAppbarChange}>{console.log(this.state.value)}

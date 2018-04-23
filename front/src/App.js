@@ -49,7 +49,7 @@ class App extends Component {
       // subcats will also be used as a check on the backend/network
       // with a proper response, continue as usual to saving subcats into store and checking if there's a session in localstorage
       if (subCats.category) {
-        this.props.setSubCategories(subCats.category);
+        this.props.setSubCategories(subCats);
 
         // if we have an existing session going on, load that instantly upon opening app
         // it will not remember the page the user was on though, only the login info of the previous session

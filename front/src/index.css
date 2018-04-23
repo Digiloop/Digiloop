@@ -123,6 +123,7 @@ table {
 { 
   padding: 10px;
   border-spacing: 3px;
+  background-color: #ccc; /*VÄLIAIKAINEN*/
 }
 
 .leftRegisterLabel
@@ -131,6 +132,7 @@ table {
   text-align: left;
   font-weight: bold;
   font-size: 18px;
+  color: black; /*VÄLIAIKAINEN*/
 }
 
 .rightRegisterField

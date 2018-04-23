@@ -66,14 +66,15 @@ app.use(session({
 	saveUninitialized: true
  } )); // session secret
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
 
+app.use(passport.session()); // persistent login sessions
 
 // routes ======================================================================
 //https://expressjs.com/en/guide/routing.html
 require('./routes/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 //router.use(require('./routes/routes.js')(app, passport));
 app.use('/cat', cats); // http://193.166.72.18/cat/categories
+app.use('/', cats); // http://193.166.72.18/cat/categories
 //app.use('/birds', birds) //<<- toimia esimerkki
 // launch ======================================================================
 app.listen(port);

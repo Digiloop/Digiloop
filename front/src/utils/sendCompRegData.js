@@ -3,19 +3,13 @@ import { BASE_URL } from './../settings';
 
 //const BASE_URL = 'http://193.166.72.18';
 
-export { sendRegData };
+export { sendCompRegData };
 
-/* function sendRegData(regData) {
-  return axios.post(BASE_URL + '/signup', {
-    regData    
-  })
-    .then(response => response.data)
-    .catch(function (error) {
-      console.log(regData);
-    });
-} */
 
-function sendRegData(regData) {
+function sendCompRegData(regData) {
+  
+  //TODO: Laita route!!
+
   return fetch(BASE_URL + '/signup', {
     method: 'POST',
     headers: {

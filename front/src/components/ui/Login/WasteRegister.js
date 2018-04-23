@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';
-import { sendRegData } from '../../../utils/sendRegData';
+import { sendCompRegData } from '../../../utils/sendCompRegData';
 import styles from '../../../index.css';
 
 class WasteRegister extends React.Component {
@@ -38,6 +38,8 @@ class WasteRegister extends React.Component {
     }
 
     Submit(event) {
+      //TODO: JSON oikeeseen muotoon
+
         var regData = {
             "username": this.state.email,
             "company": this.state.corpName,
@@ -52,7 +54,7 @@ class WasteRegister extends React.Component {
             "Status": "0",
         }
         console.log(JSON.stringify(regData));
-        //sendRegData(JSON.stringify(regData));
+        //sendCompRegData(JSON.stringify(regData));
     }
 
     render() {

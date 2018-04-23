@@ -32,9 +32,7 @@ module.exports = function(app, passport, users) {
         connection.query('SELECT * FROM subCat WHERE Status = 1',
             function(err, result) {
                 if (err) throw err;
-                res.json({
-                    category: result
-                });
+                res.json(result);
             });
     });
 
@@ -42,9 +40,7 @@ module.exports = function(app, passport, users) {
         connection.query('SELECT * FROM Announcements',
             function(err, result) {
                 if (err) throw err;
-                res.json({
-                    category: result
-                });
+                res.json(result);
             });
     });
 

@@ -4,11 +4,14 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import ActionInfo from 'material-ui/svg-icons/action/info';
+import ActionHelp from 'material-ui/svg-icons/action/help';
 import styles from '../../../index.css';
 import { PropTypes } from 'react';
 import App from '../../../App.js';
 import Front from '../../ui/EndUser/EndUserFront.js';
 import { getCredentials } from '../../../utils/login-api';
+import { white } from 'material-ui/styles/colors';
 
 
 
@@ -74,7 +77,14 @@ class Login extends Component {
         
         <div className='loginContent'>
           <form>
+
+
             <div className="loginGroup">
+            {this.state.loginError ? <p style={{marginTop: '1vh', padding: '1vh', fontWeight: 400, fontSize: '12px', color: '#004225' }}>
+            <ActionInfo color={'#004225'} /> <br/> <b>Kirjautuminen epäonnistui.</b> <br/> Syy: väärä salasana tai käyttäjätunnus.</p> :
+
+              <p style={{ fontWeight: 400, fontSize: '12px', color: 'red' }}>
+              </p>}
               <p className="loginLabel">Sähköpostiosoite</p>
               <TextField className="loginInputField"
                 underlineShow={false}
@@ -88,7 +98,7 @@ class Login extends Component {
             </div>
 
             <div className="loginGroup">
-              <p className="loginLabel">Salasana</p>
+              <p className="loginLabel">Salasana </p>
               <TextField className="loginInputField"
                 underlineShow={false}
                 style={{ backgroundColor: 'white', border: '2px solid #004225' }}
@@ -98,15 +108,8 @@ class Login extends Component {
               />
             </div>
 
-
-            {this.state.loginError ? <p style={{ fontWeight: 400, fontSize: '12px', color: '#8CE30B' }}>
-              Kirjautuminen epäonnistui, väärä salasana/käyttäjätunnus.</p> :
-
-              <p style={{ fontWeight: 400, fontSize: '12px', color: 'red' }}>
-              </p>}
-
-
             <div className="loginGroup">
+
               <FlatButton type="submit" label="Kirjaudu"
                 disableTouchRipple="true"
                 style={{ marginTop: '5px' }}

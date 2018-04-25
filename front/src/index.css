@@ -157,16 +157,6 @@ table {
   color: #004225;
   }  
 
-  .loginImage {
-  background: url("components/ui/EndUser/Materials/Login-sticker.png") no-repeat local;
-  background-position: top left;
-  background-size: contain;
-  height: 100px;
-  width: 200px;
-  -webkit-background-size: contain;
-  -moz-background-size: contain;
-  -o-background-size: contain;
-  }
 
   .loginLabel {
     font-family: kanit;
@@ -337,7 +327,7 @@ text-align: right;
   width: 100%;
   height: 100vh;
   background: url("components/ui/EndUser/Materials/tausta2.png") no-repeat fixed;
-  background-position: bottom -80px left;
+  background-position: bottom left;
   background-size: contain;
   -webkit-background-size: contain;
   -moz-background-size: contain;
@@ -363,7 +353,7 @@ text-align: right;
   margin-top: 15px;
   border-spacing: 1px;
   background-color: #fff;
-  box-shadow: -10px 3px rgb(166, 206, 106) inset;
+  box-shadow: -10px 3px rgb(166, 206, 106);
   border-radius: 15px;
   color: #004225;
   font-family: kanit;

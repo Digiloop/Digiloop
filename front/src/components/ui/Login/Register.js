@@ -4,6 +4,7 @@ import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import ActionHelp from 'material-ui/svg-icons/action/help';
 import IconButton from 'material-ui/IconButton';
 import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';
@@ -153,12 +154,12 @@ class Register extends React.Component {
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
-                                    
                                     underlineStyle= {{borderColor: '#A6CE6B'}}
                                     underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. Matti" style={styles}
                                         style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ firstName: newValue })} />
+                                
                                 </td>
                             </tr>
                             <tr>
@@ -283,7 +284,7 @@ class Register extends React.Component {
                                         iconStyle={{fill: '#004225'}}
                                         checked={this.state.termsAndConditions}
                                         onCheck={this.updateCheckConfirm.bind(this)}
-                                        label="Edellä antamani tiedot ovat oikein ja hyväksyn palvelun käyttöehdot."
+                                        label="Vakuutan edellä antamani tiedot oikeiksi, ja hyväksyn palvelun käyttöehdot."
                                         disabled={!this.state.allFilled}
                                     />
 
@@ -306,7 +307,7 @@ class Register extends React.Component {
                                         onClick={(event) => this.Cancel(event)} />
                                     <FlatButton className="registerButton"
                                         label="Rekisteröidy"
-                                        hoverColor="#8CE30B"
+                                        hoverColor="#A6CE6B"
                                         style={{ margin: '15px' }}
                                         backgroundColor="#004225"
                                         labelStyle={{

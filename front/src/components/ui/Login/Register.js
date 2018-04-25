@@ -253,11 +253,18 @@ class Register extends React.Component {
 
                                 </td>
                                 <td>
-                                    <Checkbox style={{width: '50%', color: '#004225'}}
+                                    <Checkbox style={{width: '70%', fontWeight: 400}}
+                                    labelStyle={{
+                                        fontFamily: 'kanit',
+                                        float: 'left',
+                                        borderRadius: '0',
+                                        fontSize: '12px',
+                                        color: '#004225'}}
                                         id="confirmationCheck"
+                                        iconStyle={{fill: '#A6CE6B'}}
                                         checked={this.state.termsAndConditions}
                                         onCheck={this.updateCheckConfirm.bind(this)}
-                                        label="Vakuutan, että edellä antamani tiedot ovat oikein sekä hyväksyn palvelun käyttöehdot."
+                                        label="Edellä antamani tiedot ovat oikein ja hyväksyn palvelun käyttöehdot."
                                         disabled={!this.state.allFilled}
                                     />
 
@@ -280,15 +287,15 @@ class Register extends React.Component {
                                         onClick={(event) => this.Cancel(event)} />
                                     <FlatButton className="registerButton"
                                         label="Rekisteröidy"
-                                        hoverColor="#004225"
-                                        style={{ margin: '5px' }}
-                                        backgroundColor="#004225"
+                                        hoverColor="#8CE30B"
+                                        style={{ margin: '10px' }}
+                                        backgroundColor="#A6CE6B"
                                         labelStyle={{
                                             fontFamily: 'kanit',
                                             float: 'left',
                                             borderRadius: '0',
                                             fontSize: '17px',
-                                            color: '#FFFFFF'}}
+                                            color: '#004225'}}
                                         disabled= {!this.state.termsAndConditions}
                                         
                                         

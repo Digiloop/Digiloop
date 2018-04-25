@@ -161,16 +161,16 @@ class WasteRegister extends React.Component {
                                             color: '#FFFFFF'}}
                         onClick={(event) => this.Cancel(event)} />
                     <FlatButton className="registerButton"
-                        label="Rekisteröidy"
-                        hoverColor="#004225"
+                        label="Lähetä hakemus"
+                        hoverColor="#8CE30B"
                         style={{ margin: '5px' }}
-                        backgroundColor="#004225"
+                        backgroundColor="#A6CE6B"
                         labelStyle={{
                                             fontFamily: 'kanit',
                                             float: 'left',
                                             borderRadius: '0',
                                             fontSize: '17px',
-                                            color: '#FFFFFF'}}
+                                            color: '#004225'}}
                         onClick={(event) => this.Submit(event)} />
                 </div >
         

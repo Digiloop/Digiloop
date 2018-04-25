@@ -71,6 +71,7 @@ class Login extends Component {
           title={<div className="app-bar-title">Kirjautuminen</div>}
           showMenuIconButton={false}
         />
+        
         <div className='loginContent'>
           <form>
             <div className="loginGroup">
@@ -125,8 +126,8 @@ class Login extends Component {
 
 
             <div className="loginGroup">
-              <a href="#">Salasana?</a><br />
-              <a href="#" onClick={() => { this.wasteRegister() }} >Yrityskäyttäjä</a><br />
+              <a href="#">Unohtunut salasana?</a><br />
+              <a href="#" onClick={() => { this.wasteRegister() }} >Hae yrityskäyttäjäksi</a><br />
               <a href="#" onClick={() => { this.register() }}>Rekisteröidy</a><br />
             </div>
           </form> </div>

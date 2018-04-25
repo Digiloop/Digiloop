@@ -277,7 +277,7 @@ class Register extends React.Component {
                                         label="Peruuta"
                                         hoverColor="#004225"
                                         backgroundColor="#004225"
-                                        style={{ margin: '5px' }}
+                                        style={{ margin: '15px' }}
                                         labelStyle={{
                                             fontFamily: 'kanit',
                                             float: 'left',
@@ -288,14 +288,14 @@ class Register extends React.Component {
                                     <FlatButton className="registerButton"
                                         label="Rekisteröidy"
                                         hoverColor="#8CE30B"
-                                        style={{ margin: '10px' }}
-                                        backgroundColor="#A6CE6B"
+                                        style={{ margin: '15px' }}
+                                        backgroundColor="#004225"
                                         labelStyle={{
                                             fontFamily: 'kanit',
                                             float: 'left',
                                             borderRadius: '0',
                                             fontSize: '17px',
-                                            color: '#004225'}}
+                                            color: '#fff'}}
                                         disabled= {!this.state.termsAndConditions}
                                         
                                         

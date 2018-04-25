@@ -110,7 +110,8 @@ table {
   padding: 2%;
   margin-top: 15px;
   border-spacing: 3px;
-  background-color: rgba(166, 206, 106, 0.808);
+  background-color: rgb(186, 221, 134);
+  box-shadow: -10px 3px rgb(166, 206, 106);
   border-radius: 15px;
    -webkit-transform: rotate(1deg);  /*poista jos et halua rotatea*/ 
    transform: rotate(1deg); /*poista jos et halua rotatea*/ 
@@ -362,6 +363,7 @@ text-align: right;
   margin-top: 15px;
   border-spacing: 1px;
   background-color: #fff;
+  box-shadow: -10px 3px rgb(166, 206, 106);
   border-radius: 15px;
   color: #004225;
   font-family: kanit;

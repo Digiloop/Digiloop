@@ -151,7 +151,7 @@ class WasteRegister extends React.Component {
                     <FlatButton className="cancelButton"
                         label="Peruuta"
                         hoverColor="#004225"
-                        style={{ margin: '5px' }}
+                        style={{ margin: '15px' }}
                         backgroundColor="#004225"
                         labelStyle={{
                                             fontFamily: 'kanit',
@@ -163,14 +163,14 @@ class WasteRegister extends React.Component {
                     <FlatButton className="registerButton"
                         label="Lähetä hakemus"
                         hoverColor="#8CE30B"
-                        style={{ margin: '5px' }}
-                        backgroundColor="#A6CE6B"
+                        style={{ margin: '15px' }}
+                        backgroundColor="#004225"
                         labelStyle={{
                                             fontFamily: 'kanit',
                                             float: 'left',
                                             borderRadius: '0',
                                             fontSize: '17px',
-                                            color: '#004225'}}
+                                            color: '#fff'}}
                         onClick={(event) => this.Submit(event)} />
                 </div >
         

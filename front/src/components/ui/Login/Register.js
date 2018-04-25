@@ -149,7 +149,7 @@ class Register extends React.Component {
                         <tbody>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Etunimi: </label>
+                                    <label className="leftRegisterLabel">Etunimi*: </label>
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
@@ -160,7 +160,7 @@ class Register extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Sukunimi: </label>
+                                    <label className="leftRegisterLabel">Sukunimi*: </label>
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
@@ -171,7 +171,7 @@ class Register extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Sähköposti: </label>
+                                    <label className="leftRegisterLabel">Sähköposti*: </label>
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
@@ -182,7 +182,7 @@ class Register extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Puhelinnumero: </label>
+                                    <label className="leftRegisterLabel">Puhelinnumero*: </label>
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
@@ -193,7 +193,7 @@ class Register extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Katuosoite: </label>
+                                    <label className="leftRegisterLabel">Katuosoite*: </label>
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
@@ -204,7 +204,7 @@ class Register extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Postinumero: </label>
+                                    <label className="leftRegisterLabel">Postinumero*: </label>
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
@@ -215,7 +215,7 @@ class Register extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Postitoimipaikka: </label>
+                                    <label className="leftRegisterLabel">Postitoimipaikka*: </label>
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
@@ -226,7 +226,7 @@ class Register extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Salasana: </label>
+                                    <label className="leftRegisterLabel">Salasana*: </label>
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
@@ -238,7 +238,7 @@ class Register extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Salasana uudelleen: </label>
+                                    <label className="leftRegisterLabel">Salasana uudelleen*: </label>
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
@@ -261,7 +261,7 @@ class Register extends React.Component {
                                         fontSize: '12px',
                                         color: '#004225'}}
                                         id="confirmationCheck"
-                                        iconStyle={{fill: '#A6CE6B'}}
+                                        iconStyle={{fill: '#004225'}}
                                         checked={this.state.termsAndConditions}
                                         onCheck={this.updateCheckConfirm.bind(this)}
                                         label="Edellä antamani tiedot ovat oikein ja hyväksyn palvelun käyttöehdot."

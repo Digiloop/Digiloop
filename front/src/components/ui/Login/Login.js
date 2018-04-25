@@ -127,10 +127,13 @@ class Login extends Component {
 
             <div className="loginGroup">
               <a href="#">Unohtunut salasana?</a><br />
-              <a href="#" onClick={() => { this.wasteRegister() }} >Hae yrityskäyttäjäksi</a><br />
-              <a href="#" onClick={() => { this.register() }}>Rekisteröidy</a><br />
+              <a onClick={() => { this.wasteRegister() }} >Hae yrityskäyttäjäksi</a><br />
+              <a onClick={() => { this.register() }}>Rekisteröidy</a><br />
             </div>
-          </form> </div>
+          </form> 
+          
+          <div className="LoginImage" />
+          </div>
 
       </div>
     );

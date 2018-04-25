@@ -85,6 +85,7 @@ getStatus(status){
 
 render() {
     return (
+      <div className="FrontPageContainer">
       <MuiThemeProvider>
         <Table>
           <TableBody displayRowCheckbox={false}>
@@ -92,6 +93,7 @@ render() {
           </TableBody>
         </Table>
       </MuiThemeProvider>
+      </div>
     );
   }
 }

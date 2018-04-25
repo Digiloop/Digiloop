@@ -77,7 +77,7 @@ class WasteRegister extends React.Component {
                     <table className="registerStructure">
                         <tbody>
                             <tr>
-                                <td>  <label className="leftRegisterLabel">Yrityksen nimi: </label> </td>
+                                <td>  <label className="leftRegisterLabel">Yrityksen nimi*: </label> </td>
                                 <td>   <TextField className="rightRegisterField"
                                     type="text" hintText="esim. Jankon Betoni" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
@@ -85,7 +85,7 @@ class WasteRegister extends React.Component {
                                 </td>
                             </tr>
                             <tr>
-                                <td>  <label className="leftRegisterLabel">Y-tunnus: </label> </td>
+                                <td>  <label className="leftRegisterLabel">Y-tunnus*: </label> </td>
                                 <td>   <TextField className="rightRegisterField"
                                     type="text" hintText="Kyl pitäis tietää" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
@@ -94,7 +94,7 @@ class WasteRegister extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Katuosoite: </label></td>
+                                    <label className="leftRegisterLabel">Katuosoite*: </label></td>
                                 <td>    <TextField className="rightRegisterField"
                                     type="text" hintText="esim. Ståhlberginkatu 10" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
@@ -103,7 +103,7 @@ class WasteRegister extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Postinumero: </label></td>
+                                    <label className="leftRegisterLabel">Postinumero*: </label></td>
                                 <td>   <TextField className="rightRegisterField"
                                     type="text" hintText="esim. 15110" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
@@ -112,7 +112,7 @@ class WasteRegister extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Kaupunki: </label></td>
+                                    <label className="leftRegisterLabel">Kaupunki*: </label></td>
                                 <td>   <TextField className="rightRegisterField"
                                     type="text" hintText="esim. Lahti" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
@@ -121,7 +121,7 @@ class WasteRegister extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Yhteyshenkilö: </label> </td>
+                                    <label className="leftRegisterLabel">Yhteyshenkilö*: </label> </td>
                                 <td>  <TextField className="rightRegisterField"
                                     type="text" hintText="esim. Matti Meikäläinen" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
@@ -130,7 +130,7 @@ class WasteRegister extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Sähköposti: </label> </td>
+                                    <label className="leftRegisterLabel">Sähköposti*: </label> </td>
                                 <td> <TextField className="rightRegisterField"
                                     type="text" hintText="esim. etunimi.sukunimi@lamk.fi" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
@@ -139,7 +139,7 @@ class WasteRegister extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Puhelinnumero: </label> </td>
+                                    <label className="leftRegisterLabel">Puhelinnumero*: </label> </td>
                                 <td>   <TextField className="rightRegisterField"
                                     type="text" hintText="esim. 044 708 1347​" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}

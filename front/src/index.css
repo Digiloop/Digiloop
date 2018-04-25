@@ -39,8 +39,6 @@ table {
   text-align: left;
 }
 
-
-
 /* APP */
 
 .App {
@@ -112,7 +110,7 @@ table {
   padding: 2%;
   margin-top: 15px;
   border-spacing: 3px;
-  background-color: #fff;
+  background-color: rgba(166, 206, 106, 0.808);
   border-radius: 15px;
    -webkit-transform: rotate(1deg);  /*poista jos et halua rotatea*/ 
    transform: rotate(1deg); /*poista jos et halua rotatea*/ 
@@ -136,20 +134,19 @@ table {
 
 /* LOGIN */
 
-
 .loginWrapper {
   width: 100%;
 }
 
-
 .loginContent {
   margin: 0;
-  background: url("components/ui/EndUser/Materials/käsitausta.png") no-repeat local;
-  background-position: top left;
-  background-size: contain;
-  -webkit-background-size: contain;
-  -moz-background-size: contain;
-  -o-background-size: contain;
+  background: url("components/ui/EndUser/Materials/Login-sticker.png"), url("components/ui/EndUser/Materials/käsitausta.png"); 
+  background-repeat: no-repeat, no-repeat;
+  background-position: 20vh 80vh, top 2vh left;
+  background-size: auto, contain;
+  -webkit-background-size: auto, contain;
+  -moz-background-size: auto, contain;
+  -o-background-size: auto, contain;
   padding-top: 30vh;
   font-size: 200px;
   max-width: 940px;   
@@ -158,6 +155,17 @@ table {
   border: 0;
   color: #004225;
   }  
+
+  .loginImage {
+  background: url("components/ui/EndUser/Materials/Login-sticker.png") no-repeat local;
+  background-position: top left;
+  background-size: contain;
+  height: 100px;
+  width: 200px;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  }
 
   .loginLabel {
     font-family: kanit;

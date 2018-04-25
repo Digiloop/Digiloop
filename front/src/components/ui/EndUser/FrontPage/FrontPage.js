@@ -34,7 +34,8 @@ render() {
     this.state.etusivu.push(
       <h2>Tervetuloa, {this.props.items.fname != null ? this.props.items.fname : this.props.items.username}!</h2>)
       
-    this.state.etusivu.push(<FlatButton label="Uusi tavaratilaus" onClick={this.handleChange}
+    this.state.etusivu.push(<FlatButton
+    label="Uusi tavaratilaus" onClick={this.handleChange}
     hoverColor="#8CE30B"
     style={{ margin: '5px', transform: 'rotate(-2deg)'}}
     backgroundColor="#A6CE6B"

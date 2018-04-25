@@ -3,7 +3,7 @@ var dosmthelse = require("./dosmthelse.js");
 var express = require('express');
 var router = express.Router();
 
-
+//https://javascript.info/async-await
 //https://itnext.io/using-async-await-to-write-cleaner-route-handlers-7fc1d91b220b
 
 /*
@@ -19,10 +19,11 @@ router.get('/categories', function(req, res, next) {
 /*(taulu = 'Category', tieto = 'Status')*/
     router.get('/categories2',dosmth.getcategories, async function(req, res, next) {
 
-          await dosmth.getcategories('Category','Status')
+          await dosmth.getcategories('Category','1')
           /*res.json(dosmth.getcategories(taulu = 'Category', tieto = 'Status'))*/
-          throw new Error("Whoops!");
-      next();
+        //  throw new Error("Whoops!");
+    //  next();
+
         });
 
 

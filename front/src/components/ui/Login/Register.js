@@ -153,6 +153,9 @@ class Register extends React.Component {
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
+                                    
+                                    underlineStyle= {{borderColor: '#A6CE6B'}}
+                                    underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. Matti" style={styles}
                                         style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ firstName: newValue })} />
@@ -164,6 +167,8 @@ class Register extends React.Component {
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
+                                    underlineStyle= {{borderColor: '#A6CE6B'}}
+                                    underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. Meikäläinen" style={styles}
                                         style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ lastName: newValue })} />
@@ -175,6 +180,8 @@ class Register extends React.Component {
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
+                                    underlineStyle= {{borderColor: '#A6CE6B'}}
+                                    underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. etunimi.sukunimi@lamk.fi" style={styles}
                                         style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ email: newValue })} />
@@ -186,6 +193,8 @@ class Register extends React.Component {
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
+                                    underlineStyle= {{borderColor: '#A6CE6B'}}
+                                    underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. 044 708 1347​" style={styles}
                                         style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ phone: newValue })} />
@@ -197,6 +206,8 @@ class Register extends React.Component {
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
+                                    underlineStyle= {{borderColor: '#A6CE6B'}}
+                                    underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. Ståhlberginkatu 10" style={styles}
                                         style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ streetAddress: newValue })} />
@@ -208,6 +219,8 @@ class Register extends React.Component {
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
+                                    underlineStyle= {{borderColor: '#A6CE6B'}}
+                                    underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. 15110" style={styles}
                                         style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
@@ -219,6 +232,8 @@ class Register extends React.Component {
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
+                                    underlineStyle= {{borderColor: '#A6CE6B'}}
+                                    underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. Lahti" style={styles}
                                         style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ city: newValue })} />
@@ -230,6 +245,8 @@ class Register extends React.Component {
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
+                                    underlineStyle= {{borderColor: '#A6CE6B'}}
+                                    underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="password" hintText="Valitsemasi salasana" style={styles}
                                         style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ password: newValue })} />
@@ -242,6 +259,8 @@ class Register extends React.Component {
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
+                                    underlineStyle= {{borderColor: '#A6CE6B'}}
+                                    underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="password" hintText="Valitsemasi salasana uudelleen" style={styles}
                                         style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ password2: newValue })} />

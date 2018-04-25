@@ -73,7 +73,6 @@ class WasteRegister extends React.Component {
                     showMenuIconButton={false}
                 />
 
-                <div className="Container">
 
                     <table className="registerStructure">
                         <tbody>
@@ -151,36 +150,30 @@ class WasteRegister extends React.Component {
                     </table>
                     <FlatButton className="cancelButton"
                         label="Peruuta"
-                        backgroundColor="#FFFFFF"
-                        style={{
-                            borderRadius: '0',
-                            textAlign: 'center',
-                            backgroundColor: 'white',
-                            border: '2px solid #004225',
-                            fontFamily: 'kanit',
-                            borderRadius: '0',
-                            fontSize: '18px',
-                            color: '#004225',
-
-                        }}
+                        hoverColor="#004225"
+                        style={{ margin: '5px' }}
+                        backgroundColor="#004225"
+                        labelStyle={{
+                                            fontFamily: 'kanit',
+                                            float: 'left',
+                                            borderRadius: '0',
+                                            fontSize: '17px',
+                                            color: '#FFFFFF'}}
                         onClick={(event) => this.Cancel(event)} />
                     <FlatButton className="registerButton"
                         label="Rekisteröidy"
-                        backgroundColor="#FFFFFF"
-                        style={{
-                            borderRadius: '0',
-                            textAlign: 'center',
-                            backgroundColor: 'white',
-                            border: '2px solid #004225',
-                            fontFamily: 'kanit',
-                            borderRadius: '0',
-                            fontSize: '18px',
-                            color: '#004225',
-
-                        }}
+                        hoverColor="#004225"
+                        style={{ margin: '5px' }}
+                        backgroundColor="#004225"
+                        labelStyle={{
+                                            fontFamily: 'kanit',
+                                            float: 'left',
+                                            borderRadius: '0',
+                                            fontSize: '17px',
+                                            color: '#FFFFFF'}}
                         onClick={(event) => this.Submit(event)} />
                 </div >
-            </div >
+        
         );
     }
 }

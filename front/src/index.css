@@ -26,7 +26,7 @@ color: #004225;
 
 a:hover
 {
-color: #808080;
+color: #A6CE6B;
 }
 
 p {
@@ -39,16 +39,7 @@ table {
   text-align: left;
 }
 
-.wrapper{
-  width: 100%;
-  height: 100vh;
-  background: url("components/ui/EndUser/Materials/tausta2.png") no-repeat fixed;
-  background-position: bottom -80px left;
-  background-size: contain;
-  -webkit-background-size: contain;
-  -moz-background-size: contain;
-  -o-background-size: contain;
-}
+
 
 .Container {
   font-weight: bold;
@@ -56,6 +47,8 @@ table {
   margin: auto;
   width: 50%;
   max-width: 800px;
+  min-height: 100vh;
+  align-content: center;
 }
 
 /* APP */
@@ -109,21 +102,30 @@ table {
 
 .registerWrapper
 {
+  margin: auto;
   width: 100%;
-  height: 100vh;
-  background: url("components/ui/EndUser/Materials/tausta2.png") no-repeat fixed;
-  background-position: bottom -80px left;
+  background: url("components/ui/EndUser/Materials/tausta2.png") no-repeat;
+  background-attachment: local;
+  background-position: center bottom;
   background-size: contain;
   -webkit-background-size: contain;
   -moz-background-size: contain;
   -o-background-size: contain;
+  align-content: center;
 }
 
 .registerStructure
 { 
-  padding: 10px;
+  max-width: 90vh;
+  min-width: 50vh;
+  margin: auto;
+  padding: 5%;
+  margin-top: 15px;
   border-spacing: 3px;
-  background-color: #ccc; /*VÄLIAIKAINEN*/
+  background-color: #fff;
+  border-radius: 15px;
+   -webkit-transform: rotate(1deg);  /*poista jos et halua rotatea*/ 
+   transform: rotate(1deg); /*poista jos et halua rotatea*/ 
 }
 
 .leftRegisterLabel
@@ -131,8 +133,9 @@ table {
   font-family: kanit;
   text-align: left;
   font-weight: bold;
+  margin-left: 5%;
   font-size: 18px;
-  color: black; /*VÄLIAIKAINEN*/
+  color:#004225; 
 }
 
 .rightRegisterField
@@ -163,16 +166,16 @@ table {
 
 
 .loginContent {
-  background: url("components/ui/EndUser/Materials/käsitausta.png") no-repeat fixed;
-  background-position: top 102px left;
+  background: url("components/ui/EndUser/Materials/käsitausta.png") no-repeat local;
+  background-position: top left;
   background-size: contain;
   -webkit-background-size: contain;
   -moz-background-size: contain;
   -o-background-size: contain;
-  padding-top: 150px;
+  padding-top: 25vh;
   color: #004225;
   font-size: 200px;
-  max-width: 949px;   
+  max-width: 940px;   
   min-width: 100%;
   min-height: 100vh; 
   border: 0;
@@ -184,8 +187,8 @@ table {
     font-weight: bold;
     font-size: 18px;
     width: 100%;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 2px;
+    margin-bottom: 2px;
   }
 
  .loginGroup {
@@ -218,7 +221,7 @@ table {
 /* WASTEPROCESSOR.css */
 
 h1 {
-  color: red;
+  color: #fff;
 }
 
 h2 {

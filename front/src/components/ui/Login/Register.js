@@ -143,7 +143,7 @@ class Register extends React.Component {
                     showMenuIconButton={false}
                 />
 
-                <div className="Container">
+
 
                     <table className="registerStructure">
                         <tbody>
@@ -154,6 +154,7 @@ class Register extends React.Component {
                                 <td>
                                     <TextField className="rightRegisterField"
                                         type="text" hintText="esim. Matti" style={styles}
+                                        style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ firstName: newValue })} />
                                 </td>
                             </tr>
@@ -252,7 +253,7 @@ class Register extends React.Component {
 
                                 </td>
                                 <td>
-                                    <Checkbox
+                                    <Checkbox style={{width: '50%', color: '#004225'}}
                                         id="confirmationCheck"
                                         checked={this.state.termsAndConditions}
                                         onCheck={this.updateCheckConfirm.bind(this)}
@@ -262,29 +263,32 @@ class Register extends React.Component {
 
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-
-                                </td>
-                                <td>
+                            </tbody>
+                            </table>
+                            
                                     <FlatButton className="cancelButton"
                                         label="Peruuta"
-                                        backgroundColor="#FFFFFF"
-                                        style={{
-                                            borderRadius: '0',
-                                            textAlign: 'center',
-                                            backgroundColor: 'white',
-                                            border: '2px solid #004225',
+                                        hoverColor="#004225"
+                                        backgroundColor="#004225"
+                                        style={{ margin: '5px' }}
+                                        labelStyle={{
                                             fontFamily: 'kanit',
+                                            float: 'left',
                                             borderRadius: '0',
-                                            fontSize: '18px',
-                                            color: '#004225',
-
-                                        }}
+                                            fontSize: '17px',
+                                            color: '#FFFFFF'}}
                                         onClick={(event) => this.Cancel(event)} />
                                     <FlatButton className="registerButton"
                                         label="Rekisteröidy"
-                                        backgroundColor="#FFFFFF"
+                                        hoverColor="#004225"
+                                        style={{ margin: '5px' }}
+                                        backgroundColor="#004225"
+                                        labelStyle={{
+                                            fontFamily: 'kanit',
+                                            float: 'left',
+                                            borderRadius: '0',
+                                            fontSize: '17px',
+                                            color: '#FFFFFF'}}
                                         disabled= {!this.state.termsAndConditions}
                                         
                                         
@@ -292,14 +296,13 @@ class Register extends React.Component {
                                         
 
                                         onClick={(event) => this.Submit(event)} />
+                                        <br />
+                                    
 
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                
 
                 </div >
-            </div >
+            
         );
     }
 }

@@ -98,17 +98,17 @@ class Login extends Component {
             </div>
 
 
-            {this.state.loginError ? <p style={{ fontWeight: 400, fontSize: '12px', color: 'red' }}>
-              Kirjautuminen epäonnistui. Olet invaliidi.</p> :
+            {this.state.loginError ? <p style={{ fontWeight: 400, fontSize: '12px', color: '#8CE30B' }}>
+              Kirjautuminen epäonnistui, väärä salasana/käyttäjätunnus.</p> :
 
               <p style={{ fontWeight: 400, fontSize: '12px', color: 'red' }}>
-                Are you wanna kirjautua??! Visut korjatkaa tää ku kerkeette.</p>}
+              </p>}
 
 
             <div className="loginGroup">
               <FlatButton type="submit" label="Kirjaudu"
                 disableTouchRipple="true"
-                style={{ marginTop: '20px' }}
+                style={{ marginTop: '5px' }}
                 labelStyle={{
                   fontFamily: 'kanit',
                   float: 'left',

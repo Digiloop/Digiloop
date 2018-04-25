@@ -36,7 +36,7 @@ class AdminWasteProcessor extends Component {
   };
 
   handleAppbarChange = (event, value) => this.setState({ value })
-  // handleToggle = () => this.setState({ open: !this.state.open })
+  handleToggle = (event) => this.setState({ open: !this.state.open })
 
   render() {
 

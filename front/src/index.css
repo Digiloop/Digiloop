@@ -363,7 +363,7 @@ text-align: right;
   margin-top: 15px;
   border-spacing: 1px;
   background-color: #fff;
-  box-shadow: -10px 3px rgb(166, 206, 106);
+  box-shadow: -10px 3px rgb(166, 206, 106) inset;
   border-radius: 15px;
   color: #004225;
   font-family: kanit;

@@ -79,6 +79,9 @@ class WasteRegister extends React.Component {
                             <tr>
                                 <td>  <label className="leftRegisterLabel">Yrityksen nimi*: </label> </td>
                                 <td>   <TextField className="rightRegisterField"
+                               
+                                    underlineStyle= {{borderColor: '#A6CE6B'}}
+                                    underlineFocusStyle = {{borderColor: '#004225'}}
                                     type="text" hintText="esim. Jankon Betoni" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                     onChange={(event, newValue) => this.setState({ corpName: newValue })} />
@@ -87,6 +90,9 @@ class WasteRegister extends React.Component {
                             <tr>
                                 <td>  <label className="leftRegisterLabel">Y-tunnus*: </label> </td>
                                 <td>   <TextField className="rightRegisterField"
+                                
+                                underlineStyle= {{borderColor: '#A6CE6B'}}
+                                underlineFocusStyle = {{borderColor: '#004225'}}
                                     type="text" hintText="Kyl pitäis tietää" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                     onChange={(event, newValue) => this.setState({ ytunnus: newValue })} />
@@ -96,6 +102,8 @@ class WasteRegister extends React.Component {
                                 <td>
                                     <label className="leftRegisterLabel">Katuosoite*: </label></td>
                                 <td>    <TextField className="rightRegisterField"
+                                underlineStyle= {{borderColor: '#A6CE6B'}}
+                                underlineFocusStyle = {{borderColor: '#004225'}}
                                     type="text" hintText="esim. Ståhlberginkatu 10" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                     onChange={(event, newValue) => this.setState({ streetAddress: newValue })} />
@@ -105,6 +113,8 @@ class WasteRegister extends React.Component {
                                 <td>
                                     <label className="leftRegisterLabel">Postinumero*: </label></td>
                                 <td>   <TextField className="rightRegisterField"
+                                underlineStyle= {{borderColor: '#A6CE6B'}}
+                                underlineFocusStyle = {{borderColor: '#004225'}}
                                     type="text" hintText="esim. 15110" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                     onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
@@ -114,6 +124,8 @@ class WasteRegister extends React.Component {
                                 <td>
                                     <label className="leftRegisterLabel">Kaupunki*: </label></td>
                                 <td>   <TextField className="rightRegisterField"
+                                underlineStyle= {{borderColor: '#A6CE6B'}}
+                                underlineFocusStyle = {{borderColor: '#004225'}}
                                     type="text" hintText="esim. Lahti" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                     onChange={(event, newValue) => this.setState({ city: newValue })} />
@@ -123,6 +135,8 @@ class WasteRegister extends React.Component {
                                 <td>
                                     <label className="leftRegisterLabel">Yhteyshenkilö*: </label> </td>
                                 <td>  <TextField className="rightRegisterField"
+                                underlineStyle= {{borderColor: '#A6CE6B'}}
+                                underlineFocusStyle = {{borderColor: '#004225'}}
                                     type="text" hintText="esim. Matti Meikäläinen" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                     onChange={(event, newValue) => this.setState({ contName: newValue })} />
@@ -132,6 +146,8 @@ class WasteRegister extends React.Component {
                                 <td>
                                     <label className="leftRegisterLabel">Sähköposti*: </label> </td>
                                 <td> <TextField className="rightRegisterField"
+                                underlineStyle= {{borderColor: '#A6CE6B'}}
+                                underlineFocusStyle = {{borderColor: '#004225'}}
                                     type="text" hintText="esim. etunimi.sukunimi@lamk.fi" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                     onChange={(event, newValue) => this.setState({ email: newValue })} />
@@ -141,6 +157,8 @@ class WasteRegister extends React.Component {
                                 <td>
                                     <label className="leftRegisterLabel">Puhelinnumero*: </label> </td>
                                 <td>   <TextField className="rightRegisterField"
+                                underlineStyle= {{borderColor: '#A6CE6B'}}
+                                underlineFocusStyle = {{borderColor: '#004225'}}
                                     type="text" hintText="esim. 044 708 1347​" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                     onChange={(event, newValue) => this.setState({ phone: newValue })} />

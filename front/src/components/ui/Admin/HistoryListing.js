@@ -26,7 +26,7 @@ constructor(props){
 getJunksData() {
   getJunkData().then((junks) => {
     console.log(junks);
-    this.props.itemsToStore(junks.category);
+    this.props.itemsToStore(junks);
     this.listHistory();
   });
 }

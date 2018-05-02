@@ -4,7 +4,7 @@ import { setResOpt } from '../../../../actions'
 
 const mapStateToProps = (state, props) =>
   ({
-
+    rLOpt: state.resListOpt
   })
 
 const mapDispatchToProps = dispatch =>

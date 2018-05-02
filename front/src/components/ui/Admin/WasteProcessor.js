@@ -8,6 +8,7 @@ import Drawer from 'material-ui/Drawer';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
+import { logOut } from '../../../utils/login-api';
 
 import HistoryListing from '../../containers/Admin/HistoryListing'
 import ReservedListing from '../../containers/Admin/ReservedListing'
@@ -34,6 +35,14 @@ class AdminWasteProcessor extends Component {
       index: value
     });
   };
+
+  logout = () => {
+    logOut();
+    localStorage.clear();
+    this.props.onNewLogout({
+      userlvl: -1
+    });
+  }
 
   handleAppbarChange = (event, value) => this.setState({ value })
   handleToggle = (event) => this.setState({ open: !this.state.open })

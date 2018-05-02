@@ -28,14 +28,7 @@ class App extends Component {
     }
   }
 
-  // logout clears session with backend, empties localStorage session and sets userlevel to logged out
-  logout = () => {
-    logOut();
-    localStorage.clear();
-    this.props.onNewLogout({
-      userlvl: -1
-    });
-  }
+
 
   componentDidMount() {
 
@@ -75,7 +68,6 @@ class App extends Component {
     return (
       <MuiThemeProvider>
         <div className="App">
-          <RaisedButton onClick={this.logout} label="Logout" />
 
           <div>
             {

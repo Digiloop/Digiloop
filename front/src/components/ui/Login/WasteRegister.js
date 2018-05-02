@@ -54,7 +54,7 @@ class WasteRegister extends React.Component {
             "Status": "0",
         }
         console.log(JSON.stringify(regData));
-        //sendCompRegData(JSON.stringify(regData));
+        sendCompRegData(JSON.stringify(regData));
     }
 
     render() {

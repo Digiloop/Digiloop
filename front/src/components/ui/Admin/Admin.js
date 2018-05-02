@@ -21,7 +21,7 @@ constructor(props){
 getCategories() {
   getCats().then((categories) => {
     // console.log(categories);
-    this.setState({cats: (categories.category)});
+    this.setState({cats: (categories)});
     // this.props.catsToStore(categories.category);
   });
 }
@@ -29,7 +29,7 @@ getCategories() {
 getSubCategories() {
   getSubCats().then((subCategories) => {
     // console.log(subCategories);
-    this.setState({subCats: (subCategories.category)});
+    this.setState({subCats: (subCategories)});
     // this.props.catsToStore(categories.category);
   });
 }

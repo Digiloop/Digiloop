@@ -94,13 +94,15 @@ render() {
 
 
     return (
+      <div className="FrontPageContainer">
       <MuiThemeProvider>
         <Table>
-          <TableBody displayRowCheckbox={false}>
+          <TableBody displayRowCheckbox={false}> 
             {this.state.itemList}
           </TableBody>
         </Table>
       </MuiThemeProvider>
+      </div>
     );
   }
 }

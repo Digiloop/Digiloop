@@ -54,7 +54,7 @@ class WasteRegister extends React.Component {
             "Status": "0",
         }
         console.log(JSON.stringify(regData));
-        //sendCompRegData(JSON.stringify(regData));
+        sendCompRegData(JSON.stringify(regData));
     }
 
     render() {
@@ -73,21 +73,26 @@ class WasteRegister extends React.Component {
                     showMenuIconButton={false}
                 />
 
-                <div className="Container">
 
                     <table className="registerStructure">
                         <tbody>
                             <tr>
-                                <td>  <label className="leftRegisterLabel">Yrityksen nimi: </label> </td>
+                                <td>  <label className="leftRegisterLabel">Yrityksen nimi*: </label> </td>
                                 <td>   <TextField className="rightRegisterField"
+                               
+                                    underlineStyle= {{borderColor: '#A6CE6B'}}
+                                    underlineFocusStyle = {{borderColor: '#004225'}}
                                     type="text" hintText="esim. Jankon Betoni" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                     onChange={(event, newValue) => this.setState({ corpName: newValue })} />
                                 </td>
                             </tr>
                             <tr>
-                                <td>  <label className="leftRegisterLabel">Y-tunnus: </label> </td>
+                                <td>  <label className="leftRegisterLabel">Y-tunnus*: </label> </td>
                                 <td>   <TextField className="rightRegisterField"
+                                
+                                underlineStyle= {{borderColor: '#A6CE6B'}}
+                                underlineFocusStyle = {{borderColor: '#004225'}}
                                     type="text" hintText="Kyl pitäis tietää" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                     onChange={(event, newValue) => this.setState({ ytunnus: newValue })} />
@@ -95,8 +100,10 @@ class WasteRegister extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Katuosoite: </label></td>
+                                    <label className="leftRegisterLabel">Katuosoite*: </label></td>
                                 <td>    <TextField className="rightRegisterField"
+                                underlineStyle= {{borderColor: '#A6CE6B'}}
+                                underlineFocusStyle = {{borderColor: '#004225'}}
                                     type="text" hintText="esim. Ståhlberginkatu 10" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                     onChange={(event, newValue) => this.setState({ streetAddress: newValue })} />
@@ -104,8 +111,10 @@ class WasteRegister extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Postinumero: </label></td>
+                                    <label className="leftRegisterLabel">Postinumero*: </label></td>
                                 <td>   <TextField className="rightRegisterField"
+                                underlineStyle= {{borderColor: '#A6CE6B'}}
+                                underlineFocusStyle = {{borderColor: '#004225'}}
                                     type="text" hintText="esim. 15110" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                     onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
@@ -113,8 +122,10 @@ class WasteRegister extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Kaupunki: </label></td>
+                                    <label className="leftRegisterLabel">Kaupunki*: </label></td>
                                 <td>   <TextField className="rightRegisterField"
+                                underlineStyle= {{borderColor: '#A6CE6B'}}
+                                underlineFocusStyle = {{borderColor: '#004225'}}
                                     type="text" hintText="esim. Lahti" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                     onChange={(event, newValue) => this.setState({ city: newValue })} />
@@ -122,8 +133,10 @@ class WasteRegister extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Yhteyshenkilö: </label> </td>
+                                    <label className="leftRegisterLabel">Yhteyshenkilö*: </label> </td>
                                 <td>  <TextField className="rightRegisterField"
+                                underlineStyle= {{borderColor: '#A6CE6B'}}
+                                underlineFocusStyle = {{borderColor: '#004225'}}
                                     type="text" hintText="esim. Matti Meikäläinen" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                     onChange={(event, newValue) => this.setState({ contName: newValue })} />
@@ -131,8 +144,10 @@ class WasteRegister extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Sähköposti: </label> </td>
+                                    <label className="leftRegisterLabel">Sähköposti*: </label> </td>
                                 <td> <TextField className="rightRegisterField"
+                                underlineStyle= {{borderColor: '#A6CE6B'}}
+                                underlineFocusStyle = {{borderColor: '#004225'}}
                                     type="text" hintText="esim. etunimi.sukunimi@lamk.fi" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                     onChange={(event, newValue) => this.setState({ email: newValue })} />
@@ -140,8 +155,10 @@ class WasteRegister extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Puhelinnumero: </label> </td>
+                                    <label className="leftRegisterLabel">Puhelinnumero*: </label> </td>
                                 <td>   <TextField className="rightRegisterField"
+                                underlineStyle= {{borderColor: '#A6CE6B'}}
+                                underlineFocusStyle = {{borderColor: '#004225'}}
                                     type="text" hintText="esim. 044 708 1347​" style={styles}
                                     style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                     onChange={(event, newValue) => this.setState({ phone: newValue })} />
@@ -151,36 +168,30 @@ class WasteRegister extends React.Component {
                     </table>
                     <FlatButton className="cancelButton"
                         label="Peruuta"
-                        backgroundColor="#FFFFFF"
-                        style={{
-                            borderRadius: '0',
-                            textAlign: 'center',
-                            backgroundColor: 'white',
-                            border: '2px solid #004225',
-                            fontFamily: 'kanit',
-                            borderRadius: '0',
-                            fontSize: '18px',
-                            color: '#004225',
-
-                        }}
+                        hoverColor="#004225"
+                        style={{ margin: '15px' }}
+                        backgroundColor="#004225"
+                        labelStyle={{
+                                            fontFamily: 'kanit',
+                                            float: 'left',
+                                            borderRadius: '0',
+                                            fontSize: '17px',
+                                            color: '#FFFFFF'}}
                         onClick={(event) => this.Cancel(event)} />
                     <FlatButton className="registerButton"
-                        label="Rekisteröidy"
-                        backgroundColor="#FFFFFF"
-                        style={{
-                            borderRadius: '0',
-                            textAlign: 'center',
-                            backgroundColor: 'white',
-                            border: '2px solid #004225',
-                            fontFamily: 'kanit',
-                            borderRadius: '0',
-                            fontSize: '18px',
-                            color: '#004225',
-
-                        }}
+                        label="Lähetä hakemus"
+                        hoverColor="#A6CE6B"
+                        style={{ margin: '15px' }}
+                        backgroundColor="#004225"
+                        labelStyle={{
+                                            fontFamily: 'kanit',
+                                            float: 'left',
+                                            borderRadius: '0',
+                                            fontSize: '17px',
+                                            color: '#fff'}}
                         onClick={(event) => this.Submit(event)} />
                 </div >
-            </div >
+        
         );
     }
 }

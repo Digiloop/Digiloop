@@ -31,27 +31,30 @@ componentDidMount(){
 render() {
 
   if(this.state.value === Notification){
-    this.state.etusivu.push(<FlatButton label="Uusi Tilaus" onClick={this.handleChange}
-    backgroundColor="#FFFFFF"
-    style={{ borderRadius: '0',
-    textAlign: 'center',
-    backgroundColor: 'white',
-    border: '2px solid #004225',
-    fontFamily: 'kanit',
-    borderRadius: '0',
-    fontSize: '30px',
-    color: '#004225',}}/>)
     this.state.etusivu.push(
-    <h2>Tervetuloa, {this.props.items.fname != null ? this.props.items.fname : this.props.items.username}!</h2>)
+      <h2>Tervetuloa, {this.props.items.fname != null ? this.props.items.fname : this.props.items.username}!</h2>)
+      
+    this.state.etusivu.push(<FlatButton
+    label="Uusi tavaratilaus" onClick={this.handleChange}
+    hoverColor="#8CE30B"
+    style={{ margin: '5px', transform: 'rotate(-2deg)'}}
+    backgroundColor="#A6CE6B"
+   labelStyle={{
+     fontFamily: 'kanit',
+     float: 'left',
+     borderRadius: '0',
+     fontSize: '17px',
+     color: '#004225'}}/>)
   }
   else{
     this.state.etusivu=[];
   }
     return (
-      <div className="frontpageWrapper">
-      <div className="Container"><br/>
+      <div className="frontPageWrapper">
+      <div className="FrontPageContainer"><br/>
       {this.state.etusivu}
-      {this.state.value ? <Notification /> : <Order />}
+
+      <div className="frontPageBox">{this.state.value ? <Notification /> : <Order />}</div>
       </div>
       </div>
 

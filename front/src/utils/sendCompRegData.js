@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { BASE_URL } from './../settings';
 
-//const BASE_URL = 'http://193.166.72.18';
 
 export { sendCompRegData };
 

@@ -4,6 +4,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import { sendCompRegData } from '../../../utils/sendCompRegData';
 import styles from '../../../index.css';
+import { Checkbox} from 'material-ui';
 
 class WasteRegister extends React.Component {
     constructor(props) {
@@ -18,12 +19,24 @@ class WasteRegister extends React.Component {
             contName: '',
             email: '',
             phone: '',
-            submitted: false,
-            Status: ''
+
+            termsAndConditions: false,
+            allFilled: false,
+            submitted: false
         };
+        this.checkFill = this.checkFill.bind(this);
     }
 
-    handleChange(event) {
+    componentDidUpdate(){
+        this.checkFill();
+    }
+
+    updateCheckConfirm() {
+        this.setState((oldState) => {
+            return {
+                termsAndConditions: !oldState.termsAndConditions,
+            };
+        });
     }
 
     Cancel(event) {
@@ -32,8 +45,21 @@ class WasteRegister extends React.Component {
         });
     }
 
+    checkFill() {
+        let pass = true;
+        for (var key in this.state) {
+            if (this.state[key] === '') {
+                pass = false;
+            }
+        }
+        if (pass && !this.state.allFilled) {
+            this.setState({ allFilled: true })
+        } else if (!pass && this.state.allFilled) {
+            this.setState({ termsAndConditions: false, allFilled: false })
+        }
+    }
+
     Submit(event) {
-        //TODO: JSON oikeeseen muotoon
 
         var regData = {
             "username": this.state.email,
@@ -53,6 +79,25 @@ class WasteRegister extends React.Component {
     }
 
     render() {
+
+        const registerInactive = {
+            borderRadius: '0',
+            textAlign: 'center',
+            backgroundColor: "grey",
+            //border: '2px solid #004225',
+            margin: '15px'
+
+        };
+
+        const registerActive = {
+            borderRadius: '0',
+            textAlign: 'center',
+            backgroundColor: "#004225",
+            border: '0px solid #004225',
+            margin: '15px'
+
+
+        };
 
         const styles = {
             /*
@@ -156,6 +201,28 @@ class WasteRegister extends React.Component {
                                 onChange={(event, newValue) => this.setState({ phone: newValue })} />
                             </td>
                         </tr>
+                        <tr>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <Checkbox style={{width: '70%', fontWeight: 400}}
+                                    labelStyle={{
+                                        fontFamily: 'kanit',
+                                        float: 'left',
+                                        borderRadius: '0',
+                                        fontSize: '12px',
+                                        color: '#004225'}}
+                                        id="confirmationCheck"
+                                        iconStyle={{fill: '#004225'}}
+                                        checked={this.state.termsAndConditions}
+                                        onCheck={this.updateCheckConfirm.bind(this)}
+                                        label="Vakuutan edellä antamani tiedot oikeiksi, ja hyväksyn palvelun käyttöehdot."
+                                        disabled={!this.state.allFilled}
+                                    />
+
+                                </td>
+                            </tr>
                     </tbody>
                 </table>
                 <FlatButton className="cancelButton"
@@ -172,17 +239,18 @@ class WasteRegister extends React.Component {
                     }}
                     onClick={(event) => this.Cancel(event)} />
                 <FlatButton className="registerButton"
-                    label="Lähetä hakemus"
-                    hoverColor="#A6CE6B"
-                    style={{ margin: '15px' }}
-                    backgroundColor="#004225"
+                    label="Rekisteröidy"
                     labelStyle={{
                         fontFamily: 'kanit',
                         float: 'left',
                         borderRadius: '0',
                         fontSize: '17px',
-                        color: '#fff'
+                        color: '#FFFFFF'
                     }}
+                    disabled={!this.state.termsAndConditions}
+
+                    style={this.state.termsAndConditions ? registerActive : registerInactive}
+
                     onClick={(event) => this.Submit(event)} />
             </div >
 

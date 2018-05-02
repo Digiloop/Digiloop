@@ -1,10 +1,9 @@
 import C from './constants'
-import fetch from 'isomorphic-fetch'
 
 export const login = (loginInfo) =>
   ({
     type: C.LOG_IN,
-    payload: loginInfo 
+    payload: loginInfo
   })
 
 export const setResOpt = (options) =>
@@ -31,8 +30,8 @@ export const setResList = (resList) =>
     payload: resList
   })
 
-  export const setNotifications = (notifications) =>
-    ({
-      type: C.SET_NOTIF,
-      payload: notifications
-    })
+export const setNotifications = (notifications) =>
+  ({
+    type: C.SET_NOTIF,
+    payload: notifications
+  })

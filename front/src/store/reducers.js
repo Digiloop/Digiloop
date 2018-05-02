@@ -8,8 +8,18 @@ export const loginInfo = (state = [], action) =>
 export const resListOpt = (state = [], action) =>
   (action.type === C.SET_RESOPT) ? action.payload : state
 
-export const resList = (state = [], action) =>
-  (action.type === C.SET_RLI) ? action.payload : state
+//export const resList = (state = [], action) =>
+//  (action.type === C.SET_RLI) ? action.payload : state
+
+export const resList = function(state = [], action){
+  console.log(state);
+  console.log(action);
+  if(action.type === C.SET_RLI){
+    return action.payload;
+  } else {
+    return state;
+  }
+}
 
 export const categories = (state = [], action) =>
   (action.type === C.SET_CATEGORIES) ? action.payload : state
@@ -17,8 +27,8 @@ export const categories = (state = [], action) =>
 export const subCategories = (state = [], action) =>
   (action.type === C.SET_SUB_CATEGORIES) ? action.payload : state
 
-  export const notifications = (state = [], action) =>
-    (action.type === C.SET_NOTIF) ? action.payload : state
+export const notifications = (state = [], action) =>
+  (action.type === C.SET_NOTIF) ? action.payload : state
 
 export default combineReducers({
   loginInfo,

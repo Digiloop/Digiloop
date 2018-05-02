@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-//import App from './App';
 import App from './components/containers/App'
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux'
@@ -13,6 +12,8 @@ import initialState from './initialState'
 
 const saveState = () =>
     localStorage["redux-store"] = JSON.stringify(store.getState())
+
+console.log(saveState);
 
 const store = storeFactory(initialState)
 

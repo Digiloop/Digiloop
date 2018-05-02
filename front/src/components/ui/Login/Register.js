@@ -1,16 +1,10 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
-import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import ActionHelp from 'material-ui/svg-icons/action/help';
-import IconButton from 'material-ui/IconButton';
-import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
-import Back from 'material-ui/svg-icons/navigation/arrow-back';
 import { sendRegData } from '../../../utils/sendRegData';
 import styles from '../../../index.css';
-import { Checkbox, EditorFormatListBulleted } from 'material-ui';
+import { Checkbox} from 'material-ui';
 
 class Register extends React.Component {
     constructor(props) {
@@ -114,7 +108,6 @@ class Register extends React.Component {
             backgroundColor: "grey",
             border: '2px solid #004225',
             fontFamily: 'kanit',
-            borderRadius: '0',
             fontSize: '18px',
             color: '#004225',
         };
@@ -125,15 +118,19 @@ class Register extends React.Component {
             backgroundColor: "white",
             border: '2px solid #004225',
             fontFamily: 'kanit',
-            borderRadius: '0',
             fontSize: '18px',
             color: '#004225',
         };
 
         const styles = {
+            /*
             width: 250, backgroundColor: '#FFFFFF', borderRadius: 0,
             borderWidth: 0.5, border: '2px solid #004225',
             borderColor: '#d6d7da'
+            */
+           borderRadius: '0', 
+           backgroundColor: 'white', 
+           border: '2px solid #004225'
         };
 
         return (
@@ -157,7 +154,6 @@ class Register extends React.Component {
                                     underlineStyle= {{borderColor: '#A6CE6B'}}
                                     underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. Matti" style={styles}
-                                        style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ firstName: newValue })} />
                                 
                                 </td>
@@ -171,7 +167,6 @@ class Register extends React.Component {
                                     underlineStyle= {{borderColor: '#A6CE6B'}}
                                     underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. Meikäläinen" style={styles}
-                                        style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ lastName: newValue })} />
                                 </td>
                             </tr>
@@ -184,7 +179,6 @@ class Register extends React.Component {
                                     underlineStyle= {{borderColor: '#A6CE6B'}}
                                     underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. etunimi.sukunimi@lamk.fi" style={styles}
-                                        style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ email: newValue })} />
                                 </td>
                             </tr>
@@ -197,7 +191,6 @@ class Register extends React.Component {
                                     underlineStyle= {{borderColor: '#A6CE6B'}}
                                     underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. 044 708 1347​" style={styles}
-                                        style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ phone: newValue })} />
                                 </td>
                             </tr>
@@ -210,7 +203,6 @@ class Register extends React.Component {
                                     underlineStyle= {{borderColor: '#A6CE6B'}}
                                     underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. Ståhlberginkatu 10" style={styles}
-                                        style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ streetAddress: newValue })} />
                                 </td>
                             </tr>
@@ -223,7 +215,6 @@ class Register extends React.Component {
                                     underlineStyle= {{borderColor: '#A6CE6B'}}
                                     underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. 15110" style={styles}
-                                        style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
                                 </td>
                             </tr>
@@ -236,7 +227,6 @@ class Register extends React.Component {
                                     underlineStyle= {{borderColor: '#A6CE6B'}}
                                     underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. Lahti" style={styles}
-                                        style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ city: newValue })} />
                                 </td>
                             </tr>
@@ -249,7 +239,6 @@ class Register extends React.Component {
                                     underlineStyle= {{borderColor: '#A6CE6B'}}
                                     underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="password" hintText="Valitsemasi salasana" style={styles}
-                                        style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ password: newValue })} />
 
                                 </td>
@@ -263,7 +252,6 @@ class Register extends React.Component {
                                     underlineStyle= {{borderColor: '#A6CE6B'}}
                                     underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="password" hintText="Valitsemasi salasana uudelleen" style={styles}
-                                        style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ password2: newValue })} />
 
                                 </td>

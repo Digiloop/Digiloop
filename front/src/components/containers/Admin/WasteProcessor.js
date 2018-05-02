@@ -1,6 +1,5 @@
 import AdminWasteProcessor from '../../ui/Admin/WasteProcessor'
 import { connect } from 'react-redux'
-import { setResList } from '../../../actions'
 import { login } from '../../../actions'
 
 const mapStateToProps = (state, props) =>

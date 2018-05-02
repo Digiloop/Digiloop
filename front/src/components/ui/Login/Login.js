@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import ActionInfo from 'material-ui/svg-icons/action/info';
-import ActionHelp from 'material-ui/svg-icons/action/help';
 import styles from '../../../index.css';
-import { PropTypes } from 'react';
-import App from '../../../App.js';
-import Front from '../../ui/EndUser/EndUserFront.js';
 import { getCredentials } from '../../../utils/login-api';
-import { white } from 'material-ui/styles/colors';
 
 
 

@@ -4,11 +4,9 @@ import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
 import Divider from 'material-ui/Divider';
 import FrontPage from '../../containers/EndUser/FrontPage/FrontPage.js';
 import Profile from './Profile/Profile.js';
-import Order from './Order/order.js';
 import styles from '../../../index.css';
 import { logOut } from '../../../utils/login-api';
 

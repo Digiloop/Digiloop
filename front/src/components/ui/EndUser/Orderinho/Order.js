@@ -70,7 +70,7 @@ showSteps() {
             borderRadius: 4, backgroundColor: '#FFFFFF', width: '10%', height: '1.5vh', margin: 5, float: 'left'
         }
         return (
-            <div>
+            <div className="OrderContent">
             <div className="progressBar" style={{ display: 'flex', justifyContent: 'center' }}>
                 <div className="state1" style={styles}></div>
                 <div className="state2" style={styles}></div>

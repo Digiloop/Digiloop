@@ -4,6 +4,7 @@ import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import ActionHelp from 'material-ui/svg-icons/action/help';
 import IconButton from 'material-ui/IconButton';
 import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';
@@ -143,26 +144,32 @@ class Register extends React.Component {
                     showMenuIconButton={false}
                 />
 
-                <div className="Container">
+
 
                     <table className="registerStructure">
                         <tbody>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Etunimi: </label>
+                                    <label className="leftRegisterLabel">Etunimi*: </label>
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
+                                    underlineStyle= {{borderColor: '#A6CE6B'}}
+                                    underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. Matti" style={styles}
+                                        style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ firstName: newValue })} />
+                                
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Sukunimi: </label>
+                                    <label className="leftRegisterLabel">Sukunimi*: </label>
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
+                                    underlineStyle= {{borderColor: '#A6CE6B'}}
+                                    underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. Meikäläinen" style={styles}
                                         style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ lastName: newValue })} />
@@ -170,10 +177,12 @@ class Register extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Sähköposti: </label>
+                                    <label className="leftRegisterLabel">Sähköposti*: </label>
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
+                                    underlineStyle= {{borderColor: '#A6CE6B'}}
+                                    underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. etunimi.sukunimi@lamk.fi" style={styles}
                                         style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ email: newValue })} />
@@ -181,10 +190,12 @@ class Register extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Puhelinnumero: </label>
+                                    <label className="leftRegisterLabel">Puhelinnumero*: </label>
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
+                                    underlineStyle= {{borderColor: '#A6CE6B'}}
+                                    underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. 044 708 1347​" style={styles}
                                         style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ phone: newValue })} />
@@ -192,10 +203,12 @@ class Register extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Katuosoite: </label>
+                                    <label className="leftRegisterLabel">Katuosoite*: </label>
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
+                                    underlineStyle= {{borderColor: '#A6CE6B'}}
+                                    underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. Ståhlberginkatu 10" style={styles}
                                         style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ streetAddress: newValue })} />
@@ -203,10 +216,12 @@ class Register extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Postinumero: </label>
+                                    <label className="leftRegisterLabel">Postinumero*: </label>
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
+                                    underlineStyle= {{borderColor: '#A6CE6B'}}
+                                    underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. 15110" style={styles}
                                         style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
@@ -214,10 +229,12 @@ class Register extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Postitoimipaikka: </label>
+                                    <label className="leftRegisterLabel">Postitoimipaikka*: </label>
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
+                                    underlineStyle= {{borderColor: '#A6CE6B'}}
+                                    underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="text" hintText="esim. Lahti" style={styles}
                                         style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ city: newValue })} />
@@ -225,10 +242,12 @@ class Register extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Salasana: </label>
+                                    <label className="leftRegisterLabel">Salasana*: </label>
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
+                                    underlineStyle= {{borderColor: '#A6CE6B'}}
+                                    underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="password" hintText="Valitsemasi salasana" style={styles}
                                         style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ password: newValue })} />
@@ -237,10 +256,12 @@ class Register extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Salasana uudelleen: </label>
+                                    <label className="leftRegisterLabel">Salasana uudelleen*: </label>
                                 </td>
                                 <td>
                                     <TextField className="rightRegisterField"
+                                    underlineStyle= {{borderColor: '#A6CE6B'}}
+                                    underlineFocusStyle = {{borderColor: '#004225'}}
                                         type="password" hintText="Valitsemasi salasana uudelleen" style={styles}
                                         style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
                                         onChange={(event, newValue) => this.setState({ password2: newValue })} />
@@ -252,39 +273,49 @@ class Register extends React.Component {
 
                                 </td>
                                 <td>
-                                    <Checkbox
+                                    <Checkbox style={{width: '70%', fontWeight: 400}}
+                                    labelStyle={{
+                                        fontFamily: 'kanit',
+                                        float: 'left',
+                                        borderRadius: '0',
+                                        fontSize: '12px',
+                                        color: '#004225'}}
                                         id="confirmationCheck"
+                                        iconStyle={{fill: '#004225'}}
                                         checked={this.state.termsAndConditions}
                                         onCheck={this.updateCheckConfirm.bind(this)}
-                                        label="Vakuutan, että edellä antamani tiedot ovat oikein sekä hyväksyn palvelun käyttöehdot."
+                                        label="Vakuutan edellä antamani tiedot oikeiksi, ja hyväksyn palvelun käyttöehdot."
                                         disabled={!this.state.allFilled}
                                     />
 
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-
-                                </td>
-                                <td>
+                            </tbody>
+                            </table>
+                            
                                     <FlatButton className="cancelButton"
                                         label="Peruuta"
-                                        backgroundColor="#FFFFFF"
-                                        style={{
-                                            borderRadius: '0',
-                                            textAlign: 'center',
-                                            backgroundColor: 'white',
-                                            border: '2px solid #004225',
+                                        hoverColor="#004225"
+                                        backgroundColor="#004225"
+                                        style={{ margin: '15px' }}
+                                        labelStyle={{
                                             fontFamily: 'kanit',
+                                            float: 'left',
                                             borderRadius: '0',
-                                            fontSize: '18px',
-                                            color: '#004225',
-
-                                        }}
+                                            fontSize: '17px',
+                                            color: '#FFFFFF'}}
                                         onClick={(event) => this.Cancel(event)} />
                                     <FlatButton className="registerButton"
                                         label="Rekisteröidy"
-                                        backgroundColor="#FFFFFF"
+                                        hoverColor="#A6CE6B"
+                                        style={{ margin: '15px' }}
+                                        backgroundColor="#004225"
+                                        labelStyle={{
+                                            fontFamily: 'kanit',
+                                            float: 'left',
+                                            borderRadius: '0',
+                                            fontSize: '17px',
+                                            color: '#fff'}}
                                         disabled= {!this.state.termsAndConditions}
                                         
                                         
@@ -292,14 +323,13 @@ class Register extends React.Component {
                                         
 
                                         onClick={(event) => this.Submit(event)} />
+                                        <br />
+                                    
 
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                
 
                 </div >
-            </div >
+            
         );
     }
 }

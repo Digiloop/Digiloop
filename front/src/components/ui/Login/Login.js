@@ -111,7 +111,7 @@ class Login extends Component {
             <div className="loginGroup">
 
               <FlatButton type="submit" label="Kirjaudu"
-                disableTouchRipple="true"
+                disableTouchRipple={true}
                 style={{ marginTop: '5px' }}
                 labelStyle={{
                   fontFamily: 'kanit',

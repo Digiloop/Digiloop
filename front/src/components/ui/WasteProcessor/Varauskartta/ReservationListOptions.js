@@ -99,7 +99,12 @@ class ReservationListOptions extends Component {
                 <tbody>
                   <tr>
                     <td>Näytä varatut</td>
-                    <td><input id="sRes" ref={input => this.state._showRes = input} type="checkbox" /></td>
+                    <td><input 
+                      id="sRes" 
+                      onChange={(event, newValue) => this.setState({ _showRes: newValue })} 
+                      value={this.props.rLOpt.showRes} 
+                      type="checkbox" 
+                    /></td>
                   </tr>
                 </tbody>
               </table>

@@ -1,121 +1,150 @@
-import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import React from 'react';
 import AppBar from 'material-ui/AppBar';
-import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';
+import { sendRegData } from '../../../../utils/sendRegData';
+import styles from '../../../../index.css';
 
 
-class Order extends Component {
-constructor(props){
-  super(props);
-  this.state = {value: ''};
-  this.handleChange = this.handleChange.bind(this);
-  this.handleSubmit = this.handleSubmit.bind(this);
- }
+class Order1 extends React.Component {
+    constructor(props) {
+        super(props);
 
-handleChange = (event, index, value) => this.setState({value});
-handleSubmit(event) {
-  event.preventDefault();
-  console.log({Jäte:this.state.value });
-  alert('Jätteen tyyppi: ' + this.state.value);
+        this.state = {
+            address: '',
+            zipcode: '',
+            city: '',
+            phone: '',
+            pickup: '',
+            submitted: false
+        };
+    }
+
+    handleChange(event) {
+    }
+
+    Submit(event) {
+        var regData = {
+            address: this.state.address,
+            zipcode: this.state.zipcode,
+            city: this.state.city,
+            phone: this.state.phone,
+            pickup: this.state.pickup,
+        }
+        console.log(regData);
+    }
+
+    render() {
+
+        const styles = {
+            width: 250,
+            backgroundColor: '#FFFFFF',
+            borderRadius: 4,
+            borderWidth: 0.5,
+            borderColor: '#d6d7da'
+        };
+
+        const progress = {
+            borderRadius: 4, backgroundColor: '#FFFFFF', width: '10%', height: '1.5vh', margin: 5, float: 'left'
+        }
+        return (
+            <div className="registerWrapper">
+
+            <AppBar style={{backgroundColor: '#FFF'}}
+             title={<div className="app-bar-title">Noutolomake</div>}
+             showMenuIconButton={false}
+           />
+
+           <div className="progressBar" style={{display: 'flex',justifyContent: 'center'}}>
+               <div>Nuoli</div>
+               <div className="state1" style={{borderRadius: 4, backgroundColor: '#A6CE6B', width: '10%', height: '1.5vh', margin: 5, float: 'left'}}></div>
+               <div className="state2" style={progress}></div>
+               <div className="state3" style={progress}></div>
+               <div className="state4" style={progress}></div>
+               <div>Nuoli</div>
+           </div>
+
+            <div className="Container">
+
+                <table className="registerStructure">
+                    <tbody>
+                        <tr>
+                            <td>  <label className="leftRegisterLabel">Hakuosoite: </label> </td>
+                            <td>   <TextField className="rightRegisterField"
+                            type="text" hintText="esim. Ståhlberginkatu 10" style={styles}
+                                    onChange={(event, newValue) => this.setState({ address: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label className="leftRegisterLabel">Postinumero: </label> </td>
+                                <td>  <TextField className="rightRegisterField"
+                                type="text" hintText="esim. 15110" style={styles}
+                                    onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label className="leftRegisterLabel">Postitoimipaikka: </label> </td>
+                                <td> <TextField className="rightRegisterField"
+                                type="text" hintText="esim. Lahti" style={styles}
+                                    onChange={(event, newValue) => this.setState({ city: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label className="leftRegisterLabel">Puhelinnumero: </label> </td>
+                                <td>   <TextField className="rightRegisterField"
+                                type="text" hintText="esim. 044 708 1347​" style={styles}
+                                    onChange={(event, newValue) => this.setState({ phone: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label className="leftRegisterLabel">Nouto-ohjeet: </label></td>
+                                <td>    <TextField className="rightRegisterField"
+                                type="text" hintText="esim. Perjantai 30.4 klo 16:30. Käynti pääovesta. " style={styles}
+                                rows={3} rowsMax={7}
+                                    onChange={(event, newValue) => this.setState({ pickup: newValue })} />
+                            </td>
+                        </tr>
+
+                      <tr>
+
+                        <td>
+                        <img
+                            src={require('../Materials/OrderPics/home2.gif')}
+                            className="image-btn btn"
+                            alt="Special button"
+                            onClick={(event) => this.Submit(event)}
+                        />
+                        </td>
+                        <td style={{display: 'flex',justifyContent: 'center'}}>
+                        <img
+                            src={require('../Materials/OrderPics/organization2.gif')}
+                            className="image-btn btn"
+                            alt="Special button"
+                            onClick={(event) => this.Submit(event)}
+                        />
+                        </td>
+                      </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+            </div >
+            </div >
+        );
+    }
 }
 
-render() {
-
-  let s1 = {width: 150};  //tekstikenttien leveys
-  let s2 = {backgroundColor: '#FFFFF'}; //appbar tausta
-  let s3 = {color: '#004225'}; //dropdownmenu otsikot
-  let s4 = {color: '#004225'}; //^^
-
-
-
-    return (
-      <MuiThemeProvider>
-
-        <div>
-          <AppBar style={s2} title="Tilauslomake" />
-        </div>
-
-<div className="Container">
-  <p> * merkityt kentät ovat pakollisia</p>
-
-        <form onSubmit={this.handleSubmit}>
-        <div>
-        <table name="tilaus">
-        <tbody>
-<tr>
-<td style={s1}>Jätteen tyyppi*</td>
-<td>
-        <DropDownMenu style={s1} value={this.state.value} onChange={this.handleChange}>
-          <p style={s3}>SER-jäte</p>
-          <MenuItem style={s4} name="Lamppu" value={"Lamppu"} primaryText="Lamppu" />
-          <MenuItem style={s4} name="Akku" value={"Akku"} primaryText="Akku" />
-          <MenuItem style={s4} name="MuuSER" value={"Muu SER"} primaryText="Muu" />
-          <p style={s3}>Muu</p>
-          <MenuItem style={s4} name="Kupari" value={"Kupari"} primaryText="Kupari" />
-          <MenuItem style={s4} name="Alumiini" value={"Alumiini"} primaryText="Alumiini" />
-          <MenuItem style={s4} name="Muu" value={"Muu"} primaryText="Muu" />
-        </DropDownMenu>
-        </td>
-        </tr>
-        <tr>
-          <td>Kappalemäärä*</td>
-          <td><TextField name="pcs" value={this.state.pcs} style={s1}/></td>
-        </tr>
-        <tr>
-          <td>Nouto-osoite*</td>
-          <td><TextField name="address" style={s1}/></td>
-        </tr>
-        <tr>
-          <td>Kuvaus*</td>
-          <td><TextField name="description" rows={3} rowsMax={7} style={s1}/></td>
-        </tr>
-        <tr>
-          <td>Mitat*</td>
-          <td><TextField hintText="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m³" name="measurements"  style={s1}/></td>
-        </tr>
-          <tr>
-          <td>Paino</td>
-          <td><TextField hintText="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kg" name="weight" style={s1}/></td>
-        </tr>
-        <tr>
-          <td>Kuva</td>
-          <td>
-          <RaisedButton
-          containerElement='label' // <-- Just add me!
-          label='Valitse kuva'>
-          <input type="file" style={{ display: 'none' }} />
-          </RaisedButton>
-        </td>
-        </tr>
-        </tbody>
-        </table>
-
-<table id="buttons">
-<tbody>
-<td>
-        <IconButton tooltip="Edellinen">
-          <Back />
-        </IconButton>
-
-</td>
-<td id="next">
-        <IconButton type="Submit" value="Submit" tooltip="Seuraava">
-          <Forward />
-        </IconButton>
-</td>
-</tbody>
-</table>
-        </div>
-        </form>
-        </div>
-      </MuiThemeProvider>
-    );
-  }
-}
-export default Order;
+export default Order1;

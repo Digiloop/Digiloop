@@ -3,7 +3,7 @@ import IconButton from 'material-ui/IconButton';
 import Divider from 'material-ui/Divider';
 import styles from '../../../../index.css';
 import Profile from '../Profile/Profile.js';
-import Order from '../Profile/Order.js';
+import Order from '../Order/Order';
 import Notification from '../../../containers/WasteProcessor/Notification'
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';

@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
-import Drawer from 'material-ui/Drawer';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
-import Divider from 'material-ui/Divider';
-import FrontPage from '../../containers/EndUser/FrontPage/FrontPage.js';
-import Profile from './Profile/Profile.js';
+import { AppBar, Drawer, Menu, MenuItem } from 'material-ui';
+import { Toolbar, IconButton, Divider } from 'material-ui';
+import MenuIcon from '@material-ui/icons/Menu';
+import FrontPage from '../../containers/EndUser/FrontPage/FrontPage';
+import Profile from './Profile/Profile';
 import styles from '../../../index.css';
 import { logOut } from '../../../utils/login-api';
 
 class EndUserFront extends Component {
-constructor(props){
-  super(props);
-  this.state = {
-    value: FrontPage,
-    open: false,
-  };
-  this.handleChange = this.handleChange.bind(this);
- }
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: FrontPage,
+      open: false
+    }
+  }
 
   // logout clears session with backend, empties localStorage session and sets userlevel to logged out
   logout = () => {
@@ -29,34 +26,46 @@ constructor(props){
     });
   }
 
-handleChange = (event, value) => this.setState({value})
-handleToggle = () => this.setState({open: !this.state.open})
+  handleChange = (event, value) => this.setState({ value })
+  handleToggle = () => this.setState({ open: !this.state.open })
+  handleClose = () => this.setState({ open: false })
 
-render() {
+  render() {
+
+    const styles = {
+      largeIcon: {
+        height: 60,
+        width: 60
+      },
+    }
+
     return (
       <MuiThemeProvider>
-      <div className="frontpake">
-        <div>
-        <AppBar style={{backgroundColor: '#FFF'}} iconStyleLeft={{ textColor: '#004225' }} title={<div className="app-bar-title">Etusivu</div>}
-          onClick={this.handleToggle} >
-          <div className="frontDrawer">
-            <Drawer open={this.state.open} containerStyle={{backgroundColor: '#004225', marginTop: '50px'}}>
-              <Menu value={this.state.value} onChange={this.handleChange}>{console.log(this.state.value)}
-                <MenuItem style={{color: 'white'}} value={FrontPage}>Etusivu</MenuItem>
-                <MenuItem style={{color: 'white'}} value={Profile}>Oma profiili</MenuItem>
-                <MenuItem style={{color: 'white'}} value={'News'}>Ilmoitukset</MenuItem>
-                <Divider />
-                <br />
-                <MenuItem style={{color: 'white'}} onClick={ this.logout } value={'Logout'}>Kirjaudu ulos</MenuItem>
-              </Menu>
-            </Drawer>
-          </div>
-        </AppBar>
-        </div>
+        <div className="frontpake">
+          <AppBar showMenuIconButton={false} style={{ backgroundColor: '#004225', padding: '0', margin: '0' }}
+          title='Etusivu' >
+            <Toolbar style={{ backgroundColor: '#FFF', width: '100%', padding:'0' }}>
+              <IconButton style={{ padding:'0' }} iconStyle={styles.largeIcon} onClick={this.handleToggle} >
+                <MenuIcon color='#004225' />
+              </IconButton>
+              <div className="frontDrawer">
+                <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({ open })}
+                  containerStyle={{ backgroundColor: '#004225' }}>
+                  <Menu value={this.state.value} onChange={this.handleChange}>{console.log(this.state.value)}
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={FrontPage}>Etusivu</MenuItem>
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={Profile}>Oma profiili</MenuItem>
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={'News'}>Tilaukset</MenuItem>
+                    <Divider />
+                    <br />
+                    <MenuItem style={{ color: 'white' }} onClick={this.logout} value={'Logout'}>Kirjaudu ulos</MenuItem>
+                  </Menu>
+                </Drawer>
+              </div>
+            </Toolbar>
+          </AppBar>
           {<this.state.value />}
-          {/* <div className="footter"></div> */}
 
-      </div>
+        </div>
       </MuiThemeProvider>
     );
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
-import Order from './Order.js';
+import Order from '../Order/Order';
 import History from './History.js';
 import styles from '../../../../index.css';
 

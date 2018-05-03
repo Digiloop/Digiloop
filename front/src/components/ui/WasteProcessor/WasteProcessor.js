@@ -58,7 +58,6 @@ class WasteProcessor extends Component {
                 <Tab label="Varaukset" className="menu" value={1} />
                 <Tab label="Varauskartta" className="menu" value={2} />
                 <Tab label="Ilmoitukset" className="menu" value={3} />
-                <Tab label="Kirjaudu ulos" className="menu" value={4} />
               </Tabs>
               <div className="frontDrawer">
                 <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({ open })} containerStyle={{ backgroundColor: '#004225' }}>
@@ -78,7 +77,6 @@ class WasteProcessor extends Component {
           {this.state.index === 1 && <ReservedListing />}
           {this.state.index === 2 && <Varauskartta />}
           {this.state.index === 3 && <Notification />}
-          {this.state.index === 4 && this.logout()}
         </div>
 
 

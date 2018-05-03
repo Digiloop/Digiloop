@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import styles from '../../../index.css';
-import { Tabs, Tab } from 'material-ui/Tabs';
-import AppBar from 'material-ui/AppBar';
-import Drawer from 'material-ui/Drawer';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
-import Toolbar from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
+import { AppBar, Drawer, Menu, MenuItem } from 'material-ui';
+import { Toolbar, IconButton, Divider, Tabs, Tab } from 'material-ui';
 import MenuIcon from '@material-ui/icons/Menu';
-import Divider from 'material-ui/Divider';
 import { logOut } from '../../../utils/login-api';
 
 import SvgIcon from 'material-ui/SvgIcon';
@@ -54,14 +48,13 @@ class AdminWasteProcessor extends Component {
   handleClose = () => this.setState({ open: false })
 
   render() {
-
     return (
       <MuiThemeProvider>
         <div>
-          <AppBar showMenuIconButton={false} style={{backgroundColor: '#004225', padding: '0', margin: '0'}} >
+          <AppBar showMenuIconButton={false} style={{ backgroundColor: '#004225', padding: '0', margin: '0' }} >
             <Toolbar style={{ backgroundColor: '#004225', width: '100%' }}>
               <IconButton onClick={this.handleToggle} >
-                <MenuIcon />
+                <MenuIcon color='#FFF' />
               </IconButton>
               <Tabs index={this.state.index} onChange={this.handleChange} style={{ width: '100%' }} inkBarStyle={{ background: '#AFD43F', height: '3px' }}>
                 <Tab label="Historia" className="menu" value={0} />
@@ -71,17 +64,17 @@ class AdminWasteProcessor extends Component {
                 <Tab label="Ilmoitukset" className="menu" value={4} />
               </Tabs>
               <div className="frontDrawer">
-            <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({open})} containerStyle={{ backgroundColor: '#004225' }}>
-              <Menu value={this.state.value} onChange={this.handleAppbarChange}>{console.log(this.state.value)}
-                <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={'FrontPage'}>Etusivu</MenuItem>
-                <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={'Profile'}>Oma profiili</MenuItem>
-                <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={'News'}>Ilmoitukset</MenuItem>
-                <Divider />
-                <br />
-                <MenuItem style={{ color: 'white' }} onClick={this.logout} value={'Logout'}>Kirjaudu ulos</MenuItem>
-              </Menu>
-            </Drawer>
-          </div>
+                <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({ open })} containerStyle={{ backgroundColor: '#004225' }}>
+                  <Menu value={this.state.value} onChange={this.handleAppbarChange}>{console.log(this.state.value)}
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={'FrontPage'}>Etusivu</MenuItem>
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={'Profile'}>Oma profiili</MenuItem>
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={'News'}>Ilmoitukset</MenuItem>
+                    <Divider />
+                    <br />
+                    <MenuItem style={{ color: 'white' }} onClick={this.logout} value={'Logout'}>Kirjaudu ulos</MenuItem>
+                  </Menu>
+                </Drawer>
+              </div>
             </Toolbar>
           </AppBar>
 

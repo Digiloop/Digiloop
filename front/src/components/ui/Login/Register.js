@@ -25,15 +25,20 @@ class Register extends React.Component {
             termsAndConditions: false,
             allFilled: false,
 
-            passwordsMatch: false,
             emailValid: false,
             phoneNumberValid: false
         };
         this.checkFill = this.checkFill.bind(this);
+        this.emailCheck = this.emailCheck.bind(this);
+        //this.emailChange = this.emailChange.bind(this);
     }
 
+    
+
     componentDidUpdate() {
+        this.emailCheck();
         this.checkFill();
+        //console.log(this.state.email);
     }
 
     updateCheckConfirm() {
@@ -51,6 +56,7 @@ class Register extends React.Component {
     }
 
 
+
     // function, that checks if all fields are filled, and updates allFilled -state accordingly
     checkFill() {
         let pass = true;
@@ -59,14 +65,24 @@ class Register extends React.Component {
                 pass = false;
             }
         }
-        if (pass && !this.state.allFilled) {
+        if (pass && !this.state.allFilled && this.state.emailValid) {
             this.setState({ allFilled: true })
-        } else if (!pass && this.state.allFilled) {
+        } else if ((!pass || !this.state.emailValid) && this.state.allFilled) {
             this.setState({ termsAndConditions: false, allFilled: false })
         }
     }
 
+    emailCheck(){
+        let email = this.state.email;
+        let pass;
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        pass = re.test(String(email).toLowerCase());
 
+        if(this.state.emailValid != pass){
+            this.setState({ emailValid: pass})
+        }
+        
+    }
 
 
     Submit(event) {
@@ -181,7 +197,7 @@ class Register extends React.Component {
                                     underlineStyle={{ borderColor: '#A6CE6B' }}
                                     underlineFocusStyle={{ borderColor: '#004225' }}
                                     type="text" hintText="esim. etunimi.sukunimi@lamk.fi" style={styles}
-                                    onChange={(event, newValue) => this.setState({ email: newValue })} />
+                                    onChange={ (event, newValue) =>this.setState({ email: newValue }) } />
                             </td>
                         </tr>
                         <tr>

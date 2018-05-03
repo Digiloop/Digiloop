@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { BASE_URL } from './../settings';
 
-export { getCredentials, logOut };
+export { setStatus };
 
-function getCredentials(email, password) {
+function setStatus(status, fetcher, subIdStatus) { // target status, id of who fetched, id of item to be changed
   return axios.post(BASE_URL + '/itemReserve', {
-    email, password
+    status, fetcher, subIdStatus
   })
     .then(response => response.data)
     .catch(function (error) {

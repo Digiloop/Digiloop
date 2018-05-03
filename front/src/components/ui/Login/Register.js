@@ -30,11 +30,15 @@ class Register extends React.Component {
         };
         this.checkFill = this.checkFill.bind(this);
         this.emailCheck = this.emailCheck.bind(this);
-        this.emailChange = this.emailChange.bind(this);
+        //this.emailChange = this.emailChange.bind(this);
     }
 
+    
+
     componentDidUpdate() {
+        this.emailCheck();
         this.checkFill();
+        //console.log(this.state.email);
     }
 
     updateCheckConfirm() {
@@ -66,13 +70,6 @@ class Register extends React.Component {
         } else if ((!pass || !this.state.emailValid) && this.state.allFilled) {
             this.setState({ termsAndConditions: false, allFilled: false })
         }
-    }
-
-    emailChange(newValue){
-        
-        this.setState({ email: newValue});
-        this.emailCheck();
-        return this.state.email;
     }
 
     emailCheck(){
@@ -200,7 +197,7 @@ class Register extends React.Component {
                                     underlineStyle={{ borderColor: '#A6CE6B' }}
                                     underlineFocusStyle={{ borderColor: '#004225' }}
                                     type="text" hintText="esim. etunimi.sukunimi@lamk.fi" style={styles}
-                                    onChange={ (event, newValue) => this.emailChange(newValue ) } />
+                                    onChange={ (event, newValue) =>this.setState({ email: newValue }) } />
                             </td>
                         </tr>
                         <tr>

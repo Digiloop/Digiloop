@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/icons": "^1.0.0-beta.43",
     "axios": "^0.16.2",
     "material-ui": "^0.19.4",
     "react": "^16.0.0",

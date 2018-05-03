@@ -51,6 +51,7 @@ class AdminWasteProcessor extends Component {
 
   handleAppbarChange = (event, value) => this.setState({ value })
   handleToggle = (event) => this.setState({ open: !this.state.open })
+  handleClose = () => this.setState({ open: false })
 
   render() {
 
@@ -70,11 +71,11 @@ class AdminWasteProcessor extends Component {
                 <Tab label="Ilmoitukset" className="menu" value={4} />
               </Tabs>
               <div className="frontDrawer">
-            <Drawer docked={false} width={200} open={this.props.open} onClick={this.handleToggle} containerStyle={{ backgroundColor: '#004225' }}>
+            <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({open})} containerStyle={{ backgroundColor: '#004225' }}>
               <Menu value={this.state.value} onChange={this.handleAppbarChange}>{console.log(this.state.value)}
-                <MenuItem style={{ color: 'white' }} value={'FrontPage'}>Etusivu</MenuItem>
-                <MenuItem style={{ color: 'white' }} value={'Profile'}>Oma profiili</MenuItem>
-                <MenuItem style={{ color: 'white' }} value={'News'}>Ilmoitukset</MenuItem>
+                <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={'FrontPage'}>Etusivu</MenuItem>
+                <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={'Profile'}>Oma profiili</MenuItem>
+                <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={'News'}>Ilmoitukset</MenuItem>
                 <Divider />
                 <br />
                 <MenuItem style={{ color: 'white' }} onClick={this.logout} value={'Logout'}>Kirjaudu ulos</MenuItem>

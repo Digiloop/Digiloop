@@ -1,14 +1,10 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
-import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import IconButton from 'material-ui/IconButton';
-import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
-import Back from 'material-ui/svg-icons/navigation/arrow-back';
 import { sendCompRegData } from '../../../utils/sendCompRegData';
 import styles from '../../../index.css';
+import { Checkbox} from 'material-ui';
 
 class WasteRegister extends React.Component {
     constructor(props) {
@@ -23,12 +19,24 @@ class WasteRegister extends React.Component {
             contName: '',
             email: '',
             phone: '',
-            submitted: false,
-            Status: ''
+
+            termsAndConditions: false,
+            allFilled: false,
+            submitted: false
         };
+        this.checkFill = this.checkFill.bind(this);
     }
 
-    handleChange(event) {
+    componentDidUpdate(){
+        this.checkFill();
+    }
+
+    updateCheckConfirm() {
+        this.setState((oldState) => {
+            return {
+                termsAndConditions: !oldState.termsAndConditions,
+            };
+        });
     }
 
     Cancel(event) {
@@ -37,8 +45,21 @@ class WasteRegister extends React.Component {
         });
     }
 
+    checkFill() {
+        let pass = true;
+        for (var key in this.state) {
+            if (this.state[key] === '') {
+                pass = false;
+            }
+        }
+        if (pass && !this.state.allFilled) {
+            this.setState({ allFilled: true })
+        } else if (!pass && this.state.allFilled) {
+            this.setState({ termsAndConditions: false, allFilled: false })
+        }
+    }
+
     Submit(event) {
-      //TODO: JSON oikeeseen muotoon
 
         var regData = {
             "username": this.state.email,
@@ -59,10 +80,34 @@ class WasteRegister extends React.Component {
 
     render() {
 
+        const registerInactive = {
+            borderRadius: '0',
+            textAlign: 'center',
+            backgroundColor: "grey",
+            //border: '2px solid #004225',
+            margin: '15px'
+
+        };
+
+        const registerActive = {
+            borderRadius: '0',
+            textAlign: 'center',
+            backgroundColor: "#004225",
+            border: '0px solid #004225',
+            margin: '15px'
+
+
+        };
+
         const styles = {
+            /*
             width: 250, backgroundColor: '#FFFFFF', borderRadius: 4,
             borderWidth: 0.5,
             borderColor: '#d6d7da'
+            */
+            borderRadius: '0',
+            backgroundColor: 'white',
+            border: '2px solid #004225'
         };
 
         return (
@@ -74,124 +119,141 @@ class WasteRegister extends React.Component {
                 />
 
 
-                    <table className="registerStructure">
-                        <tbody>
-                            <tr>
-                                <td>  <label className="leftRegisterLabel">Yrityksen nimi*: </label> </td>
-                                <td>   <TextField className="rightRegisterField"
-                               
-                                    underlineStyle= {{borderColor: '#A6CE6B'}}
-                                    underlineFocusStyle = {{borderColor: '#004225'}}
-                                    type="text" hintText="esim. Jankon Betoni" style={styles}
-                                    style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
-                                    onChange={(event, newValue) => this.setState({ corpName: newValue })} />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>  <label className="leftRegisterLabel">Y-tunnus*: </label> </td>
-                                <td>   <TextField className="rightRegisterField"
-                                
-                                underlineStyle= {{borderColor: '#A6CE6B'}}
-                                underlineFocusStyle = {{borderColor: '#004225'}}
-                                    type="text" hintText="Kyl pitäis tietää" style={styles}
-                                    style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
-                                    onChange={(event, newValue) => this.setState({ ytunnus: newValue })} />
-                                </td>
-                            </tr>
-                            <tr>
+                <table className="registerStructure">
+                    <tbody>
+                        <tr>
+                            <td>  <label className="leftRegisterLabel">Yrityksen nimi*: </label> </td>
+                            <td>   <TextField className="rightRegisterField"
+
+                                underlineStyle={{ borderColor: '#A6CE6B' }}
+                                underlineFocusStyle={{ borderColor: '#004225' }}
+                                type="text" hintText="esim. Jankon Betoni" style={styles}
+                                onChange={(event, newValue) => this.setState({ corpName: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>  <label className="leftRegisterLabel">Y-tunnus*: </label> </td>
+                            <td>   <TextField className="rightRegisterField"
+
+                                underlineStyle={{ borderColor: '#A6CE6B' }}
+                                underlineFocusStyle={{ borderColor: '#004225' }}
+                                type="text" hintText="Kyl pitäis tietää" style={styles}
+                                onChange={(event, newValue) => this.setState({ ytunnus: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label className="leftRegisterLabel">Katuosoite*: </label></td>
+                            <td>    <TextField className="rightRegisterField"
+                                underlineStyle={{ borderColor: '#A6CE6B' }}
+                                underlineFocusStyle={{ borderColor: '#004225' }}
+                                type="text" hintText="esim. Ståhlberginkatu 10" style={styles}
+                                onChange={(event, newValue) => this.setState({ streetAddress: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label className="leftRegisterLabel">Postinumero*: </label></td>
+                            <td>   <TextField className="rightRegisterField"
+                                underlineStyle={{ borderColor: '#A6CE6B' }}
+                                underlineFocusStyle={{ borderColor: '#004225' }}
+                                type="text" hintText="esim. 15110" style={styles}
+                                onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label className="leftRegisterLabel">Kaupunki*: </label></td>
+                            <td>   <TextField className="rightRegisterField"
+                                underlineStyle={{ borderColor: '#A6CE6B' }}
+                                underlineFocusStyle={{ borderColor: '#004225' }}
+                                type="text" hintText="esim. Lahti" style={styles}
+                                onChange={(event, newValue) => this.setState({ city: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label className="leftRegisterLabel">Yhteyshenkilö*: </label> </td>
+                            <td>  <TextField className="rightRegisterField"
+                                underlineStyle={{ borderColor: '#A6CE6B' }}
+                                underlineFocusStyle={{ borderColor: '#004225' }}
+                                type="text" hintText="esim. Matti Meikäläinen" style={styles}
+                                onChange={(event, newValue) => this.setState({ contName: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label className="leftRegisterLabel">Sähköposti*: </label> </td>
+                            <td> <TextField className="rightRegisterField"
+                                underlineStyle={{ borderColor: '#A6CE6B' }}
+                                underlineFocusStyle={{ borderColor: '#004225' }}
+                                type="text" hintText="esim. etunimi.sukunimi@lamk.fi" style={styles}
+                                onChange={(event, newValue) => this.setState({ email: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label className="leftRegisterLabel">Puhelinnumero*: </label> </td>
+                            <td>   <TextField className="rightRegisterField"
+                                underlineStyle={{ borderColor: '#A6CE6B' }}
+                                underlineFocusStyle={{ borderColor: '#004225' }}
+                                type="text" hintText="esim. 044 708 1347​" style={styles}
+                                onChange={(event, newValue) => this.setState({ phone: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Katuosoite*: </label></td>
-                                <td>    <TextField className="rightRegisterField"
-                                underlineStyle= {{borderColor: '#A6CE6B'}}
-                                underlineFocusStyle = {{borderColor: '#004225'}}
-                                    type="text" hintText="esim. Ståhlberginkatu 10" style={styles}
-                                    style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
-                                    onChange={(event, newValue) => this.setState({ streetAddress: newValue })} />
+
                                 </td>
-                            </tr>
-                            <tr>
                                 <td>
-                                    <label className="leftRegisterLabel">Postinumero*: </label></td>
-                                <td>   <TextField className="rightRegisterField"
-                                underlineStyle= {{borderColor: '#A6CE6B'}}
-                                underlineFocusStyle = {{borderColor: '#004225'}}
-                                    type="text" hintText="esim. 15110" style={styles}
-                                    style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
-                                    onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
+                                    <Checkbox style={{width: '70%', fontWeight: 400}}
+                                    labelStyle={{
+                                        fontFamily: 'kanit',
+                                        float: 'left',
+                                        borderRadius: '0',
+                                        fontSize: '12px',
+                                        color: '#004225'}}
+                                        id="confirmationCheck"
+                                        iconStyle={{fill: '#004225'}}
+                                        checked={this.state.termsAndConditions}
+                                        onCheck={this.updateCheckConfirm.bind(this)}
+                                        label="Vakuutan edellä antamani tiedot oikeiksi, ja hyväksyn palvelun käyttöehdot."
+                                        disabled={!this.state.allFilled}
+                                    />
+
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <label className="leftRegisterLabel">Kaupunki*: </label></td>
-                                <td>   <TextField className="rightRegisterField"
-                                underlineStyle= {{borderColor: '#A6CE6B'}}
-                                underlineFocusStyle = {{borderColor: '#004225'}}
-                                    type="text" hintText="esim. Lahti" style={styles}
-                                    style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
-                                    onChange={(event, newValue) => this.setState({ city: newValue })} />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label className="leftRegisterLabel">Yhteyshenkilö*: </label> </td>
-                                <td>  <TextField className="rightRegisterField"
-                                underlineStyle= {{borderColor: '#A6CE6B'}}
-                                underlineFocusStyle = {{borderColor: '#004225'}}
-                                    type="text" hintText="esim. Matti Meikäläinen" style={styles}
-                                    style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
-                                    onChange={(event, newValue) => this.setState({ contName: newValue })} />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label className="leftRegisterLabel">Sähköposti*: </label> </td>
-                                <td> <TextField className="rightRegisterField"
-                                underlineStyle= {{borderColor: '#A6CE6B'}}
-                                underlineFocusStyle = {{borderColor: '#004225'}}
-                                    type="text" hintText="esim. etunimi.sukunimi@lamk.fi" style={styles}
-                                    style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
-                                    onChange={(event, newValue) => this.setState({ email: newValue })} />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label className="leftRegisterLabel">Puhelinnumero*: </label> </td>
-                                <td>   <TextField className="rightRegisterField"
-                                underlineStyle= {{borderColor: '#A6CE6B'}}
-                                underlineFocusStyle = {{borderColor: '#004225'}}
-                                    type="text" hintText="esim. 044 708 1347​" style={styles}
-                                    style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
-                                    onChange={(event, newValue) => this.setState({ phone: newValue })} />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <FlatButton className="cancelButton"
-                        label="Peruuta"
-                        hoverColor="#004225"
-                        style={{ margin: '15px' }}
-                        backgroundColor="#004225"
-                        labelStyle={{
-                                            fontFamily: 'kanit',
-                                            float: 'left',
-                                            borderRadius: '0',
-                                            fontSize: '17px',
-                                            color: '#FFFFFF'}}
-                        onClick={(event) => this.Cancel(event)} />
-                    <FlatButton className="registerButton"
-                        label="Lähetä hakemus"
-                        hoverColor="#A6CE6B"
-                        style={{ margin: '15px' }}
-                        backgroundColor="#004225"
-                        labelStyle={{
-                                            fontFamily: 'kanit',
-                                            float: 'left',
-                                            borderRadius: '0',
-                                            fontSize: '17px',
-                                            color: '#fff'}}
-                        onClick={(event) => this.Submit(event)} />
-                </div >
-        
+                    </tbody>
+                </table>
+                <FlatButton className="cancelButton"
+                    label="Peruuta"
+                    hoverColor="#004225"
+                    style={{ margin: '15px' }}
+                    backgroundColor="#004225"
+                    labelStyle={{
+                        fontFamily: 'kanit',
+                        float: 'left',
+                        borderRadius: '0',
+                        fontSize: '17px',
+                        color: '#FFFFFF'
+                    }}
+                    onClick={(event) => this.Cancel(event)} />
+                <FlatButton className="registerButton"
+                    label="Rekisteröidy"
+                    labelStyle={{
+                        fontFamily: 'kanit',
+                        float: 'left',
+                        borderRadius: '0',
+                        fontSize: '17px',
+                        color: '#FFFFFF'
+                    }}
+                    disabled={!this.state.termsAndConditions}
+
+                    style={this.state.termsAndConditions ? registerActive : registerInactive}
+
+                    onClick={(event) => this.Submit(event)} />
+            </div >
+
         );
     }
 }

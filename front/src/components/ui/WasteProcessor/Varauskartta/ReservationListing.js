@@ -11,58 +11,53 @@ import {
 import RaisedButton from 'material-ui/RaisedButton';
 
 class ReservationListing extends Component {
-constructor(props){
-  super(props);
-  this.state = {
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
   }
- }
 
-getStatus(status){
-  switch(status){
-    case 0:
-    return "Hidden";
-    break;
+  getStatus(status) {
+    switch (status) {
+      case 0:
+        return "Hidden";
 
-    case 1:
-    return "Vapaa";
-    break;
+      case 1:
+        return "Vapaa";
 
-    case 2:
-    return "Varattu";
-    break;
+      case 2:
+        return "Varattu";
 
-    case 3:
-    return "Matkalla";
-    break;
+      case 3:
+        return "Matkalla";
 
-    case 4:
-    return "Noudettu";
-    break;
+      case 4:
+        return "Noudettu";
 
-    default:
-    break;
+      default:
+        break;
+    }
   }
-}
 
 
 
-render() {
+  render() {
 
-  const items = [];
-  //console.log(this.props.items);
+    const items = [];
+    //console.log(this.props.items);
 
-  for(let i = 0; i < this.props.items.length; i++){
-    items.push(
-      <TableRow key={i} >
-        <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br/>Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
-        <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
-        {this.props.items[i].status == 1 ? <TableRowColumn><RaisedButton label="Varaa" /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
-        <TableRowColumn>Tila { this.getStatus( this.props.items[i].status ) }</TableRowColumn>
-      </TableRow>
-    )
-  }
+    for (let i = 0; i < this.props.items.length; i++) {
+      items.push(
+        <TableRow key={i} >
+          <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br />Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
+          <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
+          <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
+          <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
+          {this.props.items[i].status == 1 ? <TableRowColumn><RaisedButton label="Varaa" /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
+          <TableRowColumn>Tila {this.getStatus(this.props.items[i].status)}</TableRowColumn>
+        </TableRow>
+      )
+    }
 
     return (
       <MuiThemeProvider>

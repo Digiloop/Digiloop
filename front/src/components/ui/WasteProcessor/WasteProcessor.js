@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
 import styles from '../../../index.css';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { logOut } from '../../../utils/login-api';

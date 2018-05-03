@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
 import './index.css';
 
 
@@ -13,11 +12,7 @@ import Register from './components/containers/Login/Register.js';
 import WasteRegister from './components/containers/Login/WasteRegister.js';
 import Login from './components/containers/Login/Login.js';
 
-import Order from './components/ui/EndUser/Orderinho/Order.js';
-import Admin from './components/ui/Admin/Admin.js';
 import { getCats, getSubCats } from './utils/fetchcategories';
-import { logOut } from './utils/login-api';
-
 
 
 
@@ -46,7 +41,7 @@ class App extends Component {
 
         // if we have an existing session going on, load that instantly upon opening app
         // it will not remember the page the user was on though, only the login info of the previous session
-        if ((localStorage.loginData != "undefined") && localStorage.loginData) {
+        if ((localStorage.loginData !== "undefined") && localStorage.loginData) {
           let loginData = JSON.parse(localStorage.loginData);
           this.props.localStorageLogin(loginData.userdata);
         }

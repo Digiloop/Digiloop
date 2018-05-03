@@ -8,18 +8,10 @@ export const loginInfo = (state = [], action) =>
 export const resListOpt = (state = [], action) =>
   (action.type === C.SET_RESOPT) ? action.payload : state
 
-//export const resList = (state = [], action) =>
-//  (action.type === C.SET_RLI) ? action.payload : state
+export const resList = (state = [], action) =>
+  (action.type === C.SET_RLI) ? action.payload : state
 
-export const resList = function(state = [], action){
-  console.log(state);
-  console.log(action);
-  if(action.type === C.SET_RLI){
-    return action.payload;
-  } else {
-    return state;
-  }
-}
+
 
 export const categories = (state = [], action) =>
   (action.type === C.SET_CATEGORIES) ? action.payload : state

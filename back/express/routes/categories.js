@@ -17,21 +17,30 @@ router.get('/categories', function(req, res, next) {
     });
 */
 /*(taulu = 'Category', tieto = 'Status')*/
-    router.get('/categories2',dosmth.getcategories, async function(req, res, next) {
 
-          await dosmth.getcategories('Category','1')
+    router.get('/categories',/*dosmth.getcategories,*/ async function(req, res, next) {
+
+          //await res.json(dosmth.getcategories('Category','1'));
+          //console.log(dosmth.getcategories('Category','1'));
+          //res.json(await dosmth.getcategories('Category','1'))
+          //await console.log(dosmth.getcategories('Category','1'));
           /*res.json(dosmth.getcategories(taulu = 'Category', tieto = 'Status'))*/
         //  throw new Error("Whoops!");
     //  next();
-
         });
 
 
+        router.get('/categories6',/*dosmth.getcategories,*/ async function(req, res, next) {
+              res.json(await dosmth.getinfo('Category','1'));
+            });
+
+
+/*
         router.get('/categories',dosmthelse.getcategoriestemp, async function(req, res, next) {
 
             });
 
-
+*/
 
 
 

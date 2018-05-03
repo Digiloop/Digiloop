@@ -49,9 +49,7 @@ module.exports = function(app, passport, users) {
         connection.query('SELECT * FROM users',
             function(err, result) {
                 if (err) throw err;
-                res.json({
-                    category: result
-                });
+                res.json(result);
             });
 		 }
     });
@@ -90,18 +88,14 @@ module.exports = function(app, passport, users) {
         connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID;',
             function(err, result) {
                 if (err) throw err;
-                res.json({
-                    category: result
-                });
+                res.json(result);
             });
           }
           else {
             connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID WHERE owner = ?;', [req.user.id.toString()],
                 function(err, result) {
                     if (err) throw err;
-                    res.json({
-                        category: result
-                    });
+                    res.json(result);
                 });
           }
     });
@@ -253,9 +247,7 @@ module.exports = function(app, passport, users) {
         connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
             function(err, result) {
                 if (err) throw err;
-                res.json({
-                    category: result
-                });
+                res.json(result);
             });
     //    }
     });

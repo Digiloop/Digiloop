@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import IconButton from 'material-ui/IconButton';
 import Divider from 'material-ui/Divider';
 import styles from '../../../../index.css';
-import Profile from '../Profile/Profile.js';
+import Profile from '../Profile/Profile';
 import Order from '../Order/Order';
 import Notification from '../../../containers/WasteProcessor/Notification'
 import RaisedButton from 'material-ui/RaisedButton';

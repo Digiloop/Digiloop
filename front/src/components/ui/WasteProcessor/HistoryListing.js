@@ -56,8 +56,6 @@ listHistory(){
 
 componentDidMount(){
   this.getJunksData();
-    //
-    // fetch data from backend
 }
 
 getStatus(status){

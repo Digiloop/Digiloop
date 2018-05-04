@@ -67,7 +67,7 @@ class AdminWasteProcessor extends Component {
                 <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({ open })} containerStyle={{ backgroundColor: '#004225' }}>
                   <Menu value={this.state.value} onChange={this.handleAppbarChange}>{console.log(this.state.value)}
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={'FrontPage'}>Etusivu</MenuItem>
-                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={'Profile'}>Oma profiili</MenuItem>
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={'Profiile'}>Oma profiili</MenuItem>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={'News'}>Ilmoitukset</MenuItem>
                     <Divider />
                     <br />

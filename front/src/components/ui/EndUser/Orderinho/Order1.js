@@ -107,7 +107,7 @@ class Order1 extends React.Component {
 
                         <td>
                         <img
-                            src={require('../Profile/home2.gif')}
+                            src={require('../Profiile/home2.gif')}
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}
@@ -115,7 +115,7 @@ class Order1 extends React.Component {
                         </td>
                         <td style={{display: 'flex',justifyContent: 'center'}}>
                         <img
-                            src={require('../Profile/organization2.gif')}
+                            src={require('../Profiile/organization2.gif')}
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}

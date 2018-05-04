@@ -9,12 +9,16 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
+import { reserveItem } from '../../../../utils/reserveItems'
 
 class ReservationListing extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      rows: []
     }
+    //this.reserve = this.reserve.bind(this);
+    this.createStates = this.createStates.bind(this);
   }
 
   getStatus(status) {
@@ -39,21 +43,56 @@ class ReservationListing extends Component {
     }
   }
 
+  reserve(item) {
+    console.log(this.props.loginInfo);
+    //reserveItem(2, 1, item.junkID);
+  }
 
+  expand(x) {
+    console.log(x);
+    console.log(this.state.rows);
+  }
+
+  // create states for each row
+  createStates() {
+    console.log(this.props.items);
+    for (let i = 0; i < this.props.items.length; i++) {
+      console.log("paskaa");
+      this.setState(prevState => ({
+        rows: [...prevState.rows, "asd"]
+      }))
+    }
+  }
+
+
+  static getDerivedStateFromProps(nextProps, prevState){
+    let arr = this.state.rows;
+    console.log("hoo");
+    for (let i = 0; i < nextProps.items.length; i++) {
+      arr: [...arr, false]
+    }
+
+    return {
+      rows: arr
+    };
+  }
 
   render() {
 
     const items = [];
-    //console.log(this.props.items);
+    console.log(this.props.items);
 
     for (let i = 0; i < this.props.items.length; i++) {
+
+
+
       items.push(
         <TableRow key={i} >
           <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br />Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
           <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
           <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
           <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
-          {this.props.items[i].status == 1 ? <TableRowColumn><RaisedButton label="Varaa" /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
+          {this.props.items[i].status == 1 ? <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[i])} /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
           <TableRowColumn>Tila {this.getStatus(this.props.items[i].status)}</TableRowColumn>
         </TableRow>
       )
@@ -61,7 +100,7 @@ class ReservationListing extends Component {
 
     return (
       <MuiThemeProvider>
-        <Table>
+        <Table onCellClick={rowNumber => this.expand(rowNumber)}>
           <TableBody displayRowCheckbox={false}>
             {items}
           </TableBody>

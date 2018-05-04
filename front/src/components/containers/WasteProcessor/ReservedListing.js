@@ -5,7 +5,6 @@ import { setResList } from '../../../actions';
 const mapStateToProps = (state, props) =>
   ({
     items: state.resList
-
   })
 
 const mapDispatchToProps = dispatch =>

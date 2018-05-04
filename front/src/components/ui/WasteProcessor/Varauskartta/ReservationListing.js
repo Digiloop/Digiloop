@@ -9,12 +9,14 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
+import { reserveItem } from '../../../../utils/reserveItems'
 
 class ReservationListing extends Component {
   constructor(props) {
     super(props);
     this.state = {
     }
+    //this.reserve = this.reserve.bind(this);
   }
 
   getStatus(status) {
@@ -39,7 +41,10 @@ class ReservationListing extends Component {
     }
   }
 
-
+  reserve(item) {
+    //console.log(item);
+    reserveItem(2, 1, item.junkID);
+  }
 
   render() {
 
@@ -53,7 +58,7 @@ class ReservationListing extends Component {
           <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
           <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
           <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
-          {this.props.items[i].status == 1 ? <TableRowColumn><RaisedButton label="Varaa" /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
+          {this.props.items[i].status == 1 ? <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[i])} /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
           <TableRowColumn>Tila {this.getStatus(this.props.items[i].status)}</TableRowColumn>
         </TableRow>
       )

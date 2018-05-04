@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Order from '../Order/Order.js';
 import styles from '../../../../index.css';
 
-class Profile extends Component {
+class History extends Component {
 constructor(props){
   super(props);
   this.state = {
@@ -31,4 +31,4 @@ render() {
     );
   }
 }
-export default Profile;
+export default History;

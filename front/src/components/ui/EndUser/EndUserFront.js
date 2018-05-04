@@ -4,7 +4,8 @@ import { AppBar, Drawer, Menu, MenuItem } from 'material-ui';
 import { Toolbar, IconButton, Divider } from 'material-ui';
 import MenuIcon from '@material-ui/icons/Menu';
 import FrontPage from '../../containers/EndUser/FrontPage/FrontPage';
-import Profile from './Profile/Profile';
+import Profile from '../../containers/EndUser/Profile/Profile.js';
+import Historia from './History/History';
 import styles from '../../../index.css';
 import { logOut } from '../../../utils/login-api';
 
@@ -53,8 +54,8 @@ class EndUserFront extends Component {
                   containerStyle={{ backgroundColor: '#004225' }}>
                   <Menu value={this.state.value} onChange={this.handleChange}>{console.log(this.state.value)}
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={FrontPage}>Etusivu</MenuItem>
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={Historia}>Tilaukset</MenuItem>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={Profile}>Oma profiili</MenuItem>
-                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={'News'}>Tilaukset</MenuItem>
                     <Divider />
                     <br />
                     <MenuItem style={{ color: 'white' }} onClick={this.logout} value={'Logout'}>Kirjaudu ulos</MenuItem>

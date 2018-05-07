@@ -32,13 +32,24 @@ querypost(query){
   })
 } 
 
+getinfo(table,Status,callback){
+  connection.query(`SELECT * FROM ${table} WHERE Status = ${Status}`,function(err, result) {
+    callback(err,result);
+  })
+} 
 
+};
+
+
+/*
 
 getinfo(table,Status,callback){
   connection.query('SELECT * FROM '+ table +' WHERE Status = '+ Status +'',function(err, result) {
     callback(err,result);
   })
 } 
+
+
 
 updatesubcatstatus(taulu,status,subid) {
   connection.query('UPDATE ' + taulu +' SET Status = ' + status + ' WHERE subId = ' + subid + ';',function(err, result) {
@@ -47,5 +58,5 @@ updatesubcatstatus(taulu,status,subid) {
   })
 }
 
-};
 
+*/

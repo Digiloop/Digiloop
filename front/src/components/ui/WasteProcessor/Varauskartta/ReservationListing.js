@@ -88,7 +88,7 @@ class ReservationListing extends Component {
 
     for (let i = 0; i < this.props.items.length; i++) {
 
-      if (this.state.rows[i]) {
+      if (this.state.rows[i+1]) {
 
         items.push(
           <TableRow key={i} >
@@ -123,6 +123,14 @@ class ReservationListing extends Component {
       <MuiThemeProvider>
         <Table onCellClick={rowNumber => this.expand(rowNumber)}>
           <TableBody displayRowCheckbox={false}>
+            <TableRow>
+              <TableHeaderColumn>Nimi</TableHeaderColumn>
+              <TableHeaderColumn>Määrä</TableHeaderColumn>
+              <TableHeaderColumn>Tilavuus</TableHeaderColumn>
+              <TableHeaderColumn>Paino</TableHeaderColumn>
+              <TableHeaderColumn>Varaa</TableHeaderColumn>
+              <TableHeaderColumn>Tila</TableHeaderColumn>
+            </TableRow>
             {items}
           </TableBody>
         </Table>

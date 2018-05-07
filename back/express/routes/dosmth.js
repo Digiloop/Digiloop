@@ -3,7 +3,7 @@ var dbconfig = require('../app/database');
 var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
 
-module.exports = {
+module.exports =  {
 
 //https://stackoverflow.com/questions/44004418/node-js-async-await-using-with-mysql
 

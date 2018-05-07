@@ -4,7 +4,7 @@ import { AppBar, Drawer, Menu, MenuItem } from 'material-ui';
 import { Toolbar, IconButton, Divider } from 'material-ui';
 import MenuIcon from '@material-ui/icons/Menu';
 import FrontPage from '../../containers/EndUser/FrontPage/FrontPage';
-import Profile from '../../containers/EndUser/Profile/Profile.js';
+import Profile from '../../containers/EndUser/Profile/Profile';
 import Historia from './History/History';
 import styles from '../../../index.css';
 import { logOut } from '../../../utils/login-api';
@@ -13,9 +13,10 @@ class EndUserFront extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: FrontPage,
+      index: 0,
       open: false
-    }
+    };
+    this.handleChange = this.handleChange.bind(this);
   }
 
   // logout clears session with backend, empties localStorage session and sets userlevel to logged out
@@ -27,7 +28,18 @@ class EndUserFront extends Component {
     });
   }
 
-  handleChange = (event, value) => this.setState({ value })
+  handleChange = (e, value) => {
+    this.setState({
+      index: value
+    });    
+  }
+
+  handleCancel = (e, value) => {
+    this.setState({
+      index: 0
+    });   
+  }
+
   handleToggle = () => this.setState({ open: !this.state.open })
   handleClose = () => this.setState({ open: false })
 
@@ -44,18 +56,18 @@ class EndUserFront extends Component {
       <MuiThemeProvider>
         <div className="frontpake">
           <AppBar showMenuIconButton={false} style={{ backgroundColor: '#004225', padding: '0', margin: '0' }}
-          title='Etusivu' >
-            <Toolbar style={{ backgroundColor: '#FFF', width: '100%', padding:'0' }}>
-              <IconButton style={{ padding:'0' }} iconStyle={styles.largeIcon} onClick={this.handleToggle} >
+            title='Etusivu' >
+            <Toolbar style={{ backgroundColor: '#FFF', width: '100%', padding: '0' }}>
+              <IconButton style={{ padding: '0' }} iconStyle={styles.largeIcon} onClick={this.handleToggle} >
                 <MenuIcon color='#004225' />
               </IconButton>
               <div className="frontDrawer">
                 <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({ open })}
                   containerStyle={{ backgroundColor: '#004225' }}>
-                  <Menu value={this.state.value} onChange={this.handleChange}>{console.log(this.state.value)}
-                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={FrontPage}>Etusivu</MenuItem>
-                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={Historia}>Tilaukset</MenuItem>
-                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={Profile}>Oma profiili</MenuItem>
+                  <Menu index={this.state.index} onChange={this.handleChange}>
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={0}>Etusivu</MenuItem>
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={1}>Tilaukset</MenuItem>
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={2}>Oma profiili</MenuItem>
                     <Divider />
                     <br />
                     <MenuItem style={{ color: 'white' }} onClick={this.logout} value={'Logout'}>Kirjaudu ulos</MenuItem>
@@ -64,8 +76,9 @@ class EndUserFront extends Component {
               </div>
             </Toolbar>
           </AppBar>
-          {<this.state.value />}
-
+          {this.state.index === 0 && <FrontPage />}
+          {this.state.index === 1 && <Historia />}
+          {this.state.index === 2 && <Profile onUpdate={this.handleCancel} />}
         </div>
       </MuiThemeProvider>
     );

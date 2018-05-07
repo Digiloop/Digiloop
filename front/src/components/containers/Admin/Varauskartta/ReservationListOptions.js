@@ -1,4 +1,4 @@
-import ReservationListOptions from '../../../ui/WasteProcessor/Varauskartta/ReservationListOptions'
+import ReservationListOptions from '../../../ui/Admin/Varauskartta/ReservationListOptions'
 import { connect } from 'react-redux'
 import { setResOpt } from '../../../../actions'
 

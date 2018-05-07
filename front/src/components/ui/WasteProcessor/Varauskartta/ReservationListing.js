@@ -51,13 +51,17 @@ class ReservationListing extends Component {
   expand(x) {
     console.log(x);
     console.log(this.state.rows);
+
+    let newArray = this.state.rows;
+    newArray[x] = !newArray[x];
+
+    this.setState({ rows: newArray });
   }
 
   // create states for each row
   createStates() {
     console.log(this.props.items);
     for (let i = 0; i < this.props.items.length; i++) {
-      console.log("paskaa");
       this.setState(prevState => ({
         rows: [...prevState.rows, "asd"]
       }))
@@ -65,16 +69,16 @@ class ReservationListing extends Component {
   }
 
 
-  static getDerivedStateFromProps(nextProps, prevState){
+  componentWillReceiveProps(nextProps) {
     let arr = this.state.rows;
-    console.log("hoo");
-    for (let i = 0; i < nextProps.items.length; i++) {
-      arr: [...arr, false]
-    }
+    console.log(this.props.items);
+    console.log(this.props);
+    console.log(nextProps);
 
-    return {
-      rows: arr
-    };
+    for (let i = 0; i < nextProps.items.length; i++) {
+      arr = [...arr, false]
+    }
+    this.setState({ rows: arr });
   }
 
   render() {
@@ -84,18 +88,35 @@ class ReservationListing extends Component {
 
     for (let i = 0; i < this.props.items.length; i++) {
 
+      if (this.state.rows[i]) {
+
+        items.push(
+          <TableRow key={i} >
+            <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br />Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
+
+            <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
+            <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
+            <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
 
 
-      items.push(
-        <TableRow key={i} >
-          <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br />Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
-          <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
-          <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
-          <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
-          {this.props.items[i].status == 1 ? <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[i])} /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
-          <TableRowColumn>Tila {this.getStatus(this.props.items[i].status)}</TableRowColumn>
-        </TableRow>
-      )
+            {this.props.items[i].status == 1 ? <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[i])} /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
+            <TableRowColumn>Tila {this.getStatus(this.props.items[i].status)}</TableRowColumn>
+          </TableRow>
+        )
+      } else {
+        items.push(
+          <TableRow key={i} >
+            <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br />Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
+
+            <TableRowColumn></TableRowColumn>
+            <TableRowColumn></TableRowColumn>
+            <TableRowColumn></TableRowColumn>
+
+            {this.props.items[i].status == 1 ? <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[i])} /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
+            <TableRowColumn>Tila {this.getStatus(this.props.items[i].status)}</TableRowColumn>
+          </TableRow>
+        )
+      }
     }
 
     return (

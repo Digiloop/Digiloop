@@ -57,7 +57,6 @@ class ReservationListing extends Component {
   createStates() {
     console.log(this.props.items);
     for (let i = 0; i < this.props.items.length; i++) {
-      console.log("paskaa");
       this.setState(prevState => ({
         rows: [...prevState.rows, "asd"]
       }))
@@ -65,16 +64,15 @@ class ReservationListing extends Component {
   }
 
 
-  static getDerivedStateFromProps(nextProps, prevState){
+  componentWillReceiveProps(){
     let arr = this.state.rows;
-    console.log("hoo");
-    for (let i = 0; i < nextProps.items.length; i++) {
+    console.log(this.props.items);
+    console.log(this.props);
+
+    for (let i = 0; i < this.props.items.length; i++) {
       arr: [...arr, false]
     }
-
-    return {
-      rows: arr
-    };
+    this.setState({ rows: arr }, console.log(this.state.rows));
   }
 
   render() {

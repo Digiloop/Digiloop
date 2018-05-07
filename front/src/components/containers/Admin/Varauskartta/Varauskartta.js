@@ -1,4 +1,4 @@
-import Varauskartta from '../../../ui/WasteProcessor/Varauskartta/Varauskartta'
+import Varauskartta from '../../../ui/Admin/Varauskartta/Varauskartta'
 import { connect } from 'react-redux'
 import { setResList } from '../../../../actions';
 

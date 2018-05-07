@@ -28,13 +28,6 @@ module.exports = function(app, passport, users) {
         });
     });
 */
-    app.get('/subcat', function(req, res) {
-        connection.query('SELECT * FROM subCat WHERE Status = 1',
-            function(err, result) {
-                if (err) throw err;
-                res.json(result);
-            });
-    });
 
     app.get('/announcements', function(req, res) {
         connection.query('SELECT * FROM Announcements',
@@ -101,16 +94,6 @@ module.exports = function(app, passport, users) {
     });
 
 
-
-    // main code, muista x-www-form-urlencoded
-    app.post('/subCatStatus', function(req, res) {
-        connection.query('UPDATE subCat SET Status = ? WHERE subId = ?;', [req.body.Status, req.body.subIdStatus], (err, rows) => {
-            if (err) throw err;
-            console.log(rows.affectedRows + " record(s) updated");
-        });
-        console.log(req.body.Status, " ", req.body.subIdStatus)
-        res.end();
-    });
 
     //item Status
     app.post('/itemStatus',  function(req, res) {

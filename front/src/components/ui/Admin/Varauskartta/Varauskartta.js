@@ -5,7 +5,7 @@ import styles from '../../../../index.css';
 
 import Gmap from './Map/Gmap.js'
 import ReservationListing from './ReservationListing'
-import ReservationListOptions from '../../../containers/WasteProcessor/Varauskartta/ReservationListOptions'
+import ReservationListOptions from '../../../containers/Admin/Varauskartta/ReservationListOptions'
 
 import { getJunkData } from '../../../../utils/fetchdata-api';
 //import { getCats, getSubCats } from '../../../../utils/fetchcategories';
@@ -61,10 +61,10 @@ class WasteProcessor extends Component {
     const p = this.props;
     const o = this.props.rLOpt;
 
-    console.log(this.props.cats);
-    console.log(this.props.subCats);
-    console.log(o.categories);
-    console.log(o.subCategories);
+    //console.log(this.props.cats);
+    //console.log(this.props.subCats);
+    //console.log(o.categories);
+    //console.log(o.subCategories);
     
     let pi;
     let pass = true;

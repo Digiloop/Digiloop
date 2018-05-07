@@ -5,6 +5,7 @@ import { AppBar, Drawer, Menu, MenuItem } from 'material-ui';
 import { Toolbar, IconButton, Divider, Tabs, Tab } from 'material-ui';
 import MenuIcon from '@material-ui/icons/Menu';
 import { logOut } from '../../../utils/login-api';
+import Profile from '../../containers/Admin/Profile/Profile'
 
 import SvgIcon from 'material-ui/SvgIcon';
 
@@ -16,6 +17,7 @@ import Admin from '../../containers/Admin/Admin'
 
 import Notification from '../../containers/Admin/Notification'
 import { black } from 'material-ui/styles/colors';
+import FrontPage from '../EndUser/FrontPage/FrontPage';
 
 
 
@@ -26,7 +28,6 @@ class AdminWasteProcessor extends Component {
       index: 0,
       open: false
     };
-    this.handleAppbarChange = this.handleAppbarChange.bind(this);
   }
 
   handleChange = (value) => {
@@ -34,6 +35,12 @@ class AdminWasteProcessor extends Component {
       index: value
     });
   };
+
+  handleAppbarChange = (event, value) => {
+    this.setState({
+      index: value
+    });
+  }
 
   logout = () => {
     logOut();
@@ -43,20 +50,29 @@ class AdminWasteProcessor extends Component {
     });
   }
 
-  handleAppbarChange = (event, value) => this.setState({ value })
+
   handleToggle = (event) => this.setState({ open: !this.state.open })
   handleClose = () => this.setState({ open: false })
 
   render() {
+
+    const styles = {
+      largeIcon: {
+        height: 60,
+        width: 60
+      },
+    }
+
     return (
       <MuiThemeProvider>
         <div>
           <AppBar showMenuIconButton={false} style={{ backgroundColor: '#004225', padding: '0', margin: '0' }} >
             <Toolbar style={{ backgroundColor: '#004225', width: '100%' }}>
-              <IconButton onClick={this.handleToggle} >
+              <IconButton onClick={this.handleToggle} iconStyle={styles.largeIcon} style={{ padding: '0', marginRight: '20px' }}>
                 <MenuIcon color='#FFF' />
               </IconButton>
-              <Tabs index={this.state.index} onChange={this.handleChange} style={{ width: '100%' }} inkBarStyle={{ background: '#AFD43F', height: '3px' }}>
+              <Tabs index={this.state.index} onChange={this.handleChange} style={{ width: '100%' }} 
+              inkBarStyle={{ background: '#AFD43F', height: '3px' }}>
                 <Tab label="Historia" className="menu" value={0} />
                 <Tab label="Varaukset" className="menu" value={1} />
                 <Tab label="Admin" className="menu" value={2} />
@@ -64,11 +80,12 @@ class AdminWasteProcessor extends Component {
                 <Tab label="Ilmoitukset" className="menu" value={4} />
               </Tabs>
               <div className="frontDrawer">
-                <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({ open })} containerStyle={{ backgroundColor: '#004225' }}>
-                  <Menu value={this.state.value} onChange={this.handleAppbarChange}>{console.log(this.state.value)}
-                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={'FrontPage'}>Etusivu</MenuItem>
-                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={'Profiile'}>Oma profiili</MenuItem>
-                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={'News'}>Ilmoitukset</MenuItem>
+                <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({ open })}
+                  containerStyle={{ backgroundColor: '#004225' }}>
+                  <Menu value={this.state.value} onChange={this.handleAppbarChange}>
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={0}>Etusivu</MenuItem>
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={5}>Oma profiili</MenuItem>
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={4}>Ilmoitukset</MenuItem>
                     <Divider />
                     <br />
                     <MenuItem style={{ color: 'white' }} onClick={this.logout} value={'Logout'}>Kirjaudu ulos</MenuItem>
@@ -77,15 +94,14 @@ class AdminWasteProcessor extends Component {
               </div>
             </Toolbar>
           </AppBar>
-
           {this.state.index === 0 && <HistoryListing />}
           {this.state.index === 1 && <ReservedListing />}
           {this.state.index === 2 && <Admin />}
           {this.state.index === 3 && <Varauskartta />}
           {this.state.index === 4 && <Notification />}
+
+          {this.state.index === 5 && <Profile />}
         </div>
-
-
       </MuiThemeProvider>
     );
   }

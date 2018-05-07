@@ -34,7 +34,7 @@ class EndUserFront extends Component {
     });    
   }
 
-  handleCancel = (e, value) => {
+  handleUpdate = (e, value) => {
     this.setState({
       index: 0
     });   
@@ -78,7 +78,7 @@ class EndUserFront extends Component {
           </AppBar>
           {this.state.index === 0 && <FrontPage />}
           {this.state.index === 1 && <Historia />}
-          {this.state.index === 2 && <Profile onUpdate={this.handleCancel} />}
+          {this.state.index === 2 && <Profile onUpdate={this.handleUpdate} />}
         </div>
       </MuiThemeProvider>
     );

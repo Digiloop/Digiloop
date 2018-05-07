@@ -69,7 +69,7 @@ class ReservationListing extends Component {
   }
 
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     let arr = this.state.rows;
     console.log(this.props.items);
     console.log(this.props);
@@ -88,21 +88,35 @@ class ReservationListing extends Component {
 
     for (let i = 0; i < this.props.items.length; i++) {
 
+      if (this.state.rows[i]) {
+
+        items.push(
+          <TableRow key={i} >
+            <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br />Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
+
+            <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
+            <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
+            <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
 
 
-      items.push(
-        <TableRow key={i} >
-          <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br />Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
-          
-          {this.state.rows[i] ? <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>: <TableRowColumn></TableRowColumn>}
-          <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
-          <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
-          
+            {this.props.items[i].status == 1 ? <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[i])} /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
+            <TableRowColumn>Tila {this.getStatus(this.props.items[i].status)}</TableRowColumn>
+          </TableRow>
+        )
+      } else {
+        items.push(
+          <TableRow key={i} >
+            <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br />Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
 
-          {this.props.items[i].status == 1 ? <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[i])} /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
-          <TableRowColumn>Tila {this.getStatus(this.props.items[i].status)}</TableRowColumn>
-        </TableRow>
-      )
+            <TableRowColumn></TableRowColumn>
+            <TableRowColumn></TableRowColumn>
+            <TableRowColumn></TableRowColumn>
+
+            {this.props.items[i].status == 1 ? <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[i])} /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
+            <TableRowColumn>Tila {this.getStatus(this.props.items[i].status)}</TableRowColumn>
+          </TableRow>
+        )
+      }
     }
 
     return (

@@ -115,6 +115,7 @@ module.exports = function(app, passport, users) {
     });
 
 
+    /*
     app.post('/catADD', function(req,res) {
       var newCat = {
         catname:req.body.catname,
@@ -147,12 +148,13 @@ module.exports = function(app, passport, users) {
           }});
           res.end();
     });
+    */
 //-------------------------------------------------------------------
 //-------------------------------------------------------------------
 //-------------------------------------------------------------------
 
 
-    //kaatuu ilman loggausta sisään
+    //kaatuu ilman loggausta sisään tarttee City / Post valuet
     app.post('/itemADD', function(req, res) {
         var newItem = {
             category: req.body.category.toString(),

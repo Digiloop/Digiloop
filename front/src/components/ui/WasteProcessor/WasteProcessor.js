@@ -49,7 +49,7 @@ class WasteProcessor extends Component {
       <MuiThemeProvider>
         <div>
           <AppBar showMenuIconButton={false} style={{ backgroundColor: '#004225', padding: '0', margin: '0' }} >
-            <Toolbar style={{ backgroundColor: '#004225', width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
+            <Toolbar style={{ backgroundColor: '#004225', width: '80%', marginLeft: '8%', marginRight: 'auto', position: 'absolute' }}>
               <IconButton onClick={this.handleToggle} >
                 <MenuIcon color='#FFF' />
               </IconButton>

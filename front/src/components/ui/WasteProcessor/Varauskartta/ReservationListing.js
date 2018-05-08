@@ -83,6 +83,7 @@ class ReservationListing extends Component {
 
   render() {
 
+
     const items = [];
     console.log(this.props.items);
 
@@ -91,7 +92,7 @@ class ReservationListing extends Component {
       if (this.state.rows[i+1]) {
 
         items.push(
-          <TableRow key={i} >
+          <TableRow key={i}  style={{height: '100px'}}>
             <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br />Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
 
             <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
@@ -105,12 +106,9 @@ class ReservationListing extends Component {
         )
       } else {
         items.push(
-          <TableRow key={i} >
-            <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br />Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
+          <TableRow key={i}>
+            <TableRowColumn colSpan="4">{this.props.items[i].category} ({this.props.items[i].subCat})<br />Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
 
-            <TableRowColumn></TableRowColumn>
-            <TableRowColumn></TableRowColumn>
-            <TableRowColumn></TableRowColumn>
 
             {this.props.items[i].status == 1 ? <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[i])} /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
             <TableRowColumn>Tila {this.getStatus(this.props.items[i].status)}</TableRowColumn>

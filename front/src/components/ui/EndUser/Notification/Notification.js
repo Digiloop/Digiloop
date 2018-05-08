@@ -11,60 +11,62 @@ import {
 } from 'material-ui/Table';
 import { getNotifications } from '../../../../utils/fetchnotifications';
 
-class Notification extends Component{
-  constructor(props){
+class Notification extends Component {
+  constructor(props) {
     super(props);
     this.state = {
-          itemList: []
+      itemList: []
     };
-      this.listNotif = this.listNotif.bind(this);
-}
+    this.listNotif = this.listNotif.bind(this);
+  }
 
-// fetch notifications
-getNotifications() {
- getNotifications().then((notif) => {
-   console.log(notif);
-   this.props.itemsToStore(notif);
-   this.listNotif();
- });
-}
-
-
-listNotif(){
- const items = [];
- console.log(items);
- for(let i = 0; i < this.props.items.length; i++){
-   items.push(
-     <TableRow key={i} >
-       <TableRowColumn>{this.props.items[i].info}</TableRowColumn>
-     </TableRow>
-   )
- }
-
- this.setState({
-   itemList: items
- })
-}
-
-componentDidMount(){
- this.getNotifications();
-   //
-   // fetch data from backend
-}
+  // fetch notifications
+  getNotifications() {
+    getNotifications().then((notif) => {
+      console.log(notif);
+      this.props.itemsToStore(notif);
+      this.listNotif();
+    });
+  }
 
 
-    render() {
-        return (
-
-          <MuiThemeProvider>
-            <Table>
-              <TableBody displayRowCheckbox={false}>
-                {this.state.itemList}
-              </TableBody>
-            </Table>
-          </MuiThemeProvider>
-
-        );
-      }
+  listNotif() {
+    const items = [];
+    console.log(items);
+    for (let i = 0; i < this.props.items.length; i++) {
+      items.push(
+        <TableRow key={i} >
+          <TableRowColumn>{this.props.items[i].info}</TableRowColumn>
+        </TableRow>
+      )
     }
-    export default Notification;
+
+    this.setState({
+      itemList: items
+    })
+  }
+
+  componentDidMount() {
+    this.getNotifications();
+    //
+    // fetch data from backend
+  }
+
+
+  render() {
+    return (
+
+      <div className="FrontPageContainer">
+        <MuiThemeProvider>
+          <Table>
+            <TableBody displayRowCheckbox={false}>
+              {this.state.itemList}
+            </TableBody>
+          </Table>
+        </MuiThemeProvider>
+      </div>
+
+    );
+  }
+}
+export default Notification;

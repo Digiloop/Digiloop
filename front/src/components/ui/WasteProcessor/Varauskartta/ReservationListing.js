@@ -92,7 +92,12 @@ class ReservationListing extends Component {
   }
 
   render() {
-
+    
+    const rowStyle = {
+      
+      whiteSpace: 'normal',
+      wordWrap: 'break-word'
+    }
 
     const items = [];
     console.log(this.props.items);
@@ -102,16 +107,24 @@ class ReservationListing extends Component {
       if (this.state.rows[i+1]) {
 
         items.push(
-          <TableRow key={i}  style={{height: '300px'}}>
-            <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br />Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
+          <TableRow key={i}  style={{height: '400px'}}>
+            <TableRowColumn style={rowStyle} colSpan="5">
+            {this.props.items[i].category} ({this.props.items[i].subCat})<br />
+            Ilmoitettu: {this.props.items[i].date}<br />
+            {this.props.items[i].pcs}kpl<br />
+            {this.props.items[i].size}m<sup>3</sup><br />
+            {this.props.items[i].weight}<br />
 
-            <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
-            <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
-            <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
+            <div>{this.props.items[i].description}</div>
+            <br />
+            </TableRowColumn>
+
+            
 
 
-            {this.props.items[i].status == 1 ? <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[i])} /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
-            <TableRowColumn>Tila {this.getStatus(this.props.items[i].status)}</TableRowColumn>
+            {this.props.items[i].status == 1 ? 
+            <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[i])} /></TableRowColumn> : 
+            <TableRowColumn>{this.getStatus(this.props.items[i].status)}</TableRowColumn>}
           </TableRow>
         )
       } else {
@@ -119,9 +132,13 @@ class ReservationListing extends Component {
           <TableRow key={i}>
             <TableRowColumn colSpan="4">{this.props.items[i].category} ({this.props.items[i].subCat})<br />Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
 
+            <TableRowColumn></TableRowColumn>
 
-            {this.props.items[i].status == 1 ? <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[i])} /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
-            <TableRowColumn>Tila {this.getStatus(this.props.items[i].status)}</TableRowColumn>
+
+            {this.props.items[i].status == 1 ? 
+            <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[i])} /></TableRowColumn> : 
+            <TableRowColumn>{this.getStatus(this.props.items[i].status)}</TableRowColumn>}
+
           </TableRow>
         )
       }

@@ -56,7 +56,6 @@ class Notification extends Component {
   render() {
     return (
 
-      <div className="FrontPageContainer">
         <MuiThemeProvider>
           <Table>
             <TableBody displayRowCheckbox={false}>
@@ -64,7 +63,6 @@ class Notification extends Component {
             </TableBody>
           </Table>
         </MuiThemeProvider>
-      </div>
 
     );
   }

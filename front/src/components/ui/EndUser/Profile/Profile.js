@@ -99,15 +99,15 @@ class Profile extends Component {
       <div>
         <h1>Täällä voit muokata omia tietojasi</h1>
 
-        <div className="updateWrapper">
-          <table className="updateStructure">
+        <div className="updateWrapperUser">
+          <table className="updateStructureUser">
             <tbody>
               <tr>
                 <td>
-                  <label className="leftUpdateLabel">Etunimi: </label>
+                  <label className="leftUpdateLabelUser">Etunimi: </label>
                 </td>
                 <td>
-                  <TextField className="rightUpdateField"
+                  <TextField className="rightUpdateFieldUser"
                     underlineStyle={{ borderColor: '#A6CE6B' }}
                     underlineFocusStyle={{ borderColor: '#004225' }}
                     type="text" defaultValue={this.props.userInfo.fname}
@@ -117,10 +117,10 @@ class Profile extends Component {
               </tr>
               <tr>
                 <td>
-                  <label className="leftUpdateLabel">Sukunimi: </label>
+                  <label className="leftUpdateLabelUser">Sukunimi: </label>
                 </td>
                 <td>
-                  <TextField className="rightUpdateField"
+                  <TextField className="rightUpdateFieldUser"
                     underlineStyle={{ borderColor: '#A6CE6B' }}
                     underlineFocusStyle={{ borderColor: '#004225' }}
                     type="text" defaultValue={this.props.userInfo.lname}
@@ -130,10 +130,10 @@ class Profile extends Component {
               </tr>
               <tr>
                 <td>
-                  <label className="leftUpdateLabel">Puhelinnumero: </label>
+                  <label className="leftUpdateLabelUser">Puhelinnumero: </label>
                 </td>
                 <td>
-                  <TextField className="rightUpdateField"
+                  <TextField className="rightUpdateFieldUser"
                     underlineStyle={{ borderColor: '#A6CE6B' }}
                     underlineFocusStyle={{ borderColor: '#004225' }}
                     type="text" defaultValue={this.props.userInfo.phone}
@@ -143,10 +143,10 @@ class Profile extends Component {
               </tr>
               <tr>
                 <td>
-                  <label className="leftUpdateLabel">Katuosoite: </label>
+                  <label className="leftUpdateLabelUser">Katuosoite: </label>
                 </td>
                 <td>
-                  <TextField className="rightUpdateField"
+                  <TextField className="rightUpdateFieldUser"
                     underlineStyle={{ borderColor: '#A6CE6B' }}
                     underlineFocusStyle={{ borderColor: '#004225' }}
                     type="text" defaultValue={this.props.userInfo.address}
@@ -156,10 +156,10 @@ class Profile extends Component {
               </tr>
               <tr>
                 <td>
-                  <label className="leftUpdateLabel">Postinumero: </label>
+                  <label className="leftUpdateLabelUser">Postinumero: </label>
                 </td>
                 <td>
-                  <TextField className="rightUpdateField"
+                  <TextField className="rightUpdateFieldUser"
                     underlineStyle={{ borderColor: '#A6CE6B' }}
                     underlineFocusStyle={{ borderColor: '#004225' }}
                     type="text" defaultValue={this.props.userInfo.zipcode}
@@ -169,10 +169,10 @@ class Profile extends Component {
               </tr>
               <tr>
                 <td>
-                  <label className="leftUpdateLabel">Postitoimipaikka: </label>
+                  <label className="leftUpdateLabelUser">Postitoimipaikka: </label>
                 </td>
                 <td>
-                  <TextField className="rightUpdateField"
+                  <TextField className="rightUpdateFieldUser"
                     underlineStyle={{ borderColor: '#A6CE6B' }}
                     underlineFocusStyle={{ borderColor: '#004225' }}
                     type="text" defaultValue={this.props.userInfo.city}

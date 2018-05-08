@@ -49,11 +49,11 @@ class WasteProcessor extends Component {
       <MuiThemeProvider>
         <div>
           <AppBar showMenuIconButton={false} style={{ backgroundColor: '#004225', padding: '0', margin: '0' }} >
-            <Toolbar style={{ backgroundColor: '#004225', width: '100%' }}>
+            <Toolbar style={{ backgroundColor: '#004225', width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
               <IconButton onClick={this.handleToggle} >
                 <MenuIcon color='#FFF' />
               </IconButton>
-              <Tabs index={this.state.index} onChange={this.handleChange} style={{ width: '100%' }} inkBarStyle={{ background: '#AFD43F', height: '3px' }}>
+              <Tabs index={this.state.index} onChange={this.handleChange} style={{ width: '100%', float: 'left' }} inkBarStyle={{ background: '#AFD43F', height: '3px' }}>
                 <Tab label="Historia" className="menu" value={0} />
                 <Tab label="Varaukset" className="menu" value={1} />
                 <Tab label="Varauskartta" className="menu" value={2} />

@@ -132,13 +132,12 @@ table {
  margin-left: 5px;
 }
 
-/* UPDATE */
+/* ADMIN/WASTEPROSSOR UPDATE */
 
 .updateWrapper
 {
   margin: auto;
   width: 100%;
-  background: url("components/ui/EndUser/Materials/tausta2.png") no-repeat;
   background-attachment: local;
   background-position: center bottom;
   background-size: contain;
@@ -172,6 +171,50 @@ table {
 }
 
 .rightUpdateField
+{
+ margin-left: 5px;
+}
+
+/* ENDUSER UPDATE */
+
+.updateWrapperUser
+{
+  margin: auto;
+  width: 100%;
+  background: url("components/ui/EndUser/Materials/tausta2.png") no-repeat;
+  background-attachment: local;
+  background-position: center bottom;
+  background-size: contain;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  align-content: center;
+}
+
+.updateStructureUser
+{ 
+  max-width: 90vh;
+  min-width: 50vh;
+  margin: auto;
+  padding: 2%;
+  margin-top: 15px;
+  border-spacing: 3px;
+  background-color: rgb(186, 221, 134);
+  box-shadow: -10px 3px rgb(166, 206, 106);
+  border-radius: 15px;
+}
+
+.leftUpdateLabelUser
+{
+  font-family: kanit;
+  text-align: left;
+  font-weight: bold;
+  margin-left: 5%;
+  font-size: 18px;
+  color:#004225; 
+}
+
+.rightUpdateFieldUser
 {
  margin-left: 5px;
 }
@@ -266,7 +309,7 @@ button.menu {
 
 .map {
   font-family: 'Kanit';
-  color: red;
+  color: #FFF;
 }
 
 .left {
@@ -383,7 +426,7 @@ text-align: right;
   font-family: kanit;
   margin: auto;
   width: 98%;
-  max-width: 800px;
+  max-width: 70%;
   min-height: 100vh;
   align-content: center;
 }

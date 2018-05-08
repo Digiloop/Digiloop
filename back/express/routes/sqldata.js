@@ -27,10 +27,17 @@ queryget(query,callback){
 
 querypost(query){
   connection.query(query,function(err,result){
-    if (err) throw err;
-    console.log(result.affectedRows + " record(s) updated");
+    if (err) {
+      connection.rollback(function() {
+          throw err;
+      });
+    }
+    else {
+      console.log(result.affectedRows + " record(s) updated");
+    }
   })
 } 
+
 
 getinfo(table,Status,callback){
   connection.query(`SELECT * FROM ${table} WHERE Status = ${Status}`,function(err, result) {
@@ -38,10 +45,50 @@ getinfo(table,Status,callback){
   })
 } 
 
+//queryinsertillä voidaan syöttää ainakin toistaiseksi catADD sekä subcatADD, tarvii mahdollisesti sql escapea
+//parametrit ovat nimeltään samat mitä tietokannassa
+queryinsert(CatName, Status, RealName, ImgReference){
+  connection.query(`INSERT INTO Category ( CatName, Status, RealName, ImgReference ) VALUES ('${CatName}','${Status}','${RealName}','${ImgReference}')`,function(err, result){
+    if (err) {
+      connection.rollback(function() {
+          throw err;
+      });
+    }
+    else {
+      console.log(result.affectedRows + " record(s) updated");
+    }
+  })
+
+}
+//`INSERT INTO Category ( CatName, Status, RealName ) VALUES ('${req.body.catname}','1','${req.body.catname}')
 };
 
 
 /*
+
+
+/*
+app.post('/subcatADD', function(req,res) {
+  var newsubCat = {
+    catid:req.body.catid,
+    subcatname:req.body.subcatname.toString(),
+    subcatstatus:1//req.body.subcatstatus
+  };
+  var insertQuery = "INSERT INTO subCat ( CatId, subName, Status ) values (?,?,?)";
+  connection.query(insertQuery, [newsubCat.catid, newsubCat.subcatname, newsubCat.subcatstatus], function(err, result) {
+      if (err) {
+          connection.rollback(function() {
+              throw err;
+          });
+      }});
+      res.end();
+});
+
+
+
+
+
+
 
 getinfo(table,Status,callback){
   connection.query('SELECT * FROM '+ table +' WHERE Status = '+ Status +'',function(err, result) {

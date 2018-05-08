@@ -28,6 +28,7 @@ class WasteProcessor extends Component {
     }
     this.rliFiltering = this.rliFiltering.bind(this);
     this.getJunksData = this.getJunksData.bind(this);
+    this.parseTimeStamp = this.parseTimeStamp.bind(this);
   }
 
   handleChange = (value) => {
@@ -44,6 +45,12 @@ class WasteProcessor extends Component {
       //this.props.itemsToStore(junks);
       this.rliFiltering();
     });
+  }
+  
+
+  // "2018-01-15T22:00:00.000Z" -> 15.01.2018
+  parseTimeStamp(){
+
   }
 
 

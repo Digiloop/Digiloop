@@ -110,7 +110,7 @@ class ReservationListing extends Component {
           <TableRow key={i}  style={{height: '400px'}}>
             <TableRowColumn style={rowStyle} colSpan="5">
             {this.props.items[i].category} ({this.props.items[i].subCat})<br />
-            Ilmoitettu: {this.props.items[i].date}<br />
+            Ilmoitettu: {this.props.items[i].junkdateadded}<br />
             {this.props.items[i].pcs}kpl<br />
             {this.props.items[i].size}m<sup>3</sup><br />
             {this.props.items[i].weight}<br />

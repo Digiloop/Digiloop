@@ -45,15 +45,25 @@ class ReservationListing extends Component {
 
   reserve(item) {
     console.log(this.props.loginInfo);
-    //reserveItem(2, 1, item.junkID);
+    reserveItem(2, 1, item.junkID);
   }
 
+  // opening items
   expand(x) {
-    console.log(x);
-    console.log(this.state.rows);
 
+    // create a temp array, because it's easier to edit than the state one
     let newArray = this.state.rows;
-    newArray[x] = !newArray[x];
+
+    if(newArray[x]){ // closing the open item
+      newArray[x] = false;
+    } else { // opening another means first closing the open one
+      for (let i = 0; i < newArray.length; i++){
+        if(newArray[i]){
+          newArray[i] = false; // close the open one
+        }
+      }
+      newArray[x] = true; // open the new
+    }
 
     this.setState({ rows: newArray });
   }
@@ -92,7 +102,7 @@ class ReservationListing extends Component {
       if (this.state.rows[i+1]) {
 
         items.push(
-          <TableRow key={i}  style={{height: '100px'}}>
+          <TableRow key={i}  style={{height: '300px'}}>
             <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br />Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
 
             <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>

@@ -11,7 +11,7 @@ import { sendRegData } from '../../../../utils/sendRegData';
 import styles from '../../../../index.css';
 
 
-class Order2 extends React.Component {
+class CategoriesFields extends React.Component {
     constructor(props) {
         super(props);
 
@@ -236,4 +236,4 @@ class Order2 extends React.Component {
     }
 }
 
-export default Order2;
+export default CategoriesFields;

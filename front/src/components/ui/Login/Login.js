@@ -16,7 +16,8 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      loginError: false
+      loginError: false,
+      connectionError: false
     }
   }
 
@@ -43,6 +44,7 @@ class Login extends Component {
         // server is down / other problems
       } else {
         console.log("PÄKKI KAATU");
+        this.setState({connectionError: true});
       }
 
     });
@@ -62,23 +64,48 @@ class Login extends Component {
 
 
   render() {
+
+    const errorStyle = {
+      marginTop: '1vh',
+      padding: '1vh',
+      fontWeight: 400,
+      fontSize: '12px',
+      color: '#004225'
+    }
+
+
     return (
+
       <div className="loginWrapper">
         <AppBar style={{ backgroundColor: '#FFF' }}
           title={<div className="app-bar-title">Kirjautuminen</div>}
           showMenuIconButton={false}
         />
-        
+
         <div className='loginContent'>
           <form>
 
 
             <div className="loginGroup">
-            {this.state.loginError ? <p style={{marginTop: '1vh', padding: '1vh', fontWeight: 400, fontSize: '12px', color: '#004225' }}>
-            <ActionInfo color={'#004225'} /> <br/> <b>Kirjautuminen epäonnistui.</b> <br/> Syy: väärä salasana tai käyttäjätunnus.</p> :
 
-              <p style={{ fontWeight: 400, fontSize: '12px', color: 'red' }}>
-              </p>}
+              {this.state.loginError ?
+                <p style={errorStyle}>
+                  <ActionInfo color={'#004225'} /> <br />
+                  <b>Kirjautuminen epäonnistui.</b> <br />
+                  Väärä salasana tai käyttäjätunnus.
+                </p>
+                : <p></p>
+              }
+
+              {this.state.connectionError ?
+                <p style={errorStyle}>
+                  <ActionInfo color={'#004225'} /> <br />
+                  <b>Yhteyden muodostaminen epäonnistui.</b> <br />
+                  Tarkista verkkoyhteytesi. Mikäli vika jatkuu, odota hetki ja yritä uudelleen.
+                </p>
+                : <p></p>
+              }
+
               <p className="loginLabel">Sähköpostiosoite</p>
               <TextField className="loginInputField"
                 underlineShow={false}
@@ -127,10 +154,10 @@ class Login extends Component {
               <a onClick={() => { this.wasteRegister() }} >Hae yrityskäyttäjäksi</a><br />
               <a onClick={() => { this.register() }}>Rekisteröidy</a><br />
             </div>
-          </form> 
-          
+          </form>
+
           <div className="LoginImage" />
-          </div>
+        </div>
 
       </div>
     );

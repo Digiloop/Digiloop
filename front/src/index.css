@@ -113,8 +113,8 @@ table {
   background-color: rgb(186, 221, 134);
   box-shadow: -10px 3px rgb(166, 206, 106);
   border-radius: 15px;
-   -webkit-transform: rotate(1deg);  /*poista jos et halua rotatea*/ 
-   transform: rotate(1deg); /*poista jos et halua rotatea*/ 
+  /*  -webkit-transform: rotate(1deg); */ /*poista jos et halua rotatea*/ 
+  /* transform: rotate(1deg); */ /*poista jos et halua rotatea*/ 
 }
 
 .leftRegisterLabel
@@ -348,7 +348,7 @@ button.menu {
   font-weight: bold;
   font-family: kanit;
   margin: auto;
-  margin-top: 2vh;
+  margin-top: 0.1vh;
   min-width: 400px;
 }
 .app-bar-title {
@@ -444,8 +444,8 @@ text-align: right;
   border-radius: 15px;
   color: #004225;
   font-family: kanit;
-  -webkit-transform: rotate(1deg);  /*poista jos et halua rotatea*/ 
-  transform: rotate(1deg); /*poista jos et halua rotatea*/ 
+  /*-webkit-transform: rotate(1deg);  poista jos et halua rotatea*/ 
+  /*transform: rotate(1deg); poista jos et halua rotatea*/ 
 }
 
 
@@ -467,4 +467,50 @@ text-align: right;
   border: 1px solid #004225;
 }
 
+/* ORDER */
 
+/* REGISTER */
+
+.orderWrapper
+{
+  margin: auto;
+  width: 100%;
+  background: url("components/ui/EndUser/Materials/tausta2.png") no-repeat;
+  background-attachment: local;
+  background-position: center bottom;
+  background-size: contain;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  align-content: center;
+}
+
+.orderStructure
+{ 
+  max-width: 90vh;
+  min-width: 50vh;
+  margin: auto;
+  padding: 2%;
+  margin-top: 15px;
+  border-spacing: 3px;
+  background-color: rgb(186, 221, 134);
+  box-shadow: -10px 3px rgb(166, 206, 106);
+  border-radius: 15px;
+  /*  -webkit-transform: rotate(1deg); */ /*poista jos et halua rotatea*/ 
+  /* transform: rotate(1deg); */ /*poista jos et halua rotatea*/ 
+}
+
+.leftOrderLabel
+{
+  font-family: kanit;
+  text-align: left;
+  font-weight: bold;
+  margin-left: 5%;
+  font-size: 18px;
+  color:#004225; 
+}
+
+.rightOrderField
+{
+ margin-left: 5px;
+}

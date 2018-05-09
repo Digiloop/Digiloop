@@ -40,6 +40,10 @@ class ReservationListOptions extends Component {
     }
   }
 
+  componentDidMount(){
+    
+  }
+
 
 
   submit = e => {

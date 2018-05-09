@@ -49,9 +49,10 @@
 	],
 	"resListOpt": {
 		"categories": {
-			"ser": true,
-			"batteries": true,
-			"infoSecurity": true
+			"SER": true,
+			"Akut": true,
+			"tietoturva": true,
+			"Megajäte": true
 		},
 		"subCategories": {
 			"serSmallSer": true,

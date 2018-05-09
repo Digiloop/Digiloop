@@ -95,7 +95,7 @@ class ReservationListing extends Component {
       wordWrap: 'break-word'
     }
 
-    const items = [];
+    let items = [];
     console.log(this.props.items);
 
 

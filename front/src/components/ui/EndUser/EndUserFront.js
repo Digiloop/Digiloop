@@ -17,7 +17,7 @@ class EndUserFront extends Component {
       open: false
     };
     this.handleChange = this.handleChange.bind(this);
-    this.zadam = this.zadam.bind(this);
+    this.getPageName = this.getPageName.bind(this);
   }
 
   // logout clears session with backend, empties localStorage session and sets userlevel to logged out
@@ -56,6 +56,7 @@ class EndUserFront extends Component {
         return this.props.setNewPageName('Profiili');
     }
   }
+  
 
   render() {
 

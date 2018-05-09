@@ -17,7 +17,7 @@ class EndUserFront extends Component {
       open: false
     };
     this.handleChange = this.handleChange.bind(this);
-    this.zadam = this.zadam.bind(this);
+    this.getPageName = this.getPageName.bind(this);
   }
 
   // logout clears session with backend, empties localStorage session and sets userlevel to logged out
@@ -30,10 +30,13 @@ class EndUserFront extends Component {
   }
 
   handleChange = (e, value) => {
+    //console.log(value);
     this.setState({
       index: value
+    }, function() {
+      this.getPageName();
     });
-    this.getPageName();
+      
   }
 
   handleUpdate = (e, value) => {
@@ -47,6 +50,7 @@ class EndUserFront extends Component {
 
   // Lassin nimeämä funktio
   getPageName() {
+    //console.log(this.state.index);
     switch (this.state.index) {
       case 0:
         return this.props.setNewPageName('Etusivu');

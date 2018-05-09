@@ -59,9 +59,10 @@ class ReservationListOptions extends Component {
     let cats = {};
     let subCats = {};
 
-    for (let i = 0; i < this.props.categories.lenght; i++){
+    for (let i = 0; i < this.props.categories.length; i++){
       cats[this.props.categories[i].CatName] = this.state[this.props.categories[i].CatName];
     }
+    console.log(cats);
 
 
     this.props.onNewOptions({

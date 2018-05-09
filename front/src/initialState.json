@@ -52,7 +52,8 @@
 			"SER": true,
 			"Akut": true,
 			"tietoturva": true,
-			"Megajäte": true
+			"Megajäte": true,
+			"ddsadsa": false
 		},
 		"subCategories": {
 			"serSmallSer": true,

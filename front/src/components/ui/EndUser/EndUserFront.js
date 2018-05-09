@@ -60,6 +60,7 @@ class EndUserFront extends Component {
         return this.props.setNewPageName('Profiili');
     }
   }
+  
 
   render() {
 

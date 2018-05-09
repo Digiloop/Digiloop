@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import styles from '../../../../ArtunCSSsaadot.css';
 
+import Checkbox from 'material-ui/Checkbox';
+
 //let _ser, _batteries, _showRes
 
 class ReservationListOptions extends Component {
@@ -9,32 +11,32 @@ class ReservationListOptions extends Component {
     super(props);
     this.state = {
       // categories
-      _ser: true,
-      _batteries: true,
-      _infoSecurity: true,
+      ser: this.props.rLOpt.categories.ser,
+      batteries: this.props.rLOpt.categories.batteries,
+      infoSecurity: this.props.rLOpt.categories.infoSecurity,
 
       // subcategories
-      _serSmallSer: true,
-      _serBigSer: true,
-      _serDataSer: true,
-      _serLampSer: true,
+      serSmallSer: true,
+      serBigSer: true,
+      serDataSer: true,
+      serLampSer: true,
 
-      _battNickelKadium: true,
-      _battNickelMetal: true,
-      _battOther: true,
+      battNickelKadium: true,
+      battNickelMetal: true,
+      battOther: true,
 
-      _infosecDataSer: true,
-      _infosecPaper: true,
+      infosecDataSer: true,
+      infosecPaper: true,
 
       // show reserved
-      _showRes: true,
+      showRes: true,
 
       // properties
-      _minWeight: 0,
-      _maxWeight: 0,
-      _minSize: 0,
-      _maxSize: 0,
-      _distance: 0
+      minWeight: 0,
+      maxWeight: 0,
+      minSize: 0,
+      maxSize: 0,
+      distance: 0
     }
   }
 
@@ -49,36 +51,36 @@ class ReservationListOptions extends Component {
 
       // categories
       categories: {
-        ser: this.state._ser.checked,
-        batteries: this.state._batteries.checked,
-        infoSecurity: this.state._infoSecurity.checked,
+        ser: this.state.ser,
+        batteries: this.state.batteries,
+        infoSecurity: this.state.infoSecurity
       },
 
       // subcats
       subCategories: {
-        serSmallSer: this.state._serSmallSer.checked,
-        serBigSer: this.state._serBigSer.checked,
-        serDataSer: this.state._serDataSer.checked,
-        serLampSer: this.state._serLampSer.checked,
+        serSmallSer: this.state.serSmallSer,
+        serBigSer: this.state.serBigSer,
+        serDataSer: this.state.serDataSer,
+        serLampSer: this.state.serLampSer,
 
-        battNickelKadium: this.state._battNickelKadium.checked,
-        battNickelMetal: this.state._battNickelMetal.checked,
-        battOther: this.state._battOther.checked,
+        battNickelKadium: this.state.battNickelKadium,
+        battNickelMetal: this.state.battNickelMetal,
+        battOther: this.state.battOther,
 
-        infosecDataSer: this.state._infosecDataSer.checked,
-        infosecPapaer: this.state._infosecPaper.checked,
+        infosecDataSer: this.state.infosecDataSer,
+        infosecPapaer: this.state.infosecPaper
       },
 
 
       // show reserved
-      showRes: this.state._showRes.checked,
+      showRes: this.state.showRes,
 
       // properties
-      minWeight: this.state._minWeight.value,
-      maxWeight: this.state._maxWeight.value,
-      minSize: this.state._minSize.value,
-      maxSize: this.state._maxSize.value,
-      distance: this.state._distance.value,
+      minWeight: this.state.minWeight,
+      maxWeight: this.state.maxWeight,
+      minSize: this.state.minSize,
+      maxSize: this.state.maxSize,
+      distance: this.state.distance
     })
   }
 
@@ -99,11 +101,9 @@ class ReservationListOptions extends Component {
                 <tbody>
                   <tr>
                     <td>Näytä varatut</td>
-                    <td><input 
-                      id="sRes" 
-                      onChange={(event, newValue) => this.setState({ _showRes: newValue })} 
-                      value={this.props.rLOpt.showRes} 
-                      type="checkbox" 
+                    <td><Checkbox 
+                      checked={this.state.showRes}
+                      onCheck={(event, newValue) => this.setState({ showRes: newValue })}
                     /></td>
                   </tr>
                 </tbody>
@@ -113,15 +113,19 @@ class ReservationListOptions extends Component {
                 <tbody>
                   <tr>
                     <td>Paino (kg)</td>
-                    <td id="weightField"><input id="weight" ref={input => this.state._minWeight = input} type="textbox" maxLength="6" /> - <input id="weight" ref={input => this.state._maxWeight = input} type="textbox" maxLength="6" /></td>
+                    <td id="weightField"><input id="weight" onChange={(event, newValue) => this.setState({ minWeight: newValue })} type="textbox" maxLength="6" /> 
+                    - 
+                    <input id="weight" onChange={(event, newValue) => this.setState({ maxWeight: newValue })} type="textbox" maxLength="6" /></td>
                   </tr>
                   <tr>
                     <td>Koko (m<sup>3</sup>)</td>
-                    <td id="sizeField"><input id="size" ref={input => this.state._minSize = input} type="textbox" maxLength="6" /> - <input id="size" ref={input => this.state._maxSize = input} type="textbox" maxLength="6" /></td>
+                    <td id="sizeField"><input id="size" onChange={(event, newValue) => this.setState({ minSize: newValue })} /> 
+                    - 
+                    <input id="size" onChange={(event, newValue) => this.setState({ maxSize: newValue })} type="textbox" maxLength="6" /></td>
                   </tr>
                   <tr>
                     <td>Etäisyys (km)</td>
-                    <td id="distanceField"><input id="distance" ref={input => this.state._distance = input} type="textbox" maxLength="6" /></td>
+                    <td id="distanceField"><input id="distance" onChange={(event, newValue) => this.setState({ distance: newValue })} type="textbox" maxLength="6" /></td>
                   </tr>
                   <tr>
                     <td> &nbsp; </td>
@@ -136,15 +140,26 @@ class ReservationListOptions extends Component {
                 <tbody id="kattibody">
                   <tr>
                     <td className="type">Sähkölaitteet</td>
-                    <td><input id="ser" onChange={(event, newValue) => this.setState({ _ser: newValue })} type="checkbox" /></td>
+                    
+                    <td>
+                    <Checkbox 
+                      checked={this.state.ser}
+                      onCheck={(event, newValue) => this.setState({ ser: newValue })}
+                    /></td>
                   </tr>
                   <tr>
                     <td className="type">Akut</td>
-                    <td><input id="akut" onChange={(event, newValue) => this.setState({ _batteries: newValue })} type="checkbox" /></td>
+                    <td><Checkbox 
+                      checked={this.state.batteries}
+                      onCheck={(event, newValue) => this.setState({ batteries: newValue })}
+                    /></td>
                   </tr>
                   <tr>
                     <td className="type">Tietoturva</td>
-                    <td><input id="tietoturva" onChange={(event, newValue) => this.setState({ _infoSecurity: newValue })} type="checkbox" /></td>
+                    <td><Checkbox 
+                      checked={this.state.infoSecurity}
+                      onCheck={(event, newValue) => this.setState({ infoSecurity: newValue })}
+                    /></td>
                   </tr>
                 </tbody>
               </table>
@@ -156,45 +171,72 @@ class ReservationListOptions extends Component {
                   <tr>Sähkölaitteet</tr>
                   <tr>
                     <td className="type">Pieni SER</td>
-                    <td><input id="ser" ref={input => this.state._serSmallSer = input} type="checkbox" /></td>
+                    <td><Checkbox 
+                      checked={this.state.serSmallSer}
+                      onCheck={(event, newValue) => this.setState({ serSmallSer: newValue })}
+                    /></td>
                   </tr>
                   <tr>
                     <td className="type">Iso SER</td>
-                    <td><input id="ser" ref={input => this.state._serBigSer = input} type="checkbox" /></td>
+                    <td><Checkbox 
+                      checked={this.state.serBigSer}
+                      onCheck={(event, newValue) => this.setState({ serBigSer: newValue })}
+                    /></td>
                   </tr>
                   <tr>
                     <td className="type">Data SER</td>
-                    <td><input id="ser" ref={input => this.state._serDataSer = input} type="checkbox" /></td>
+                    <td><Checkbox 
+                      checked={this.state.serDataSer}
+                      onCheck={(event, newValue) => this.setState({ serDataSer: newValue })}
+                    /></td>
                   </tr>
                   <tr>
                     <td className="type">Lamppu SER</td>
-                    <td><input id="ser" ref={input => this.state._serLampSer = input} type="checkbox" /></td>
+                    <td><Checkbox 
+                      checked={this.state.serLampSer}
+                      onCheck={(event, newValue) => this.setState({ serLampSer: newValue })}
+                    /></td>
                   </tr>
                   
                   <tr> &nbsp; </tr>
                   <tr>Akut</tr>
                   <tr>
                     <td className="type">Nikkelikadium</td>
-                    <td><input id="ser" ref={input => this.state._battNickelKadium = input} type="checkbox" /></td>
+                    <td><Checkbox 
+                      checked={this.state.battNickelKadium}
+                      onCheck={(event, newValue) => this.setState({ battNickelKadium: newValue })}
+                    /></td>
                   </tr>
                   <tr>
                     <td className="type">Nikkelimetallihybridi</td>
-                    <td><input id="ser" ref={input => this.state._battNickelMetal = input} type="checkbox" /></td>
+                    <td><Checkbox 
+                      checked={this.state.battNickelMetal}
+                      onCheck={(event, newValue) => this.setState({ battNickelMetal: newValue })}
+                    /></td>
                   </tr>
                   <tr>
                     <td className="type">Muut</td>
-                    <td><input id="ser" ref={input => this.state._battOther = input} type="checkbox" /></td>
+                    <td><Checkbox 
+                      checked={this.state.battOther}
+                      onCheck={(event, newValue) => this.setState({ battOther: newValue })}
+                    /></td>
                   </tr>
 
                   <tr> &nbsp; </tr>
                   <tr>Tietoturva</tr>
                   <tr>
                     <td className="type">Data SER</td>
-                    <td><input id="ser" ref={input => this.state._infosecDataSer = input} type="checkbox" /></td>
+                    <td><Checkbox 
+                      checked={this.state.infosecDataSer}
+                      onCheck={(event, newValue) => this.setState({ infosecDataSer: newValue })}
+                    /></td>
                    </tr>
                   <tr>
                     <td className="type">Paperi</td>
-                    <td><input id="ser" ref={input => this.state._infosecPaper = input} type="checkbox" /></td>
+                    <td><Checkbox 
+                      checked={this.state.infosecPaper}
+                      onCheck={(event, newValue) => this.setState({ infosecPaper: newValue })}
+                    /></td>
 
                   </tr>
 

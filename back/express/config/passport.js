@@ -21,6 +21,7 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
+        //done(null, user.id);
         done(null, user.id);
     });
 
@@ -62,7 +63,7 @@ module.exports = function(passport) {
             // we are checking to see if the user trying to login already exists
             connection.query("SELECT * FROM users WHERE email = ?",[email], function(err, rows) {
                 if (err)
-                    return done("working just fine");
+                    return done(err);
                 if (rows.length) {
                     return done(null, false, console.log('signupMessage', 'That email is already taken.'));
                 } else {
@@ -92,7 +93,7 @@ module.exports = function(passport) {
                     var insertQuery = "INSERT INTO users ( password, fname, lname, email, phone, address, zipcode, city, company, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?,?)";
 
                     connection.query(insertQuery,[newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.company, newUserMysql.userlvl, newUserMysql.Status],function(err, rows) {
-                        //newUserMysql.id = rows.insertId;
+                        newUserMysql.id = rows.insertId;
 
                         return done(null, newUserMysql);
                     });

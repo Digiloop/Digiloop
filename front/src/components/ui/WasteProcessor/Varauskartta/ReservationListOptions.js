@@ -136,15 +136,15 @@ class ReservationListOptions extends Component {
                 <tbody id="kattibody">
                   <tr>
                     <td className="type">Sähkölaitteet</td>
-                    <td><input id="ser" ref={input => this.state._ser = input} type="checkbox" /></td>
+                    <td><input id="ser" onChange={(event, newValue) => this.setState({ _ser: newValue })} type="checkbox" /></td>
                   </tr>
                   <tr>
                     <td className="type">Akut</td>
-                    <td><input id="akut" ref={input => this.state._batteries = input} type="checkbox" /></td>
+                    <td><input id="akut" onChange={(event, newValue) => this.setState({ _batteries: newValue })} type="checkbox" /></td>
                   </tr>
                   <tr>
                     <td className="type">Tietoturva</td>
-                    <td><input id="tietoturva" ref={input => this.state._infoSecurity = input} type="checkbox" /></td>
+                    <td><input id="tietoturva" onChange={(event, newValue) => this.setState({ _infoSecurity: newValue })} type="checkbox" /></td>
                   </tr>
                 </tbody>
               </table>

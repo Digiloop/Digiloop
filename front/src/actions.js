@@ -35,3 +35,9 @@ export const setNotifications = (notifications) =>
     type: C.SET_NOTIF,
     payload: notifications
   })
+
+  export const setCurrentPage = (pageName) =>
+  ({
+    type: C.SET_CURRENTPAGENAME,
+    payload: pageName
+  })

@@ -33,6 +33,7 @@ class EndUserFront extends Component {
     this.setState({
       index: value
     });
+    this.getPageName();
   }
 
   handleUpdate = (e, value) => {
@@ -45,15 +46,15 @@ class EndUserFront extends Component {
   handleClose = () => this.setState({ open: false })
 
   // Lassin nimeämä funktio
-  zadam() {
+  getPageName() {
     switch (this.state.index) {
       case 0:
-        return 'Etusivu';
+        return this.props.setNewPageName('Etusivu');
       case 1:
-        return 'Historia';
+        return this.props.setNewPageName('Historia');
       case 2:
-        return 'Profiili';
-    }   
+        return this.props.setNewPageName('Profiili');
+    }
   }
 
   render() {
@@ -68,13 +69,12 @@ class EndUserFront extends Component {
     return (
       <MuiThemeProvider>
         <div className="frontpake">
-          <AppBar showMenuIconButton={false} style={{ backgroundColor: '#004225', padding: '0', margin: '0' }}
-            title={<div className="app-bar-title">Etusivu</div>} >
+          <AppBar showMenuIconButton={false} style={{ backgroundColor: '#004225', padding: '0', margin: '0' }} >
             <Toolbar style={{ backgroundColor: '#FFF', width: '100%', padding: '0' }} >
               <IconButton style={{ padding: '0' }} iconStyle={styles.largeIcon} onClick={this.handleToggle} >
                 <MenuIcon color='#004225' />
               </IconButton>
-              <ToolbarTitle className='ToolBarTitle' text={this.zadam()} style={{ width: '100%',color: '#004225', fontSize: '30px' }} />
+              <ToolbarTitle className='ToolBarTitle' text={this.props.pageName} style={{ width: '100%', color: '#004225', fontSize: '30px' }} />
               <div className="frontDrawer">
                 <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({ open })}
                   containerStyle={{ backgroundColor: '#004225' }}>

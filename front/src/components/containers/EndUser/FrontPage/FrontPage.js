@@ -1,6 +1,6 @@
 import FrontPage from '../../../ui/EndUser/FrontPage/FrontPage.js'
 import { connect } from 'react-redux'
-import { setResList } from '../../../../actions';
+import { setResList, setCurrentPage } from '../../../../actions';
 
 const mapStateToProps = (state, props) =>
   ({
@@ -9,6 +9,11 @@ const mapStateToProps = (state, props) =>
 
 const mapDispatchToProps = dispatch =>
   ({
+    setNewPageName(currentPageName) {
+      dispatch(
+        setCurrentPage(currentPageName)
+      )
+    }
   })
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(FrontPage)

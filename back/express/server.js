@@ -13,7 +13,7 @@ var port     = process.env.PORT || 80;
 var fileUpload = require('express-fileupload')
 var passport = require('passport');
 var birds = require('./routes/birds')
-var cats = require('./routes/categories')
+var categories = require('./routes/categories')
 
 // configuration ===============================================================
 // connect to our database
@@ -75,8 +75,8 @@ app.use(passport.session()); // persistent login sessions
 //https://expressjs.com/en/guide/routing.html
 require('./routes/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 //router.use(require('./routes/routes.js')(app, passport));
-app.use('/cat', cats); // http://193.166.72.18/cat/categories
-app.use('/', cats); // http://193.166.72.18/cat/categories
+//app.use('/cat', cats); // http://193.166.72.18/cat/categories
+app.use('/', categories); // http://193.166.72.18/categories
 //app.use('/birds', birds) //<<- toimia esimerkki
 // launch ======================================================================
 app.listen(port);

@@ -57,11 +57,13 @@ class Notification extends Component {
     return (
 
         <MuiThemeProvider>
+          <div className='frontPageBox'>
           <Table>
             <TableBody displayRowCheckbox={false}>
               {this.state.itemList}
             </TableBody>
           </Table>
+          </div>
         </MuiThemeProvider>
 
     );

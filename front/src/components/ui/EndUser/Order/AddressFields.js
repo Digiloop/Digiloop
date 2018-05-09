@@ -22,6 +22,13 @@ class AddressFields extends React.Component {
     handleChange(event) {
     }
 
+    nextStep = (e) => {
+        e.preventDefault();
+
+        // this.props.saveValues(data);
+        this.props.nextStep()
+    }
+
     render() {
 
         const styles = {
@@ -33,31 +40,17 @@ class AddressFields extends React.Component {
         };
 
         const progress = {
-            borderRadius: 4, backgroundColor: '#FFFFFF', width: '10%', height: '1.5vh', margin: 5, float: 'left'
+            borderRadius: 4, backgroundColor: 'rgb(166, 206, 106)', width: '10%', height: '1.5vh', margin: 5, float: 'left'
         }
         return (
-            <div className="orderWrapper">
-
-                <AppBar style={{ backgroundColor: '#FFF' }}
-                    title={<div className="app-bar-title">Noutolomake</div>}
-                    showMenuIconButton={false}
-                />
-
-                <div className="progressBar" style={{ display: 'flex', justifyContent: 'center' }}>
-                    <div className="state1" style={{ borderRadius: 4, backgroundColor: '#A6CE6B', width: '10%', height: '1.5vh', margin: 5, float: 'left' }}></div>
-                    <div className="state2" style={progress}></div>
-                    <div className="state3" style={progress}></div>
-                    <div className="state4" style={progress}></div>
-                </div>
-
                 <div className="Container">
-
                     <table className="orderStructure">
                         <tbody>
                             <tr>
                                 <td><label className="leftOrderLabel">Hakuosoite:</label></td>
                                 <td>   <TextField className="rightOrderField"
-                                    type="text" hintText="esim. Ståhlberginkatu 10" style={styles}
+                                    type="text" hintText="esim. Ståhlberginkatu 10"
+                                     style={styles}
                                     onChange={(event, newValue) => this.setState({ address: newValue })} />
                                 </td>
                             </tr>
@@ -96,7 +89,7 @@ class AddressFields extends React.Component {
                                         src={require('../Materials/OrderPics/home2.gif')}
                                         className="image-btn btn"
                                         alt="Special button"
-                                        onClick={(event) => this.Submit(event)}
+                                        onClick={this.nextStep}
                                     />
                                 </td>
                                 <td style={{ display: 'flex', justifyContent: 'center' }}>
@@ -104,14 +97,13 @@ class AddressFields extends React.Component {
                                         src={require('../Materials/OrderPics/organization2.gif')}
                                         className="image-btn btn"
                                         alt="Special button"
-                                        onClick={(event) => this.Submit(event)}
+                                        onClick={this.nextStep}
                                     />
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div >
-            </div >
         );
     }
 }

@@ -18,12 +18,18 @@ class FrontPage extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange = (event, value) => this.setState({ value })
 
+  handleChange = (e, value) => {
+    //console.log(value);
+    this.setState({
+      value
+    }, function () {
+      this.props.setNewPageName('Noutolomake');
+    });
+  }
 
   componentDidMount() {
     console.log(this.props.items);
-
   }
 
 
@@ -54,7 +60,7 @@ class FrontPage extends Component {
         <div className="FrontPageContainer"><br />
           {this.state.etusivu}
 
-          <div className="frontPageBox">{this.state.value ? <Notification /> : <Order />}</div>
+          <div>{this.state.value ? <Notification /> : <Order />}</div>
         </div>
       </div>
 

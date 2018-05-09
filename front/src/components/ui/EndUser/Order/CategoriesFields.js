@@ -57,10 +57,10 @@ class CategoriesFields extends React.Component {
 
     render() {
 
-        const results = (<table className="registerStructure">
+        const results = (<table className="orderStructure">
             <tbody>
                 <tr>
-                    <td>  <label className="leftRegisterLabel"><h2 style={{ textAlign: 'left' }}>Alakategoria:</h2> </label> </td>
+                    <td>  <label className="leftOrderLabel"><h2 style={{ textAlign: 'left' }}>Alakategoria:</h2> </label> </td>
                 </tr>
                 <tr>
                     <td style={{ borderRadius: 4, border: '8px solid white' }}>
@@ -91,10 +91,10 @@ class CategoriesFields extends React.Component {
             </tbody>
         </table>);
 
-        const resultsAkku = (<table className="registerStructure">
+        const resultsAkku = (<table className="orderStructure">
             <tbody>
                 <tr>
-                    <td>  <label className="leftRegisterLabel"><h2>Alakategoria:</h2> </label> </td>
+                    <td>  <label className="leftOrderLabel"><h2>Alakategoria:</h2> </label> </td>
                 </tr>
                 <tr>
                     <td style={{ borderRadius: 4, border: '8px solid white' }}>
@@ -125,10 +125,10 @@ class CategoriesFields extends React.Component {
             </tbody>
         </table>);
 
-        const resultsSer = (<table className="registerStructure">
+        const resultsSer = (<table className="orderStructure">
             <tbody>
                 <tr>
-                    <td>  <label className="leftRegisterLabel"><h2>Alakategoria:</h2> </label> </td>
+                    <td>  <label className="leftOrderLabel"><h2>Alakategoria:</h2> </label> </td>
                 </tr>
                 <tr>
                     <td style={{ borderRadius: 4, border: '8px solid white' }}>
@@ -171,66 +171,45 @@ class CategoriesFields extends React.Component {
             borderRadius: 4, backgroundColor: '#FFFFFF', width: '10%', height: '1.5vh', margin: 5, float: 'left'
         }
         return (
-            <div className="registerWrapper">
-
-                <AppBar style={{ backgroundColor: '#FFF' }}
-                    title={<div className="app-bar-title">Noutolomake</div>}
-                    showMenuIconButton={false}
-                />
-
-                <div className="progressBar" style={{ display: 'flex', justifyContent: 'center' }}>
-                    <div>Nuoli</div>
-                    <div className="state1" style={progress}></div>
-                    <div className="state2" style={{ borderRadius: 4, backgroundColor: '#A6CE6B', width: '10%', height: '1.5vh', margin: 5, float: 'left' }}></div>
-                    <div className="state3" style={progress}></div>
-                    <div className="state4" style={progress}></div>
-                    <div>Nuoli</div>
+            <div className="Container">
+                <table className="orderStructure">
+                    <tbody>
+                        <tr>
+                            <td>  <label className="leftOrderLabel"><h2 style={{ textAlign: 'left' }}>Pääluokka:</h2> </label> </td>
+                        </tr>
+                        <tr>
+                            <td style={{ borderRadius: 4, border: '8px solid white' }}>
+                                <img
+                                    src={require('../Materials/OrderPics/slaitteet.gif')}
+                                    className="image-btn btn"
+                                    alt="Special button"
+                                    onClick={this.serHandler}
+                                />
+                            </td>
+                            <td style={{ borderRadius: 4, border: '8px solid white' }}>
+                                <img
+                                    src={require('../Materials/OrderPics/akku.gif')}
+                                    className="image-btn btn"
+                                    alt="Special button"
+                                    onClick={this.akutHandler}
+                                />
+                            </td>
+                            <td style={{ borderRadius: 4, border: '8px solid white' }}>
+                                <img
+                                    src={require('../Materials/OrderPics/tietoturva.gif')}
+                                    className="image-btn btn"
+                                    alt="Special button"
+                                    onClick={this.tietoturvaHandler}
+                                />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div>
+                    {this.state.showTietoturva ? results : null}
+                    {this.state.showAkut ? resultsAkku : null}
+                    {this.state.showSer ? resultsSer : null}
                 </div>
-
-                <div className="Container">
-
-                    <table className="registerStructure">
-                        <tbody>
-                            <tr>
-                                <td>  <label className="leftRegisterLabel"><h2 style={{ textAlign: 'left' }}>Pääluokka:</h2> </label> </td>
-                            </tr>
-                            <tr>
-                                <td style={{ borderRadius: 4, border: '8px solid white' }}>
-                                    <img
-                                        src={require('../Materials/OrderPics/slaitteet.gif')}
-                                        className="image-btn btn"
-                                        alt="Special button"
-                                        onClick={this.serHandler}
-                                    />
-                                </td>
-                                <td style={{ borderRadius: 4, border: '8px solid white' }}>
-                                    <img
-                                        src={require('../Materials/OrderPics/akku.gif')}
-                                        className="image-btn btn"
-                                        alt="Special button"
-                                        onClick={this.akutHandler}
-                                    />
-                                </td>
-                                <td style={{ borderRadius: 4, border: '8px solid white' }}>
-                                    <img
-                                        src={require('../Materials/OrderPics/tietoturva.gif')}
-                                        className="image-btn btn"
-                                        alt="Special button"
-                                        onClick={this.tietoturvaHandler}
-                                    />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div>
-                        {this.state.showTietoturva ? results : null}
-                        {this.state.showAkut ? resultsAkku : null}
-                        {this.state.showSer ? resultsSer : null}
-                    </div>
-
-
-                </div >
             </div >
         );
     }

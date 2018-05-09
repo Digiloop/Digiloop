@@ -48,19 +48,23 @@
 		}
 	],
 	"resListOpt": {
-		"showRes": true,
-		"ser": true,
-		"batteries": true,
-		"infoSecurity": true,
-		"serSmallSer": true,
-		"serBigSer": true,
-		"serDataSer": true,
-		"serLampSer": true,
-		"battNickelKadium": true,
-		"battNickelMetal": true,
-		"battOther": true,
-		"infosecDataSer": true,
-		"infosecPaper": true,
+		"categories": {
+			"ser": true,
+			"batteries": true,
+			"infoSecurity": true
+		},
+		"subCategories": {
+			"serSmallSer": true,
+			"serBigSer": true,
+			"serDataSer": true,
+			"serLampSer": true,
+			"battNickelKadium": true,
+			"battNickelMetal": true,
+			"battOther": true,
+			"infosecDataSer": true,
+			"infosecPapaer": true
+		},
+		"showRes": 0,
 		"minWeight": 0,
 		"maxWeight": 0,
 		"minSize": 0,

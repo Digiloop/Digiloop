@@ -30,10 +30,13 @@ class EndUserFront extends Component {
   }
 
   handleChange = (e, value) => {
+    //console.log(value);
     this.setState({
       index: value
+    }, function() {
+      this.getPageName();
     });
-    this.getPageName();
+      
   }
 
   handleUpdate = (e, value) => {
@@ -47,6 +50,7 @@ class EndUserFront extends Component {
 
   // Lassin nimeämä funktio
   getPageName() {
+    //console.log(this.state.index);
     switch (this.state.index) {
       case 0:
         return this.props.setNewPageName('Etusivu');

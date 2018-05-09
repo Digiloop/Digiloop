@@ -49,7 +49,7 @@ class Admin extends Component {
     var addCatName = {
       'catname': this.state.addCat
     }
-    addNewCat(JSON.stringify(addCatName));
+    addNewCat(JSON.stringify(addCatName)).then(() => {this.getCategories()});
   }
 
   // Add SubCategory name
@@ -58,8 +58,7 @@ class Admin extends Component {
       'catid': this.state.value,
       'subcatname': this.state.addSubCat,
     }
-    console.log(this.state.value);
-    addNewSubCat(JSON.stringify(addSubCatName));
+    addNewSubCat(JSON.stringify(addSubCatName)).then(() => {this.getSubCategories()});
   }
 
   componentDidMount() {

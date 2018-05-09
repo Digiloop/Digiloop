@@ -29,26 +29,29 @@ class EndUserFront extends Component {
     });
   }
 
+  // uses index to open right page
   handleChange = (e, value) => {
     //console.log(value);
     this.setState({
       index: value
-    }, function() {
+    }, function () {
       this.getPageName();
     });
-      
   }
 
   handleUpdate = (e, value) => {
     this.setState({
       index: 0
+    }, function () {
+      this.getPageName();
     });
   }
 
+  // handles drawer open and close
   handleToggle = () => this.setState({ open: !this.state.open })
   handleClose = () => this.setState({ open: false })
 
-  // Lassin nimeämä funktio
+  // Name to toolbartitle
   getPageName() {
     //console.log(this.state.index);
     switch (this.state.index) {
@@ -60,7 +63,7 @@ class EndUserFront extends Component {
         return this.props.setNewPageName('Profiili');
     }
   }
-  
+
 
   render() {
 

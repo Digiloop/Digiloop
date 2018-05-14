@@ -75,33 +75,32 @@ class OrderMain extends Component {
     render() {
 
         const styles = {
-            borderRadius: 8,
-            backgroundColor: '#FFF',
-            width: '14%',
-            height: '.8vh',
-            margin: 5,
-            float: 'left',
 
-            progress: { // not in use
+            notActive: {
+                borderRadius: 8,
+                backgroundColor: '#FFF',
+                width: '14%',
+                height: '.8vh',
+                margin: 5,
+                float: 'left'
+            },
+
+            Active: {
                 backgroundColor: 'rgb(166, 206, 106)',
                 borderRadius: 8,
                 width: '14%',
                 height: '.8vh',
                 margin: 5,
-                float: 'left',
-                maxWidth: '90vh',
-                minWidth: '50vh',
-                display: 'flex', 
-                justifyContent: 'center'
+                float: 'left'
             }
         }
         return (
             <div className="orderWrapper">
-                <div className="progressBar" style={{ maxWidth: '90vh', minWidth: '50vh', display: 'flex', justifyContent: 'center'}}>
-                    <div className="state1" style={styles}></div>
-                    <div className="state2" style={styles}></div>
-                    <div className="state3" style={styles}></div>
-                    <div className="state4" style={styles}></div>
+                <div className="progressBar" style={{ maxWidth: '90vh', minWidth: '50vh', display: 'flex', justifyContent: 'center' }}>
+                    <div className="state1" style={this.state.step == 1 ? styles.Active : styles.notActive}></div>
+                    <div className="state2" style={this.state.step == 2 ? styles.Active : styles.notActive}></div>
+                    <div className="state3" style={this.state.step == 3 ? styles.Active : styles.notActive}></div>
+                    <div className="state4" style={this.state.step == 4 ? styles.Active : styles.notActive}></div>
                 </div>
                 <div className="frontPageBox" >{this.showSteps()}</div>
             </div>

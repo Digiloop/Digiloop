@@ -66,16 +66,28 @@ class CategoriesFields extends React.Component {
 
             images: {
                 width: '14.2vh'
+            },
+
+            tdStyle : {
+                borderRadius: 4,
+                border: '8px solid white'
+            },
+
+            trStyle: {
+                width: '98vh',
+                overflowX: 'hidden',
+                overflowY: 'auto',
+                whiteSpace: 'nowrap'
             }
         };
 
         const results = (<table className="orderStructure">
             <tbody>
                 <tr>
-                    <td>  <label className="leftOrderLabel"><h2 style={{ textAlign: 'left' }}>Alakategoria:</h2> </label> </td>
+                    <td>  <label className="leftOrderLabel"><h2 style={{ textAlign: 'left' }}>Alakategoria</h2> </label> </td>
                 </tr>
                 <tr>
-                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
+                    <td style={ styles.tdStyle }>
                         <img
                             src={require('../Materials/OrderPics/tietoturva.gif')}
                             style={ styles.images }
@@ -84,7 +96,7 @@ class CategoriesFields extends React.Component {
                             onClick={(event) => this.Submit(event)}
                         />
                     </td>
-                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
+                    <td style={ styles.tdStyle }>
                         <img
                             src={require('../Materials/OrderPics/tietoturva1.gif')}
                             style={ styles.images }
@@ -93,7 +105,7 @@ class CategoriesFields extends React.Component {
                             onClick={(event) => this.Submit(event)}
                         />
                     </td>
-                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
+                    <td style={ styles.tdStyle }>
                         <img
                             src={require('../Materials/OrderPics/tietoturva.gif')}
                             style={ styles.images }
@@ -109,10 +121,10 @@ class CategoriesFields extends React.Component {
         const resultsAkku = (<table className="orderStructure">
             <tbody>
                 <tr>
-                    <td>  <label className="leftOrderLabel"><h2>Alakategoria:</h2> </label> </td>
+                    <td>  <label className="leftOrderLabel"><h2>Alakategoria</h2> </label> </td>
                 </tr>
-                <tr>
-                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
+                <tr style={{ margin: '0' }}>
+                    <td style={ styles.tdStyle }>
                         <img
                             src={require('../Materials/OrderPics/akku.gif')}
                             style={ styles.images }
@@ -121,7 +133,7 @@ class CategoriesFields extends React.Component {
                             onClick={(event) => this.Submit(event)}
                         />
                     </td>
-                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
+                    <td style={ styles.tdStyle }>
                         <img
                             src={require('../Materials/OrderPics/akku.gif')}
                             style={ styles.images }
@@ -130,7 +142,7 @@ class CategoriesFields extends React.Component {
                             onClick={(event) => this.Submit(event)}
                         />
                     </td>
-                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
+                    <td style={ styles.tdStyle }>
                         <img
                             src={require('../Materials/OrderPics/akku.gif')}
                             style={ styles.images }
@@ -146,10 +158,10 @@ class CategoriesFields extends React.Component {
         const resultsSer = (<table className="orderStructure">
             <tbody>
                 <tr>
-                    <td>  <label className="leftOrderLabel"><h2>Alakategoria:</h2> </label> </td>
+                    <td>  <label className="leftOrderLabel"><h2>Alakategoria</h2> </label> </td>
                 </tr>
                 <tr>
-                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
+                    <td style={ styles.tdStyle }>
                         <img
                             src={require('../Materials/OrderPics/tv.gif')}
                             style={ styles.images }
@@ -158,7 +170,7 @@ class CategoriesFields extends React.Component {
                             onClick={(event) => this.Submit(event)}
                         />
                     </td>
-                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
+                    <td style={ styles.tdStyle }>
                         <img
                             src={require('../Materials/OrderPics/pesukone.gif')}
                             style={ styles.images }
@@ -167,9 +179,18 @@ class CategoriesFields extends React.Component {
                             onClick={(event) => this.Submit(event)}
                         />
                     </td>
-                    <td style={{ borderRadius: 4, border: '8px solid white' }}>
+                    <td style={ styles.tdStyle }>
                         <img
                             src={require('../Materials/OrderPics/kahvi.gif')}
+                            style={ styles.images }
+                            className="image-btn btn"
+                            alt="Special button"
+                            onClick={(event) => this.Submit(event)}
+                        />
+                    </td>
+                    <td style={ styles.tdStyle }>
+                        <img
+                            src={require('../Materials/OrderPics/tv.gif')}
                             style={ styles.images }
                             className="image-btn btn"
                             alt="Special button"
@@ -185,10 +206,10 @@ class CategoriesFields extends React.Component {
                 <table className="orderStructure">
                     <tbody>
                         <tr>
-                            <td><label className="leftOrderLabel"><h2>Pääluokka:</h2> </label> </td>
+                            <td><label className="leftOrderLabel"><h2>Pääluokka</h2> </label> </td>
                         </tr>
                         <tr>
-                            <td style={{ borderRadius: 4, border: '8px solid white' }}>
+                            <td style={ styles.tdStyle }>
                                 <img
                                     src={require('../Materials/OrderPics/slaitteet.gif')}
                                     style={ styles.images }
@@ -197,7 +218,7 @@ class CategoriesFields extends React.Component {
                                     onClick={this.serHandler}
                                 />
                             </td>
-                            <td style={{ borderRadius: 4, border: '8px solid white' }}>
+                            <td style={ styles.tdStyle }>
                                 <img
                                     src={require('../Materials/OrderPics/akku.gif')}
                                     style={ styles.images }
@@ -206,7 +227,7 @@ class CategoriesFields extends React.Component {
                                     onClick={this.akutHandler}
                                 />
                             </td>
-                            <td style={{ borderRadius: 4, border: '8px solid white' }}>
+                            <td style={ styles.tdStyle }>
                                 <img
                                     src={require('../Materials/OrderPics/tietoturva.gif')}
                                     style={ styles.images }

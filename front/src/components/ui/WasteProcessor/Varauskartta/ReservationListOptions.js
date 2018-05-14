@@ -132,13 +132,16 @@ class ReservationListOptions extends Component {
       for (let j = 0; j < this.props.subCategories.length; j++) {
         if (this.props.subCategories[j].CatId == this.props.categories[i].CatId) {
           console.log("Match");
+
+          // prepare the subcat's statename (parent catname + subname)
+          let subCatState = this.props.categories[i].CatName + this.props.subCategories[j].subName;
           subCatBoxes.push(
 
             <tr key={"subkattirivi" + j}>
               <td className="type">{this.props.subCategories[j].subName}</td>
               <td><Checkbox
                 checked={this.state.serSmallSer}
-                onCheck={(event, newValue) => this.setState({ [this.props.subCategories[j]]: newValue })}
+                onCheck={(event, newValue) => this.setState({ [subCatState]: newValue })}
               /></td>
             </tr>
 

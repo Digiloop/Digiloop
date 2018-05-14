@@ -8,16 +8,16 @@ var sqldatahaku = new sqldata; //
 //https://itnext.io/using-async-await-to-write-cleaner-route-handlers-7fc1d91b220b
 //GET
 
-router.get('/categories',function(req, res, next) {
-  sqldatahaku.getinfo('Category','1',function(err,result){
+router.get('/categories',(req, res, next) => {
+  sqldatahaku.getinfo('Category','1',(err,result) => {
     if (err) throw err;
     res.json(result);
     next();
   });
 });
 
-router.get('/subcat', function(req, res, next) {
-  sqldatahaku.getinfo('subCat','1',function(err, result){
+router.get('/subcat', (req, res, next) => {
+  sqldatahaku.getinfo('subCat','1',(err, result) => {
     if (err) throw err;
     res.json(result);
     next();
@@ -33,23 +33,28 @@ router.get('/items5', function(req, res, next) {
 });
 */
 
-router.get('/kuva', function(req, res, next){
+router.get('/kuva', (req, res, next) => {
   res.sendFile(`${__dirname}/randomi.jpg`)
 })
 
 
 
 //POST
-router.post('/subcatstatus', function(req, res, next) {
+router.post('/subcatstatus', (req, res, next) => {
   sqldatahaku.querypost(`UPDATE subCat SET Status = ${req.body.Status} WHERE subId = ${req.body.subId}`)
     console.log(`Status ${req.body.Status} subId ${req.body.subId}`)
     res.end();
 });
 
-router.post('/catADD', function(req,res) {
-    sqldatahaku.queryinsert(req.body.catname,'1',req.body.catname,'imagereferenssi');
+router.post('/catADD', (req,res) => {
+    sqldatahaku.queryinsert('Category',req.body.catname,'1',req.body.catname,'imagereferenssi');
+    res.end();
 });
 
+router.post('/subcatADD', (req,res) => {
+  sqldatahaku.queryinsert('subCat',req.body.catid,req.body.subcatname,'1');
+  res.end();
+});
 /*
 router.post('/subcatADD', function(req,res) {
   sqldatahaku.queryinsert(req.body.subcatname,'1',req.body.catname,'imagereferenssi');

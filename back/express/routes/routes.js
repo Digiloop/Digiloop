@@ -341,13 +341,10 @@ module.exports = function(app, passport, users) {
 
     }));
 
-    app.post('/signupNormal', function (req, res, next) {
-    console.log('the response will be sent by the next function ...')
-    //set user level for normal user
-    res.locals.level = 3
-    next()
-    }, passport.authenticate('local-signup', {
-         //leveli = 'moi'
+    app.post('/signupcompany', passport.authenticate('local-company', {
+        //successRedirect : '/' // redirect to the secure profile section
+        //failureRedirect : '/signup', // redirect back to the signup page if there is an error
+        //failureFlash : true // allow flash messages
 
     }));
 

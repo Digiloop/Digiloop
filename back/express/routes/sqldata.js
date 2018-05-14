@@ -23,21 +23,21 @@ queryget(query,callback){
     if (err) throw err;
     callback(err,result);
   })
-} 
+}
 
 querypost(query){
   connection.query(query,(err,result) => {
-    if (err) throw err;  
+    if (err) throw err;
     console.log(result.affectedRows + " record(s) updated");
-    
+
   })
-} 
+}
 
 getinfo(table,Status,callback){
   connection.query(`SELECT * FROM ${table} WHERE Status = ${Status}`,(err, result) => {
     callback(err,result);
   })
-} 
+}
 
 //queryinsertillä voidaan syöttää ainakin toistaiseksi catADD sekä subcatADD, tarvii mahdollisesti sql escapea
 //parametrit ovat nimeltään samat mitä tietokannassa
@@ -54,7 +54,7 @@ queryinsert(table, value1, value2, value3, value4){
   }
 
   connection.query(sqlquery,(err, result) => {
-    if (err) throw err;  
+    if (err) throw err;
     console.log(result.affectedRows + " record(s) updated");
   })
 
@@ -67,6 +67,7 @@ queryinsert(table, value1, value2, value3, value4){
 
 
 /*
+testi
 app.post('/subcatADD', function(req,res) {
   var newsubCat = {
     catid:req.body.catid,
@@ -93,7 +94,7 @@ getinfo(table,Status,callback){
   connection.query('SELECT * FROM '+ table +' WHERE Status = '+ Status +'',function(err, result) {
     callback(err,result);
   })
-} 
+}
 
 
 

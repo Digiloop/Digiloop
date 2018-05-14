@@ -57,8 +57,7 @@ module.exports = function(passport) {
             usernameField : 'email',
             passwordField : 'password',
             passReqToCallback : true // allows us to pass back the entire request to the callback
-        },
-        function(req, email, password, done) {
+        },(req, email, password, done) => {
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
             connection.query("SELECT * FROM users WHERE email = ?",[email], function(err, rows) {
@@ -67,32 +66,24 @@ module.exports = function(passport) {
                 if (rows.length) {
                     return done(null, false, console.log('signupMessage', 'That email is already taken.'));
                 } else {
-                    // if there is no user with that username
+                    // if there is no user with that email
                     // create the user
                     var newUserMysql = {
                         email: email.toString(),
                         password: bcrypt.hashSync(password, null, null),  // use the generateHash function in our user model
                         fname: req.body.fname.toString(),
                         lname: req.body.lname.toString(),
-                        //email: req.body.email.toString(),
                         phone: req.body.phone.toString(),
                         address: req.body.address.toString(),
                         zipcode: req.body.zipcode.toString(),
-                        city: req.body.city.toString(),
-                        company: req.body.company.toString(),
-                        userlvl: null,
-                        Status: req.body.Status.toString()
+                        city: req.body.city.toString(),          
+                        userlvl: 2,
+                        Status: 0
                   };
-                  //normi user check
-                  if (typeof res != 'undefined')
-                    newUserMysql.userlvl = res.locals.level
-                  else
-                  newUserMysql.userlvl = req.body.userlvl.toString();
-					if (newUserMysql.Status == undefined) newUserMysql.Status = 0;
                     /*console.log(leveli + "  leveli");*/
-                    var insertQuery = "INSERT INTO users ( password, fname, lname, email, phone, address, zipcode, city, company, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?,?)";
+                    var insertQuery = "INSERT INTO users ( password, fname, lname, email, phone, address, zipcode, city, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?)";
 
-                    connection.query(insertQuery,[newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.company, newUserMysql.userlvl, newUserMysql.Status],function(err, rows) {
+                    connection.query(insertQuery,[newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.userlvl, newUserMysql.Status],(err, rows) => {
                         newUserMysql.id = rows.insertId;
 
                         return done(null, newUserMysql);
@@ -101,6 +92,52 @@ module.exports = function(passport) {
             });
         })
     );
+
+    passport.use(
+        'local-company',
+        new LocalStrategy({
+            // by default, local strategy uses username and password, we will override with email
+            usernameField : 'email',
+            passwordField : 'password',
+            passReqToCallback : true // allows us to pass back the entire request to the callback
+        },(req, email, password, done) => {
+            // find a user whose email is the same as the forms email
+            // we are checking to see if the user trying to login already exists
+            connection.query("SELECT * FROM users WHERE email = ?",[email], function(err, rows) {
+                if (err)
+                    return done(err);
+                if (rows.length) {
+                    return done(null, false, console.log('signupMessage', 'That email is already taken.'));
+                } else {
+                    // if there is no user with that email
+                    // create the user
+                    var newUserMysql = {
+                        email: email.toString(),
+                        password: bcrypt.hashSync(password, null, null),  // rng password in company
+                        fname: req.body.fname.toString(),
+                        lname: req.body.lname.toString(),
+                        phone: req.body.phone.toString(),
+                        address: req.body.address.toString(),
+                        zipcode: req.body.zipcode.toString(),
+                        city: req.body.city.toString(),
+                        company: req.body.company.toString(),
+                        ytunnus: req.body.ytunnus.toString(),
+                        userlvl: 1,
+                        Status: 1
+                  };
+                    /*console.log(leveli + "  leveli");*/
+                    var insertQuery = "INSERT INTO users ( password, fname, lname, email, phone, address, zipcode, city, company, ytunnus, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+
+                    connection.query(insertQuery,[newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.company, newUserMysql.ytunnus, newUserMysql.userlvl, newUserMysql.Status],(err, rows) => {
+                        newUserMysql.id = rows.insertId;
+
+                        return done(null, newUserMysql);
+                    });
+                }
+            });
+        })
+    );
+
 
     // =========================================================================
     // LOCAL LOGIN =============================================================

@@ -3,8 +3,8 @@ import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
-import AddressFields from './AddressFields';
-import CategoriesFields from './CategoriesFields';
+import AddressFields from '../../../containers/EndUser/Order/AddressFields';
+import CategoriesFields from '../../../containers/EndUser/Order/CategoriesFields';
 
 
 class OrderMain extends Component {
@@ -82,18 +82,22 @@ class OrderMain extends Component {
             margin: 5,
             float: 'left',
 
-            progress: {
+            progress: { // not in use
                 backgroundColor: 'rgb(166, 206, 106)',
                 borderRadius: 8,
                 width: '14%',
                 height: '.8vh',
                 margin: 5,
                 float: 'left',
+                maxWidth: '90vh',
+                minWidth: '50vh',
+                display: 'flex', 
+                justifyContent: 'center'
             }
         }
         return (
             <div className="orderWrapper">
-                <div className="progressBar" style={{ display: 'flex', justifyContent: 'center' }}>
+                <div className="progressBar" style={{ maxWidth: '90vh', minWidth: '50vh', display: 'flex', justifyContent: 'center'}}>
                     <div className="state1" style={styles}></div>
                     <div className="state2" style={styles}></div>
                     <div className="state3" style={styles}></div>

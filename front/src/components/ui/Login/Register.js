@@ -97,10 +97,7 @@ class Register extends React.Component {
                 "phone": this.state.phone,
                 "address": this.state.streetAddress,
                 "zipcode": this.state.zipcode,
-                "city": this.state.city,
-                "company": "99",
-                "userlvl": "2",
-                "Status": "0"
+                "city": this.state.city
             }
             console.log(JSON.stringify(regData));
             sendRegData(JSON.stringify(regData));

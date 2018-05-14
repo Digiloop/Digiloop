@@ -17,6 +17,7 @@ class ReservationListOptions extends Component {
       infoSecurity: this.props.rLOpt.categories.infoSecurity,
       */
 
+      /*
       // subcategories
       serSmallSer: true,
       serBigSer: true,
@@ -29,6 +30,8 @@ class ReservationListOptions extends Component {
 
       infosecDataSer: true,
       infosecPaper: true,
+      */
+
 
       // show reserved
       showRes: true,
@@ -49,48 +52,44 @@ class ReservationListOptions extends Component {
       // create a state for each category, essentially setState({ <catName>: rLOpt.<catName> })
       // if there is no existing data in store, set true, else set as existing data
 
-      if( this.props.rLOpt.categories[this.props.categories[i].CatName] == undefined){
+      if (this.props.rLOpt.categories[this.props.categories[i].CatName] === undefined) {
         this.setState({ [this.props.categories[i].CatName]: true })
       } else {
         this.setState({ [this.props.categories[i].CatName]: this.props.rLOpt.categories[this.props.categories[i].CatName] })
       }
-      
     }
+
+
+
+
+
   }
 
 
-
+  // when options' save button is pressed
   submit = e => {
-    e.preventDefault()
+    e.preventDefault() // don't refresh page
 
+
+    // create the cat/subcat packages for sending into store
     let cats = {};
     let subCats = {};
 
-    for (let i = 0; i < this.props.categories.length; i++){
+    for (let i = 0; i < this.props.categories.length; i++) {
       cats[this.props.categories[i].CatName] = this.state[this.props.categories[i].CatName];
     }
-    console.log(cats);
 
+    for (let i = 0; i < this.props.subCategories.length; i++) {
+      subCats[this.props.subCategories[i].subName] = this.state[this.props.subCategories[i].subName];
+    }
 
+    // add the packages to the other settings, update to redux store
     this.props.onNewOptions({
       // categories
       categories: cats,
 
       // subcats
-      subCategories: {
-        serSmallSer: this.state.serSmallSer,
-        serBigSer: this.state.serBigSer,
-        serDataSer: this.state.serDataSer,
-        serLampSer: this.state.serLampSer,
-
-        battNickelKadium: this.state.battNickelKadium,
-        battNickelMetal: this.state.battNickelMetal,
-        battOther: this.state.battOther,
-
-        infosecDataSer: this.state.infosecDataSer,
-        infosecPapaer: this.state.infosecPaper
-      },
-
+      subCategories: subCats,
 
       // show reserved
       showRes: this.state.showRes,
@@ -109,12 +108,12 @@ class ReservationListOptions extends Component {
     let catBoxes = [];
     let subCatBoxes = [];
 
+    // pre-build category checkboxes
     for (let i = 0; i < this.props.categories.length; i++) {
       catBoxes.push(
 
-        <tr key={"kattirivi"+i}>
+        <tr key={"kattirivi" + i}>
           <td className="type">{this.props.categories[i].CatName}</td>
-
           <td>
             <Checkbox
               checked={this.state[this.props.categories[i].CatName]}
@@ -123,6 +122,31 @@ class ReservationListOptions extends Component {
         </tr>
       )
     }
+
+    // pre-build subcategory checkboxes
+    for (let i = 0; i < this.props.categories.length; i++) {
+
+      subCatBoxes.push(<tr key={"subKattiOtsikko"+i}><td>{this.props.categories[i].CatName}</td></tr>);
+
+      for (let j = 0; j < this.props.subCategories.length; j++) {
+        if (this.props.subCategories[j].CatId == this.props.categories[i].CatId) {
+          console.log("Match");
+          subCatBoxes.push(
+
+            <tr key={"subkattirivi" + j}>
+              <td className="type">{this.props.subCategories[j].subName}</td>
+              <td><Checkbox
+                checked={this.state.serSmallSer}
+                onCheck={(event, newValue) => this.setState({ serSmallSer: newValue })}
+              /></td>
+            </tr>
+
+          );
+        }
+
+      }
+    }
+
 
 
 
@@ -186,83 +210,9 @@ class ReservationListOptions extends Component {
                 <tbody id="alakattibody">
 
                   <tr><td><h1 id="alakatetext">Alakategoriat</h1></td></tr>
+                  {subCatBoxes}
 
-
-                  <tr><td>Sähkölaitteet</td></tr>
-                  <tr>
-                    <td className="type">Pieni SER</td>
-                    <td><Checkbox
-                      checked={this.state.serSmallSer}
-                      onCheck={(event, newValue) => this.setState({ serSmallSer: newValue })}
-                    /></td>
-                  </tr>
-                  <tr>
-                    <td className="type">Iso SER</td>
-                    <td><Checkbox
-                      checked={this.state.serBigSer}
-                      onCheck={(event, newValue) => this.setState({ serBigSer: newValue })}
-                    /></td>
-                  </tr>
-                  <tr>
-                    <td className="type">Data SER</td>
-                    <td><Checkbox
-                      checked={this.state.serDataSer}
-                      onCheck={(event, newValue) => this.setState({ serDataSer: newValue })}
-                    /></td>
-                  </tr>
-                  <tr>
-                    <td className="type">Lamppu SER</td>
-                    <td><Checkbox
-                      checked={this.state.serLampSer}
-                      onCheck={(event, newValue) => this.setState({ serLampSer: newValue })}
-                    /></td>
-                  </tr>
-
-                  <tr><td>&nbsp;</td></tr>
-                  <tr><td>Akut</td></tr>
-                  <tr>
-                    <td className="type">Nikkelikadium</td>
-                    <td><Checkbox
-                      checked={this.state.battNickelKadium}
-                      onCheck={(event, newValue) => this.setState({ battNickelKadium: newValue })}
-                    /></td>
-                  </tr>
-                  <tr>
-                    <td className="type">Nikkelimetallihybridi</td>
-                    <td><Checkbox
-                      checked={this.state.battNickelMetal}
-                      onCheck={(event, newValue) => this.setState({ battNickelMetal: newValue })}
-                    /></td>
-                  </tr>
-                  <tr>
-                    <td className="type">Muut</td>
-                    <td><Checkbox
-                      checked={this.state.battOther}
-                      onCheck={(event, newValue) => this.setState({ battOther: newValue })}
-                    /></td>
-                  </tr>
-
-                  <tr><td>&nbsp;</td></tr>
-                  <tr><td>Tietoturva</td></tr>
-                  <tr>
-                    <td className="type">Data SER</td>
-                    <td><Checkbox
-                      checked={this.state.infosecDataSer}
-                      onCheck={(event, newValue) => this.setState({ infosecDataSer: newValue })}
-                    /></td>
-                  </tr>
-                  <tr>
-                    <td className="type">Paperi</td>
-                    <td><Checkbox
-                      checked={this.state.infosecPaper}
-                      onCheck={(event, newValue) => this.setState({ infosecPaper: newValue })}
-                    /></td>
-
-                  </tr>
-
-                  <tr>
-                    <td>&nbsp;</td>
-                  </tr>
+                  
                 </tbody>
               </table>
 

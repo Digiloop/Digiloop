@@ -47,7 +47,14 @@ class ReservationListOptions extends Component {
     for (let i = 0; i < this.props.categories.length; i++) {
 
       // create a state for each category, essentially setState({ <catName>: rLOpt.<catName> })
-      this.setState({ [this.props.categories[i].CatName]: this.props.rLOpt.categories[this.props.categories[i].CatName] })
+      // if there is no existing data in store, set true, else set as existing data
+
+      if( this.props.rLOpt.categories[this.props.categories[i].CatName] == undefined){
+        this.setState({ [this.props.categories[i].CatName]: true })
+      } else {
+        this.setState({ [this.props.categories[i].CatName]: this.props.rLOpt.categories[this.props.categories[i].CatName] })
+      }
+      
     }
   }
 

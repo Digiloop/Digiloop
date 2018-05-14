@@ -127,6 +127,16 @@ table {
   color:#004225; 
 }
 
+.middleRegisterLabel
+{
+  font-family: kanit;
+  text-align: left;
+  font-weight: bold;
+  margin-left: 8%;
+  font-size: 18px;
+  color:#004225; 
+}
+
 .rightRegisterField
 {
  margin-left: 5px;
@@ -490,7 +500,7 @@ text-align: right;
   max-width: 90vh;
   min-width: 50vh;
   margin: auto;
-  padding: 2%;
+  padding: 1%;
   margin-top: 15px;
   border-spacing: 3px;
   background-color: rgb(186, 221, 134);

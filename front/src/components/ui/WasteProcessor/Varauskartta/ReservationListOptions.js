@@ -126,6 +126,7 @@ class ReservationListOptions extends Component {
     // pre-build subcategory checkboxes
     for (let i = 0; i < this.props.categories.length; i++) {
 
+      // create the category-väliotsikot
       subCatBoxes.push(<tr key={"subKattiOtsikko"+i}><td>{this.props.categories[i].CatName}</td></tr>);
 
       for (let j = 0; j < this.props.subCategories.length; j++) {
@@ -137,7 +138,7 @@ class ReservationListOptions extends Component {
               <td className="type">{this.props.subCategories[j].subName}</td>
               <td><Checkbox
                 checked={this.state.serSmallSer}
-                onCheck={(event, newValue) => this.setState({ serSmallSer: newValue })}
+                onCheck={(event, newValue) => this.setState({ [this.props.subCategories[j]]: newValue })}
               /></td>
             </tr>
 

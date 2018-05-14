@@ -16,12 +16,16 @@
     margin:0;
 }
 
+#kattibody{
+    display: block;
+    width:100%;
+    overflow:auto; 
+}
+
 #alakattibody{
     display: block;
-    max-height: 200px;
-    width: 250px;
+    width: 100%;
     overflow:auto; 
-    overflow-y:scroll;
 }
 
 #katit{
@@ -32,13 +36,7 @@
     width: 150px;
 }
 
-#kattibody{
-    display: block;
-    max-height: 200px;
-    width:200px;
-    overflow:auto; 
-    overflow-y:scroll;
-}
+
 
 #katetext{
     text-align: left;

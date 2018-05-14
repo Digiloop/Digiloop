@@ -29,24 +29,22 @@ module.exports = function(app, passport, users) {
     });
 */
 
-    app.get('/announcements', function(req, res) {
-        connection.query('SELECT * FROM Announcements',
-            function(err, result) {
+    app.get('/announcements', (req, res) => {
+        connection.query('SELECT * FROM Announcements', (err, result) => {
                 if (err) throw err;
                 res.json(result);
             });
     });
 
-	 app.get('/getUsers',isLoggedIn, function(req, res) {
+	 app.get('/getUsers',isLoggedIn, (req, res) => {
 		 if (req.user.userlvl == 0){
-        connection.query('SELECT * FROM users',
-            function(err, result) {
+        connection.query('SELECT * FROM users',(err, result) => {
                 if (err) throw err;
                 res.json(result);
             });
 		 }
     });
-	 app.post('/deleteUser', isLoggedIn, function(req, res) {
+	 app.post('/deleteUser', isLoggedIn, (req, res) => {
 		 if (req.user.userlvl == 0){
         connection.query('UPDATE users SET Status = ? WHERE id = ?;', [req.body.Status, req.body.id], (err, rows) => {
             if (err) throw err;
@@ -56,7 +54,7 @@ module.exports = function(app, passport, users) {
 		 }
     });
 
-    app.post('/announcementADD', isLoggedIn, function(req, res) {
+    app.post('/announcementADD', isLoggedIn, (req, res) => {
         var newItem = {
             info: req.body.info.toString(),
             dateBegin: req.body.dateBegin.toString(), // use the generateHash function in our user model
@@ -71,12 +69,7 @@ module.exports = function(app, passport, users) {
             res.end();
         });
 
-
-
-
-
-
-    app.get('/items',isLoggedIn, function(req, res) {
+    app.get('/items',isLoggedIn, (req, res) => {
         if (req.user.userlvl <= 1){
         connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID;',
             function(err, result) {
@@ -96,7 +89,7 @@ module.exports = function(app, passport, users) {
 
 
     //item Status
-    app.post('/itemStatus',  function(req, res) {
+    app.post('/itemStatus', (req, res) => {
         connection.query('UPDATE junk SET status = ? WHERE junkID = ?;', [req.body.status, req.body.subIdStatus], (err, rows) => {
             if (err) throw err;
             console.log(rows.affectedRows + " record(s) updated");
@@ -105,7 +98,7 @@ module.exports = function(app, passport, users) {
         res.end();
     });
 
-    app.post('/itemReserve', function(req, res) {
+    app.post('/itemReserve', isLoggedIn, (req, res) => {
         connection.query('UPDATE junk SET status = ?, fetcher = ? WHERE junkID = ?;', [req.body.status,req.body.fetcher, req.body.subIdStatus], (err, rows) => {
             if (err) throw err;
             console.log(rows.affectedRows + " record(s) updated");
@@ -115,47 +108,9 @@ module.exports = function(app, passport, users) {
     });
 
 
-    /*
-    app.post('/catADD', function(req,res) {
-      var newCat = {
-        catname:req.body.catname,
-        catstatus:1
-      };
-      var insertQuery = "INSERT INTO Category ( CatName, Status ) values (?,?)";
-      connection.query(insertQuery, [newCat.catname, newCat.catstatus], function(err, result) {
-          if (err) {
-              connection.rollback(function() {
-                  throw err;
-              });
-          }});
-          res.end();
-    });
-
-//Error: Field 'subId' doesn't have a default value
-//subcattiin tarvitsee auto incrementin //fixed
-    app.post('/subcatADD', function(req,res) {
-      var newsubCat = {
-        catid:req.body.catid,
-        subcatname:req.body.subcatname.toString(),
-        subcatstatus:1//req.body.subcatstatus
-      };
-      var insertQuery = "INSERT INTO subCat ( CatId, subName, Status ) values (?,?,?)";
-      connection.query(insertQuery, [newsubCat.catid, newsubCat.subcatname, newsubCat.subcatstatus], function(err, result) {
-          if (err) {
-              connection.rollback(function() {
-                  throw err;
-              });
-          }});
-          res.end();
-    });
-    */
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
-
 
     //kaatuu ilman loggausta sisään tarttee City / Post valuet
-    app.post('/itemADD', function(req, res) {
+    app.post('/itemADD',isLoggedIn, (req, res) => {
         var newItem = {
             category: req.body.category.toString(),
             subCat: req.body.subCat.toString(), // use the generateHash function in our user model
@@ -226,7 +181,7 @@ module.exports = function(app, passport, users) {
     });
 
 // Esimerkki userlvl tarkastuksesta routessa, ei käytössä
-    app.get('/items2', function(req, res) {
+    app.get('/items2', (req, res) => {
       //if (req.user.userlvl <= 1){
       //res.send(__dirname);
         connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
@@ -249,25 +204,6 @@ module.exports = function(app, passport, users) {
             });
     });
 
-  /*  app.post('/upload', function(req, res) {
-  console.log(req.files.foo); // the uploaded file object
-});
-*/
-
-    /*
-    app.post('/submit',function(req, res, next) {
-     console.log(req.body.junk);
-    res.end();
-    });
-
-    app.get('/submit',function(req, res) {
-    //res.write(req.body.junk);
-    });
-    */
-    //---------------------------------------------------------------------------------------------------------
-
-
-
     app.get('/', function(req, res) {
         //res.render('index.ejs'); // load the index.ejs file
         //res.sendFile('index.html',{root: __dirname});
@@ -280,26 +216,16 @@ module.exports = function(app, passport, users) {
     // =====================================
     // show the login form
     app.get('/login', function(req, res) {
-
-
         res.json({
             user: '-1'
         });
-        // render the page and pass in any flash data if it exists
-        //res.render('login.ejs', { message: req.flash('loginMessage'), user : '-1' });
     });
 
 
     // process the login form
     //mahdollinen ratkaisu palautukseen ilman flashia
     //https://github.com/jaredhanson/passport-local/issues/4
-    app.post('/login', passport.authenticate('local-login', {
-            //successRedirect : '/profile', // redirect to the secure profile section
-            //failureRedirect : '/login', // redirect back to the signup page if there is an error
-            //failureFlash : true // allow flash messages
-
-        }),
-        function(req, res) {
+    app.post('/login', passport.authenticate('local-login', {}), (req, res) => {
             console.log(req.user.email + " logged in.");
 
             if (req.body.remember) {
@@ -309,18 +235,11 @@ module.exports = function(app, passport, users) {
             }
 			var userObject = {address:req.user.address, city:req.user.city, company:req.user.company, email:req.user.email,
 			fname:req.user.fname, id:req.user.id, lname:req.user.lname, phone:req.user.phone, userlvl:req.user.userlvl, username:req.user.username, zipcode:req.user.zipcode};
-            //res.redirect('/');
+            
             res.json({
                 userdata:userObject
             });
             res.end();
-/*
-            //res.end();
-			res.json({
-            user: 'Logged in.!'
-        });
-*/
-
         });
 
     // =====================================
@@ -341,13 +260,10 @@ module.exports = function(app, passport, users) {
 
     }));
 
-    app.post('/signupNormal', function (req, res, next) {
-    console.log('the response will be sent by the next function ...')
-    //set user level for normal user
-    res.locals.level = 3
-    next()
-    }, passport.authenticate('local-signup', {
-         //leveli = 'moi'
+    app.post('/signupcompany', passport.authenticate('local-company', {
+        //successRedirect : '/' // redirect to the secure profile section
+        //failureRedirect : '/signup', // redirect back to the signup page if there is an error
+        //failureFlash : true // allow flash messages
 
     }));
 
@@ -378,6 +294,17 @@ function isLoggedIn(req, res, next) {
 
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated())
+        return next();
+
+    // if they aren't redirect them to the home page
+    //res.redirect('/');
+    res.end();
+}
+
+function ifUserLevel(req, res, next) {
+    //errori jos ei logannu sisää
+    // if user is authenticated in the session, carry on
+    if (req.user.userlvl <= 1)
         return next();
 
     // if they aren't redirect them to the home page

@@ -50,7 +50,7 @@ class AddressFields extends React.Component {
                                 <td><label className="leftOrderLabel">Hakuosoite:</label></td>
                                 <td>   <TextField className="rightOrderField"
                                     type="text" hintText="esim. Ståhlberginkatu 10"
-                                     style={styles}
+                                     style={styles} defaultValue={this.props.userInfo.address}
                                     onChange={(event, newValue) => this.setState({ address: newValue })} />
                                 </td>
                             </tr>
@@ -58,6 +58,7 @@ class AddressFields extends React.Component {
                                 <td><label className="leftOrderLabel">Postinumero:</label></td>
                                 <td>  <TextField className="rightOrderField"
                                     type="text" hintText="esim. 15110" style={styles}
+                                    defaultValue={this.props.userInfo.zipcode}
                                     onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
                                 </td>
                             </tr>
@@ -65,6 +66,7 @@ class AddressFields extends React.Component {
                                 <td><label className="leftOrderLabel">Postitoimipaikka:</label></td>
                                 <td> <TextField className="rightOrderField"
                                     type="text" hintText="esim. Lahti" style={styles}
+                                    defaultValue={this.props.userInfo.city}
                                     onChange={(event, newValue) => this.setState({ city: newValue })} />
                                 </td>
                             </tr>
@@ -72,6 +74,7 @@ class AddressFields extends React.Component {
                                 <td><label className="leftOrderLabel">Puhelinnumero:</label></td>
                                 <td>   <TextField className="rightOrderField"
                                     type="text" hintText="esim. 044 708 1347​" style={styles}
+                                    defaultValue={this.props.userInfo.phone}
                                     onChange={(event, newValue) => this.setState({ phone: newValue })} />
                                 </td>
                             </tr>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import IconButton from 'material-ui/IconButton';
 import Divider from 'material-ui/Divider';
 import styles from '../../../../index.css';
-import Order from '../Order/OrderMain';
+import Order from '../../../containers/EndUser/Order/OrderMain';
 import Notification from '../../../containers/WasteProcessor/Notification'
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';

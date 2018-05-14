@@ -4,7 +4,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import { sendCompRegData } from '../../../utils/sendCompRegData';
 import styles from '../../../index.css';
-import { Checkbox} from 'material-ui';
+import { Checkbox } from 'material-ui';
 
 class WasteRegister extends React.Component {
     constructor(props) {
@@ -29,7 +29,7 @@ class WasteRegister extends React.Component {
         this.emailCheck = this.emailCheck.bind(this);
     }
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         this.emailCheck();
         this.checkFill();
     }
@@ -48,16 +48,16 @@ class WasteRegister extends React.Component {
         });
     }
 
-    emailCheck(){
+    emailCheck() {
         let email = this.state.email;
         let pass;
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         pass = re.test(String(email).toLowerCase());
 
-        if(this.state.emailValid != pass){
-            this.setState({ emailValid: pass})
+        if (this.state.emailValid != pass) {
+            this.setState({ emailValid: pass })
         }
-        
+
     }
 
     checkFill() {
@@ -77,17 +77,15 @@ class WasteRegister extends React.Component {
     Submit(event) {
 
         var regData = {
-            "username": this.state.email,
+            "email": this.state.email,
             "company": this.state.corpName,
             "ytunnus": this.state.ytunnus,
-            "contname": this.state.contName,
-            "email": this.state.email,
+            "fname": this.state.fname,
+            "lname": this.state.lname,
             "phone": this.state.phone,
             "address": this.state.streetAddress,
             "zipcode": this.state.zipcode,
-            "city": this.state.city,
-            "userlvl": "1",
-            "Status": "0",
+            "city": this.state.city
         }
         console.log(JSON.stringify(regData));
         sendCompRegData(JSON.stringify(regData));
@@ -136,6 +134,7 @@ class WasteRegister extends React.Component {
 
                 <table className="registerStructure">
                     <tbody>
+                        <tr><td></td><td><label className="middleRegisterLabel">Yrityksen tiedot:</label> </td></tr>
                         <tr>
                             <td>  <label className="leftRegisterLabel">Yrityksen nimi*: </label> </td>
                             <td>   <TextField className="rightRegisterField"
@@ -186,14 +185,24 @@ class WasteRegister extends React.Component {
                                 onChange={(event, newValue) => this.setState({ city: newValue })} />
                             </td>
                         </tr>
+                        <tr><td></td><td><label className="middleRegisterLabel">Yhteyshenkilön tiedot:</label> </td></tr>
                         <tr>
-                            <td>
-                                <label className="leftRegisterLabel">Yhteyshenkilö*: </label> </td>
+                            <td><label className="leftRegisterLabel">Etunimi*: </label> </td>
                             <td>  <TextField className="rightRegisterField"
                                 underlineStyle={{ borderColor: '#A6CE6B' }}
                                 underlineFocusStyle={{ borderColor: '#004225' }}
-                                type="text" hintText="esim. Matti Meikäläinen" style={styles}
-                                onChange={(event, newValue) => this.setState({ contName: newValue })} />
+                                type="text" hintText="esim. Matti" style={styles}
+                                onChange={(event, newValue) => this.setState({ fname: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label className="leftRegisterLabel">Sukunimi*: </label> </td>
+                            <td>  <TextField className="rightRegisterField"
+                                underlineStyle={{ borderColor: '#A6CE6B' }}
+                                underlineFocusStyle={{ borderColor: '#004225' }}
+                                type="text" hintText="esim. Meikäläinen" style={styles}
+                                onChange={(event, newValue) => this.setState({ lname: newValue })} />
                             </td>
                         </tr>
                         <tr>
@@ -217,27 +226,28 @@ class WasteRegister extends React.Component {
                             </td>
                         </tr>
                         <tr>
-                                <td>
+                            <td>
 
-                                </td>
-                                <td>
-                                    <Checkbox style={{width: '70%', fontWeight: 400}}
+                            </td>
+                            <td>
+                                <Checkbox style={{ width: '70%', fontWeight: 400 }}
                                     labelStyle={{
                                         fontFamily: 'kanit',
                                         float: 'left',
                                         borderRadius: '0',
                                         fontSize: '12px',
-                                        color: '#004225'}}
-                                        id="confirmationCheck"
-                                        iconStyle={{fill: '#004225'}}
-                                        checked={this.state.termsAndConditions}
-                                        onCheck={this.updateCheckConfirm.bind(this)}
-                                        label="Vakuutan edellä antamani tiedot oikeiksi, ja hyväksyn palvelun käyttöehdot."
-                                        disabled={!this.state.allFilled}
-                                    />
+                                        color: '#004225'
+                                    }}
+                                    id="confirmationCheck"
+                                    iconStyle={{ fill: '#004225' }}
+                                    checked={this.state.termsAndConditions}
+                                    onCheck={this.updateCheckConfirm.bind(this)}
+                                    label="Vakuutan edellä antamani tiedot oikeiksi, ja hyväksyn palvelun käyttöehdot."
+                                    disabled={!this.state.allFilled}
+                                />
 
-                                </td>
-                            </tr>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
                 <FlatButton className="cancelButton"

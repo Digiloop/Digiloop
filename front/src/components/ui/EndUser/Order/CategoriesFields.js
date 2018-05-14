@@ -57,6 +57,18 @@ class CategoriesFields extends React.Component {
 
     render() {
 
+        const styles = {
+            width: 250,
+            backgroundColor: '#FFFFFF',
+            borderRadius: 4,
+            borderWidth: 0.5,
+            borderColor: '#d6d7da',
+
+            images: {
+                width: '14.2vh'
+            }
+        };
+
         const results = (<table className="orderStructure">
             <tbody>
                 <tr>
@@ -66,6 +78,7 @@ class CategoriesFields extends React.Component {
                     <td style={{ borderRadius: 4, border: '8px solid white' }}>
                         <img
                             src={require('../Materials/OrderPics/tietoturva.gif')}
+                            style={ styles.images }
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}
@@ -74,6 +87,7 @@ class CategoriesFields extends React.Component {
                     <td style={{ borderRadius: 4, border: '8px solid white' }}>
                         <img
                             src={require('../Materials/OrderPics/tietoturva1.gif')}
+                            style={ styles.images }
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}
@@ -82,6 +96,7 @@ class CategoriesFields extends React.Component {
                     <td style={{ borderRadius: 4, border: '8px solid white' }}>
                         <img
                             src={require('../Materials/OrderPics/tietoturva.gif')}
+                            style={ styles.images }
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}
@@ -100,6 +115,7 @@ class CategoriesFields extends React.Component {
                     <td style={{ borderRadius: 4, border: '8px solid white' }}>
                         <img
                             src={require('../Materials/OrderPics/akku.gif')}
+                            style={ styles.images }
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}
@@ -108,6 +124,7 @@ class CategoriesFields extends React.Component {
                     <td style={{ borderRadius: 4, border: '8px solid white' }}>
                         <img
                             src={require('../Materials/OrderPics/akku.gif')}
+                            style={ styles.images }
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}
@@ -116,6 +133,7 @@ class CategoriesFields extends React.Component {
                     <td style={{ borderRadius: 4, border: '8px solid white' }}>
                         <img
                             src={require('../Materials/OrderPics/akku.gif')}
+                            style={ styles.images }
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}
@@ -134,6 +152,7 @@ class CategoriesFields extends React.Component {
                     <td style={{ borderRadius: 4, border: '8px solid white' }}>
                         <img
                             src={require('../Materials/OrderPics/tv.gif')}
+                            style={ styles.images }
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}
@@ -142,6 +161,7 @@ class CategoriesFields extends React.Component {
                     <td style={{ borderRadius: 4, border: '8px solid white' }}>
                         <img
                             src={require('../Materials/OrderPics/pesukone.gif')}
+                            style={ styles.images }
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}
@@ -150,6 +170,7 @@ class CategoriesFields extends React.Component {
                     <td style={{ borderRadius: 4, border: '8px solid white' }}>
                         <img
                             src={require('../Materials/OrderPics/kahvi.gif')}
+                            style={ styles.images }
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}
@@ -159,28 +180,18 @@ class CategoriesFields extends React.Component {
             </tbody>
         </table>);
 
-        const styles = {
-            width: 250,
-            backgroundColor: '#FFFFFF',
-            borderRadius: 4,
-            borderWidth: 0.5,
-            borderColor: '#d6d7da'
-        };
-
-        const progress = {
-            borderRadius: 4, backgroundColor: '#FFFFFF', width: '10%', height: '1.5vh', margin: 5, float: 'left'
-        }
         return (
             <div className="Container">
                 <table className="orderStructure">
                     <tbody>
                         <tr>
-                            <td>  <label className="leftOrderLabel"><h2 style={{ textAlign: 'left' }}>Pääluokka:</h2> </label> </td>
+                            <td><label className="leftOrderLabel"><h2>Pääluokka:</h2> </label> </td>
                         </tr>
                         <tr>
                             <td style={{ borderRadius: 4, border: '8px solid white' }}>
                                 <img
                                     src={require('../Materials/OrderPics/slaitteet.gif')}
+                                    style={ styles.images }
                                     className="image-btn btn"
                                     alt="Special button"
                                     onClick={this.serHandler}
@@ -189,6 +200,7 @@ class CategoriesFields extends React.Component {
                             <td style={{ borderRadius: 4, border: '8px solid white' }}>
                                 <img
                                     src={require('../Materials/OrderPics/akku.gif')}
+                                    style={ styles.images }
                                     className="image-btn btn"
                                     alt="Special button"
                                     onClick={this.akutHandler}
@@ -197,6 +209,7 @@ class CategoriesFields extends React.Component {
                             <td style={{ borderRadius: 4, border: '8px solid white' }}>
                                 <img
                                     src={require('../Materials/OrderPics/tietoturva.gif')}
+                                    style={ styles.images }
                                     className="image-btn btn"
                                     alt="Special button"
                                     onClick={this.tietoturvaHandler}

@@ -65,18 +65,23 @@ class CategoriesFields extends React.Component {
             borderColor: '#d6d7da',
 
             images: {
-                width: '14.2vh'
+                borderRadius: 4,
+                border: '8px solid white',
+                width: '28.5%',
+                marginRight: '1%'
             },
 
-            tdStyle : {
+            tdStyle: {
                 borderRadius: 4,
-                border: '8px solid white'
+                border: '8px solid white',
+                width: '5vh',
+                height: '5vh'
             },
 
             trStyle: {
-                width: '98vh',
-                overflowX: 'hidden',
-                overflowY: 'auto',
+                display: 'block',
+                width: '98%',
+                overflowX: 'scroll',
                 whiteSpace: 'nowrap'
             }
         };
@@ -84,31 +89,27 @@ class CategoriesFields extends React.Component {
         const results = (<table className="orderStructure">
             <tbody>
                 <tr>
-                    <td>  <label className="leftOrderLabel"><h2 style={{ textAlign: 'left' }}>Alakategoria</h2> </label> </td>
+                    <td>  <label className="leftOrderLabel"><h2 className="orderH2">Alakategoria</h2> </label> </td>
                 </tr>
                 <tr>
-                    <td style={ styles.tdStyle }>
+                    <td>
                         <img
                             src={require('../Materials/OrderPics/tietoturva.gif')}
-                            style={ styles.images }
+                            style={styles.images}
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}
                         />
-                    </td>
-                    <td style={ styles.tdStyle }>
                         <img
                             src={require('../Materials/OrderPics/tietoturva1.gif')}
-                            style={ styles.images }
+                            style={styles.images}
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}
                         />
-                    </td>
-                    <td style={ styles.tdStyle }>
                         <img
                             src={require('../Materials/OrderPics/tietoturva.gif')}
-                            style={ styles.images }
+                            style={styles.images}
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}
@@ -121,31 +122,27 @@ class CategoriesFields extends React.Component {
         const resultsAkku = (<table className="orderStructure">
             <tbody>
                 <tr>
-                    <td>  <label className="leftOrderLabel"><h2>Alakategoria</h2> </label> </td>
+                    <td>  <label className="leftOrderLabel"><h2 className="orderH2" >Alakategoria</h2> </label> </td>
                 </tr>
                 <tr style={{ margin: '0' }}>
-                    <td style={ styles.tdStyle }>
+                    <td>
                         <img
                             src={require('../Materials/OrderPics/akku.gif')}
-                            style={ styles.images }
+                            style={styles.images}
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}
                         />
-                    </td>
-                    <td style={ styles.tdStyle }>
                         <img
                             src={require('../Materials/OrderPics/akku.gif')}
-                            style={ styles.images }
+                            style={styles.images}
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}
                         />
-                    </td>
-                    <td style={ styles.tdStyle }>
                         <img
                             src={require('../Materials/OrderPics/akku.gif')}
-                            style={ styles.images }
+                            style={styles.images}
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}
@@ -158,40 +155,34 @@ class CategoriesFields extends React.Component {
         const resultsSer = (<table className="orderStructure">
             <tbody>
                 <tr>
-                    <td>  <label className="leftOrderLabel"><h2>Alakategoria</h2> </label> </td>
+                    <td>  <label className="leftOrderLabel"><h2 className="orderH2">Alakategoria</h2> </label> </td>
                 </tr>
-                <tr>
-                    <td style={ styles.tdStyle }>
+                <tr style={ styles.trStyle }>
+                    <td>
                         <img
                             src={require('../Materials/OrderPics/tv.gif')}
-                            style={ styles.images }
+                            style={styles.images}
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}
                         />
-                    </td>
-                    <td style={ styles.tdStyle }>
                         <img
                             src={require('../Materials/OrderPics/pesukone.gif')}
-                            style={ styles.images }
+                            style={styles.images}
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}
                         />
-                    </td>
-                    <td style={ styles.tdStyle }>
                         <img
                             src={require('../Materials/OrderPics/kahvi.gif')}
-                            style={ styles.images }
+                            style={styles.images}
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}
                         />
-                    </td>
-                    <td style={ styles.tdStyle }>
                         <img
                             src={require('../Materials/OrderPics/tv.gif')}
-                            style={ styles.images }
+                            style={styles.images}
                             className="image-btn btn"
                             alt="Special button"
                             onClick={(event) => this.Submit(event)}
@@ -206,31 +197,27 @@ class CategoriesFields extends React.Component {
                 <table className="orderStructure">
                     <tbody>
                         <tr>
-                            <td><label className="leftOrderLabel"><h2>Pääluokka</h2> </label> </td>
+                            <td><label className="leftOrderLabel"><h2 className="orderH2">Pääluokka</h2> </label> </td>
                         </tr>
-                        <tr>
-                            <td style={ styles.tdStyle }>
+                        <tr style={ styles.trStyle } >
+                            <td>
                                 <img
                                     src={require('../Materials/OrderPics/slaitteet.gif')}
-                                    style={ styles.images }
+                                    style={styles.images}
                                     className="image-btn btn"
                                     alt="Special button"
                                     onClick={this.serHandler}
                                 />
-                            </td>
-                            <td style={ styles.tdStyle }>
                                 <img
                                     src={require('../Materials/OrderPics/akku.gif')}
-                                    style={ styles.images }
+                                    style={styles.images}
                                     className="image-btn btn"
                                     alt="Special button"
                                     onClick={this.akutHandler}
                                 />
-                            </td>
-                            <td style={ styles.tdStyle }>
                                 <img
                                     src={require('../Materials/OrderPics/tietoturva.gif')}
-                                    style={ styles.images }
+                                    style={styles.images}
                                     className="image-btn btn"
                                     alt="Special button"
                                     onClick={this.tietoturvaHandler}

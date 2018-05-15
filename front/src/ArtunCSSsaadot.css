@@ -119,9 +119,9 @@
 }
 
 /* Track */
-::-webkit-scrollbar-track {
+/* ::-webkit-scrollbar-track {
     background: #004225; 
-}
+} */
 
 /* Handle */
 ::-webkit-scrollbar-thumb {

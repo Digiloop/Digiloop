@@ -12,13 +12,12 @@ var app      = express();
 var port     = process.env.PORT || 80;
 var fileUpload = require('express-fileupload')
 var passport = require('passport');
-var birds = require('./routes/birds')
 var categories = require('./routes/categories')
 
 // configuration ===============================================================
 // connect to our database
 
-require('./config/passport')(passport); // pass passport for configuration
+require('./passport')(passport); // pass passport for configuration
 //require('./config/users')(users);
 
 

@@ -1,7 +1,7 @@
 //var dosmth = require("./dosmth.js");
 var express = require('express');
 var router = express.Router();
-var sqldata = require('./sqldata.js'); //haetaan luokka joka hoitaa sql sydeemeit
+var sqldata = require('../code/sqldata.js'); //haetaan luokka joka hoitaa sql sydeemeit
 var sqldatahaku = new sqldata; // 
 //var randomiii = new sqldata();
 //https://javascript.info/async-await

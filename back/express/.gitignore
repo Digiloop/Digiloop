@@ -223,3 +223,4 @@ pip-log.txt
 # node modules
 ##############
 node_modules/
+app/database.js

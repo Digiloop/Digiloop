@@ -3,6 +3,8 @@ import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
+import Back from '@material-ui/icons/ArrowBack';
+import Forward from '@material-ui/icons/ArrowForward';
 import AddressFields from '../../../containers/EndUser/Order/AddressFields';
 import CategoriesFields from '../../../containers/EndUser/Order/CategoriesFields';
 
@@ -60,13 +62,11 @@ class OrderMain extends Component {
                 return < AddressFields
                     values={this.state.values}
                     nextStep={this.nextStep}
-                    prevStep={this.prevStep}
                     saveValues={this.saveValues} />
             case 2:
                 return < CategoriesFields
                     values={this.state.values}
                     nextStep={this.nextStep}
-                    prevStep={this.prevStep}
                     saveValues={this.saveValues} />
 
         }
@@ -81,26 +81,56 @@ class OrderMain extends Component {
                 backgroundColor: '#FFF',
                 width: '14%',
                 height: '.8vh',
-                margin: 5,
-                float: 'left'
+                margin: 'auto',
+                float: 'left',
+                marginLeft: 10
             },
-
             Active: {
                 backgroundColor: 'rgb(166, 206, 106)',
                 borderRadius: 8,
                 width: '14%',
                 height: '.8vh',
-                margin: 5,
-                float: 'left'
+                margin: 'auto',
+                float: 'left',
+                marginLeft: 10
+            },
+            backArrow: {
+                color: '#FFF',
+                height: 60,
+                width: 60,
+                margin: '0 15 0 20'
+            },
+            backArrowHidden: {
+                color: '#FFF',
+                height: 60,
+                width: 60,
+                margin: '0 15 0 20',
+                visibility: 'hidden'
+            },
+            forwardArrow: {
+                color: '#FFF',
+                height: 60,
+                width: 60,
+                margin: '0 20'
+            },
+            forwardArrowHidden: {
+                visibility: 'hidden',
+                color: '#FFF',
+                height: 60,
+                width: 60,
+                margin: '0 20'
+
             }
         }
         return (
             <div className="orderWrapper">
                 <div className="progressBar" style={{ maxWidth: '90vh', minWidth: '50vh', display: 'flex', justifyContent: 'center' }}>
+                    <Back style={this.state.step == 1 ? styles.backArrowHidden : styles.backArrow} onClick={this.prevStep} />
                     <div className="state1" style={this.state.step == 1 ? styles.Active : styles.notActive}></div>
                     <div className="state2" style={this.state.step == 2 ? styles.Active : styles.notActive}></div>
                     <div className="state3" style={this.state.step == 3 ? styles.Active : styles.notActive}></div>
                     <div className="state4" style={this.state.step == 4 ? styles.Active : styles.notActive}></div>
+                    <Forward style={this.state.step == 4 ? styles.forwardArrowHidden : styles.forwardArrow} onClick={this.nextStep} />
                 </div>
                 <div className="frontPageBox" >{this.showSteps()}</div>
             </div>

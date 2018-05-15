@@ -59,51 +59,6 @@ queryinsert(table, value1, value2, value3, value4){
   })
 
 }
-//`INSERT INTO Category ( CatName, Status, RealName ) VALUES ('${req.body.catname}','1','${req.body.catname}')
 };
 
 
-/*
-
-
-/*
-testi
-app.post('/subcatADD', function(req,res) {
-  var newsubCat = {
-    catid:req.body.catid,
-    subcatname:req.body.subcatname.toString(),
-    subcatstatus:1//req.body.subcatstatus
-  };
-  var insertQuery = "INSERT INTO subCat ( CatId, subName, Status ) values (?,?,?)";
-  connection.query(insertQuery, [newsubCat.catid, newsubCat.subcatname, newsubCat.subcatstatus], function(err, result) {
-      if (err) {
-          connection.rollback(function() {
-              throw err;
-          });
-      }});
-      res.end();
-});
-
-
-
-
-
-
-
-getinfo(table,Status,callback){
-  connection.query('SELECT * FROM '+ table +' WHERE Status = '+ Status +'',function(err, result) {
-    callback(err,result);
-  })
-}
-
-
-
-updatesubcatstatus(taulu,status,subid) {
-  connection.query('UPDATE ' + taulu +' SET Status = ' + status + ' WHERE subId = ' + subid + ';',function(err, result) {
-    if (err) throw err;
-    console.log(result.affectedRows + " record(s) updated");
-  })
-}
-
-
-*/

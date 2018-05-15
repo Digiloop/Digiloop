@@ -16,7 +16,7 @@ connection.query('USE ' + dbconfig.database);
 //https://scotch.io/tutorials/keeping-api-routing-clean-using-express-routers
 //https://www.terlici.com/2014/09/29/express-router.html
 //https://www.caffeinecoding.com/better-express-routing-for-nodejs/
-module.exports = function(app, passport, users) {
+module.exports = (app, passport, users) => {
     //	app.get('/categories',isLoggedIn, function(req, res
 /*
     app.get('/categories', function(req, res, next) {
@@ -129,9 +129,7 @@ module.exports = function(app, passport, users) {
             coordstatus: req.body.status2
         };
 
-        if (req.files){
-
-
+        if (req.files) {
         // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
 
         var picture = req.files.picture;
@@ -253,36 +251,19 @@ module.exports = function(app, passport, users) {
     });
 */
     // process the signup form
-    app.post('/signup', passport.authenticate('local-signup', {
-        //successRedirect : '/' // redirect to the secure profile section
-        //failureRedirect : '/signup', // redirect back to the signup page if there is an error
-        //failureFlash : true // allow flash messages
-
-    }));
-
-    app.post('/signupcompany', passport.authenticate('local-company', {
-        //successRedirect : '/' // redirect to the secure profile section
-        //failureRedirect : '/signup', // redirect back to the signup page if there is an error
-        //failureFlash : true // allow flash messages
-
-    }));
+    app.post('/signup', passport.authenticate('local-signup', {}));
+    app.post('/signupcompany', passport.authenticate('local-company', {}));
 
     // =====================================
     // PROFILE SECTION =========================
     // =====================================
     // we will want this protected so you have to be logged in to visit
     // we will use route middleware to verify this (the isLoggedIn function)
-    app.get('/profile', isLoggedIn, function(req, res) {
-        //user : req.user // get the user out of session and pass to template
-        res.json({
-            user: req.user
-        });
-    });
-
+    app.get('/profile', isLoggedIn, (req, res) => {res.json(req.user)});
     // =====================================
     // LOGOUT ==============================
     // =====================================
-    app.get('/logout', isLoggedIn, function(req, res) {
+    app.get('/logout', isLoggedIn, (req, res) => {
         req.logout();
         //res.redirect('/login');
         res.end();

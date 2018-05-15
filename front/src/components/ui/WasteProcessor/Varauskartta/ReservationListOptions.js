@@ -60,6 +60,23 @@ class ReservationListOptions extends Component {
     }
 
 
+    for (let i = 0; i < this.props.categories.length; i++) {
+      for (let j = 0; j < this.props.subCategories.length; j++) {
+        if (this.props.subCategories[j].CatId == this.props.categories[i].CatId) {
+          let subCatState = this.props.categories[i].CatName + this.props.subCategories[j].subName;
+
+          if (this.props.rLOpt.subCategories[subCatState] === undefined) {
+            this.setState({ [subCatState]: true })
+          } else {
+            this.setState({ [subCatState]: this.props.rLOpt.subCategories[subCatState] })
+          }
+
+
+        }
+      }
+    }
+
+
 
 
 
@@ -75,13 +92,30 @@ class ReservationListOptions extends Component {
     let cats = {};
     let subCats = {};
 
+    // category package
     for (let i = 0; i < this.props.categories.length; i++) {
       cats[this.props.categories[i].CatName] = this.state[this.props.categories[i].CatName];
     }
+    /*
+        for (let i = 0; i < this.props.subCategories.length; i++) {
+          subCats[this.props.subCategories[i].subName] = this.state[this.props.subCategories[i].subName];
+        }
+    */
 
-    for (let i = 0; i < this.props.subCategories.length; i++) {
-      subCats[this.props.subCategories[i].subName] = this.state[this.props.subCategories[i].subName];
+    // subcat package
+    for (let i = 0; i < this.props.categories.length; i++) {
+      for (let j = 0; j < this.props.subCategories.length; j++) {
+        if (this.props.subCategories[j].CatId == this.props.categories[i].CatId) {
+
+          // prepare the subcat's statename (parent catname + subname)
+          let subCatState = this.props.categories[i].CatName + this.props.subCategories[j].subName;
+          subCats[subCatState] = this.state[subCatState];
+        }
+      }
     }
+
+
+
 
     // add the packages to the other settings, update to redux store
     this.props.onNewOptions({
@@ -127,11 +161,10 @@ class ReservationListOptions extends Component {
     for (let i = 0; i < this.props.categories.length; i++) {
 
       // create the category-väliotsikot
-      subCatBoxes.push(<tr key={"subKattiOtsikko"+i}><td>{this.props.categories[i].CatName}</td></tr>);
+      subCatBoxes.push(<tr key={"subKattiOtsikko" + i}><td>{this.props.categories[i].CatName}</td></tr>);
 
       for (let j = 0; j < this.props.subCategories.length; j++) {
         if (this.props.subCategories[j].CatId == this.props.categories[i].CatId) {
-          console.log("Match");
 
           // prepare the subcat's statename (parent catname + subname)
           let subCatState = this.props.categories[i].CatName + this.props.subCategories[j].subName;
@@ -140,21 +173,19 @@ class ReservationListOptions extends Component {
             <tr key={"subkattirivi" + j}>
               <td className="type">{this.props.subCategories[j].subName}</td>
               <td><Checkbox
-                checked={this.state.serSmallSer}
+                checked={this.state[subCatState]}
                 onCheck={(event, newValue) => this.setState({ [subCatState]: newValue })}
               /></td>
             </tr>
 
           );
+
         }
 
       }
     }
 
 
-
-
-    // TODO create styling for options
     return (
       <MuiThemeProvider>
         <form onSubmit={this.submit} className="ResListOptForm">
@@ -216,7 +247,7 @@ class ReservationListOptions extends Component {
                   <tr><td><h1 id="alakatetext">Alakategoriat</h1></td></tr>
                   {subCatBoxes}
 
-                  
+
                 </tbody>
               </table>
 

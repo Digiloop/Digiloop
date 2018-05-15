@@ -56,15 +56,7 @@
 			"ddsadsa": true
 		},
 		"subCategories": {
-			"serSmallSer": true,
-			"serBigSer": true,
-			"serDataSer": true,
-			"serLampSer": true,
-			"battNickelKadium": true,
-			"battNickelMetal": true,
-			"battOther": true,
-			"infosecDataSer": true,
-			"infosecPapaer": true
+			
 		},
 		"showRes": 0,
 		"minWeight": 0,

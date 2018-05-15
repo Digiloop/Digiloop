@@ -6,7 +6,7 @@ var BearerStrategy	 = require('passport-http-bearer').Strategy;
 // load up the user model
 var mysql = require('mysql2');
 var bcrypt = require('bcrypt-nodejs');
-var dbconfig = require('./database');
+var dbconfig = require('../app/database.js');
 var connection = mysql.createConnection(dbconfig.connection);
 
 connection.query('USE ' + dbconfig.database);

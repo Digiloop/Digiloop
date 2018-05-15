@@ -10,27 +10,6 @@ class ReservationListOptions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      /*
-      // categories
-      ser: this.props.rLOpt.categories.ser,
-      batteries: this.props.rLOpt.categories.batteries,
-      infoSecurity: this.props.rLOpt.categories.infoSecurity,
-      */
-
-      /*
-      // subcategories
-      serSmallSer: true,
-      serBigSer: true,
-      serDataSer: true,
-      serLampSer: true,
-
-      battNickelKadium: true,
-      battNickelMetal: true,
-      battOther: true,
-
-      infosecDataSer: true,
-      infosecPaper: true,
-      */
 
 
       // show reserved
@@ -64,6 +43,7 @@ class ReservationListOptions extends Component {
       for (let j = 0; j < this.props.subCategories.length; j++) {
         if (this.props.subCategories[j].CatId == this.props.categories[i].CatId) {
           let subCatState = this.props.categories[i].CatName + this.props.subCategories[j].subName;
+          subCatState = subCatState.toLowerCase();
 
           if (this.props.rLOpt.subCategories[subCatState] === undefined) {
             this.setState({ [subCatState]: true })
@@ -75,10 +55,6 @@ class ReservationListOptions extends Component {
         }
       }
     }
-
-
-
-
 
   }
 
@@ -109,6 +85,7 @@ class ReservationListOptions extends Component {
 
           // prepare the subcat's statename (parent catname + subname)
           let subCatState = this.props.categories[i].CatName + this.props.subCategories[j].subName;
+          subCatState = subCatState.toLowerCase();
           subCats[subCatState] = this.state[subCatState];
         }
       }
@@ -156,6 +133,8 @@ class ReservationListOptions extends Component {
         </tr>
       )
     }
+    // shitty fix for checkboxes breking the div, creating scroll bars
+    catBoxes.push(<tr><td><br/></td></tr>);
 
     // pre-build subcategory checkboxes
     for (let i = 0; i < this.props.categories.length; i++) {
@@ -168,6 +147,7 @@ class ReservationListOptions extends Component {
 
           // prepare the subcat's statename (parent catname + subname)
           let subCatState = this.props.categories[i].CatName + this.props.subCategories[j].subName;
+          subCatState = subCatState.toLowerCase();
           subCatBoxes.push(
 
             <tr key={"subkattirivi" + j}>

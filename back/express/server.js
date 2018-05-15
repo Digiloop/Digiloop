@@ -13,7 +13,7 @@ var port     = process.env.PORT || 80;
 var fileUpload = require('express-fileupload')
 var passport = require('passport');
 var categories = require('./routes/categories')
-
+var items = require('./routes/items')
 // configuration ===============================================================
 // connect to our database
 
@@ -75,8 +75,9 @@ app.use(passport.session()); // persistent login sessions
 require('./routes/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 //router.use(require('./routes/routes.js')(app, passport));
 //app.use('/cat', cats); // http://193.166.72.18/cat/categories
-app.use('/', categories); // http://193.166.72.18/categories
+app.use('/', categories,items); // http://193.166.72.18/categories
+//app.use('/items5', items);
 //app.use('/birds', birds) //<<- toimia esimerkki
 // launch ======================================================================
 app.listen(port);
-console.log('The magic happens on port ' + port);
+console.log('päkki pystys portissa ' + port);

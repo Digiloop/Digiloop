@@ -9,7 +9,7 @@ var sqldatahaku = new sqldata; //
 //GET
 
 router.get('/categories',(req, res, next) => {
-  sqldatahaku.getinfo('Category','1',(err,result) => {
+  sqldatahaku.getInfoStatus('Category','1',(err,result) => {
     if (err) throw err;
     res.json(result);
     next();
@@ -17,7 +17,7 @@ router.get('/categories',(req, res, next) => {
 });
 
 router.get('/subcat', (req, res, next) => {
-  sqldatahaku.getinfo('subCat','1',(err, result) => {
+  sqldatahaku.getInfoStatus('subCat','1',(err, result) => {
     if (err) throw err;
     res.json(result);
     next();
@@ -41,18 +41,18 @@ router.get('/kuva', (req, res, next) => {
 
 //POST
 router.post('/subcatstatus', (req, res, next) => {
-  sqldatahaku.querypost(`UPDATE subCat SET Status = ${req.body.Status} WHERE subId = ${req.body.subId}`)
+  sqldatahaku.queryPost(`UPDATE subCat SET Status = ${req.body.Status} WHERE subId = ${req.body.subId}`)
     console.log(`Status ${req.body.Status} subId ${req.body.subId}`)
     res.end();
 });
 
 router.post('/catADD', (req,res) => {
-    sqldatahaku.queryinsert('Category',req.body.catname,'1',req.body.catname,'imagereferenssi');
+    sqldatahaku.queryInsert('Category',req.body.catname,'1',req.body.catname,'imagereferenssi');
     res.end();
 });
 
 router.post('/subcatADD', (req,res) => {
-  sqldatahaku.queryinsert('subCat',req.body.catid,req.body.subcatname,'1');
+  sqldatahaku.queryInsert('subCat',req.body.catid,req.body.subcatname,'1');
   res.end();
 });
 /*

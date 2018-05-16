@@ -58,12 +58,12 @@
 		"subCategories": {
 			
 		},
-		"showRes": 0,
+		"showRes": true,
 		"minWeight": 0,
-		"maxWeight": 0,
+		"maxWeight": 500,
 		"minSize": 0,
-		"maxSize": 0,
-		"distance": 0
+		"maxSize": 500,
+		"distance": 100
 	},
 	"currentPageName": "Etusivu"
 }

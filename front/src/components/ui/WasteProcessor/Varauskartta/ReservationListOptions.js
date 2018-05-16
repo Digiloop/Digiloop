@@ -24,6 +24,7 @@ class ReservationListOptions extends Component {
     }
   }
 
+
   componentDidMount() {
     // create states for categories
     for (let i = 0; i < this.props.categories.length; i++) {
@@ -72,11 +73,6 @@ class ReservationListOptions extends Component {
     for (let i = 0; i < this.props.categories.length; i++) {
       cats[this.props.categories[i].CatName] = this.state[this.props.categories[i].CatName];
     }
-    /*
-        for (let i = 0; i < this.props.subCategories.length; i++) {
-          subCats[this.props.subCategories[i].subName] = this.state[this.props.subCategories[i].subName];
-        }
-    */
 
     // subcat package
     for (let i = 0; i < this.props.categories.length; i++) {
@@ -134,7 +130,7 @@ class ReservationListOptions extends Component {
       )
     }
     // shitty fix for checkboxes breking the div, creating scroll bars
-    catBoxes.push(<tr><td><br/></td></tr>);
+    catBoxes.push(<tr key={"spagettinenCheckBoxKorjausTableRownKorjausRowJokaVaatiJonkuHelvetinKeynJottaToimii"}><td><br/></td></tr>);
 
     // pre-build subcategory checkboxes
     for (let i = 0; i < this.props.categories.length; i++) {
@@ -191,19 +187,22 @@ class ReservationListOptions extends Component {
                 <tbody>
                   <tr>
                     <td>Paino (kg)</td>
-                    <td id="weightField"><input id="weight" onChange={(event, newValue) => this.setState({ minWeight: newValue })} type="textbox" maxLength="6" />
+                    <td id="weightField">
+                    <input id="weight" onChange={(event, newValue) => this.setState({ minWeight: event.target.value })} type="number" min="0" max="1000000" />
                       -
-                    <input id="weight" onChange={(event, newValue) => this.setState({ maxWeight: newValue })} type="textbox" maxLength="6" /></td>
+                    <input id="weight" onChange={(event, newValue) => this.setState({ maxWeight: event.target.value })} type="number" min="0" max="1000000" /></td>
                   </tr>
                   <tr>
                     <td>Koko (m<sup>3</sup>)</td>
-                    <td id="sizeField"><input id="size" onChange={(event, newValue) => this.setState({ minSize: newValue })} />
+                    <td id="sizeField">
+                    <input id="size" onChange={(event, newValue) => this.setState({ minSize: event.target.value })} type="number" min="0" max="1000000"/>
                       -
-                    <input id="size" onChange={(event, newValue) => this.setState({ maxSize: newValue })} type="textbox" maxLength="6" /></td>
+                    <input id="size" onChange={(event, newValue) => this.setState({ maxSize: event.target.value })} type="number" min="0" max="1000000" /></td>
                   </tr>
                   <tr>
                     <td>Etäisyys (km)</td>
-                    <td id="distanceField"><input id="distance" onChange={(event, newValue) => this.setState({ distance: newValue })} type="textbox" maxLength="6" /></td>
+                    <td id="distanceField">
+                    <input id="distance" onChange={(event, newValue) => this.setState({ distance: event.target.value })} type="number" /></td>
                   </tr>
                   <tr>
                     <td>&nbsp;</td>

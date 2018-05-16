@@ -23,11 +23,10 @@ class WasteProcessor extends Component {
     this.state = {
       showSO: false,
       rliFilt: [],
-      categories: ["SER", "Akut", "Tietoturva"],
-      subCategories: []
     }
     this.rliFiltering = this.rliFiltering.bind(this);
     this.getJunksData = this.getJunksData.bind(this);
+    this.getDistance = this.getDistance.bind(this);
   }
 
   handleChange = (value) => {
@@ -38,63 +37,88 @@ class WasteProcessor extends Component {
 
   // fetch junk data
   getJunksData() {
-
     getJunkData().then((junks) => {
-      //console.log(junks);
-      //this.props.itemsToStore(junks);
       this.rliFiltering();
     });
   }
-  
 
+  // Returns the distance between two coordinates in meters
+  // ©Spaghetti Baker Bros.
+  getDistance(userLat, userLong, targetLat, targetLong){
+ 
+    var R = 6371e3;
+    var f1 = targetLat * Math.PI / 180, l1 = targetLong * Math.PI / 180;
+    var f2 = userLat * Math.PI / 180, l2 = userLong * Math.PI / 180;
+    var df = f2 - f1;
+    var dl = l2 - l1;
+ 
+    var a = Math.sin(df/2) * Math.sin(df/2)
+          + Math.cos(f1) * Math.cos(f2)
+          * Math.sin(dl/2) * Math.sin(dl/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c;
+ 
+    console.log(d);
+    return d;
+  }
 
 
   // the filter function, that leaves only the necessary stuff to be displayed
   rliFiltering() {
-
-
-    //var dynVar;
+    console.clear();
+    console.log(this.props.resListItems);
 
     let resListItemsFiltered = [];
-    let j = 0;
 
 
-    // Abbreviations for props, reservelist options, catoptions & subcatoptions
-    const p = this.props;
-    const o = this.props.rLOpt;
-
-    //console.log(this.props.cats);
-    //console.log(this.props.subCats);
-    //console.log(o.categories);
-    //console.log(o.subCategories);
-    
-    let pi;
-    let pass = true;
-
-
-    // move optioned cats and subcats to array for easier usage
-    let catOptions = [];
-    for (let key in o.categories) {
-      if (o.categories.hasOwnProperty(key)) {
-        catOptions = [...catOptions, o.categories[key]]
-      }
-    }
-
-
+    // loop items
     for (let i = 0; i < this.props.resListItems.length; i++) {
 
-      pi = p.resListItems[i];
-      pass = true;
+      // initialize pass as true, fail it if checks fail
+      let pass = true;
 
-      for (let j = 0; j < this.props.cats.length; j++) {
-        if (catOptions[j] == false && pi.category == this.props.cats[j].CatName) {
+
+      // categorycheck - works perfectly
+      // check the option state at the current item's category spot
+      if (this.props.rLOpt.categories[this.props.resListItems[i].category] != undefined) { // is initialized? ALl uninitialized are treated as true
+        if (!this.props.rLOpt.categories[this.props.resListItems[i].category]) { // is false?
           pass = false;
         }
       }
 
+      // subcategory check - works perfectly
+      let subCat = this.props.resListItems[i].category + this.props.resListItems[i].subCat; // create the subcat full name
+      subCat = subCat.toLowerCase(); // eliminate case-irregularities in item categories
+      if (this.props.rLOpt.subCategories[subCat] != undefined) { // is initialized? ALl uninitialized are treated as true
+        if (!this.props.rLOpt.subCategories[subCat]) { // is false?
+          pass = false;
+        }
+      }
+      
+      // show reserved items - works perfectly
+      if (this.props.resListItems[i].status == 2 && !this.props.rLOpt.showRes){
+        pass = false;
+      }
+
+      // weight limiters - seems to work
+      if(parseInt(this.props.rLOpt.maxWeight, 10) < this.props.resListItems[i].weight || parseInt(this.props.rLOpt.minWeight, 10) > this.props.resListItems[i].weight){
+        pass = false;
+      }
+
+      // volume limiters - seems to work
+      if(parseInt(this.props.rLOpt.maxSize, 10) < this.props.resListItems[i].size || parseInt(this.props.rLOpt.minSize, 10) > this.props.resListItems[i].size){
+        pass = false;
+      }
+
+      // distance limiters - done initially, requires proper location fetching
+      // we cannot just get user's location with HTML5 geolocation, since it requires https with chrome (which we do not have)
+      if((this.getDistance(60.984149, 25.649381, this.props.resListItems[i].latitude, this.props.resListItems[i].longitude) / 1000) > this.props.rLOpt.distance){
+        pass = false;
+      }
+
+      // if passed all checks, add to items that will be printed
       if (pass) {
-        resListItemsFiltered[j] = this.props.resListItems[i];
-        j++;
+        resListItemsFiltered.push(this.props.resListItems[i]);
       }
     }
 
@@ -106,12 +130,8 @@ class WasteProcessor extends Component {
 
   componentDidMount() {
     this.getJunksData();
-    //this.rliFiltering();
   }
 
-  componentWillReceiveProps() {
-    //this.rliFiltering();
-  }
 
   showSearchOptions = () => {
     // TODO instead of updating when returning from options page,

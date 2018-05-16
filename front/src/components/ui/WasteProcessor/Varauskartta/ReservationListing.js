@@ -112,7 +112,7 @@ class ReservationListing extends Component {
             Ilmoitettu: {this.parseTimeStamp(this.props.items[i].junkdateadded)}<br />
             {this.props.items[i].pcs}kpl<br />
             {this.props.items[i].size}m<sup>3</sup><br />
-            {this.props.items[i].weight}<br />
+            {this.props.items[i].weight}kg<br />
 
             <div>{this.props.items[i].description}</div><br />
             </TableRowColumn>

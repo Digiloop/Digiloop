@@ -62,26 +62,3 @@ router.post('/subcatADD', function(req,res) {
 */
 
 module.exports = router
-
-
-
-
-
-
-/*
-app.post('/subcatADD', function(req,res) {
-  var newsubCat = {
-    catid:req.body.catid,
-    subcatname:req.body.subcatname.toString(),
-    subcatstatus:1//req.body.subcatstatus
-  };
-  var insertQuery = "INSERT INTO subCat ( CatId, subName, Status ) values (?,?,?)";
-  connection.query(insertQuery, [newsubCat.catid, newsubCat.subcatname, newsubCat.subcatstatus], function(err, result) {
-      if (err) {
-          connection.rollback(function() {
-              throw err;
-          });
-      }});
-      res.end();
-});
-*/

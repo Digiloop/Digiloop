@@ -4,6 +4,7 @@ var mysql = require('mysql2');
 var dbconfig = require('../app/database');
 var fileUpload = require('express-fileupload');
 var connection = mysql.createConnection(dbconfig.connection);
+var bcrypt = require('bcrypt-nodejs');
 //var datenow = Date.now();
 const fs = require('fs');
 connection.query('USE ' + dbconfig.database);
@@ -37,12 +38,10 @@ module.exports = (app, passport, users) => {
     });
 
 	 app.get('/getUsers',isLoggedIn, (req, res) => {
-		 if (req.user.userlvl == 0){
         connection.query('SELECT * FROM users',(err, result) => {
                 if (err) throw err;
                 res.json(result);
             });
-		 }
     });
 	 app.post('/deleteUser', isLoggedIn, (req, res) => {
 		 if (req.user.userlvl == 0){
@@ -52,6 +51,14 @@ module.exports = (app, passport, users) => {
         });
         res.end();
 		 }
+    });
+
+    
+    app.post('/updateUser', isLoggedIn, (req, res) => {
+        connection.query('UPDATE users SET fname = ?, lname = ?, email = ?, password = ? WHERE id = ?;', [req.body.fname, req.body.lname, req.body.email, bcrypt.hashSync(req.body.password, null, null), req.user.id], (err,result) => {
+            if (err) throw err;
+            console.log(result.affectedRows + " record(s) updated");
+        })
     });
 
     app.post('/announcementADD', isLoggedIn, (req, res) => {
@@ -182,7 +189,7 @@ module.exports = (app, passport, users) => {
     app.get('/items2', (req, res) => {
       //if (req.user.userlvl <= 1){
       //res.send(__dirname);
-        connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
+        connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID WHERE Status != 0',
             function(err, result) {
                 if (err) throw err;
                 res.json(result);
@@ -252,7 +259,7 @@ module.exports = (app, passport, users) => {
 */
     // process the signup form
     app.post('/signup', passport.authenticate('local-signup', {}));
-    app.post('/signupcompany', passport.authenticate('local-company', {}));
+    app.post('/signupCompany', passport.authenticate('local-company', {}));
 
     // =====================================
     // PROFILE SECTION =========================

@@ -23,16 +23,20 @@ class AddressFields extends React.Component {
     }
 
     nextStep(event) {
+        event.preventDefault();
+        console.log("nextStep");
 
         var data = {
-            'address': this.state.address,
-            'zipcode': this.state.zipcode,
-            'city': this.state.city,
-            'phone': this.state.phone,
-            'pickup': this.state.pickup
+            address: this.state.address,
+            zipcode: this.state.zipcode,
+            city: this.state.city,
+            phone: this.state.phone,
+            pickup: this.state.pickup
         }
-        console.log(this.state.data);
-        // this.props.saveValues(data);
+        console.log(data);
+        console.log(this.props);
+        //console.log(this.props.values);
+        this.props.saveValues(data);
 
         this.props.nextStep()
     }
@@ -128,7 +132,7 @@ class AddressFields extends React.Component {
                                     }}
                                     className="image-btn btn"
                                     alt="Special button"
-                                    onClick={this.nextStep}
+                                    onClick={(event) => this.nextStep(event)}
                                 />
                             </td>
                         </tr>

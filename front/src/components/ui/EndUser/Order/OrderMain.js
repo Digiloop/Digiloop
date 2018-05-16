@@ -14,8 +14,8 @@ class OrderMain extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            address: this.props.userInfo.address,
             values: {
-                address: this.props.userInfo.address,
                 zipcode: "",
                 city: '',
                 phone: '',
@@ -38,16 +38,18 @@ class OrderMain extends Component {
     }
 
     saveValues(value) {
+        console.log("haa");
         this.setState({
-        values: {
-            address: this.state.address,
-            'zipcode': this.state.zipcode,
-            'city': this.state.city,
-            'phone': this.state.phone,
-            'pickUpWish': this.state.pickUpWish
-        }})
-        console.log();
-        
+            values: {
+                'address': value.address,
+                'zipcode': value.zipcode,
+                'city': value.city,
+                'phone': value.phone,
+                'pickUpWish': value.pickup
+            }
+        }, () => console.log(this.state.values))
+        console.log("hoo");
+
     }
 
     nextStep = () => {

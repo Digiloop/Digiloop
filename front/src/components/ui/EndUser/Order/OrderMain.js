@@ -14,22 +14,24 @@ class OrderMain extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            address: this.props.userInfo.address,
-            zipcode: "",
-            city: '',
-            phone: '',
-            pickUpWish: '',
-            organization: '',
-            cat: '',
-            subCat: '',
-            pcs: '',
-            size: '',
-            desc: '',
-            pic: '',
-            weight: '',
-            status: '',
-            latitude: '',
-            longitude: '',
+            values: {
+                address: this.props.userInfo.address,
+                zipcode: "",
+                city: '',
+                phone: '',
+                pickUpWish: '',
+                organization: '',
+                cat: '',
+                subCat: '',
+                pcs: '',
+                size: '',
+                desc: '',
+                pic: '',
+                weight: '',
+                status: '',
+                latitude: '',
+                longitude: ''
+            },
             step: 1
         };
         this.saveValues = this.saveValues.bind(this);
@@ -37,16 +39,15 @@ class OrderMain extends Component {
 
     saveValues(value) {
         this.setState({
-            values: {
-                address: this.state.address,
-                'zipcode': this.state.zipcode,
-                'city': this.state.city,
-                'phone': this.state.phone,
-                'pickUpWish': this.state.pickUpWish
-            }
-        })
+        values: {
+            address: this.state.address,
+            'zipcode': this.state.zipcode,
+            'city': this.state.city,
+            'phone': this.state.phone,
+            'pickUpWish': this.state.pickUpWish
+        }})
         console.log();
-
+        
     }
 
     nextStep = () => {

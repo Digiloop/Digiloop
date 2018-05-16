@@ -15,37 +15,40 @@ class OrderMain extends Component {
         super(props);
         this.state = {
             address: this.props.userInfo.address,
-            zipcode: "",
-            city: '',
-            phone: '',
-            pickUpWish: '',
-            organization: '',
-            cat: '',
-            subCat: '',
-            pcs: '',
-            size: '',
-            desc: '',
-            pic: '',
-            weight: '',
-            status: '',
-            latitude: '',
-            longitude: '',
+            values: {
+                zipcode: "",
+                city: '',
+                phone: '',
+                pickUpWish: '',
+                organization: '',
+                cat: '',
+                subCat: '',
+                pcs: '',
+                size: '',
+                desc: '',
+                pic: '',
+                weight: '',
+                status: '',
+                latitude: '',
+                longitude: ''
+            },
             step: 1
         };
         this.saveValues = this.saveValues.bind(this);
     }
 
     saveValues(value) {
+        console.log("haa");
         this.setState({
             values: {
-                address: this.state.address,
-                'zipcode': this.state.zipcode,
-                'city': this.state.city,
-                'phone': this.state.phone,
-                'pickUpWish': this.state.pickUpWish
+                'address': value.address,
+                'zipcode': value.zipcode,
+                'city': value.city,
+                'phone': value.phone,
+                'pickUpWish': value.pickup
             }
-        })
-        console.log();
+        }, () => console.log(this.state.values))
+        console.log("hoo");
 
     }
 

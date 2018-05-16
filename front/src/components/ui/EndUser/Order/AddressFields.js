@@ -23,18 +23,21 @@ class AddressFields extends React.Component {
     }
 
     nextStep(event) {
-        event.preventDefault()
+        event.preventDefault();
+        console.log("nextStep");
 
         var data = {
             address: this.state.address,
             zipcode: this.state.zipcode,
-            "city": this.state.city,
-            "phone": this.state.phone,
-            "pickup": this.state.pickup
+            city: this.state.city,
+            phone: this.state.phone,
+            pickup: this.state.pickup
         }
-        console.log(this.props.values);
+        console.log(data);
+        console.log(this.props);
+        //console.log(this.props.values);
         this.props.saveValues(data);
-        
+
         this.props.nextStep()
     }
 
@@ -49,7 +52,7 @@ class AddressFields extends React.Component {
 
             tdStyle: {
                 width: '40%'
-            },            
+            },
             trStyle: {
                 display: 'block',
                 width: '98%',
@@ -67,73 +70,75 @@ class AddressFields extends React.Component {
         };
 
         return (
-                <div className="Container">
-                    <table className="orderStructure">
-                        <tbody>
-                            <tr>
-                                <td style={ styles.tdStyle } ><label className="leftOrderLabel">Hakuosoite:</label></td>
-                                <td>   <TextField className="rightOrderField"
-                                    type="text" hintText="esim. Ståhlberginkatu 10"
-                                     style={styles} defaultValue={this.props.address}
-                                    onChange={(event, newValue) => this.setState({ address: newValue })} />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label className="leftOrderLabel">Postinumero:</label></td>
-                                <td>  <TextField className="rightOrderField"
-                                    type="text" hintText="esim. 15110" style={styles}
-                                    defaultValue={this.props.userInfo.zipcode}
-                                    onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label className="leftOrderLabel">Postitoimipaikka:</label></td>
-                                <td> <TextField className="rightOrderField"
-                                    type="text" hintText="esim. Lahti" style={styles}
-                                    defaultValue={this.props.userInfo.city}
-                                    onChange={(event, newValue) => this.setState({ city: newValue })} />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label className="leftOrderLabel">Puhelinnumero:</label></td>
-                                <td>   <TextField className="rightOrderField"
-                                    type="text" hintText="esim. 044 708 1347​" style={styles}
-                                    defaultValue={this.props.userInfo.phone}
-                                    onChange={(event, newValue) => this.setState({ phone: newValue })} />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label className="leftOrderLabel">Nouto-ohjeet:</label></td>
-                                <td>    <TextField className="rightOrderField"
-                                    type="text" hintText="esim. Perjantai 30.4 klo 16:30. Käynti pääovesta. " style={styles}
-                                    rows={3} rowsMax={7}
-                                    onChange={(event, newValue) => this.setState({ pickup: newValue })} /><br /><br />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img
-                                        src={require('../Materials/OrderPics/home2.gif')}
-                                        style={ styles.images }
-                                        className="image-btn btn"
-                                        alt="Special button"
-                                        onClick={(event) => this.nextStep(event)}
-                                    />
-                                    </td>
-                                    <td >
-                                    <img
-                                        src={require('../Materials/OrderPics/organization2.gif')}
-                                        style={{ borderRadius: 4, border: '6px solid white', marginLeft: '20%',
-                                            textAlign: 'center', width: '65%' }}
-                                        className="image-btn btn"
-                                        alt="Special button"
-                                        onClick={(event) => this.nextStep(event)}
-                                    />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div >
+            <div className="Container">
+                <table className="orderStructure">
+                    <tbody>
+                        <tr>
+                            <td style={styles.tdStyle} ><label className="leftOrderLabel">Hakuosoite:</label></td>
+                            <td>   <TextField className="rightOrderField"
+                                type="text" hintText="esim. Ståhlberginkatu 10"
+                                style={styles} defaultValue={this.props.address}
+                                onChange={(event, newValue) => this.setState({ address: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label className="leftOrderLabel">Postinumero:</label></td>
+                            <td>  <TextField className="rightOrderField"
+                                type="text" hintText="esim. 15110" style={styles}
+                                defaultValue={this.props.userInfo.zipcode}
+                                onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label className="leftOrderLabel">Postitoimipaikka:</label></td>
+                            <td> <TextField className="rightOrderField"
+                                type="text" hintText="esim. Lahti" style={styles}
+                                defaultValue={this.props.userInfo.city}
+                                onChange={(event, newValue) => this.setState({ city: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label className="leftOrderLabel">Puhelinnumero:</label></td>
+                            <td>   <TextField className="rightOrderField"
+                                type="text" hintText="esim. 044 708 1347​" style={styles}
+                                defaultValue={this.props.userInfo.phone}
+                                onChange={(event, newValue) => this.setState({ phone: newValue })} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label className="leftOrderLabel">Nouto-ohjeet:</label></td>
+                            <td>    <TextField className="rightOrderField"
+                                type="text" hintText="esim. Perjantai 30.4 klo 16:30. Käynti pääovesta. " style={styles}
+                                rows={3} rowsMax={7}
+                                onChange={(event, newValue) => this.setState({ pickup: newValue })} /><br /><br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img
+                                    src={require('../Materials/OrderPics/home2.gif')}
+                                    style={styles.images}
+                                    className="image-btn btn"
+                                    alt="Special button"
+                                    onClick={(event) => this.nextStep(event)}
+                                />
+                            </td>
+                            <td >
+                                <img
+                                    src={require('../Materials/OrderPics/organization2.gif')}
+                                    style={{
+                                        borderRadius: 4, border: '6px solid white', marginLeft: '20%',
+                                        textAlign: 'center', width: '65%'
+                                    }}
+                                    className="image-btn btn"
+                                    alt="Special button"
+                                    onClick={(event) => this.nextStep(event)}
+                                />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div >
         );
     }
 }

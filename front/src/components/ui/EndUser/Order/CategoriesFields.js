@@ -52,7 +52,7 @@ class CategoriesFields extends React.Component {
             phone: this.state.phone,
             pickup: this.state.pickup,
         }
-        console.log(regData);
+        console.log(this.props.values);
     }
 
     render() {

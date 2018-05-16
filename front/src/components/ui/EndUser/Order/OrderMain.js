@@ -7,37 +7,46 @@ import Back from '@material-ui/icons/ArrowBack';
 import Forward from '@material-ui/icons/ArrowForward';
 import AddressFields from '../../../containers/EndUser/Order/AddressFields';
 import CategoriesFields from '../../../containers/EndUser/Order/CategoriesFields';
+import assign from "object-assign";
 
 
 class OrderMain extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            values: {
-                pickUpAddr: '',
-                zipCode: '',
-                city: '',
-                phone: '',
-                pickUpWish: '',
-                organization: '',
-                cat: '',
-                subCat: '',
-                pcs: '',
-                size: '',
-                desc: '',
-                pic: '',
-                weight: '',
-                owner: ''
-            },
+            address: this.props.userInfo.address,
+            zipcode: "",
+            city: '',
+            phone: '',
+            pickUpWish: '',
+            organization: '',
+            cat: '',
+            subCat: '',
+            pcs: '',
+            size: '',
+            desc: '',
+            pic: '',
+            weight: '',
+            status: '',
+            latitude: '',
+            longitude: '',
             step: 1
         };
         this.saveValues = this.saveValues.bind(this);
     }
 
-    saveValues = (value) => {
-        return function () {
-            values: value
-        }
+    saveValues(value) {
+        this.setState({
+            values: {
+                address: this.state.address,
+                'zipcode': this.state.zipcode,
+                'city': this.state.city,
+                'phone': this.state.phone,
+                'pickUpWish': this.state.pickUpWish
+            }
+        })
+        console.log();
+
     }
 
     nextStep = () => {
@@ -130,7 +139,7 @@ class OrderMain extends Component {
                     <div className="state2" style={this.state.step == 2 ? styles.Active : styles.notActive}></div>
                     <div className="state3" style={this.state.step == 3 ? styles.Active : styles.notActive}></div>
                     <div className="state4" style={this.state.step == 4 ? styles.Active : styles.notActive}></div>
-                    <Forward style={this.state.step == 4 ? styles.forwardArrowHidden : styles.forwardArrow} onClick={this.nextStep} />
+                    <Forward style={this.state.step == 4 || this.state.step == 1 ? styles.forwardArrowHidden : styles.forwardArrow} onClick={this.nextStep} />
                 </div>
                 <div className="frontPageBox" >{this.showSteps()}</div>
             </div>

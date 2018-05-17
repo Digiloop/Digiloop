@@ -81,7 +81,7 @@ class ReservationListing extends Component {
     this.setState({ rows: arr });
   }
 
-  // "2018-01-15T22:00:00.000Z" -> 15.01.2018
+  // "2018-01-15 22:00:00.000Z" -> 15.01.2018
   parseTimeStamp(timeStamp){
     let newStamp = timeStamp.split(/[- ]+/);
     return newStamp[2] + "." + newStamp[1] + "." + newStamp[0];

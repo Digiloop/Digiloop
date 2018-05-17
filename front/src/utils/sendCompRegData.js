@@ -9,7 +9,7 @@ function sendCompRegData(regData) {
   
   //TODO: Laita route!!
 
-  return fetch(BASE_URL + '/signup', {
+  return fetch(BASE_URL + '/signupCompany', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

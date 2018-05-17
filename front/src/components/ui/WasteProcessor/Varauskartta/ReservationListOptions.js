@@ -26,6 +26,16 @@ class ReservationListOptions extends Component {
 
 
   componentDidMount() {
+
+    this.setState({
+      minWeight: this.props.rLOpt.minWeight,
+      maxWeight: this.props.rLOpt.maxWeight,
+      minSize: this.props.rLOpt.minSize,
+      maxSize: this.props.rLOpt.maxSize,
+      distance: this.props.rLOpt.distance
+    })
+
+
     // create states for categories
     for (let i = 0; i < this.props.categories.length; i++) {
 
@@ -169,7 +179,7 @@ class ReservationListOptions extends Component {
           <div id="ResListOptionsPohjadiv">
             <div id="ResListOptionsColorDiv">
 
-              <input type="submit" id="submitButt"></input>
+              <input type="submit" id="submitButt" value="Tallenna"></input>
 
               <table id="varatut">
                 <tbody>
@@ -188,21 +198,21 @@ class ReservationListOptions extends Component {
                   <tr>
                     <td>Paino (kg)</td>
                     <td id="weightField">
-                    <input id="weight" onChange={(event, newValue) => this.setState({ minWeight: event.target.value })} type="number" min="0" max="1000000" value={this.props.rLOpt.minWeight}/>
+                    <input id="weight" onChange={(event, newValue) => this.setState({ minWeight: event.target.value })} type="number" min="0" max="1000000" value={this.state.minWeight}/>
                       -
-                    <input id="weight" onChange={(event, newValue) => this.setState({ maxWeight: event.target.value })} type="number" min="0" max="1000000" value={this.props.rLOpt.maxWeight}/></td>
+                    <input id="weight" onChange={(event, newValue) => this.setState({ maxWeight: event.target.value })} type="number" min="0" max="1000000" value={this.state.maxWeight}/></td>
                   </tr>
                   <tr>
                     <td>Koko (m<sup>3</sup>)</td>
                     <td id="sizeField">
-                    <input id="size" onChange={(event, newValue) => this.setState({ minSize: event.target.value })} type="number" min="0" max="1000000" value={this.props.rLOpt.minSize}/>
+                    <input id="size" onChange={(event, newValue) => this.setState({ minSize: event.target.value })} type="number" min="0" max="1000000" value={this.state.minSize}/>
                       -
-                    <input id="size" onChange={(event, newValue) => this.setState({ maxSize: event.target.value })} type="number" min="0" max="1000000" value={this.props.rLOpt.maxSize}/></td>
+                    <input id="size" onChange={(event, newValue) => this.setState({ maxSize: event.target.value })} type="number" min="0" max="1000000" value={this.state.maxSize}/></td>
                   </tr>
                   <tr>
                     <td>Etäisyys (km)</td>
                     <td id="distanceField">
-                    <input id="distance" onChange={(event, newValue) => this.setState({ distance: event.target.value })} type="number" value={this.props.rLOpt.distance}/></td>
+                    <input id="distance" onChange={(event, newValue) => this.setState({ distance: event.target.value })} type="number" value={this.state.distance}/></td>
                   </tr>
                   <tr>
                     <td>&nbsp;</td>

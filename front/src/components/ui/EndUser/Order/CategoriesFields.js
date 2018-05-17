@@ -45,14 +45,8 @@ class CategoriesFields extends React.Component {
     };
 
     Submit(event) {
-        var regData = {
-            address: this.state.address,
-            zipcode: this.state.zipcode,
-            city: this.state.city,
-            phone: this.state.phone,
-            pickup: this.state.pickup,
-        }
         console.log(this.props.values);
+        this.props.nextStep();
     }
 
     render() {

@@ -10,12 +10,12 @@ import Back from 'material-ui/svg-icons/navigation/arrow-back';
 import { sendRegData } from '../../../../utils/sendRegData';
 import styles from '../../../../index.css';
 
+// tee dropdownmenu
 
-class AddressFields extends React.Component {
+class InfoFields extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {            
-            submitted: false,
+        this.state = {       
             allFilled: false
         };
         this.checkFill = this.checkFill.bind(this);
@@ -63,7 +63,7 @@ class AddressFields extends React.Component {
     componentDidUpdate() {
         this.checkFill();
     }
-
+    
     componentDidMount() {
         this.checkFill();
         this.setState({
@@ -141,34 +141,11 @@ class AddressFields extends React.Component {
                             </td>
                         </tr>
                         <tr>
-                            <td><label className="leftOrderLabel">Nouto-ohjeet:</label></td>
+                            <td><label className="leftOrderLabel">Lisätietoja</label></td>
                             <td>    <TextField className="rightOrderField"
-                                type="text" hintText="Perjantai 30.4 klo 16:30. Käynti pääovesta. " style={styles}
-                                rows={3} rowsMax={7} defaultValue={this.props.values.pickup}
+                                type="text" hintText='Televisio 32" tai liesi 60cm' style={styles}
+                                rows={3} rowsMax={7} defaultValue={this.props.values.desc}
                                 onChange={(event, newValue) => this.setState({ pickup: newValue })} /><br /><br />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img
-                                    src={require('../Materials/OrderPics/home2.gif')}
-                                    style={styles.images}
-                                    className="image-btn btn"
-                                    alt="Kotitalous"
-                                    onClick={(event) => this.nextStep(event)}
-                                />
-                            </td>
-                            <td >
-                                <img
-                                    src={require('../Materials/OrderPics/organization2.gif')}
-                                    style={{
-                                        borderRadius: 4, border: '6px solid white', marginLeft: '20%',
-                                        textAlign: 'center', width: '70%'
-                                    }}
-                                    className="image-btn btn"
-                                    alt="Organisaatio"
-                                    onClick={(event) => this.nextStep(event)}
-                                />
                             </td>
                         </tr>
                     </tbody>
@@ -178,4 +155,4 @@ class AddressFields extends React.Component {
     }
 }
 
-export default AddressFields;
+export default InfoFields;

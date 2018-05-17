@@ -29,7 +29,6 @@ module.exports = (app, passport, users) => {
         });
     });
 */
-
     app.get('/announcements', (req, res) => {
         connection.query('SELECT * FROM Announcements', (err, result) => {
                 if (err) throw err;

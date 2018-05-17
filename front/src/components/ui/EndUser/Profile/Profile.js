@@ -57,8 +57,9 @@ class Profile extends Component {
         "zipcode": this.state.zipcode,
         "city": this.state.city
       }
-      console.log(JSON.stringify(updateUserData));
-      // sendUpdateData(JSON.stringify(updateData));
+      sendUpdateData(updateUserData);
+
+
       this.props.onUpdate();
       window.alert("Tiedot päivitetty!");
     } else {

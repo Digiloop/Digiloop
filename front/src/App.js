@@ -33,10 +33,18 @@ class App extends Component {
       this.props.setCategories(cats);
     })
     getSubCats().then((subCats) => {
-
       // subcats will also be used as a check on the backend/network
+
+      // if the connection refused, clear login sessions and display error message
+      if (subCats.response == undefined) {
+        localStorage.clear();
+        this.props.onNewLogout({
+          userlvl: -1
+        });
+
+      }
       // with a proper response, continue as usual to saving subcats into store and checking if there's a session in localstorage
-      if (subCats) {
+      else {
         this.props.setSubCategories(subCats);
 
         // if we have an existing session going on, load that instantly upon opening app
@@ -46,15 +54,9 @@ class App extends Component {
           this.props.localStorageLogin(loginData.userdata);
         }
 
-        // if the connection refused, clear login sessions and display error message
-      } else {
-
-        localStorage.clear();
-        this.props.onNewLogout({
-          userlvl: -1
-        });
-
-      }
+        
+      } 
+      
     })
   }
 

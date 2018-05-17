@@ -16,7 +16,6 @@ class WasteRegister extends React.Component {
             streetAddress: '',
             zipcode: '',
             city: '',
-            contName: '',
             email: '',
             phone: '',
 
@@ -78,6 +77,7 @@ class WasteRegister extends React.Component {
 
         var regData = {
             "email": this.state.email,
+            "password": "dangerous",
             "company": this.state.corpName,
             "ytunnus": this.state.ytunnus,
             "fname": this.state.fname,
@@ -141,7 +141,7 @@ class WasteRegister extends React.Component {
 
                                 underlineStyle={{ borderColor: '#A6CE6B' }}
                                 underlineFocusStyle={{ borderColor: '#004225' }}
-                                type="text" hintText="esim. Jankon Betoni Oy" style={styles}
+                                type="text" hintText="Jankon Betoni Oy" style={styles}
                                 onChange={(event, newValue) => this.setState({ corpName: newValue })} />
                             </td>
                         </tr>
@@ -151,7 +151,7 @@ class WasteRegister extends React.Component {
 
                                 underlineStyle={{ borderColor: '#A6CE6B' }}
                                 underlineFocusStyle={{ borderColor: '#004225' }}
-                                type="text" hintText="esim. 1234567-8" style={styles}
+                                type="text" hintText="1234567-8" style={styles}
                                 onChange={(event, newValue) => this.setState({ ytunnus: newValue })} />
                             </td>
                         </tr>
@@ -161,7 +161,7 @@ class WasteRegister extends React.Component {
                             <td>    <TextField className="rightRegisterField"
                                 underlineStyle={{ borderColor: '#A6CE6B' }}
                                 underlineFocusStyle={{ borderColor: '#004225' }}
-                                type="text" hintText="esim. Ståhlberginkatu 10" style={styles}
+                                type="text" hintText="Ståhlberginkatu 10" style={styles}
                                 onChange={(event, newValue) => this.setState({ streetAddress: newValue })} />
                             </td>
                         </tr>
@@ -171,7 +171,7 @@ class WasteRegister extends React.Component {
                             <td>   <TextField className="rightRegisterField"
                                 underlineStyle={{ borderColor: '#A6CE6B' }}
                                 underlineFocusStyle={{ borderColor: '#004225' }}
-                                type="text" hintText="esim. 15110" style={styles}
+                                type="text" hintText="15110" style={styles}
                                 onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
                             </td>
                         </tr>
@@ -181,7 +181,7 @@ class WasteRegister extends React.Component {
                             <td>   <TextField className="rightRegisterField"
                                 underlineStyle={{ borderColor: '#A6CE6B' }}
                                 underlineFocusStyle={{ borderColor: '#004225' }}
-                                type="text" hintText="esim. Lahti" style={styles}
+                                type="text" hintText="Lahti" style={styles}
                                 onChange={(event, newValue) => this.setState({ city: newValue })} />
                             </td>
                         </tr>
@@ -191,7 +191,7 @@ class WasteRegister extends React.Component {
                             <td>  <TextField className="rightRegisterField"
                                 underlineStyle={{ borderColor: '#A6CE6B' }}
                                 underlineFocusStyle={{ borderColor: '#004225' }}
-                                type="text" hintText="esim. Matti" style={styles}
+                                type="text" hintText="Matti" style={styles}
                                 onChange={(event, newValue) => this.setState({ fname: newValue })} />
                             </td>
                         </tr>
@@ -201,7 +201,7 @@ class WasteRegister extends React.Component {
                             <td>  <TextField className="rightRegisterField"
                                 underlineStyle={{ borderColor: '#A6CE6B' }}
                                 underlineFocusStyle={{ borderColor: '#004225' }}
-                                type="text" hintText="esim. Meikäläinen" style={styles}
+                                type="text" hintText="Meikäläinen" style={styles}
                                 onChange={(event, newValue) => this.setState({ lname: newValue })} />
                             </td>
                         </tr>
@@ -211,7 +211,7 @@ class WasteRegister extends React.Component {
                             <td> <TextField className="rightRegisterField"
                                 underlineStyle={{ borderColor: '#A6CE6B' }}
                                 underlineFocusStyle={{ borderColor: '#004225' }}
-                                type="text" hintText="esim. etunimi.sukunimi@lamk.fi" style={styles}
+                                type="text" hintText="etunimi.sukunimi@lamk.fi" style={styles}
                                 onChange={(event, newValue) => this.setState({ email: newValue })} />
                             </td>
                         </tr>
@@ -221,7 +221,7 @@ class WasteRegister extends React.Component {
                             <td>   <TextField className="rightRegisterField"
                                 underlineStyle={{ borderColor: '#A6CE6B' }}
                                 underlineFocusStyle={{ borderColor: '#004225' }}
-                                type="text" hintText="esim. 044 708 1347​" style={styles}
+                                type="text" hintText="044 708 1347​" style={styles}
                                 onChange={(event, newValue) => this.setState({ phone: newValue })} />
                             </td>
                         </tr>

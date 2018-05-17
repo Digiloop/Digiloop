@@ -5,13 +5,21 @@ var sqldatahaku = new sqldata;
 
 
 
-router.post('/itemss',(req,res,next) => {
-res.json('toimii');
-sqldata.doitemstuff(req.body.category, req.body.subCat, req.body.weight, req.body.size, req.body.description, 
+router.post('/itemss',(req, res, next) => {
+    sqldatahaku.queryInsertItems(req.body.category, req.body.subCat, req.body.weight, req.body.size, req.body.description, 
                     req.body.pcs, req.body.pickupaddr, req.body.junkdate, req.body.junkdateadded, req.body.status,
-                    req.user.id, req.body.latitude, req.body.longitude, req.body.coordstatus)
+                    req.user.id);
+                    //req.body.latitude, req.body.longitude, req.body.coordstatus
+    res.end();
+});
 
-})
+router.get('/items5',(req, res, next) => {
+    sqldatahaku.getInfoAll('junk',(err, result) => {
+        if (err) throw err;
+        res.json(result);
+        next();
+      });
+});
 
 
 
@@ -70,8 +78,3 @@ sqldata.doitemstuff(req.body.category, req.body.subCat, req.body.weight, req.bod
 */
 
 module.exports = router
-
-
-
-
-

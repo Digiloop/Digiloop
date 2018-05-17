@@ -18,31 +18,47 @@ randomshizzle(callback){
   //res.json('mo')
 }
 
-queryget(query,callback){
+queryGet(query,callback){
   connection.query(query,(err, result) => {
     if (err) throw err;
     callback(err,result);
   })
 }
 
-querypost(query){
+queryPost(query){
   connection.query(query,(err,result) => {
     if (err) throw err;
     console.log(result.affectedRows + " record(s) updated");
-
   })
 }
 
-getinfo(table,Status,callback){
+getInfoStatus(table,Status,callback){
   connection.query(`SELECT * FROM ${table} WHERE Status = ${Status}`,(err, result) => {
     callback(err,result);
+  })
+}
+
+getInfoAll(table,callback){
+  connection.query(`SELECT * FROM ${table}`,(err, result) => {
+    callback(err,result);
+  })
+}
+
+
+queryInsertItems(){  
+  let sqlquery = `INSERT INTO junk ( category, subCat, weight, size, description, pcs, pickupaddr, junkdate, junkdateadded, status, owner ) VALUES ('${arguments[0]}','${arguments[1]}','${arguments[2]}','${arguments[3]}','${arguments[4]}','${arguments[5]}','${arguments[6]}','${arguments[7]}','${arguments[8]}','${arguments[9]}','${arguments[10]}')`
+  //console.log(sqlquery)
+  connection.query(sqlquery,(err, result) => {
+    if (err) throw err;
+    console.log(result.affectedRows + " record(s) updated");
+    console.log(sqlquery);
   })
 }
 
 //queryinsertillä voidaan syöttää ainakin toistaiseksi catADD sekä subcatADD, tarvii mahdollisesti sql escapea
 //parametrit ovat nimeltään samat mitä tietokannassa
 //CatName, Status, RealName, ImgReference
-queryinsert(table, value1, value2, value3, value4){
+queryInsertCats(table, value1, value2, value3, value4){
   let sqlquery;
   //console.log(`${table},${value1},${value2},${value3},${value4}`)
   if (table === 'Category') {
@@ -59,6 +75,7 @@ queryinsert(table, value1, value2, value3, value4){
   })
 
 }
+
+
+
 };
-
-

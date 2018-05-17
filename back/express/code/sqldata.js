@@ -29,7 +29,6 @@ queryPost(query){
   connection.query(query,(err,result) => {
     if (err) throw err;
     console.log(result.affectedRows + " record(s) updated");
-
   })
 }
 
@@ -59,7 +58,7 @@ queryInsertItems(){
 //queryinsertillä voidaan syöttää ainakin toistaiseksi catADD sekä subcatADD, tarvii mahdollisesti sql escapea
 //parametrit ovat nimeltään samat mitä tietokannassa
 //CatName, Status, RealName, ImgReference
-queryInsert(table, value1, value2, value3, value4){
+queryInsertCats(table, value1, value2, value3, value4){
   let sqlquery;
   //console.log(`${table},${value1},${value2},${value3},${value4}`)
   if (table === 'Category') {
@@ -76,6 +75,7 @@ queryInsert(table, value1, value2, value3, value4){
   })
 
 }
+
+
+
 };
-
-

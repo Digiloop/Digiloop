@@ -47,12 +47,12 @@ router.post('/subcatstatus', (req, res, next) => {
 });
 
 router.post('/catADD', (req,res) => {
-    sqldatahaku.queryInsert('Category',req.body.catname,'1',req.body.catname,'imagereferenssi');
+    sqldatahaku.queryInsertCats('Category',req.body.catname,'1',req.body.catname,'imagereferenssi');
     res.end();
 });
 
 router.post('/subcatADD', (req,res) => {
-  sqldatahaku.queryInsert('subCat',req.body.catid,req.body.subcatname,'1');
+  sqldatahaku.queryInsertCats('subCat',req.body.catid,req.body.subcatname,'1');
   res.end();
 });
 /*

@@ -2,6 +2,8 @@
 
 // set up ======================================================================
 // get all the tools we need
+var https  = require('https');
+var fs = require('fs');
 var express  = require('express');
 var session  = require('express-session');
 var cookieParser = require('cookie-parser');
@@ -9,7 +11,16 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var cors = require('cors'); //tarttee devaukses koska front ei ole samalla palvelimella
 var app      = express();
-var port     = process.env.PORT || 80;
+//var port     = process.env.PORT || 80;
+
+//certifikaatti sydeemit tässä
+var options = {
+    key: fs.readFileSync('key.key'),
+    cert: fs.readFileSync('key.crt'),
+    requestCert: true,
+    rejectUnauthorized: false
+};
+
 var fileUpload = require('express-fileupload')
 var passport = require('passport');
 var categories = require('./routes/categories')
@@ -33,10 +44,17 @@ app.use(bodyParser.json({
 }));
 
 //React path
-app.use(express.static("/home/projectmanager/Digiloop/front/build"));
+let maint = false; // onko mainteanance
+if(maint === false) {
+    app.use(express.static("/home/projectmanager/Digiloop/front/build"));
+} else{
+    app.use(express.static("/home/projectmanager/Digiloop/back/express/app"));
+}
+
+//app.use(express.static("/home/projectmanager/Digiloop/front/build"));
 app.use(fileUpload()); // required for pictures
 
-//Cors
+//Cors tätä tarttee jos haluaa frontin pystyvän devailemaa localhostissa
 app.use(cors());
 app.use(function (req, res, next) {
 
@@ -78,6 +96,16 @@ require('./routes/routes.js')(app, passport); // load our routes and pass in our
 app.use('/', categories,items); // http://193.166.72.18/categories
 //app.use('/items5', items);
 //app.use('/birds', birds) //<<- toimia esimerkki
+
+
 // launch ======================================================================
-app.listen(port);
-console.log('päkki pystys portissa ' + port);
+//app.listen(port);
+//console.log('päkki pystys portissa ' + port);
+
+var server = https.createServer(options, app).listen(443, () => {
+    console.log("päkki pyörii portissa 443");
+});
+
+app.listen(80, () => {
+    console.log("päkki pyörii portissa 80");
+});

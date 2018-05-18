@@ -44,20 +44,20 @@ class WasteProcessor extends Component {
 
   // Returns the distance between two coordinates in meters
   // ©Spaghetti Baker Bros.
-  getDistance(userLat, userLong, targetLat, targetLong){
- 
+  getDistance(userLat, userLong, targetLat, targetLong) {
+
     var R = 6371e3;
     var f1 = targetLat * Math.PI / 180, l1 = targetLong * Math.PI / 180;
     var f2 = userLat * Math.PI / 180, l2 = userLong * Math.PI / 180;
     var df = f2 - f1;
     var dl = l2 - l1;
- 
-    var a = Math.sin(df/2) * Math.sin(df/2)
-          + Math.cos(f1) * Math.cos(f2)
-          * Math.sin(dl/2) * Math.sin(dl/2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    var a = Math.sin(df / 2) * Math.sin(df / 2)
+      + Math.cos(f1) * Math.cos(f2)
+      * Math.sin(dl / 2) * Math.sin(dl / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var d = R * c;
- 
+
     console.log(d);
     return d;
   }
@@ -65,7 +65,7 @@ class WasteProcessor extends Component {
 
   // the filter function, that leaves only the necessary stuff to be displayed
   rliFiltering() {
-    console.clear();
+    //console.clear()console.clear();
     console.log(this.props.resListItems);
 
     let resListItemsFiltered = [];
@@ -94,26 +94,31 @@ class WasteProcessor extends Component {
           pass = false;
         }
       }
-      
+
       // show reserved items - works perfectly
-      if (this.props.resListItems[i].status == 2 && !this.props.rLOpt.showRes){
+      if (this.props.resListItems[i].status == 2 && !this.props.rLOpt.showRes) {
         pass = false;
       }
 
       // weight limiters - seems to work
-      if(parseInt(this.props.rLOpt.maxWeight, 10) < this.props.resListItems[i].weight || parseInt(this.props.rLOpt.minWeight, 10) > this.props.resListItems[i].weight){
+      if (parseInt(this.props.rLOpt.maxWeight, 10) < this.props.resListItems[i].weight || parseInt(this.props.rLOpt.minWeight, 10) > this.props.resListItems[i].weight) {
         pass = false;
       }
 
       // volume limiters - seems to work
-      if(parseInt(this.props.rLOpt.maxSize, 10) < this.props.resListItems[i].size || parseInt(this.props.rLOpt.minSize, 10) > this.props.resListItems[i].size){
+      if (parseInt(this.props.rLOpt.maxSize, 10) < this.props.resListItems[i].size || parseInt(this.props.rLOpt.minSize, 10) > this.props.resListItems[i].size) {
         pass = false;
       }
 
-      // distance limiters - done initially, requires proper location fetching
-      if((this.getDistance(60.984149, 25.649381, this.props.resListItems[i].latitude, this.props.resListItems[i].longitude) / 1000) > this.props.rLOpt.distance){
-        pass = false;
+      // distance limiters - seems to work
+      // first check if location is being used, then compare it to each item and determine of the distance is
+      // longer than what the max distance in options has set
+      if (!this.props.rLOpt.userLocation.locationButtonDisable) {
+        if ((this.getDistance(this.props.rLOpt.userLocation.latitude, this.props.rLOpt.userLocation.longitude, this.props.resListItems[i].latitude, this.props.resListItems[i].longitude) / 1000) > this.props.rLOpt.distance) {
+          pass = false;
+        }
       }
+
 
       // if passed all checks, add to items that will be printed
       if (pass) {

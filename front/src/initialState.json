@@ -63,7 +63,12 @@
 		"maxWeight": 500,
 		"minSize": 0,
 		"maxSize": 500,
-		"distance": 100
+		"distance": 100,
+		"userLocation": {
+			"latitude": null,
+			"longitude": null,
+			"locationButtonDisable": true
+		}
 	},
 	"currentPageName": "Etusivu"
 }

@@ -2,19 +2,14 @@
 
 // set up ======================================================================
 // get all the tools we need
-var https  = require('https');
 var express  = require('express');
 var session  = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var maintcheck = require('./app/maint')
 var morgan = require('morgan');
 var cors = require('cors'); //tarttee devaukses koska front ei ole samalla palvelimella
 var app      = express();
-//certifikaatti sydeemit tässä
-var cert = require('./app/cert')
-var options = cert;
-var maintcheck = require('./app/maint')
-var port     = process.env.PORT || 443;
 var fileUpload = require('express-fileupload')
 var passport = require('passport');
 var categories = require('./routes/categories')
@@ -37,11 +32,7 @@ app.use(bodyParser.json({
 	limit:'50mb'
 }));
 
- // onko mainteanance true/false
- app.use(express.static(maintcheck.mainteanance(false)));
-
-
-//app.use(express.static("/home/projectmanager/Digiloop/back/express/app"));
+app.use(express.static(maintcheck.mainteanance(false)));
 //app.use(express.static("/home/projectmanager/Digiloop/front/build"));
 app.use(fileUpload()); // required for pictures
 
@@ -93,12 +84,6 @@ app.use('/', categories,items); // http://193.166.72.18/categories
 //app.listen(port);
 //console.log('päkki pystys portissa ' + port);
 
-var server = https.createServer(options, app).listen(port, () => {
-    console.log(`päkki pyörii portissa ${port}`);
+app.listen(80, () => {
+    console.log("päkki pyörii epäturvallisessa portissa 80");
 });
-
-/*
-app.listen(port, () => {
-    console.log("päkki pyörii portissa 80");
-});
-*/

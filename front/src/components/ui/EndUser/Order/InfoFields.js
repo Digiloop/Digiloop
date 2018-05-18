@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import AppBar from 'material-ui/AppBar';
-import MenuItem from 'material-ui/MenuItem';
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import IconButton from 'material-ui/IconButton';
+import { AppBar, MenuItem, DropDownMenu } from 'material-ui';
+import { FlatButton, IconButton, TextField } from 'material-ui';
 import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';
 import { sendRegData } from '../../../../utils/sendRegData';
@@ -16,18 +12,23 @@ class InfoFields extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            value: 1,
+            pcs: 1
         };
     }
+
 
     nextStep(event) {
         event.preventDefault();
         console.log("nextStep");
         var data = {
-            address: this.state.address,
-            zipcode: this.state.zipcode,
-            city: this.state.city,
-            phone: this.state.phone,
-            pickup: this.state.pickup
+            address: this.props.values.address,
+            zipcode: this.props.values.zipcode,
+            city: this.props.values.city,
+            phone: this.props.values.phone,
+            pickup: this.props.values.pickup,
+            pcs: this.state.pcs,
+            desc: this.state.desc
         }
         console.log(data);
         console.log(this.props);
@@ -39,11 +40,8 @@ class InfoFields extends React.Component {
 
     componentDidMount() {
         this.setState({
-            'address': this.props.values.address,
-            'zipcode': this.props.values.zipcode,
-            'city': this.props.values.city,
-            'phone': this.props.values.phone,
-            'pickup': this.props.values.pickup
+            'pcs': this.props.values.pcs,
+            'desc': this.props.values.desc
         })
     }
 
@@ -65,6 +63,20 @@ class InfoFields extends React.Component {
                 overflowX: 'scroll',
                 whiteSpace: 'nowrap',
                 marginTop: '10vh'
+            },
+            dropDown: {
+                width: '31%',
+                backgroundColor: 'white',
+                marginLeft: '2%',
+                float: 'left'
+            },
+            pTags: {
+                margin: '0',
+                padding: '0',
+                display: 'inline',
+                float: 'left',
+                marginRight: '13%',
+                marginLeft: '2%'
             }
         };
 
@@ -73,44 +85,47 @@ class InfoFields extends React.Component {
                 <table className="orderStructure">
                     <tbody>
                         <tr>
-                            <td style={styles.tdStyle} ><label className="leftOrderLabel">Hakuosoite:</label></td>
-                            <td>   <TextField className="rightOrderField"
-                                type="text" hintText="Ståhlberginkatu 10"
-                                style={styles} defaultValue={this.props.values.address}
-                                onChange={(event, newValue) => this.setState({ address: newValue })}
-                            />
+                            <td>
+                                <label style={{ float: 'left', position: 'absolute', marginLeft: '2%' }}>Tähän tulee piäluokka/<br />alaluokka</label>
+                                <div style={{ width: '30%', height: '10vh', border: '2px solid black', marginLeft: 'auto' }}></div>
+                                <div style={{ width: '100%', height: 'auto' }} >
+                                    <p style={styles.pTags}>Kappalemäärä</p>
+                                    <p style={styles.pTags}>Mitat</p>
+                                    <p style={styles.pTags}>Paino</p>
+                                    <DropDownMenu value={this.state.value} onChange={(event, newValue) => this.setState({ pcs: newValue })} style={styles.dropDown}>
+                                        <MenuItem value={1} primaryText="1" />
+                                        <MenuItem value={2} primaryText="2-5" />
+                                        <MenuItem value={3} primaryText="> 5" />
+                                    </DropDownMenu>
+                                    <DropDownMenu value={this.state.value} onChange={this.handleChange} style={styles.dropDown}>
+                                        <MenuItem value={1} primaryText="> 0.5 m" />
+                                        <MenuItem value={2} primaryText="> 0.5 m" />
+                                        <MenuItem value={3} primaryText="> 2.5 m" />
+                                    </DropDownMenu>
+                                    <DropDownMenu value={this.state.value} onChange={this.handleChange} style={styles.dropDown}>
+                                        <MenuItem value={1} primaryText="< 5" />
+                                        <MenuItem value={2} primaryText=">5-20" />
+                                        <MenuItem value={3} primaryText="> 20" />
+                                    </DropDownMenu>
+                                </div>
                             </td>
                         </tr>
                         <tr>
-                            <td><label className="leftOrderLabel">Postinumero:</label></td>
-                            <td>  <TextField className="rightOrderField"
-                                type="text" hintText="15110" style={styles}
-                                defaultValue={this.props.values.zipcode}
-                                onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
+                            <td>
+                                <label className="leftOrderLabel">Lisätietoja</label>
+                                <TextField className="rightOrderField"
+                                    type="text" hintText='Televisio 32" tai liesi 60cm' style={styles}
+                                    rows={3} rowsMax={7} defaultValue={this.props.values.desc}
+                                    onChange={(event, newValue) => this.setState({ desc: newValue })} /><br /><br />
                             </td>
                         </tr>
                         <tr>
-                            <td><label className="leftOrderLabel">Postitoimipaikka:</label></td>
-                            <td> <TextField className="rightOrderField"
-                                type="text" hintText="Lahti" style={styles}
-                                defaultValue={this.props.values.city}
-                                onChange={(event, newValue) => this.setState({ city: newValue })} />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label className="leftOrderLabel">Puhelinnumero:</label></td>
-                            <td>   <TextField className="rightOrderField"
-                                type="text" hintText="044 708 1347​" style={styles}
-                                defaultValue={this.props.values.phone}
-                                onChange={(event, newValue) => this.setState({ phone: newValue })} />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label className="leftOrderLabel">Lisätietoja</label></td>
-                            <td>    <TextField className="rightOrderField"
-                                type="text" hintText='Televisio 32" tai liesi 60cm' style={styles}
-                                rows={3} rowsMax={7} defaultValue={this.props.values.desc}
-                                onChange={(event, newValue) => this.setState({ pickup: newValue })} /><br /><br />
+                            <td style={{ textAlign: 'center' }}>
+                                <FlatButton
+                                    label='Lisää Laite'
+                                    style={{ borderRadius: 25 }}
+                                    backgroundColor={'#FFF'}
+                                    onClick={(event) => this.nextStep(event)} />
                             </td>
                         </tr>
                     </tbody>

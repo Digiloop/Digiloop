@@ -94,24 +94,6 @@
     width: auto;
 }
 
-#weight {
-    border-radius: 3px;
-    top: 1px;
-    margin-left: 3px;
-    width: 50px;
-}
-#size {
-    border-radius: 3px;
-    top: 1px;
-    margin-left: 3px;
-    width: 50px;
-}
-#distance {
-    border-radius: 3px;
-    top: 1px;
-    margin-left: 3px;
-    width: 50px;
-}
 
 /* width */
 ::-webkit-scrollbar {

@@ -3,6 +3,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import styles from '../../../../ArtunCSSsaadot.css';
 
 import Checkbox from 'material-ui/Checkbox';
+import TextField from 'material-ui/TextField';
+import { RaisedButton } from 'material-ui';
 
 //let _ser, _batteries, _showRes
 
@@ -30,6 +32,8 @@ class ReservationListOptions extends Component {
       }
     }
     this.activateLocation = this.activateLocation.bind(this);
+    this.success = this.success.bind(this);
+    this.error = this.error.bind(this);
   }
 
 
@@ -79,9 +83,30 @@ class ReservationListOptions extends Component {
 
   }
 
+  success(position) {
+    this.setState({
+      userLocation: {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+        locationButtonDisable: false
+      }
+    })
+  }
 
-  activateLocation(){
-    console.log("paskaaaaaaaaaaaaaaaa!")
+  error() {
+    window.alert("Sijainti pitää olla käytössä, jos haluat filtteröidä etäisyyden mukaan.");
+  }
+
+  activateLocation() {
+
+    if (!navigator.geolocation) {
+      window.alert("Selaimesi ei tue sijaintia.");
+      return;
+    }
+
+
+    navigator.geolocation.getCurrentPosition(this.success, this.error);
+
   }
 
 
@@ -154,7 +179,7 @@ class ReservationListOptions extends Component {
       )
     }
     // shitty fix for checkboxes breking the div, creating scroll bars
-    catBoxes.push(<tr key={"spagettinenCheckBoxKorjausTableRownKorjausRowJokaVaatiJonkuHelvetinKeynJottaToimii"}><td><br/></td></tr>);
+    catBoxes.push(<tr key={"spagettinenCheckBoxKorjausTableRownKorjausRowJokaVaatiJonkuHelvetinKeynJottaToimii"}><td><br /></td></tr>);
 
     // pre-build subcategory checkboxes
     for (let i = 0; i < this.props.categories.length; i++) {
@@ -185,6 +210,17 @@ class ReservationListOptions extends Component {
       }
     }
 
+    const textFieldStyles = {
+      borderRadius: "3px",
+      top: "1px",
+      marginLeft: "3px",
+      width: "100px",
+      color: "white"
+    }
+    const inputStyle = {
+      color: "white"
+    }
+
 
     return (
       <MuiThemeProvider>
@@ -212,24 +248,28 @@ class ReservationListOptions extends Component {
                   <tr>
                     <td>Paino (kg)</td>
                     <td id="weightField">
-                    <input id="weight" onChange={(event, newValue) => this.setState({ minWeight: event.target.value })} type="number" min="0" max="1000000" value={this.state.minWeight}/>
+                      <TextField inputStyle={inputStyle} style={textFieldStyles} id="weightMin" className="weightOption" onChange={(event, newValue) => this.setState({ minWeight: event.target.value })} type="number" min="0" max="1000000" value={this.state.minWeight} />
                       -
-                    <input id="weight" onChange={(event, newValue) => this.setState({ maxWeight: event.target.value })} type="number" min="0" max="1000000" value={this.state.maxWeight}/></td>
+                      <TextField inputStyle={inputStyle} style={textFieldStyles} id="weightMax" className="weightOption" onChange={(event, newValue) => this.setState({ maxWeight: event.target.value })} type="number" min="0" max="1000000" value={this.state.maxWeight} />
+                    </td>
                   </tr>
                   <tr>
                     <td>Koko (m<sup>3</sup>)</td>
                     <td id="sizeField">
-                    <input id="size" onChange={(event, newValue) => this.setState({ minSize: event.target.value })} type="number" min="0" max="1000000" value={this.state.minSize}/>
+                      <TextField inputStyle={inputStyle} style={textFieldStyles} id="sizeMin" className="sizeOption" onChange={(event, newValue) => this.setState({ minSize: event.target.value })} type="number" min="0" max="1000000" value={this.state.minSize} />
                       -
-                    <input id="size" onChange={(event, newValue) => this.setState({ maxSize: event.target.value })} type="number" min="0" max="1000000" value={this.state.maxSize}/></td>
+                      <TextField inputStyle={inputStyle} style={textFieldStyles} id="sizeMax" className="sizeOption" onChange={(event, newValue) => this.setState({ maxSize: event.target.value })} type="number" min="0" max="1000000" value={this.state.maxSize} />
+                    </td>
                   </tr>
                   <tr>
                     <td>Etäisyys (km)</td>
                     <td id="distanceField">
-                    <input id="distance" onChange={(event, newValue) => this.setState({ distance: event.target.value })} type="number" value={this.state.distance}/></td>
+                      <TextField inputStyle={inputStyle} style={textFieldStyles} id="distance" onChange={(event, newValue) => this.setState({ distance: event.target.value })} type="number" value={this.state.distance}
+                        disabled={this.state.userLocation.locationButtonDisable} />
+                    </td>
                   </tr>
                   <tr>
-                    <td><input type="button" onClick={() => this.activateLocation} id="location" value="Käytä etäisyyttä"></input></td>
+                    <td><RaisedButton onClick={this.activateLocation} id="location" value="Käytä etäisyyttä" label="Käytä etäisyyttä" /></td>
                   </tr>
                 </tbody>
               </table>

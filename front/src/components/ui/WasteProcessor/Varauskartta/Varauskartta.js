@@ -65,7 +65,7 @@ class WasteProcessor extends Component {
 
   // the filter function, that leaves only the necessary stuff to be displayed
   rliFiltering() {
-    console.clear();
+    //console.clear()console.clear();
     console.log(this.props.resListItems);
 
     let resListItemsFiltered = [];

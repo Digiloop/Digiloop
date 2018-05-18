@@ -44,7 +44,7 @@ getInfoAll(table,callback){
 
 
 queryInsertItems(){  
-  let sqlquery = `INSERT INTO junk ( category, subCat, weight, size, description, pcs, pickupaddr, junkdate, junkdateadded, status, owner ) VALUES ('${arguments[0]}','${arguments[1]}','${arguments[2]}','${arguments[3]}','${arguments[4]}','${arguments[5]}','${arguments[6]}','${arguments[7]}','${arguments[8]}','${arguments[9]}','${arguments[10]}')`
+  let sqlquery = `INSERT INTO junk ( category, subCat, weight, size, description, pcs, pickupaddr, junkdate, junkdateadded, status, owner, latitude, longitude ) VALUES ('${arguments[0]}','${arguments[1]}','${arguments[2]}','${arguments[3]}','${arguments[4]}','${arguments[5]}','${arguments[6]}','${arguments[7]}','${arguments[8]}','${arguments[9]}','${arguments[10]}','${arguments[11]}','${arguments[12]}')`
   //console.log(sqlquery)
   connection.query(sqlquery,(err, result) => {
     console.log(result.affectedRows + " record(s) updated");

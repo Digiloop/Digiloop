@@ -185,7 +185,8 @@ module.exports = (app, passport, users) => {
     });
 
 // Esimerkki userlvl tarkastuksesta routessa, ei käytössä
-    app.get('/items2', (req, res) => {
+/*
+    app.get('/items', (req, res) => {
       //if (req.user.userlvl <= 1){
       //res.send(__dirname);
         connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID WHERE Status != 0',
@@ -195,7 +196,7 @@ module.exports = (app, passport, users) => {
             });
     //    }
     });
-
+*/
 
 
     app.get('/items3',passport.authenticate('bearer', { session: false }), function(req, res) {

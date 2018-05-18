@@ -15,57 +15,29 @@ import styles from '../../../../index.css';
 class InfoFields extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {       
-            allFilled: false
+        this.state = {
         };
-        this.checkFill = this.checkFill.bind(this);
     }
 
     nextStep(event) {
-        
-        this.checkFill();
         event.preventDefault();
-        if (!this.state.allFilled) {
-            window.alert("kaik täytyy täyttää");
+        console.log("nextStep");
+        var data = {
+            address: this.state.address,
+            zipcode: this.state.zipcode,
+            city: this.state.city,
+            phone: this.state.phone,
+            pickup: this.state.pickup
         }
-        else {
-            console.log("nextStep");
-            var data = {
-                address: this.state.address,
-                zipcode: this.state.zipcode,
-                city: this.state.city,
-                phone: this.state.phone,
-                pickup: this.state.pickup
-            }
-            console.log(data);
-            console.log(this.props);
-            //console.log(this.props.values);
-            this.props.saveValues(data);
-            this.props.nextStep()
-        }
+        console.log(data);
+        console.log(this.props);
+        //console.log(this.props.values);
+        this.props.saveValues(data);
+        this.props.nextStep()
 
     }
 
-    checkFill() {
-        let pass = true;
-        for (var key in this.state) {
-            if (this.state[key] === '' || this.state[key] === undefined) {
-                pass = false;
-            }
-        }
-        if (pass && !this.state.allFilled) {
-            this.setState({ allFilled: true })
-        } else if (!pass && this.state.allFilled) {
-            this.setState({ allFilled: false })
-        }
-    }
-
-    componentDidUpdate() {
-        this.checkFill();
-    }
-    
     componentDidMount() {
-        this.checkFill();
         this.setState({
             'address': this.props.values.address,
             'zipcode': this.props.values.zipcode,
@@ -93,13 +65,6 @@ class InfoFields extends React.Component {
                 overflowX: 'scroll',
                 whiteSpace: 'nowrap',
                 marginTop: '10vh'
-            },
-            images: {
-                borderRadius: 4,
-                border: '6px solid white',
-                marginLeft: '10%',
-                textAlign: 'center',
-                width: '100%'
             }
         };
 
@@ -112,8 +77,8 @@ class InfoFields extends React.Component {
                             <td>   <TextField className="rightOrderField"
                                 type="text" hintText="Ståhlberginkatu 10"
                                 style={styles} defaultValue={this.props.values.address}
-                                onChange={(event, newValue) => this.setState({ address: newValue })} 
-                                />
+                                onChange={(event, newValue) => this.setState({ address: newValue })}
+                            />
                             </td>
                         </tr>
                         <tr>

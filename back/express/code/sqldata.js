@@ -20,14 +20,12 @@ randomshizzle(callback){
 
 queryGet(query,callback){
   connection.query(query,(err, result) => {
-    if (err) throw err;
     callback(err,result);
   })
 }
 
 queryPost(query){
   connection.query(query,(err,result) => {
-    if (err) throw err;
     console.log(result.affectedRows + " record(s) updated");
   })
 }
@@ -49,7 +47,6 @@ queryInsertItems(){
   let sqlquery = `INSERT INTO junk ( category, subCat, weight, size, description, pcs, pickupaddr, junkdate, junkdateadded, status, owner ) VALUES ('${arguments[0]}','${arguments[1]}','${arguments[2]}','${arguments[3]}','${arguments[4]}','${arguments[5]}','${arguments[6]}','${arguments[7]}','${arguments[8]}','${arguments[9]}','${arguments[10]}')`
   //console.log(sqlquery)
   connection.query(sqlquery,(err, result) => {
-    if (err) throw err;
     console.log(result.affectedRows + " record(s) updated");
     console.log(sqlquery);
   })
@@ -70,12 +67,9 @@ queryInsertCats(table, value1, value2, value3, value4){
   }
 
   connection.query(sqlquery,(err, result) => {
-    if (err) throw err;
     console.log(result.affectedRows + " record(s) updated");
   })
 
 }
-
-
 
 };

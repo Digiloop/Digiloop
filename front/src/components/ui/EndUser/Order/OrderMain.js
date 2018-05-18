@@ -7,6 +7,7 @@ import Back from '@material-ui/icons/ArrowBack';
 import Forward from '@material-ui/icons/ArrowForward';
 import AddressFields from '../../../containers/EndUser/Order/AddressFields';
 import CategoriesFields from '../../../containers/EndUser/Order/CategoriesFields';
+import InfoFields from '../../../containers/EndUser/Order/InfoFields';
 import assign from "object-assign";
 
 
@@ -14,12 +15,12 @@ class OrderMain extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            address: this.props.userInfo.address,
             values: {
-                zipcode: "",
-                city: '',
-                phone: '',
-                pickUpWish: '',
+                address: this.props.userInfo.address,
+                zipcode: this.props.userInfo.zipcode,
+                city: this.props.userInfo.city,
+                phone: this.props.userInfo.phone,
+                pickup: this.props.userInfo.pickup,
                 organization: '',
                 cat: '',
                 subCat: '',
@@ -45,7 +46,7 @@ class OrderMain extends Component {
                 'zipcode': value.zipcode,
                 'city': value.city,
                 'phone': value.phone,
-                'pickUpWish': value.pickup
+                'pickup': value.pickup
             }
         }, () => console.log(this.state.values))
         console.log("hoo");
@@ -77,6 +78,11 @@ class OrderMain extends Component {
                     saveValues={this.saveValues} />
             case 2:
                 return < CategoriesFields
+                    values={this.state.values}
+                    nextStep={this.nextStep}
+                    saveValues={this.saveValues} />
+            case 3:
+                return < InfoFields
                     values={this.state.values}
                     nextStep={this.nextStep}
                     saveValues={this.saveValues} />

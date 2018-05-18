@@ -111,7 +111,6 @@ class WasteProcessor extends Component {
       }
 
       // distance limiters - done initially, requires proper location fetching
-      // we cannot just get user's location with HTML5 geolocation, since it requires https with chrome (which we do not have)
       if((this.getDistance(60.984149, 25.649381, this.props.resListItems[i].latitude, this.props.resListItems[i].longitude) / 1000) > this.props.rLOpt.distance){
         pass = false;
       }

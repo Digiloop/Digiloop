@@ -20,8 +20,16 @@ class ReservationListOptions extends Component {
       maxWeight: 0,
       minSize: 0,
       maxSize: 0,
-      distance: 0
+      distance: 0,
+
+      // location data
+      userLocation: {
+        latitude: null,
+        longitude: null,
+        locationButtonDisable: true
+      }
     }
+    this.activateLocation = this.activateLocation.bind(this);
   }
 
 
@@ -49,10 +57,12 @@ class ReservationListOptions extends Component {
       }
     }
 
-
+    // same for subcategories
     for (let i = 0; i < this.props.categories.length; i++) {
       for (let j = 0; j < this.props.subCategories.length; j++) {
         if (this.props.subCategories[j].CatId == this.props.categories[i].CatId) {
+
+          // subcat name is created from main cat name + subcat name
           let subCatState = this.props.categories[i].CatName + this.props.subCategories[j].subName;
           subCatState = subCatState.toLowerCase();
 
@@ -67,6 +77,11 @@ class ReservationListOptions extends Component {
       }
     }
 
+  }
+
+
+  activateLocation(){
+    console.log("paskaaaaaaaaaaaaaaaa!")
   }
 
 
@@ -96,7 +111,6 @@ class ReservationListOptions extends Component {
         }
       }
     }
-
 
 
 
@@ -215,7 +229,7 @@ class ReservationListOptions extends Component {
                     <input id="distance" onChange={(event, newValue) => this.setState({ distance: event.target.value })} type="number" value={this.state.distance}/></td>
                   </tr>
                   <tr>
-                    <td>&nbsp;</td>
+                    <td><input type="button" onClick={() => this.activateLocation} id="location" value="Käytä etäisyyttä"></input></td>
                   </tr>
                 </tbody>
               </table>

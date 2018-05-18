@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://193.166.72.18:443';
+export const BASE_URL = 'http://kierratys.lamk.fi';

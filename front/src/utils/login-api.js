@@ -1,9 +1,20 @@
-import axios from 'axios';
+import axios, {https} from 'axios';
 import { BASE_URL } from './../settings';
 
 export { getCredentials, logOut };
 
+
 function getCredentials(email, password) {
+
+  //https.globalAgent.options.rejectUnauthorized = false;
+/*
+  var agent = new https.Agent({ 
+    rejectUnauthorized: false
+  });
+  */
+  //axios.get(url, { agent: agent });
+
+
   return axios.post(BASE_URL + '/login', {
     email, password
   })

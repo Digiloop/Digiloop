@@ -8,6 +8,7 @@ import Forward from '@material-ui/icons/ArrowForward';
 import AddressFields from '../../../containers/EndUser/Order/AddressFields';
 import CategoriesFields from '../../../containers/EndUser/Order/CategoriesFields';
 import InfoFields from '../../../containers/EndUser/Order/InfoFields';
+import Summary from '../../../containers/EndUser/Order/Summary'
 import assign from "object-assign";
 
 
@@ -46,7 +47,9 @@ class OrderMain extends Component {
                 'zipcode': value.zipcode,
                 'city': value.city,
                 'phone': value.phone,
-                'pickup': value.pickup
+                'pickup': value.pickup,
+                'pcs': value.pcs,
+                'desc': value.desc
             }
         }, () => console.log(this.state.values))
         console.log("hoo");
@@ -86,7 +89,11 @@ class OrderMain extends Component {
                     values={this.state.values}
                     nextStep={this.nextStep}
                     saveValues={this.saveValues} />
-
+            case 4:
+                return < Summary
+                    values={this.state.values}
+                    nextStep={this.nextStep}
+                    saveValues={this.saveValues} />
         }
     }
 

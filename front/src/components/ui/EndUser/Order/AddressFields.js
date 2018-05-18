@@ -168,7 +168,7 @@ class AddressFields extends React.Component {
                                     className="image-btn btn"
                                     alt="Organisaatio"
                                     onClick={(event) => this.nextStep(event)}
-                                />
+                                /><div style={{ position: 'absolute', top: '68%', right: '37%' }} >Organisaatio</div>
                             </td>
                         </tr>
                     </tbody>

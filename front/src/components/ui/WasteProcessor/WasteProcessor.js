@@ -43,7 +43,7 @@ class WasteProcessor extends Component {
   handleClose = () => this.setState({ open: false })
 
   render() {
-
+    console.clear()
 
     return (
       <MuiThemeProvider>

@@ -158,7 +158,7 @@ class ReservationListOptions extends Component {
       distance: this.state.distance,
 
       // user's own location and is it in use
-      userLocation: this.store.userLocation
+      userLocation: this.state.userLocation
     });
   }
 

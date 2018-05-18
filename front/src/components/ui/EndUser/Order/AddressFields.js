@@ -7,7 +7,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';
-import { sendRegData } from '../../../../utils/sendRegData';
 import styles from '../../../../index.css';
 
 

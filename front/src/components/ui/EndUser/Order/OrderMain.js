@@ -49,6 +49,8 @@ class OrderMain extends Component {
                 'phone': value.phone,
                 'pickup': value.pickup,
                 'pcs': value.pcs,
+                'size': value.size,
+                'weight': value.weight,
                 'desc': value.desc
             }
         }, () => console.log(this.state.values))

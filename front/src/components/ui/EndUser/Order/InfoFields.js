@@ -3,7 +3,6 @@ import { AppBar, MenuItem, DropDownMenu } from 'material-ui';
 import { FlatButton, IconButton, TextField } from 'material-ui';
 import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';
-import { sendRegData } from '../../../../utils/sendRegData';
 import styles from '../../../../index.css';
 
 // tee dropdownmenu
@@ -12,11 +11,13 @@ class InfoFields extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 1,
-            pcs: 1
+            value: 1
         };
     }
 
+    handlePcsChange = (event, index, value) => this.setState({ pcs: value })
+    handleSizeChange = (event, index, value) => this.setState({ size: value })
+    handleWeightChange = (event, index, value) => this.setState({ weight: value })
 
     nextStep(event) {
         event.preventDefault();
@@ -28,6 +29,8 @@ class InfoFields extends React.Component {
             phone: this.props.values.phone,
             pickup: this.props.values.pickup,
             pcs: this.state.pcs,
+            size: this.state.size,
+            weight: this.state.weight,
             desc: this.state.desc
         }
         console.log(data);
@@ -41,6 +44,8 @@ class InfoFields extends React.Component {
     componentDidMount() {
         this.setState({
             'pcs': this.props.values.pcs,
+            'size:': this.props.values.size,
+            'weight': this.state.weight,
             'desc': this.props.values.desc
         })
     }
@@ -92,20 +97,20 @@ class InfoFields extends React.Component {
                                     <p style={styles.pTags}>Kappalemäärä</p>
                                     <p style={styles.pTags}>Mitat</p>
                                     <p style={styles.pTags}>Paino</p>
-                                    <DropDownMenu value={this.state.value} onChange={(event, newValue) => this.setState({ pcs: newValue })} style={styles.dropDown}>
+                                    <DropDownMenu value={this.state.value} onChange={this.handlePcsChange} style={styles.dropDown}>
                                         <MenuItem value={1} primaryText="1" />
-                                        <MenuItem value={2} primaryText="2-5" />
-                                        <MenuItem value={3} primaryText="> 5" />
+                                        <MenuItem value={'2-5'} primaryText="2 - 5" />
+                                        <MenuItem value={5} primaryText="> 5" />
                                     </DropDownMenu>
-                                    <DropDownMenu value={this.state.value} onChange={this.handleChange} style={styles.dropDown}>
+                                    <DropDownMenu value={this.state.value} onChange={this.handleSizeChange} style={styles.dropDown}>
                                         <MenuItem value={1} primaryText="> 0.5 m" />
-                                        <MenuItem value={2} primaryText="> 0.5 m" />
-                                        <MenuItem value={3} primaryText="> 2.5 m" />
+                                        <MenuItem value={'0.5-2'} primaryText="> 0.5 - 2" />
+                                        <MenuItem value={2.5} primaryText="> 2.5 m" />
                                     </DropDownMenu>
-                                    <DropDownMenu value={this.state.value} onChange={this.handleChange} style={styles.dropDown}>
+                                    <DropDownMenu value={this.state.value} onChange={this.handleWeightChange} style={styles.dropDown}>
                                         <MenuItem value={1} primaryText="< 5" />
-                                        <MenuItem value={2} primaryText=">5-20" />
-                                        <MenuItem value={3} primaryText="> 20" />
+                                        <MenuItem value={'5-20'} primaryText=">5 - 20" />
+                                        <MenuItem value={'>20'} primaryText="> 20" />
                                     </DropDownMenu>
                                 </div>
                             </td>

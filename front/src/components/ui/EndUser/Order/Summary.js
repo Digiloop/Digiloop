@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppBar, MenuItem, DropDownMenu } from 'material-ui';
+import { AppBar, MenuItem, DropDownMenu, Divider } from 'material-ui';
 import { FlatButton, IconButton, TextField } from 'material-ui';
 import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';

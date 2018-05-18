@@ -155,7 +155,10 @@ class ReservationListOptions extends Component {
       maxWeight: this.state.maxWeight,
       minSize: this.state.minSize,
       maxSize: this.state.maxSize,
-      distance: this.state.distance
+      distance: this.state.distance,
+
+      // user's own location and is it in use
+      userLocation: this.store.userLocation
     });
   }
 

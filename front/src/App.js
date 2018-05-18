@@ -34,9 +34,9 @@ class App extends Component {
     })
     getSubCats().then((subCats) => {
       // subcats will also be used as a check on the backend/network
-
+      console.log(subCats);
       // if the connection refused, clear login sessions and display error message
-      if (subCats.response == undefined) {
+      if (subCats.message == "Network Error") {
         localStorage.clear();
         this.props.onNewLogout({
           userlvl: -1

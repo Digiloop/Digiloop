@@ -7,13 +7,12 @@ var sqldatahaku = new sqldata;
 
 router.post('/itemss',(req, res, next) => {
     sqldatahaku.queryInsertItems(req.body.category, req.body.subCat, req.body.weight, req.body.size, req.body.description, 
-                    req.body.pcs, req.body.pickupaddr, req.body.junkdate, req.body.junkdateadded, req.body.status,
-                    req.user.id);
-                    //req.body.latitude, req.body.longitude, req.body.coordstatus
+                    req.body.pcs, req.body.pickupaddr, Date.now(), req.body.junkdateadded, req.body.status,
+                    req.user.id, req.body.latitude, req.body.longitude);
     res.end();
 });
 
-router.get('/items5',(req, res, next) => {
+router.get('/items2',(req, res, next) => {
     sqldatahaku.getInfoAll('junk',(err, result) => {
         if (err) throw err;
         res.json(result);

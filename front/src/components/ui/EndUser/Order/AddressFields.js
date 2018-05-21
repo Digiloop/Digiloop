@@ -7,42 +7,46 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';
-import { sendRegData } from '../../../../utils/sendRegData';
 import styles from '../../../../index.css';
 
 
 class AddressFields extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {            
+        this.state = {   
+            value: '',         
             submitted: false,
             allFilled: false
         };
         this.checkFill = this.checkFill.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
+    
 
     nextStep(event) {
         
-        this.checkFill();
+        
+        // this.checkFill();
         event.preventDefault();
-        if (!this.state.allFilled) {
+        /*if (!this.state.allFilled) {
             window.alert("kaik täytyy täyttää");
-        }
-        else {
+        } */
             console.log("nextStep");
             var data = {
                 address: this.state.address,
                 zipcode: this.state.zipcode,
                 city: this.state.city,
                 phone: this.state.phone,
-                pickup: this.state.pickup
+                pickup: this.state.pickup,
+                organization: this.state.organization
             }
             console.log(data);
+            console.log(this.state.organization);
             console.log(this.props);
             //console.log(this.props.values);
             this.props.saveValues(data);
             this.props.nextStep()
-        }
+        
 
     }
 
@@ -71,7 +75,8 @@ class AddressFields extends React.Component {
             'zipcode': this.props.values.zipcode,
             'city': this.props.values.city,
             'phone': this.props.values.phone,
-            'pickup': this.props.values.pickup
+            'pickup': this.props.values.pickup,
+            'organization': this.props.values.organization
         })
     }
 
@@ -155,6 +160,7 @@ class AddressFields extends React.Component {
                                     style={styles.images}
                                     className="image-btn btn"
                                     alt="Kotitalous"
+                                    value={'Kotitalous'} onChange={this.handleChange}
                                     onClick={(event) => this.nextStep(event)}
                                 />
                             </td>
@@ -167,6 +173,7 @@ class AddressFields extends React.Component {
                                     }}
                                     className="image-btn btn"
                                     alt="Organisaatio"
+                                    value={'Organisaatio'}
                                     onClick={(event) => this.nextStep(event)}
                                 /><div style={{ position: 'absolute', top: '68%', right: '37%' }} >Organisaatio</div>
                             </td>

@@ -5,7 +5,7 @@ var sqldatahaku = new sqldata;
 
 
 
-router.post('/addItem',(req, res, next) => {
+router.post('/itemAdd',(req, res, next) => {
     sqldatahaku.queryInsertItems(req.body.category, req.body.subCat, req.body.weight, req.body.size, req.body.description, 
                     req.body.pcs, req.body.pickupaddr, Date.now(), req.body.junkdateadded, req.body.status,
                     req.user.id, req.body.latitude, req.body.longitude);
@@ -21,59 +21,37 @@ router.get('/items',(req, res, next) => {
 });
 
 
+//POST
 
-/*    app.post('/itemADD',isLoggedIn, (req, res) => {
-        var item = {
-            category: req.body.category.toString(),
-            subCat: req.body.subCat.toString(), // use the generateHash function in our user model
-            weight: req.body.weight,
-            size: req.body.size,
-            description: req.body.description.toString(),
-            //picture: "",//req.body.picture.toString(),
-            pcs: req.body.pcs,
-            pickupaddr: req.body.pickupaddr.toString(),
-            junkdate: req.body.junkdate,
-            junkdateadded: req.body.junkdateadded,
-            status: req.body.status,
-            owner: req.user.id,
-            latitude: req.body.latitude,
-            longitude: req.body.longitude,
-            coordstatus: req.body.coordstatus
-        };
+router.post('/itemStatus', (req, res) => {
+    sqldatahaku.queryUpdateStatus(req.body.status,req.body.junkId)
+    res.end();
+    //'UPDATE junk SET status = ? WHERE junkID = ?;', [, ]
+})
 
-  
+router.post('/itemReserve', (req, res) => {
+    sqldatahaku.queryItemReserve(req.body.status,req.body.fetcher,req.body.junkId)
+    res.end();
+})
 
-        var insertQuery = "INSERT INTO junk ( category, subCat, weight, size, description, pcs, pickupaddr, junkdate, junkdateadded, status, owner ) values (?,?,?,?,?,?,?,?,?,?,?)";
-        var insertQuery2 = "INSERT INTO Coordinates ( latitude, longitude, coordstatus) values (?, ?, ?)";
-        connection.beginTransaction(function(err) {
-            if (err) {
-                throw err;
-            }
-            connection.query(insertQuery, [newItem.category, newItem.subCat, newItem.weight, newItem.size, newItem.description, newItem.picture, newItem.pcs, newItem.pickupaddr, newItem.junkdate, newItem.junkdateadded, newItem.status, newItem.owner], function(err, result) {
-                if (err) {
-                    connection.rollback(function() {
-                        throw err;
-                    });
-                }
-            connection.query(insertQuery2, [newItem.latitude, newItem.longitude, newItem.coordstatus], function(err, result) {
-                if (err) {
-                    connection.rollback(function() {
-                        throw err;
-                    });
-                }
-            connection.commit(function(err) {
-                if (err) {
-                    connection.rollback(function() {
-                        throw err;
-                    });
-                }
-                console.log('Item added success!');
-                    });
-                });
-            });
+/*
+    //item Status
+    app.post('/itemStatus', (req, res) => {
+        connection.query('UPDATE junk SET status = ? WHERE junkID = ?;', [req.body.status, req.body.subIdStatus], (err, rows) => {
+            if (err) throw err;
+            console.log(rows.affectedRows + " record(s) updated");
         });
+        console.log(req.body.status, " ", req.body.subIdStatus)
+        res.end();
+    });
+
+    app.post('/itemReserve', isLoggedIn, (req, res) => {
+        connection.query('UPDATE junk SET status = ?, fetcher = ? WHERE junkID = ?;', [req.body.status,req.body.fetcher, req.body.subIdStatus], (err, rows) => {
+            if (err) throw err;
+            console.log(rows.affectedRows + " record(s) updated");
+        });
+        console.log(req.body.status, " ",req.body.fetcher , " ", req.body.subIdStatus)
         res.end();
     });
 */
-
 module.exports = router

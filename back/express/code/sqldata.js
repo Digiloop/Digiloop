@@ -24,10 +24,28 @@ queryGet(query,callback){
   })
 }
 
-queryPost(query){
+queryPost(query, values){
+  if(typeof values == "undefined") {
   connection.query(query,(err,result) => {
     console.log(result.affectedRows + " record(s) updated");
   })
+} else
+  connection.query(query, values, (err,result) => {
+    console.log(result.affectedRows + " record(s) updated");
+  })
+}
+
+
+queryUpdateStatus(){
+  let sqlquery = 'UPDATE junk SET status = ? WHERE junkID = ?;';
+  let values = [arguments[0],arguments[1]]
+  this.queryPost(sqlquery,values)
+}
+
+queryItemReserve(){
+  let sqlquery = 'UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;';
+  let values = [arguments[0],arguments[1],arguments[2]]
+  this.queryPost(sqlquery,values)
 }
 
 getInfoStatus(table,Status,callback){
@@ -41,6 +59,7 @@ getInfoAll(table,callback){
     callback(err,result);
   })
 }
+
 
 
 queryInsertItems(){  
@@ -57,19 +76,22 @@ queryInsertItems(){
 //CatName, Status, RealName, ImgReference
 queryInsertCats(table, value1, value2, value3, value4){
   let sqlquery;
+  let values;
+  //('${value1}','${value2}','${value3}')`
   //console.log(`${table},${value1},${value2},${value3},${value4}`)
   if (table === 'Category') {
-    sqlquery = `INSERT INTO ${table} ( CatName, Status, RealName, ImgReference ) VALUES ('${value1}','${value2}','${value3}','${value4}')`
+    values = [value1, value2, value3, value4]
+    sqlquery = `INSERT INTO ${table} ( CatName, Status, RealName, ImgReference ) VALUES (?,?,?,?)`
   } else if (table === 'subCat') {
-    sqlquery = `INSERT INTO ${table} ( CatId, subName, Status) VALUES ('${value1}','${value2}','${value3}')`
+    values = [value1, value2, value3]
+    sqlquery = `INSERT INTO ${table} ( CatId, subName, Status) VALUES (?,?,?)`
   } else {
     console.log('Did not work')
   }
 
-  connection.query(sqlquery,(err, result) => {
+  connection.query(sqlquery, values, (err, result) => {
     console.log(result.affectedRows + " record(s) updated");
   })
-
 }
 
 };

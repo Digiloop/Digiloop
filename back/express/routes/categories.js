@@ -23,21 +23,10 @@ router.get('/subcat', (req, res, next) => {
     next();
   });
 });
-/*
-router.get('/items5', function(req, res, next) {
-  sqldatahaku.getquery('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',function(err, result){
-    if (err) throw err;
-    res.json(result);
-    next();
-  });
-});
-*/
 
 router.get('/kuva', (req, res, next) => {
   res.sendFile(`${__dirname}/randomi.jpg`)
 })
-
-
 
 //POST
 router.post('/subcatstatus', (req, res, next) => {

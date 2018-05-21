@@ -18,7 +18,7 @@ connection.query('USE ' + dbconfig.database);
 //https://www.terlici.com/2014/09/29/express-router.html
 //https://www.caffeinecoding.com/better-express-routing-for-nodejs/
 module.exports = (app, passport, users) => {
-    
+
     app.get('/announcements', (req, res) => {
         connection.query('SELECT * FROM Announcements', (err, result) => {
                 if (err) throw err;
@@ -67,6 +67,7 @@ module.exports = (app, passport, users) => {
 
 
     //item Status
+    /*
     app.post('/itemStatus', (req, res) => {
         connection.query('UPDATE junk SET status = ? WHERE junkID = ?;', [req.body.status, req.body.subIdStatus], (err, rows) => {
             if (err) throw err;
@@ -84,6 +85,12 @@ module.exports = (app, passport, users) => {
         console.log(req.body.status, " ",req.body.fetcher , " ", req.body.subIdStatus)
         res.end();
     });
+
+*/
+
+
+
+
 
     app.get('/', function(req, res) {
         //res.render('index.ejs'); // load the index.ejs file

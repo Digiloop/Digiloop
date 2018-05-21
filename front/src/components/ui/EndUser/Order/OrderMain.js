@@ -48,6 +48,7 @@ class OrderMain extends Component {
                 'city': value.city,
                 'phone': value.phone,
                 'pickup': value.pickup,
+                'organization': value.organization,
                 'pcs': value.pcs,
                 'size': value.size,
                 'weight': value.weight,

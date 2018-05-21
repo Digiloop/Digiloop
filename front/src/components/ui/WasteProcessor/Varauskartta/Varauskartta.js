@@ -65,7 +65,6 @@ class WasteProcessor extends Component {
 
   // the filter function, that leaves only the necessary stuff to be displayed
   rliFiltering() {
-    //console.clear()console.clear();
     console.log(this.props.resListItems);
 
     let resListItemsFiltered = [];
@@ -113,7 +112,7 @@ class WasteProcessor extends Component {
       // distance limiters - seems to work
       // first check if location is being used, then compare it to each item and determine of the distance is
       // longer than what the max distance in options has set
-      console.clear()
+      
       console.log(this.props.rLOpt.userLocation.locationButtonDisable)
       if (!this.props.rLOpt.userLocation.locationButtonDisable) {
         if ((this.getDistance(this.props.rLOpt.userLocation.latitude, this.props.rLOpt.userLocation.longitude, this.props.resListItems[i].latitude, this.props.resListItems[i].longitude) / 1000) > this.props.rLOpt.distance) {

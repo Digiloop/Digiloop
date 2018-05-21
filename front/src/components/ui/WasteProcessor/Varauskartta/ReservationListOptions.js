@@ -32,20 +32,26 @@ class ReservationListOptions extends Component {
       }
     }
     this.activateLocation = this.activateLocation.bind(this);
-    this.success = this.success.bind(this);
-    this.error = this.error.bind(this);
+    this.geoLocationSuccess = this.geoLocationSuccess.bind(this);
+    this.geoLocationError = this.geoLocationError.bind(this);
   }
 
 
   componentDidMount() {
 
+    // get the existing states from store
+    // It will either be the initialstate, or a state set by the user
     this.setState({
       minWeight: this.props.rLOpt.minWeight,
       maxWeight: this.props.rLOpt.maxWeight,
       minSize: this.props.rLOpt.minSize,
       maxSize: this.props.rLOpt.maxSize,
-      distance: this.props.rLOpt.distance
-    })
+      distance: this.props.rLOpt.distance,
+
+      userLocation: {
+        locationButtonDisable: this.props.rLOpt.userLocation.locationButtonDisable
+      } 
+    },function(){console.log("hippitihoo");console.log(this.state.userLocation)})
 
 
     // create states for categories
@@ -83,7 +89,8 @@ class ReservationListOptions extends Component {
 
   }
 
-  success(position) {
+  // geoLocation success function
+  geoLocationSuccess(position) {
     this.setState({
       userLocation: {
         latitude: position.coords.latitude,
@@ -93,7 +100,8 @@ class ReservationListOptions extends Component {
     })
   }
 
-  error() {
+  // geoLocation error function
+  geoLocationError() {
     window.alert("Sijainti pitää olla käytössä, jos haluat filtteröidä etäisyyden mukaan.");
   }
 
@@ -105,7 +113,7 @@ class ReservationListOptions extends Component {
     }
 
 
-    navigator.geolocation.getCurrentPosition(this.success, this.error);
+    navigator.geolocation.getCurrentPosition(this.geoLocationSuccess, this.geoLocationError);
 
   }
 

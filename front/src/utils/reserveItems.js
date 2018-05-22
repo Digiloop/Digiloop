@@ -3,9 +3,9 @@ import { BASE_URL } from './../settings';
 
 export { reserveItem };
 
-function reserveItem(status, fetcher, subIdStatus) { // target status, id of who fetched, id of item to be changed
+function reserveItem(status, fetcher, junkId) { // target status, id of who fetched, id of item to be changed
   return axios.post(BASE_URL + '/itemReserve', {
-    status, fetcher, subIdStatus
+    status, fetcher, junkId
   })
     .then(response => response.data)
     .catch(function (error) {

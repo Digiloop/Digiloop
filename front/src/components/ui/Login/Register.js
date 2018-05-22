@@ -99,7 +99,6 @@ class Register extends React.Component {
                 "zipcode": this.state.zipcode,
                 "city": this.state.city
             }
-            console.log(JSON.stringify(regData));
             sendRegData(JSON.stringify(regData));
             window.alert("Hyvin rekisteröidytty!");
             this.props.onNewLogin({

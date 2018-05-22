@@ -21,9 +21,7 @@ class Admin extends Component {
   // fetch junk data
   getCategories() {
     getCats().then((categories) => {
-      // console.log(categories);
       this.setState({ cats: (categories) });
-      // this.props.catsToStore(categories.category);
     });
   }
 

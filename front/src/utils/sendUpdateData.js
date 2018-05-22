@@ -4,7 +4,7 @@ import { BASE_URL } from './../settings';
 export { sendUpdateData };
 
 function sendUpdateData(updateUserData) {
-  return fetch(BASE_URL + '/update?????', {
+  return fetch(BASE_URL + '/updateUser', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

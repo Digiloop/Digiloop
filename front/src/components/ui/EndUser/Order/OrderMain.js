@@ -3,8 +3,12 @@ import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
+
 import Back from '@material-ui/icons/ArrowBack';
-import Forward from '@material-ui/icons/ArrowForward';
+
+import Button from '@material-ui/core/Button'
+import Forward from '@material-ui/icons/Forward';
+
 import AddressFields from '../../../containers/EndUser/Order/AddressFields';
 import CategoriesFields from '../../../containers/EndUser/Order/CategoriesFields';
 import InfoFields from '../../../containers/EndUser/Order/InfoFields';
@@ -39,7 +43,6 @@ class OrderMain extends Component {
     }
 
     saveValues(value) {
-        console.log("haa");
         this.setState({
             values: {
                 'address': value.address,
@@ -54,7 +57,6 @@ class OrderMain extends Component {
                 'desc': value.desc
             }
         }, () => console.log(this.state.values))
-        console.log("hoo");
 
     }
 
@@ -158,7 +160,11 @@ class OrderMain extends Component {
             }
         }
         return (
+
+            
+
             <div className="orderWrapper">
+            <Button variant="fab" style={{backgroundColor: "red"}} ><Forward style={{width:"78px", height:"78px"}} /></Button>
                 <div className="progressBar" style={{ maxWidth: '90vh', minWidth: '50vh', display: 'flex', justifyContent: 'center' }}>
                     <Back style={this.state.step == 1 ? styles.backArrowHidden : styles.backArrow} onClick={this.prevStep} />
                     <div className="state1" style={this.state.step == 1 ? styles.Active : styles.notActive}></div>

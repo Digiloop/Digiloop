@@ -8,8 +8,7 @@ import Forward from '@material-ui/icons/ArrowForward';
 import AddressFields from '../../../containers/EndUser/Order/AddressFields';
 import CategoriesFields from '../../../containers/EndUser/Order/CategoriesFields';
 import InfoFields from '../../../containers/EndUser/Order/InfoFields';
-import Summary from '../../../containers/EndUser/Order/Summary'
-import assign from "object-assign";
+import Summary from '../../../containers/EndUser/Order/Summary';
 
 
 class OrderMain extends Component {
@@ -71,6 +70,13 @@ class OrderMain extends Component {
         })
     }
 
+    nextItem = () => {
+        this.setState({
+            step: this.state.step - 2
+        })
+            
+    }
+
     submitOrder = () => {
         this.nextStep()
     }
@@ -96,7 +102,8 @@ class OrderMain extends Component {
                 return < Summary
                     values={this.state.values}
                     nextStep={this.nextStep}
-                    saveValues={this.saveValues} />
+                    saveValues={this.saveValues}
+                    nextItem={this.nextItem} />
         }
     }
 

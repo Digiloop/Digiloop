@@ -21,11 +21,16 @@ class Summary extends React.Component {
     nextStep(event) {
         event.preventDefault();
         var data = {
-            address: this.state.address,
-            zipcode: this.state.zipcode,
-            city: this.state.city,
-            phone: this.state.phone,
-            pickup: this.state.pickup
+            address: this.props.values.address,
+            zipcode: this.props.values.zipcode,
+            city: this.props.values.city,
+            phone: this.props.values.phone,
+            pickup: this.props.values.pickup,
+            organization: this.props.values.organization,
+            pcs: this.props.values.pcs,
+            size: this.props.values.size,
+            weight: this.props.values.weight,
+            desc: this.props.values.desc
         }
         console.log(data);
         console.log(this.props);
@@ -35,15 +40,6 @@ class Summary extends React.Component {
 
     }
 
-    componentDidMount() {
-        this.setState({
-            'address': this.props.values.address,
-            'zipcode': this.props.values.zipcode,
-            'city': this.props.values.city,
-            'phone': this.props.values.phone,
-            'pickup': this.props.values.pickup
-        })
-    }
 
     render() {
 
@@ -81,7 +77,17 @@ class Summary extends React.Component {
                             <td>
                                 <label style={{ float: 'left', position: 'absolute', marginLeft: '2%' }}>Yhteystiedot</label><br />
                                 <pre>{this.props.values.address} {this.props.values.phone} <br />
-                                {this.props.values.zipcode} {this.props.values.city}</pre>
+                                    {this.props.values.zipcode} {this.props.values.city}</pre>
+                                <Divider style={{ backgroundColor: '#FFF', height: '3px' }} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><pre>
+                                {this.props.values.organization} <br />
+                                {this.props.values.size}m<sup>3</sup>/kpl {this.props.values.weight} <br />
+                                {this.props.values.pcs} <br />
+                                {this.props.values.desc}</pre>
+                                <Divider style={{ backgroundColor: '#FFF', height: '3px' }} />
                             </td>
                         </tr>
                         <tr>
@@ -90,7 +96,8 @@ class Summary extends React.Component {
                                     label='Lisää Laitteita'
                                     style={{ borderRadius: 25 }}
                                     backgroundColor={'#FFF'}
-                                     />
+                                    onClick={(event) => this.props.nextItem(event)}
+                                />
                             </td>
                         </tr>
                     </tbody>

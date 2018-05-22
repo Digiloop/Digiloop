@@ -13,24 +13,19 @@ import styles from '../../../../index.css';
 class AddressFields extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {   
-            value: '',         
+        this.state = {
             submitted: false,
             allFilled: false
         };
         this.checkFill = this.checkFill.bind(this);
-        this.handleChange = this.handleChange.bind(this);
     }
-    
 
-    nextStep(event) {
-        
-        
-        // this.checkFill();
-        event.preventDefault();
-        /*if (!this.state.allFilled) {
+    nextStep = (Organisaatio) => (e) => {
+        this.checkFill();
+        e.preventDefault();
+        if (!this.state.allFilled) {
             window.alert("kaik täytyy täyttää");
-        } */
+        } else {
             console.log("nextStep");
             var data = {
                 address: this.state.address,
@@ -38,22 +33,21 @@ class AddressFields extends React.Component {
                 city: this.state.city,
                 phone: this.state.phone,
                 pickup: this.state.pickup,
-                organization: this.state.organization
+                organization: Organisaatio
             }
             console.log(data);
-            console.log(this.state.organization);
             console.log(this.props);
             //console.log(this.props.values);
             this.props.saveValues(data);
-            this.props.nextStep()
-        
-
+            this.props.nextStep();
+        }
     }
 
     checkFill() {
         let pass = true;
         for (var key in this.state) {
-            if (this.state[key] === '' || this.state[key] === undefined) {
+            if (this.state[key] === '' || this.state[key] === undefined || this.state[key] === null) {
+                if (this.state[key] === this.state.pickup) continue;
                 pass = false;
             }
         }
@@ -75,8 +69,7 @@ class AddressFields extends React.Component {
             'zipcode': this.props.values.zipcode,
             'city': this.props.values.city,
             'phone': this.props.values.phone,
-            'pickup': this.props.values.pickup,
-            'organization': this.props.values.organization
+            'pickup': this.props.values.pickup
         })
     }
 
@@ -117,8 +110,8 @@ class AddressFields extends React.Component {
                             <td>   <TextField className="rightOrderField"
                                 type="text" hintText="Ståhlberginkatu 10"
                                 style={styles} defaultValue={this.props.values.address}
-                                onChange={(event, newValue) => this.setState({ address: newValue })} 
-                                />
+                                onChange={(event, newValue) => this.setState({ address: newValue })}
+                            />
                             </td>
                         </tr>
                         <tr>
@@ -160,8 +153,7 @@ class AddressFields extends React.Component {
                                     style={styles.images}
                                     className="image-btn btn"
                                     alt="Kotitalous"
-                                    value={'Kotitalous'} onChange={this.handleChange}
-                                    onClick={(event) => this.nextStep(event)}
+                                    onClick={this.nextStep('Kotitalous')}
                                 />
                             </td>
                             <td >
@@ -173,9 +165,8 @@ class AddressFields extends React.Component {
                                     }}
                                     className="image-btn btn"
                                     alt="Organisaatio"
-                                    value={'Organisaatio'}
-                                    onClick={(event) => this.nextStep(event)}
-                                /><div style={{ position: 'absolute', top: '68%', right: '37%' }} >Organisaatio</div>
+                                    onClick={this.nextStep('Organisaatio')}
+                                />
                             </td>
                         </tr>
                     </tbody>

@@ -8,20 +8,45 @@ import IconButton from 'material-ui/IconButton';
 import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';
 import styles from '../../../../index.css';
+import { getCats, getSubCats } from '../../../../utils/fetchcategories';
 
 
 class CategoriesFields extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
+            value: '',
+            cat: '',
+            cats: '',
+            subCats: '',
             showTietoturva: false,
             showAkut: false,
             showSer: false
         };
     }
 
-    handleChange(event) {
+    // fetch junk data
+    getCategories() {
+        getCats().then((categories) => {
+            // console.log(categories);
+            this.setState({ cats: (categories) });
+        });
+    }
+
+    getSubCategories() {
+        getSubCats().then((subCategories) => {
+            // console.log(subCategories);
+            this.setState({ subCats: (subCategories) });
+        });
+    }
+
+    // value = Category CatId, cat = Category name
+    getCat = (value, cat) => {
+        this.setState({
+            value: value,
+            cat: cat
+        });
+        // console.log(this.state.cat);
     }
 
 
@@ -46,6 +71,11 @@ class CategoriesFields extends React.Component {
     Submit(event) {
         console.log(this.props.values);
         this.props.nextStep();
+    }
+
+    componentDidMount() {
+        this.getCategories();
+        this.getSubCategories();
     }
 
     render() {
@@ -78,6 +108,28 @@ class CategoriesFields extends React.Component {
                 whiteSpace: 'nowrap'
             }
         };
+
+        const cats = [];
+        const subCats = [];
+
+        for (let i = 0; i < this.state.cats.length; i++) {
+            cats.push(
+              <div value={this.state.cats[i].CatName} onClick={() =>
+                this.getCat(this.state.cats[i].CatId, this.state.cats[i].CatName)} key={i} >
+                <h3>{this.state.cats[i].CatName}</h3>
+              </div>
+            )
+          }
+      
+          for (let j = 0; j < this.state.subCats.length; j++) {
+            if (this.state.subCats[j].CatId === this.state.value) {
+              subCats.push(
+                <div key={j} >
+                  {this.state.subCats[j].subName}
+                </div>
+              )
+            }
+          }
 
         const results = (<table className="orderStructure">
             <tbody>
@@ -150,7 +202,7 @@ class CategoriesFields extends React.Component {
                 <tr>
                     <td>  <label className="leftOrderLabel"><h2 className="orderH2">Alakategoria</h2> </label> </td>
                 </tr>
-                <tr style={ styles.trStyle }>
+                <tr style={styles.trStyle}>
                     <td>
                         <img
                             src={require('../Materials/OrderPics/tv.gif')}
@@ -192,7 +244,7 @@ class CategoriesFields extends React.Component {
                         <tr>
                             <td><label className="leftOrderLabel"><h2 className="orderH2">Pääluokka</h2> </label> </td>
                         </tr>
-                        <tr style={ styles.trStyle } >
+                        <tr style={styles.trStyle} >
                             <td>
                                 <img
                                     src={require('../Materials/OrderPics/slaitteet.gif')}

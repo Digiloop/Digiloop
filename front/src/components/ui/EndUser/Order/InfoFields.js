@@ -5,19 +5,20 @@ import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';
 import styles from '../../../../index.css';
 
-// tee dropdownmenu
 
 class InfoFields extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 1
+            value1: 1,
+            value2: 1,
+            value3: 1
         };
     }
 
-    handlePcsChange = (event, index, value) => this.setState({ pcs: value })
-    handleSizeChange = (event, index, value) => this.setState({ size: value })
-    handleWeightChange = (event, index, value) => this.setState({ weight: value })
+    handlePcsChange = (event, index, value) => this.setState({ value1: value, pcs: value })
+    handleSizeChange = (event, index, value) => this.setState({ value2: value, size: value })
+    handleWeightChange = (event, index, value) => this.setState({ value3: value, weight: value })
 
     nextStep(event) {
         event.preventDefault();
@@ -28,24 +29,30 @@ class InfoFields extends React.Component {
             city: this.props.values.city,
             phone: this.props.values.phone,
             pickup: this.props.values.pickup,
-            pcs: this.state.pcs,
-            size: this.state.size,
-            weight: this.state.weight,
+            organization: this.props.values.organization,
+            pcs: this.state.pcs || '1',
+            size: this.state.size || '> 0.5',
+            weight: this.state.weight || '< 5',
             desc: this.state.desc
         }
         console.log(data);
         console.log(this.props);
+        console.log(this.state.pcs);
+        
         //console.log(this.props.values);
         this.props.saveValues(data);
         this.props.nextStep()
 
     }
 
+    componentDidUpdate() {
+    }
+
     componentDidMount() {
         this.setState({
             'pcs': this.props.values.pcs,
-            'size:': this.props.values.size,
-            'weight': this.state.weight,
+            'size': this.props.values.size,
+            'weight': this.props.values.weight,
             'desc': this.props.values.desc
         })
     }
@@ -97,17 +104,17 @@ class InfoFields extends React.Component {
                                     <p style={styles.pTags}>Kappalemäärä</p>
                                     <p style={styles.pTags}>Mitat</p>
                                     <p style={styles.pTags}>Paino</p>
-                                    <DropDownMenu value={this.state.value} onChange={this.handlePcsChange} style={styles.dropDown}>
+                                    <DropDownMenu value={this.state.value1} onChange={this.handlePcsChange} style={styles.dropDown}>
                                         <MenuItem value={1} primaryText="1" />
                                         <MenuItem value={'2-5'} primaryText="2 - 5" />
                                         <MenuItem value={5} primaryText="> 5" />
                                     </DropDownMenu>
-                                    <DropDownMenu value={this.state.value} onChange={this.handleSizeChange} style={styles.dropDown}>
-                                        <MenuItem value={1} primaryText="> 0.5 m" />
+                                    <DropDownMenu value={this.state.value2} onChange={this.handleSizeChange} style={styles.dropDown}>
+                                        <MenuItem value={1} primaryText="< 0.5 m" />
                                         <MenuItem value={'0.5-2'} primaryText="> 0.5 - 2" />
                                         <MenuItem value={2.5} primaryText="> 2.5 m" />
                                     </DropDownMenu>
-                                    <DropDownMenu value={this.state.value} onChange={this.handleWeightChange} style={styles.dropDown}>
+                                    <DropDownMenu value={this.state.value3} onChange={this.handleWeightChange} style={styles.dropDown}>
                                         <MenuItem value={1} primaryText="< 5" />
                                         <MenuItem value={'5-20'} primaryText=">5 - 20" />
                                         <MenuItem value={'>20'} primaryText="> 20" />

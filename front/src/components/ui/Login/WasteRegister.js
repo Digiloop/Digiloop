@@ -71,6 +71,8 @@ class WasteRegister extends React.Component {
         } else if ((!pass || !this.state.emailValid) && this.state.allFilled) {
             this.setState({ termsAndConditions: false, allFilled: false })
         }
+        console.log("State: ")
+        console.log(this.state);
     }
 
     Submit(event) {

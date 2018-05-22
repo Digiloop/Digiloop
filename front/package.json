@@ -25,6 +25,7 @@
   },
   "proxy": "http://niisku.lamk.fi:4333",
   "devDependencies": {
-    "case-sensitive-paths-webpack-plugin": "^2.1.2"
+    "case-sensitive-paths-webpack-plugin": "^2.1.2",
+    "react-app-rewired": "^1.5.2"
   }
 }

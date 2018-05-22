@@ -18,17 +18,7 @@ connection.query('USE ' + dbconfig.database);
 //https://www.terlici.com/2014/09/29/express-router.html
 //https://www.caffeinecoding.com/better-express-routing-for-nodejs/
 module.exports = (app, passport, users) => {
-    //	app.get('/categories',isLoggedIn, function(req, res
-/*
-    app.get('/categories', function(req, res, next) {
-        connection.query('SELECT * FROM Category WHERE Status = 1', function(err, result) {
-            if (err) throw err;
-            res.json({
-                category: result
-            });
-        });
-    });
-*/
+
     app.get('/announcements', (req, res) => {
         connection.query('SELECT * FROM Announcements', (err, result) => {
                 if (err) throw err;
@@ -75,26 +65,9 @@ module.exports = (app, passport, users) => {
             res.end();
         });
 
-    app.get('/items',isLoggedIn, (req, res) => {
-        if (req.user.userlvl <= 1){
-        connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID;',
-            function(err, result) {
-                if (err) throw err;
-                res.json(result);
-            });
-          }
-          else {
-            connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID WHERE owner = ?;', [req.user.id.toString()],
-                function(err, result) {
-                    if (err) throw err;
-                    res.json(result);
-                });
-          }
-    });
-
-
 
     //item Status
+    /*
     app.post('/itemStatus', (req, res) => {
         connection.query('UPDATE junk SET status = ? WHERE junkID = ?;', [req.body.status, req.body.subIdStatus], (err, rows) => {
             if (err) throw err;
@@ -113,101 +86,11 @@ module.exports = (app, passport, users) => {
         res.end();
     });
 
-
-
-    //kaatuu ilman loggausta sisään tarttee City / Post valuet
-    app.post('/itemADD',isLoggedIn, (req, res) => {
-        var newItem = {
-            category: req.body.category.toString(),
-            subCat: req.body.subCat.toString(), // use the generateHash function in our user model
-            weight: req.body.weight,
-            size: req.body.size,
-            description: req.body.description.toString(),
-            picture: "",//req.body.picture.toString(),
-            pcs: req.body.pcs,
-            pickupaddr: req.body.pickupaddr.toString(),
-            junkdate: req.body.junkdate,
-            junkdateadded: req.body.junkdateadded,
-            status: req.body.status,
-            owner: req.user.id,
-            latitude: req.body.latitude,
-            longitude: req.body.longitude,
-            coordstatus: req.body.status2
-        };
-
-        if (req.files) {
-        // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-
-        var picture = req.files.picture;
-        var userfolder = './kuvat/' + req.user.username;
-        if(!fs.existsSync(userfolder)){
-          fs.mkdirSync(userfolder);
-        }
-        var filepath = './kuvat/'+ req.user.username+ '/' + Date.now() + '.' + picture.name.split('.').pop();
-        newItem.picture = filepath;
-        // Use the mv() method to place the file somewhere on your server
-        picture.mv(filepath, function(err) {
-          if (err)
-            return res.status(500).send(err);
-        })};
-
-        var insertQuery = "INSERT INTO junk ( category, subCat, weight, size, description, picture, pcs, pickupaddr, junkdate, junkdateadded, status, owner ) values (?,?,?,?,?,?,?,?,?,?,?,?)";
-        var insertQuery2 = "INSERT INTO Coordinates ( latitude, longitude, coordstatus) values (?, ?, ?)";
-        connection.beginTransaction(function(err) {
-            if (err) {
-                throw err;
-            }
-            connection.query(insertQuery, [newItem.category, newItem.subCat, newItem.weight, newItem.size, newItem.description, newItem.picture, newItem.pcs, newItem.pickupaddr, newItem.junkdate, newItem.junkdateadded, newItem.status, newItem.owner], function(err, result) {
-                if (err) {
-                    connection.rollback(function() {
-                        throw err;
-                    });
-                }
-
-                connection.query(insertQuery2, [newItem.latitude, newItem.longitude, newItem.coordstatus], function(err, result) {
-                    if (err) {
-                        connection.rollback(function() {
-                            throw err;
-                        });
-                    }
-                    connection.commit(function(err) {
-                        if (err) {
-                            connection.rollback(function() {
-                                throw err;
-                            });
-                        }
-                        console.log('Item added success!');
-                    });
-                });
-            });
-        });
-        res.end();
-    });
-
-// Esimerkki userlvl tarkastuksesta routessa, ei käytössä
-/*
-    app.get('/items', (req, res) => {
-      //if (req.user.userlvl <= 1){
-      //res.send(__dirname);
-        connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID WHERE Status != 0',
-            function(err, result) {
-                if (err) throw err;
-                res.json(result);
-            });
-    //    }
-    });
 */
 
 
-    app.get('/items3',passport.authenticate('bearer', { session: false }), function(req, res) {
-        connection.query('SELECT * FROM junk INNER JOIN Coordinates ON junk.junkID=Coordinates.ID',
-            function(err, result) {
-                if (err) throw err;
-                res.json({
-                    category: result
-                });
-            });
-    });
+
+
 
     app.get('/', function(req, res) {
         //res.render('index.ejs'); // load the index.ejs file

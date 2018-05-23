@@ -46,7 +46,7 @@ class Summary extends React.Component {
 
     sendData(event) {
         event.preventDefault();
-        var data = {
+        var itemData = {
             pickupaddr: this.props.values.pickupaddr,
             zipcode: this.props.values.zipcode,
             city: this.props.values.city,
@@ -60,10 +60,10 @@ class Summary extends React.Component {
             weight: this.props.values.weight,
             description: this.props.values.description
         }
-        console.log(data);
-        sendItemData(data);
+        console.log(itemData);
+        sendItemData(JSON.stringify(itemData));
         console.log(this.props);
-        this.props.saveValues(data);
+        this.props.saveValues(itemData);
     }
 
 

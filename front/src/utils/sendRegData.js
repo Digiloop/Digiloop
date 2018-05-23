@@ -15,11 +15,6 @@ export { sendRegData };
     });
 } */
 
-const https = require("https");
-const agent = new https.Agent({
-  rejectUnauthorized: false
-})
-
 function sendRegData(regData) {
   return fetch(BASE_URL + '/signup',{
     method: 'POST',

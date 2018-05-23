@@ -142,7 +142,7 @@ class AddressFields extends React.Component {
                             <td><label className="leftOrderLabel">Nouto-ohjeet:</label></td>
                             <td>    <TextField className="rightOrderField"
                                 type="text" hintText="Perjantai 30.4 klo 16:30. Käynti pääovesta. " style={styles}
-                                rows={3} rowsMax={7} defaultValue={this.props.values.pickup}
+                                multiLine={true} rows={3} rowsMax={7} defaultValue={this.props.values.pickup}
                                 onChange={(event, newValue) => this.setState({ pickup: newValue })} /><br /><br />
                             </td>
                         </tr>

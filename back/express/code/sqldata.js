@@ -24,7 +24,16 @@ queryGet(query,callback){
   })
 }
 
-queryPost(query, values){
+queryConnection(){
+  connection.query(this.argLoop(arguments), (err,result) => {
+    
+    //console.log(arguments);
+    console.log('minä olen queryConnection')
+    console.log(result.affectedRows + " record(s) updated");
+  })
+}
+/*
+queryPost(query, values, nmbrOfVals){
   if(typeof values == "undefined") {
   connection.query(query,(err,result) => {
     console.log(result.affectedRows + " record(s) updated");
@@ -34,7 +43,19 @@ queryPost(query, values){
     console.log(result.affectedRows + " record(s) updated");
   })
 }
+*/
+queryPost(query, values){
+  if(typeof values == "undefined") {
+    connection.query(query, (err,result) => {
+      console.log(result.affectedRows + " record(s) updated");
+    })
+  } else {
+    connection.query(query, values, (err,result) => {
+      console.log(result.affectedRows + " record(s) updated");
+    })
+  }
 
+}
 
 queryUpdateStatus(){
   let sqlquery = 'UPDATE junk SET status = ? WHERE junkID = ?;';
@@ -71,14 +92,13 @@ queryInsertItems(){
   })
 }
 
-//queryinsertillä voidaan syöttää ainakin toistaiseksi catADD sekä subcatADD, tarvii mahdollisesti sql escapea
+//queryinsertillä voidaan syöttää ainakin toistaiseksi catADD sekä subcatADD, 
 //parametrit ovat nimeltään samat mitä tietokannassa
 //CatName, Status, RealName, ImgReference
 queryInsertCats(table, value1, value2, value3, value4){
   let sqlquery;
   let values;
-  //('${value1}','${value2}','${value3}')`
-  //console.log(`${table},${value1},${value2},${value3},${value4}`)
+
   if (table === 'Category') {
     values = [value1, value2, value3, value4]
     sqlquery = `INSERT INTO ${table} ( CatName, Status, RealName, ImgReference ) VALUES (?,?,?,?)`

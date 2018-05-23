@@ -35,7 +35,9 @@ class OrderMain extends Component {
                 weight: '',
                 status: '',
                 latitude: '',
-                longitude: ''
+                longitude: '',
+
+                pageOneAllFilled: ""
             },
             step: 1
         };
@@ -90,6 +92,12 @@ class OrderMain extends Component {
             
     }
 
+    setAllFilled = (allFilled) => {
+        this.setState({
+            pageOneAllFilled: allFilled
+        })
+    }
+
     submitOrder = () => {
         this.nextStep()
     }
@@ -100,7 +108,8 @@ class OrderMain extends Component {
                 return < AddressFields
                     values={this.state.values}
                     nextStep={this.nextStep}
-                    saveValues={this.saveValues} />
+                    saveValues={this.saveValues}
+                    setAllfilled={this.setAllFilled} />
             case 2:
                 return < CategoriesFields
                     values={this.state.values}
@@ -168,7 +177,8 @@ class OrderMain extends Component {
                     <div className="state2" style={this.state.step == 2 ? styles.Active : styles.notActive}></div>
                     <div className="state3" style={this.state.step == 3 ? styles.Active : styles.notActive}></div>
                     <div className="state4" style={this.state.step == 4 ? styles.Active : styles.notActive}></div>
-                    <Button variant="fab" style={this.state.step == 1 || this.state.step == 4 ? styles.buttonDisabled : styles.buttonActive} disabled={this.state.step == 4 || this.state.step == 1} onClick={this.nextStep}><Forward /></Button>
+                    <Button variant="fab" style={(this.state.step == 1 && !this.state.pageOneAllFilled) || this.state.step == 4 ? styles.buttonDisabled : styles.buttonActive} 
+                    disabled={(this.state.step == 1 && !this.state.pageOneAllFilled) || this.state.step == 4} onClick={this.nextStep}><Forward /></Button>
                 </div>
                 <div className="frontPageBox" >{this.showSteps()}</div>
             </div>

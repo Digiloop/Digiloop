@@ -28,11 +28,11 @@ class AddressFields extends React.Component {
         } else {
             console.log("nextStep");
             var data = {
-                address: this.state.address,
+                pickupaddr: this.state.pickupaddr,
                 zipcode: this.state.zipcode,
                 city: this.state.city,
                 phone: this.state.phone,
-                pickup: this.state.pickup,
+                pickupInstructions: this.state.pickupInstructions,
                 organization: Organisaatio
             }
             console.log(data);
@@ -47,7 +47,7 @@ class AddressFields extends React.Component {
         let pass = true;
         for (var key in this.state) {
             if (this.state[key] === '' || this.state[key] === undefined || this.state[key] === null) {
-                if (this.state[key] === this.state.pickup) continue;
+                if (this.state[key] === this.state.pickupInstructions) continue;
                 pass = false;
             }
         }
@@ -65,11 +65,11 @@ class AddressFields extends React.Component {
     componentDidMount() {
         this.checkFill();
         this.setState({
-            'address': this.props.values.address,
+            'pickupaddr': this.props.values.pickupaddr,
             'zipcode': this.props.values.zipcode,
             'city': this.props.values.city,
             'phone': this.props.values.phone,
-            'pickup': this.props.values.pickup
+            'pickupInstructions': this.props.values.pickupInstructions
         })
     }
 
@@ -109,8 +109,8 @@ class AddressFields extends React.Component {
                             <td style={styles.tdStyle} ><label className="leftOrderLabel">Hakuosoite:</label></td>
                             <td>   <TextField className="rightOrderField"
                                 type="text" hintText="Ståhlberginkatu 10"
-                                style={styles} defaultValue={this.props.values.address}
-                                onChange={(event, newValue) => this.setState({ address: newValue })}
+                                style={styles} defaultValue={this.props.values.pickupaddr}
+                                onChange={(event, newValue) => this.setState({ pickupaddr: newValue })}
                             />
                             </td>
                         </tr>
@@ -142,8 +142,8 @@ class AddressFields extends React.Component {
                             <td><label className="leftOrderLabel">Nouto-ohjeet:</label></td>
                             <td>    <TextField className="rightOrderField"
                                 type="text" hintText="Perjantai 30.4 klo 16:30. Käynti pääovesta. " style={styles}
-                                multiLine={true} rows={3} rowsMax={7} defaultValue={this.props.values.pickup}
-                                onChange={(event, newValue) => this.setState({ pickup: newValue })} /><br /><br />
+                                multiLine={true} rows={3} rowsMax={7} defaultValue={this.props.values.pickupInstructions}
+                                onChange={(event, newValue) => this.setState({ pickupInstructions: newValue })} /><br /><br />
                             </td>
                         </tr>
                         <tr>

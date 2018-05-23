@@ -14,7 +14,7 @@ class CategoriesFields extends React.Component {
         super(props);
         this.state = {
             value: '',
-            cat: '',
+            category: '',
             cats: '',
             subCat: '',
             subCats: '',
@@ -37,16 +37,16 @@ class CategoriesFields extends React.Component {
         });
     }
 
-    // value = Category CatId, cat = Category name
-    getCat = (value, cat) => {
+    // value = Category CatId, category = Category name
+    getCat = (value, category) => {
         this.setState({
             value: value,
-            cat: cat
+            category: category
         });
-        console.log(this.state.cat, value);
+        console.log(this.state.category, value);
     }
 
-    // value = supCategory CatId, cat = Category name
+    // value = supCategory CatId, category = Category name
     getSubCat = (subCat, CatId) => {
         this.setState({
             subCat: subCat,
@@ -63,13 +63,13 @@ class CategoriesFields extends React.Component {
         // event.preventDefault();
         console.log("nextStep");
         var data = {
-            address: this.props.values.address,
+            pickupaddr: this.props.values.pickupaddr,
             zipcode: this.props.values.zipcode,
             city: this.props.values.city,
             phone: this.props.values.phone,
-            pickup: this.props.values.pickup,
+            pickupInstructions: this.props.values.pickupInstructions,
             organization: this.props.values.organization,
-            cat: this.state.cat,
+            category: this.state.category,
             subCat: subCat,
         }
         console.log(data);
@@ -82,7 +82,7 @@ class CategoriesFields extends React.Component {
         this.getCategories();
         this.getSubCategories();
         this.setState({
-            'cat': this.props.values.cat,
+            'category': this.props.values.category,
             'subCat': this.props.values.subCat
         })
     }

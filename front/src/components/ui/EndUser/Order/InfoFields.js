@@ -24,18 +24,18 @@ class InfoFields extends React.Component {
         event.preventDefault();
         console.log("nextStep");
         var data = {
-            address: this.props.values.address,
+            pickupaddr: this.props.values.pickupaddr,
             zipcode: this.props.values.zipcode,
             city: this.props.values.city,
             phone: this.props.values.phone,
-            pickup: this.props.values.pickup,
+            pickupInstructions: this.props.values.pickupInstructions,
             organization: this.props.values.organization,
-            cat: this.props.values.cat,
+            category: this.props.values.category,
             subCat: this.props.values.subCat,
             pcs: this.state.pcs || '1',
             size: this.state.size || '> 0.5',
             weight: this.state.weight || '< 5',
-            desc: this.state.desc
+            description: this.state.description
         }
         console.log(data);
         console.log(this.props);
@@ -55,7 +55,7 @@ class InfoFields extends React.Component {
             'pcs': this.props.values.pcs,
             'size': this.props.values.size,
             'weight': this.props.values.weight,
-            'desc': this.props.values.desc
+            'description': this.props.values.description
         })
     }
 
@@ -100,7 +100,7 @@ class InfoFields extends React.Component {
                     <tbody>
                         <tr>
                             <td>
-                                <label style={{ float: 'left', position: 'absolute', marginLeft: '2%' }}>Tähän tulee piäluokka/<br />alaluokka</label>
+                                <label style={{ float: 'left', position: 'absolute', marginLeft: '2%' }}>{this.props.values.category}/<br />{this.props.values.subCat}</label>
                                 <div style={{ width: '30%', height: '10vh', border: '2px solid black', marginLeft: 'auto' }}></div>
                                 <div style={{ width: '100%', height: 'auto' }} >
                                     <p style={styles.pTags}>Kappalemäärä</p>
@@ -129,8 +129,8 @@ class InfoFields extends React.Component {
                                 <label className="leftOrderLabel">Lisätietoja</label>
                                 <TextField className="rightOrderField"
                                     type="text" hintText='Televisio 32" tai liesi 60cm' style={styles}
-                                    rows={3} rowsMax={7} defaultValue={this.props.values.desc}
-                                    onChange={(event, newValue) => this.setState({ desc: newValue })} /><br /><br />
+                                    rows={3} rowsMax={7} defaultValue={this.props.values.description}
+                                    onChange={(event, newValue) => this.setState({ description: newValue })} /><br /><br />
                             </td>
                         </tr>
                         <tr>

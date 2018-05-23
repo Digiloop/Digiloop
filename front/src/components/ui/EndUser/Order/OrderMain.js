@@ -20,17 +20,17 @@ class OrderMain extends Component {
         super(props);
         this.state = {
             values: {
-                address: this.props.userInfo.address,
+                pickupaddr: this.props.userInfo.address,
                 zipcode: this.props.userInfo.zipcode,
                 city: this.props.userInfo.city,
                 phone: this.props.userInfo.phone,
-                pickup: this.props.userInfo.pickup,
+                pickupInstructions: this.props.userInfo.pickupInstructions,
                 organization: '',
-                cat: '',
+                category: '',
                 subCat: '',
                 pcs: '',
                 size: '',
-                desc: '',
+                description: '',
                 pic: '',
                 weight: '',
                 status: '',
@@ -46,18 +46,18 @@ class OrderMain extends Component {
     saveValues(value) {
         this.setState({
             values: {
-                'address': value.address,
+                'pickupaddr': value.pickupaddr,
                 'zipcode': value.zipcode,
                 'city': value.city,
                 'phone': value.phone,
-                'pickup': value.pickup,
+                'pickupInstructions': value.pickupInstructions,
                 'organization': value.organization,
-                'cat': value.cat,
+                'category': value.category,
                 'subCat': value.subCat,
                 'pcs': value.pcs,
                 'size': value.size,
                 'weight': value.weight,
-                'desc': value.desc
+                'description': value.description
             }
         }, () => console.log(this.state.values))
 

@@ -14,17 +14,18 @@ class AddressFields extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            submitted: false,
-            allFilled: false
+            allFilled: false,
+            isCompany: null
         };
         this.checkFill = this.checkFill.bind(this);
     }
 
-    nextStep = (Organisaatio) => (e) => {
+
+    nextStep = () => (e) => {
         this.checkFill();
         e.preventDefault();
         if (!this.state.allFilled) {
-            window.alert("kaik täytyy täyttää");
+            window.alert("kaik täytyyp täyttää");
         } else {
             console.log("nextStep");
             var data = {
@@ -33,17 +34,16 @@ class AddressFields extends React.Component {
                 city: this.state.city,
                 phone: this.state.phone,
                 pickupInstructions: this.state.pickupInstructions,
-                organization: Organisaatio
+                iscompany: this.state.isCompany
             }
-            console.log(data);
-            console.log(this.props);
-            //console.log(this.props.values);
             this.props.saveValues(data);
             this.props.nextStep();
         }
     }
 
     checkFill() {
+        console.log("state:")
+        console.log(this.state);
         let pass = true;
         for (var key in this.state) {
             if (this.state[key] === '' || this.state[key] === undefined || this.state[key] === null) {
@@ -53,8 +53,10 @@ class AddressFields extends React.Component {
         }
         if (pass && !this.state.allFilled) {
             this.setState({ allFilled: true })
+            this.props.setAllfilled(true);
         } else if (!pass && this.state.allFilled) {
             this.setState({ allFilled: false })
+            this.props.setAllfilled(false);
         }
     }
 
@@ -153,7 +155,7 @@ class AddressFields extends React.Component {
                                     style={styles.images}
                                     className="image-btn btn"
                                     alt="Kotitalous"
-                                    onClick={this.nextStep('Kotitalous')}
+                                    onClick={() => this.setState({isCompany: 0})}
                                 />
                             </td>
                             <td >
@@ -165,7 +167,7 @@ class AddressFields extends React.Component {
                                     }}
                                     className="image-btn btn"
                                     alt="Organisaatio"
-                                    onClick={this.nextStep('Organisaatio')}
+                                    onClick={() => this.setState({isCompany: 1})}
                                 />
                             </td>
                         </tr>

@@ -104,12 +104,12 @@ class InfoFields extends React.Component {
                                     <DropDownMenu value={this.state.value1} onChange={this.handlePcsChange} style={styles.dropDown}>
                                         <MenuItem value={1} primaryText="1" />
                                         <MenuItem value={'2-5'} primaryText="2 - 5" />
-                                        <MenuItem value={5} primaryText="> 5" />
+                                        <MenuItem value={'5'} primaryText="> 5" />
                                     </DropDownMenu>
                                     <DropDownMenu value={this.state.value2} onChange={this.handleSizeChange} style={styles.dropDown}>
                                         <MenuItem value={1} primaryText="< 0.5 m" />
                                         <MenuItem value={'0.5-2'} primaryText="> 0.5 - 2" />
-                                        <MenuItem value={2.5} primaryText="> 2.5 m" />
+                                        <MenuItem value={'2.5'} primaryText="> 2.5 m" />
                                     </DropDownMenu>
                                     <DropDownMenu value={this.state.value3} onChange={this.handleWeightChange} style={styles.dropDown}>
                                         <MenuItem value={1} primaryText="< 5" />

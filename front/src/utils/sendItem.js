@@ -3,14 +3,14 @@ import { BASE_URL } from './../settings';
 
 export { sendItemData };
 
-function sendItemData(data) {
+function sendItemData(itemData) {
   return fetch(BASE_URL + '/itemAdd', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
-    body: data
+    body: itemData
   })
     .then((response) => {
       console.log(response);
@@ -18,4 +18,15 @@ function sendItemData(data) {
     .catch((error) => {
       console.log(error);
     });
-}
+} 
+
+/*
+function sendItemData(itemData) {
+    return axios.post(BASE_URL + '/itemAdd', {
+      itemData   
+    })
+      .then(response => response.data)
+      .catch(function (error) {
+        console.log(itemData);
+      });
+  } */

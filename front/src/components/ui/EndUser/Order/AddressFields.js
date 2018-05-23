@@ -36,6 +36,8 @@ class AddressFields extends React.Component {
                 pickupInstructions: this.state.pickupInstructions,
                 iscompany: this.state.isCompany
             }
+            console.log(this.state.isCompany);
+            
             this.props.saveValues(data);
             this.props.nextStep();
         }

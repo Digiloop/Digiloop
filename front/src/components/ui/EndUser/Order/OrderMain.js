@@ -24,7 +24,7 @@ class OrderMain extends Component {
                 zipcode: this.props.userInfo.zipcode,
                 city: this.props.userInfo.city,
                 phone: this.props.userInfo.phone,
-                pickupInstructions: this.props.userInfo.pickupInstructions,
+                pickupInstructions: '',
                 iscompany: '',
                 category: '',
                 subCat: '',
@@ -32,11 +32,10 @@ class OrderMain extends Component {
                 size: '',
                 description: '',
                 pic: '',
-                weight: '',
-
-                pageOneAllFilled: ""
+                weight: ''                
             },
-            step: 1
+            step: 1,
+            pageOneAllFilled: ""
         };
         this.saveValues = this.saveValues.bind(this);
     }

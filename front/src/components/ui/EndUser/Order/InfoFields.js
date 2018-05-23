@@ -29,7 +29,7 @@ class InfoFields extends React.Component {
             city: this.props.values.city,
             phone: this.props.values.phone,
             pickupInstructions: this.props.values.pickupInstructions,
-            organization: this.props.values.organization,
+            iscompany: this.props.values.iscompany,
             category: this.props.values.category,
             subCat: this.props.values.subCat,
             pcs: this.state.pcs || '1',
@@ -39,15 +39,9 @@ class InfoFields extends React.Component {
         }
         console.log(data);
         console.log(this.props);
-        console.log(this.state.pcs);
-        
-        //console.log(this.props.values);
         this.props.saveValues(data);
         this.props.nextStep()
 
-    }
-
-    componentDidUpdate() {
     }
 
     componentDidMount() {
@@ -100,7 +94,8 @@ class InfoFields extends React.Component {
                     <tbody>
                         <tr>
                             <td>
-                                <label style={{ float: 'left', position: 'absolute', marginLeft: '2%' }}>{this.props.values.category}/<br />{this.props.values.subCat}</label>
+                                <label style={{ float: 'left', position: 'absolute', marginLeft: '2%' }}>
+                                    {this.props.values.category}/<br />{this.props.values.subCat}</label>
                                 <div style={{ width: '30%', height: '10vh', border: '2px solid black', marginLeft: 'auto' }}></div>
                                 <div style={{ width: '100%', height: 'auto' }} >
                                     <p style={styles.pTags}>Kappalemäärä</p>
@@ -129,7 +124,7 @@ class InfoFields extends React.Component {
                                 <label className="leftOrderLabel">Lisätietoja</label>
                                 <TextField className="rightOrderField"
                                     type="text" hintText='Televisio 32" tai liesi 60cm' style={styles}
-                                    rows={3} rowsMax={7} defaultValue={this.props.values.description}
+                                    multiLine={true} rows={3} rowsMax={7} defaultValue={this.props.values.description}
                                     onChange={(event, newValue) => this.setState({ description: newValue })} /><br /><br />
                             </td>
                         </tr>

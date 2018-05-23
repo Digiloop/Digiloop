@@ -25,7 +25,7 @@ class OrderMain extends Component {
                 city: this.props.userInfo.city,
                 phone: this.props.userInfo.phone,
                 pickupInstructions: this.props.userInfo.pickupInstructions,
-                organization: '',
+                iscompany: '',
                 category: '',
                 subCat: '',
                 pcs: '',
@@ -33,9 +33,6 @@ class OrderMain extends Component {
                 description: '',
                 pic: '',
                 weight: '',
-                status: '',
-                latitude: '',
-                longitude: '',
 
                 pageOneAllFilled: ""
             },
@@ -53,7 +50,7 @@ class OrderMain extends Component {
                 'city': value.city,
                 'phone': value.phone,
                 'pickupInstructions': value.pickupInstructions,
-                'organization': value.organization,
+                'iscompany': value.iscompany,
                 'category': value.category,
                 'subCat': value.subCat,
                 'pcs': value.pcs,

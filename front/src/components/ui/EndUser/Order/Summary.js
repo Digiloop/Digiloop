@@ -7,7 +7,6 @@ import { sendRegData } from '../../../../utils/sendRegData';
 import styles from '../../../../index.css';
 import { sendItemData } from '../../../../utils/sendItem';
 
-// tee dropdownmenu
 
 class Summary extends React.Component {
     constructor(props) {
@@ -27,7 +26,7 @@ class Summary extends React.Component {
             city: this.props.values.city,
             phone: this.props.values.phone,
             pickupInstructions: this.props.values.pickupInstructions,
-            organization: this.props.values.organization,
+            iscompany: this.props.values.iscompany,
             category: this.props.values.category,
             subCat: this.props.values.subCat,
             pcs: this.props.values.pcs,
@@ -36,9 +35,9 @@ class Summary extends React.Component {
             description: this.props.values.description
         }
         console.log(data);
+        sendItemData(data);
         console.log(this.props);
         this.props.saveValues(data);
-        sendItemData(data);
     }
 
 

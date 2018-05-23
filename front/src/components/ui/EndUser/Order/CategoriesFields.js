@@ -17,10 +17,7 @@ class CategoriesFields extends React.Component {
             category: '',
             cats: '',
             subCat: '',
-            subCats: '',
-            showTietoturva: false,
-            showAkut: false,
-            showSer: false
+            subCats: ''
         };
     }
 
@@ -46,7 +43,7 @@ class CategoriesFields extends React.Component {
         console.log(this.state.category, value);
     }
 
-    // value = supCategory CatId, category = Category name
+    // value = subCategory CatId, subcategory = subCategory name
     getSubCat = (subCat, CatId) => {
         this.setState({
             subCat: subCat,
@@ -68,7 +65,7 @@ class CategoriesFields extends React.Component {
             city: this.props.values.city,
             phone: this.props.values.phone,
             pickupInstructions: this.props.values.pickupInstructions,
-            organization: this.props.values.organization,
+            iscompany: this.props.values.iscompany,
             category: this.state.category,
             subCat: subCat,
         }

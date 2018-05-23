@@ -34,24 +34,12 @@ router.post('/itemReserve', (req, res) => {
     res.end();
 })
 
-/*
-    //item Status
-    app.post('/itemStatus', (req, res) => {
-        connection.query('UPDATE junk SET status = ? WHERE junkID = ?;', [req.body.status, req.body.subIdStatus], (err, rows) => {
-            if (err) throw err;
-            console.log(rows.affectedRows + " record(s) updated");
-        });
-        console.log(req.body.status, " ", req.body.subIdStatus)
-        res.end();
-    });
+router.get('/testi', (req, res) => {
+    let a = ['ab','ab','ab','ab','ab',]
+    sqldatahaku.argLoop(a, (err,result) => {
+        res.json(result);
+    })
+    
+})
 
-    app.post('/itemReserve', isLoggedIn, (req, res) => {
-        connection.query('UPDATE junk SET status = ?, fetcher = ? WHERE junkID = ?;', [req.body.status,req.body.fetcher, req.body.subIdStatus], (err, rows) => {
-            if (err) throw err;
-            console.log(rows.affectedRows + " record(s) updated");
-        });
-        console.log(req.body.status, " ",req.body.fetcher , " ", req.body.subIdStatus)
-        res.end();
-    });
-*/
 module.exports = router

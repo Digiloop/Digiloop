@@ -19,6 +19,13 @@ connection.query('USE ' + dbconfig.database);
 //https://www.caffeinecoding.com/better-express-routing-for-nodejs/
 module.exports = (app, passport, users) => {
 
+    app.post('/feikkiCat', (req, res) => {
+        connection.query("INSERT INTO SubSubCats ( subCatName, imgReference, name, subCatId) values (?, ?, ?, ?)",[req.body.subCatName, 'i can haz reference',req.body.name,req.body.subCatId], (err, result) => {
+            if (err) throw err;
+            res.json(result);
+        });
+    });
+
     app.get('/announcements', (req, res) => {
         connection.query('SELECT * FROM Announcements', (err, result) => {
                 if (err) throw err;
@@ -44,7 +51,7 @@ module.exports = (app, passport, users) => {
 
     
     app.post('/updateUser', isLoggedIn, (req, res) => {
-        connection.query('UPDATE users SET fname = ?, lname = ?, email = ?, password = ? WHERE id = ?;', [req.body.fname, req.body.lname, req.body.email, bcrypt.hashSync(req.body.password, null, null), req.user.id], (err,result) => {
+        connection.query('UPDATE users SET fname = ?, lname = ?, email = ?, address = ?, zipcode = ?, password = ? WHERE id = ?;', [req.body.fname, req.body.lname, req.body.email, req.body.address,req.body.zipcode, bcrypt.hashSync(req.body.password, null, null), req.user.id], (err,result) => {
             if (err) throw err;
             console.log(result.affectedRows + " record(s) updated");
         })
@@ -64,32 +71,6 @@ module.exports = (app, passport, users) => {
             });
             res.end();
         });
-
-
-    //item Status
-    /*
-    app.post('/itemStatus', (req, res) => {
-        connection.query('UPDATE junk SET status = ? WHERE junkID = ?;', [req.body.status, req.body.subIdStatus], (err, rows) => {
-            if (err) throw err;
-            console.log(rows.affectedRows + " record(s) updated");
-        });
-        console.log(req.body.status, " ", req.body.subIdStatus)
-        res.end();
-    });
-
-    app.post('/itemReserve', isLoggedIn, (req, res) => {
-        connection.query('UPDATE junk SET status = ?, fetcher = ? WHERE junkID = ?;', [req.body.status,req.body.fetcher, req.body.subIdStatus], (err, rows) => {
-            if (err) throw err;
-            console.log(rows.affectedRows + " record(s) updated");
-        });
-        console.log(req.body.status, " ",req.body.fetcher , " ", req.body.subIdStatus)
-        res.end();
-    });
-
-*/
-
-
-
 
 
     app.get('/', function(req, res) {

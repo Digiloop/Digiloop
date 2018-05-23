@@ -2,8 +2,6 @@ import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';
@@ -18,6 +16,7 @@ class CategoriesFields extends React.Component {
             value: '',
             cat: '',
             cats: '',
+            subCat: '',
             subCats: '',
             showTietoturva: false,
             showAkut: false,
@@ -28,14 +27,12 @@ class CategoriesFields extends React.Component {
     // fetch junk data
     getCategories() {
         getCats().then((categories) => {
-            // console.log(categories);
             this.setState({ cats: (categories) });
         });
     }
 
     getSubCategories() {
         getSubCats().then((subCategories) => {
-            // console.log(subCategories);
             this.setState({ subCats: (subCategories) });
         });
     }
@@ -46,36 +43,48 @@ class CategoriesFields extends React.Component {
             value: value,
             cat: cat
         });
-        // console.log(this.state.cat);
+        console.log(this.state.cat, value);
     }
 
+    // value = supCategory CatId, cat = Category name
+    getSubCat = (subCat, CatId) => {
+        this.setState({
+            subCat: subCat,
+            CatId: CatId
+        },function () {
+            console.log(this.state.subCat);
+        }
+        );
+        console.log(this.state.subCat, CatId);
+        this.nextStep(subCat);
+    }
 
-    tietoturvaHandler = () => {
-        this.setState(prev => ({ showTietoturva: !prev.showTietoturva }));
-        this.setState(prev => ({ showAkut: false }));
-        this.setState(prev => ({ showSer: false }));
-    };
-
-    akutHandler = () => {
-        this.setState(prev => ({ showAkut: !prev.showAkut }));
-        this.setState(prev => ({ showTietoturva: false }));
-        this.setState(prev => ({ showSer: false }));
-    };
-
-    serHandler = () => {
-        this.setState(prev => ({ showSer: !prev.showSer }));
-        this.setState(prev => ({ showTietoturva: false }));
-        this.setState(prev => ({ showAkut: false }));
-    };
-
-    Submit(event) {
-        console.log(this.props.values);
-        this.props.nextStep();
+    nextStep(subCat) {
+        // event.preventDefault();
+        console.log("nextStep");
+        var data = {
+            address: this.props.values.address,
+            zipcode: this.props.values.zipcode,
+            city: this.props.values.city,
+            phone: this.props.values.phone,
+            pickup: this.props.values.pickup,
+            organization: this.props.values.organization,
+            cat: this.state.cat,
+            subCat: subCat,
+        }
+        console.log(data);
+        console.log(this.props);
+        this.props.saveValues(data);
+        this.props.nextStep()
     }
 
     componentDidMount() {
         this.getCategories();
         this.getSubCategories();
+        this.setState({
+            'cat': this.props.values.cat,
+            'subCat': this.props.values.subCat
+        })
     }
 
     render() {
@@ -90,8 +99,11 @@ class CategoriesFields extends React.Component {
             images: {
                 borderRadius: 4,
                 border: '8px solid white',
-                width: '28.5%',
-                marginRight: '1%'
+                width: '19vw',
+                height: '19vw',
+                marginRight: '1%',
+                textAlign: 'center',
+                fontSize: '15px'
             },
 
             tdStyle: {
@@ -103,179 +115,48 @@ class CategoriesFields extends React.Component {
 
             trStyle: {
                 display: 'block',
-                width: '98%',
+                width: '89%',
                 overflowX: 'scroll',
-                whiteSpace: 'nowrap'
+                whiteSpace: 'nowrap',
+                maxWidth: '70vw'
             }
         };
 
         const cats = [];
         const subCats = [];
+        console.log(this.state.cats);
+        console.log(this.state.subCats);
+
 
         for (let i = 0; i < this.state.cats.length; i++) {
             cats.push(
-              <div value={this.state.cats[i].CatName} onClick={() =>
-                this.getCat(this.state.cats[i].CatId, this.state.cats[i].CatName)} key={i} >
-                <h3>{this.state.cats[i].CatName}</h3>
-              </div>
+                <td value={this.state.cats[i].CatName} onClick={() =>
+                    this.getCat(this.state.cats[i].CatId, this.state.cats[i].CatName)} key={i} >
+                    <div style={styles.images} >{this.state.cats[i].CatName}</div></td>
             )
-          }
-      
-          for (let j = 0; j < this.state.subCats.length; j++) {
+        }
+
+        for (let j = 0; j < this.state.subCats.length; j++) {
             if (this.state.subCats[j].CatId === this.state.value) {
-              subCats.push(
-                <div key={j} >
-                  {this.state.subCats[j].subName}
-                </div>
-              )
+                subCats.push(
+                    <td value={this.state.subCats[j].subName} onClick={() =>
+                        this.getSubCat(this.state.subCats[j].subName, this.state.subCats[j].subId)} key={j} >
+                        <div style={styles.images} >{this.state.subCats[j].subName}</div>
+                    </td>
+                )
             }
-          }
-
-        const results = (<table className="orderStructure">
-            <tbody>
-                <tr>
-                    <td>  <label className="leftOrderLabel"><h2 className="orderH2">Alakategoria</h2> </label> </td>
-                </tr>
-                <tr>
-                    <td>
-                        <img
-                            src={require('../Materials/OrderPics/tietoturva.gif')}
-                            style={styles.images}
-                            className="image-btn btn"
-                            alt="Special button"
-                            onClick={(event) => this.Submit(event)}
-                        />
-                        <img
-                            src={require('../Materials/OrderPics/tietoturva1.gif')}
-                            style={styles.images}
-                            className="image-btn btn"
-                            alt="Special button"
-                            onClick={(event) => this.Submit(event)}
-                        />
-                        <img
-                            src={require('../Materials/OrderPics/tietoturva.gif')}
-                            style={styles.images}
-                            className="image-btn btn"
-                            alt="Special button"
-                            onClick={(event) => this.Submit(event)}
-                        />
-                    </td>
-                </tr>
-            </tbody>
-        </table>);
-
-        const resultsAkku = (<table className="orderStructure">
-            <tbody>
-                <tr>
-                    <td>  <label className="leftOrderLabel"><h2 className="orderH2" >Alakategoria</h2> </label> </td>
-                </tr>
-                <tr style={{ margin: '0' }}>
-                    <td>
-                        <img
-                            src={require('../Materials/OrderPics/akku.gif')}
-                            style={styles.images}
-                            className="image-btn btn"
-                            alt="Special button"
-                            onClick={(event) => this.Submit(event)}
-                        />
-                        <img
-                            src={require('../Materials/OrderPics/akku.gif')}
-                            style={styles.images}
-                            className="image-btn btn"
-                            alt="Special button"
-                            onClick={(event) => this.Submit(event)}
-                        />
-                        <img
-                            src={require('../Materials/OrderPics/akku.gif')}
-                            style={styles.images}
-                            className="image-btn btn"
-                            alt="Special button"
-                            onClick={(event) => this.Submit(event)}
-                        />
-                    </td>
-                </tr>
-            </tbody>
-        </table>);
-
-        const resultsSer = (<table className="orderStructure">
-            <tbody>
-                <tr>
-                    <td>  <label className="leftOrderLabel"><h2 className="orderH2">Alakategoria</h2> </label> </td>
-                </tr>
-                <tr style={styles.trStyle}>
-                    <td>
-                        <img
-                            src={require('../Materials/OrderPics/tv.gif')}
-                            style={styles.images}
-                            className="image-btn btn"
-                            alt="Special button"
-                            onClick={(event) => this.Submit(event)}
-                        />
-                        <img
-                            src={require('../Materials/OrderPics/pesukone.gif')}
-                            style={styles.images}
-                            className="image-btn btn"
-                            alt="Special button"
-                            onClick={(event) => this.Submit(event)}
-                        />
-                        <img
-                            src={require('../Materials/OrderPics/kahvi.gif')}
-                            style={styles.images}
-                            className="image-btn btn"
-                            alt="Special button"
-                            onClick={(event) => this.Submit(event)}
-                        />
-                        <img
-                            src={require('../Materials/OrderPics/tv.gif')}
-                            style={styles.images}
-                            className="image-btn btn"
-                            alt="Special button"
-                            onClick={(event) => this.Submit(event)}
-                        />
-                    </td>
-                </tr>
-            </tbody>
-        </table>);
+        }
 
         return (
             <div className="Container">
                 <table className="orderStructure">
                     <tbody>
-                        <tr>
-                            <td><label className="leftOrderLabel"><h2 className="orderH2">Pääluokka</h2> </label> </td>
-                        </tr>
-                        <tr style={styles.trStyle} >
-                            <td>
-                                <img
-                                    src={require('../Materials/OrderPics/slaitteet.gif')}
-                                    style={styles.images}
-                                    className="image-btn btn"
-                                    alt="Special button"
-                                    onClick={this.serHandler}
-                                />
-                                <img
-                                    src={require('../Materials/OrderPics/akku.gif')}
-                                    style={styles.images}
-                                    className="image-btn btn"
-                                    alt="Special button"
-                                    onClick={this.akutHandler}
-                                />
-                                <img
-                                    src={require('../Materials/OrderPics/tietoturva.gif')}
-                                    style={styles.images}
-                                    className="image-btn btn"
-                                    alt="Special button"
-                                    onClick={this.tietoturvaHandler}
-                                />
-                            </td>
-                        </tr>
+                        <tr><td><label className="leftOrderLabel"><h2 className="orderH2">Pääluokka</h2> </label></td></tr>
+                        <tr style={styles.trStyle} >{cats}</tr>
+                        {subCats.length !== 0 ? <tr><td><label className="leftOrderLabel"><h2 className="orderH2">Alakategoria</h2> </label></td></tr> : <tr></tr>}
+                        <tr style={styles.trStyle} >{subCats}</tr>
                     </tbody>
                 </table>
-                <div>
-                    {this.state.showTietoturva ? results : null}
-                    {this.state.showAkut ? resultsAkku : null}
-                    {this.state.showSer ? resultsSer : null}
-                </div>
             </div >
         );
     }

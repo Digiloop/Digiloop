@@ -150,32 +150,11 @@ class OrderMain extends Component {
                 float: 'left',
                 marginLeft: 10
             },
-            backArrow: {
-                color: '#FFF',
-                height: 60,
-                width: 60,
-                margin: '0 15 0 20'
+            buttonDisabled: {
+                backgroundColor: "grey"
             },
-            backArrowHidden: {
-                color: '#FFF',
-                height: 60,
-                width: 60,
-                margin: '0 15 0 20',
-                visibility: 'hidden'
-            },
-            forwardArrow: {
-                color: '#FFF',
-                height: 60,
-                width: 60,
-                margin: '0 20'
-            },
-            forwardArrowHidden: {
-                visibility: 'hidden',
-                color: '#FFF',
-                height: 60,
-                width: 60,
-                margin: '0 20'
-
+            buttonActive: {
+                backgroundColor: "white"
             }
         }
         return (
@@ -184,12 +163,12 @@ class OrderMain extends Component {
 
             <div className="orderWrapper">
                 <div className="progressBar" style={{ maxWidth: '90vh', minWidth: '50vh', display: 'flex', justifyContent: 'center' }}>
-                    <Back style={this.state.step == 1 ? styles.backArrowHidden : styles.backArrow} onClick={this.prevStep} />
+                    <Button variant="fab" style={this.state.step == 1 ? styles.buttonDisabled : styles.buttonActive} disabled={this.state.step == 1} onClick={this.prevStep}><Forward style={{transform: "scaleX(-1)"}}/></Button>
                     <div className="state1" style={this.state.step == 1 ? styles.Active : styles.notActive}></div>
                     <div className="state2" style={this.state.step == 2 ? styles.Active : styles.notActive}></div>
                     <div className="state3" style={this.state.step == 3 ? styles.Active : styles.notActive}></div>
                     <div className="state4" style={this.state.step == 4 ? styles.Active : styles.notActive}></div>
-                    <Button variant="fab" style={{backgroundColor: "grey"}} disabled={this.state.step == 4 || this.state.step == 1} onClick={this.nextStep}><Forward /></Button>
+                    <Button variant="fab" style={this.state.step == 1 || this.state.step == 4 ? styles.buttonDisabled : styles.buttonActive} disabled={this.state.step == 4 || this.state.step == 1} onClick={this.nextStep}><Forward /></Button>
                 </div>
                 <div className="frontPageBox" >{this.showSteps()}</div>
             </div>

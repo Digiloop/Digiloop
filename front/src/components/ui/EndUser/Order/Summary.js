@@ -14,6 +14,32 @@ class Summary extends React.Component {
         this.state = {
             value: 1
         };
+        this.addressToCoords = this.addressToCoords.bind(this);
+    }
+
+    addressToCoords(address){
+        
+
+        this.geocoder.geocode({'address': address },function (results, status){
+            if( status === window.google.maps.GeocoderStatus.OK){
+                /*
+                return {
+                    "lat": results[0].geometry.location,
+                    "long": results[0].geometry.location
+                }
+                */
+               console.log("geocode results")
+               console.log(results)
+               console.log(results[0].geometry.location)
+            }
+
+
+        })
+    }
+
+    componentDidMount(){
+        this.geocoder = new window.google.maps.Geocoder();
+        this.addressToCoords("Mikonkatu 3, Lahti")
     }
 
     handleChange = (event, index, value) => this.setState({ value });

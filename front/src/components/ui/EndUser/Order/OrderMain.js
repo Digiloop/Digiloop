@@ -61,20 +61,24 @@ class OrderMain extends Component {
     }
 
     nextStep = () => {
-        this.setState({
-            step: this.state.step + 1
-        })
+        if(this.state.step != 4){
+            this.setState({
+                step: this.state.step + 1
+            })
+        }
     }
 
     prevStep = () => {
-        this.setState({
-            step: this.state.step - 1
-        })
+        if(this.state.step != 1){
+            this.setState({
+                step: this.state.step - 1
+            })
+        }
     }
 
     nextItem = () => {
         this.setState({
-            step: this.state.step - 2
+            step: 2
         })
             
     }

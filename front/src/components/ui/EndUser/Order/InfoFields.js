@@ -30,6 +30,8 @@ class InfoFields extends React.Component {
             phone: this.props.values.phone,
             pickup: this.props.values.pickup,
             organization: this.props.values.organization,
+            cat: this.props.values.cat,
+            subCat: this.props.values.subCat,
             pcs: this.state.pcs || '1',
             size: this.state.size || '> 0.5',
             weight: this.state.weight || '< 5',

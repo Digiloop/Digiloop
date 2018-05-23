@@ -42,6 +42,7 @@ class OrderMain extends Component {
         this.saveValues = this.saveValues.bind(this);
     }
 
+
     saveValues(value) {
         this.setState({
             values: {
@@ -51,6 +52,8 @@ class OrderMain extends Component {
                 'phone': value.phone,
                 'pickup': value.pickup,
                 'organization': value.organization,
+                'cat': value.cat,
+                'subCat': value.subCat,
                 'pcs': value.pcs,
                 'size': value.size,
                 'weight': value.weight,
@@ -68,6 +71,8 @@ class OrderMain extends Component {
         }
     }
 
+    // proceed to next phase of the form
+    // a safeguard against going paSt the final page is implemented, since the forward button disables too slowly
     prevStep = () => {
         if(this.state.step != 1){
             this.setState({
@@ -76,6 +81,8 @@ class OrderMain extends Component {
         }
     }
 
+    // proceed to previous phase of the form
+    // a safeguard against going back from the first page is implemented, since the forward button disables too slowly
     nextItem = () => {
         this.setState({
             step: 2
@@ -114,6 +121,14 @@ class OrderMain extends Component {
     }
 
     render() {
+
+        // confirm you want to reload page, since data will be lost
+        // pretty annoying during dev, but activate before build
+        /*
+        window.onbeforeunload = function ()
+        {
+            return "";
+        };*/
 
         const styles = {
 
@@ -168,14 +183,13 @@ class OrderMain extends Component {
             
 
             <div className="orderWrapper">
-            <Button variant="fab" style={{backgroundColor: "red"}} ><Forward style={{width:"78px", height:"78px"}} /></Button>
                 <div className="progressBar" style={{ maxWidth: '90vh', minWidth: '50vh', display: 'flex', justifyContent: 'center' }}>
                     <Back style={this.state.step == 1 ? styles.backArrowHidden : styles.backArrow} onClick={this.prevStep} />
                     <div className="state1" style={this.state.step == 1 ? styles.Active : styles.notActive}></div>
                     <div className="state2" style={this.state.step == 2 ? styles.Active : styles.notActive}></div>
                     <div className="state3" style={this.state.step == 3 ? styles.Active : styles.notActive}></div>
                     <div className="state4" style={this.state.step == 4 ? styles.Active : styles.notActive}></div>
-                    <Forward style={this.state.step == 4 || this.state.step == 1 ? styles.forwardArrowHidden : styles.forwardArrow} onClick={this.nextStep} />
+                    <Button variant="fab" style={{backgroundColor: "grey"}} disabled={this.state.step == 4 || this.state.step == 1} onClick={this.nextStep}><Forward /></Button>
                 </div>
                 <div className="frontPageBox" >{this.showSteps()}</div>
             </div>

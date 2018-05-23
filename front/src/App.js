@@ -53,10 +53,7 @@ class App extends Component {
           let loginData = JSON.parse(localStorage.loginData);
           this.props.localStorageLogin(loginData.userdata);
         }
-
-        
-      } 
-      
+      }
     })
   }
 

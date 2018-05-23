@@ -30,8 +30,7 @@ class Map extends Component {
       markers: [],
       address: ["Kouvola", "Lahti", "Berlin"],
       rows: [],
-      needClearing: true,
-      test: ["Kikki", "Hiiri"]
+      needClearing: true
 
     }
   }
@@ -39,14 +38,11 @@ class Map extends Component {
 
 
   clear() {
-    //console.log(this.state.cleared);
     if (this.state.needClearing) {
       this.setState({
         rows: [],
-        needClearing: false,
-        test: ["Dolan"]
+        needClearing: false
       });
-      //console.log("Cleared!");
     }
     else {
       this.setState({
@@ -55,12 +51,6 @@ class Map extends Component {
     }
   }
 
-  clearTEST() {
-    this.setState({
-      test: []
-    });
-
-  }
 
 
   render() {
@@ -102,7 +92,6 @@ class Map extends Component {
     return (
       <div>
         <MapComp />
-
       </div>
     );
   }

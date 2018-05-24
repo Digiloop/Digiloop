@@ -44,7 +44,7 @@ class Profile extends Component {
     }
   }
 
-  Submit(event) {    
+  Submit(event) {
     if (this.state.allFilled) {
       var updateUserData = {
         "fname": this.state.firstName,
@@ -83,7 +83,7 @@ class Profile extends Component {
     const registerActive = {
       borderRadius: '0',
       textAlign: 'center',
-      backgroundColor: "#004225",
+      backgroundColor: "#FFF",
       margin: '15px'
 
 
@@ -103,6 +103,7 @@ class Profile extends Component {
         <div className="updateWrapper">
           <table className="updateStructure">
             <tbody>
+              <tr><td></td><td><label className="middleRegisterLabel">Yhteyshenkilön tiedot:</label> </td></tr>
               <tr>
                 <td>
                   <label className="leftUpdateLabel">Etunimi: </label>
@@ -142,6 +143,7 @@ class Profile extends Component {
                     onChange={(event, newValue) => this.setState({ phone: newValue })} />
                 </td>
               </tr>
+              <tr><td></td><td><label className="middleRegisterLabel">Yrityksen tiedot:</label> </td></tr>
               <tr>
                 <td>
                   <label className="leftUpdateLabel">Katuosoite: </label>
@@ -186,26 +188,28 @@ class Profile extends Component {
 
           <FlatButton className="cancelButton"
             label="Peruuta"
-            hoverColor="#004225"
-            backgroundColor="#004225"
+            hoverColor="#FFF"
+            backgroundColor="#FFF"
             style={{ margin: '15px' }}
             labelStyle={{
               fontFamily: 'kanit',
               float: 'left',
               borderRadius: '0',
               fontSize: '17px',
-              color: '#FFFFFF'
+              color: '#004225'
             }}
             onClick={this.props.onUpdate} />
 
           <FlatButton className="registerButton"
             label="Tallenna"
+            hoverColor="#FFF"
+            backgroundColor="#FFF"
             labelStyle={{
               fontFamily: 'kanit',
               float: 'left',
               borderRadius: '0',
               fontSize: '17px',
-              color: '#FFFFFF'
+              color: '#004225'
             }}
 
             style={this.state.allFilled ? registerActive : registerInactive}

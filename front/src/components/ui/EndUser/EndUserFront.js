@@ -6,7 +6,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import FrontPage from '../../containers/EndUser/FrontPage/FrontPage';
 import Profile from '../../containers/EndUser/Profile/Profile';
 import Historia from './History/History';
-import styles from '../../../index.css';
 import { logOut } from '../../../utils/login-api';
 
 class EndUserFront extends Component {

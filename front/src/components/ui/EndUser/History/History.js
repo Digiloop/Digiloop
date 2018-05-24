@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Divider from 'material-ui/Divider';
-import RaisedButton from 'material-ui/RaisedButton';
 import Order from '../Order/OrderMain';
-import styles from '../../../../index.css';
 
 class History extends Component {
 constructor(props){

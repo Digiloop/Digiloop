@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import ActionInfo from 'material-ui/svg-icons/action/info';
-import styles from '../../../index.css';
 import { getCredentials } from '../../../utils/login-api';
 
 
@@ -150,7 +148,7 @@ class Login extends Component {
 
 
             <div className="loginGroup">
-              <a href="#">Unohtunut salasana?</a><br />
+              <a href="">Unohtunut salasana?</a><br />
               <a onClick={() => { this.wasteRegister() }} >Hae yrityskäyttäjäksi</a><br />
               <a onClick={() => { this.register() }}>Rekisteröidy</a><br />
             </div>
@@ -163,9 +161,6 @@ class Login extends Component {
     );
   }
 }
-const style = {
-  margin: 15,
-};
 
 
 

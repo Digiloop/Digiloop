@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import styles from '../../../index.css';
 import { AppBar, Drawer, Menu, MenuItem } from 'material-ui';
 import { Toolbar, IconButton, Divider, Tabs, Tab } from 'material-ui';
 import MenuIcon from '@material-ui/icons/Menu';
 import { logOut } from '../../../utils/login-api';
 import Profile from '../../containers/Admin/Profile/Profile'
-
-import SvgIcon from 'material-ui/SvgIcon';
 
 import HistoryListing from '../../containers/Admin/HistoryListing'
 import ReservedListing from '../../containers/Admin/ReservedListing'
@@ -16,8 +13,6 @@ import Varauskartta from '../../containers/Admin/Varauskartta/Varauskartta'
 import Admin from '../../containers/Admin/Admin'
 
 import Notification from '../../containers/Admin/Notification'
-import { black } from 'material-ui/styles/colors';
-import FrontPage from '../EndUser/FrontPage/FrontPage';
 
 
 

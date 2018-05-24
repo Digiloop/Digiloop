@@ -1,6 +1,6 @@
 import FrontPage from '../../../ui/EndUser/FrontPage/FrontPage.js'
 import { connect } from 'react-redux'
-import { setResList, setCurrentPage } from '../../../../actions';
+import {  setCurrentPage } from '../../../../actions';
 
 const mapStateToProps = (state, props) =>
   ({

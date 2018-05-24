@@ -39,7 +39,7 @@ class AddressFields extends React.Component {
             console.log(this.state.isCompany);
             
             this.props.saveValues(data);
-            this.props.nextStep();
+            // this.props.nextStep();
         }
     }
 
@@ -157,7 +157,7 @@ class AddressFields extends React.Component {
                                     style={styles.images}
                                     className="image-btn btn"
                                     alt="Kotitalous"
-                                    onClick={() => this.setState({isCompany: 0})}
+                                    onClick={(e) => this.setState({isCompany: 0})}
                                 />
                             </td>
                             <td >
@@ -169,7 +169,7 @@ class AddressFields extends React.Component {
                                     }}
                                     className="image-btn btn"
                                     alt="Organisaatio"
-                                    onClick={() => this.setState({isCompany: 1})}
+                                    onClick={(e) => this.setState({isCompany: 1})}
                                 />
                             </td>
                         </tr>

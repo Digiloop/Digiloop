@@ -52,7 +52,6 @@ class CategoriesFields extends React.Component {
             console.log(this.state.subCat);
         }
         );
-        console.log(this.state.subCat, CatId);
         this.nextStep(subCat);
     }
 
@@ -79,8 +78,8 @@ class CategoriesFields extends React.Component {
         this.getCategories();
         this.getSubCategories();
         this.setState({
-            'category': this.props.values.category,
-            'subCat': this.props.values.subCat
+            'category': this.props.values == undefined ? "" : this.props.values.category,
+            'subCat': this.props.values == undefined ? "" : this.props.values.subCat
         })
     }
 

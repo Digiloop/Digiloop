@@ -20,7 +20,6 @@ class FrontPage extends Component {
 
 
   handleChange = (e, value) => {
-    //console.log(value);
     this.setState({
       value
     }, function () {
@@ -29,9 +28,10 @@ class FrontPage extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.items);
+
   }
 
+  
 
   render() {
 

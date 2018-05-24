@@ -5,6 +5,8 @@ var dbconfig = require('../app/database');
 var fileUpload = require('express-fileupload');
 var connection = mysql.createConnection(dbconfig.connection);
 var bcrypt = require('bcrypt-nodejs');
+var sqldata = require('../code/sqldata.js'); //haetaan luokka joka hoitaa sql sydeemeit
+var sqldatahaku = new sqldata; 
 //var datenow = Date.now();
 const fs = require('fs');
 connection.query('USE ' + dbconfig.database);
@@ -17,12 +19,12 @@ connection.query('USE ' + dbconfig.database);
 //https://scotch.io/tutorials/keeping-api-routing-clean-using-express-routers
 //https://www.terlici.com/2014/09/29/express-router.html
 //https://www.caffeinecoding.com/better-express-routing-for-nodejs/
+//winscp kaatu
 module.exports = (app, passport, users) => {
 
     app.post('/feikkiCat', (req, res) => {
         connection.query("INSERT INTO SubSubCats ( subCatName, imgReference, name, subCatId) values (?, ?, ?, ?)",[req.body.subCatName, 'i can haz reference',req.body.name,req.body.subCatId], (err, result) => {
             if (err) throw err;
-            res.json(result);
         });
     });
 
@@ -51,8 +53,9 @@ module.exports = (app, passport, users) => {
 
     
     app.post('/updateUser', isLoggedIn, (req, res) => {
-        connection.query('UPDATE users SET fname = ?, lname = ?, email = ?, address = ?, zipcode = ?, password = ? WHERE id = ?;', [req.body.fname, req.body.lname, req.body.email, req.body.address,req.body.zipcode, bcrypt.hashSync(req.body.password, null, null), req.user.id], (err,result) => {
+        connection.query('UPDATE users SET fname = ?, lname = ?, email = ?, address = ?, zipcode = ?, city = ?, phone = ? WHERE id = ?;', [req.body.fname, req.body.lname, req.body.email, req.body.address,req.body.zipcode,req.body.city, req.body.phone, req.user.id], (err,result) => {
             if (err) throw err;
+            console.log(result);
             console.log(result.affectedRows + " record(s) updated");
         })
     });

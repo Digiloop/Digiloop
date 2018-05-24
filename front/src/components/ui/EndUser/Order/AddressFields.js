@@ -21,24 +21,6 @@ class AddressFields extends React.Component {
         this.updateField = this.updateField.bind(this);
     }
 
-/*
-    nextStep = () => {
-
-        console.log("nextStep")
-
-        var data = {
-            pickupaddr: this.state.pickupaddr,
-            zipcode: this.state.zipcode,
-            city: this.state.city,
-            phone: this.state.phone,
-            pickupInstructions: this.state.pickupInstructions,
-            iscompany: this.state.isCompany
-        }
-
-        this.props.saveValues(data);
-
-    }
-*/
 
     updateField(fieldName, newValue){
         this.setState({ [fieldName]: newValue }, function(){

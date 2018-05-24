@@ -3,12 +3,13 @@ var dbconfig = require('../app/database');
 var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
 
+//winscp kaatu
 module.exports = class sqldata  {
     constructor(){
         //tobedone
     }
 //https://stackoverflow.com/questions/44004418/node-js-async-await-using-with-mysql
-
+//wut
 get info(){
   //this.getinfo();
 }
@@ -24,26 +25,6 @@ queryGet(query,callback){
   })
 }
 
-queryConnection(){
-  connection.query(this.argLoop(arguments), (err,result) => {
-    
-    //console.log(arguments);
-    console.log('minä olen queryConnection')
-    console.log(result.affectedRows + " record(s) updated");
-  })
-}
-/*
-queryPost(query, values, nmbrOfVals){
-  if(typeof values == "undefined") {
-  connection.query(query,(err,result) => {
-    console.log(result.affectedRows + " record(s) updated");
-  })
-} else
-  connection.query(query, values, (err,result) => {
-    console.log(result.affectedRows + " record(s) updated");
-  })
-}
-*/
 queryPost(query, values){
   if(typeof values == "undefined") {
     connection.query(query, (err,result) => {
@@ -59,20 +40,6 @@ queryPost(query, values){
   }
 }
 
-viduTesti() {
-  console.log('testi')
-  console.log(this.viduLooppi(arguments[0]));
-}
-
-viduLooppi() {
-  var i;
-  var val = 0;
-  for(i = 0; i < arguments.length; i++) {
-       val = arguments[i];
-  }
-  return val;
-} 
-
 queryInsert(query,values){
   this.queryPost(query,values);
 }
@@ -87,12 +54,6 @@ getInfoAll(table,callback){
   connection.query(`SELECT * FROM ${table}`,(err, result) => {
     callback(err,result);
   })
-}
-
-queryInsertItems(){  
-  let sqlquery = 'INSERT INTO junk ( category, subCat, weight, size, description, pcs, pickupaddr, junkdate, junkdateadded, status, owner, latitude, longitude, wishbox, city, zipcode, iscompany, itemphone ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);'
-  let values = [arguments[0],arguments[1],arguments[2],arguments[3],arguments[4],arguments[5],arguments[6],arguments[7],arguments[8],arguments[9],arguments[10],arguments[11],arguments[12],arguments[13],arguments[14],arguments[15],arguments[16],arguments[17]]
-  this.queryPost(sqlquery,values)
 }
 
 //queryinsertillä voidaan syöttää ainakin toistaiseksi catADD sekä subcatADD, 

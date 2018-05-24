@@ -19,6 +19,7 @@ connection.query('USE ' + dbconfig.database);
 //https://scotch.io/tutorials/keeping-api-routing-clean-using-express-routers
 //https://www.terlici.com/2014/09/29/express-router.html
 //https://www.caffeinecoding.com/better-express-routing-for-nodejs/
+//winscp kaatu
 module.exports = (app, passport, users) => {
 
     app.post('/feikkiCat', (req, res) => {

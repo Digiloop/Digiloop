@@ -19,7 +19,7 @@ class OrderMain extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            values: {
+            values: [{
                 pickupaddr: this.props.userInfo.address,
                 zipcode: this.props.userInfo.zipcode,
                 city: this.props.userInfo.city,
@@ -32,60 +32,96 @@ class OrderMain extends Component {
                 size: '',
                 description: '',
                 pic: '',
-                weight: ''                
-            },
+                weight: ''
+            }],
             step: 1,
-            pageOneAllFilled: ""
+            pageOneAllFilled: "",
+            itemIndex: 0
         };
         this.saveValues = this.saveValues.bind(this);
     }
 
 
     saveValues(value) {
+
+        // take current state in a var
+        let valueArray = this.state.values;
+        // create a new object from the saved data
+        let newObject = {
+            'pickupaddr': value.pickupaddr,
+            'zipcode': value.zipcode,
+            'city': value.city,
+            'phone': value.phone,
+            'pickupInstructions': value.pickupInstructions,
+            'iscompany': value.iscompany,
+            'category': value.category,
+            'subCat': value.subCat,
+            'pcs': value.pcs,
+            'size': value.size,
+            'weight': value.weight,
+            'description': value.description
+        }
+
+        // save new object on the correct index
+        valueArray[this.state.itemIndex] = newObject;
+
         this.setState({
-            values: {
-                'pickupaddr': value.pickupaddr,
-                'zipcode': value.zipcode,
-                'city': value.city,
-                'phone': value.phone,
-                'pickupInstructions': value.pickupInstructions,
-                'iscompany': value.iscompany,
-                'category': value.category,
-                'subCat': value.subCat,
-                'pcs': value.pcs,
-                'size': value.size,
-                'weight': value.weight,
-                'description': value.description
-            }
-        }, () => console.log("asd"+this.state.values))
+            values: valueArray
+        })
 
     }
 
+    // proceed to next phase of the form
+    // a safeguard against going paSt the final page is implemented, since the forward button disables too slowly
     nextStep = () => {
-        if(this.state.step != 4){
+        if (this.state.step != 4) {
             this.setState({
                 step: this.state.step + 1
             })
         }
     }
 
-    // proceed to next phase of the form
-    // a safeguard against going paSt the final page is implemented, since the forward button disables too slowly
+
+    // proceed to previous phase of the form
+    // a safeguard against going back from the first page is implemented, since the forward button disables too slowly
     prevStep = () => {
-        if(this.state.step != 1){
+        if (this.state.step != 1) {
             this.setState({
                 step: this.state.step - 1
             })
         }
     }
 
-    // proceed to previous phase of the form
-    // a safeguard against going back from the first page is implemented, since the forward button disables too slowly
+    // begind adding another item
+    // step reverts to 2 & itemIndex is increased by one
     nextItem = () => {
+
+        let index = this.state.values.length;
+
+        let tempArr = this.state.values;
+        tempArr[this.state.values.length] = {
+            'pickupaddr': "",
+            'zipcode': "",
+            'city':"",
+            'phone': "",
+            'pickupInstructions':"",
+            'iscompany': "",
+            'category': "",
+            'subCat': "",
+            'pcs': "",
+            'size': "",
+            'weight': "",
+            'description': ""
+        }
+
         this.setState({
+            itemIndex: index,
+            values: tempArr,
             step: 2
+        }, function(){
+            console.log("hoo")
+            console.log(this.state.values)
         })
-            
     }
 
     setAllFilled = (allFilled) => {
@@ -102,18 +138,18 @@ class OrderMain extends Component {
         switch (this.state.step) {
             case 1:
                 return < AddressFields
-                    values={this.state.values}
+                    values={this.state.values[this.state.itemIndex]}
                     nextStep={this.nextStep}
                     saveValues={this.saveValues}
                     setAllfilled={this.setAllFilled} />
             case 2:
                 return < CategoriesFields
-                    values={this.state.values}
+                    values={this.state.values[this.state.itemIndex]}
                     nextStep={this.nextStep}
                     saveValues={this.saveValues} />
             case 3:
                 return < InfoFields
-                    values={this.state.values}
+                    values={this.state.values[this.state.itemIndex]}
                     nextStep={this.nextStep}
                     saveValues={this.saveValues} />
             case 4:
@@ -127,13 +163,16 @@ class OrderMain extends Component {
 
     render() {
 
+        // **** DO NOT REMOVE ****
+
         // confirm you want to reload page, since data will be lost
         // pretty annoying during dev, but activate before build
         /*
         window.onbeforeunload = function ()
         {
             return "";
-        };*/
+        };
+        */
 
         const styles = {
 
@@ -164,17 +203,17 @@ class OrderMain extends Component {
         }
         return (
 
-            
+
 
             <div className="orderWrapper">
                 <div className="progressBar" style={{ maxWidth: '90vh', minWidth: '50vh', display: 'flex', justifyContent: 'center' }}>
-                    <Button variant="fab" style={this.state.step == 1 ? styles.buttonDisabled : styles.buttonActive} disabled={this.state.step == 1} onClick={this.prevStep}><Forward style={{transform: "scaleX(-1)"}}/></Button>
+                    <Button variant="fab" style={this.state.step == 1 ? styles.buttonDisabled : styles.buttonActive} disabled={this.state.step == 1} onClick={this.prevStep}><Forward style={{ transform: "scaleX(-1)" }} /></Button>
                     <div className="state1" style={this.state.step == 1 ? styles.Active : styles.notActive}></div>
                     <div className="state2" style={this.state.step == 2 ? styles.Active : styles.notActive}></div>
                     <div className="state3" style={this.state.step == 3 ? styles.Active : styles.notActive}></div>
                     <div className="state4" style={this.state.step == 4 ? styles.Active : styles.notActive}></div>
-                    <Button variant="fab" style={(this.state.step == 1 && !this.state.pageOneAllFilled) || this.state.step == 4 ? styles.buttonDisabled : styles.buttonActive} 
-                    disabled={(this.state.step == 1 && !this.state.pageOneAllFilled) || this.state.step == 4} onClick={this.nextStep}><Forward /></Button>
+                    <Button variant="fab" style={(this.state.step == 1 && !this.state.pageOneAllFilled) || this.state.step == 4 ? styles.buttonDisabled : styles.buttonActive}
+                        disabled={(this.state.step == 1 && !this.state.pageOneAllFilled) || this.state.step == 4} onClick={this.nextStep}><Forward /></Button>
                 </div>
                 <div className="frontPageBox" >{this.showSteps()}</div>
             </div>

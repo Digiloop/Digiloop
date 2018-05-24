@@ -57,7 +57,7 @@ class OrderMain extends Component {
                 'weight': value.weight,
                 'description': value.description
             }
-        }, () => console.log(this.state.values))
+        }, () => console.log("asd"+this.state.values))
 
     }
 

@@ -60,9 +60,7 @@ class Summary extends React.Component {
             weight: this.props.values.weight,
             description: this.props.values.description
         }
-        console.log(itemData);
         sendItemData(JSON.stringify(itemData));
-        console.log(this.props);
         this.props.saveValues(itemData);
     }
 

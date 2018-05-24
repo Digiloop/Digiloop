@@ -18,34 +18,39 @@ class AddressFields extends React.Component {
             isCompany: null
         };
         this.checkFill = this.checkFill.bind(this);
+        this.updateField = this.updateField.bind(this);
     }
 
+/*
+    nextStep = () => {
 
-    nextStep = () => (e) => {
-        this.checkFill();
-        e.preventDefault();
-        if (!this.state.allFilled) {
-            window.alert("kaik täytyyp täyttää");
-        } else {
-            console.log("nextStep");
-            var data = {
-                pickupaddr: this.state.pickupaddr,
-                zipcode: this.state.zipcode,
-                city: this.state.city,
-                phone: this.state.phone,
-                pickupInstructions: this.state.pickupInstructions,
-                iscompany: this.state.isCompany
-            }
-            console.log(this.state.isCompany);
-            
-            this.props.saveValues(data);
-            // this.props.nextStep();
+        console.log("nextStep")
+
+        var data = {
+            pickupaddr: this.state.pickupaddr,
+            zipcode: this.state.zipcode,
+            city: this.state.city,
+            phone: this.state.phone,
+            pickupInstructions: this.state.pickupInstructions,
+            iscompany: this.state.isCompany
         }
+
+        this.props.saveValues(data);
+
+    }
+*/
+
+    updateField(fieldName, newValue){
+        this.setState({ [fieldName]: newValue }, function(){
+            this.checkFill();
+        })
     }
 
     checkFill() {
-        console.log("state:")
-        console.log(this.state);
+
+
+        // check that all fields are filled
+        // if so, give OrderMain the order to enable the forward arrow
         let pass = true;
         for (var key in this.state) {
             if (this.state[key] === '' || this.state[key] === undefined || this.state[key] === null) {
@@ -55,19 +60,31 @@ class AddressFields extends React.Component {
         }
         if (pass && !this.state.allFilled) {
             this.setState({ allFilled: true })
+            //this.nextStep();
             this.props.setAllfilled(true);
         } else if (!pass && this.state.allFilled) {
             this.setState({ allFilled: false })
             this.props.setAllfilled(false);
         }
+
+        // save the data
+        // it shouldn't matter if it's incomplete, since it will save after each edit to fields
+        // and since the checkfill won't let forward unless all fields are good to go
+        var data = {
+            pickupaddr: this.state.pickupaddr,
+            zipcode: this.state.zipcode,
+            city: this.state.city,
+            phone: this.state.phone,
+            pickupInstructions: this.state.pickupInstructions,
+            iscompany: this.state.isCompany
+        }
+        this.props.saveValues(data);
+
+
     }
 
-    componentDidUpdate() {
-        this.checkFill();
-    }
 
     componentDidMount() {
-        this.checkFill();
         this.setState({
             'pickupaddr': this.props.values.pickupaddr,
             'zipcode': this.props.values.zipcode,
@@ -114,7 +131,7 @@ class AddressFields extends React.Component {
                             <td>   <TextField className="rightOrderField"
                                 type="text" hintText="Ståhlberginkatu 10"
                                 style={styles} defaultValue={this.props.values.pickupaddr}
-                                onChange={(event, newValue) => this.setState({ pickupaddr: newValue })}
+                                onChange={(event, newValue) => this.updateField("pickupaddr", newValue)}
                             />
                             </td>
                         </tr>
@@ -123,7 +140,7 @@ class AddressFields extends React.Component {
                             <td>  <TextField className="rightOrderField"
                                 type="text" hintText="15110" style={styles}
                                 defaultValue={this.props.values.zipcode}
-                                onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
+                                onChange={(event, newValue) => this.updateField( "zipcode", newValue )} />
                             </td>
                         </tr>
                         <tr>
@@ -131,7 +148,7 @@ class AddressFields extends React.Component {
                             <td> <TextField className="rightOrderField"
                                 type="text" hintText="Lahti" style={styles}
                                 defaultValue={this.props.values.city}
-                                onChange={(event, newValue) => this.setState({ city: newValue })} />
+                                onChange={(event, newValue) => this.updateField( "city", newValue )} />
                             </td>
                         </tr>
                         <tr>
@@ -139,7 +156,7 @@ class AddressFields extends React.Component {
                             <td>   <TextField className="rightOrderField"
                                 type="text" hintText="044 708 1347​" style={styles}
                                 defaultValue={this.props.values.phone}
-                                onChange={(event, newValue) => this.setState({ phone: newValue })} />
+                                onChange={(event, newValue) => this.updateField( "phone", newValue )} />
                             </td>
                         </tr>
                         <tr>
@@ -147,7 +164,7 @@ class AddressFields extends React.Component {
                             <td>    <TextField className="rightOrderField"
                                 type="text" hintText="Perjantai 30.4 klo 16:30. Käynti pääovesta. " style={styles}
                                 multiLine={true} rows={3} rowsMax={7} defaultValue={this.props.values.pickupInstructions}
-                                onChange={(event, newValue) => this.setState({ pickupInstructions: newValue })} /><br /><br />
+                                onChange={(event, newValue) => this.updateField( "pickupInstructions", newValue )} /><br /><br />
                             </td>
                         </tr>
                         <tr>
@@ -157,7 +174,7 @@ class AddressFields extends React.Component {
                                     style={styles.images}
                                     className="image-btn btn"
                                     alt="Kotitalous"
-                                    onClick={(e) => this.setState({isCompany: 0})}
+                                    onClick={(e) => this.updateField( "isCompany", 0 )}
                                 />
                             </td>
                             <td >
@@ -169,7 +186,7 @@ class AddressFields extends React.Component {
                                     }}
                                     className="image-btn btn"
                                     alt="Organisaatio"
-                                    onClick={(e) => this.setState({isCompany: 1})}
+                                    onClick={(e) => this.updateField( "isCompany", 1 )}
                                 />
                             </td>
                         </tr>

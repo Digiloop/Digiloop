@@ -14,51 +14,41 @@ class Summary extends React.Component {
         this.state = {
             value: 1
         };
-        this.addressToCoords = this.addressToCoords.bind(this);
+        this.convertAddresses = this.convertAddresses.bind(this);
     }
 
-    addressToCoords(address) {
+
+    convertAddresses() {
+
+        let data = this.props.values;
+
+        let address = this.props.values[0].pickupaddr + ", " + this.props.values[0].city;
 
         this.geocoder.geocode({ 'address': address }, function (results, status) {
             if (status === window.google.maps.GeocoderStatus.OK) {
-                return {
-                    lat: results[0].geometry.viewport.f.b,
-                    long: results[0].geometry.viewport.b.b
+
+                for( let i = 0; i < data.length; i++){
+                    data[i].latitude = results[0].geometry.viewport.f.b
+                    data[i].longitude = results[0].geometry.viewport.b.b
                 }
-                console.log("geocode results")
-                console.log(results[0].geometry.viewport.b.b)
-                console.log(results[0].geometry.viewport.f.b)
+
+                console.log("Bäkkiilähetyssimulaatio testi #2")
+                console.log(data);
+                //sendItemData(JSON.stringify(data));
+                
+
             }
         })
+
+
     }
 
     componentDidMount() {
         this.geocoder = new window.google.maps.Geocoder();
-        this.addressToCoords("Ståhlberginkatu 10, Lahti")
     }
 
     handleChange = (event, index, value) => this.setState({ value });
 
-    sendData(event) {
-        event.preventDefault();
-        /*
-        var itemData = {
-            pickupaddr: this.props.values.pickupaddr,
-            zipcode: this.props.values.zipcode,
-            city: this.props.values.city,
-            phone: this.props.values.phone,
-            pickupInstructions: this.props.values.pickupInstructions,
-            iscompany: this.props.values.iscompany,
-            category: this.props.values.category,
-            subCat: this.props.values.subCat,
-            pcs: this.props.values.pcs,
-            size: this.props.values.size,
-            weight: this.props.values.weight,
-            description: this.props.values.description
-        }*/
-        sendItemData(JSON.stringify(this.props.values));
-        //this.props.saveValues(itemData);
-    }
 
 
     render() {
@@ -91,7 +81,7 @@ class Summary extends React.Component {
 
         let items = [];
 
-        for(let i = 0; i < this.props.values.length; i++){
+        for (let i = 0; i < this.props.values.length; i++) {
             items.push(
                 <tr key={"itemPreparationListing" + i}>
                     <td><pre>
@@ -104,7 +94,7 @@ class Summary extends React.Component {
                 </tr>
             )
         }
-        
+
 
 
 
@@ -136,7 +126,7 @@ class Summary extends React.Component {
                                     label='Lähetä tilaus'
                                     style={{ borderRadius: 25 }}
                                     backgroundColor={'#FFF'}
-                                    onClick={(event) => this.sendData(event)}
+                                    onClick={(event) => this.convertAddresses()}
                                 />
                             </td>
                         </tr>

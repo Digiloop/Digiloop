@@ -47,26 +47,34 @@ queryPost(query, values, nmbrOfVals){
 queryPost(query, values){
   if(typeof values == "undefined") {
     connection.query(query, (err,result) => {
-      console.log(result.affectedRows + " record(s) updated");
+      //console.log(result.affectedRows + " record(s) updated");
+      console.log(query);
     })
   } else {
     connection.query(query, values, (err,result) => {
-      console.log(result.affectedRows + " record(s) updated");
+      //console.log(result.affectedRows + " record(s) updated");
+      console.log(query);
+      console.log(values);
     })
   }
-
 }
 
-queryUpdateStatus(){
-  let sqlquery = 'UPDATE junk SET status = ? WHERE junkID = ?;';
-  let values = [arguments[0],arguments[1]]
-  this.queryPost(sqlquery,values)
+viduTesti() {
+  console.log('testi')
+  console.log(this.viduLooppi(arguments[0]));
 }
 
-queryItemReserve(){
-  let sqlquery = 'UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;';
-  let values = [arguments[0],arguments[1],arguments[2]]
-  this.queryPost(sqlquery,values)
+viduLooppi() {
+  var i;
+  var val = 0;
+  for(i = 0; i < arguments.length; i++) {
+       val = arguments[i];
+  }
+  return val;
+} 
+
+queryInsert(query,values){
+  this.queryPost(query,values);
 }
 
 getInfoStatus(table,Status,callback){
@@ -81,15 +89,10 @@ getInfoAll(table,callback){
   })
 }
 
-
-
 queryInsertItems(){  
-  let sqlquery = 'INSERT INTO junk ( category, subCat, weight, size, description, pcs, pickupaddr, junkdate, junkdateadded, status, owner, latitude, longitude ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);'
-  let values = [arguments[0],arguments[1],arguments[2],arguments[3],arguments[4],arguments[5],arguments[6],arguments[7],arguments[8],arguments[9],arguments[10],arguments[11],arguments[12]]
-  connection.query(sqlquery, values, (err, result) => {
-    console.log(result.affectedRows + " record(s) updated");
-    console.log(sqlquery);
-  })
+  let sqlquery = 'INSERT INTO junk ( category, subCat, weight, size, description, pcs, pickupaddr, junkdate, junkdateadded, status, owner, latitude, longitude, wishbox, city, zipcode, iscompany, itemphone ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);'
+  let values = [arguments[0],arguments[1],arguments[2],arguments[3],arguments[4],arguments[5],arguments[6],arguments[7],arguments[8],arguments[9],arguments[10],arguments[11],arguments[12],arguments[13],arguments[14],arguments[15],arguments[16],arguments[17]]
+  this.queryPost(sqlquery,values)
 }
 
 //queryinsertillä voidaan syöttää ainakin toistaiseksi catADD sekä subcatADD, 

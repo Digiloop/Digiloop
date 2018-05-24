@@ -8,7 +8,7 @@ import Profile from '../../containers/Admin/Profile/Profile'
 
 import HistoryListing from '../../containers/Admin/HistoryListing'
 import ReservedListing from '../../containers/Admin/ReservedListing'
-
+import Categories from '../../containers/Admin/Categories'
 import Varauskartta from '../../containers/Admin/Varauskartta/Varauskartta'
 import Admin from '../../containers/Admin/Admin'
 
@@ -45,6 +45,12 @@ class AdminWasteProcessor extends Component {
     });
   }
 
+  handleUpdate = (e, value) => {
+    this.setState({
+      index: 0
+    });
+  }
+
 
   handleToggle = (event) => this.setState({ open: !this.state.open })
   handleClose = () => this.setState({ open: false })
@@ -68,7 +74,7 @@ class AdminWasteProcessor extends Component {
               </IconButton>
               <Tabs index={this.state.index} onChange={this.handleChange} style={{ width: '100%' }} 
               inkBarStyle={{ background: '#AFD43F', height: '3px' }}>
-                <Tab label="Historia" className="menu" value={0} />
+                <Tab label="Kategoriat" className="menu" value={0} />
                 <Tab label="Varaukset" className="menu" value={1} />
                 <Tab label="Admin" className="menu" value={2} />
                 <Tab label="Varauskartta" className="menu" value={3} />
@@ -89,13 +95,13 @@ class AdminWasteProcessor extends Component {
               </div>
             </Toolbar>
           </AppBar>
-          {this.state.index === 0 && <HistoryListing />}
+          {this.state.index === 0 && <Categories />}
           {this.state.index === 1 && <ReservedListing />}
           {this.state.index === 2 && <Admin />}
           {this.state.index === 3 && <Varauskartta />}
           {this.state.index === 4 && <Notification />}
 
-          {this.state.index === 5 && <Profile />}
+          {this.state.index === 5 && <Profile onUpdate={this.handleUpdate} />}
         </div>
       </MuiThemeProvider>
     );

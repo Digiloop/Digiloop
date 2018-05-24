@@ -54,13 +54,11 @@ class Profile extends Component {
         "zipcode": this.state.zipcode,
         "city": this.state.city
       }
-      // tämä toimii
+      console.log(updateUserData);
+      
       sendUpdateData(JSON.stringify(updateUserData));
 
-      // Mikä tämä on? Ei ole määritelty.
-      //this.props.onUpdate();
-
-
+      this.props.onUpdate();
       window.alert("Tiedot päivitetty!");
     } else {
       window.alert("Ei saa jättää lootia tyhjiksi!");

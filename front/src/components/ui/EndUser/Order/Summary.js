@@ -37,6 +37,8 @@ class Summary extends React.Component {
                 //sendItemData(JSON.stringify(data));
                 
 
+            } else {
+                window.alert("Osoitetta ei löytynyt");
             }
         })
 

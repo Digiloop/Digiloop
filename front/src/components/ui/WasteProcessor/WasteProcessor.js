@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import styles from '../../../index.css';
 import { AppBar, Drawer, Menu, MenuItem } from 'material-ui';
 import { Toolbar, IconButton, Divider, Tabs, Tab } from 'material-ui';
 import MenuIcon from '@material-ui/icons/Menu';

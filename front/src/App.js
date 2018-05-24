@@ -36,7 +36,7 @@ class App extends Component {
       // subcats will also be used as a check on the backend/network
       // if the connection refused, clear login sessions and display error message
       // I'm not sure if this is the optimal way to check
-      if (subCats.message == "Network Error") {
+      if (subCats.message === "Network Error") {
         localStorage.clear();
         this.props.onNewLogout({
           userlvl: -1

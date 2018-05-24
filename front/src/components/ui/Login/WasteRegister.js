@@ -3,7 +3,6 @@ import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import { sendCompRegData } from '../../../utils/sendCompRegData';
-import styles from '../../../index.css';
 import { Checkbox } from 'material-ui';
 
 class WasteRegister extends React.Component {
@@ -53,7 +52,7 @@ class WasteRegister extends React.Component {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         pass = re.test(String(email).toLowerCase());
 
-        if (this.state.emailValid != pass) {
+        if (this.state.emailValid !== pass) {
             this.setState({ emailValid: pass })
         }
 

@@ -60,7 +60,7 @@ module.exports = (app, passport, users) => {
         })
     });
 
-    app.post('/announcementADD', isLoggedIn, (req, res) => {
+    app.post('/announcementAdd', isLoggedIn, (req, res) => {
         var newItem = {
             info: req.body.info.toString(),
             dateBegin: req.body.dateBegin.toString(), // use the generateHash function in our user model

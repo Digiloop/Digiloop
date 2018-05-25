@@ -9,7 +9,8 @@ var sqldatahaku = new sqldata; //
 //GET
 
 router.get('/categories',(req, res, next) => {
-  sqldatahaku.getInfoStatus('Category','1',(err,result) => {
+  const query = 'SELECT * FROM Category WHERE Status = 1'
+  sqldatahaku.getInfoSql(query, (err,result) => {
     if (err) throw err;
     res.json(result);
     next();
@@ -17,7 +18,8 @@ router.get('/categories',(req, res, next) => {
 });
 
 router.get('/subcat', (req, res, next) => {
-  sqldatahaku.getInfoStatus('subCat','1',(err, result) => {
+  const query = 'SELECT * FROM subCat WHERE Status = 1'
+  sqldatahaku.getInfoSql(query, (err, result) => {
     if (err) throw err;
     res.json(result);
     next();
@@ -30,24 +32,21 @@ router.get('/kuva', (req, res, next) => {
 
 //POST
 router.post('/subcatstatus', (req, res, next) => {
-  sqldatahaku.queryPost(`UPDATE subCat SET Status = ${req.body.Status} WHERE subId = ${req.body.subId}`)
-    console.log(`Status ${req.body.Status} subId ${req.body.subId}`)
-    res.end();
+  const query = 'UPDATE subCat SET Status = ? WHERE subId = ?'
+  sqldatahaku.querySql(query, [req.body.Status,req.body.subId])
+  res.end();
 });
 
 router.post('/catADD', (req,res) => {
-    sqldatahaku.queryInsertCats('Category',req.body.catname,'1',req.body.catname,'imagereferenssi');
-    res.end();
+  const query = 'INSERT INTO Category ( CatName, Status, RealName, ImgReference ) VALUES (?,?,?,?)'
+  sqldatahaku.querySql(query,[req.body.catname, 1, req.body.catname,'imagereferenssi']);
+  res.end();
 });
 
 router.post('/subcatADD', (req,res) => {
-  sqldatahaku.queryInsertCats('subCat',req.body.catid,req.body.subcatname,'1');
+  const query = 'INSERT INTO subCat ( CatId, subName, Status) VALUES (?,?,?)'
+  sqldatahaku.querySql(query,[req.body.catid, req.body.subcatname, 1]);
   res.end();
 });
-/*
-router.post('/subcatADD', function(req,res) {
-  sqldatahaku.queryinsert(req.body.subcatname,'1',req.body.catname,'imagereferenssi');
-});
-*/
 
 module.exports = router

@@ -19,14 +19,3 @@ function sendItemData(itemData) {
       console.log(error);
     });
 } 
-
-/*
-function sendItemData(itemData) {
-    return axios.post(BASE_URL + '/itemAdd', {
-      itemData   
-    })
-      .then(response => response.data)
-      .catch(function (error) {
-        console.log(itemData);
-      });
-  } */

@@ -18,6 +18,8 @@ class EndUserFront extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.getPageName = this.getPageName.bind(this);
+
+    this.handleClose = this.handleClose.bind(this);
   }
 
   // logout clears session with backend, empties localStorage session and sets userlevel to logged out
@@ -50,7 +52,19 @@ class EndUserFront extends Component {
 
   // handles drawer open and close
   handleToggle = () => this.setState({ open: !this.state.open })
-  handleClose = () => this.setState({ open: false })
+
+
+
+  handleClose() {
+    this.setState({
+      open: false
+    }, function(){
+      if(this.state.index == 0){
+        window.location.reload()
+      }
+    })
+  }
+  //handleClose = () => this.setState({ open: false })
 
   // Name to toolbartitle
   getPageName() {

@@ -131,7 +131,7 @@ class InfoFields extends React.Component {
                         <tr>
                             <td style={{ textAlign: 'center' }}>
                                 <FlatButton
-                                    label='Lisää Laite'
+                                    label={this.props.saveButtonText}
                                     style={{ borderRadius: 25 }}
                                     backgroundColor={'#FFF'}
                                     onClick={(event) => this.nextStep(event)} />

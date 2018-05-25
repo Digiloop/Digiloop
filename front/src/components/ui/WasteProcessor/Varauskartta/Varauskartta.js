@@ -87,6 +87,8 @@ class WasteProcessor extends Component {
 
       // subcategory check - works perfectly
       let subCat = this.props.resListItems[i].category + this.props.resListItems[i].subCat; // create the subcat full name
+      console.log("subcattest")
+      console.log(subCat)
       subCat = subCat.toLowerCase(); // eliminate case-irregularities in item categories
       if (this.props.rLOpt.subCategories[subCat] != undefined) { // is initialized? ALl uninitialized are treated as true
         if (!this.props.rLOpt.subCategories[subCat]) { // is false?

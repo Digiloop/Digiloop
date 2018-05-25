@@ -13,7 +13,8 @@ class EndUserFront extends Component {
     super(props);
     this.state = {
       index: 0,
-      open: false
+      open: false,
+      frontPageNeedsReset: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.getPageName = this.getPageName.bind(this);
@@ -30,7 +31,8 @@ class EndUserFront extends Component {
 
   // uses index to open right page
   handleChange = (e, value) => {
-    //console.log(value);
+
+
     this.setState({
       index: value
     }, function () {

@@ -10,12 +10,22 @@ var sqldatahaku = new sqldata; //
 
 router.get('/categories',(req, res, next) => {
   const query = 'SELECT * FROM Category WHERE Status = 1'
-  sqldatahaku.getInfoSql(query, (err,result) => {
+  sqldatahaku.queryGet(query, (err,result) => {
     if (err) throw err;
     res.json(result);
     next();
   });
 });
+
+router.get('/feikkiCat',(req, res, next) => {
+  const query = 'SELECT * FROM SubSubCats'
+  sqldatahaku.queryGet(query, (err,result) => {
+    if (err) throw err;
+    res.json(result);
+    next();
+  });
+});
+
 
 router.get('/subcat', (req, res, next) => {
   const query = 'SELECT * FROM subCat WHERE Status = 1'

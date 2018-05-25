@@ -78,7 +78,7 @@ module.exports = function(passport) {
                         zipcode: req.body.zipcode.toString(),
                         city: req.body.city.toString(),          
                         userlvl: 2,
-                        Status: 0
+                        Status: 1
                   };
                     /*console.log(leveli + "  leveli");*/
                     var insertQuery = "INSERT INTO users ( password, fname, lname, email, phone, address, zipcode, city, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?)";
@@ -123,7 +123,7 @@ module.exports = function(passport) {
                         company: req.body.company.toString(),
                         ytunnus: req.body.ytunnus.toString(),
                         userlvl: 1,
-                        Status: 1
+                        Status: 0
                   };
                     /*console.log(leveli + "  leveli");*/
                     var insertQuery = "INSERT INTO users ( password, fname, lname, email, phone, address, zipcode, city, company, ytunnus, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -154,7 +154,7 @@ module.exports = function(passport) {
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
         function(req, email, password, done) { // callback with email and password from our form
-            connection.query("SELECT * FROM users WHERE email = ?",[email], function(err, rows){
+            connection.query("SELECT * FROM users WHERE email = ? AND Status = 1",[email], function(err, rows){
                 if (err)
                     return done(err);
                 if (!rows.length) {

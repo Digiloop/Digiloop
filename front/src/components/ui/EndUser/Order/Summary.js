@@ -34,8 +34,8 @@ class Summary extends React.Component {
 
                 // only the first item has the contact information
                 // so we're saving it to the rest of them also
-                if(data.length > 1){
-                    for(let i = 1; i < data.length; i++){
+                if (data.length > 1) {
+                    for (let i = 1; i < data.length; i++) {
                         data[i].city = data[0].city;
                         data[i].iscompany = data[0].iscompany;
                         data[i].phone = data[0].phone;
@@ -106,11 +106,11 @@ class Summary extends React.Component {
                         {this.props.values[i].pcs} <br />
                         {this.props.values[i].description}</pre>
                         <FlatButton
-                                    label='Muokkaa'
-                                    style={{ borderRadius: 25 }}
-                                    backgroundColor={'#FFF'}
-                                    onClick={(event) => this.props.editItem(i)}
-                                />
+                            label='Muokkaa'
+                            style={{ borderRadius: 25 }}
+                            backgroundColor={'#FFF'}
+                            onClick={(event) => this.props.editItem(i)}
+                        />
                         <br />
                         <Divider style={{ backgroundColor: '#FFF', height: '3px' }} />
                     </td>
@@ -131,7 +131,7 @@ class Summary extends React.Component {
                                 <label style={{ float: 'left', position: 'absolute', marginLeft: '2%' }}>Yhteystiedot</label><br />
                                 <pre>{this.props.values[0].pickupaddr} {this.props.values[0].phone} <br />
                                     {this.props.values[0].zipcode} {this.props.values[0].city}</pre>
-                                
+
                                 <Divider style={{ backgroundColor: '#FFF', height: '3px' }} />
                             </td>
                         </tr>

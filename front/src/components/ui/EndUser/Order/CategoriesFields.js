@@ -13,11 +13,15 @@ class CategoriesFields extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: '',
-            category: '',
             cats: '',
-            subCat: '',
-            subCats: ''
+            subCats: '',
+
+            activeCatId: '',
+            activeCatName: '',
+
+            activeSubCatId: '',
+            activeSubCatName: ''
+
         };
     }
 
@@ -34,52 +38,43 @@ class CategoriesFields extends React.Component {
         });
     }
 
-    // value = Category CatId, category = Category name
-    getCat = (value, category) => {
+    // catId = Category CatId, category = Category name
+    getCat = (catId, categoryName) => {
         this.setState({
-            value: value,
-            category: category
+            activeCatId: catId,
+            activeCatName: categoryName
         });
-        console.log(this.state.category, value);
     }
 
-    // value = subCategory CatId, subcategory = subCategory name
-    getSubCat = (subCat, CatId) => {
+    // CatId = subCategory CatId, subCat = subCategory name
+    getSubCat = (subCatId, subCatName) => {
         this.setState({
-            subCat: subCat,
-            CatId: CatId
-        },function () {
-            console.log(this.state.subCat);
-        }
-        );
-        this.nextStep(subCat);
+            activeSubCatId: subCatId,
+            activeSubCatName: subCatName
+        }, function () {
+
+            // save the data in OrderMain's state
+            var data = {
+                pickupaddr: this.props.values.pickupaddr,
+                zipcode: this.props.values.zipcode,
+                city: this.props.values.city,
+                phone: this.props.values.phone,
+                pickupInstructions: this.props.values.pickupInstructions,
+                iscompany: this.props.values.iscompany,
+                category: this.state.activeCatName,
+                subCat: subCatName,
+            }
+            this.props.saveValues(data);
+        });
     }
 
-    nextStep(subCat) {
-        // event.preventDefault();
-        console.log("nextStep");
-        var data = {
-            pickupaddr: this.props.values.pickupaddr,
-            zipcode: this.props.values.zipcode,
-            city: this.props.values.city,
-            phone: this.props.values.phone,
-            pickupInstructions: this.props.values.pickupInstructions,
-            iscompany: this.props.values.iscompany,
-            category: this.state.category,
-            subCat: subCat,
-        }
-        console.log(data);
-        console.log(this.props);
-        this.props.saveValues(data);
-        this.props.nextStep()
-    }
 
     componentDidMount() {
         this.getCategories();
         this.getSubCategories();
         this.setState({
-            'category': this.props.values == undefined ? "" : this.props.values.category,
-            'subCat': this.props.values == undefined ? "" : this.props.values.subCat
+            activeCatName: this.props.values == undefined ? "" : this.props.values.category,
+            activeSubCatName: this.props.values == undefined ? "" : this.props.values.subCat
         })
     }
 
@@ -95,6 +90,15 @@ class CategoriesFields extends React.Component {
             images: {
                 borderRadius: 4,
                 border: '8px solid white',
+                width: '19vw',
+                height: '19vw',
+                marginRight: '1%',
+                textAlign: 'center',
+                fontSize: '15px'
+            },
+            imagesActive: {
+                borderRadius: 4,
+                border: '8px solid red',
                 width: '19vw',
                 height: '19vw',
                 marginRight: '1%',
@@ -120,24 +124,31 @@ class CategoriesFields extends React.Component {
 
         const cats = [];
         const subCats = [];
-        console.log(this.state.cats);
-        console.log(this.state.subCats);
 
 
         for (let i = 0; i < this.state.cats.length; i++) {
             cats.push(
-                <td value={this.state.cats[i].CatName} onClick={() =>
-                    this.getCat(this.state.cats[i].CatId, this.state.cats[i].CatName)} key={i} >
-                    <div style={styles.images} >{this.state.cats[i].CatName}</div></td>
+                <td
+                    value={this.state.cats[i].CatName}
+                    onClick={() => this.getCat(this.state.cats[i].CatId, this.state.cats[i].CatName)}
+                    key={i} >
+                    <div style={this.state.cats[i].CatId == this.state.activeCatId ? styles.imagesActive : styles.images} >
+                        {this.state.cats[i].CatName}
+                    </div>
+                </td>
             )
         }
 
         for (let j = 0; j < this.state.subCats.length; j++) {
-            if (this.state.subCats[j].CatId === this.state.value) {
+            if (this.state.subCats[j].CatId === this.state.activeCatId) {
                 subCats.push(
-                    <td value={this.state.subCats[j].subName} onClick={() =>
-                        this.getSubCat(this.state.subCats[j].subName, this.state.subCats[j].subId)} key={j} >
-                        <div style={styles.images} >{this.state.subCats[j].subName}</div>
+                    <td
+                        value={this.state.subCats[j].subName}
+                        onClick={() => this.getSubCat(this.state.subCats[j].subId, this.state.subCats[j].subName)}
+                        key={j} >
+                        <div style={this.state.subCats[j].subId == this.state.activeSubCatId ? styles.imagesActive : styles.images} >
+                            {this.state.subCats[j].subName}
+                        </div>
                     </td>
                 )
             }

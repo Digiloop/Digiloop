@@ -22,10 +22,12 @@ connection.query('USE ' + dbconfig.database);
 //winscp kaatu
 module.exports = (app, passport, users) => {
 
-    app.post('/feikkiCat', (req, res) => {
-        connection.query("INSERT INTO SubSubCats ( subCatName, imgReference, name, subCatId) values (?, ?, ?, ?)",[req.body.subCatName, 'i can haz reference',req.body.name,req.body.subCatId], (err, result) => {
+    app.post('/feikkiCatAdd', (req, res) => {
+        connection.query("INSERT INTO SubSubCats ( imgReference, name, subCatId) values (?, ?, ?)",['i can haz reference',req.body.name,req.body.subCatId], (err, result) => {
             if (err) throw err;
+            console.log(result);
         });
+        res.end();
     });
 
     app.get('/announcements', (req, res) => {

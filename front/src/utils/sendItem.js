@@ -4,7 +4,7 @@ import { BASE_URL } from './../settings';
 export { sendItemData };
 
 function sendItemData(itemData) {
-  return fetch(BASE_URL + '/itemAdd', {
+  return fetch(BASE_URL + '/itemTest', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

@@ -27,15 +27,29 @@ class Summary extends React.Component {
         this.geocoder.geocode({ 'address': address }, function (results, status) {
             if (status === window.google.maps.GeocoderStatus.OK) {
 
-                for( let i = 0; i < data.length; i++){
+                for (let i = 0; i < data.length; i++) {
                     data[i].latitude = results[0].geometry.viewport.f.b
                     data[i].longitude = results[0].geometry.viewport.b.b
                 }
 
+                // only the first item has the contact information
+                // so we're saving it to the rest of them also
+                if(data.length > 1){
+                    for(let i = 1; i < data.length; i++){
+                        data[i].city = data[0].city;
+                        data[i].iscompany = data[0].iscompany;
+                        data[i].phone = data[0].phone;
+                        data[i].pickupInstructions = data[0].pickupInstructions;
+                        data[i].pickupaddr = data[0].pickupaddr;
+                        data[i].zipcode = data[0].zipcode;
+                    }
+                }
+
                 console.log("Bäkkiilähetyssimulaatio testi #2")
                 console.log(data);
-                //sendItemData(JSON.stringify(data));
-                
+                // toimii, kommentoitu, koska bäkki ei oo valmis siihen
+                sendItemData(JSON.stringify(data));
+
 
             } else {
                 window.alert("Osoitetta ei löytynyt");
@@ -91,6 +105,13 @@ class Summary extends React.Component {
                         {this.props.values[i].size}m<sup>3</sup>/kpl   {this.props.values[i].weight} <br />
                         {this.props.values[i].pcs} <br />
                         {this.props.values[i].description}</pre>
+                        <FlatButton
+                                    label='Muokkaa'
+                                    style={{ borderRadius: 25 }}
+                                    backgroundColor={'#FFF'}
+                                    onClick={(event) => this.props.editItem(i)}
+                                />
+                        <br />
                         <Divider style={{ backgroundColor: '#FFF', height: '3px' }} />
                     </td>
                 </tr>
@@ -110,6 +131,7 @@ class Summary extends React.Component {
                                 <label style={{ float: 'left', position: 'absolute', marginLeft: '2%' }}>Yhteystiedot</label><br />
                                 <pre>{this.props.values[0].pickupaddr} {this.props.values[0].phone} <br />
                                     {this.props.values[0].zipcode} {this.props.values[0].city}</pre>
+                                
                                 <Divider style={{ backgroundColor: '#FFF', height: '3px' }} />
                             </td>
                         </tr>

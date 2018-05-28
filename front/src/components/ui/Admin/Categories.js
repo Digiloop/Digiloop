@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { TextField, FlatButton } from 'material-ui';
-import { getCats, getSubCats } from '../../../utils/fetchcategories';
+import { getCats, getSubCats, getFakeCats } from '../../../utils/fetchcategories';
 import { addNewCat, addNewSubCat } from '../../../utils/sendAddCatsData';
 import { Radio, RadioGroup, FormControlLabel } from '@material-ui/core';
-import { InputLabel, MenuItem, Select, FormControl } from '@material-ui/core';
+import { MenuItem, DropDownMenu, SelectField } from 'material-ui';
+import ActionInfo from 'material-ui/svg-icons/action/info';
+import { black } from 'material-ui/styles/colors';
 
 class Categories extends Component {
     constructor(props) {
@@ -12,11 +15,15 @@ class Categories extends Component {
         this.state = {
             value: '',
             valueR: 'catname',
+            valueC: '',
             cat: '',
             cats: [],
             subCats: [],
+            fakeCats: [],
             addCat: '',
-            addSubCat: []
+            addSubCat: [],
+            catError: false,
+            catNameError: false
         }
     }
 
@@ -33,12 +40,37 @@ class Categories extends Component {
         });
     }
 
+    getFakeCategories() {
+        getFakeCats().then((fakeCategories) => {
+            this.setState({ fakeCats: (fakeCategories) });
+        });
+    }
+
     // value = Category CatId, cat = Category name
     getCat = (value, cat) => {
         this.setState({
             value: value,
             cat: cat
         });
+    }
+
+    // Add Cat or SubCat
+    addCats() {
+        if (this.state.addCat === '' || this.state.addCat === null || this.state.addCat === undefined) {
+            this.setState({ catNameError: true });
+        } else {
+            if (this.state.valueR === 'subcatname') {
+                if (this.state.valueC === '') {
+                    this.setState({ catError: true });
+                } else {
+                    this.addSubCategory();
+                    this.setState({ addCat: '' })
+                }
+            } else {
+                this.addCategory();
+                this.setState({ addCat: '' })
+            }
+        }
     }
 
     // Add Category name
@@ -53,47 +85,84 @@ class Categories extends Component {
     addSubCategory() {
         var addSubCatName = {
             'catid': this.state.value,
-            'subcatname': this.state.addSubCat,
+            'subcatname': this.state.addCat,
         }
         addNewSubCat(JSON.stringify(addSubCatName)).then(() => { this.getSubCategories() });
     }
 
+    handleCatFieldChange = event => {
+        this.setState({
+            addCat: event.target.value,
+            catNameError: false
+        })
+    };
+
     handleChange = event => {
         this.setState({ valueR: event.target.value });
-        // console.log(event.target.value);
+        console.log(event.target.value);
 
     };
 
-    handleCatChange = event => {
-        this.setState({ [event.target.cat]: event.target.value });
-        console.log(event.target.cat);
-
+    handleCatChange = (event, index, value) => {
+        this.setState({ valueC: value, catError: false });
     };
+
 
     componentDidMount() {
         this.getCategories();
         this.getSubCategories();
+        this.getFakeCategories();
     }
 
 
 
     render() {
-        const styles = theme => ({
-            root: {
-              display: 'flex',
-              flexWrap: 'wrap',
+        const styles = {
+
+            errorStyle: {
+                marginTop: '1vh',
+                padding: '1vh',
+                fontWeight: 400,
+                fontSize: '20px',
+                color: 'white'
             },
-            formControl: {
-              margin: theme.spacing.unit,
-              minWidth: 120,
+            radio: {
+                marginLeft: '2%',
+                backgroundColor: 'white',
+                width: '100%'
             },
-            selectEmpty: {
-              marginTop: theme.spacing.unit * 2,
+            textField: {
+                marginLeft: '2%',
+                marginBottom: '10%',
+                width: '100%',
+                backgroundColor: 'white',
+                border: '2px solid #004225',
+                borderRadius: '10px'
+            },
+            selectField: {
+                width: '100%',
+                backgroundColor: 'white',
+                fontFamily: 'kanit',
+                textAlign: 'left',
+                marginLeft: '2%',
+                borderRadius: '5px'
+            },
+            button: {
+                borderRadius: 25,
+                marginTop: '10%',
+                width: '50%'
+            }
+        };
+
+        const muiTheme = getMuiTheme({}, {
+            palette: {
+              accent1Color: '#004225',
             },
           });
 
         const cats = [];
         const subCats = [];
+        const fakeCats = [];
         console.log(this.state.cats);
         console.log(this.state.cats.length);
         console.log(this.state.subCats.length);
@@ -101,12 +170,21 @@ class Categories extends Component {
 
         for (let i = 0; i < this.state.cats.length; i++) {
             cats.push(
+                <MenuItem className='menuItems' value={this.state.cats[i].CatName} onClick={() =>
+                    this.getCat(this.state.cats[i].CatId, this.state.cats[i].CatName)}
+                    key={i} value={this.state.cats[i].CatName}
+                    primaryText={this.state.cats[i].CatName} />
+            )
+        }
+
+        /*for (let i = 0; i < this.state.cats.length; i++) {
+            cats.push(
                 <div value={this.state.cats[i].CatName} onClick={() =>
                     this.getCat(this.state.cats[i].CatId, this.state.cats[i].CatName)} key={i} >
                     <h3>{this.state.cats[i].CatName}</h3>
                 </div>
             )
-        }
+        } */
 
         for (let j = 0; j < this.state.subCats.length; j++) {
             if (this.state.subCats[j].CatId === this.state.value) {
@@ -118,41 +196,75 @@ class Categories extends Component {
             }
         }
 
+        for (let i = 0; i < this.state.fakeCats.length; i++) {
+            fakeCats.push(
+                <div key={i} >
+                    <h3>{this.state.fakeCats[i].name}</h3>
+                </div>
+            )
+        }
+
         return (
-            <MuiThemeProvider>
+            <MuiThemeProvider muiTheme={muiTheme}>
                 <div>
                     <div className='categories'>
-                        <div className='cats' style={{ float: 'left', width: '50%', marginLeft: '2%' }}>
+                        <div className='cats' style={{ float: 'left', width: '48%', marginLeft: '2%' }}>
                             <div className='addCategory' >
-                                <p className='addCatLabel'>Lisää kategoria</p>
-                                <TextField className='addCatField'
-                                    underlineShow={false}
-                                    style={{ backgroundColor: 'white', border: '2px solid #004225' }}
-                                    hintText='Uusi kategoria'
-                                    onChange={(event, newValue) => this.setState({ addCat: newValue })}
-                                />
-                                <RadioGroup value={this.state.valueR} onChange={this.handleChange} >
-                                    <FormControlLabel style={{ backgroundColor: 'white' }} value='catname'
+                                <div>
+                                    {this.state.catNameError ?
+                                        <p style={styles.errorStyle}>
+                                            <ActionInfo color={'white'} />
+                                            <b>Kategorian nimi ei saa olla tyhjä!</b> <br />
+                                        </p>
+                                        : <p></p>
+                                    }
+                                    <p className='addCatLabel'>Lisää kategoria:</p>
+                                    <TextField className='addCatField'
+                                        underlineShow={false}
+                                        style={styles.textField}
+                                        hintText='Uusi kategoria'
+                                        value={this.state.addCat}
+                                        onChange={this.handleCatFieldChange}
+                                    />
+                                </div>
+                                <RadioGroup
+                                    value={this.state.valueR}
+                                    onChange={this.handleChange}
+                                >
+                                    <FormControlLabel style={styles.radio} value='catname'
                                         control={<Radio style={{ color: '#004225' }} />} label='Yläkategoria' />
-                                    <FormControlLabel style={{ backgroundColor: 'white' }} value='subcatname'
+                                    <FormControlLabel style={styles.radio} value='subcatname'
                                         control={<Radio style={{ color: '#004225' }} />} label='Alakategoria' />
                                 </RadioGroup>
-                                <FormControl style={ styles.formControl }>
-                                    <Select native style={{ width: '200px' }} value={this.state.value} onChange={this.handleCatChange} >
-                                        <MenuItem value='Tieturva' >Tieturva</MenuItem>
-                                        <MenuItem value='Turva' >Turva</MenuItem>
-                                    </Select>
-                                </FormControl>
+                                <div>
+
+                                    {this.state.catError ?
+                                        <p style={styles.errorStyle}>
+                                            <ActionInfo color={'white'} />
+                                            <b>Valitse kategoria.</b> <br />
+                                        </p>
+                                        : <p></p>
+                                    }
+                                    <SelectField
+                                        hintText='Valitse kategoria'
+                                        value={this.state.valueC}
+                                        onChange={this.handleCatChange}
+                                        style={styles.selectField}
+                                        iconStyle={{ fill: '#004225' }}
+                                    >
+                                        {cats}
+                                    </SelectField></div>
                             </div>
                             {/*<h1>Kategoriat</h1>{cats}*/}
                             <FlatButton
                                 label='Lisää'
-                                style={{ borderRadius: 25, marginTop: '10%' }}
+                                style={styles.button}
                                 backgroundColor={'#FFF'}
-                                onClick={() => this.addCategory()}
+                                onClick={() => this.addCats()}
                             />
                         </div>
                         <div className='subCat' style={{ float: 'right', width: '50%' }}>
+                            {fakeCats}
                             {/*subCats.length !== 0 ? <div className='addSubCategory' >
                                 <h1>{this.state.cat}-kategorian alakategoriat:</h1>
                                 {subCats}{console.log(subCats.length)} <br />

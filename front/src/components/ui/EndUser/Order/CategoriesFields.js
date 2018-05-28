@@ -43,6 +43,8 @@ class CategoriesFields extends React.Component {
         this.setState({
             activeCatId: catId,
             activeCatName: categoryName
+        }, function () {
+            this.props.setCategoriesSelected(false);
         });
     }
 
@@ -65,6 +67,7 @@ class CategoriesFields extends React.Component {
                 subCat: subCatName,
             }
             this.props.saveValues(data);
+            this.props.setCategoriesSelected(true);
         });
     }
 

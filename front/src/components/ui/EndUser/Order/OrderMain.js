@@ -35,10 +35,21 @@ class OrderMain extends Component {
                 weight: ''
             }],
             step: 1,
-            pageOneAllFilled: "",
+            pageOneAllFilled: false,
+            categoriesSelected: false,
             itemIndex: 0,
+
+
+            buttonDisabled: {
+                backgroundColor: "grey"
+            },
+            buttonActive: {
+                backgroundColor: "white"
+            }
         };
         this.saveValues = this.saveValues.bind(this);
+        this.setCategoriesSelected = this.setCategoriesSelected.bind(this);
+        this.isButtonDisabled = this.isButtonDisabled.bind(this);
     }
 
 
@@ -102,9 +113,9 @@ class OrderMain extends Component {
         tempArr[this.state.values.length] = {
             'pickupaddr': "",
             'zipcode': "",
-            'city':"",
+            'city': "",
             'phone': "",
-            'pickupInstructions':"",
+            'pickupInstructions': "",
             'iscompany': "",
             'category': "",
             'subCat': "",
@@ -134,8 +145,68 @@ class OrderMain extends Component {
         })
     }
 
+    setCategoriesSelected = (categoriesSelected) => {
+        console.log("category select")
+        console.log(categoriesSelected)
+        this.setState({
+            categoriesSelected: categoriesSelected
+        })
+    }
+
     submitOrder = () => {
         this.nextStep()
+    }
+
+    // function for handling all the forward/backward button disable conditions
+    // direction: 0=back, 1=forward. type: 0=bool , 1=style
+    isButtonDisabled(arrowDirection, type) {
+
+        switch (arrowDirection) {
+            case 0:
+
+                if (this.state.step == 1
+                    || this.state.step == 2
+                ) {
+                    if (type == 0) {
+                        return false; // false on disabled, so button enabled
+                    } else {
+                        return this.state.buttonActive
+                    }
+
+                } else {
+                    if (type == 0) {
+                        return true;
+                    } else {
+                        return this.state.buttonDisabled
+                    }
+                }
+
+            case 1:
+
+                if ((this.state.step == 1 && this.state.pageOneAllFilled)
+                    || (this.state.step == 2 && this.state.categoriesSelected)
+                    || this.state.step == 3
+                    || this.state.step == 4
+                ) {
+                    if (type == 0) {
+                        return false; // false on disabled, so button enabled
+                    } else {
+                        return this.state.buttonActive
+                    }
+                } else {
+                    if (type == 0) {
+                        return true;
+                    } else {
+                        return this.state.buttonDisabled
+                    }
+                }
+
+
+        }
+
+
+
+
     }
 
     showSteps = () => {
@@ -150,19 +221,20 @@ class OrderMain extends Component {
                 return < CategoriesFields
                     values={this.state.values[this.state.itemIndex]}
                     nextStep={this.nextStep}
-                    saveValues={this.saveValues} />
+                    saveValues={this.saveValues}
+                    setCategoriesSelected={this.setCategoriesSelected} />
             case 3:
                 return < InfoFields
                     values={this.state.values[this.state.itemIndex]}
                     nextStep={this.nextStep}
-                    saveValues={this.saveValues} 
-                    saveButtonText={this.state.itemIndex == this.state.values.length -1 ? "Lisää laite" :"Tallenna muutokset"}/>
+                    saveValues={this.saveValues}
+                    saveButtonText={this.state.itemIndex == this.state.values.length - 1 ? "Lisää laite" : "Tallenna muutokset"} />
             case 4:
                 return < Summary
                     values={this.state.values}
                     nextStep={this.nextStep}
                     saveValues={this.saveValues}
-                    nextItem={this.nextItem} 
+                    nextItem={this.nextItem}
                     editItem={this.editItem} />
         }
     }
@@ -199,12 +271,6 @@ class OrderMain extends Component {
                 margin: 'auto',
                 float: 'left',
                 marginLeft: 10
-            },
-            buttonDisabled: {
-                backgroundColor: "grey"
-            },
-            buttonActive: {
-                backgroundColor: "white"
             }
         }
         return (
@@ -213,13 +279,13 @@ class OrderMain extends Component {
 
             <div className="orderWrapper">
                 <div className="progressBar" style={{ maxWidth: '90vh', minWidth: '50vh', display: 'flex', justifyContent: 'center' }}>
-                    <Button variant="fab" style={this.state.step == 1 ? styles.buttonDisabled : styles.buttonActive} disabled={this.state.step == 1} onClick={this.prevStep}><Forward style={{ transform: "scaleX(-1)" }} /></Button>
+                    <Button variant="fab" style={this.isButtonDisabled(0, 1)} disabled={this.isButtonDisabled(0, 0)} onClick={this.prevStep}><Forward style={{ transform: "scaleX(-1)" }} /></Button>
                     <div className="state1" style={this.state.step == 1 ? styles.Active : styles.notActive}></div>
                     <div className="state2" style={this.state.step == 2 ? styles.Active : styles.notActive}></div>
                     <div className="state3" style={this.state.step == 3 ? styles.Active : styles.notActive}></div>
                     <div className="state4" style={this.state.step == 4 ? styles.Active : styles.notActive}></div>
-                    <Button variant="fab" style={(this.state.step == 1 && !this.state.pageOneAllFilled) || this.state.step == 3 || this.state.step == 4 ? styles.buttonDisabled : styles.buttonActive}
-                        disabled={(this.state.step == 1 && !this.state.pageOneAllFilled) || this.state.step == 3 || this.state.step == 4} onClick={this.nextStep}><Forward /></Button>
+                    <Button variant="fab" style={this.isButtonDisabled(1, 1)}
+                        disabled={this.isButtonDisabled(1, 0)} onClick={this.nextStep}><Forward /></Button>
                 </div>
                 <div className="frontPageBox" >{this.showSteps()}</div>
             </div>

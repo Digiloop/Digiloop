@@ -75,13 +75,28 @@ class CategoriesFields extends React.Component {
 
 
     componentDidMount() {
-
-        if(this.props.values.category = "" || this.props.values.subCat == ""){
+        console.log("POWERRANGERIT MOUNTTAA!!!")
+        console.log(this.props.values)
+        if(this.props.values.category == "" || this.props.values.subCat == ""){
             this.props.setCategoriesSelected(false);
         } else {
 
-            // TODO: setstate the activeCat/subcat ID's, so it can highlight them
-            //for(let i = 0; i < )
+            // compare the selected item's (sub)category names with store's (sub)categorylists to find their ID's
+            // then store the IDs as active to enable highlighting
+            // this is kinda stupid, but it's what you get for not storing the ID's in the value object in the first place
+            for(let i = 0; i < this.props.categories.length; i++){
+                //console.log(this.props.values)
+                if ( this.props.categories[i].CatName === this.props.values.category){
+                    for ( let j = 0; j < this.props.subCategories.length; j++ ){
+                        if( this.props.subCategories[j].subName === this.props.values.subCat){
+                            this.setState({ 
+                                activeCatId: this.props.categories[i].CatId,
+                                activeSubCatId: this.props.subCategories[j].subId
+                            })
+                        }
+                    }
+                }
+            }
 
             this.props.setCategoriesSelected(true);
         }

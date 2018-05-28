@@ -73,11 +73,17 @@ class OrderMain extends Component {
             'description': value.description
         }
 
+        console.log("wtf")
+        console.log(newObject.category)
+
         // save new object on the correct index
         valueArray[this.state.itemIndex] = newObject;
 
         this.setState({
             values: valueArray
+        }, function(){
+            console.log("fuu")
+            console.log(this.state.values)
         })
 
     }

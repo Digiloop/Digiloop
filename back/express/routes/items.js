@@ -15,10 +15,15 @@ router.get('/items',(req, res, next) => {
 
 //POST
 router.post('/itemAdd',isLoggedIn, (req, res, next) => {
-    const query = 'INSERT INTO junk ( category, subCat, weight, size, description, pcs, pickupaddr, junkdate, junkdateadded, status, owner, latitude, longitude, wishbox, city, zipcode, iscompany, itemphone ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);'
-    sqldatahaku.querySql(query,[req.body.category, req.body.subCat, req.body.weight, req.body.size, req.body.description, 
+    //const query = 'INSERT INTO junk ( category, subCat, weight, size, description, pcs, pickupaddr, junkdate, junkdateadded, status, owner, latitude, longitude, wishbox, city, zipcode, iscompany, itemphone ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);'
+    const query = 'INSERT INTO junk ( pickupaddr, zipcode, city, itemphone, wishbox, iscompany, category, subCat, pcs, size, weight, description, latitude, longitude, junkdate, junkdateadded, status, owner ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);'
+    /*sqldatahaku.querySql(query,[req.body.category, req.body.subCat, req.body.weight, req.body.size, req.body.description, 
     req.body.pcs, req.body.pickupaddr, Date.now(), '2018-05-23 13:06:00', 1,
     req.user.id, 62.017713, 25.682757, req.body.pickupInstructions, req.body.city, req.body.zipcode, req.body.iscompany, req.body.phone]);
+    res.end();*/
+    let secondary = [Date.now(), '2018-05-23 13:06:00', 1, req.user.id]
+    //sqldatahaku.querySql(query,fuseItemArray(req.body,secondary))
+    fuseItemArray(req.body,secondary,query)
     res.end();
 }); // //req.user.id
 
@@ -38,7 +43,7 @@ router.post('/itemTest', (req, res, next) => {
     //a = req.body[1]
     a1 = req.body[0];
     a = req.body;
-    b = [Date.now(), '2018-05-23 13:06:00', 1, id, 62.017713, 25.682757]
+    b = [Date.now(), '2018-05-23 13:06:00', 1, req.user.id]
     
 let item = [a.pickupaddr,a.zipcode,a.city,a.phone,a.pickupInstructions,a.iscompany,
             a.category,a.subCat,a.pcs,a.size,a.weight,a.description,a.latitude,a.longitude]
@@ -47,7 +52,7 @@ let item = [a.pickupaddr,a.zipcode,a.city,a.phone,a.pickupInstructions,a.iscompa
     //funkkari(a,b);
     //let arrar = keyToArray(a1);
     d = fuseItemArray(a,b)
-    console.log(d[0])
+    console.log(d)
     //console.log(arrar[1])
     //ab = a.concat(b);
     //console.log(Object.keys(a))
@@ -81,11 +86,11 @@ function keyToArray(vals){
     return arr;
     }
 
-function fuseItemArray(array1,array2) {
+function fuseItemArray(array1,array2,query) {
     let arr = [];
     for (var i = 0; i < array1.length; i++) {
         //console.log()
-            return keyToArray(array1[i]).concat(array2)
+        sqldatahaku.querySql(query,keyToArray(array1[i]).concat(array2))
         //Do something
     }
 }

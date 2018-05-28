@@ -35,10 +35,22 @@ router.post('/itemReserve', (req, res, next) => {
 router.post('/itemTest', (req, res, next) => {
     req.body;
     let id = 102;
-    a = [req.body[0]]
+    //a = req.body[1]
+    a1 = req.body[0];
+    a = req.body;
     b = [Date.now(), '2018-05-23 13:06:00', 1, id, 62.017713, 25.682757]
-    ab = a.concat(b);
-    console.log(ab)
+    
+let item = [a.pickupaddr,a.zipcode,a.city,a.phone,a.pickupInstructions,a.iscompany,
+            a.category,a.subCat,a.pcs,a.size,a.weight,a.description,a.latitude,a.longitude]
+    let ab = item.concat(b)
+    //console.log(ab)
+    //funkkari(a,b);
+    //let arrar = keyToArray(a1);
+    d = fuseItemArray(a,b)
+    console.log(d[0])
+    //console.log(arrar[1])
+    //ab = a.concat(b);
+    //console.log(Object.keys(a))
     //console.log(a)
     res.end();
 })
@@ -52,6 +64,30 @@ function isLoggedIn(req, res, next) {
     // if they aren't redirect them to the home page
     //res.redirect('/');
     res.end();
+}
+
+
+function derppari(vals){
+for (i=0;i<Object.keys(vals).length; i++) {
+   console.log(vals[Object.keys(i)]);
+}
+}
+
+function keyToArray(vals){
+    let arr = [];
+    for (var key in vals) {
+       arr.push(vals[key]);
+    }
+    return arr;
+    }
+
+function fuseItemArray(array1,array2) {
+    let arr = [];
+    for (var i = 0; i < array1.length; i++) {
+        //console.log()
+            return keyToArray(array1[i]).concat(array2)
+        //Do something
+    }
 }
 
 

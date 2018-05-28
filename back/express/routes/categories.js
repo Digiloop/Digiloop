@@ -41,19 +41,19 @@ router.get('/kuva', (req, res, next) => {
 })
 
 //POST
-router.post('/subcatstatus', (req, res, next) => {
+router.post('/subcatStatus', (req, res, next) => {
   const query = 'UPDATE subCat SET Status = ? WHERE subId = ?'
   sqldatahaku.querySql(query, [req.body.Status,req.body.subId])
   res.end();
 });
 
-router.post('/catADD', (req,res) => {
+router.post('/catAdd', (req,res) => {
   const query = 'INSERT INTO Category ( CatName, Status, RealName, ImgReference ) VALUES (?,?,?,?)'
   sqldatahaku.querySql(query,[req.body.catname, 1, req.body.catname,'imagereferenssi']);
   res.end();
 });
 
-router.post('/subcatADD', (req,res) => {
+router.post('/subcatAdd', (req,res) => {
   const query = 'INSERT INTO subCat ( CatId, subName, Status) VALUES (?,?,?)'
   sqldatahaku.querySql(query,[req.body.catid, req.body.subcatname, 1]);
   res.end();

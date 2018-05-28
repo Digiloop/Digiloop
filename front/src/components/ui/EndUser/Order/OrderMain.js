@@ -146,8 +146,8 @@ class OrderMain extends Component {
     }
 
     setCategoriesSelected = (categoriesSelected) => {
-        console.log("category select")
-        console.log(categoriesSelected)
+
+
         this.setState({
             categoriesSelected: categoriesSelected
         })
@@ -168,36 +168,36 @@ class OrderMain extends Component {
                     || this.state.step == 2
                 ) {
                     if (type == 0) {
-                        return false; // false on disabled, so button enabled
+                        return true; // disabled true
                     } else {
-                        return this.state.buttonActive
+                        return this.state.buttonDisabled
                     }
 
                 } else {
                     if (type == 0) {
-                        return true;
+                        return false; // disabled false; button enabled
                     } else {
-                        return this.state.buttonDisabled
+                        return this.state.buttonActive
                     }
                 }
 
             case 1:
 
-                if ((this.state.step == 1 && this.state.pageOneAllFilled)
-                    || (this.state.step == 2 && this.state.categoriesSelected)
+                if ((this.state.step == 1 && !this.state.pageOneAllFilled)
+                    || (this.state.step == 2 && !this.state.categoriesSelected)
                     || this.state.step == 3
                     || this.state.step == 4
                 ) {
                     if (type == 0) {
-                        return false; // false on disabled, so button enabled
+                        return true; // disabled true
                     } else {
-                        return this.state.buttonActive
+                        return this.state.buttonDisabled
                     }
                 } else {
                     if (type == 0) {
-                        return true;
+                        return false; // disabled false; button enabled
                     } else {
-                        return this.state.buttonDisabled
+                        return this.state.buttonActive
                     }
                 }
 

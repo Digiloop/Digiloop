@@ -13,8 +13,6 @@ class CategoriesFields extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            cats: '',
-            subCats: '',
 
             activeCatId: '',
             activeCatName: '',
@@ -25,6 +23,9 @@ class CategoriesFields extends React.Component {
         };
     }
 
+    // redundant fetch, the categories are already fetched when app is opened
+    // categories update so rarely, that there is no reason to re-fetch them here
+    /*
     // fetch junk data
     getCategories() {
         getCats().then((categories) => {
@@ -37,6 +38,7 @@ class CategoriesFields extends React.Component {
             this.setState({ subCats: (subCategories) });
         });
     }
+    */
 
     // catId = Category CatId, category = Category name
     getCat = (catId, categoryName) => {
@@ -73,12 +75,21 @@ class CategoriesFields extends React.Component {
 
 
     componentDidMount() {
-        this.getCategories();
-        this.getSubCategories();
+
+        if(this.props.values.category = "" || this.props.values.subCat == ""){
+            this.props.setCategoriesSelected(false);
+        } else {
+
+            // TODO: setstate the activeCat/subcat ID's, so it can highlight them
+            //for(let i = 0; i < )
+
+            this.props.setCategoriesSelected(true);
+        }
         this.setState({
-            activeCatName: this.props.values == undefined ? "" : this.props.values.category,
-            activeSubCatName: this.props.values == undefined ? "" : this.props.values.subCat
+            activeCatName: this.props.values.category,
+            activeSubCatName: this.props.values.subCat
         })
+
     }
 
     render() {
@@ -129,28 +140,28 @@ class CategoriesFields extends React.Component {
         const subCats = [];
 
 
-        for (let i = 0; i < this.state.cats.length; i++) {
+        for (let i = 0; i < this.props.categories.length; i++) {
             cats.push(
                 <td
-                    value={this.state.cats[i].CatName}
-                    onClick={() => this.getCat(this.state.cats[i].CatId, this.state.cats[i].CatName)}
+                    value={this.props.categories[i].CatName}
+                    onClick={() => this.getCat(this.props.categories[i].CatId, this.props.categories[i].CatName)}
                     key={i} >
-                    <div style={this.state.cats[i].CatId == this.state.activeCatId ? styles.imagesActive : styles.images} >
-                        {this.state.cats[i].CatName}
+                    <div style={this.props.categories[i].CatId == this.state.activeCatId ? styles.imagesActive : styles.images} >
+                        {this.props.categories[i].CatName}
                     </div>
                 </td>
             )
         }
 
-        for (let j = 0; j < this.state.subCats.length; j++) {
-            if (this.state.subCats[j].CatId === this.state.activeCatId) {
+        for (let j = 0; j < this.props.subCategories.length; j++) {
+            if (this.props.subCategories[j].CatId === this.state.activeCatId) {
                 subCats.push(
                     <td
-                        value={this.state.subCats[j].subName}
-                        onClick={() => this.getSubCat(this.state.subCats[j].subId, this.state.subCats[j].subName)}
+                        value={this.props.subCategories[j].subName}
+                        onClick={() => this.getSubCat(this.props.subCategories[j].subId, this.props.subCategories[j].subName)}
                         key={j} >
-                        <div style={this.state.subCats[j].subId == this.state.activeSubCatId ? styles.imagesActive : styles.images} >
-                            {this.state.subCats[j].subName}
+                        <div style={this.props.subCategories[j].subId == this.state.activeSubCatId ? styles.imagesActive : styles.images} >
+                            {this.props.subCategories[j].subName}
                         </div>
                     </td>
                 )

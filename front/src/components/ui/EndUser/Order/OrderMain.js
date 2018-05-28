@@ -35,10 +35,12 @@ class OrderMain extends Component {
                 weight: ''
             }],
             step: 1,
-            pageOneAllFilled: "",
+            pageOneAllFilled: false,
+            categoriesSelected: false,
             itemIndex: 0,
         };
         this.saveValues = this.saveValues.bind(this);
+        this.isButtonDisabled = this.isButtonDisabled.bind(this);
     }
 
 
@@ -134,8 +136,28 @@ class OrderMain extends Component {
         })
     }
 
+    setCategoriesSelected = (categoriesSelected) => {
+        this.setState({
+            categoriesSelected: categoriesSelected
+        })
+    }
+
     submitOrder = () => {
         this.nextStep()
+    }
+
+    // function for handling all the forward/backward button disable conditions
+    isButtonDisabled() {
+        if((this.state.step == 1 && this.state.pageOneAllFilled)
+        || (this.state.step == 2 && this.state.setCategoriesSelected) 
+        || this.state.step == 3 
+        || this.state.step == 4
+        ){
+            console.log("false")
+            return false; // false on disabled, so button enabled
+        }
+        console.log("true")
+        return true;
     }
 
     showSteps = () => {
@@ -150,7 +172,8 @@ class OrderMain extends Component {
                 return < CategoriesFields
                     values={this.state.values[this.state.itemIndex]}
                     nextStep={this.nextStep}
-                    saveValues={this.saveValues} />
+                    saveValues={this.saveValues} 
+                    setCategoriesSelected={this.setCategoriesSelected} />
             case 3:
                 return < InfoFields
                     values={this.state.values[this.state.itemIndex]}
@@ -219,7 +242,7 @@ class OrderMain extends Component {
                     <div className="state3" style={this.state.step == 3 ? styles.Active : styles.notActive}></div>
                     <div className="state4" style={this.state.step == 4 ? styles.Active : styles.notActive}></div>
                     <Button variant="fab" style={(this.state.step == 1 && !this.state.pageOneAllFilled) || this.state.step == 3 || this.state.step == 4 ? styles.buttonDisabled : styles.buttonActive}
-                        disabled={(this.state.step == 1 && !this.state.pageOneAllFilled) || this.state.step == 3 || this.state.step == 4} onClick={this.nextStep}><Forward /></Button>
+                        disabled={this.isButtonDisabled()} onClick={this.nextStep}><Forward /></Button>
                 </div>
                 <div className="frontPageBox" >{this.showSteps()}</div>
             </div>

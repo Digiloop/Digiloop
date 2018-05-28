@@ -45,7 +45,7 @@ module.exports = (app, passport, users) => {
     });
 	 app.post('/deleteUser', isLoggedIn, (req, res) => {
 		 if (req.user.userlvl == 0){
-        connection.query('UPDATE users SET Status = ? WHERE id = ?;', [req.body.Status, req.body.id], (err, rows) => {
+        connection.query('UPDATE users SET Status = 0 WHERE id = ?;', [req.body.id], (err, rows) => {
             if (err) throw err;
             console.log(rows.affectedRows + " record(s) updated");
         });

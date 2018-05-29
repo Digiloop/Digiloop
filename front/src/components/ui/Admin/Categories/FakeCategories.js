@@ -2,31 +2,32 @@ import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { TextField, FlatButton } from 'material-ui';
-import { getCats, getSubCats, getFakeCats } from '../../../utils/fetchcategories';
-import { addNewCat, addNewSubCat } from '../../../utils/sendAddCatsData';
-import { Radio, RadioGroup, FormControlLabel } from '@material-ui/core';
-import { MenuItem, DropDownMenu, SelectField } from 'material-ui';
+import { getCats, getSubCats, getFakeCats } from '../../../../utils/fetchcategories';
+import { addNewCat, addNewSubCat, addNewFakeCat } from '../../../../utils/sendAddCatsData';
+import { MenuItem, SelectField } from 'material-ui';
 import ActionInfo from 'material-ui/svg-icons/action/info';
-import { black } from 'material-ui/styles/colors';
+import { Table, TableBody, TableHeader } from 'material-ui/Table';
+import { TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 
-class Categories extends Component {
+class FakeCategories extends Component {
     constructor(props) {
         super(props);
         this.state = {
             value: '',
-            valueR: 'catname',
             valueC: '',
+            valueSub: '',
             cat: '',
             cats: [],
             subCats: [],
             fakeCats: [],
-            addCat: '',
+            addFakeCat: '',
             addSubCat: [],
+            rows: [],
             catError: false,
-            catNameError: false
+            catNameError: false,
+            subCatError: false
         }
     }
-
     // fetch junk data
     getCategories() {
         getCats().then((categories) => {
@@ -54,58 +55,73 @@ class Categories extends Component {
         });
     }
 
-    // Add Cat or SubCat
+    // CatId = subCategory CatId, subCat = subCategory name
+    getSubCat = (subCatId, subCatName) => {
+        this.setState({
+            subCatId: subCatId,
+            subCatName: subCatName
+        });
+    }
+
+    // Add fakeCat
     addCats() {
-        if (this.state.addCat === '' || this.state.addCat === null || this.state.addCat === undefined) {
+        if (this.state.addFakeCat === '' || this.state.addFakeCat === null || this.state.addFakeCat === undefined) {
             this.setState({ catNameError: true });
         } else {
-            if (this.state.valueR === 'subcatname') {
-                if (this.state.valueC === '') {
-                    this.setState({ catError: true });
-                } else {
-                    this.addSubCategory();
-                    this.setState({ addCat: '' })
-                }
+            if (this.state.valueC === '') {
+                this.setState({ catError: true });
+            }
+            if (this.state.valueSub === '' || this.state.valueSub === undefined) {
+                this.setState({ subCatError: true });
             } else {
-                this.addCategory();
-                this.setState({ addCat: '' })
+                this.addFakeCategory();
+                this.setState({ addFakeCat: '' })
             }
         }
     }
 
-    // Add Category name
-    addCategory() {
-        var addCatName = {
-            'catname': this.state.addCat
+    // add fakecategory name and subCatId
+    addFakeCategory() {
+        var addFakeCatName = {
+            'subCatId': this.state.subCatId,
+            'name': this.state.addFakeCat,
         }
-        addNewCat(JSON.stringify(addCatName)).then(() => { this.getCategories() });
+        addNewFakeCat(JSON.stringify(addFakeCatName)).then(() => { this.getFakeCategories() });
     }
 
-    // Add SubCategory name
-    addSubCategory() {
-        var addSubCatName = {
-            'catid': this.state.value,
-            'subcatname': this.state.addCat,
-        }
-        addNewSubCat(JSON.stringify(addSubCatName)).then(() => { this.getSubCategories() });
-    }
-
-    handleCatFieldChange = event => {
+    handleFakeCatFieldChange = event => {
         this.setState({
-            addCat: event.target.value,
+            addFakeCat: event.target.value,
             catNameError: false
         })
-    };
-
-    handleChange = event => {
-        this.setState({ valueR: event.target.value });
-        console.log(event.target.value);
-
     };
 
     handleCatChange = (event, index, value) => {
         this.setState({ valueC: value, catError: false });
     };
+
+    handleSubCatChange = (event, index, value) => {
+        this.setState({ valueSub: value, subCatError: false });
+    };
+
+    // opening items
+  expand(x) {
+    // create a temp array, because it's easier to edit than the state one
+    let newArray = this.state.rows;
+
+    if(newArray[x]){ // closing the open item
+      newArray[x] = false;
+    } else { // opening another means first closing the open one
+      for (let i = 0; i < newArray.length; i++){
+        if(newArray[i]){
+          newArray[i] = false; // close the open one
+        }
+      }
+      newArray[x] = true; // open the new row
+    }
+    // set the edited version as the new state
+    this.setState({ rows: newArray });
+  }
 
 
     componentDidMount() {
@@ -125,11 +141,6 @@ class Categories extends Component {
                 fontWeight: 400,
                 fontSize: '20px',
                 color: 'white'
-            },
-            radio: {
-                marginLeft: '2%',
-                backgroundColor: 'white',
-                width: '100%'
             },
             textField: {
                 marginLeft: '2%',
@@ -156,17 +167,17 @@ class Categories extends Component {
 
         const muiTheme = getMuiTheme({}, {
             palette: {
-              accent1Color: '#004225',
+                accent1Color: '#004225',
             },
-          });
+        });
 
         const cats = [];
         const subCats = [];
         const fakeCats = [];
         console.log(this.state.cats);
-        console.log(this.state.cats.length);
-        console.log(this.state.subCats.length);
         console.log(this.state.subCats);
+        console.log(this.state.fakeCats);
+
 
         for (let i = 0; i < this.state.cats.length; i++) {
             cats.push(
@@ -177,30 +188,24 @@ class Categories extends Component {
             )
         }
 
-        /*for (let i = 0; i < this.state.cats.length; i++) {
-            cats.push(
-                <div value={this.state.cats[i].CatName} onClick={() =>
-                    this.getCat(this.state.cats[i].CatId, this.state.cats[i].CatName)} key={i} >
-                    <h3>{this.state.cats[i].CatName}</h3>
-                </div>
-            )
-        } */
-
-        for (let j = 0; j < this.state.subCats.length; j++) {
-            if (this.state.subCats[j].CatId === this.state.value) {
+        for (let i = 0; i < this.state.subCats.length; i++) {
+            if (this.state.subCats[i].CatId === this.state.value) {
                 subCats.push(
-                    <div key={j} >
-                        {this.state.subCats[j].subName}
-                    </div>
+                    <MenuItem className='menuItems' value={this.state.subCats[i].subName} onClick={() =>
+                        this.getSubCat(this.state.subCats[i].subId, this.state.subCats[i].subName)} key={i}
+                        value={this.state.subCats[i].subName}
+                        primaryText={this.state.subCats[i].subName} />
                 )
             }
         }
 
         for (let i = 0; i < this.state.fakeCats.length; i++) {
             fakeCats.push(
-                <div key={i} >
-                    <h3>{this.state.fakeCats[i].name}</h3>
-                </div>
+                <TableRow key={i} >
+                <TableRowColumn>
+                    {this.state.fakeCats[i].name}
+                </TableRowColumn>
+                </TableRow>
             )
         }
 
@@ -208,8 +213,8 @@ class Categories extends Component {
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div>
                     <div className='categories'>
-                        <div className='cats' style={{ float: 'left', width: '48%', marginLeft: '2%' }}>
-                            <div className='addCategory' >
+                        <div className='cats' style={{ float: 'left', width: '30%', marginLeft: '2%' }}>
+                            <div className='addFakeCategory' >
                                 <div>
                                     {this.state.catNameError ?
                                         <p style={styles.errorStyle}>
@@ -218,26 +223,16 @@ class Categories extends Component {
                                         </p>
                                         : <p></p>
                                     }
-                                    <p className='addCatLabel'>Lisää kategoria:</p>
-                                    <TextField className='addCatField'
+                                    <p className='addCatLabel'>Lisää feikkikategoria:</p>
+                                    <TextField className='addFakeCatField'
                                         underlineShow={false}
                                         style={styles.textField}
-                                        hintText='Uusi kategoria'
-                                        value={this.state.addCat}
-                                        onChange={this.handleCatFieldChange}
+                                        hintText='Uusi feikkikategoria'
+                                        value={this.state.addFakeCat}
+                                        onChange={this.handleFakeCatFieldChange}
                                     />
                                 </div>
-                                <RadioGroup
-                                    value={this.state.valueR}
-                                    onChange={this.handleChange}
-                                >
-                                    <FormControlLabel style={styles.radio} value='catname'
-                                        control={<Radio style={{ color: '#004225' }} />} label='Yläkategoria' />
-                                    <FormControlLabel style={styles.radio} value='subcatname'
-                                        control={<Radio style={{ color: '#004225' }} />} label='Alakategoria' />
-                                </RadioGroup>
                                 <div>
-
                                     {this.state.catError ?
                                         <p style={styles.errorStyle}>
                                             <ActionInfo color={'white'} />
@@ -253,9 +248,27 @@ class Categories extends Component {
                                         iconStyle={{ fill: '#004225' }}
                                     >
                                         {cats}
-                                    </SelectField></div>
+                                    </SelectField>
+                                </div>
+                                <div>
+                                    {this.state.subCatError ?
+                                        <p style={styles.errorStyle}>
+                                            <ActionInfo color={'white'} />
+                                            <b>Valitse alakategoria.</b> <br />
+                                        </p>
+                                        : <p></p>
+                                    }
+                                    <SelectField
+                                        hintText='Valitse alakategoria'
+                                        value={this.state.valueSub}
+                                        onChange={this.handleSubCatChange}
+                                        style={styles.selectField}
+                                        iconStyle={{ fill: '#004225' }}
+                                    >
+                                        {subCats}
+                                    </SelectField>
+                                </div>
                             </div>
-                            {/*<h1>Kategoriat</h1>{cats}*/}
                             <FlatButton
                                 label='Lisää'
                                 style={styles.button}
@@ -263,21 +276,11 @@ class Categories extends Component {
                                 onClick={() => this.addCats()}
                             />
                         </div>
-                        <div className='subCat' style={{ float: 'right', width: '50%' }}>
-                            {fakeCats}
-                            {/*subCats.length !== 0 ? <div className='addSubCategory' >
-                                <h1>{this.state.cat}-kategorian alakategoriat:</h1>
-                                {subCats}{console.log(subCats.length)} <br />
-                                <p className='addSubCatLabel'>Lisää alakategoria</p>
-                                <TextField className='addSubCatField'
-                                    underlineShow={false}
-                                    style={{ backgroundColor: 'white', border: '2px solid #004225' }}
-                                    hintText='Uusi alakategoria'
-                                    onChange={(event, newValue) => this.setState({ addSubCat: newValue })}
-                                />
-                                <RaisedButton label='Lisää' onClick={() => this.addSubCategory()} />
-        </div> : <div></div>*/}
-                        </div>
+                        <Table className='subCat' style={{ float: 'left', width: '60%', marginLeft: '5%' }} onCellClick={rowNumber => this.expand(rowNumber)}>
+                            <TableBody displayRowCheckbox={false}>
+                                {fakeCats}
+                            </TableBody>
+                        </Table>
                     </div>
                 </div>
             </MuiThemeProvider>
@@ -285,4 +288,4 @@ class Categories extends Component {
         );
     }
 }
-export default Categories;
+export default FakeCategories;

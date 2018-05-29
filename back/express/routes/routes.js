@@ -5,8 +5,6 @@ var dbconfig = require('../app/database');
 var fileUpload = require('express-fileupload');
 var connection = mysql.createConnection(dbconfig.connection);
 var bcrypt = require('bcrypt-nodejs');
-var sqldata = require('../code/sqldata.js'); //haetaan luokka joka hoitaa sql sydeemeit
-var sqldatahaku = new sqldata; 
 //var datenow = Date.now();
 const fs = require('fs');
 connection.query('USE ' + dbconfig.database);

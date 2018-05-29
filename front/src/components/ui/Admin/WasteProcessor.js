@@ -8,7 +8,7 @@ import Profile from '../../containers/Admin/Profile/Profile'
 
 import HistoryListing from '../../containers/Admin/HistoryListing'
 import ReservedListing from '../../containers/Admin/ReservedListing'
-import Categories from '../../containers/Admin/Categories'
+import CategoriesMain from '../../containers/Admin/Categories/CategoriesMain'
 import Varauskartta from '../../containers/Admin/Varauskartta/Varauskartta'
 import Admin from '../../containers/Admin/Admin'
 
@@ -95,7 +95,7 @@ class AdminWasteProcessor extends Component {
               </div>
             </Toolbar>
           </AppBar>
-          {this.state.index === 0 && <Categories />}
+          {this.state.index === 0 && <CategoriesMain />}
           {this.state.index === 1 && <ReservedListing />}
           {this.state.index === 2 && <Admin />}
           {this.state.index === 3 && <Varauskartta />}

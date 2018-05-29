@@ -31,6 +31,7 @@ class Login extends Component {
 
       // check that loginData is defined and is not an error
       if (loginData.userdata) {
+        console.log("lokin data")
         console.log(loginData);
         localStorage.loginData = JSON.stringify(loginData);
         this.props.onNewLogin(loginData.userdata);

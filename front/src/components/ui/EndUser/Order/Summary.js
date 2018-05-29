@@ -49,7 +49,7 @@ class Summary extends React.Component {
                 console.log(data);
                 // toimii, kommentoitu, koska bäkki ei oo valmis siihen
                 sendItemData(JSON.stringify(data));
-
+                //window.location.reload()
 
             } else {
                 window.alert("Osoitetta ei löytynyt");

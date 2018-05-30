@@ -36,10 +36,6 @@ router.get('/subcat', (req, res, next) => {
   });
 });
 
-router.get('/kuva', (req, res, next) => {
-  res.sendFile(`${__dirname}/randomi.jpg`)
-})
-
 //POST
 router.post('/subcatStatus', (req, res, next) => {
   const query = 'UPDATE subCat SET Status = ? WHERE subId = ?'

@@ -8,6 +8,8 @@ import Back from 'material-ui/svg-icons/navigation/arrow-back';
 import styles from '../../../../index.css';
 import { getCats, getSubCats } from '../../../../utils/fetchcategories';
 
+import noImage from './imgMissingTransparent.png'
+import { BASE_URL } from '../../../../settings'
 
 class CategoriesFields extends React.Component {
     constructor(props) {
@@ -18,43 +20,37 @@ class CategoriesFields extends React.Component {
             activeCatName: '',
 
             activeSubCatId: '',
-            activeSubCatName: ''
+            activeSubCatName: '',
 
+            images: {
+
+            }
         };
+        this.categoryImageStyler = this.categoryImageStyler.bind(this);
     }
 
-    // redundant fetch, the categories are already fetched when app is opened
-    // categories update so rarely, that there is no reason to re-fetch them here
-    /*
-    // fetch junk data
-    getCategories() {
-        getCats().then((categories) => {
-            this.setState({ cats: (categories) });
-        });
-    }
-
-    getSubCategories() {
-        getSubCats().then((subCategories) => {
-            this.setState({ subCats: (subCategories) });
-        });
-    }
-    */
 
     // catId = Category CatId, category = Category name
-    getCat = (catId, categoryName) => {
+    setCat = (catId, categoryName) => {
         this.setState({
             activeCatId: catId,
-            activeCatName: categoryName
+            activeCatName: categoryName,
+
+            // when category is changed, remove all old subcat states
+            activeSubCatId: "",
+            activeSubCatName: ""
         }, function () {
             this.props.setCategoriesSelected(false);
         });
     }
 
     // CatId = subCategory CatId, subCat = subCategory name
-    getSubCat = (subCatId, subCatName) => {
+    setSubCat = (subCatId, subCatName, proxyCatId, proxyCatName) => {
         this.setState({
             activeSubCatId: subCatId,
-            activeSubCatName: subCatName
+            activeProxyCatId: proxyCatId,
+            activeSubCatName: subCatName,
+            activeProxyCatName: proxyCatName
         }, function () {
 
             // save the data in OrderMain's state
@@ -67,6 +63,7 @@ class CategoriesFields extends React.Component {
                 iscompany: this.props.values.iscompany,
                 category: this.state.activeCatName,
                 subCat: subCatName,
+                proxySubCat: proxyCatName
             }
             this.props.saveValues(data);
             this.props.setCategoriesSelected(true);
@@ -75,21 +72,19 @@ class CategoriesFields extends React.Component {
 
 
     componentDidMount() {
-        console.log("POWERRANGERIT MOUNTTAA!!!")
-        console.log(this.props.values)
-        if(this.props.values.category == "" || this.props.values.subCat == ""){
+
+        if (this.props.values.subCat == undefined || this.props.values.subCat == "") {
             this.props.setCategoriesSelected(false);
         } else {
 
             // compare the selected item's (sub)category names with store's (sub)categorylists to find their ID's
             // then store the IDs as active to enable highlighting
             // this is kinda stupid, but it's what you get for not storing the ID's in the value object in the first place
-            for(let i = 0; i < this.props.categories.length; i++){
-                //console.log(this.props.values)
-                if ( this.props.categories[i].CatName === this.props.values.category){
-                    for ( let j = 0; j < this.props.subCategories.length; j++ ){
-                        if( this.props.subCategories[j].subName === this.props.values.subCat){
-                            this.setState({ 
+            for (let i = 0; i < this.props.categories.length; i++) {
+                if (this.props.categories[i].CatName === this.props.values.category) {
+                    for (let j = 0; j < this.props.subCategories.length; j++) {
+                        if (this.props.subCategories[j].subName === this.props.values.subCat) {
+                            this.setState({
                                 activeCatId: this.props.categories[i].CatId,
                                 activeSubCatId: this.props.subCategories[j].subId
                             })
@@ -107,6 +102,108 @@ class CategoriesFields extends React.Component {
 
     }
 
+
+
+
+    // creates the appropriate style for the (sub)category
+    // index = the element's CatId/subId
+    // type 0 = category, 1 = proxycategory
+    categoryImageStyler(index, type) {
+
+        let returnStyle;
+
+        if (type == 0) {
+
+            let imageUrl;
+
+            if( !this.props.categoryUrlsExist[index] ){
+                imageUrl = noImage;
+            } else {
+                imageUrl = BASE_URL + "/images/categories/" + this.props.categories[index].ImgReference;
+            }
+            
+
+
+            if (this.props.categories[index].CatId == this.state.activeCatId) {
+                returnStyle = {
+                    borderRadius: 4,
+                    border: '8px solid red',
+                    width: '19vw',
+                    height: '19vw',
+                    marginRight: '1%',
+                    textAlign: 'center',
+                    fontSize: '15px',
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "contain",
+                    backgroundPosition:  "center,left center",
+                    backgroundImage: "url("+imageUrl+")"
+                }
+            } else {
+                returnStyle = {
+                    borderRadius: 4,
+                    border: '8px solid white',
+                    width: '19vw',
+                    height: '19vw',
+                    marginRight: '1%',
+                    textAlign: 'center',
+                    fontSize: '15px',
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "contain",
+                    backgroundPosition: "center, left center",
+                    backgroundImage: "url("+imageUrl+")"
+                }
+            }
+
+        } else {
+
+            let imageUrl;
+
+            if( !this.props.proxyCategoryUrlsExist[index] ){
+                imageUrl = noImage;
+            } else {
+                imageUrl = BASE_URL + "/images/subcategories/" + this.props.subCategories[index].ImgReference;
+            }
+
+            if (this.props.proxyCategories[index].Id == this.state.activeProxyCatId) {
+                returnStyle = {
+                    borderRadius: 4,
+                    border: '8px solid red',
+                    width: '19vw',
+                    height: '19vw',
+                    marginRight: '1%',
+                    textAlign: 'center',
+                    fontSize: '15px',
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "contain",
+                    backgroundPosition: "center, left center",
+                    backgroundImage: "url("+imageUrl+")"
+                }
+            } else {
+                returnStyle = {
+                    borderRadius: 4,
+                    border: '8px solid white',
+                    width: '19vw',
+                    height: '19vw',
+                    marginRight: '1%',
+                    textAlign: 'center',
+                    fontSize: '15px',
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "contain",
+                    backgroundPosition: "center, left center",
+                    backgroundImage: "url("+imageUrl+")"
+                }
+            }
+
+        }
+
+
+
+
+
+        return returnStyle;
+
+    }
+
     render() {
 
         const styles = {
@@ -116,24 +213,7 @@ class CategoriesFields extends React.Component {
             borderWidth: 0.5,
             borderColor: '#d6d7da',
 
-            images: {
-                borderRadius: 4,
-                border: '8px solid white',
-                width: '19vw',
-                height: '19vw',
-                marginRight: '1%',
-                textAlign: 'center',
-                fontSize: '15px'
-            },
-            imagesActive: {
-                borderRadius: 4,
-                border: '8px solid red',
-                width: '19vw',
-                height: '19vw',
-                marginRight: '1%',
-                textAlign: 'center',
-                fontSize: '15px'
-            },
+
 
             tdStyle: {
                 borderRadius: 4,
@@ -152,34 +232,51 @@ class CategoriesFields extends React.Component {
         };
 
         const cats = [];
-        const subCats = [];
+        const proxyCats = [];
 
 
         for (let i = 0; i < this.props.categories.length; i++) {
             cats.push(
                 <td
                     value={this.props.categories[i].CatName}
-                    onClick={() => this.getCat(this.props.categories[i].CatId, this.props.categories[i].CatName)}
+                    onClick={() => this.setCat(this.props.categories[i].CatId, this.props.categories[i].CatName)}
                     key={i} >
-                    <div style={this.props.categories[i].CatId == this.state.activeCatId ? styles.imagesActive : styles.images} >
+                    <div style={this.categoryImageStyler(i, 0)} >
                         {this.props.categories[i].CatName}
                     </div>
                 </td>
             )
         }
 
+
         for (let j = 0; j < this.props.subCategories.length; j++) {
             if (this.props.subCategories[j].CatId === this.state.activeCatId) {
-                subCats.push(
-                    <td
-                        value={this.props.subCategories[j].subName}
-                        onClick={() => this.getSubCat(this.props.subCategories[j].subId, this.props.subCategories[j].subName)}
-                        key={j} >
-                        <div style={this.props.subCategories[j].subId == this.state.activeSubCatId ? styles.imagesActive : styles.images} >
-                            {this.props.subCategories[j].subName}
-                        </div>
-                    </td>
-                )
+
+                for (let k = 0; k < this.props.proxyCategories.length; k++) {
+                    
+                    if(this.props.proxyCategories[k].subCatId == this.props.subCategories[j].subId){
+
+
+                        proxyCats.push(
+                            <td
+                                value={this.props.proxyCategories[k].name}
+                                onClick={() => this.setSubCat(
+                                    this.props.subCategories[j].subId, 
+                                    this.props.subCategories[j].subName,
+                                    this.props.proxyCategories[k].Id,
+                                    this.props.proxyCategories[k].name
+                                )}
+                                key={k} >
+                                <div style={this.categoryImageStyler(k, 1)} >
+                                    {this.props.proxyCategories[k].name}
+                                </div>
+                            </td>
+                        )
+
+
+                    }
+                }
+
             }
         }
 
@@ -189,8 +286,8 @@ class CategoriesFields extends React.Component {
                     <tbody>
                         <tr><td><label className="leftOrderLabel"><h2 className="orderH2">Pääluokka</h2> </label></td></tr>
                         <tr style={styles.trStyle} >{cats}</tr>
-                        {subCats.length !== 0 ? <tr><td><label className="leftOrderLabel"><h2 className="orderH2">Alakategoria</h2> </label></td></tr> : <tr></tr>}
-                        <tr style={styles.trStyle} >{subCats}</tr>
+                        {proxyCats.length !== 0 ? <tr><td><label className="leftOrderLabel"><h2 className="orderH2">Alakategoria</h2> </label></td></tr> : <tr></tr>}
+                        <tr style={styles.trStyle} >{proxyCats}</tr>
                     </tbody>
                 </table>
             </div >

@@ -32,7 +32,8 @@ router.post('/itemReserve', (req, res, next) => {
     res.end();
 })
 
-router.post('/itemTest', (req, res, next) => {
+router.get('/itemTest', (req, res, next) => {
+    res.json(req.user.id);
 })
 
 module.exports = router

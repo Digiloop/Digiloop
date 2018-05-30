@@ -4,7 +4,6 @@ import CategoriesFields from '../../../ui/EndUser/Order/CategoriesFields';
 const mapStateToProps = (state, props) =>
   ({
     userInfo: state.loginInfo,
-    categories: state.categories,
     subCategories: state.subCategories
   })
 

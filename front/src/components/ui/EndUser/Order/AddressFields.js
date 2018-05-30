@@ -9,6 +9,8 @@ import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Back from 'material-ui/svg-icons/navigation/arrow-back';
 import styles from '../../../../index.css';
 
+import orkkis from '../Materials/OrderPics/organization2.gif';
+
 
 class AddressFields extends React.Component {
     constructor(props) {

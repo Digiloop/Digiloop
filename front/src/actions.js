@@ -6,12 +6,10 @@ export const login = (loginInfo) =>
     payload: loginInfo
   })
 
-export const setResOpt = (options) =>
-  ({
-    type: C.SET_RESOPT,
-    payload: options
-  })
 
+
+
+// categories
 export const setCategories = (cats) =>
   ({
     type: C.SET_CATEGORIES,
@@ -24,11 +22,34 @@ export const setSubCategories = (subCats) =>
     payload: subCats
   })
 
+export const setProxyCategories = (proxyCategories) =>
+  ({
+    type: C.SET_PROXY_CATEGORIES,
+    payload: proxyCategories
+  })
+
+
+
+
+
+// Reservation list items
 export const setResList = (resList) =>
   ({
     type: C.SET_RLI,
     payload: resList
   })
+
+// Reservation list filter options
+export const setResOpt = (options) =>
+  ({
+    type: C.SET_RESOPT,
+    payload: options
+  })
+
+
+
+  
+
 
 export const setNotifications = (notifications) =>
   ({
@@ -36,7 +57,7 @@ export const setNotifications = (notifications) =>
     payload: notifications
   })
 
-  export const setCurrentPage = (pageName) =>
+export const setCurrentPage = (pageName) =>
   ({
     type: C.SET_CURRENTPAGENAME,
     payload: pageName

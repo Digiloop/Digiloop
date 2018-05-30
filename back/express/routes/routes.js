@@ -20,6 +20,9 @@ connection.query('USE ' + dbconfig.database);
 //winscp kaatu
 module.exports = (app, passport, users) => {
 
+    app.get('/session', (req,res) => {
+        res.json(req.user);
+    });
     app.post('/feikkiCatAdd', (req, res) => {
         connection.query("INSERT INTO SubSubCats ( imgReference, name, subCatId) values (?, ?, ?)",['i can haz reference',req.body.name,req.body.subCatId], (err, result) => {
             if (err) throw err;
@@ -105,6 +108,7 @@ module.exports = (app, passport, users) => {
             } else {
                 req.session.cookie.expires = false;
             }
+            
 			var userObject = {address:req.user.address, city:req.user.city, company:req.user.company, email:req.user.email,
 			fname:req.user.fname, id:req.user.id, lname:req.user.lname, phone:req.user.phone, userlvl:req.user.userlvl, username:req.user.username, zipcode:req.user.zipcode};
             

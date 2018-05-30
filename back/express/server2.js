@@ -14,6 +14,7 @@ var fileUpload = require('express-fileupload')
 var passport = require('passport');
 var categories = require('./routes/categories')
 var items = require('./routes/items')
+var serveIndex = require('serve-index');
 // configuration ===============================================================
 // connect to our database
 
@@ -76,6 +77,7 @@ require('./routes/routes.js')(app, passport); // load our routes and pass in our
 //router.use(require('./routes/routes.js')(app, passport));
 //app.use('/cat', cats); // http://193.166.72.18/cat/categories
 app.use('/', categories,items); // http://193.166.72.18/categories
+app.use('/images', express.static('./kuvat'), serveIndex('./kuvat', {'icons': true}))
 //app.use('/items5', items);
 //app.use('/birds', birds) //<<- toimia esimerkki
 

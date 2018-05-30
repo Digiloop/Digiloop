@@ -3,7 +3,9 @@ import OrderMain from '../../../ui/EndUser/Order/OrderMain';
 
 const mapStateToProps = (state, props) =>
   ({
-    userInfo: state.loginInfo
+    userInfo: state.loginInfo,
+    categories: state.categories,
+    subCategories: state.subCategories
   })
 
 const mapDispatchToProps = dispatch =>

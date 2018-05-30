@@ -14,6 +14,7 @@ import CategoriesFields from '../../../containers/EndUser/Order/CategoriesFields
 import InfoFields from '../../../containers/EndUser/Order/InfoFields';
 import Summary from '../../../containers/EndUser/Order/Summary';
 
+import { BASE_URL } from '../../../../settings'
 
 class OrderMain extends Component {
     constructor(props) {
@@ -50,8 +51,40 @@ class OrderMain extends Component {
         this.saveValues = this.saveValues.bind(this);
         this.setCategoriesSelected = this.setCategoriesSelected.bind(this);
         this.isButtonDisabled = this.isButtonDisabled.bind(this);
+        this.imageExists = this.imageExists.bind(this);
     }
 
+    componentDidMount() {
+
+        let categoryUrlsExist = [];
+        let subCategoryUrlsExist = [];
+
+        for (let i = 0; i < this.props.categories.length; i++) {
+            categoryUrlsExist[i] = this.imageExists(BASE_URL + "/images/categories/" + this.props.categories[i].ImgReference);
+        }
+        console.clear()
+        for (let j = 0; j < this.props.subCategories.length; j++) {
+            console.log(this.props.subCategories[j].ImgReference)
+            subCategoryUrlsExist[j] = this.imageExists(BASE_URL + "/images/subcategories/" + this.props.subCategories[j].ImgReference);
+        }
+
+        this.setState({
+            categoryUrlsExist: categoryUrlsExist,
+            subCategoryUrlsExist: subCategoryUrlsExist
+        })
+    }
+
+    // checks if the image actually exists on the server
+    imageExists(image_url) {
+
+        var http = new XMLHttpRequest();
+
+        http.open('HEAD', image_url, false);
+        http.send();
+
+        return http.status != 404;
+
+    }
 
     saveValues(value) {
 
@@ -147,8 +180,6 @@ class OrderMain extends Component {
     }
 
     setCategoriesSelected = (categoriesSelected) => {
-
-
         this.setState({
             categoriesSelected: categoriesSelected
         })
@@ -223,7 +254,14 @@ class OrderMain extends Component {
                     values={this.state.values[this.state.itemIndex]}
                     nextStep={this.nextStep}
                     saveValues={this.saveValues}
-                    setCategoriesSelected={this.setCategoriesSelected} />
+                    setCategoriesSelected={this.setCategoriesSelected}
+
+                    categories={this.props.categories}
+                    subCategories={this.props.subCategories}
+
+                    categoryUrlsExist={this.state.categoryUrlsExist}
+                    subCategoryUrlsExist={this.state.subCategoryUrlsExist}
+                />
             case 3:
                 return < InfoFields
                     values={this.state.values[this.state.itemIndex]}

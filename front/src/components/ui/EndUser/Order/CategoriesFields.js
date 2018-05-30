@@ -8,9 +8,8 @@ import Back from 'material-ui/svg-icons/navigation/arrow-back';
 import styles from '../../../../index.css';
 import { getCats, getSubCats } from '../../../../utils/fetchcategories';
 
+import noImage from './imgMissingTransparent.png'
 import { BASE_URL } from '../../../../settings'
-import tsadam from './imgMissing.png'
-
 
 class CategoriesFields extends React.Component {
     constructor(props) {
@@ -70,8 +69,6 @@ class CategoriesFields extends React.Component {
 
 
     componentDidMount() {
-        console.log("hiiohoi, on mikki nyt merelle hukkunut")
-        console.log(this.props.values)
 
         if (this.props.values.subCat == undefined || this.props.values.subCat == "") {
             this.props.setCategoriesSelected(false);
@@ -102,22 +99,28 @@ class CategoriesFields extends React.Component {
 
     }
 
+
+
+
     // creates the appropriate style for the (sub)category
     // index = the element's CatId/subId
     // type 0 = category, 1 = subcategory
     categoryImageStyler(index, type) {
-        //this.props.categories[i].CatId == this.state.activeCatId ? styles.imagesActive : styles.images
-        //this.props.subCategories[j].subId == this.state.activeSubCatId ? styles.imagesActive : styles.images
 
-        //border: '8px solid red',
         let returnStyle;
-  
-        
-
 
         if (type == 0) {
-            console.log("näit on vitust")
-            console.log(this.props.categories);
+
+            let imageUrl;
+
+            if( !this.props.categoryUrlsExist[index] ){
+                imageUrl = noImage;
+            } else {
+                imageUrl = BASE_URL + "/images/categories/" + this.props.categories[index].ImgReference;
+            }
+            
+
+
             if (this.props.categories[index].CatId == this.state.activeCatId) {
                 returnStyle = {
                     borderRadius: 4,
@@ -128,8 +131,9 @@ class CategoriesFields extends React.Component {
                     textAlign: 'center',
                     fontSize: '15px',
                     backgroundRepeat: "no-repeat",
+                    backgroundSize: "contain",
                     backgroundPosition:  "center,left center",
-                    backgroundImage: "url("+BASE_URL+"/images/categories/"+this.props.categories[index].ImgReference+"), url("+tsadam+")"
+                    backgroundImage: "url("+imageUrl+")"
                 }
             } else {
                 returnStyle = {
@@ -141,12 +145,21 @@ class CategoriesFields extends React.Component {
                     textAlign: 'center',
                     fontSize: '15px',
                     backgroundRepeat: "no-repeat",
-                    backgroundPosition:  "center, left center",
-                    backgroundImage: "url("+BASE_URL+"/images/categories/"+this.props.categories[index].ImgReference+"), url("+tsadam+")"
+                    backgroundSize: "contain",
+                    backgroundPosition: "center, left center",
+                    backgroundImage: "url("+imageUrl+")"
                 }
             }
 
         } else {
+
+            let imageUrl;
+
+            if( !this.props.subCategoryUrlsExist[index] ){
+                imageUrl = noImage;
+            } else {
+                imageUrl = BASE_URL + "/images/subcategories/" + this.props.subCategories[index].ImgReference;
+            }
 
             if (this.props.subCategories[index].subId == this.state.activeSubCatId) {
                 returnStyle = {
@@ -156,7 +169,11 @@ class CategoriesFields extends React.Component {
                     height: '19vw',
                     marginRight: '1%',
                     textAlign: 'center',
-                    fontSize: '15px'
+                    fontSize: '15px',
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "contain",
+                    backgroundPosition: "center, left center",
+                    backgroundImage: "url("+imageUrl+")"
                 }
             } else {
                 returnStyle = {
@@ -166,7 +183,11 @@ class CategoriesFields extends React.Component {
                     height: '19vw',
                     marginRight: '1%',
                     textAlign: 'center',
-                    fontSize: '15px'
+                    fontSize: '15px',
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "contain",
+                    backgroundPosition: "center, left center",
+                    backgroundImage: "url("+imageUrl+")"
                 }
             }
 

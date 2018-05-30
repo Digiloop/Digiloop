@@ -55,8 +55,6 @@ class App extends Component {
 
 render() {
 
-  console.log("dankkei testei")
-  console.log(window.google)
 
   return (
     <MuiThemeProvider>

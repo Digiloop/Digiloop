@@ -57,20 +57,19 @@ class OrderMain extends Component {
     componentDidMount() {
 
         let categoryUrlsExist = [];
-        let subCategoryUrlsExist = [];
+        let proxyCategoryUrlsExist = [];
 
         for (let i = 0; i < this.props.categories.length; i++) {
             categoryUrlsExist[i] = this.imageExists(BASE_URL + "/images/categories/" + this.props.categories[i].ImgReference);
         }
-        console.clear()
-        for (let j = 0; j < this.props.subCategories.length; j++) {
-            console.log(this.props.subCategories[j].ImgReference)
-            subCategoryUrlsExist[j] = this.imageExists(BASE_URL + "/images/subcategories/" + this.props.subCategories[j].ImgReference);
+
+        for (let j = 0; j < this.props.proxyCategories.length; j++) {
+            proxyCategoryUrlsExist[j] = this.imageExists(BASE_URL + "/images/subcategories/" + this.props.proxyCategories[j].imgReference);
         }
 
         this.setState({
             categoryUrlsExist: categoryUrlsExist,
-            subCategoryUrlsExist: subCategoryUrlsExist
+            proxyCategoryUrlsExist: proxyCategoryUrlsExist
         })
     }
 
@@ -214,7 +213,6 @@ class OrderMain extends Component {
                 }
 
             case 1:
-                console.log(this.state.categoriesSelected)
                 if ((this.state.step == 1 && !this.state.pageOneAllFilled)
                     || (this.state.step == 2 && !this.state.categoriesSelected)
                     || this.state.step == 3
@@ -257,10 +255,10 @@ class OrderMain extends Component {
                     setCategoriesSelected={this.setCategoriesSelected}
 
                     categories={this.props.categories}
-                    subCategories={this.props.subCategories}
+                    proxyCategories={this.props.proxyCategories}
 
                     categoryUrlsExist={this.state.categoryUrlsExist}
-                    subCategoryUrlsExist={this.state.subCategoryUrlsExist}
+                    proxyCategoryUrlsExist={this.state.proxyCategoryUrlsExist}
                 />
             case 3:
                 return < InfoFields

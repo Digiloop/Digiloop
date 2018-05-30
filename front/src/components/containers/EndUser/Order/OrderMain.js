@@ -5,7 +5,7 @@ const mapStateToProps = (state, props) =>
   ({
     userInfo: state.loginInfo,
     categories: state.categories,
-    subCategories: state.subCategories
+    proxyCategories: state.proxyCategories
   })
 
 const mapDispatchToProps = dispatch =>

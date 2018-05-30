@@ -3,7 +3,8 @@ import CategoriesFields from '../../../ui/EndUser/Order/CategoriesFields';
 
 const mapStateToProps = (state, props) =>
   ({
-    userInfo: state.loginInfo
+    userInfo: state.loginInfo,
+    subCategories: state.subCategories
   })
 
 const mapDispatchToProps = dispatch =>

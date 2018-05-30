@@ -11,6 +11,8 @@ const consoleTest = store => next => action => {
 
   console.groupCollapsed(`dispatching action => ${action.type}`)
   //console.log('Login:', store.getState().login)
+  console.log("Payload:")
+  console.log(action.payload)
 
   result = next(action)
   console.groupEnd()

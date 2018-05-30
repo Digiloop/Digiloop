@@ -12,7 +12,7 @@ import Register from './components/containers/Login/Register.js';
 import WasteRegister from './components/containers/Login/WasteRegister.js';
 import Login from './components/containers/Login/Login.js';
 
-import { getCats, getSubCats } from './utils/fetchcategories';
+import { getCats, getSubCats, getFakeCats } from './utils/fetchcategories';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -27,6 +27,7 @@ class App extends Component {
   getCats().then((cats) => {
     this.props.setCategories(cats);
   })
+
   getSubCats().then((subCats) => {
     // subcats will also be used as a check on the backend/network
     // if the connection refused, clear login sessions and display error message
@@ -50,6 +51,13 @@ class App extends Component {
       }
     }
   })
+
+  getFakeCats().then((proxyCategories) => {
+    console.clear()
+    console.log(proxyCategories)
+    this.props.setProxyCategories(proxyCategories)
+  })
+
 }
 
 

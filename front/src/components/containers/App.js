@@ -1,6 +1,6 @@
 import App from '../../App'
 import { connect } from 'react-redux'
-import { setCategories, setSubCategories } from '../../actions'
+import { setCategories, setSubCategories, setProxyCategories } from '../../actions'
 import { login } from '../../actions'
 
 
@@ -21,6 +21,11 @@ const mapDispatchToProps = dispatch =>
     setSubCategories(subCats){
       dispatch(
         setSubCategories(subCats)
+      )
+    },
+    setProxyCategories(proxyCategories){
+      dispatch(
+        setProxyCategories(proxyCategories)
       )
     },
     onNewLogout(loginInfo){

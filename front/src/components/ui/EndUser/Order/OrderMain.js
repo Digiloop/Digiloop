@@ -14,6 +14,7 @@ import CategoriesFields from '../../../containers/EndUser/Order/CategoriesFields
 import InfoFields from '../../../containers/EndUser/Order/InfoFields';
 import Summary from '../../../containers/EndUser/Order/Summary';
 
+import { BASE_URL } from '../../../../settings'
 
 class OrderMain extends Component {
     constructor(props) {
@@ -28,6 +29,7 @@ class OrderMain extends Component {
                 iscompany: '',
                 category: '',
                 subCat: '',
+                proxySubCat: '',
                 pcs: '',
                 size: '',
                 description: '',
@@ -50,8 +52,39 @@ class OrderMain extends Component {
         this.saveValues = this.saveValues.bind(this);
         this.setCategoriesSelected = this.setCategoriesSelected.bind(this);
         this.isButtonDisabled = this.isButtonDisabled.bind(this);
+        this.imageExists = this.imageExists.bind(this);
     }
 
+    componentDidMount() {
+
+        let categoryUrlsExist = [];
+        let proxyCategoryUrlsExist = [];
+
+        for (let i = 0; i < this.props.categories.length; i++) {
+            categoryUrlsExist[i] = this.imageExists(BASE_URL + "/images/categories/" + this.props.categories[i].ImgReference);
+        }
+
+        for (let j = 0; j < this.props.proxyCategories.length; j++) {
+            proxyCategoryUrlsExist[j] = this.imageExists(BASE_URL + "/images/subcategories/" + this.props.proxyCategories[j].imgReference);
+        }
+
+        this.setState({
+            categoryUrlsExist: categoryUrlsExist,
+            proxyCategoryUrlsExist: proxyCategoryUrlsExist
+        })
+    }
+
+    // checks if the image actually exists on the server
+    imageExists(image_url) {
+
+        var http = new XMLHttpRequest();
+
+        http.open('HEAD', image_url, false);
+        http.send();
+
+        return http.status != 404;
+
+    }
 
     saveValues(value) {
 
@@ -67,23 +100,19 @@ class OrderMain extends Component {
             'iscompany': value.iscompany,
             'category': value.category,
             'subCat': value.subCat,
+            'proxySubCat': value.proxySubCat,
             'pcs': value.pcs,
             'size': value.size,
             'weight': value.weight,
             'description': value.description
         }
 
-        console.log("wtf")
-        console.log(newObject.category)
 
         // save new object on the correct index
         valueArray[this.state.itemIndex] = newObject;
 
         this.setState({
             values: valueArray
-        }, function(){
-            console.log("fuu")
-            console.log(this.state.values)
         })
 
     }
@@ -125,6 +154,7 @@ class OrderMain extends Component {
             'iscompany': "",
             'category': "",
             'subCat': "",
+            'proxySubCat': "",
             'pcs': "",
             'size': "",
             'weight': "",
@@ -152,8 +182,6 @@ class OrderMain extends Component {
     }
 
     setCategoriesSelected = (categoriesSelected) => {
-
-
         this.setState({
             categoriesSelected: categoriesSelected
         })
@@ -188,7 +216,6 @@ class OrderMain extends Component {
                 }
 
             case 1:
-
                 if ((this.state.step == 1 && !this.state.pageOneAllFilled)
                     || (this.state.step == 2 && !this.state.categoriesSelected)
                     || this.state.step == 3
@@ -228,7 +255,14 @@ class OrderMain extends Component {
                     values={this.state.values[this.state.itemIndex]}
                     nextStep={this.nextStep}
                     saveValues={this.saveValues}
-                    setCategoriesSelected={this.setCategoriesSelected} />
+                    setCategoriesSelected={this.setCategoriesSelected}
+
+                    categories={this.props.categories}
+                    proxyCategories={this.props.proxyCategories}
+
+                    categoryUrlsExist={this.state.categoryUrlsExist}
+                    proxyCategoryUrlsExist={this.state.proxyCategoryUrlsExist}
+                />
             case 3:
                 return < InfoFields
                     values={this.state.values[this.state.itemIndex]}

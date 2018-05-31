@@ -8,6 +8,7 @@ import { MenuItem, SelectField } from 'material-ui';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import { Table, TableBody, TableHeader } from 'material-ui/Table';
 import { TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+import { readdir } from 'fs';
 
 class FakeCategories extends Component {
     constructor(props) {
@@ -61,6 +62,12 @@ class FakeCategories extends Component {
             subCatId: subCatId,
             subCatName: subCatName
         });
+        console.log(this.state.subCatId + ' ' + this.state.subCatName);
+    }
+
+    getSubCatName = (event) => {
+        // this.setState({ subCatId: subCatId })
+        console.log(event.target.value);
     }
 
     // Add fakeCat
@@ -105,23 +112,23 @@ class FakeCategories extends Component {
     };
 
     // opening items
-  expand(x) {
-    // create a temp array, because it's easier to edit than the state one
-    let newArray = this.state.rows;
+    expand(x) {
+        // create a temp array, because it's easier to edit than the state one
+        let newArray = this.state.rows;
 
-    if(newArray[x]){ // closing the open item
-      newArray[x] = false;
-    } else { // opening another means first closing the open one
-      for (let i = 0; i < newArray.length; i++){
-        if(newArray[i]){
-          newArray[i] = false; // close the open one
+        if (newArray[x]) { // closing the open item
+            newArray[x] = false;
+        } else { // opening another means first closing the open one
+            for (let i = 0; i < newArray.length; i++) {
+                if (newArray[i]) {
+                    newArray[i] = false; // close the open one
+                }
+            }
+            newArray[x] = true; // open the new row
         }
-      }
-      newArray[x] = true; // open the new row
+        // set the edited version as the new state
+        this.setState({ rows: newArray });
     }
-    // set the edited version as the new state
-    this.setState({ rows: newArray });
-  }
 
 
     componentDidMount() {
@@ -200,13 +207,45 @@ class FakeCategories extends Component {
         }
 
         for (let i = 0; i < this.state.fakeCats.length; i++) {
-            fakeCats.push(
-                <TableRow key={i} >
-                <TableRowColumn>
-                    {this.state.fakeCats[i].name}
-                </TableRowColumn>
-                </TableRow>
-            )
+            // get category and subcategory names
+            if (this.state.rows[i]) {
+                const tmp = [];
+                const tmp1 = [];
+                for (let j = 0; j < this.state.subCats.length; j++) {
+                    if (this.state.subCats[j].subId === this.state.fakeCats[i].subCatId) {
+                        tmp.push(this.state.subCats[j].subName)
+
+                        for (let k = 0; k < this.state.cats.length; k++) {
+                            if (this.state.cats[k].CatId === this.state.subCats[j].CatId) {
+                                tmp1.push(this.state.cats[k].CatName)
+
+                            }
+                        }
+                    }
+                }
+                fakeCats.push(
+                    <TableRow key={i} style={{ height: '150px' }}>
+                        <TableRowColumn colSpan='4'>
+                            Pääkategoria:<br />
+                            Alakategoria:<br />
+                            Feikkikategoria:
+                        </TableRowColumn>
+                        <TableRowColumn colSpan='4'>
+                            {tmp1}<br />
+                            {tmp}<br />
+                            {this.state.fakeCats[i].name}
+                        </TableRowColumn>
+                    </TableRow>
+                )
+            } else {
+                fakeCats.push(
+                    <TableRow key={i} >
+                        <TableRowColumn colSpan='8'>
+                            {this.state.fakeCats[i].name}
+                        </TableRowColumn>
+                    </TableRow>
+                )
+            }
         }
 
         return (

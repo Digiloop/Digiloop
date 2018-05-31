@@ -96,7 +96,6 @@ class ReservationListing extends Component {
     }
 
     let items = [];
-    console.log(this.props.items);
 
 
     // create the item rows

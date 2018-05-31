@@ -3,7 +3,7 @@ import { BASE_URL } from './../settings';
 
 export { sendItemData };
 
-function sendItemData(itemData) {
+/* function sendItemData(itemData) {
   return fetch(BASE_URL + '/itemAdd', {
     method: 'POST',
     headers: {
@@ -18,4 +18,14 @@ function sendItemData(itemData) {
     .catch((error) => {
       console.log(error);
     });
-} 
+} */
+
+function sendItemData(itemData) {
+  return axios.post(BASE_URL + '/itemAdd', {
+    itemData
+  })
+  .then(response => response.data)
+  .catch(function (error) {
+    return error;
+  });
+}

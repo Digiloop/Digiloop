@@ -173,12 +173,12 @@ class Categories extends Component {
             )
         }
 
-        for (let i = 0; i < this.state.cats.length; i++) {
+        for (let k = 0; k < this.state.cats.length; k++) {
             showCats.push(
-                <table value={this.state.cats[i].CatName} >
+                <table key={k} value={this.state.cats[k].CatName} >
                     <tbody><tr onClick={() =>
-                        this.getCat(this.state.cats[i].CatId, this.state.cats[i].CatName)}>
-                        <td key={i}>{this.state.cats[i].CatName}</td></tr></tbody></table>
+                        this.getCat(this.state.cats[k].CatId, this.state.cats[k].CatName)}>
+                        <td key={k}>{this.state.cats[k].CatName}</td></tr></tbody></table>
             )
         }
 

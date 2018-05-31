@@ -48,7 +48,7 @@ class Summary extends React.Component {
                 console.log("Bäkkiilähetyssimulaatio testi #2")
                 console.log(data);
                 // toimii, kommentoitu, koska bäkki ei oo valmis siihen
-                sendItemData(JSON.stringify(data));
+                sendItemData(data);
                 //window.location.reload()
 
             } else {

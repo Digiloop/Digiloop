@@ -56,7 +56,7 @@ class Profile extends Component {
       }
       console.log(updateUserData);
       
-      sendUpdateData(JSON.stringify(updateUserData));
+      sendUpdateData(updateUserData);
 
       this.props.onUpdate();
       window.alert("Tiedot päivitetty!");

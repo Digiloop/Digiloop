@@ -62,7 +62,6 @@ class FakeCategories extends Component {
             subCatId: subCatId,
             subCatName: subCatName
         });
-        console.log(this.state.subCatId + ' ' + this.state.subCatName);
     }
 
     getSubCatName = (event) => {

@@ -8,7 +8,6 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.userInfo.id,
       firstName: this.props.userInfo.fname,
       lastName: this.props.userInfo.lname,
       phone: this.props.userInfo.phone,
@@ -49,7 +48,6 @@ class Profile extends Component {
   Submit(event) {    
     if (this.state.allFilled) {
       var updateUserData = {
-        "id": this.state.id,
         "fname": this.state.firstName,
         "lname": this.state.lastName,
         "phone": this.state.phone,
@@ -57,6 +55,9 @@ class Profile extends Component {
         "zipcode": this.state.zipcode,
         "city": this.state.city
       }
+
+      console.log("päivitetty data")
+      console.log(updateUserData)
       sendUpdateData(updateUserData);
 
 

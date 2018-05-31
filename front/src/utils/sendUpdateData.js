@@ -3,7 +3,7 @@ import { BASE_URL } from './../settings';
 
 export { sendUpdateData };
 
-function sendUpdateData(updateUserData) {
+/* function sendUpdateData(updateUserData) {
   return fetch(BASE_URL + '/updateUser', {
     method: 'POST',
     headers: {
@@ -18,4 +18,14 @@ function sendUpdateData(updateUserData) {
     .catch((error) => {
       console.log(error);
     });
+} */
+
+function sendUpdateData(updateUserData) {
+  return axios.post(BASE_URL + '/updateUser', {
+    updateUserData
+  })
+  .then(response => response.data)
+  .catch(function (error) {
+    return error;
+  });
 }

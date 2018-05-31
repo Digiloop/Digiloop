@@ -38,7 +38,10 @@ class CategoriesFields extends React.Component {
 
             // when category is changed, remove all old subcat states
             activeSubCatId: "",
-            activeSubCatName: ""
+            activeSubCatName: "",
+
+            activeProxyCatId: "",
+            activeProxyCatName: ""
         }, function () {
             this.props.setCategoriesSelected(false);
         });
@@ -161,7 +164,7 @@ class CategoriesFields extends React.Component {
             if( !this.props.proxyCategoryUrlsExist[index] ){
                 imageUrl = noImage;
             } else {
-                imageUrl = BASE_URL + "/images/subcategories/" + this.props.subCategories[index].ImgReference;
+                imageUrl = BASE_URL + "/images/subcategories/" + this.props.proxyCategories[index].imgReference;
             }
 
             if (this.props.proxyCategories[index].Id == this.state.activeProxyCatId) {

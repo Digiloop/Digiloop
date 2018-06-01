@@ -98,9 +98,15 @@ class OrderMain extends Component {
             'phone': value.phone,
             'pickupInstructions': value.pickupInstructions,
             'iscompany': value.iscompany,
+
+            'categoryId': value.categoryId,
+            'subCategoryId': value.subCategoryId,
+            'proxyCategoryId': value.proxyCategoryId,
+
             'category': value.category,
             'subCat': value.subCat,
             'proxySubCat': value.proxySubCat,
+
             'pcs': value.pcs,
             'size': value.size,
             'weight': value.weight,

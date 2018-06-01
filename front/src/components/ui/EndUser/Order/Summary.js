@@ -1,10 +1,6 @@
-import React, { Component } from 'react';
-import { AppBar, MenuItem, DropDownMenu, Divider } from 'material-ui';
-import { FlatButton, IconButton, TextField } from 'material-ui';
-import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
-import Back from 'material-ui/svg-icons/navigation/arrow-back';
-import { sendRegData } from '../../../../utils/sendRegData';
-import styles from '../../../../index.css';
+import React from 'react';
+import { Divider, FlatButton, IconButton } from 'material-ui';
+
 import { sendItemData } from '../../../../utils/sendItem';
 
 
@@ -48,7 +44,7 @@ class Summary extends React.Component {
                 console.log("Bäkkiilähetyssimulaatio testi #2")
                 console.log(data);
                 // toimii, kommentoitu, koska bäkki ei oo valmis siihen
-                sendItemData(JSON.stringify(data));
+                sendItemData(data);
                 //window.location.reload()
 
             } else {

@@ -59,7 +59,7 @@ class EndUserFront extends Component {
     this.setState({
       open: false
     }, function(){
-      if(this.state.index == 0){
+      if(this.state.index === 0){
         window.location.reload()
       }
     })
@@ -68,7 +68,6 @@ class EndUserFront extends Component {
 
   // Name to toolbartitle
   getPageName() {
-    //console.log(this.state.index);
     switch (this.state.index) {
       case 0:
         return this.props.setNewPageName('Etusivu');

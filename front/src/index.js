@@ -13,7 +13,6 @@ import { debugMode } from './settings'
 const saveState = () =>
   localStorage["redux-store"] = JSON.stringify(store.getState())
 
-console.log(saveState);
 
 const store = storeFactory(initialState)
 
@@ -22,9 +21,8 @@ if (!debugMode) {
   // debug tools, don't leave in live version
   window.React = React
   window.Store = store
+
 }
-
-
 
 
 

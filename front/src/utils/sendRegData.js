@@ -27,7 +27,6 @@ function sendRegData(regData) {
     //.then((response) => response.json())
     .then((response) => {
       console.log(response);
-      // return responseJson;
     })
     .catch((error) => {
       console.log(error);

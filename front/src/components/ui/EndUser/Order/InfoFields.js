@@ -18,7 +18,6 @@ class InfoFields extends React.Component {
 
     nextStep(event) {
         event.preventDefault();
-        console.log("nextStep");
         var data = {
             pickupaddr: this.props.values.pickupaddr,
             zipcode: this.props.values.zipcode,
@@ -40,8 +39,6 @@ class InfoFields extends React.Component {
             weight: this.state.weight || '< 5',
             description: this.state.description
         }
-        console.log(data);
-        console.log(this.props);
         this.props.saveValues(data);
         this.props.nextStep()
 

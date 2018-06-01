@@ -89,11 +89,8 @@ class CategoriesFields extends React.Component {
 
     componentDidMount() {
 
-        console.clear()
-        console.log("RAKETTIRYHMÄ LOGGAA JÄLLEEN")
-        console.log(this.props.values);
 
-        if (this.props.values.subCat == undefined || this.props.values.subCat == "") {
+        if (this.props.values.subCat === undefined || this.props.values.subCat === "") {
             this.props.setCategoriesSelected(false);
         } else {
             this.props.setCategoriesSelected(true);
@@ -119,7 +116,7 @@ class CategoriesFields extends React.Component {
 
         let returnStyle;
 
-        if (type == 0) {
+        if (type === 0) {
 
             let imageUrl;
 
@@ -131,7 +128,7 @@ class CategoriesFields extends React.Component {
 
 
 
-            if (this.props.categories[index].CatId == this.state.activeCatId) {
+            if (this.props.categories[index].CatId === this.state.activeCatId) {
                 returnStyle = {
                     borderRadius: 4,
                     border: '8px solid red',
@@ -171,7 +168,7 @@ class CategoriesFields extends React.Component {
                 imageUrl = BASE_URL + "/images/subcategories/" + this.props.proxyCategories[index].imgReference;
             }
 
-            if (this.props.proxyCategories[index].Id == this.state.activeProxyCatId) {
+            if (this.props.proxyCategories[index].Id === this.state.activeProxyCatId) {
                 returnStyle = {
                     borderRadius: 4,
                     border: '8px solid red',
@@ -257,7 +254,7 @@ class CategoriesFields extends React.Component {
 
                 for (let k = 0; k < this.props.proxyCategories.length; k++) {
 
-                    if (this.props.proxyCategories[k].subCatId == this.props.subCategories[j].subId) {
+                    if (this.props.proxyCategories[k].subCatId === this.props.subCategories[j].subId) {
 
 
                         proxyCats.push(

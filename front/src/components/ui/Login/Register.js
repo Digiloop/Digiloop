@@ -37,7 +37,6 @@ class Register extends React.Component {
     componentDidUpdate() {
         this.emailCheck();
         this.checkFill();
-        //console.log(this.state.email);
     }
 
     updateCheckConfirm() {

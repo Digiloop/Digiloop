@@ -41,7 +41,7 @@ class Summary extends React.Component {
                     }
                 }
 
-                console.log("Bäkkiilähetyssimulaatio testi #2")
+                console.log("Bäkkiilähetyssimulaatio testi #3")
                 console.log(data);
                 // toimii, kommentoitu, koska bäkki ei oo valmis siihen
                 sendItemData(data);

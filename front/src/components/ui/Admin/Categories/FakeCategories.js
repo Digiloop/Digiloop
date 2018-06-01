@@ -8,7 +8,6 @@ import { MenuItem, SelectField } from 'material-ui';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import { Table, TableBody, TableHeader } from 'material-ui/Table';
 import { TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
-import { readdir } from 'fs';
 
 class FakeCategories extends Component {
     constructor(props) {

@@ -30,7 +30,7 @@ getJunksData() {
 listReserved(){
   const items = [];
   for(let i = 0; i < this.props.items.length; i++){
-    if(this.props.items[i].status == 2){
+    if(this.props.items[i].status === 2){
     items.push(
       <TableRow key={i} >
         <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br/>Ilmoitettu: {this.props.items[i].date}</TableRowColumn>

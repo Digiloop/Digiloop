@@ -37,7 +37,7 @@ class FrontPage extends Component {
 
     if (this.state.value === Notification) {
       this.state.etusivu.push(
-        <h2>Tervetuloa, {this.props.items.fname != null ? this.props.items.fname : this.props.items.username}!</h2>)
+        <h2>Tervetuloa, {this.props.items.fname !== null ? this.props.items.fname : this.props.items.username}!</h2>)
 
       this.state.etusivu.push(<FlatButton
         label="Uusi tavaratilaus" onClick={this.handleChange}

@@ -77,7 +77,7 @@ class WasteProcessor extends Component {
 
       // categorycheck - works perfectly
       // check the option state at the current item's category spot
-      if (this.props.rLOpt.categories[this.props.resListItems[i].category] != undefined) { // is initialized? ALl uninitialized are treated as true
+      if (this.props.rLOpt.categories[this.props.resListItems[i].category] !== undefined) { // is initialized? ALl uninitialized are treated as true
         if (!this.props.rLOpt.categories[this.props.resListItems[i].category]) { // is false?
           pass = false;
         }
@@ -87,14 +87,14 @@ class WasteProcessor extends Component {
       let subCat = this.props.resListItems[i].category + this.props.resListItems[i].subCat; // create the subcat full name
 
       subCat = subCat.toLowerCase(); // eliminate case-irregularities in item categories
-      if (this.props.rLOpt.subCategories[subCat] != undefined) { // is initialized? ALl uninitialized are treated as true
+      if (this.props.rLOpt.subCategories[subCat] !== undefined) { // is initialized? ALl uninitialized are treated as true
         if (!this.props.rLOpt.subCategories[subCat]) { // is false?
           pass = false;
         }
       }
 
       // show reserved items - works perfectly
-      if (this.props.resListItems[i].status == 2 && !this.props.rLOpt.showRes) {
+      if (this.props.resListItems[i].status === 2 && !this.props.rLOpt.showRes) {
         pass = false;
       }
 

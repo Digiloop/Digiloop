@@ -82,7 +82,7 @@ class OrderMain extends Component {
         http.open('HEAD', image_url, false);
         http.send();
 
-        return http.status != 404;
+        return http.status !== 404;
 
     }
 
@@ -126,7 +126,7 @@ class OrderMain extends Component {
     // proceed to next phase of the form
     // a safeguard against going paSt the final page is implemented, since the forward button disables too slowly
     nextStep = () => {
-        if (this.state.step != 4) {
+        if (this.state.step !== 4) {
             this.setState({
                 step: this.state.step + 1
             })
@@ -137,7 +137,7 @@ class OrderMain extends Component {
     // proceed to previous phase of the form
     // a safeguard against going back from the first page is implemented, since the forward button disables too slowly
     prevStep = () => {
-        if (this.state.step != 1) {
+        if (this.state.step !== 1) {
             this.setState({
                 step: this.state.step - 1
             })
@@ -204,17 +204,17 @@ class OrderMain extends Component {
         switch (arrowDirection) {
             case 0:
 
-                if (this.state.step == 1
-                    || this.state.step == 2
+                if (this.state.step === 1
+                    || this.state.step === 2
                 ) {
-                    if (type == 0) {
+                    if (type === 0) {
                         return true; // disabled true
                     } else {
                         return this.state.buttonDisabled
                     }
 
                 } else {
-                    if (type == 0) {
+                    if (type === 0) {
                         return false; // disabled false; button enabled
                     } else {
                         return this.state.buttonActive
@@ -222,18 +222,18 @@ class OrderMain extends Component {
                 }
 
             case 1:
-                if ((this.state.step == 1 && !this.state.pageOneAllFilled)
-                    || (this.state.step == 2 && !this.state.categoriesSelected)
-                    || this.state.step == 3
-                    || this.state.step == 4
+                if ((this.state.step === 1 && !this.state.pageOneAllFilled)
+                    || (this.state.step === 2 && !this.state.categoriesSelected)
+                    || this.state.step === 3
+                    || this.state.step === 4
                 ) {
-                    if (type == 0) {
+                    if (type === 0) {
                         return true; // disabled true
                     } else {
                         return this.state.buttonDisabled
                     }
                 } else {
-                    if (type == 0) {
+                    if (type === 0) {
                         return false; // disabled false; button enabled
                     } else {
                         return this.state.buttonActive
@@ -274,7 +274,7 @@ class OrderMain extends Component {
                     values={this.state.values[this.state.itemIndex]}
                     nextStep={this.nextStep}
                     saveValues={this.saveValues}
-                    saveButtonText={this.state.itemIndex == this.state.values.length - 1 ? "Lisää laite" : "Tallenna muutokset"} />
+                    saveButtonText={this.state.itemIndex === this.state.values.length - 1 ? "Lisää laite" : "Tallenna muutokset"} />
             case 4:
                 return < Summary
                     values={this.state.values}
@@ -325,10 +325,10 @@ class OrderMain extends Component {
             <div className="orderWrapper">
                 <div className="progressBar" style={{ maxWidth: '90vh', minWidth: '50vh', display: 'flex', justifyContent: 'center' }}>
                     <Button variant="fab" style={this.isButtonDisabled(0, 1)} disabled={this.isButtonDisabled(0, 0)} onClick={this.prevStep}><Forward style={{ transform: "scaleX(-1)" }} /></Button>
-                    <div className="state1" style={this.state.step == 1 ? styles.Active : styles.notActive}></div>
-                    <div className="state2" style={this.state.step == 2 ? styles.Active : styles.notActive}></div>
-                    <div className="state3" style={this.state.step == 3 ? styles.Active : styles.notActive}></div>
-                    <div className="state4" style={this.state.step == 4 ? styles.Active : styles.notActive}></div>
+                    <div className="state1" style={this.state.step === 1 ? styles.Active : styles.notActive}></div>
+                    <div className="state2" style={this.state.step === 2 ? styles.Active : styles.notActive}></div>
+                    <div className="state3" style={this.state.step === 3 ? styles.Active : styles.notActive}></div>
+                    <div className="state4" style={this.state.step === 4 ? styles.Active : styles.notActive}></div>
                     <Button variant="fab" style={this.isButtonDisabled(1, 1)}
                         disabled={this.isButtonDisabled(1, 0)} onClick={this.nextStep}><Forward /></Button>
                 </div>

@@ -116,7 +116,7 @@ class ReservationListing extends Component {
             <div>{this.props.items[i].description}</div><br />
             </TableRowColumn>
 
-            {this.props.items[i].status == 1 ? 
+            {this.props.items[i].status === 1 ? 
             <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[i])} /></TableRowColumn> : 
             <TableRowColumn>{this.getStatus(this.props.items[i].status)}</TableRowColumn>}
           </TableRow>
@@ -127,7 +127,7 @@ class ReservationListing extends Component {
             <TableRowColumn colSpan="4">{this.props.items[i].category} ({this.props.items[i].subCat})<br />Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
 
             <TableRowColumn></TableRowColumn>
-            {this.props.items[i].status == 1 ? 
+            {this.props.items[i].status === 1 ? 
             <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[i])} /></TableRowColumn> : 
             <TableRowColumn>{this.getStatus(this.props.items[i].status)}</TableRowColumn>}
 

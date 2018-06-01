@@ -80,7 +80,7 @@ class WasteProcessor extends Component {
       pass = true;
 
       for (let j = 0; j < this.props.cats.length; j++) {
-        if (catOptions[j] == false && pi.category == this.props.cats[j].CatName) {
+        if (catOptions[j] === false && pi.category === this.props.cats[j].CatName) {
           pass = false;
         }
       }

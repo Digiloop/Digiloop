@@ -59,7 +59,7 @@ class EndUserFront extends Component {
     this.setState({
       open: false
     }, function(){
-      if(this.state.index == 0){
+      if(this.state.index === 0){
         window.location.reload()
       }
     })

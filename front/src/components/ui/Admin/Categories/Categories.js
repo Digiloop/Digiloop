@@ -93,6 +93,7 @@ class Categories extends Component {
         })
     };
 
+    // handles radiobutton
     handleChange = event => {
         this.setState({ valueR: event.target.value });
         console.log(event.target.value);
@@ -158,11 +159,6 @@ class Categories extends Component {
         const cats = [];
         const showCats = [];
         const subCats = [];
-        const allCats = [];
-        console.log(this.state.cats);
-        console.log(this.state.cats.length);
-        console.log(this.state.subCats.length);
-        console.log(this.state.subCats);
 
         for (let i = 0; i < this.state.cats.length; i++) {
             cats.push(
@@ -192,18 +188,6 @@ class Categories extends Component {
                 )
             }
         }
-
-        /*for (let i = 0; i < this.state.cats.length; i++) {
-            const tempArray = [];
-            for (let j = 0; j < this.state.subCats.length; j++) {
-                if (this.state.cats[i].CatId === this.state.subCats[j].CatId) {
-                    tempArray.push(<tr key={j}><td>{this.state.subCats[j].subName}</td></tr>)
-                }
-            }
-            allCats.push(
-                <table key={i}><tbody><h3>{this.state.cats[i].CatName}</h3></tbody>{tempArray}</table>)
-
-        } */
 
 
         return (

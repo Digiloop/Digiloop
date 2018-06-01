@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { AppBar, Drawer, Menu } from 'material-ui';
-import { Toolbar, Tabs, Tab } from 'material-ui';
-import { TextField, FlatButton } from 'material-ui';
-import { getCats, getSubCats, getFakeCats } from '../../../../utils/fetchcategories';
-import { addNewCat, addNewSubCat } from '../../../../utils/sendAddCatsData';
-import { Radio, RadioGroup, FormControlLabel } from '@material-ui/core';
-import { MenuItem, DropDownMenu, SelectField } from 'material-ui';
+import { TextField, RaisedButton } from 'material-ui';
+import { MenuItem, SelectField } from 'material-ui';
 import { Table, TableBody, TableHeader } from 'material-ui/Table';
 import { TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+
+// fetchies
+import { getCats, getSubCats, getFakeCats } from '../../../../utils/fetchcategories';
+import { addNewCat, addNewSubCat } from '../../../../utils/sendAddCatsData';
 
 class ModifyCategories extends Component {
     constructor(props) {
@@ -61,10 +60,25 @@ class ModifyCategories extends Component {
         this.setState({ valueC: value });
     };
 
+    // activate or deactivate category
+    activate(id, status) {        
+        this.setState({
+            id: id,
+            status: status
+        });
+        console.log(this.state.id + ' ' + this.state.status);
+        
+        if (this.state.status === 1) {
+
+        }
+        
+    }
+
 
     componentDidMount() {
         this.getCategories();
         this.getSubCategories();
+        this.getFakeCategories();
     }
 
 
@@ -92,7 +106,6 @@ class ModifyCategories extends Component {
                 backgroundColor: 'white',
                 fontFamily: 'kanit',
                 textAlign: 'left',
-                marginLeft: '2%',
                 borderRadius: '5px'
             },
             button: {
@@ -111,72 +124,51 @@ class ModifyCategories extends Component {
         const cats = [];
         const subCats = [];
         const fakeCats = [];
+        console.log(this.state.cats);
+        console.log(this.state.subCats);
+        console.log(this.state.fakeCats);
+        
 
         for (let i = 0; i < this.state.cats.length; i++) {
             cats.push(
-                <div className='Items' key={i}>
-                    {this.state.cats[i].CatName} </div>
+                <TableRow key={i} >
+                    <TableRowColumn colSpan='2'>
+                        {this.state.cats[i].CatName}
+                    </TableRowColumn>
+                    <TableRowColumn>
+                        <RaisedButton label={this.state.cats[i].Status ? 'Deaktivoi' : 'Aktivoi'} 
+                        onClick={event => this.activate(this.state.cats[i].CatId, this.state.cats[i].Status)} />
+                    </TableRowColumn>
+                </TableRow>
             )
         }
-
-        /* for (let i = 0; i < this.state.cats.length; i++) {
-            showCats.push(
-                <table value={this.state.cats[i].CatName} >
-                    <tbody><tr onClick={() =>
-                        this.getCat(this.state.cats[i].CatId, this.state.cats[i].CatName)}>
-                        <td key={i}>{this.state.cats[i].CatName}</td></tr></tbody></table>
-            )
-        } */
-
 
         for (let j = 0; j < this.state.subCats.length; j++) {
             subCats.push(
-                <div key={j} >
-                    {this.state.subCats[j].subName}
-                </div>
+                <TableRow key={j} >
+                    <TableRowColumn colSpan='2'>
+                        {this.state.subCats[j].subName}
+                    </TableRowColumn>
+                    <TableRowColumn>
+                        <RaisedButton label={this.state.subCats[j].Status ? 'Deaktivoi' : 'Aktivoi'} 
+                        onClick={event => this.activate(this.state.subCats[j].subId, this.state.subCats[j].Status)} />
+                    </TableRowColumn>
+                </TableRow>
             )
         }
 
-        for (let i = 0; i < this.state.fakeCats.length; i++) {
-            // get category and subcategory names
-            if (this.state.rows[i]) {
-                const tmp = [];
-                const tmp1 = [];
-                for (let j = 0; j < this.state.subCats.length; j++) {
-                    if (this.state.subCats[j].subId === this.state.fakeCats[i].subCatId) {
-                        tmp.push(this.state.subCats[j].subName)
-
-                        for (let k = 0; k < this.state.cats.length; k++) {
-                            if (this.state.cats[k].CatId === this.state.subCats[j].CatId) {
-                                tmp1.push(this.state.cats[k].CatName)
-
-                            }
-                        }
-                    }
-                }
-                fakeCats.push(
-                    <TableRow key={i} style={{ height: '150px' }}>
-                        <TableRowColumn colSpan='4'>
-                            Pääkategoria:<br />
-                            Alakategoria:<br />
-                            Feikkikategoria:
-                        </TableRowColumn>
-                        <TableRowColumn colSpan='4'>
-                            {tmp1}<br />
-                            {tmp}<br />
-                            {this.state.fakeCats[i].name}
-                        </TableRowColumn>
-                    </TableRow>
-                )
-            } else {
-                fakeCats.push(
-                    <TableRow key={i} >
-                        <TableRowColumn colSpan='8'>
-                            {this.state.fakeCats[i].name}
-                        </TableRowColumn>
-                    </TableRow>
-                )
-            }
+        for (let k = 0; k < this.state.fakeCats.length; k++) {
+            fakeCats.push(
+                <TableRow key={k} >
+                    <TableRowColumn colSpan='2'>
+                        {this.state.fakeCats[k].name}
+                    </TableRowColumn>
+                    <TableRowColumn>
+                        <RaisedButton label={this.state.fakeCats[k].Status ? 'Deaktivoi' : 'Aktivoi'} 
+                        onClick={event => this.activate(this.state.fakeCats[k].Id, this.state.subCats[k].Status)} />
+                    </TableRowColumn>
+                </TableRow>
+            )
         }
 
 
@@ -184,9 +176,9 @@ class ModifyCategories extends Component {
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div>
                     <div className='categories'>
-                        <div className='cats' style={{ float: 'left', width: '30%', marginRight: '5%', marginLeft: '2%' }}>
+                        <div className='cats' style={{ float: 'left', width: '46%', marginRight: '2%', marginLeft: '2%' }}>
                             <div className='modifyStatus' >
-                                <h2>Poista kategoria käytöstä</h2>
+                                <h2>Aktivoi/Deaktivoi kategoria</h2>
                                 <p className='selectCatType'>Valitse kategoriatyyppi:</p>
                                 <SelectField
                                     hintText='Valitse kategoriatyyppi'
@@ -200,11 +192,22 @@ class ModifyCategories extends Component {
                                     <MenuItem value={'fakeCats'} primaryText="Feikkikategoriat" />
                                 </SelectField>
                             </div>
-                            <Table className='Cat' style={{ float: 'left', width: '100%' }} onCellClick={rowNumber => this.expand(rowNumber)}>
+                            <Table className='Cat' style={{ float: 'left', width: '100%' }} >
                                 <TableBody displayRowCheckbox={false}>
-                                    {this.state.valueC === 'cats' ? <div>{cats}</div> : <div></div>}
-                                    {this.state.valueC === 'subCats' ? <div>{subCats}</div> : <div></div>}
-                                    {this.state.valueC === 'fakeCats' ? <div>{fakeCats}</div> : <div></div>}
+                                    {
+                                        (() => {
+                                            switch (this.state.valueC) {
+                                                case 'cats':
+                                                    return cats;
+                                                case 'subCats':
+                                                    return subCats;
+                                                case 'fakeCats':
+                                                    return fakeCats;
+                                                default:
+                                                    return cats;
+                                            }
+                                        })()
+                                    }
                                 </TableBody>
                             </Table>
                             <div className='subCat' style={{ float: 'left', width: '30%' }}>

@@ -106,8 +106,6 @@ class CategoriesFields extends React.Component {
     }
 
 
-
-
     // creates the appropriate style for the (sub)category
     // index = the element's CatId/subId
     // type 0 = category, 1 = proxycategory

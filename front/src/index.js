@@ -7,20 +7,23 @@ import { Provider } from 'react-redux'
 import storeFactory from './store'
 import initialState from './initialState'
 
-
+import { debugMode } from './settings'
 
 
 const saveState = () =>
-    localStorage["redux-store"] = JSON.stringify(store.getState())
+  localStorage["redux-store"] = JSON.stringify(store.getState())
 
 console.log(saveState);
 
 const store = storeFactory(initialState)
 
 
-// debug tools, don't leave in live version
-window.React = React
-window.Store = store
+if (!debugMode) {
+  // debug tools, don't leave in live version
+  window.React = React
+  window.Store = store
+}
+
 
 
 

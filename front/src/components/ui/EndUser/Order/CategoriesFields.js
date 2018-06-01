@@ -22,6 +22,10 @@ class CategoriesFields extends React.Component {
             activeSubCatId: '',
             activeSubCatName: '',
 
+
+            activeProxyCatId: "",
+            activeProxyCatName: "",
+
             images: {
 
             }
@@ -43,7 +47,8 @@ class CategoriesFields extends React.Component {
             activeProxyCatId: "",
             activeProxyCatName: ""
         }, function () {
-            this.props.setCategoriesSelected(false);
+            // main category is changed -> subcat un-selected -> set forward arrow as disabled until a new subcat is selected
+            this.props.setCategoriesSelected(false); 
         });
     }
 
@@ -64,48 +69,47 @@ class CategoriesFields extends React.Component {
                 phone: this.props.values.phone,
                 pickupInstructions: this.props.values.pickupInstructions,
                 iscompany: this.props.values.iscompany,
+
+                // Id's for selected categories. Will not actually reach backend
+                // it's a bit safer to take the parameter versions in sub & proxy rather than the state one
+                // should be identical, but you never know 
+                categoryId: this.state.activeCatId,
+                subCategoryId: subCatId,
+                proxyCategoryId: proxyCatId,
+
                 category: this.state.activeCatName,
                 subCat: subCatName,
                 proxySubCat: proxyCatName
             }
             this.props.saveValues(data);
-            this.props.setCategoriesSelected(true);
+            this.props.setCategoriesSelected(true); // enable the forward arrow
         });
     }
 
 
     componentDidMount() {
 
+        console.clear()
+        console.log("RAKETTIRYHMÄ LOGGAA JÄLLEEN")
+        console.log(this.props.values);
+
         if (this.props.values.subCat == undefined || this.props.values.subCat == "") {
             this.props.setCategoriesSelected(false);
         } else {
-
-            // compare the selected item's (sub)category names with store's (sub)categorylists to find their ID's
-            // then store the IDs as active to enable highlighting
-            // this is kinda stupid, but it's what you get for not storing the ID's in the value object in the first place
-            for (let i = 0; i < this.props.categories.length; i++) {
-                if (this.props.categories[i].CatName === this.props.values.category) {
-                    for (let j = 0; j < this.props.subCategories.length; j++) {
-                        if (this.props.subCategories[j].subName === this.props.values.subCat) {
-                            this.setState({
-                                activeCatId: this.props.categories[i].CatId,
-                                activeSubCatId: this.props.subCategories[j].subId
-                            })
-                        }
-                    }
-                }
-            }
-
             this.props.setCategoriesSelected(true);
         }
         this.setState({
+
+            activeCatId: this.props.values.categoryId,
+            activeSubCatId: this.props.values.subCategoryId,
+            activeProxyCatId: this.props.values.proxyCategoryId,
+
             activeCatName: this.props.values.category,
-            activeSubCatName: this.props.values.subCat
+            activeSubCatName: this.props.values.subCat,
+            activeProxyCatName: this.props.values.proxySubCat
         })
 
     }
-
-
 
 
     // creates the appropriate style for the (sub)category
@@ -119,12 +123,12 @@ class CategoriesFields extends React.Component {
 
             let imageUrl;
 
-            if( !this.props.categoryUrlsExist[index] ){
+            if (!this.props.categoryUrlsExist[index]) {
                 imageUrl = noImage;
             } else {
                 imageUrl = BASE_URL + "/images/categories/" + this.props.categories[index].ImgReference;
             }
-            
+
 
 
             if (this.props.categories[index].CatId == this.state.activeCatId) {
@@ -138,8 +142,8 @@ class CategoriesFields extends React.Component {
                     fontSize: '15px',
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "contain",
-                    backgroundPosition:  "center,left center",
-                    backgroundImage: "url("+imageUrl+")"
+                    backgroundPosition: "center,left center",
+                    backgroundImage: "url(" + imageUrl + ")"
                 }
             } else {
                 returnStyle = {
@@ -153,7 +157,7 @@ class CategoriesFields extends React.Component {
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "contain",
                     backgroundPosition: "center, left center",
-                    backgroundImage: "url("+imageUrl+")"
+                    backgroundImage: "url(" + imageUrl + ")"
                 }
             }
 
@@ -161,7 +165,7 @@ class CategoriesFields extends React.Component {
 
             let imageUrl;
 
-            if( !this.props.proxyCategoryUrlsExist[index] ){
+            if (!this.props.proxyCategoryUrlsExist[index]) {
                 imageUrl = noImage;
             } else {
                 imageUrl = BASE_URL + "/images/subcategories/" + this.props.proxyCategories[index].imgReference;
@@ -179,7 +183,7 @@ class CategoriesFields extends React.Component {
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "contain",
                     backgroundPosition: "center, left center",
-                    backgroundImage: "url("+imageUrl+")"
+                    backgroundImage: "url(" + imageUrl + ")"
                 }
             } else {
                 returnStyle = {
@@ -193,15 +197,11 @@ class CategoriesFields extends React.Component {
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "contain",
                     backgroundPosition: "center, left center",
-                    backgroundImage: "url("+imageUrl+")"
+                    backgroundImage: "url(" + imageUrl + ")"
                 }
             }
 
         }
-
-
-
-
 
         return returnStyle;
 
@@ -256,15 +256,15 @@ class CategoriesFields extends React.Component {
             if (this.props.subCategories[j].CatId === this.state.activeCatId) {
 
                 for (let k = 0; k < this.props.proxyCategories.length; k++) {
-                    
-                    if(this.props.proxyCategories[k].subCatId == this.props.subCategories[j].subId){
+
+                    if (this.props.proxyCategories[k].subCatId == this.props.subCategories[j].subId) {
 
 
                         proxyCats.push(
                             <td
                                 value={this.props.proxyCategories[k].name}
                                 onClick={() => this.setSubCat(
-                                    this.props.subCategories[j].subId, 
+                                    this.props.subCategories[j].subId,
                                     this.props.subCategories[j].subName,
                                     this.props.proxyCategories[k].Id,
                                     this.props.proxyCategories[k].name

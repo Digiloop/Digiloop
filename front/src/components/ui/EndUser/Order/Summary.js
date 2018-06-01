@@ -1,10 +1,6 @@
-import React, { Component } from 'react';
-import { AppBar, MenuItem, DropDownMenu, Divider } from 'material-ui';
-import { FlatButton, IconButton, TextField } from 'material-ui';
-import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
-import Back from 'material-ui/svg-icons/navigation/arrow-back';
-import { sendRegData } from '../../../../utils/sendRegData';
-import styles from '../../../../index.css';
+import React from 'react';
+import { Divider, FlatButton, IconButton } from 'material-ui';
+
 import { sendItemData } from '../../../../utils/sendItem';
 
 

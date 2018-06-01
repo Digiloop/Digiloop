@@ -21,8 +21,6 @@ export { sendUpdateData };
 } */
 
 function sendUpdateData(updateUserData) {
-  console.log("updating:");
-  console.log(updateUserData)
   return axios.post(BASE_URL + '/updateUser', {
     fname: updateUserData.fname,
     lname: updateUserData.lname,

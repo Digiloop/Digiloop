@@ -1,15 +1,6 @@
-import React, { Component } from 'react';
-import AppBar from 'material-ui/AppBar';
-import MenuItem from 'material-ui/MenuItem';
+import React from 'react';
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import IconButton from 'material-ui/IconButton';
-import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
-import Back from 'material-ui/svg-icons/navigation/arrow-back';
-import styles from '../../../../index.css';
 
-import orkkis from '../Materials/OrderPics/organization2.gif';
 
 
 class AddressFields extends React.Component {

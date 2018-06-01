@@ -14,7 +14,7 @@ import CategoriesFields from '../../../containers/EndUser/Order/CategoriesFields
 import InfoFields from '../../../containers/EndUser/Order/InfoFields';
 import Summary from '../../../containers/EndUser/Order/Summary';
 
-import { BASE_URL } from '../../../../settings'
+import { BASE_URL, debugMode } from '../../../../settings'
 
 class OrderMain extends Component {
     constructor(props) {
@@ -98,9 +98,15 @@ class OrderMain extends Component {
             'phone': value.phone,
             'pickupInstructions': value.pickupInstructions,
             'iscompany': value.iscompany,
+
+            'categoryId': value.categoryId,
+            'subCategoryId': value.subCategoryId,
+            'proxyCategoryId': value.proxyCategoryId,
+
             'category': value.category,
             'subCat': value.subCat,
             'proxySubCat': value.proxySubCat,
+
             'pcs': value.pcs,
             'size': value.size,
             'weight': value.weight,
@@ -281,16 +287,15 @@ class OrderMain extends Component {
 
     render() {
 
-        // **** DO NOT REMOVE ****
 
         // confirm you want to reload page, since data will be lost
         // pretty annoying during dev, but activate before build
-        /*
-        window.onbeforeunload = function ()
-        {
-            return "";
-        };
-        */
+        if(!debugMode){
+            window.onbeforeunload = function ()
+            {
+                return "";
+            };
+        }
 
         const styles = {
 

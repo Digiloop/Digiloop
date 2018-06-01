@@ -49,7 +49,6 @@ getStatus(status){
 render() {
 
   const items = [];
-  //console.log(this.props.items);
 
   for(let i = 0; i < this.props.items.length; i++){
     items.push(
@@ -58,7 +57,7 @@ render() {
         <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
         <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
         <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
-        {this.props.items[i].status == 1 ? <TableRowColumn><RaisedButton label="Varaa" /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
+        {this.props.items[i].status === 1 ? <TableRowColumn><RaisedButton label="Varaa" /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
         <TableRowColumn>Tila { this.getStatus( this.props.items[i].status ) }</TableRowColumn>
       </TableRow>
     )

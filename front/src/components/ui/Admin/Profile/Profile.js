@@ -54,7 +54,6 @@ class Profile extends Component {
         "zipcode": this.state.zipcode,
         "city": this.state.city
       }
-      console.log(updateUserData);
       
       sendUpdateData(updateUserData);
 

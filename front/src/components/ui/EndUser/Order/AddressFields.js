@@ -14,7 +14,7 @@ class AddressFields extends React.Component {
         this.updateField = this.updateField.bind(this);
     }
 
-
+    // Updates the input fields, called by onChange -event
     updateField(fieldName, newValue){
         this.setState({ [fieldName]: newValue }, function(){
             this.checkFill();
@@ -71,6 +71,7 @@ class AddressFields extends React.Component {
 
     render() {
 
+        // not used?
         const styles = {
             width: '98%',
             backgroundColor: '#FFFFFF',
@@ -96,6 +97,16 @@ class AddressFields extends React.Component {
                 width: '100%'
             }
         };
+
+        const isCompanyStyle = {
+            borderRadius: 4, 
+            border: '6px solid white', 
+            marginLeft: '20%',
+            textAlign: 'center', 
+            width: '70%'
+        }
+        
+
 
         return (
             <div className="Container">

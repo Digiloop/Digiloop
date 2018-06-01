@@ -55,7 +55,6 @@ class Map extends Component {
 
   render() {
     for (let i = 0; i < this.props.items.length; i++) {
-      console.log("Lat: " + this.props.items[i].latitude + " Long: " + this.props.items[i].longitude)
       this.state.rows[i] = <Marker
         key={i}
         position={{ lat: parseFloat(this.props.items[i].latitude), lng: parseFloat(this.props.items[i].longitude) }} />

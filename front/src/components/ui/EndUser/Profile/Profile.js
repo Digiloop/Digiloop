@@ -56,7 +56,7 @@ class Profile extends Component {
         "city": this.state.city
       }
 
-      console.log("päivitetty data")
+      console.log("Päivitetty data")
       console.log(updateUserData)
       sendUpdateData(updateUserData);
 

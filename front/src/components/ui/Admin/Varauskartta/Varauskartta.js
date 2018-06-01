@@ -40,7 +40,6 @@ class WasteProcessor extends Component {
   getJunksData() {
 
     getJunkData().then((junks) => {
-      console.log(junks);
       this.props.itemsToStore(junks);
       this.rliFiltering();
     });
@@ -61,10 +60,6 @@ class WasteProcessor extends Component {
     const p = this.props;
     const o = this.props.rLOpt;
 
-    //console.log(this.props.cats);
-    //console.log(this.props.subCats);
-    //console.log(o.categories);
-    //console.log(o.subCategories);
     
     let pi;
     let pass = true;
@@ -85,7 +80,7 @@ class WasteProcessor extends Component {
       pass = true;
 
       for (let j = 0; j < this.props.cats.length; j++) {
-        if (catOptions[j] == false && pi.category == this.props.cats[j].CatName) {
+        if (catOptions[j] === false && pi.category === this.props.cats[j].CatName) {
           pass = false;
         }
       }

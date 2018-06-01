@@ -51,7 +51,7 @@ class ReservationListOptions extends Component {
       userLocation: {
         locationButtonDisable: this.props.rLOpt.userLocation.locationButtonDisable
       } 
-    },function(){console.log("hippitihoo");console.log(this.state.userLocation)})
+    })
 
 
     // create states for categories
@@ -70,7 +70,7 @@ class ReservationListOptions extends Component {
     // same for subcategories
     for (let i = 0; i < this.props.categories.length; i++) {
       for (let j = 0; j < this.props.subCategories.length; j++) {
-        if (this.props.subCategories[j].CatId == this.props.categories[i].CatId) {
+        if (this.props.subCategories[j].CatId === this.props.categories[i].CatId) {
 
           // subcat name is created from main cat name + subcat name
           let subCatState = this.props.categories[i].CatName + this.props.subCategories[j].subName;
@@ -135,7 +135,7 @@ class ReservationListOptions extends Component {
     // subcat package
     for (let i = 0; i < this.props.categories.length; i++) {
       for (let j = 0; j < this.props.subCategories.length; j++) {
-        if (this.props.subCategories[j].CatId == this.props.categories[i].CatId) {
+        if (this.props.subCategories[j].CatId === this.props.categories[i].CatId) {
 
           // prepare the subcat's statename (parent catname + subname)
           let subCatState = this.props.categories[i].CatName + this.props.subCategories[j].subName;
@@ -199,7 +199,7 @@ class ReservationListOptions extends Component {
       subCatBoxes.push(<tr key={"subKattiOtsikko" + i}><td>{this.props.categories[i].CatName}</td></tr>);
 
       for (let j = 0; j < this.props.subCategories.length; j++) {
-        if (this.props.subCategories[j].CatId == this.props.categories[i].CatId) {
+        if (this.props.subCategories[j].CatId === this.props.categories[i].CatId) {
 
           // prepare the subcat's statename (parent catname + subname)
           let subCatState = this.props.categories[i].CatName + this.props.subCategories[j].subName;

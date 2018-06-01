@@ -10,7 +10,6 @@ const consoleTest = store => next => action => {
   let result
 
   console.groupCollapsed(`dispatching action => ${action.type}`)
-  //console.log('Login:', store.getState().login)
   console.log("Payload:")
   console.log(action.payload)
 

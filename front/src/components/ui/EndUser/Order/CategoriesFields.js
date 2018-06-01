@@ -89,9 +89,6 @@ class CategoriesFields extends React.Component {
 
     componentDidMount() {
 
-        console.clear()
-        console.log("RAKETTIRYHMÄ LOGGAA JÄLLEEN")
-        console.log(this.props.values);
 
         if (this.props.values.subCat == undefined || this.props.values.subCat == "") {
             this.props.setCategoriesSelected(false);

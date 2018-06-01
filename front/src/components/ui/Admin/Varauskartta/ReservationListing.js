@@ -49,7 +49,6 @@ getStatus(status){
 render() {
 
   const items = [];
-  //console.log(this.props.items);
 
   for(let i = 0; i < this.props.items.length; i++){
     items.push(

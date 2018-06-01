@@ -25,7 +25,6 @@ constructor(props){
  // fetch junk data
 getJunksData() {
   getJunkData().then((junks) => {
-    console.log(junks);
     this.props.itemsToStore(junks);
     this.listHistory();
   });
@@ -34,7 +33,6 @@ getJunksData() {
 
 listHistory(){
   const items = [];
-  console.log(items);
   for(let i = 0; i < this.props.items.length; i++){
     if(this.props.items[i].status == 4){
     items.push(

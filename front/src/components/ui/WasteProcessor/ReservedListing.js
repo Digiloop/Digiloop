@@ -23,8 +23,6 @@ constructor(props){
  // fetch junk data
 getJunksData() {
   getJunkData().then((junks) => {
-    console.log(junks);
-    //this.props.itemsToStore(junks);
     this.listReserved();
   });
 }

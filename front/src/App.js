@@ -53,8 +53,6 @@ class App extends Component {
   })
 
   getFakeCats().then((proxyCategories) => {
-    console.clear()
-    console.log(proxyCategories)
     this.props.setProxyCategories(proxyCategories)
   })
 

@@ -58,14 +58,12 @@ class WasteProcessor extends Component {
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var d = R * c;
 
-    console.log(d);
     return d;
   }
 
 
   // the filter function, that leaves only the necessary stuff to be displayed
   rliFiltering() {
-    console.log(this.props.resListItems);
 
     let resListItemsFiltered = [];
 
@@ -87,8 +85,7 @@ class WasteProcessor extends Component {
 
       // subcategory check - works perfectly
       let subCat = this.props.resListItems[i].category + this.props.resListItems[i].subCat; // create the subcat full name
-      console.log("subcattest")
-      console.log(subCat)
+
       subCat = subCat.toLowerCase(); // eliminate case-irregularities in item categories
       if (this.props.rLOpt.subCategories[subCat] != undefined) { // is initialized? ALl uninitialized are treated as true
         if (!this.props.rLOpt.subCategories[subCat]) { // is false?
@@ -115,7 +112,6 @@ class WasteProcessor extends Component {
       // first check if location is being used, then compare it to each item and determine of the distance is
       // longer than what the max distance in options has set
       
-      console.log(this.props.rLOpt.userLocation.locationButtonDisable)
       if (!this.props.rLOpt.userLocation.locationButtonDisable) {
         if ((this.getDistance(this.props.rLOpt.userLocation.latitude, this.props.rLOpt.userLocation.longitude, this.props.resListItems[i].latitude, this.props.resListItems[i].longitude) / 1000) > this.props.rLOpt.distance) {
           pass = false;

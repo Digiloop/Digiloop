@@ -23,7 +23,6 @@ class Notification extends Component {
   // fetch notifications
   getNotifications() {
     getNotifications().then((notif) => {
-      console.log(notif);
       this.props.itemsToStore(notif);
       this.listNotif();
     });
@@ -32,7 +31,6 @@ class Notification extends Component {
 
   listNotif() {
     const items = [];
-    console.log(items);
     for (let i = 0; i < this.props.items.length; i++) {
       items.push(
         <TableRow key={i} >

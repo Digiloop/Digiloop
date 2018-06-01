@@ -68,7 +68,6 @@ class EndUserFront extends Component {
 
   // Name to toolbartitle
   getPageName() {
-    //console.log(this.state.index);
     switch (this.state.index) {
       case 0:
         return this.props.setNewPageName('Etusivu');

@@ -51,7 +51,7 @@ class ReservationListOptions extends Component {
       userLocation: {
         locationButtonDisable: this.props.rLOpt.userLocation.locationButtonDisable
       } 
-    },function(){console.log("hippitihoo");console.log(this.state.userLocation)})
+    })
 
 
     // create states for categories

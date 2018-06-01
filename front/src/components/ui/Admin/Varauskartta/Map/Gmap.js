@@ -48,14 +48,12 @@ this.setState({
 
 
 clear(){
-  //console.log(this.state.cleared);
   if(this.state.needClearing){
   this.setState({
     rows: [],
     needClearing: false,
     test:["Dolan"]
   });
-  //console.log("Cleared!");
 }
 else{
   this.setState({
@@ -68,38 +66,15 @@ clearTEST(){
   this.setState({
     test: []
   });
-  //console.log("Cleared!TEST");
 
 }
 
-/*pressed(){
-  if (this.visible) {
-    this.visible=false;
-  }
-  else{
-    this.visible=true;
-  }
-  var markers = [{"lat": 60.986466, "lng": 25.643688, "text": "Kikki Hiiri was here!"},
-  {"lat": 61.986466, "lng": 26.643688, "text": "Kikki Hiiri was here too!"}];
-  console.log("Hiiohoi");
-  console.log(markers[0].text);
-}*/
-
-/*
- debug(){
-   //console.log("Hiiohoi");
- }*/
 
 render() {
-  //console.log(this.state.rows[0]);
-  //console.log(this.state.test[0]);
-  //console.log(this.props.items);
     for ( let i = 0; i < this.props.items.length; i++ ){
         this.state.rows[i] = <Marker
           key= {i}
           position={{ lat: parseInt(this.props.items[i].latitude), lng: parseInt(this.props.items[i].longitude) }} />
-          //console.log(this.props.items[i]);
-          //console.log("Marker added");
       }
 
 

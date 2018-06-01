@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { TextField, RaisedButton } from 'material-ui';
-import { MenuItem, SelectField } from 'material-ui';
+import { MenuItem, SelectField, Divider } from 'material-ui';
 import { Table, TableBody, TableHeader } from 'material-ui/Table';
 import { TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 
@@ -17,6 +17,8 @@ class ModifyCategories extends Component {
             value: '',
             valueC: 'cats',
             cat: '',
+            catName: '',
+            rows: [],
             cats: [],
             subCats: [],
             fakeCats: []
@@ -61,17 +63,38 @@ class ModifyCategories extends Component {
     };
 
     // activate or deactivate category
-    activate(id, status) {        
+    activate(id, status) {
         this.setState({
             id: id,
             status: status
         });
         console.log(this.state.id + ' ' + this.state.status);
-        
+
         if (this.state.status === 1) {
 
+        } else {
+
         }
-        
+
+    }
+
+    // opening items
+    expand(x) {
+        // create a temp array, because it's easier to edit than the state one
+        let newArray = this.state.rows;
+
+        if (newArray[x]) { // closing the open item
+            newArray[x] = false;
+        } else { // opening another means first closing the open one
+            for (let i = 0; i < newArray.length; i++) {
+                if (newArray[i]) {
+                    newArray[i] = false; // close the open one
+                }
+            }
+            newArray[x] = true; // open the new row
+        }
+        // set the edited version as the new state
+        this.setState({ rows: newArray });
     }
 
 
@@ -127,7 +150,7 @@ class ModifyCategories extends Component {
         console.log(this.state.cats);
         console.log(this.state.subCats);
         console.log(this.state.fakeCats);
-        
+
 
         for (let i = 0; i < this.state.cats.length; i++) {
             cats.push(
@@ -135,9 +158,11 @@ class ModifyCategories extends Component {
                     <TableRowColumn colSpan='2'>
                         {this.state.cats[i].CatName}
                     </TableRowColumn>
-                    <TableRowColumn>
-                        <RaisedButton label={this.state.cats[i].Status ? 'Deaktivoi' : 'Aktivoi'} 
-                        onClick={event => this.activate(this.state.cats[i].CatId, this.state.cats[i].Status)} />
+                    <TableRowColumn colSpan='2'>
+                        <RaisedButton label="Muuta"
+                            onClick={event => this.activate(this.state.cats[i].CatId, this.state.cats[i].Status)} />
+                        <RaisedButton label={this.state.cats[i].Status ? 'Deaktivoi' : 'Aktivoi'}
+                            onClick={event => this.activate(this.state.cats[i].CatId, this.state.cats[i].Status)} />
                     </TableRowColumn>
                 </TableRow>
             )
@@ -150,8 +175,8 @@ class ModifyCategories extends Component {
                         {this.state.subCats[j].subName}
                     </TableRowColumn>
                     <TableRowColumn>
-                        <RaisedButton label={this.state.subCats[j].Status ? 'Deaktivoi' : 'Aktivoi'} 
-                        onClick={event => this.activate(this.state.subCats[j].subId, this.state.subCats[j].Status)} />
+                        <RaisedButton label={this.state.subCats[j].Status ? 'Deaktivoi' : 'Aktivoi'}
+                            onClick={event => this.activate(this.state.subCats[j].subId, this.state.subCats[j].Status)} />
                     </TableRowColumn>
                 </TableRow>
             )
@@ -164,8 +189,8 @@ class ModifyCategories extends Component {
                         {this.state.fakeCats[k].name}
                     </TableRowColumn>
                     <TableRowColumn>
-                        <RaisedButton label={this.state.fakeCats[k].Status ? 'Deaktivoi' : 'Aktivoi'} 
-                        onClick={event => this.activate(this.state.fakeCats[k].Id, this.state.subCats[k].Status)} />
+                        <RaisedButton label={this.state.fakeCats[k].Status ? 'Deaktivoi' : 'Aktivoi'}
+                            onClick={event => this.activate(this.state.fakeCats[k].Id, this.state.subCats[k].Status)} />
                     </TableRowColumn>
                 </TableRow>
             )
@@ -192,7 +217,7 @@ class ModifyCategories extends Component {
                                     <MenuItem value={'fakeCats'} primaryText="Feikkikategoriat" />
                                 </SelectField>
                             </div>
-                            <Table className='Cat' style={{ float: 'left', width: '100%' }} >
+                            <Table className='Cat' style={{ float: 'left', width: '100%' }} onCellClick={rowNumber => this.expand(rowNumber)} >
                                 <TableBody displayRowCheckbox={false}>
                                     {
                                         (() => {

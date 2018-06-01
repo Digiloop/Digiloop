@@ -96,7 +96,6 @@ class Categories extends Component {
     // handles radiobutton
     handleChange = event => {
         this.setState({ valueR: event.target.value });
-        console.log(event.target.value);
 
     };
 

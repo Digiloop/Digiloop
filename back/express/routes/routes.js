@@ -24,7 +24,7 @@ module.exports = (app, passport, users) => {
         res.json(req.users);
     });
     app.post('/feikkiCatAdd', (req, res) => {
-        connection.query("INSERT INTO SubSubCats ( imgReference, name, subCatId) values (?, ?, ?)", ['i can haz reference', req.body.name, req.body.subCatId], (err, result) => {
+        connection.query("INSERT INTO SubSubCats ( imgReference, name, subCatId, Status) values (?, ?, ?, ?)", ['i can haz reference', req.body.name, req.body.subCatId, 1], (err, result) => {
             if (err) throw err;
             console.log(result);
         });
@@ -56,9 +56,12 @@ module.exports = (app, passport, users) => {
 
 
     app.post('/updateUser', (req, res) => {
-        connection.query('UPDATE users SET fname = ?, lname = ?, address = ?, zipcode = ?, city = ?, phone = ? WHERE id = ?;', [req.body.fname, req.body.lname, req.body.address, req.body.zipcode, req.body.city, req.body.phone, req.user.id], (err, result) => {
-            if (err) throw err;
-            console.log(result);
+        let stuff = [req.body.fname, req.body.lname, req.body.address, req.body.zipcode, req.body.city, req.body.phone, req.user.id]
+        console.log(req.body);
+        console.log(stuff)
+        connection.query('UPDATE users SET fname = ?, lname = ?, address = ?, zipcode = ?, city = ?, phone = ? WHERE id = ?;',stuff, (err, result) => {
+            //if (err) throw err;
+            //console.log(result);
             console.log(result.affectedRows + " record(s) updated");
         })
         res.end();
@@ -101,11 +104,11 @@ module.exports = (app, passport, users) => {
     // process the login form
     //mahdollinen ratkaisu palautukseen ilman flashia
     //https://github.com/jaredhanson/passport-local/issues/4
-    app.post('/login', passport.authenticate('local-login', {}), (req, res) => {
+    app.post('/login', passport.authenticate('local-login', {session:true}), (req, res) => {
         console.log(req.user.email + " logged in.");
 
         if (req.body.remember) {
-            req.session.cookie.maxAge = 1000 * 60 * 30;
+            req.session.cookie.maxAge = 1000 * 60 * 30000;
         } else {
             req.session.cookie.expires = false;
         }

@@ -1,8 +1,9 @@
 //var dosmth = require("./dosmth.js");
 var express = require('express');
 var router = express.Router();
-var sqldata = require('../code/sqldata.js'); //haetaan luokka joka hoitaa sql sydeemeit
-var sqldatahaku = new sqldata; // 
+var misc = require('../code/misc.js'); var misk = new misc;
+var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata; //haetaan luokka joka hoitaa sql sydeemeit
+var fileUpload = require('express-fileupload');
 //var randomiii = new sqldata();
 //https://javascript.info/async-await
 //https://itnext.io/using-async-await-to-write-cleaner-route-handlers-7fc1d91b220b
@@ -53,6 +54,13 @@ router.post('/subcatAdd', (req,res) => {
   const query = 'INSERT INTO subCat ( CatId, subName, Status) VALUES (?,?,?)'
   sqldatahaku.querySql(query,[req.body.catid, req.body.subcatname, 1]);
   res.end();
+});
+
+router.post('/imageAdd', (req,res) => {
+  misk.imageAdd(req.files.sample);
+  res.end();
+  //console.log(req.files.sample);
+ 
 });
 
 module.exports = router

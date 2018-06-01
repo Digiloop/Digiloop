@@ -180,10 +180,6 @@ class FakeCategories extends Component {
         const cats = [];
         const subCats = [];
         const fakeCats = [];
-        console.log(this.state.cats);
-        console.log(this.state.subCats);
-        console.log(this.state.fakeCats);
-
 
         for (let i = 0; i < this.state.cats.length; i++) {
             cats.push(

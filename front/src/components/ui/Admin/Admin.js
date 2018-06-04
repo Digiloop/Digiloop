@@ -70,10 +70,10 @@ class Admin extends Component {
 
     const cats = [];
     const subCats = [];
-    console.log(this.state.cats);
-    console.log(this.state.cats.length);
-    console.log(this.state.subCats.length);
-    console.log(this.state.subCats);
+    // console.log(this.state.cats);
+    // console.log(this.state.cats.length);
+    // console.log(this.state.subCats.length);
+    // console.log(this.state.subCats);
 
     for (let i = 0; i < this.state.cats.length; i++) {
       cats.push(

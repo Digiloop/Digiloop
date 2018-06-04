@@ -6,7 +6,7 @@ var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata; //ha
 //GET
 router.get('/items', (req, res, next) => {
     const query = 'SELECT * FROM junk'
-    sqldatahaku.getInfoSql(query, (err, result) => {
+    sqldatahaku.queryGet(query, (err, result) => {
         if (err) throw err;
         res.json(result);
         next();

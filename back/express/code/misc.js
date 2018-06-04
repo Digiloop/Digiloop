@@ -17,7 +17,7 @@ module.exports = class misc {
         }
         return arr;
     }
-    //takes 2 arrays and concats them together,func should take sqldatahaku.querySql function that does sql query which is the last parameter query.
+    //takes 2 arrays and concats them together,func should take sqldatahaku.querySql function that does sql query which is the last parameter.
     fuseItemArray(array1, array2, func, query) {
         let arr = [];
         //so this thing here loops trough all req.body data
@@ -26,30 +26,40 @@ module.exports = class misc {
         }
     }
 
+    selectorThing(selector, arr1, arr2) {
+        let ars1 = arr1[selector]
+        let ars2 = arr2[selector]
+        return [ars1, ars2]
+    }
+
     // Add's images. On the server. To be used. In the future.
     //select = categories,subcategories or user
     imageAdd(files, select) {
+        // categories,subcategories,users
+        folder = this.selectorThing(select,[`./kuvat/categories/${files.name}`,`./kuvat/subcategories/${files.name}`,`./kuvat/users/${files.name}`])
+        console.log(files);
+        /*var userfolder = `./kuvat/users/' + ${req.user.username}`;
+        let categories = `./kuvat/categories/${files.name}`;
+        let subcategories = `./kuvat/subcategories/${files.name}`;
+        let users = `./kuvat/users/${files.name}`;
+        let choice = [categories, subcategories, users]
+        */
+        console.log(folder[0]);
+        /*
+        if (!fs.existsSync(userfolder)) {
 
-            console.log(files);
-            //var userfolder = `./kuvat/users/' + ${req.user.username}`;
-            let categories = `./kuvat/categories/${files.name}`;
-            console.log(categories);
-            /*
-            if (!fs.existsSync(userfolder)) {
+            fs.mkdirSync(userfolder);
 
-                fs.mkdirSync(userfolder);
-
-            }
+        }
 */
 
-            // Use the mv() method to place the file somewhere on your server
-            console.log(categories);
-            files.mv(categories, function (err) {
-                if (err)
-                    return res.status(500).send(err);
-            })
+        // Use the mv() method to place the file somewhere on your server
+        files.mv(folder[0], function (err) {
+            if (err)
+                return res.status(500).send(err);
+        })
 
- 
+
 
     }
 

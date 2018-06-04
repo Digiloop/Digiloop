@@ -23,13 +23,7 @@ module.exports = (app, passport, users) => {
     app.get('/session', (req, res) => {
         res.json(req.users);
     });
-    app.post('/feikkiCatAdd', (req, res) => {
-        connection.query("INSERT INTO SubSubCats ( imgReference, name, subCatId, Status) values (?, ?, ?, ?)", ['i can haz reference', req.body.name, req.body.subCatId, 1], (err, result) => {
-            if (err) throw err;
-            console.log(result);
-        });
-        res.end();
-    });
+
 
     app.get('/announcements', (req, res) => {
         connection.query('SELECT * FROM Announcements', (err, result) => {
@@ -59,7 +53,7 @@ module.exports = (app, passport, users) => {
         let stuff = [req.body.fname, req.body.lname, req.body.address, req.body.zipcode, req.body.city, req.body.phone, req.user.id]
         console.log(req.body);
         console.log(stuff)
-        connection.query('UPDATE users SET fname = ?, lname = ?, address = ?, zipcode = ?, city = ?, phone = ? WHERE id = ?;',stuff, (err, result) => {
+        connection.query('UPDATE users SET fname = ?, lname = ?, address = ?, zipcode = ?, city = ?, phone = ? WHERE id = ?;', stuff, (err, result) => {
             //if (err) throw err;
             //console.log(result);
             console.log(result.affectedRows + " record(s) updated");
@@ -104,7 +98,7 @@ module.exports = (app, passport, users) => {
     // process the login form
     //mahdollinen ratkaisu palautukseen ilman flashia
     //https://github.com/jaredhanson/passport-local/issues/4
-    app.post('/login', passport.authenticate('local-login', {session:true}), (req, res) => {
+    app.post('/login', passport.authenticate('local-login', { session: true }), (req, res) => {
         console.log(req.user.email + " logged in.");
 
         if (req.body.remember) {

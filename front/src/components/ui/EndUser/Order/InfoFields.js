@@ -8,7 +8,10 @@ class InfoFields extends React.Component {
         this.state = {
             value1: 1,
             value2: 1,
-            value3: 1
+            value3: 1,
+            pcs: 1,
+            size: 1,
+            weight: 1
         };
     }
 
@@ -101,17 +104,17 @@ class InfoFields extends React.Component {
                                     <p style={styles.pTags}>Kappalemäärä</p>
                                     <p style={styles.pTags}>Mitat</p>
                                     <p style={styles.pTags}>Paino</p>
-                                    <DropDownMenu value={this.state.value1} onChange={this.handlePcsChange} style={styles.dropDown}>
+                                    <DropDownMenu value={this.state.pcs} onChange={this.handlePcsChange} style={styles.dropDown}>
                                         <MenuItem value={1} primaryText="1" />
                                         <MenuItem value={'2-5'} primaryText="2 - 5" />
                                         <MenuItem value={'5'} primaryText="> 5" />
                                     </DropDownMenu>
-                                    <DropDownMenu value={this.state.value2} onChange={this.handleSizeChange} style={styles.dropDown}>
+                                    <DropDownMenu value={this.state.size} onChange={this.handleSizeChange} style={styles.dropDown}>
                                         <MenuItem value={1} primaryText="< 0.5 m" />
                                         <MenuItem value={'0.5-2'} primaryText="> 0.5 - 2" />
                                         <MenuItem value={'2.5'} primaryText="> 2.5 m" />
                                     </DropDownMenu>
-                                    <DropDownMenu value={this.state.value3} onChange={this.handleWeightChange} style={styles.dropDown}>
+                                    <DropDownMenu value={this.state.weight} onChange={this.handleWeightChange} style={styles.dropDown}>
                                         <MenuItem value={1} primaryText="< 5" />
                                         <MenuItem value={'5-20'} primaryText=">5 - 20" />
                                         <MenuItem value={'>20'} primaryText="> 20" />

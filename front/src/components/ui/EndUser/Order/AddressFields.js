@@ -14,18 +14,17 @@ class AddressFields extends React.Component {
         this.updateField = this.updateField.bind(this);
     }
 
-    // Updates the input fields, called by onChange -event
-    updateField(fieldName, newValue){
-        this.setState({ [fieldName]: newValue }, function(){
-            this.checkFill();
+    // Updates the input fields, used by onChange -events of each field
+    updateField(fieldName, newValue) {
+        this.setState({ [fieldName]: newValue }, function () {
+            this.checkFill(); // check's if all the fields are filled
         })
     }
 
+    // check that all fields are filled
+    // if so, give OrderMain the order to enable the forward arrow
     checkFill() {
 
-
-        // check that all fields are filled
-        // if so, give OrderMain the order to enable the forward arrow
         let pass = true;
         for (var key in this.state) {
             if (this.state[key] === '' || this.state[key] === undefined || this.state[key] === null) {
@@ -33,18 +32,22 @@ class AddressFields extends React.Component {
                 pass = false;
             }
         }
+
+        // setting state is probably deprecated now, originally used to prevent infinite loops via calling checkfill()
+        // in ComponentDidMount(). Maybe better to leave it, as it prevents unnecessary state updates, even if it
+        // is not infinite anymore
+        // Also updates allFilled -state in OrderMain.js if necessary
         if (pass && !this.state.allFilled) {
             this.setState({ allFilled: true })
-            //this.nextStep();
             this.props.setAllfilled(true);
         } else if (!pass && this.state.allFilled) {
             this.setState({ allFilled: false })
             this.props.setAllfilled(false);
         }
 
-        // save the data
-        // it shouldn't matter if it's incomplete, since it will save after each edit to fields
-        // and since the checkfill won't let forward unless all fields are good to go
+        // save the data in OrderMain.js' state
+        // it shouldn't matter if it's incomplete, since it will save after each edit to fields and
+        // since the checkfill won't let forward unless all fields are good to go
         var data = {
             pickupaddr: this.state.pickupaddr,
             zipcode: this.state.zipcode,
@@ -58,16 +61,16 @@ class AddressFields extends React.Component {
 
     }
 
-
+    // Initialize the data from user's profile
     componentDidMount() {
         this.setState({
             'pickupaddr': this.props.values.pickupaddr,
             'zipcode': this.props.values.zipcode,
             'city': this.props.values.city,
-            'phone': this.props.values.phone,
-            'pickupInstructions': this.props.values.pickupInstructions
+            'phone': this.props.values.phone
         })
     }
+
 
     render() {
 
@@ -88,24 +91,24 @@ class AddressFields extends React.Component {
                 overflowX: 'scroll',
                 whiteSpace: 'nowrap',
                 marginTop: '10vh'
-            },
-            images: {
-                borderRadius: 4,
-                border: '6px solid white',
-                marginLeft: '10%',
-                textAlign: 'center',
-                width: '100%'
             }
         };
 
+        // styles for active/inactive company selector
         const isCompanyStyle = {
-            borderRadius: 4, 
-            border: '6px solid white', 
+            borderRadius: 4,
+            border: '6px solid white',
             marginLeft: '20%',
-            textAlign: 'center', 
-            width: '70%'
+            textAlign: 'center',
+            width: '100%'
         }
-        
+        const isCompanyStyleActive = {
+            borderRadius: 4,
+            border: '6px solid red',
+            marginLeft: '20%',
+            textAlign: 'center',
+            width: '100%'
+        }
 
 
         return (
@@ -126,7 +129,7 @@ class AddressFields extends React.Component {
                             <td>  <TextField className="rightOrderField"
                                 type="text" hintText="15110" style={styles}
                                 defaultValue={this.props.values.zipcode}
-                                onChange={(event, newValue) => this.updateField( "zipcode", newValue )} />
+                                onChange={(event, newValue) => this.updateField("zipcode", newValue)} />
                             </td>
                         </tr>
                         <tr>
@@ -134,7 +137,7 @@ class AddressFields extends React.Component {
                             <td> <TextField className="rightOrderField"
                                 type="text" hintText="Lahti" style={styles}
                                 defaultValue={this.props.values.city}
-                                onChange={(event, newValue) => this.updateField( "city", newValue )} />
+                                onChange={(event, newValue) => this.updateField("city", newValue)} />
                             </td>
                         </tr>
                         <tr>
@@ -142,7 +145,7 @@ class AddressFields extends React.Component {
                             <td>   <TextField className="rightOrderField"
                                 type="text" hintText="044 708 1347​" style={styles}
                                 defaultValue={this.props.values.phone}
-                                onChange={(event, newValue) => this.updateField( "phone", newValue )} />
+                                onChange={(event, newValue) => this.updateField("phone", newValue)} />
                             </td>
                         </tr>
                         <tr>
@@ -150,32 +153,31 @@ class AddressFields extends React.Component {
                             <td>    <TextField className="rightOrderField"
                                 type="text" hintText="Perjantai 30.4 klo 16:30. Käynti pääovesta. " style={styles}
                                 multiLine={true} rows={3} rowsMax={7} defaultValue={this.props.values.pickupInstructions}
-                                onChange={(event, newValue) => this.updateField( "pickupInstructions", newValue )} /><br /><br />
+                                onChange={(event, newValue) => this.updateField("pickupInstructions", newValue)} /><br /><br />
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <img
                                     src={require('../Materials/OrderPics/home2.gif')}
-                                    style={styles.images}
+                                    style={this.state.isCompany === 0 ? isCompanyStyleActive : isCompanyStyle}
                                     className="image-btn btn"
                                     alt="Kotitalous"
-                                    onClick={(e) => this.updateField( "isCompany", 0 )}
+                                    onClick={(e) => this.updateField("isCompany", 0)}
                                 />
                             </td>
-                            <td >
+                            <td>
                                 <img
                                     src={require('../Materials/OrderPics/organization2.gif')}
-                                    style={{
-                                        borderRadius: 4, border: '6px solid white', marginLeft: '20%',
-                                        textAlign: 'center', width: '70%'
-                                    }}
+                                    style={this.state.isCompany === 1 ? isCompanyStyleActive : isCompanyStyle}
                                     className="image-btn btn"
                                     alt="Organisaatio"
-                                    onClick={(e) => this.updateField( "isCompany", 1 )}
+                                    onClick={(e) => this.updateField("isCompany", 1)}
                                 />
                             </td>
                         </tr>
+
+
                     </tbody>
                 </table>
             </div >

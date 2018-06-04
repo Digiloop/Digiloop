@@ -1,4 +1,6 @@
 // config/passport.js
+// It's not a real passport, since with a real passport you could go to all different kinds of countries
+// but with this passport you can't even go buy beer from the supermarket
 
 // load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
@@ -26,11 +28,16 @@ module.exports = function(passport) {
     });
 
     // used to deserialize the user
-    passport.deserializeUser(function(id, done) {
+   passport.deserializeUser(function(id, done) {
         connection.query("SELECT * FROM users WHERE id = ? ",[id], function(err, rows){
             done(err, rows[0]);
         });
     });
+    /*
+    passport.deserializeUser(function(user, done) {
+        done(null,user);
+    });
+*/
 
     passport.use(new BearerStrategy(
       function(token, done) {

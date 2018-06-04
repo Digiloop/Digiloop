@@ -88,8 +88,6 @@ class CategoriesFields extends React.Component {
 
 
     componentDidMount() {
-
-
         if (this.props.values.subCat === undefined || this.props.values.subCat === "") {
             this.props.setCategoriesSelected(false);
         } else {
@@ -118,8 +116,9 @@ class CategoriesFields extends React.Component {
 
         if (type === 0) {
 
-            let imageUrl;
 
+            let imageUrl;
+            console.log(this.props.categoryUrlsExist)
             if (!this.props.categoryUrlsExist[index]) {
                 imageUrl = noImage;
             } else {

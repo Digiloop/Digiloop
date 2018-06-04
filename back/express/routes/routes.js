@@ -20,47 +20,45 @@ connection.query('USE ' + dbconfig.database);
 //winscp kaatu
 module.exports = (app, passport, users) => {
 
-    app.get('/session', (req,res) => {
-        res.json(req.user);
+    app.get('/session', (req, res) => {
+        res.json(req.users);
     });
-    app.post('/feikkiCatAdd', (req, res) => {
-        connection.query("INSERT INTO SubSubCats ( imgReference, name, subCatId) values (?, ?, ?)",['i can haz reference',req.body.name,req.body.subCatId], (err, result) => {
-            if (err) throw err;
-            console.log(result);
-        });
-        res.end();
-    });
+
 
     app.get('/announcements', (req, res) => {
         connection.query('SELECT * FROM Announcements', (err, result) => {
-                if (err) throw err;
-                res.json(result);
-            });
-    });
-
-	 app.get('/getUsers',isLoggedIn, (req, res) => {
-        connection.query('SELECT * FROM users',(err, result) => {
-                if (err) throw err;
-                res.json(result);
-            });
-    });
-	 app.post('/deleteUser', isLoggedIn, (req, res) => {
-		 if (req.user.userlvl == 0){
-        connection.query('UPDATE users SET Status = 0 WHERE id = ?;', [req.body.id], (err, rows) => {
             if (err) throw err;
-            console.log(rows.affectedRows + " record(s) updated");
+            res.json(result);
         });
-        res.end();
-		 }
     });
 
-    
-    app.post('/updateUser', isLoggedIn, (req, res) => {
-        connection.query('UPDATE users SET fname = ?, lname = ?, email = ?, address = ?, zipcode = ?, city = ?, phone = ? WHERE id = ?;', [req.body.fname, req.body.lname, req.body.email, req.body.address,req.body.zipcode,req.body.city, req.body.phone, req.user.id], (err,result) => {
+    app.get('/getUsers', isLoggedIn, (req, res) => {
+        connection.query('SELECT * FROM users', (err, result) => {
             if (err) throw err;
-            console.log(result);
+            res.json(result);
+        });
+    });
+    app.post('/deleteUser', isLoggedIn, (req, res) => {
+        if (req.user.userlvl == 0) {
+            connection.query('UPDATE users SET Status = 0 WHERE id = ?;', [req.body.id], (err, rows) => {
+                if (err) throw err;
+                console.log(rows.affectedRows + " record(s) updated");
+            });
+            res.end();
+        }
+    });
+
+
+    app.post('/updateUser', (req, res) => {
+        let stuff = [req.body.fname, req.body.lname, req.body.address, req.body.zipcode, req.body.city, req.body.phone, req.user.id]
+        console.log(req.body);
+        console.log(stuff)
+        connection.query('UPDATE users SET fname = ?, lname = ?, address = ?, zipcode = ?, city = ?, phone = ? WHERE id = ?;', stuff, (err, result) => {
+            //if (err) throw err;
+            //console.log(result);
             console.log(result.affectedRows + " record(s) updated");
         })
+        res.end();
     });
 
     app.post('/announcementAdd', isLoggedIn, (req, res) => {
@@ -72,14 +70,14 @@ module.exports = (app, passport, users) => {
 
         var insertQuery = "INSERT INTO Announcements ( info, dateBegin, dateEnd) values (?, ?, ?)";
 
-            connection.query(insertQuery, [newItem.info, newItem.dateBegin, newItem.dateEnd], function(err, result) {
-                if (err) throw err;
-            });
-            res.end();
+        connection.query(insertQuery, [newItem.info, newItem.dateBegin, newItem.dateEnd], function (err, result) {
+            if (err) throw err;
         });
+        res.end();
+    });
 
 
-    app.get('/', function(req, res) {
+    app.get('/', function (req, res) {
         //res.render('index.ejs'); // load the index.ejs file
         //res.sendFile('index.html',{root: __dirname});
         //res.sendFile('/home/projectmanager/Digiloop/front/build/index.html');
@@ -90,7 +88,7 @@ module.exports = (app, passport, users) => {
     // LOGIN ===============================
     // =====================================
     // show the login form
-    app.get('/login', function(req, res) {
+    app.get('/login', function (req, res) {
         res.json({
             user: '-1'
         });
@@ -100,23 +98,25 @@ module.exports = (app, passport, users) => {
     // process the login form
     //mahdollinen ratkaisu palautukseen ilman flashia
     //https://github.com/jaredhanson/passport-local/issues/4
-    app.post('/login', passport.authenticate('local-login', {}), (req, res) => {
-            console.log(req.user.email + " logged in.");
+    app.post('/login', passport.authenticate('local-login', { session: true }), (req, res) => {
+        console.log(req.user.email + " logged in.");
 
-            if (req.body.remember) {
-                req.session.cookie.maxAge = 1000 * 60 * 30;
-            } else {
-                req.session.cookie.expires = false;
-            }
-            
-			var userObject = {address:req.user.address, city:req.user.city, company:req.user.company, email:req.user.email,
-			fname:req.user.fname, id:req.user.id, lname:req.user.lname, phone:req.user.phone, userlvl:req.user.userlvl, username:req.user.username, zipcode:req.user.zipcode};
-            
-            res.json({
-                userdata:userObject
-            });
-            res.end();
+        if (req.body.remember) {
+            req.session.cookie.maxAge = 1000 * 60 * 30000;
+        } else {
+            req.session.cookie.expires = false;
+        }
+
+        var userObject = {
+            address: req.user.address, city: req.user.city, company: req.user.company, email: req.user.email,
+            fname: req.user.fname, id: req.user.id, lname: req.user.lname, phone: req.user.phone, userlvl: req.user.userlvl, username: req.user.username, zipcode: req.user.zipcode
+        };
+
+        res.json({
+            userdata: userObject
         });
+        res.end();
+    });
 
     // =====================================
     // SIGNUP ==============================
@@ -137,7 +137,7 @@ module.exports = (app, passport, users) => {
     // =====================================
     // we will want this protected so you have to be logged in to visit
     // we will use route middleware to verify this (the isLoggedIn function)
-    app.get('/profile', isLoggedIn, (req, res) => {res.json(req.user)});
+
     // =====================================
     // LOGOUT ==============================
     // =====================================
@@ -147,6 +147,7 @@ module.exports = (app, passport, users) => {
         res.end();
     });
 };
+
 
 // route middleware to make sure
 function isLoggedIn(req, res, next) {

@@ -253,6 +253,11 @@ class OrderMain extends Component {
 
     }
 
+    removeItem(i){
+        console.log("RAKETTIRYHMÄ LENTÄÄ TAIVAAN TUULIIN")
+        console.log(i);
+    }
+
     showSteps = () => {
         switch (this.state.step) {
             case 1:
@@ -286,7 +291,8 @@ class OrderMain extends Component {
                     nextStep={this.nextStep}
                     saveValues={this.saveValues}
                     nextItem={this.nextItem}
-                    editItem={this.editItem} />
+                    editItem={this.editItem}
+                    removeItem={this.removeItem} />
         }
     }
 
@@ -308,19 +314,21 @@ class OrderMain extends Component {
                 borderRadius: 8,
                 backgroundColor: '#FFF',
                 width: '14%',
-                height: '.8vh',
+                height: '1.5vh',
                 margin: 'auto',
                 float: 'left',
-                marginLeft: 10
+                marginLeft: 10,
+                marginRight: 10
             },
             Active: {
                 backgroundColor: 'rgb(166, 206, 106)',
                 borderRadius: 8,
                 width: '14%',
-                height: '.8vh',
+                height: '1.5vh',
                 margin: 'auto',
                 float: 'left',
-                marginLeft: 10
+                marginLeft: 10,
+                marginRight: 10
             }
         }
         return (
@@ -329,13 +337,13 @@ class OrderMain extends Component {
 
             <div className="orderWrapper">
                 <div className="progressBar" style={{ maxWidth: '90vh', minWidth: '100%', display: 'flex', justifyContent: 'center' }}>
-                    <Button variant="fab" style={this.isButtonDisabled(0, 1)} disabled={this.isButtonDisabled(0, 0)} onClick={this.prevStep}><Forward style={{ transform: "scaleX(-1)" }} /></Button>
+                    <Button variant="fab" style={this.isButtonDisabled(0, 1)} disabled={this.isButtonDisabled(0, 0)} onClick={this.prevStep}><Forward style={{ transform: "scaleX(-1)", height:'40px', width: '40px', color: '004225' }} /></Button>
                     <div className="state1" style={this.state.step === 1 ? styles.Active : styles.notActive}></div>
                     <div className="state2" style={this.state.step === 2 ? styles.Active : styles.notActive}></div>
                     <div className="state3" style={this.state.step === 3 ? styles.Active : styles.notActive}></div>
                     <div className="state4" style={this.state.step === 4 ? styles.Active : styles.notActive}></div>
                     <Button variant="fab" style={this.isButtonDisabled(1, 1)}
-                        disabled={this.isButtonDisabled(1, 0)} onClick={this.nextStep}><Forward /></Button>
+                        disabled={this.isButtonDisabled(1, 0)} onClick={this.nextStep}><Forward style={{height:'40px', width: '40px', color: '004225'}} /></Button>
                 </div>
                 <div className="frontPageBox" >{this.showSteps()}</div>
             </div>

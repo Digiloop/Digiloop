@@ -19,12 +19,49 @@ module.exports = class misc {
     }
     //takes 2 arrays and concats them together,func should take sqldatahaku.querySql function that does sql query which is the last parameter.
     fuseItemArray(array1, array2, func, query) {
-        let arr = [];
-        //so this thing here loops trough all req.body data
+        if (this.checkValidLength(array1, 14) === true){
+            //so this thing here loops trough all req.body data
+            for (var i = 0; i < array1.length; i++) {
+                func(query, this.keyToArray(array1[i]).concat(array2))
+            } // change req.body to array and fuse it with data from server.
+        }
+        else{console.log('noup')}
+    }
+
+    loopityLoop(array1, func) {
         for (var i = 0; i < array1.length; i++) {
-            func(query, this.keyToArray(array1[i]).concat(array2)) // change req.body to array and fuse it with data from server.
+            if (this.checkValidLength(array1[i]) === true) {
+                func(array1[i])
+            }
+            else { console.log('wtf') }
         }
     }
+
+    //checks if inputted object has certain amount of elements
+    checkValidLength(value, compare) {
+        for (var i = 0; i < value.length; i++) {
+            if ((Object.values(value[i]).length) == compare) {
+                //console.log(true)
+            } else
+                return false;
+        }
+        return true;
+    }
+
+    checkValidValues(value) {
+        //let a = value[0].city
+        for (var i = 0; i < value.length; i++) {
+            for (var key in value[i]) {
+                if (value[key] == null || value[key] == undefined) {
+                    console.log(value[key] + ' null or undefined');
+                }
+                else {
+                    return true;
+                }
+            }
+        }
+    }
+
 
     selectorThing(selector, arr1, arr2) {
         let ars1 = arr1[selector]
@@ -32,11 +69,17 @@ module.exports = class misc {
         return [ars1, ars2]
     }
 
+    dateThing() {
+        let datum = new Date();
+        datum.setHours(datum.getHours() + 3);
+        return datum.toISOString().replace(/T/, ' ').replace(/\..+/, '');
+    }
+
     // Add's images. On the server. To be used. In the future.
     //select = categories,subcategories or user
     imageAdd(files, select) {
         // categories,subcategories,users
-        folder = this.selectorThing(select,[`./kuvat/categories/${files.name}`,`./kuvat/subcategories/${files.name}`,`./kuvat/users/${files.name}`])
+        folder = this.selectorThing(select, [`./kuvat/categories/${files.name}`, `./kuvat/subcategories/${files.name}`, `./kuvat/users/${files.name}`])
         console.log(files);
         /*var userfolder = `./kuvat/users/' + ${req.user.username}`;
         let categories = `./kuvat/categories/${files.name}`;

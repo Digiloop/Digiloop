@@ -7,8 +7,9 @@ var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata; //ha
 //var randomiii = new sqldata();
 //https://javascript.info/async-await
 //https://itnext.io/using-async-await-to-write-cleaner-route-handlers-7fc1d91b220b
-//GET
 
+
+//GET
 router.get('/categories', (req, res, next) => {
   //const query = 'SELECT * FROM Category WHERE Status = 1'
   const query = 'SELECT * FROM Category'
@@ -41,16 +42,14 @@ router.get('/subcat', (req, res, next) => {
 //POST
 //Values: 0 = Category, 1 = subCat, 2 = SubSubCats
 router.post('/catStatus', (req, res, next) => {
-  /*const categorySelect =  req.body.catType; 
-  const catType = ['Category','subCat','SubSubCats'];
-  const idType = ['CatId','subId','Id']
-  const query = 'UPDATE ' + catType[categorySelect] + ' SET Status = ? WHERE ' + idType[categorySelect] +'  = ?'
-  sqldatahaku.querySql(query, [req.body.Status,req.body.id])
-  res.end();
-  */
+  //console.log(req.body);
+  //console.log(req.body.Status)
+  
+  
   let cat = misk.selectorThing(req.body.catType, ['Category', 'subCat', 'SubSubCats'], ['CatId', 'subId', 'Id'])
   const query = 'UPDATE ' + cat[0] + ' SET Status = ? WHERE ' + cat[1] + '  = ?'
   sqldatahaku.querySql(query, [req.body.Status, req.body.id])
+  
   res.end();
 });
 
@@ -74,20 +73,9 @@ router.post('/feikkiCatAdd', (req, res) => {
 
 
 router.post('/imageAdd', (req, res) => {
-  misk.imageAdd(req.files.sample);
+  misk.imageAdd(req.files.sample,0);// categories,subcategories,users = 0/1/2
   res.end();
   //console.log(req.files.sample);
 });
 
 module.exports = router
-
-
-/*
-app.post('/feikkiCatAdd', (req, res) => {
-  connection.query("INSERT INTO SubSubCats ( imgReference, name, subCatId, Status) values (?, ?, ?, ?)", ['i can haz reference', req.body.name, req.body.subCatId, 1], (err, result) => {
-    if (err) throw err;
-    console.log(result);
-  });
-  res.end();
-});
-*/

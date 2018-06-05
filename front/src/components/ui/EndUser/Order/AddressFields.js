@@ -98,10 +98,11 @@ class AddressFields extends React.Component {
         const isCompanyStyle = {
             borderRadius: 4,
             border: '6px solid white',
-            marginLeft: '10%',
+            marginLeft: '5%',
             textAlign: 'center',
             maxWidth: '80%',
-            minWidth: '45%'
+            minWidth: '25%',
+            float: 'left'
         }
         const isCompanyStyleActive = {
             borderRadius: 4,
@@ -109,7 +110,24 @@ class AddressFields extends React.Component {
             marginLeft: '5%',
             textAlign: 'center',
             maxWidth: '80%',
-            minWidth: '45%'
+            minWidth: '25%',
+            float: 'left'
+        }
+        const isHouseStyle = {
+            borderRadius: 4,
+            border: '6px solid white',
+            textAlign: 'center',
+            maxWidth: '80%',
+            minWidth: '25%',
+            float: 'right'
+        }
+        const isHouseStyleActive = {
+            borderRadius: 4,
+            border: '6px solid red',
+            textAlign: 'center',
+            maxWidth: '80%',
+            minWidth: '25%',
+            float: 'right'
         }
 
 
@@ -162,7 +180,7 @@ class AddressFields extends React.Component {
                             <td style={{width: '50%'}}>
                                 <img
                                     src={require('../Materials/OrderPics/home2.gif')}
-                                    style={this.state.isCompany === 0 ? isCompanyStyleActive : isCompanyStyle}
+                                    style={this.state.isCompany === 0 ? isHouseStyleActive : isHouseStyle}
                                     className="image-btn btn"
                                     alt="Kotitalous"
                                     onClick={(e) => this.updateField("isCompany", 0)}

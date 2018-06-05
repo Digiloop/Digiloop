@@ -14,7 +14,7 @@ import CategoriesFields from '../../../containers/EndUser/Order/CategoriesFields
 import InfoFields from '../../../containers/EndUser/Order/InfoFields';
 import Summary from '../../../containers/EndUser/Order/Summary';
 
-import { BASE_URL, debugMode } from '../../../../settings'
+import { BASE_URL, debugMode } from '../../../../settings';
 
 class OrderMain extends Component {
     constructor(props) {
@@ -27,14 +27,18 @@ class OrderMain extends Component {
                 phone: this.props.userInfo.phone,
                 pickupInstructions: '',
                 iscompany: '',
+
                 category: '',
                 subCat: '',
                 proxySubCat: '',
-                pcs: '',
-                size: '',
+
+                pcs: 1,
+                size: 1,
+                weight: 1,
+
                 description: '',
-                pic: '',
-                weight: ''
+                pic: ''
+                
             }],
             step: 1,
             pageOneAllFilled: false,
@@ -61,11 +65,6 @@ class OrderMain extends Component {
         let proxyCategoryUrlsExist = [];
 
         for (let i = 0; i < this.props.categories.length; i++) {
-            console.clear()
-            console.clear("RAKETTIRYHMÄ DEBUGGAA TYÖAJAN ULKOPUOLELLAKIN")
-            console.log(BASE_URL)
-            console.log(this.props.categories)
-            console.log(this.props.categories[i].ImgReference)
 
             categoryUrlsExist[i] = this.imageExists(BASE_URL + "/images/categories/" + this.props.categories[i].ImgReference);
         }
@@ -167,9 +166,9 @@ class OrderMain extends Component {
             'category': "",
             'subCat': "",
             'proxySubCat': "",
-            'pcs': "",
-            'size': "",
-            'weight': "",
+            'pcs': 1,
+            'size': 1,
+            'weight': 1,
             'description': ""
         }
 
@@ -329,7 +328,7 @@ class OrderMain extends Component {
 
 
             <div className="orderWrapper">
-                <div className="progressBar" style={{ maxWidth: '90vh', minWidth: '50vh', display: 'flex', justifyContent: 'center' }}>
+                <div className="progressBar" style={{ maxWidth: '90vh', minWidth: '100%', display: 'flex', justifyContent: 'center' }}>
                     <Button variant="fab" style={this.isButtonDisabled(0, 1)} disabled={this.isButtonDisabled(0, 0)} onClick={this.prevStep}><Forward style={{ transform: "scaleX(-1)" }} /></Button>
                     <div className="state1" style={this.state.step === 1 ? styles.Active : styles.notActive}></div>
                     <div className="state2" style={this.state.step === 2 ? styles.Active : styles.notActive}></div>

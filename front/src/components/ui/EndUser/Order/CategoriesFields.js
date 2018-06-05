@@ -79,7 +79,11 @@ class CategoriesFields extends React.Component {
 
                 category: this.state.activeCatName,
                 subCat: subCatName,
-                proxySubCat: proxyCatName
+                proxySubCat: proxyCatName,
+
+                pcs: this.props.values.pcs,
+                size: this.props.values.size,
+                weight: this.props.values.weight
             }
             this.props.saveValues(data);
             this.props.setCategoriesSelected(true); // enable the forward arrow

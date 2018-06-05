@@ -48,12 +48,24 @@ class InfoFields extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({
-            'pcs': this.props.values.pcs,
-            'size': this.props.values.size,
-            'weight': this.props.values.weight,
-            'description': this.props.values.description
-        })
+        console.log("TEAM LOG LOGGAA LOGGEJA JÄLLEEN")
+        console.log( this.props.values)
+
+        if(this.props.values.pcs === undefined){
+            this.setState({
+                'pcs': 1,
+                'size': 1,
+                'weight': 1,
+                'description': this.props.values.description
+            })
+        } else {
+            this.setState({
+                'pcs': this.props.values.pcs,
+                'size': this.props.values.size,
+                'weight': this.props.values.weight,
+                'description': this.props.values.description
+            })
+        }
     }
 
     render() {

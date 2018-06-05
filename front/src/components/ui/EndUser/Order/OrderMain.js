@@ -27,14 +27,18 @@ class OrderMain extends Component {
                 phone: this.props.userInfo.phone,
                 pickupInstructions: '',
                 iscompany: '',
+
                 category: '',
                 subCat: '',
                 proxySubCat: '',
-                pcs: '',
-                size: '',
+
+                pcs: 1,
+                size: 1,
+                weight: 1,
+
                 description: '',
-                pic: '',
-                weight: ''
+                pic: ''
+                
             }],
             step: 1,
             pageOneAllFilled: false,
@@ -61,11 +65,6 @@ class OrderMain extends Component {
         let proxyCategoryUrlsExist = [];
 
         for (let i = 0; i < this.props.categories.length; i++) {
-            console.clear()
-            console.clear("RAKETTIRYHMÄ DEBUGGAA TYÖAJAN ULKOPUOLELLAKIN")
-            console.log(BASE_URL)
-            console.log(this.props.categories)
-            console.log(this.props.categories[i].ImgReference)
 
             categoryUrlsExist[i] = this.imageExists(BASE_URL + "/images/categories/" + this.props.categories[i].ImgReference);
         }
@@ -167,9 +166,9 @@ class OrderMain extends Component {
             'category': "",
             'subCat': "",
             'proxySubCat': "",
-            'pcs': "",
-            'size': "",
-            'weight': "",
+            'pcs': 1,
+            'size': 1,
+            'weight': 1,
             'description': ""
         }
 

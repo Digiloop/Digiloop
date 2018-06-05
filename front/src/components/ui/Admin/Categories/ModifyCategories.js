@@ -17,7 +17,9 @@ class ModifyCategories extends Component {
             value: '',
             valueC: 'cats',
             cat: '',
-            catName: '',
+            newCatName: '',
+            newName: '',
+            row: 0,
             rows: [],
             cats: [],
             subCats: [],
@@ -60,6 +62,7 @@ class ModifyCategories extends Component {
 
     handleSelectCatChange = (event, index, value) => {
         this.setState({ valueC: value });
+        this.expand();
     };
 
     // activate or deactivate category
@@ -78,25 +81,43 @@ class ModifyCategories extends Component {
 
     }
 
+    updateField(fieldName, newValue) {
+        this.setState({
+            [fieldName]: newValue
+        }, function () {
+            console.log(this.state.fieldName);
+        })
+    }
+
+    changeName(id, name) {
+        this.setState({
+            id: id,
+            name: name
+        }, function() {
+            this.expand()
+        });
+        console.log(this.state.id + ' ' + this.state.name);
+    }
+
     // opening items
     expand(x) {
         // create a temp array, because it's easier to edit than the state one
         let newArray = this.state.rows;
 
-        if (newArray[x]) { // closing the open item
-            newArray[x] = false;
-        } else { // opening another means first closing the open one
-            for (let i = 0; i < newArray.length; i++) {
-                if (newArray[i]) {
-                    newArray[i] = false; // close the open one
-                }
+        // opening another means first closing the open one
+        for (let i = 0; i < newArray.length; i++) {
+            if (newArray[i]) {
+                newArray[i] = false; // close the open one
             }
-            newArray[x] = true; // open the new row
         }
+        newArray[x] = true; // open the new row
+
         // set the edited version as the new state
         this.setState({ rows: newArray });
-    }
+        console.log(this.state.rows);
+        
 
+    }
 
     componentDidMount() {
         this.getCategories();
@@ -151,30 +172,75 @@ class ModifyCategories extends Component {
         console.log(this.state.subCats);
         console.log(this.state.fakeCats);
 
-
         for (let i = 0; i < this.state.cats.length; i++) {
+            if (this.state.rows[i]) {
+                cats.push(
+                    <TableRow key={i} style={{ height: '200px' }} >
+                        <TableRowColumn colSpan='2'>
+                            <TextField
+                                className="ChangeFakeCatName"
+                                hintText="Kategorian nimi"
+                                defaultValue={this.state.cats[i].CatName}
+                                onChange={(event, newValue) => this.setState({ newCatName: newValue })}
+                            />
+                        </TableRowColumn>
+                        <TableRowColumn colSpan='2'>
+                            <RaisedButton label="Tallenna"
+                                onClick={event => this.changeName(this.state.cats[i].CatId, this.state.cats[i].CatName)} />
+                            <RaisedButton label={this.state.cats[i].Status ? 'Deaktivoi' : 'Aktivoi'}
+                                onClick={event => this.activate(this.state.cats[i].CatId, this.state.cats[i].Status)} />
+                        </TableRowColumn>
+                    </TableRow>
+                )
+            } else {
+                cats.push(
+                    <TableRow key={i} >
+                        <TableRowColumn colSpan='3'>
+                            {this.state.cats[i].CatName}
+                        </TableRowColumn>
+                        <TableRowColumn>
+                            <RaisedButton label='Muokkaa' />
+                        </TableRowColumn>
+                    </TableRow>
+                )
+            }
+        }
+
+        /*for (let i = 0; i < this.state.cats.length; i++) {
             cats.push(
                 <TableRow key={i} >
                     <TableRowColumn colSpan='2'>
-                        {this.state.cats[i].CatName}
+                        <TextField
+                            className="ChangeCatName"
+                            hintText="Kategorian nimi"
+                            defaultValue={this.state.cats[i].CatName}
+                            onChange={(event, newValue) => this.setState({ newName: newValue })}
+                        />
                     </TableRowColumn>
                     <TableRowColumn colSpan='2'>
-                        <RaisedButton label="Muuta"
-                            onClick={event => this.activate(this.state.cats[i].CatId, this.state.cats[i].Status)} />
+                        <RaisedButton label="Tallenna"
+                            onClick={event => this.changeName(this.state.cats[i].CatId, this.state.cats[i].CatName)} />
                         <RaisedButton label={this.state.cats[i].Status ? 'Deaktivoi' : 'Aktivoi'}
                             onClick={event => this.activate(this.state.cats[i].CatId, this.state.cats[i].Status)} />
                     </TableRowColumn>
                 </TableRow>
             )
-        }
+        } */
 
         for (let j = 0; j < this.state.subCats.length; j++) {
             subCats.push(
                 <TableRow key={j} >
                     <TableRowColumn colSpan='2'>
-                        {this.state.subCats[j].subName}
+                        <TextField
+                            className="ChangeSubCatName"
+                            hintText="Kategorian nimi"
+                            defaultValue={this.state.subCats[j].subName}
+                            onChange={(event, newValue) => this.setState({ newName: newValue })}
+                        />
                     </TableRowColumn>
                     <TableRowColumn>
+                        <RaisedButton label="Tallenna"
+                            onClick={event => this.changeName(this.state.subCats[j].subId, this.state.subCats[j].subName)} />
                         <RaisedButton label={this.state.subCats[j].Status ? 'Deaktivoi' : 'Aktivoi'}
                             onClick={event => this.activate(this.state.subCats[j].subId, this.state.subCats[j].Status)} />
                     </TableRowColumn>
@@ -183,17 +249,37 @@ class ModifyCategories extends Component {
         }
 
         for (let k = 0; k < this.state.fakeCats.length; k++) {
-            fakeCats.push(
-                <TableRow key={k} >
-                    <TableRowColumn colSpan='2'>
-                        {this.state.fakeCats[k].name}
-                    </TableRowColumn>
-                    <TableRowColumn>
-                        <RaisedButton label={this.state.fakeCats[k].Status ? 'Deaktivoi' : 'Aktivoi'}
-                            onClick={event => this.activate(this.state.fakeCats[k].Id, this.state.subCats[k].Status)} />
-                    </TableRowColumn>
-                </TableRow>
-            )
+            if (this.state.rows[k]) {
+                fakeCats.push(
+                    <TableRow key={k} style={{ height: '200px' }} >
+                        <TableRowColumn colSpan='2'>
+                            <TextField
+                                className="ChangeFakeCatName"
+                                hintText="Kategorian nimi"
+                                defaultValue={this.state.fakeCats[k].name}
+                                onChange={(event, newValue) => this.setState({ newName: newValue })}
+                            />
+                        </TableRowColumn>
+                        <TableRowColumn colSpan='2'>
+                            <RaisedButton label="Tallenna"
+                                onClick={event => this.changeName(this.state.fakeCats[k].Id, this.state.fakeCats[k].name)} />
+                            <RaisedButton label={this.state.fakeCats[k].Status ? 'Deaktivoi' : 'Aktivoi'}
+                                onClick={event => this.activate(this.state.fakeCats[k].Id, this.state.subCats[k].Status)} />
+                        </TableRowColumn>
+                    </TableRow>
+                )
+            } else {
+                fakeCats.push(
+                    <TableRow key={k} >
+                        <TableRowColumn colSpan='3'>
+                            {this.state.fakeCats[k].name}
+                        </TableRowColumn>
+                        <TableRowColumn>
+                            <RaisedButton label='Muokkaa' />
+                        </TableRowColumn>
+                    </TableRow>
+                )
+            }
         }
 
 

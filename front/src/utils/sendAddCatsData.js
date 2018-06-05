@@ -53,3 +53,13 @@ function addNewSubCat(addSubCatName) {
         console.log(error);
       });
   }
+
+  function sendStatus(statusData) {
+    return axios.post(BASE_URL + '/catStatus', {
+
+    })
+    .then(response => response.data)
+    .catch(function (error) {
+      return error;
+    });
+  }

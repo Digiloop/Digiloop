@@ -25,7 +25,7 @@ class Summary extends React.Component {
 
 
                 // we're creating a finalizedData object, where we'll do some final fixes before sending
-                let finalizedData = [];
+                let finalizedData = [{}];
 
                 for (let i = 0; i < data.length; i++) {
 
@@ -47,8 +47,9 @@ class Summary extends React.Component {
                     finalizedData[i].category = data[i].category;
                     finalizedData[i].subCat = data[i].subCat;
 
-                    finalizedData[i].categoryId = data[i].categoryId;
-                    finalizedData[i].subCategoryId = data[i].subCategoryId;
+                    // Backend didn't want these. I wanted these. Fuck backend.
+                    //finalizedData[i].categoryId = data[i].categoryId;
+                    //finalizedData[i].subCategoryId = data[i].subCategoryId;
 
                     finalizedData[i].pcs = data[i].pcs;
                     finalizedData[i].size = data[i].size;

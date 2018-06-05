@@ -328,7 +328,7 @@ class OrderMain extends Component {
 
 
             <div className="orderWrapper">
-                <div className="progressBar" style={{ maxWidth: '90vh', minWidth: '50vh', display: 'flex', justifyContent: 'center' }}>
+                <div className="progressBar" style={{ maxWidth: '90vh', minWidth: '100%', display: 'flex', justifyContent: 'center' }}>
                     <Button variant="fab" style={this.isButtonDisabled(0, 1)} disabled={this.isButtonDisabled(0, 0)} onClick={this.prevStep}><Forward style={{ transform: "scaleX(-1)" }} /></Button>
                     <div className="state1" style={this.state.step === 1 ? styles.Active : styles.notActive}></div>
                     <div className="state2" style={this.state.step === 2 ? styles.Active : styles.notActive}></div>

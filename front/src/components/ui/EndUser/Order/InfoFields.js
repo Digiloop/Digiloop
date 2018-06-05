@@ -1,30 +1,34 @@
 import React from 'react';
 import { MenuItem, DropDownMenu, FlatButton, TextField } from 'material-ui';
+import ImageUploader from 'react-images-upload'
 
 
 class InfoFields extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value1: 1,
-            value2: 1,
-            value3: 1,
             pcs: 1,
             size: 1,
-            weight: 1
+            weight: 1,
+            pictures: []
         };
         this.handleChange = this.handleChange.bind(this);
+        this.onDrop = this.onDrop.bind(this)
     }
 
-    handleChange(field, value) {
+    onDrop(picture) {
         this.setState({
-            [field]: value
+            pictures: this.state.pictures.concat(picture),
         })
     }
 
-    handlePcsChange = (event, index, value) => this.setState({ value1: value, pcs: value })
-    handleSizeChange = (event, index, value) => this.setState({ value2: value, size: value })
-    handleWeightChange = (event, index, value) => this.setState({ value3: value, weight: value })
+    // handle selecting the dropdown menu items
+    handleChange = (targetField) => (event, index, obj) => {
+        this.setState({
+            [targetField]: obj
+        })
+    }
+
 
     nextStep(event) {
         event.preventDefault();
@@ -44,9 +48,9 @@ class InfoFields extends React.Component {
             subCat: this.props.values.subCat,
             proxySubCat: this.props.values.proxySubCat,
 
-            pcs: this.state.pcs || '1',
-            size: this.state.size || '> 0.5',
-            weight: this.state.weight || '< 5',
+            pcs: this.state.pcs,
+            size: this.state.size,
+            weight: this.state.weight,
             description: this.state.description
         }
         this.props.saveValues(data);
@@ -55,14 +59,13 @@ class InfoFields extends React.Component {
     }
 
     componentDidMount() {
-        console.log("TEAM LOG LOGGAA LOGGEJA JÄLLEEN")
-        console.log( this.props.values)
 
-        if(this.props.values.pcs === undefined){
+
+        if (this.props.values.pcs === undefined) {
             this.setState({
                 'pcs': 1,
-                'size': 1,
-                'weight': 1,
+                'size': "< 5",
+                'weight': "< 5",
                 'description': this.props.values.description
             })
         } else {
@@ -118,23 +121,26 @@ class InfoFields extends React.Component {
                             <td>
                                 <label style={{ float: 'left', position: 'absolute', marginLeft: '2%' }}>
                                     {this.props.values.category}/<br />{this.props.values.subCat}</label>
-                                <div style={{ width: '30%', height: '10vh', border: '2px solid black', marginLeft: 'auto' }}></div>
+                                <div style={{ width: '30%', height: '10vh', border: '2px solid black', marginLeft: 'auto' }}>
+                                    
+
+                                </div>
                                 <div style={{ width: '100%', height: 'auto' }} >
                                     <p style={styles.pTags}>Kappalemäärä</p>
                                     <p style={styles.pTags}>Mitat</p>
                                     <p style={styles.pTags}>Paino</p>
-                                    <DropDownMenu value={this.state.pcs} onChange={(newValue) => this.handleChange("pcs", newValue)} style={styles.dropDown}>
+                                    <DropDownMenu value={this.state.pcs} onChange={this.handleChange("pcs")} style={styles.dropDown}>
                                         <MenuItem value={1} primaryText="1" />
-                                        <MenuItem value={'2-5'} primaryText="2 - 5" />
-                                        <MenuItem value={'5'} primaryText="> 5" />
+                                        <MenuItem value={"2-5"} primaryText="2 - 5" />
+                                        <MenuItem value={">5"} primaryText="> 5" />
                                     </DropDownMenu>
-                                    <DropDownMenu value={this.state.size} onChange={this.handleSizeChange} style={styles.dropDown}>
-                                        <MenuItem value={1} primaryText="< 0.5 m" />
+                                    <DropDownMenu value={this.state.size} onChange={this.handleChange("size")} style={styles.dropDown}>
+                                        <MenuItem value={"< 5"} primaryText="< 5" />
                                         <MenuItem value={'0.5-2'} primaryText="> 0.5 - 2" />
                                         <MenuItem value={'2.5'} primaryText="> 2.5 m" />
                                     </DropDownMenu>
-                                    <DropDownMenu value={this.state.weight} onChange={this.handleWeightChange} style={styles.dropDown}>
-                                        <MenuItem value={1} primaryText="< 5" />
+                                    <DropDownMenu value={this.state.weight} onChange={this.handleChange("weight")} style={styles.dropDown}>
+                                        <MenuItem value={"< 5"} primaryText="< 5" />
                                         <MenuItem value={'5-20'} primaryText=">5 - 20" />
                                         <MenuItem value={'>20'} primaryText="> 20" />
                                     </DropDownMenu>
@@ -161,6 +167,15 @@ class InfoFields extends React.Component {
                         </tr>
                     </tbody>
                 </table>
+
+                <ImageUploader
+                                        withIcon={true}
+                                        withPreview={true}
+                                        buttonText='Choose images'
+                                        onChange={this.onDrop}
+                                        imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                                        maxFileSize={5242880}
+                                    />
             </div >
         );
     }

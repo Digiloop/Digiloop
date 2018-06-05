@@ -14,7 +14,7 @@ import CategoriesFields from '../../../containers/EndUser/Order/CategoriesFields
 import InfoFields from '../../../containers/EndUser/Order/InfoFields';
 import Summary from '../../../containers/EndUser/Order/Summary';
 
-import { BASE_URL, debugMode } from '../../../../settings'
+import { BASE_URL, debugMode } from '../../../../settings';
 
 class OrderMain extends Component {
     constructor(props) {

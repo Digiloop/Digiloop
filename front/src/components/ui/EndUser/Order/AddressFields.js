@@ -98,7 +98,7 @@ class AddressFields extends React.Component {
         const isCompanyStyle = {
             borderRadius: 4,
             border: '6px solid white',
-            marginLeft: '20%',
+            marginLeft: '10%',
             textAlign: 'center',
             maxWidth: '80%',
             minWidth: '45%'
@@ -106,7 +106,7 @@ class AddressFields extends React.Component {
         const isCompanyStyleActive = {
             borderRadius: 4,
             border: '6px solid red',
-            marginLeft: '20%',
+            marginLeft: '5%',
             textAlign: 'center',
             maxWidth: '80%',
             minWidth: '45%'

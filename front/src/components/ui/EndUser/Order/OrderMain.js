@@ -308,7 +308,7 @@ class OrderMain extends Component {
                 borderRadius: 8,
                 backgroundColor: '#FFF',
                 width: '14%',
-                height: '.8vh',
+                height: '1.5vh',
                 margin: 'auto',
                 float: 'left',
                 marginLeft: 10
@@ -317,7 +317,7 @@ class OrderMain extends Component {
                 backgroundColor: 'rgb(166, 206, 106)',
                 borderRadius: 8,
                 width: '14%',
-                height: '.8vh',
+                height: '1.5vh',
                 margin: 'auto',
                 float: 'left',
                 marginLeft: 10

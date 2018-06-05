@@ -26,13 +26,13 @@ module.exports = class sqldata {
   querySql(query, values) {
     if (typeof values == "undefined") {
       connection.query(query, (err, result) => {
-        if (err) throw err;
+        //if (err) throw err;
         //console.log(result.affectedRows + " record(s) updated");
         console.log(query);
       })
     } else {
       connection.query(query, values, (err, result) => {
-        if (err) throw err;
+        //if (err) throw err;
         //console.log(result.affectedRows + " record(s) updated");
         console.log(query);
         console.log(values);

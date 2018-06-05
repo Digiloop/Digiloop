@@ -100,14 +100,14 @@ class AddressFields extends React.Component {
             border: '6px solid white',
             marginLeft: '20%',
             textAlign: 'center',
-            width: '100%'
+            width: '150px'
         }
         const isCompanyStyleActive = {
             borderRadius: 4,
             border: '6px solid red',
             marginLeft: '20%',
             textAlign: 'center',
-            width: '100%'
+            width: '150px'
         }
 
 

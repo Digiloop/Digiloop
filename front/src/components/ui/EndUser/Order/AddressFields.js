@@ -100,14 +100,16 @@ class AddressFields extends React.Component {
             border: '6px solid white',
             marginLeft: '20%',
             textAlign: 'center',
-            width: '150px'
+            maxWidth: '80%',
+            minWidth: '45%'
         }
         const isCompanyStyleActive = {
             borderRadius: 4,
             border: '6px solid red',
             marginLeft: '20%',
             textAlign: 'center',
-            width: '150px'
+            maxWidth: '80%',
+            minWidth: '45%'
         }
 
 
@@ -157,7 +159,7 @@ class AddressFields extends React.Component {
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td style={{width: '50%'}}>
                                 <img
                                     src={require('../Materials/OrderPics/home2.gif')}
                                     style={this.state.isCompany === 0 ? isCompanyStyleActive : isCompanyStyle}
@@ -166,7 +168,7 @@ class AddressFields extends React.Component {
                                     onClick={(e) => this.updateField("isCompany", 0)}
                                 />
                             </td>
-                            <td>
+                            <td style={{width: '50%'}}>
                                 <img
                                     src={require('../Materials/OrderPics/organization2.gif')}
                                     style={this.state.isCompany === 1 ? isCompanyStyleActive : isCompanyStyle}

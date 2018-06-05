@@ -17,6 +17,8 @@ class Summary extends React.Component {
     convertAddresses() {
 
         let data = this.props.values;
+        console.log("Team DATA DATAA 24/7")
+        console.log(data)
 
         let address = this.props.values[0].pickupaddr + ", " + this.props.values[0].city;
 
@@ -25,10 +27,31 @@ class Summary extends React.Component {
 
 
                 // we're creating a finalizedData object, where we'll do some final fixes before sending
-                let finalizedData = [{}];
+                let finalizedData = [];
 
                 for (let i = 0; i < data.length; i++) {
 
+                    finalizedData[i] = {
+                        city: data[0].city,
+                        iscompany: data[0].iscompany,
+                        phone: data[0].phone,
+                        pickupInstructions: data[0].pickupInstructions,
+                        pickupaddr: data[0].pickupaddr,
+                        zipcode: data[0].zipcode,
+
+                        latitude: results[0].geometry.viewport.f.b,
+                        longitude: results[0].geometry.viewport.b.b,
+
+                        category: data[i].category,
+                        subCat: data[i].subCat,
+
+                        pcs: data[i].pcs,
+                        size: data[i].size,
+                        weight: data[i].weight,
+                        description: data[i].description
+                    }
+
+                    /*
                     // only the first item has contact information
                     // so we're saving it to the rest of the items also
                     finalizedData[i].city = data[0].city;
@@ -55,6 +78,7 @@ class Summary extends React.Component {
                     finalizedData[i].size = data[i].size;
                     finalizedData[i].weight = data[i].weight;
                     finalizedData[i].description = data[i].description;
+                    */
                 }
 
 

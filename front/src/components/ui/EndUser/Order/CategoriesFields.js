@@ -122,7 +122,6 @@ class CategoriesFields extends React.Component {
 
 
             let imageUrl;
-            console.log(this.props.categoryUrlsExist)
             if (!this.props.categoryUrlsExist[index]) {
                 imageUrl = noImage;
             } else {

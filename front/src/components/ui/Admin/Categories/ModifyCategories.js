@@ -8,7 +8,7 @@ import { TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 
 // fetchies
 import { getCats, getSubCats, getFakeCats } from '../../../../utils/fetchcategories';
-import { addNewCat, addNewSubCat } from '../../../../utils/sendAddCatsData';
+import { addNewCat, addNewSubCat, sendStatus } from '../../../../utils/sendAddCatsData';
 
 class ModifyCategories extends Component {
     constructor(props) {
@@ -66,57 +66,65 @@ class ModifyCategories extends Component {
     };
 
     // activate or deactivate category
-    activate(id, status) {
+    activate(id, status, type, y) {
         this.setState({
             id: id,
-            status: status
-        });
-        console.log(this.state.id + ' ' + this.state.status);
-
-        if (this.state.status === 1) {
-
-        } else {
-
-        }
-
-    }
-
-    updateField(fieldName, newValue) {
-        this.setState({
-            [fieldName]: newValue
+            type: type,
+            status: !status
         }, function () {
-            console.log(this.state.fieldName);
-        })
+            var statusData = {
+                'catType': this.state.type,
+                'Status': this.state.status,
+                'id': this.state.id
+            }
+            sendStatus(statusData).then(() => {this.getCategories()});
+            this.close(y);
+        });
     }
 
-    changeName(id, name) {
+    // change name
+    changeName(id, name, type, y) {
         this.setState({
             id: id,
+            type: type,
             name: name
-        }, function() {
-            this.expand()
+        }, function () {
+            var renameData = {
+                'catType': this.state.type,
+                'name': this.state.name,
+                'id': this.state.id,
+                'newName': this.state.newCatName
+            }
+            // sendStatus(statusData).then(() => {this.getCategories()});
+            console.log(this.state.renameData);            
+            // this.close(y);
         });
-        console.log(this.state.id + ' ' + this.state.name);
     }
 
-    // opening items
+    // open row
     expand(x) {
-        // create a temp array, because it's easier to edit than the state one
-        let newArray = this.state.rows;
 
-        // opening another means first closing the open one
-        for (let i = 0; i < newArray.length; i++) {
-            if (newArray[i]) {
-                newArray[i] = false; // close the open one
+        // close open ones
+        for (let i = 0; i < this.state.rows.length; i++) {
+            if (this.state.rows[i]) {
+                this.state.rows[i] = false;
             }
         }
-        newArray[x] = true; // open the new row
 
-        // set the edited version as the new state
-        this.setState({ rows: newArray });
-        console.log(this.state.rows);
-        
+        // open new row
+        this.state.rows[x] = true;
+        this.setState({ rows: this.state.rows });
+    }
 
+    // close row
+    close(x) {
+
+        for (let i = 0; i < this.state.rows.length; i++) {
+            if (this.state.rows[i]) {
+                this.state.rows[i] = false;
+            }
+        }
+        this.setState({ rows: this.state.rows });
     }
 
     componentDidMount() {
@@ -169,26 +177,26 @@ class ModifyCategories extends Component {
         const subCats = [];
         const fakeCats = [];
         console.log(this.state.cats);
-        console.log(this.state.subCats);
-        console.log(this.state.fakeCats);
+
 
         for (let i = 0; i < this.state.cats.length; i++) {
             if (this.state.rows[i]) {
                 cats.push(
-                    <TableRow key={i} style={{ height: '200px' }} >
-                        <TableRowColumn colSpan='2'>
+                    <TableRow key={i} style={{ height: '150px' }} >
+                        <TableRowColumn colSpan='3'>
                             <TextField
-                                className="ChangeFakeCatName"
+                                className="ChangeCatName"
                                 hintText="Kategorian nimi"
                                 defaultValue={this.state.cats[i].CatName}
                                 onChange={(event, newValue) => this.setState({ newCatName: newValue })}
-                            />
+                            /><br /><br />
+                            <h3>Aktivoi / Deaktivoi kategoria:</h3>
                         </TableRowColumn>
-                        <TableRowColumn colSpan='2'>
+                        <TableRowColumn>
                             <RaisedButton label="Tallenna"
-                                onClick={event => this.changeName(this.state.cats[i].CatId, this.state.cats[i].CatName)} />
+                                onClick={event => this.changeName(this.state.cats[i].CatId, this.state.cats[i].CatName, 0, i)} /><br /><br />
                             <RaisedButton label={this.state.cats[i].Status ? 'Deaktivoi' : 'Aktivoi'}
-                                onClick={event => this.activate(this.state.cats[i].CatId, this.state.cats[i].Status)} />
+                                onClick={event => this.activate(this.state.cats[i].CatId, this.state.cats[i].Status, 0, i)} />
                         </TableRowColumn>
                     </TableRow>
                 )
@@ -205,27 +213,6 @@ class ModifyCategories extends Component {
                 )
             }
         }
-
-        /*for (let i = 0; i < this.state.cats.length; i++) {
-            cats.push(
-                <TableRow key={i} >
-                    <TableRowColumn colSpan='2'>
-                        <TextField
-                            className="ChangeCatName"
-                            hintText="Kategorian nimi"
-                            defaultValue={this.state.cats[i].CatName}
-                            onChange={(event, newValue) => this.setState({ newName: newValue })}
-                        />
-                    </TableRowColumn>
-                    <TableRowColumn colSpan='2'>
-                        <RaisedButton label="Tallenna"
-                            onClick={event => this.changeName(this.state.cats[i].CatId, this.state.cats[i].CatName)} />
-                        <RaisedButton label={this.state.cats[i].Status ? 'Deaktivoi' : 'Aktivoi'}
-                            onClick={event => this.activate(this.state.cats[i].CatId, this.state.cats[i].Status)} />
-                    </TableRowColumn>
-                </TableRow>
-            )
-        } */
 
         for (let j = 0; j < this.state.subCats.length; j++) {
             subCats.push(

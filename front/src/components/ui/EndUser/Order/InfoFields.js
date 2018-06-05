@@ -122,7 +122,7 @@ class InfoFields extends React.Component {
                                 <label style={{ float: 'left', position: 'absolute', marginLeft: '2%' }}>
                                     {this.props.values.category}/<br />{this.props.values.subCat}</label>
                                 <div style={{ width: '30%', height: '10vh', border: '2px solid black', marginLeft: 'auto' }}>
-                                    
+
 
                                 </div>
                                 <div style={{ width: '100%', height: 'auto' }} >
@@ -169,13 +169,13 @@ class InfoFields extends React.Component {
                 </table>
 
                 <ImageUploader
-                                        withIcon={true}
-                                        withPreview={true}
-                                        buttonText='Choose images'
-                                        onChange={this.onDrop}
-                                        imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                                        maxFileSize={5242880}
-                                    />
+                    withIcon={true}
+                    withPreview={true}
+                    buttonText='Choose images'
+                    onChange={this.onDrop}
+                    imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                    maxFileSize={5242880}
+                />
             </div >
         );
     }

@@ -33,9 +33,13 @@ function sendItemImageData(image) {
 
   console.log(image.length)
   console.log(image)
-  fd.set("image", image);
-  console.log(fd)
-  //fd.set("teponSoutuvene", image[1]);
+
+  for(let i = 0; i < image.length; i++){
+    let slot = "img" + i;
+    fd.set(slot, image[i]);
+  }
+  
+
 
   return axios({
     method: 'post',

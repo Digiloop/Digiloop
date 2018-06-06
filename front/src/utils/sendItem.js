@@ -33,7 +33,7 @@ function sendItemImageData(image) {
   return axios.post(
     BASE_URL + '/imageAdd',
     image,
-    {headers: { 'Content-Type': 'image' }}
+    {headers: { 'Content-Type': 'multipart/form-data' }}
   )
     .then(response => response.data)
     .catch(function (error) {

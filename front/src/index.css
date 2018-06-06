@@ -520,7 +520,7 @@ text-align: right;
   font-family: kanit;
   text-align: left;
   font-weight: bold;
-  margin: auto;
+  margin: 0 0 0 1vw;
   padding: 0;
   font-size: 18px;
   color:#004225; 
@@ -548,9 +548,18 @@ text-align: right;
 
 #ImagePreview {
   float: right;
-  width: 50%;
-  border: 2px solid red;
+  min-width: 50px;
+  max-width: 50%;
+  height: 100%;
   padding: 5px;
+}
+
+.fileContainer {
+  background-color: transparent;
+  box-shadow: none;
+  padding: 0 0 0 70px;
+  transition: none;
+  right: 2%;
 }
 
 /* ADMIN */

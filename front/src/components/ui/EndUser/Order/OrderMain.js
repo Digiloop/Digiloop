@@ -59,6 +59,7 @@ class OrderMain extends Component {
         };
         this.saveValues = this.saveValues.bind(this);
         this.saveAddressData = this.saveAddressData.bind(this);
+        this.removeItem = this.removeItem.bind(this)
 
         this.setCategoriesSelected = this.setCategoriesSelected.bind(this);
         this.isButtonDisabled = this.isButtonDisabled.bind(this);
@@ -126,6 +127,9 @@ class OrderMain extends Component {
 
         this.setState({
             values: valueArray
+        }, function(){
+            console.log("Sinappikala")
+            console.log(this.state.values)
         })
 
     }
@@ -262,9 +266,31 @@ class OrderMain extends Component {
         }
     }
 
-    removeItem(i) {
+
+    removeItem(item) {
         console.log("RAKETTIRYHMÄ LENTÄÄ TAIVAAN TUULIIN")
-        console.log(i);
+        console.log(item);
+
+        let values = this.state.values;
+        let newValues = [];
+        let itemPassed = false;
+
+        for(let i = 0; i < values.length; i++){
+            if(!itemPassed){
+                if (item !== i){
+                    newValues[i] = values[i]
+                } else {
+                    itemPassed = true
+                }
+            } else {
+                newValues[i - 1] = values[i]
+            }
+        }
+
+        this.setState({
+            values: newValues,
+            itemIndex: this.state.itemIndex - 1
+        })
     }
 
     showSteps = () => {

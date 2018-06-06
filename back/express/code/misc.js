@@ -19,13 +19,13 @@ module.exports = class misc {
     }
     //takes 2 arrays and concats them together,func should take sqldatahaku.querySql function that does sql query which is the last parameter.
     fuseItemArray(array1, array2, func, query) {
-        if (this.checkValidLength(array1, 14) === true){
+        if (this.checkValidLength(array1, 14) === true) {
             //so this thing here loops trough all req.body data
             for (var i = 0; i < array1.length; i++) {
                 func(query, this.keyToArray(array1[i]).concat(array2))
             } // change req.body to array and fuse it with data from server.
         }
-        else{console.log('noup')}
+        else { console.log('noup') }
     }
 
     loopityLoop(array1, func) {
@@ -63,10 +63,11 @@ module.exports = class misc {
     }
 
 
-    selectorThing(selector, arr1, arr2) {
+    selectorThing(selector, arr1, arr2, arr3) {
         let ars1 = arr1[selector]
         let ars2 = arr2[selector]
-        return [ars1, ars2]
+        let ars3 = arr3[selector]
+        return [ars1, ars2, ars3]
     }
 
     dateThing() {

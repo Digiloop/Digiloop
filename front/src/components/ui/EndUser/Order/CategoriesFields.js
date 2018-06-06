@@ -130,13 +130,15 @@ class CategoriesFields extends React.Component {
                 returnStyle = {
                     borderRadius: 4,
                     border: '8px solid red',
-                    width: '19vw',
-                    height: '19vw',
+                    minWidth: '20vw',
+                    maxWidth: 'inherit',
+                    maxHeight: '25vw',
+                    minHeight: '20vw',
                     marginRight: '1%',
                     textAlign: 'center',
-                    fontSize: '3vw',
+                    fontSize: '5vw',
                     backgroundRepeat: "no-repeat",
-                    backgroundSize: "80%",
+                    backgroundSize: "contain",
                     backgroundPosition: "center 100%",
                     backgroundImage: "url(" + imageUrl + ")"
                 }
@@ -144,13 +146,15 @@ class CategoriesFields extends React.Component {
                 returnStyle = {
                     borderRadius: 4,
                     border: '8px solid white',
-                    width: '19vw',
-                    height: '19vw',
+                    minWidth: '20vw',
+                    maxWidth: 'inherit',
+                    maxHeight: '20vw',
+                    minHeight: '20vw',
                     marginRight: '1%',
                     textAlign: 'center',
-                    fontSize: '3vw',
+                    fontSize: '5vw',
                     backgroundRepeat: "no-repeat",
-                    backgroundSize: "80%",
+                    backgroundSize: "contain",
                     backgroundPosition: "center 100%",
                     backgroundImage: "url(" + imageUrl + ")"
                 }
@@ -170,13 +174,15 @@ class CategoriesFields extends React.Component {
                 returnStyle = {
                     borderRadius: 4,
                     border: '8px solid red',
-                    width: '19vw',
-                    height: '19vw',
+                    minWidth: '20vw',
+                    maxWidth: 'inherit',
+                    maxHeight: '20vw',
+                    minHeight: '20vw',
                     marginRight: '1%',
                     textAlign: 'center',
-                    fontSize: '3vw',
+                    fontSize: '5vw',
                     backgroundRepeat: "no-repeat",
-                    backgroundSize: "80%",
+                    backgroundSize: "contain",
                     backgroundPosition: "center 100%",
                     backgroundImage: "url(" + imageUrl + ")"
                 }
@@ -184,13 +190,15 @@ class CategoriesFields extends React.Component {
                 returnStyle = {
                     borderRadius: 4,
                     border: '8px solid white',
-                    width: '19vw',
-                    height: '19vw',
+                    minWidth: '20vw',
+                    maxWidth: 'inherit',
+                    maxHeight: '20vw',
+                    minHeight: '20vw',
                     marginRight: '1%',
                     textAlign: 'center',
-                    fontSize: '3vw',
+                    fontSize: ' 5vw',
                     backgroundRepeat: "no-repeat",
-                    backgroundSize: "80%",
+                    backgroundSize: "contain",
                     backgroundPosition: "center 100%",
                     backgroundImage: "url(" + imageUrl + ")"
                 }
@@ -239,8 +247,9 @@ class CategoriesFields extends React.Component {
                     value={this.props.categories[i].CatName}
                     onClick={() => this.setCat(this.props.categories[i].CatId, this.props.categories[i].CatName)}
                     key={i} >
+                    <h1 style={{margin: '0', fontSize: '4vw', color: '#004225'}}>{this.props.categories[i].CatName}</h1>
                     <div style={this.categoryImageStyler(i, 0)} >
-                        {this.props.categories[i].CatName}
+                        
                     </div>
                 </td>
             )
@@ -265,8 +274,9 @@ class CategoriesFields extends React.Component {
                                     this.props.proxyCategories[k].name
                                 )}
                                 key={k} >
+                                <h1 style={{margin: '0', fontSize: '4vw', color: '#004225'}}>{this.props.proxyCategories[k].name}</h1>
                                 <div style={this.categoryImageStyler(k, 1)} >
-                                    {this.props.proxyCategories[k].name}
+                                    
                                 </div>
                             </td>
                         )

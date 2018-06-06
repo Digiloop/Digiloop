@@ -30,11 +30,15 @@ function sendItemData(itemData) {
 
 function sendItemImageData(image) {
   console.log(axios.defaults.headers)
-  return axios.post(
-    BASE_URL + '/imageAdd',
-    image,
-    {headers: { 'Content-Type': 'multipart/form-data' }}
-  )
+  let fd = new FormData();
+  fd.set('image', {image});
+
+  return axios({
+    method: 'post',
+    url: BASE_URL + '/imageAdd',
+    data: fd,
+    config: {headers: { 'Content-Type': 'multipart/form-data' }}
+  })
     .then(response => response.data)
     .catch(function (error) {
       return error;

@@ -62,10 +62,10 @@ class Summary extends React.Component {
 
                 console.log("Bäkkiilähetyssimulaatio testi #5")
                 console.log(finalizedData);
-                console.log(imageArray[0]);
+                console.log(imageArray);
                 // toimii, kommentoitu, koska bäkki ei oo valmis siihen
                 //sendItemData(finalizedData);
-                sendItemImageData(imageArray[0]);
+                sendItemImageData(imageArray);
                 //window.location.reload()
 
             } else {

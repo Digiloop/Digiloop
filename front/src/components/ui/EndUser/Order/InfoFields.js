@@ -67,17 +67,19 @@ class InfoFields extends React.Component {
 
         if (this.props.values.pcs === undefined) {
             this.setState({
-                'pcs': 1,
-                'size': "< 5",
-                'weight': "< 5",
-                'description': this.props.values.description
+                pcs: 1,
+                size: "< 5",
+                weight: "< 5",
+                description: this.props.values.description,
+                picture: this.props.picture
             })
         } else {
             this.setState({
-                'pcs': this.props.values.pcs,
-                'size': this.props.values.size,
-                'weight': this.props.values.weight,
-                'description': this.props.values.description
+                pcs: this.props.values.pcs,
+                size: this.props.values.size,
+                weight: this.props.values.weight,
+                description: this.props.values.description,
+                picture: this.props.picture
             })
         }
     }

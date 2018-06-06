@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BASE_URL } from './../settings';
 
-export { sendItemData };
+export { sendItemData, sendItemImageData };
 
 /* function sendItemData(itemData) {
   return fetch(BASE_URL + '/itemAdd', {
@@ -21,11 +21,22 @@ export { sendItemData };
 } */
 
 function sendItemData(itemData) {
-  return axios.post(BASE_URL + '/itemAdd', {
-    itemData
-  })
-  .then(response => response.data)
-  .catch(function (error) {
-    return error;
-  });
+  return axios.post(BASE_URL + '/itemAdd', { itemData })
+    .then(response => response.data)
+    .catch(function (error) {
+      return error;
+    });
+}
+
+function sendItemImageData(image) {
+  console.log(axios.defaults.headers)
+  return axios.post(
+    BASE_URL + '/imageAdd',
+    image,
+    {headers: { 'Content-Type': 'image' }}
+  )
+    .then(response => response.data)
+    .catch(function (error) {
+      return error;
+    });
 }

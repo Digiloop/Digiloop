@@ -5,6 +5,7 @@ import { TextField, RaisedButton } from 'material-ui';
 import { MenuItem, SelectField, Divider } from 'material-ui';
 import { Table, TableBody, TableHeader } from 'material-ui/Table';
 import { TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+import ImageUploader from 'react-images-upload';
 
 // fetchies
 import { getCats, getSubCats, getFakeCats } from '../../../../utils/fetchcategories';
@@ -23,8 +24,10 @@ class ModifyCategories extends Component {
             rows: [],
             cats: [],
             subCats: [],
-            fakeCats: []
+            fakeCats: [],
+            pictures: []
         }
+        this.onDrop = this.onDrop.bind(this);
     }
 
     // fetch junk data
@@ -50,6 +53,12 @@ class ModifyCategories extends Component {
         this.setState({ valueC: value });
         this.expand();
     };
+
+    onDrop(picture) {
+        this.setState({
+            pictures: this.state.pictures.concat(picture)
+        });        
+    }
 
     // activate or deactivate category
     activate(id, status, type, y) {
@@ -80,13 +89,12 @@ class ModifyCategories extends Component {
         }, function () {
             var renameData = {
                 'catType': this.state.type,
-                'name': this.state.name,
-                'id': this.state.id,
-                'newName': this.state.newCatName
-            }            
-            // sendNewCatName(renameData).then(() => { this.getCategories(), this.getSubCategories(), this.getFakeCategories() });
+                'name': this.state.newCatName,
+                'id': this.state.id
+            }
+            sendNewCatName(renameData).then(() => { this.getCategories(), this.getSubCategories(), this.getFakeCategories() });
+            this.setState({ newCatName: '' })
             console.log(renameData);
-            this.setState({ newCatName: '' });
             this.close(y);
         });
     }
@@ -166,7 +174,6 @@ class ModifyCategories extends Component {
         const cats = [];
         const subCats = [];
         const fakeCats = [];
-        console.log(this.state.subCats);
 
         // loop categories
         for (let i = 0; i < this.state.cats.length; i++) {
@@ -283,7 +290,7 @@ class ModifyCategories extends Component {
                     <div className='categories'>
                         <div className='cats' style={{ float: 'left', width: '46%', marginRight: '2%', marginLeft: '2%' }}>
                             <div className='modifyStatus' >
-                                <h2>Aktivoi/Deaktivoi kategoria</h2>
+                                <h2>Muokkaa kategorioita</h2>
                                 <p className='selectCatType'>Valitse kategoriatyyppi:</p>
                                 <SelectField
                                     hintText='Valitse kategoriatyyppi'
@@ -315,9 +322,18 @@ class ModifyCategories extends Component {
                                     }
                                 </TableBody>
                             </Table>
-                            <div className='subCat' style={{ float: 'left', width: '30%' }}>
-                            </div>
                         </div>
+                    </div>
+                    <div className='pictures' style={{ float: 'left', width: '40%', marginTop: '12%' }}>
+
+                        <ImageUploader
+                            withIcon={true}
+                            withPreview={true}
+                            buttonText='Choose images'
+                            onChange={this.onDrop}
+                            imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                            maxFileSize={5242880}                            
+                        />
                     </div>
                 </div>
             </MuiThemeProvider>

@@ -10,6 +10,7 @@ import ImageUploader from 'react-images-upload';
 // fetchies
 import { getCats, getSubCats, getFakeCats } from '../../../../utils/fetchcategories';
 import { addNewCat, addNewSubCat, sendStatus, sendNewCatName } from '../../../../utils/sendAddCatsData';
+import { BASE_URL } from '../../../../settings';
 
 class ModifyCategories extends Component {
     constructor(props) {
@@ -21,6 +22,9 @@ class ModifyCategories extends Component {
             newCatName: '',
             newName: '',
             row: 0,
+            cid: '',
+            pic: '',
+            picUrl: '',
             rows: [],
             cats: [],
             subCats: [],
@@ -30,34 +34,54 @@ class ModifyCategories extends Component {
         this.onDrop = this.onDrop.bind(this);
     }
 
-    // fetch junk data
+    // fetch categories data
     getCategories() {
         getCats().then((categories) => {
             this.setState({ cats: (categories) });
         });
     }
 
+    // fetch subcategories data
     getSubCategories() {
         getSubCats().then((subCategories) => {
             this.setState({ subCats: (subCategories) });
         });
     }
 
+    // fetch fakecategories data
     getFakeCategories() {
         getFakeCats().then((fakeCategories) => {
             this.setState({ fakeCats: (fakeCategories) });
         });
     }
 
+    // select category type
     handleSelectCatChange = (event, index, value) => {
         this.setState({ valueC: value });
         this.expand();
     };
 
+    // picture
     onDrop(picture) {
         this.setState({
             pictures: this.state.pictures.concat(picture)
-        });        
+        });
+    }
+
+    // Category id, pic address, rownumber, type: 0=category 1=fakecategory
+    getCat = (cid, pic, x, type) => {
+        if (type === 0) {
+            this.state.picUrl = '/images/categories/';
+        } else {
+            this.state.picUrl = '/images/subcategories/';
+        }
+        this.setState({
+            cid: cid,
+            pic: pic,
+            type: type
+        }, function () {
+            this.expand(x);
+        });
     }
 
     // activate or deactivate category
@@ -72,6 +96,8 @@ class ModifyCategories extends Component {
                 'Status': this.state.status,
                 'id': this.state.id
             }
+            console.log(statusData);
+            
             sendStatus(statusData).then(() => { this.getCategories(), this.getSubCategories(), this.getFakeCategories() });
             this.close(y);
         });
@@ -94,7 +120,6 @@ class ModifyCategories extends Component {
             }
             sendNewCatName(renameData).then(() => { this.getCategories(), this.getSubCategories(), this.getFakeCategories() });
             this.setState({ newCatName: '' })
-            console.log(renameData);
             this.close(y);
         });
     }
@@ -174,6 +199,8 @@ class ModifyCategories extends Component {
         const cats = [];
         const subCats = [];
         const fakeCats = [];
+        console.log(this.state.fakeCats);
+        
 
         // loop categories
         for (let i = 0; i < this.state.cats.length; i++) {
@@ -200,11 +227,12 @@ class ModifyCategories extends Component {
             } else {
                 cats.push(
                     <TableRow key={i} >
-                        <TableRowColumn colSpan='3'>
+                        <TableRowColumn colSpan='3' >
                             {this.state.cats[i].CatName}
                         </TableRowColumn>
                         <TableRowColumn>
-                            <RaisedButton label='Muokkaa' />
+                            <RaisedButton label='Muokkaa' onClick={() => this.getCat(this.state.cats[i].CatId,
+                                this.state.cats[i].ImgReference, i, 0)} />
                         </TableRowColumn>
                     </TableRow>
                 )
@@ -240,7 +268,7 @@ class ModifyCategories extends Component {
                             {this.state.subCats[j].subName}
                         </TableRowColumn>
                         <TableRowColumn>
-                            <RaisedButton label='Muokkaa' />
+                            <RaisedButton label='Muokkaa' onClick={() => this.getCat(this.state.subCats[j].subId, null, j, null)} />
                         </TableRowColumn>
                     </TableRow>
                 )
@@ -276,7 +304,8 @@ class ModifyCategories extends Component {
                             {this.state.fakeCats[k].name}
                         </TableRowColumn>
                         <TableRowColumn>
-                            <RaisedButton label='Muokkaa' />
+                            <RaisedButton label='Muokkaa' onClick={() => this.getCat(this.state.fakeCats[k].Id,
+                                this.state.fakeCats[k].imgReference, k, 1)} />
                         </TableRowColumn>
                     </TableRow>
                 )
@@ -290,7 +319,7 @@ class ModifyCategories extends Component {
                     <div className='categories'>
                         <div className='cats' style={{ float: 'left', width: '46%', marginRight: '2%', marginLeft: '2%' }}>
                             <div className='modifyStatus' >
-                                <h2>Muokkaa kategorioita</h2>
+                                <h2>Muokkaa tietoja</h2>
                                 <p className='selectCatType'>Valitse kategoriatyyppi:</p>
                                 <SelectField
                                     hintText='Valitse kategoriatyyppi'
@@ -304,7 +333,8 @@ class ModifyCategories extends Component {
                                     <MenuItem value={'fakeCats'} primaryText="Feikkikategoriat" />
                                 </SelectField>
                             </div>
-                            <Table className='Cat' style={{ float: 'left', width: '100%' }} onCellClick={rowNumber => this.expand(rowNumber)} >
+                            <Table className='Cat' style={{ float: 'left', width: '100%' }}
+                            >
                                 <TableBody displayRowCheckbox={false}>
                                     {
                                         (() => {
@@ -325,15 +355,20 @@ class ModifyCategories extends Component {
                         </div>
                     </div>
                     <div className='pictures' style={{ float: 'left', width: '40%', marginTop: '12%' }}>
-
-                        <ImageUploader
-                            withIcon={true}
-                            withPreview={true}
-                            buttonText='Choose images'
-                            onChange={this.onDrop}
-                            imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                            maxFileSize={5242880}                            
-                        />
+                        { this.state.valueC !== 'subCats' ?
+                            <div>{ this.state.pic === 'imagereferenssi' || this.state.pic === 'i can haz reference' ?
+                            <ImageUploader
+                                withIcon={true}
+                                withPreview={true}
+                                buttonText='Choose images'
+                                onChange={this.onDrop}
+                                imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                                maxFileSize={5242880}
+                            /> : <div>
+                            <img src={BASE_URL + this.state.picUrl + this.state.pic}></img>
+                            </div>
+                        }</div> : <div></div>
+                    }
                     </div>
                 </div>
             </MuiThemeProvider>

@@ -65,7 +65,7 @@ class Summary extends React.Component {
                 console.log(imageArray);
                 // toimii, kommentoitu, koska bäkki ei oo valmis siihen
                 //sendItemData(finalizedData);
-                sendItemImageData(imageArray);
+                sendItemImageData(imageArray[0]);
                 //window.location.reload()
 
             } else {

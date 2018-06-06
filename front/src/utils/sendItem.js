@@ -29,9 +29,13 @@ function sendItemData(itemData) {
 }
 
 function sendItemImageData(image) {
-  console.log(axios.defaults.headers)
   let fd = new FormData();
-  fd.set('image', {image});
+
+  console.log(image.length)
+  console.log(image)
+  fd.set("image", image);
+  console.log(fd)
+  //fd.set("teponSoutuvene", image[1]);
 
   return axios({
     method: 'post',

@@ -123,10 +123,11 @@ class InfoFields extends React.Component {
                             <td>
                                 <label style={{ float: 'left', position: 'absolute', marginLeft: '2%' }}>
                                     {this.props.values.category}/<br />{this.props.values.subCat}</label>
-                                <div style={{ width: '30%', height: /*'171px'*/'200px', border: '2px solid black', marginLeft: 'auto' }}>
+                                <div style={{ maxWidth:'35%', minWidth: '55%', maxHeight: '30%', minHeight: '50%', marginLeft: 'auto' }}>
                                     <ImageUploader
-                                        withIcon={true}
+                                        withIcon={false}
                                         withPreview={true}
+                                        withLabel={false}
                                         buttonText='Valitse kuva'
                                         onChange={this.onDrop}
                                         imgExtension={['.jpg', '.gif', '.png', '.gif']}
@@ -134,10 +135,20 @@ class InfoFields extends React.Component {
                                     />
 
                                 </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 <div style={{ width: '100%', height: 'auto' }} >
-                                    <p style={styles.pTags}>Kappalemäärä</p>
-                                    <p style={styles.pTags}>Mitat</p>
-                                    <p style={styles.pTags}>Paino</p>
+                                    <p style={styles.pTags}>Kpl</p>
+                                    <p style={{float: 'left', margin: '0 0 0 17%'}}>Mitat</p>
+                                    <p style={{float: 'left', margin: '0 0 0 28%'}}>Paino</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>   
+                            <td>
+                                <div>
                                     <DropDownMenu value={this.state.pcs} onChange={this.handleChange("pcs")} style={styles.dropDown}>
                                         <MenuItem value={1} primaryText="1" />
                                         <MenuItem value={"2-5"} primaryText="2 - 5" />

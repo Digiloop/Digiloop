@@ -47,7 +47,9 @@ class Summary extends React.Component {
                         pcs: data[i].pcs,
                         size: data[i].size,
                         weight: data[i].weight,
-                        description: data[i].description
+                        description: data[i].description,
+
+                        picture: data[i].picture
                     }
                 }
 

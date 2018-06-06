@@ -5,10 +5,11 @@ import { TextField, RaisedButton } from 'material-ui';
 import { MenuItem, SelectField, Divider } from 'material-ui';
 import { Table, TableBody, TableHeader } from 'material-ui/Table';
 import { TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+import ImageUploader from 'react-images-upload';
 
 // fetchies
 import { getCats, getSubCats, getFakeCats } from '../../../../utils/fetchcategories';
-import { addNewCat, addNewSubCat, sendStatus } from '../../../../utils/sendAddCatsData';
+import { addNewCat, addNewSubCat, sendStatus, sendNewCatName } from '../../../../utils/sendAddCatsData';
 
 class ModifyCategories extends Component {
     constructor(props) {
@@ -23,8 +24,10 @@ class ModifyCategories extends Component {
             rows: [],
             cats: [],
             subCats: [],
-            fakeCats: []
+            fakeCats: [],
+            pictures: []
         }
+        this.onDrop = this.onDrop.bind(this);
     }
 
     // fetch junk data
@@ -46,24 +49,16 @@ class ModifyCategories extends Component {
         });
     }
 
-    // value = Category CatId, cat = Category name
-    getCat = (value, cat) => {
-        this.setState({
-            value: value,
-            cat: cat
-        });
-    }
-
-    handleCatFieldChange = event => {
-        this.setState({
-            addCat: event.target.value
-        })
-    };
-
     handleSelectCatChange = (event, index, value) => {
         this.setState({ valueC: value });
         this.expand();
     };
+
+    onDrop(picture) {
+        this.setState({
+            pictures: this.state.pictures.concat(picture)
+        });        
+    }
 
     // activate or deactivate category
     activate(id, status, type, y) {
@@ -77,13 +72,16 @@ class ModifyCategories extends Component {
                 'Status': this.state.status,
                 'id': this.state.id
             }
-            sendStatus(statusData).then(() => {this.getCategories()});
+            sendStatus(statusData).then(() => { this.getCategories(), this.getSubCategories(), this.getFakeCategories() });
             this.close(y);
         });
     }
 
     // change name
     changeName(id, name, type, y) {
+        if (this.state.newCatName === '') {
+            this.setState({ newCatName: name })
+        }
         this.setState({
             id: id,
             type: type,
@@ -91,13 +89,13 @@ class ModifyCategories extends Component {
         }, function () {
             var renameData = {
                 'catType': this.state.type,
-                'name': this.state.name,
-                'id': this.state.id,
-                'newName': this.state.newCatName
+                'name': this.state.newCatName,
+                'id': this.state.id
             }
-            // sendStatus(statusData).then(() => {this.getCategories()});
-            console.log(this.state.renameData);            
-            // this.close(y);
+            sendNewCatName(renameData).then(() => { this.getCategories(), this.getSubCategories(), this.getFakeCategories() });
+            this.setState({ newCatName: '' })
+            console.log(renameData);
+            this.close(y);
         });
     }
 
@@ -176,9 +174,8 @@ class ModifyCategories extends Component {
         const cats = [];
         const subCats = [];
         const fakeCats = [];
-        console.log(this.state.cats);
 
-
+        // loop categories
         for (let i = 0; i < this.state.cats.length; i++) {
             if (this.state.rows[i]) {
                 cats.push(
@@ -214,44 +211,61 @@ class ModifyCategories extends Component {
             }
         }
 
+        // loop subcategories
         for (let j = 0; j < this.state.subCats.length; j++) {
-            subCats.push(
-                <TableRow key={j} >
-                    <TableRowColumn colSpan='2'>
-                        <TextField
-                            className="ChangeSubCatName"
-                            hintText="Kategorian nimi"
-                            defaultValue={this.state.subCats[j].subName}
-                            onChange={(event, newValue) => this.setState({ newName: newValue })}
-                        />
-                    </TableRowColumn>
-                    <TableRowColumn>
-                        <RaisedButton label="Tallenna"
-                            onClick={event => this.changeName(this.state.subCats[j].subId, this.state.subCats[j].subName)} />
-                        <RaisedButton label={this.state.subCats[j].Status ? 'Deaktivoi' : 'Aktivoi'}
-                            onClick={event => this.activate(this.state.subCats[j].subId, this.state.subCats[j].Status)} />
-                    </TableRowColumn>
-                </TableRow>
-            )
+            if (this.state.rows[j]) {
+                subCats.push(
+                    <TableRow key={j} style={{ height: '150px' }} >
+                        <TableRowColumn colSpan='3'>
+                            <TextField
+                                className="ChangeCatName"
+                                hintText="Kategorian nimi"
+                                defaultValue={this.state.subCats[j].subName}
+                                onChange={(event, newValue) => this.setState({ newCatName: newValue })}
+                            /><br /><br />
+                            <h3>Aktivoi / Deaktivoi kategoria:</h3>
+                        </TableRowColumn>
+                        <TableRowColumn>
+                            <RaisedButton label="Tallenna"
+                                onClick={event => this.changeName(this.state.subCats[j].subId, this.state.subCats[j].subName, 1, j)} /><br /><br />
+                            <RaisedButton label={this.state.subCats[j].Status ? 'Deaktivoi' : 'Aktivoi'}
+                                onClick={event => this.activate(this.state.subCats[j].subId, this.state.subCats[j].Status, 1, j)} />
+                        </TableRowColumn>
+                    </TableRow>
+                )
+            } else {
+                subCats.push(
+                    <TableRow key={j} >
+                        <TableRowColumn colSpan='3'>
+                            {this.state.subCats[j].subName}
+                        </TableRowColumn>
+                        <TableRowColumn>
+                            <RaisedButton label='Muokkaa' />
+                        </TableRowColumn>
+                    </TableRow>
+                )
+            }
         }
 
+        // loop fakecategories
         for (let k = 0; k < this.state.fakeCats.length; k++) {
             if (this.state.rows[k]) {
                 fakeCats.push(
-                    <TableRow key={k} style={{ height: '200px' }} >
-                        <TableRowColumn colSpan='2'>
+                    <TableRow key={k} style={{ height: '150px' }} >
+                        <TableRowColumn colSpan='3'>
                             <TextField
-                                className="ChangeFakeCatName"
+                                className="ChangeCatName"
                                 hintText="Kategorian nimi"
                                 defaultValue={this.state.fakeCats[k].name}
-                                onChange={(event, newValue) => this.setState({ newName: newValue })}
-                            />
+                                onChange={(event, newValue) => this.setState({ newCatName: newValue })}
+                            /><br /><br />
+                            <h3>Aktivoi / Deaktivoi kategoria:</h3>
                         </TableRowColumn>
-                        <TableRowColumn colSpan='2'>
+                        <TableRowColumn>
                             <RaisedButton label="Tallenna"
-                                onClick={event => this.changeName(this.state.fakeCats[k].Id, this.state.fakeCats[k].name)} />
+                                onClick={event => this.changeName(this.state.fakeCats[k].Id, this.state.fakeCats[k].name, 2, k)} /><br /><br />
                             <RaisedButton label={this.state.fakeCats[k].Status ? 'Deaktivoi' : 'Aktivoi'}
-                                onClick={event => this.activate(this.state.fakeCats[k].Id, this.state.subCats[k].Status)} />
+                                onClick={event => this.activate(this.state.fakeCats[k].Id, this.state.fakeCats[k].Status, 2, k)} />
                         </TableRowColumn>
                     </TableRow>
                 )
@@ -276,7 +290,7 @@ class ModifyCategories extends Component {
                     <div className='categories'>
                         <div className='cats' style={{ float: 'left', width: '46%', marginRight: '2%', marginLeft: '2%' }}>
                             <div className='modifyStatus' >
-                                <h2>Aktivoi/Deaktivoi kategoria</h2>
+                                <h2>Muokkaa kategorioita</h2>
                                 <p className='selectCatType'>Valitse kategoriatyyppi:</p>
                                 <SelectField
                                     hintText='Valitse kategoriatyyppi'
@@ -308,9 +322,18 @@ class ModifyCategories extends Component {
                                     }
                                 </TableBody>
                             </Table>
-                            <div className='subCat' style={{ float: 'left', width: '30%' }}>
-                            </div>
                         </div>
+                    </div>
+                    <div className='pictures' style={{ float: 'left', width: '40%', marginTop: '12%' }}>
+
+                        <ImageUploader
+                            withIcon={true}
+                            withPreview={true}
+                            buttonText='Choose images'
+                            onChange={this.onDrop}
+                            imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                            maxFileSize={5242880}                            
+                        />
                     </div>
                 </div>
             </MuiThemeProvider>

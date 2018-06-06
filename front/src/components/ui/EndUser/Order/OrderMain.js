@@ -115,7 +115,9 @@ class OrderMain extends Component {
             'pcs': value.pcs,
             'size': value.size,
             'weight': value.weight,
-            'description': value.description
+            'description': value.description,
+
+            'picture': value.picture
         }
 
 
@@ -253,6 +255,11 @@ class OrderMain extends Component {
 
     }
 
+    removeItem(i){
+        console.log("RAKETTIRYHMÄ LENTÄÄ TAIVAAN TUULIIN")
+        console.log(i);
+    }
+
     showSteps = () => {
         switch (this.state.step) {
             case 1:
@@ -286,7 +293,8 @@ class OrderMain extends Component {
                     nextStep={this.nextStep}
                     saveValues={this.saveValues}
                     nextItem={this.nextItem}
-                    editItem={this.editItem} />
+                    editItem={this.editItem}
+                    removeItem={this.removeItem} />
         }
     }
 

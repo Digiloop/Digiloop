@@ -83,7 +83,9 @@ class CategoriesFields extends React.Component {
 
                 pcs: this.props.values.pcs,
                 size: this.props.values.size,
-                weight: this.props.values.weight
+                weight: this.props.values.weight,
+
+                picture: this.props.values.picture
             }
             this.props.saveValues(data);
             this.props.setCategoriesSelected(true); // enable the forward arrow
@@ -138,10 +140,10 @@ class CategoriesFields extends React.Component {
                     height: '19vw',
                     marginRight: '1%',
                     textAlign: 'center',
-                    fontSize: '15px',
+                    fontSize: '3vw',
                     backgroundRepeat: "no-repeat",
-                    backgroundSize: "contain",
-                    backgroundPosition: "center,left center",
+                    backgroundSize: "80%",
+                    backgroundPosition: "center 100%",
                     backgroundImage: "url(" + imageUrl + ")"
                 }
             } else {
@@ -152,10 +154,10 @@ class CategoriesFields extends React.Component {
                     height: '19vw',
                     marginRight: '1%',
                     textAlign: 'center',
-                    fontSize: '15px',
+                    fontSize: '3vw',
                     backgroundRepeat: "no-repeat",
-                    backgroundSize: "contain",
-                    backgroundPosition: "center, left center",
+                    backgroundSize: "80%",
+                    backgroundPosition: "center 100%",
                     backgroundImage: "url(" + imageUrl + ")"
                 }
             }
@@ -178,10 +180,10 @@ class CategoriesFields extends React.Component {
                     height: '19vw',
                     marginRight: '1%',
                     textAlign: 'center',
-                    fontSize: '15px',
+                    fontSize: '3vw',
                     backgroundRepeat: "no-repeat",
-                    backgroundSize: "contain",
-                    backgroundPosition: "center, left center",
+                    backgroundSize: "80%",
+                    backgroundPosition: "center 100%",
                     backgroundImage: "url(" + imageUrl + ")"
                 }
             } else {
@@ -192,10 +194,10 @@ class CategoriesFields extends React.Component {
                     height: '19vw',
                     marginRight: '1%',
                     textAlign: 'center',
-                    fontSize: '15px',
+                    fontSize: '3vw',
                     backgroundRepeat: "no-repeat",
-                    backgroundSize: "contain",
-                    backgroundPosition: "center, left center",
+                    backgroundSize: "80%",
+                    backgroundPosition: "center 100%",
                     backgroundImage: "url(" + imageUrl + ")"
                 }
             }

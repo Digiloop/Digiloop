@@ -178,6 +178,7 @@ class AddressFields extends React.Component {
                         </tr>
                         <tr>
                             <td style={{width: '50%'}}>
+                            <p id="HomeClientHeader">Kotitalous</p>
                                 <img
                                     src={require('../Materials/OrderPics/home2.gif')}
                                     style={this.state.isCompany === 0 ? isHouseStyleActive : isHouseStyle}
@@ -187,6 +188,7 @@ class AddressFields extends React.Component {
                                 />
                             </td>
                             <td style={{width: '50%'}}>
+                            <p id="OrgClientHeader">Organisaatio</p>
                                 <img
                                     src={require('../Materials/OrderPics/organization2.gif')}
                                     style={this.state.isCompany === 1 ? isCompanyStyleActive : isCompanyStyle}

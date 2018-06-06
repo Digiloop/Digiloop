@@ -14,11 +14,10 @@ class Summary extends React.Component {
     }
 
 
+
     convertAddresses() {
 
         let data = this.props.values;
-        console.log("Team DATA DATAA 24/7")
-        console.log(data)
 
         let address = this.props.values[0].pickupaddr + ", " + this.props.values[0].city;
 
@@ -48,37 +47,10 @@ class Summary extends React.Component {
                         pcs: data[i].pcs,
                         size: data[i].size,
                         weight: data[i].weight,
-                        description: data[i].description
+                        description: data[i].description,
+
+                        picture: data[i].picture
                     }
-
-                    /*
-                    // only the first item has contact information
-                    // so we're saving it to the rest of the items also
-                    finalizedData[i].city = data[0].city;
-                    finalizedData[i].iscompany = data[0].iscompany;
-                    finalizedData[i].phone = data[0].phone;
-                    finalizedData[i].pickupInstructions = data[0].pickupInstructions;
-                    finalizedData[i].pickupaddr = data[0].pickupaddr;
-                    finalizedData[i].zipcode = data[0].zipcode;
-
-                    // add the newly acquired coordinate data
-                    finalizedData[i].latitude = results[0].geometry.viewport.f.b;
-                    finalizedData[i].longitude = results[0].geometry.viewport.b.b;
-
-                    // add the remaining data as is
-                    // we did not add the proxyCategory data, as it is unnecessary
-                    finalizedData[i].category = data[i].category;
-                    finalizedData[i].subCat = data[i].subCat;
-
-                    // Backend didn't want these. I wanted these. Fuck backend.
-                    //finalizedData[i].categoryId = data[i].categoryId;
-                    //finalizedData[i].subCategoryId = data[i].subCategoryId;
-
-                    finalizedData[i].pcs = data[i].pcs;
-                    finalizedData[i].size = data[i].size;
-                    finalizedData[i].weight = data[i].weight;
-                    finalizedData[i].description = data[i].description;
-                    */
                 }
 
 
@@ -150,6 +122,12 @@ class Summary extends React.Component {
                             style={{ borderRadius: 25 }}
                             backgroundColor={'#FFF'}
                             onClick={(event) => this.props.editItem(i)}
+                        />
+                        <FlatButton
+                            label='Poista'
+                            style={{ borderRadius: 25 }}
+                            backgroundColor={'#FFF'}
+                            onClick={(event) => this.props.removeItem(i)}
                         />
                         <br />
                         <Divider style={{ backgroundColor: '#FFF', height: '3px' }} />

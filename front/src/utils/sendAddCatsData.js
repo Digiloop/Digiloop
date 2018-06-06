@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BASE_URL } from './../settings';
 
-export { addNewCat, addNewSubCat, addNewFakeCat, sendStatus };
+export { addNewCat, addNewSubCat, addNewFakeCat, sendStatus, sendNewCatName };
 
 function addNewCat(addCatName) {
   return fetch(BASE_URL + '/catADD', {
@@ -59,6 +59,18 @@ function sendStatus(statusData) {
     catType: statusData.catType,
     id: statusData.id,
     Status: statusData.Status
+  })
+    .then(response => response.data)
+    .catch(function (error) {
+      return error;
+    });
+}
+
+function sendNewCatName(renameData) {
+  return axios.post(BASE_URL + '/catUpdate', {
+    catType: renameData.catType,
+    id: renameData.id,
+    name: renameData.name
   })
     .then(response => response.data)
     .catch(function (error) {

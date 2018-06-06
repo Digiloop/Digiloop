@@ -67,7 +67,7 @@ function sendStatus(statusData) {
 }
 
 function sendNewCatName(renameData) {
-  return axios.post(BASE_URL + '', {
+  return axios.post(BASE_URL + '/catUpdate', {
     catType: renameData.catType,
     id: renameData.id,
     name: renameData.name

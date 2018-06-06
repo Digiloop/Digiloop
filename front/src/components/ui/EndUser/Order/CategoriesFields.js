@@ -83,7 +83,9 @@ class CategoriesFields extends React.Component {
 
                 pcs: this.props.values.pcs,
                 size: this.props.values.size,
-                weight: this.props.values.weight
+                weight: this.props.values.weight,
+
+                picture: this.props.values.picture
             }
             this.props.saveValues(data);
             this.props.setCategoriesSelected(true); // enable the forward arrow

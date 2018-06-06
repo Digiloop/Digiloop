@@ -115,7 +115,9 @@ class OrderMain extends Component {
             'pcs': value.pcs,
             'size': value.size,
             'weight': value.weight,
-            'description': value.description
+            'description': value.description,
+
+            'picture': value.picture
         }
 
 

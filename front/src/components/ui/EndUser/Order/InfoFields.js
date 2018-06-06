@@ -10,7 +10,7 @@ class InfoFields extends React.Component {
             pcs: 1,
             size: 1,
             weight: 1,
-            pictures: null
+            picture: null
         };
         this.handleChange = this.handleChange.bind(this);
         this.onDrop = this.onDrop.bind(this)
@@ -20,7 +20,7 @@ class InfoFields extends React.Component {
         console.log("Rakettiryhmä salakuvaa jälleen")
         console.log(picture)
         this.setState({
-            pictures: picture
+            picture: picture[0]
         })
     }
 
@@ -53,7 +53,9 @@ class InfoFields extends React.Component {
             pcs: this.state.pcs,
             size: this.state.size,
             weight: this.state.weight,
-            description: this.state.description
+            description: this.state.description,
+
+            picture: this.state.picture
         }
         this.props.saveValues(data);
         this.props.nextStep()
@@ -65,17 +67,19 @@ class InfoFields extends React.Component {
 
         if (this.props.values.pcs === undefined) {
             this.setState({
-                'pcs': 1,
-                'size': "< 5",
-                'weight': "< 5",
-                'description': this.props.values.description
+                pcs: 1,
+                size: "< 5",
+                weight: "< 5",
+                description: this.props.values.description,
+                picture: this.props.picture
             })
         } else {
             this.setState({
-                'pcs': this.props.values.pcs,
-                'size': this.props.values.size,
-                'weight': this.props.values.weight,
-                'description': this.props.values.description
+                pcs: this.props.values.pcs,
+                size: this.props.values.size,
+                weight: this.props.values.weight,
+                description: this.props.values.description,
+                picture: this.props.picture
             })
         }
     }

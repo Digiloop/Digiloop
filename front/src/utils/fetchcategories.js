@@ -6,7 +6,11 @@ import { BASE_URL } from '../settings';
 export {getCats, getSubCats, getFakeCats};
 
 function getCats() {
-  return axios.get(BASE_URL+'/categories').then(response => response.data);
+  return axios.get(BASE_URL+'/categories')
+  .then(response => response.data)
+  .catch(function (error) {
+    return error;
+  });
 }
 
 function getSubCats() {

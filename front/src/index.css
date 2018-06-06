@@ -535,6 +535,17 @@ text-align: right;
  margin-left: 5px;
 }
 
+#HomeClientHeader {
+  text-align: right;
+  margin: 0 20px 0 0;
+  font-size: larger;
+}
+#OrgClientHeader {
+  text-align: left;
+  margin: 0 0 0 15px;
+  font-size: larger;
+}
+
 /* ADMIN */
 
 .addCatLabel {

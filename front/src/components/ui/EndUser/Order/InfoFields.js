@@ -10,15 +10,17 @@ class InfoFields extends React.Component {
             pcs: 1,
             size: 1,
             weight: 1,
-            pictures: []
+            pictures: null
         };
         this.handleChange = this.handleChange.bind(this);
         this.onDrop = this.onDrop.bind(this)
     }
 
     onDrop(picture) {
+        console.log("Rakettiryhmä salakuvaa jälleen")
+        console.log(picture)
         this.setState({
-            pictures: this.state.pictures.concat(picture),
+            pictures: picture
         })
     }
 
@@ -121,8 +123,15 @@ class InfoFields extends React.Component {
                             <td>
                                 <label style={{ float: 'left', position: 'absolute', marginLeft: '2%' }}>
                                     {this.props.values.category}/<br />{this.props.values.subCat}</label>
-                                <div style={{ width: '30%', height: '10vh', border: '2px solid black', marginLeft: 'auto' }}>
-
+                                <div style={{ width: '30%', height: /*'171px'*/'200px', border: '2px solid black', marginLeft: 'auto' }}>
+                                    <ImageUploader
+                                        withIcon={true}
+                                        withPreview={true}
+                                        buttonText='Valitse kuva'
+                                        onChange={this.onDrop}
+                                        imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                                        maxFileSize={5242880}
+                                    />
 
                                 </div>
                                 <div style={{ width: '100%', height: 'auto' }} >
@@ -168,14 +177,7 @@ class InfoFields extends React.Component {
                     </tbody>
                 </table>
 
-                <ImageUploader
-                    withIcon={true}
-                    withPreview={true}
-                    buttonText='Choose images'
-                    onChange={this.onDrop}
-                    imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                    maxFileSize={5242880}
-                />
+
             </div >
         );
     }

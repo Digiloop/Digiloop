@@ -28,6 +28,11 @@ function sendItemData(itemData) {
     });
 }
 
+// send the images for the items
+// requires a seperate axios request, since the content type is differemt
+// multipart/form-data also requires a new FormData() method, which apparently sets some mysterious settings that
+// make things work
+
 function sendItemImageData(image) {
   let fd = new FormData();
 
@@ -38,9 +43,6 @@ function sendItemImageData(image) {
     let slot = "img" + i;
     fd.set(slot, image[i]);
   }
-  
-
-
   return axios({
     method: 'post',
     url: BASE_URL + '/imageAdd',

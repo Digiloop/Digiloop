@@ -17,8 +17,6 @@ class InfoFields extends React.Component {
     }
 
     onDrop(picture) {
-        console.log("Rakettiryhmä salakuvaa jälleen")
-        console.log(picture)
         this.setState({
             picture: picture[0]
         })
@@ -35,12 +33,6 @@ class InfoFields extends React.Component {
     nextStep(event) {
         event.preventDefault();
         var data = {
-            pickupaddr: this.props.values.pickupaddr,
-            zipcode: this.props.values.zipcode,
-            city: this.props.values.city,
-            phone: this.props.values.phone,
-            pickupInstructions: this.props.values.pickupInstructions,
-            iscompany: this.props.values.iscompany,
 
             categoryId: this.props.values.categoryId,
             subCategoryId: this.props.values.subCategoryId,

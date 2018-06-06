@@ -63,12 +63,6 @@ class CategoriesFields extends React.Component {
 
             // save the data in OrderMain's state
             var data = {
-                pickupaddr: this.props.values.pickupaddr,
-                zipcode: this.props.values.zipcode,
-                city: this.props.values.city,
-                phone: this.props.values.phone,
-                pickupInstructions: this.props.values.pickupInstructions,
-                iscompany: this.props.values.iscompany,
 
                 // Id's for selected categories. Will not actually reach backend
                 // it's a bit safer to take the parameter versions in sub & proxy rather than the state one

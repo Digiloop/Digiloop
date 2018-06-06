@@ -19,7 +19,7 @@ class Summary extends React.Component {
 
         let data = this.props.values;
 
-        let address = this.props.values[0].pickupaddr + ", " + this.props.values[0].city;
+        let address = this.props.addressData.pickupaddr + ", " + this.props.addressData.city;
 
         this.geocoder.geocode({ 'address': address }, function (results, status) {
             if (status === window.google.maps.GeocoderStatus.OK) {
@@ -32,12 +32,12 @@ class Summary extends React.Component {
                 for (let i = 0; i < data.length; i++) {
 
                     finalizedData[i] = {
-                        city: data[0].city,
-                        iscompany: data[0].iscompany,
-                        phone: data[0].phone,
-                        pickupInstructions: data[0].pickupInstructions,
-                        pickupaddr: data[0].pickupaddr,
-                        zipcode: data[0].zipcode,
+                        city: this.props.addressData.city,
+                        iscompany: this.props.addressData.iscompany,
+                        phone: this.props.addressData.phone,
+                        pickupInstructions: this.props.addressData.pickupInstructions,
+                        pickupaddr: this.props.addressData.pickupaddr,
+                        zipcode: this.props.addressData.zipcode,
 
                         latitude: results[0].geometry.viewport.f.b,
                         longitude: results[0].geometry.viewport.b.b,
@@ -52,7 +52,7 @@ class Summary extends React.Component {
 
                     }
 
-                    // image will be sent as a seperate object, since it will need a seperate post request
+                    // images will be saved as a seperate object, since it will need a seperate post request
                     imageArray[i] = data[i].picture
                 }
 
@@ -60,11 +60,11 @@ class Summary extends React.Component {
                 
 
 
-                console.log("Bäkkiilähetyssimulaatio testi #5")
+                console.log("Bäkkiilähetyssimulaatio testi #6")
                 console.log(finalizedData);
                 console.log(imageArray);
-                // toimii, kommentoitu, koska bäkki ei oo valmis siihen
-                //sendItemData(finalizedData);
+
+                sendItemData(finalizedData);
                 sendItemImageData(imageArray);
                 //window.location.reload()
 
@@ -152,8 +152,8 @@ class Summary extends React.Component {
                         <tr>
                             <td>
                                 <label style={{ float: 'left', position: 'absolute', marginLeft: '2%' }}>Yhteystiedot</label><br />
-                                <pre>{this.props.values[0].pickupaddr} {this.props.values[0].phone} <br />
-                                    {this.props.values[0].zipcode} {this.props.values[0].city}</pre>
+                                <pre>{this.props.addressData.pickupaddr} {this.props.addressData.phone} <br />
+                                    {this.props.addressData.zipcode} {this.props.addressData.city}</pre>
 
                                 <Divider style={{ backgroundColor: '#FFF', height: '3px' }} />
                             </td>

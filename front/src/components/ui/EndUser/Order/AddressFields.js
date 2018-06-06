@@ -56,7 +56,7 @@ class AddressFields extends React.Component {
             pickupInstructions: this.state.pickupInstructions,
             iscompany: this.state.isCompany
         }
-        this.props.saveValues(data);
+        this.props.saveAddressData(data);
 
 
     }
@@ -64,10 +64,10 @@ class AddressFields extends React.Component {
     // Initialize the data from user's profile
     componentDidMount() {
         this.setState({
-            'pickupaddr': this.props.values.pickupaddr,
-            'zipcode': this.props.values.zipcode,
-            'city': this.props.values.city,
-            'phone': this.props.values.phone
+            'pickupaddr': this.props.addressData.pickupaddr,
+            'zipcode': this.props.addressData.zipcode,
+            'city': this.props.addressData.city,
+            'phone': this.props.addressData.phone
         })
     }
 
@@ -139,7 +139,7 @@ class AddressFields extends React.Component {
                             <td style={styles.tdStyle} ><label className="leftOrderLabel">Hakuosoite:</label></td>
                             <td>   <TextField className="rightOrderField"
                                 type="text" hintText="Ståhlberginkatu 10"
-                                style={styles} defaultValue={this.props.values.pickupaddr}
+                                style={styles} defaultValue={this.props.addressData.pickupaddr}
                                 onChange={(event, newValue) => this.updateField("pickupaddr", newValue)}
                             />
                             </td>
@@ -148,7 +148,7 @@ class AddressFields extends React.Component {
                             <td><label className="leftOrderLabel">Postinumero:</label></td>
                             <td>  <TextField className="rightOrderField"
                                 type="text" hintText="15110" style={styles}
-                                defaultValue={this.props.values.zipcode}
+                                defaultValue={this.props.addressData.zipcode}
                                 onChange={(event, newValue) => this.updateField("zipcode", newValue)} />
                             </td>
                         </tr>
@@ -156,7 +156,7 @@ class AddressFields extends React.Component {
                             <td><label className="leftOrderLabel">Postitoimipaikka:</label></td>
                             <td> <TextField className="rightOrderField"
                                 type="text" hintText="Lahti" style={styles}
-                                defaultValue={this.props.values.city}
+                                defaultValue={this.props.addressData.city}
                                 onChange={(event, newValue) => this.updateField("city", newValue)} />
                             </td>
                         </tr>
@@ -164,7 +164,7 @@ class AddressFields extends React.Component {
                             <td><label className="leftOrderLabel">Puhelinnumero:</label></td>
                             <td>   <TextField className="rightOrderField"
                                 type="text" hintText="044 708 1347​" style={styles}
-                                defaultValue={this.props.values.phone}
+                                defaultValue={this.props.addressData.phone}
                                 onChange={(event, newValue) => this.updateField("phone", newValue)} />
                             </td>
                         </tr>
@@ -172,7 +172,7 @@ class AddressFields extends React.Component {
                             <td><label className="leftOrderLabel">Nouto-ohjeet:</label></td>
                             <td>    <TextField className="rightOrderField"
                                 type="text" hintText="Perjantai 30.4 klo 16:30. Käynti pääovesta. " style={styles}
-                                multiLine={true} rows={3} rowsMax={7} defaultValue={this.props.values.pickupInstructions}
+                                multiLine={true} rows={3} rowsMax={7} defaultValue={this.props.addressData.pickupInstructions}
                                 onChange={(event, newValue) => this.updateField("pickupInstructions", newValue)} /><br /><br />
                             </td>
                         </tr>

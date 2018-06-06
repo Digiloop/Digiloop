@@ -10,17 +10,15 @@ class InfoFields extends React.Component {
             pcs: 1,
             size: 1,
             weight: 1,
-            pictures: null
+            picture: null
         };
         this.handleChange = this.handleChange.bind(this);
         this.onDrop = this.onDrop.bind(this)
     }
 
     onDrop(picture) {
-        console.log("Rakettiryhmä salakuvaa jälleen")
-        console.log(picture)
         this.setState({
-            pictures: picture
+            picture: picture[0]
         })
     }
 
@@ -35,12 +33,6 @@ class InfoFields extends React.Component {
     nextStep(event) {
         event.preventDefault();
         var data = {
-            pickupaddr: this.props.values.pickupaddr,
-            zipcode: this.props.values.zipcode,
-            city: this.props.values.city,
-            phone: this.props.values.phone,
-            pickupInstructions: this.props.values.pickupInstructions,
-            iscompany: this.props.values.iscompany,
 
             categoryId: this.props.values.categoryId,
             subCategoryId: this.props.values.subCategoryId,
@@ -53,7 +45,9 @@ class InfoFields extends React.Component {
             pcs: this.state.pcs,
             size: this.state.size,
             weight: this.state.weight,
-            description: this.state.description
+            description: this.state.description,
+
+            picture: this.state.picture
         }
         this.props.saveValues(data);
         this.props.nextStep()
@@ -65,17 +59,19 @@ class InfoFields extends React.Component {
 
         if (this.props.values.pcs === undefined) {
             this.setState({
-                'pcs': 1,
-                'size': "< 5",
-                'weight': "< 5",
-                'description': this.props.values.description
+                pcs: 1,
+                size: "< 5",
+                weight: "< 5",
+                description: this.props.values.description,
+                picture: this.props.picture
             })
         } else {
             this.setState({
-                'pcs': this.props.values.pcs,
-                'size': this.props.values.size,
-                'weight': this.props.values.weight,
-                'description': this.props.values.description
+                pcs: this.props.values.pcs,
+                size: this.props.values.size,
+                weight: this.props.values.weight,
+                description: this.props.values.description,
+                picture: this.props.picture
             })
         }
     }
@@ -123,10 +119,11 @@ class InfoFields extends React.Component {
                             <td>
                                 <label style={{ float: 'left', position: 'absolute', marginLeft: '2%' }}>
                                     {this.props.values.category}/<br />{this.props.values.subCat}</label>
-                                <div style={{ width: '30%', height: /*'171px'*/'200px', border: '2px solid black', marginLeft: 'auto' }}>
+                                <div style={{ maxWidth:'35%', minWidth: '55%', maxHeight: '30%', minHeight: '50%', marginLeft: 'auto' }}>
                                     <ImageUploader
-                                        withIcon={true}
+                                        withIcon={false}
                                         withPreview={true}
+                                        withLabel={false}
                                         buttonText='Valitse kuva'
                                         onChange={this.onDrop}
                                         imgExtension={['.jpg', '.gif', '.png', '.gif']}
@@ -134,10 +131,24 @@ class InfoFields extends React.Component {
                                     />
 
                                 </div>
+                                <div id='ImagePreview'>
+                                    Tähän kohtaan lassin ihanan kuvan tulisi asettua
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 <div style={{ width: '100%', height: 'auto' }} >
-                                    <p style={styles.pTags}>Kappalemäärä</p>
-                                    <p style={styles.pTags}>Mitat</p>
-                                    <p style={styles.pTags}>Paino</p>
+                                    <p style={styles.pTags}>Kpl</p>
+                                    <p style={{float: 'left', margin: '0 0 0 17%'}}>Mitat</p>
+                                    <p style={{float: 'left', margin: '0 0 0 28%'}}>Paino</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>   
+                            <td>
+                                <div>
                                     <DropDownMenu value={this.state.pcs} onChange={this.handleChange("pcs")} style={styles.dropDown}>
                                         <MenuItem value={1} primaryText="1" />
                                         <MenuItem value={"2-5"} primaryText="2 - 5" />

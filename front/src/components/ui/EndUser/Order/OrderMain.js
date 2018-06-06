@@ -20,25 +20,29 @@ class OrderMain extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            values: [{
+
+            addressData: {
                 pickupaddr: this.props.userInfo.address,
                 zipcode: this.props.userInfo.zipcode,
                 city: this.props.userInfo.city,
                 phone: this.props.userInfo.phone,
                 pickupInstructions: '',
                 iscompany: '',
+            },
+
+            values: [{
 
                 category: '',
                 subCat: '',
                 proxySubCat: '',
 
                 pcs: 1,
-                size: 1,
-                weight: 1,
+                size: "< 5",
+                weight: "< 5",
 
                 description: '',
                 pic: ''
-                
+
             }],
             step: 1,
             pageOneAllFilled: false,
@@ -54,6 +58,8 @@ class OrderMain extends Component {
             }
         };
         this.saveValues = this.saveValues.bind(this);
+        this.saveAddressData = this.saveAddressData.bind(this);
+
         this.setCategoriesSelected = this.setCategoriesSelected.bind(this);
         this.isButtonDisabled = this.isButtonDisabled.bind(this);
         this.imageExists = this.imageExists.bind(this);
@@ -97,12 +103,6 @@ class OrderMain extends Component {
         let valueArray = this.state.values;
         // create a new object from the saved data
         let newObject = {
-            'pickupaddr': value.pickupaddr,
-            'zipcode': value.zipcode,
-            'city': value.city,
-            'phone': value.phone,
-            'pickupInstructions': value.pickupInstructions,
-            'iscompany': value.iscompany,
 
             'categoryId': value.categoryId,
             'subCategoryId': value.subCategoryId,
@@ -115,7 +115,9 @@ class OrderMain extends Component {
             'pcs': value.pcs,
             'size': value.size,
             'weight': value.weight,
-            'description': value.description
+            'description': value.description,
+
+            'picture': value.picture
         }
 
 
@@ -127,6 +129,24 @@ class OrderMain extends Component {
         })
 
     }
+
+    saveAddressData(value) {
+
+        this.setState({
+            addressData: {
+                'pickupaddr': value.pickupaddr,
+                'zipcode': value.zipcode,
+                'city': value.city,
+                'phone': value.phone,
+                'pickupInstructions': value.pickupInstructions,
+                'iscompany': value.iscompany
+            }
+            
+        })
+
+    }
+
+
 
     // proceed to next phase of the form
     // a safeguard against going paSt the final page is implemented, since the forward button disables too slowly
@@ -157,18 +177,14 @@ class OrderMain extends Component {
 
         let tempArr = this.state.values;
         tempArr[this.state.values.length] = {
-            'pickupaddr': "",
-            'zipcode': "",
-            'city': "",
-            'phone': "",
-            'pickupInstructions': "",
-            'iscompany': "",
             'category': "",
             'subCat': "",
             'proxySubCat': "",
+
             'pcs': 1,
-            'size': 1,
-            'weight': 1,
+            'size': "< 5",
+            'weight': "< 5",
+
             'description': ""
         }
 
@@ -209,9 +225,8 @@ class OrderMain extends Component {
         switch (arrowDirection) {
             case 0:
 
-                if (this.state.step === 1
-                    || this.state.step === 2
-                ) {
+                if (this.state.step === 1) 
+                {
                     if (type === 0) {
                         return true; // disabled true
                     } else {
@@ -244,16 +259,10 @@ class OrderMain extends Component {
                         return this.state.buttonActive
                     }
                 }
-
-
         }
-
-
-
-
     }
 
-    removeItem(i){
+    removeItem(i) {
         console.log("RAKETTIRYHMÄ LENTÄÄ TAIVAAN TUULIIN")
         console.log(i);
     }
@@ -263,8 +272,10 @@ class OrderMain extends Component {
             case 1:
                 return < AddressFields
                     values={this.state.values[this.state.itemIndex]}
+                    addressData={this.state.addressData}
+
                     nextStep={this.nextStep}
-                    saveValues={this.saveValues}
+                    saveAddressData={this.saveAddressData}
                     setAllfilled={this.setAllFilled} />
             case 2:
                 return < CategoriesFields
@@ -288,6 +299,8 @@ class OrderMain extends Component {
             case 4:
                 return < Summary
                     values={this.state.values}
+                    addressData={this.state.addressData}
+
                     nextStep={this.nextStep}
                     saveValues={this.saveValues}
                     nextItem={this.nextItem}
@@ -301,9 +314,8 @@ class OrderMain extends Component {
 
         // confirm you want to reload page, since data will be lost
         // pretty annoying during dev, but activate before build
-        if(!debugMode){
-            window.onbeforeunload = function ()
-            {
+        if (!debugMode) {
+            window.onbeforeunload = function () {
                 return "";
             };
         }
@@ -337,13 +349,13 @@ class OrderMain extends Component {
 
             <div className="orderWrapper">
                 <div className="progressBar" style={{ maxWidth: '90vh', minWidth: '100%', display: 'flex', justifyContent: 'center' }}>
-                    <Button variant="fab" style={this.isButtonDisabled(0, 1)} disabled={this.isButtonDisabled(0, 0)} onClick={this.prevStep}><Forward style={{ transform: "scaleX(-1)", height:'40px', width: '40px', color: '004225' }} /></Button>
+                    <Button variant="fab" style={this.isButtonDisabled(0, 1)} disabled={this.isButtonDisabled(0, 0)} onClick={this.prevStep}><Forward style={{ transform: "scaleX(-1)", height: '40px', width: '40px', color: '004225' }} /></Button>
                     <div className="state1" style={this.state.step === 1 ? styles.Active : styles.notActive}></div>
                     <div className="state2" style={this.state.step === 2 ? styles.Active : styles.notActive}></div>
                     <div className="state3" style={this.state.step === 3 ? styles.Active : styles.notActive}></div>
                     <div className="state4" style={this.state.step === 4 ? styles.Active : styles.notActive}></div>
                     <Button variant="fab" style={this.isButtonDisabled(1, 1)}
-                        disabled={this.isButtonDisabled(1, 0)} onClick={this.nextStep}><Forward style={{height:'40px', width: '40px', color: '004225'}} /></Button>
+                        disabled={this.isButtonDisabled(1, 0)} onClick={this.nextStep}><Forward style={{ height: '40px', width: '40px', color: '004225' }} /></Button>
                 </div>
                 <div className="frontPageBox" >{this.showSteps()}</div>
             </div>

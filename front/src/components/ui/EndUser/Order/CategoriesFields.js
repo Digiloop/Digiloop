@@ -63,12 +63,6 @@ class CategoriesFields extends React.Component {
 
             // save the data in OrderMain's state
             var data = {
-                pickupaddr: this.props.values.pickupaddr,
-                zipcode: this.props.values.zipcode,
-                city: this.props.values.city,
-                phone: this.props.values.phone,
-                pickupInstructions: this.props.values.pickupInstructions,
-                iscompany: this.props.values.iscompany,
 
                 // Id's for selected categories. Will not actually reach backend
                 // it's a bit safer to take the parameter versions in sub & proxy rather than the state one
@@ -83,7 +77,9 @@ class CategoriesFields extends React.Component {
 
                 pcs: this.props.values.pcs,
                 size: this.props.values.size,
-                weight: this.props.values.weight
+                weight: this.props.values.weight,
+
+                picture: this.props.values.picture
             }
             this.props.saveValues(data);
             this.props.setCategoriesSelected(true); // enable the forward arrow
@@ -134,13 +130,15 @@ class CategoriesFields extends React.Component {
                 returnStyle = {
                     borderRadius: 4,
                     border: '8px solid red',
-                    width: '19vw',
-                    height: '19vw',
+                    minWidth: '20vw',
+                    maxWidth: 'inherit',
+                    maxHeight: '25vw',
+                    minHeight: '20vw',
                     marginRight: '1%',
                     textAlign: 'center',
-                    fontSize: '3vw',
+                    fontSize: '5vw',
                     backgroundRepeat: "no-repeat",
-                    backgroundSize: "80%",
+                    backgroundSize: "contain",
                     backgroundPosition: "center 100%",
                     backgroundImage: "url(" + imageUrl + ")"
                 }
@@ -148,13 +146,15 @@ class CategoriesFields extends React.Component {
                 returnStyle = {
                     borderRadius: 4,
                     border: '8px solid white',
-                    width: '19vw',
-                    height: '19vw',
+                    minWidth: '20vw',
+                    maxWidth: 'inherit',
+                    maxHeight: '20vw',
+                    minHeight: '20vw',
                     marginRight: '1%',
                     textAlign: 'center',
-                    fontSize: '3vw',
+                    fontSize: '5vw',
                     backgroundRepeat: "no-repeat",
-                    backgroundSize: "80%",
+                    backgroundSize: "contain",
                     backgroundPosition: "center 100%",
                     backgroundImage: "url(" + imageUrl + ")"
                 }
@@ -174,13 +174,15 @@ class CategoriesFields extends React.Component {
                 returnStyle = {
                     borderRadius: 4,
                     border: '8px solid red',
-                    width: '19vw',
-                    height: '19vw',
+                    minWidth: '20vw',
+                    maxWidth: 'inherit',
+                    maxHeight: '20vw',
+                    minHeight: '20vw',
                     marginRight: '1%',
                     textAlign: 'center',
-                    fontSize: '3vw',
+                    fontSize: '5vw',
                     backgroundRepeat: "no-repeat",
-                    backgroundSize: "80%",
+                    backgroundSize: "contain",
                     backgroundPosition: "center 100%",
                     backgroundImage: "url(" + imageUrl + ")"
                 }
@@ -188,13 +190,15 @@ class CategoriesFields extends React.Component {
                 returnStyle = {
                     borderRadius: 4,
                     border: '8px solid white',
-                    width: '19vw',
-                    height: '19vw',
+                    minWidth: '20vw',
+                    maxWidth: 'inherit',
+                    maxHeight: '20vw',
+                    minHeight: '20vw',
                     marginRight: '1%',
                     textAlign: 'center',
-                    fontSize: '3vw',
+                    fontSize: ' 5vw',
                     backgroundRepeat: "no-repeat",
-                    backgroundSize: "80%",
+                    backgroundSize: "contain",
                     backgroundPosition: "center 100%",
                     backgroundImage: "url(" + imageUrl + ")"
                 }
@@ -243,8 +247,9 @@ class CategoriesFields extends React.Component {
                     value={this.props.categories[i].CatName}
                     onClick={() => this.setCat(this.props.categories[i].CatId, this.props.categories[i].CatName)}
                     key={i} >
+                    <h1 style={{margin: '0', fontSize: '4vw', color: '#004225'}}>{this.props.categories[i].CatName}</h1>
                     <div style={this.categoryImageStyler(i, 0)} >
-                        {this.props.categories[i].CatName}
+                        
                     </div>
                 </td>
             )
@@ -269,8 +274,9 @@ class CategoriesFields extends React.Component {
                                     this.props.proxyCategories[k].name
                                 )}
                                 key={k} >
+                                <h1 style={{margin: '0', fontSize: '4vw', color: '#004225'}}>{this.props.proxyCategories[k].name}</h1>
                                 <div style={this.categoryImageStyler(k, 1)} >
-                                    {this.props.proxyCategories[k].name}
+                                    
                                 </div>
                             </td>
                         )

@@ -139,6 +139,10 @@ class InfoFields extends React.Component {
                                     />
 
                                 </div>
+                                <div id='ImagePreview'>
+                                    Tähän kohtaan lassin ihanan kuvan tulisi asettua
+                                </div>
+
                             </td>
                         </tr>
                         <tr>

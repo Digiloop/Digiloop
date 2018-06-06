@@ -18,7 +18,7 @@ class InfoFields extends React.Component {
 
     onDrop(picture) {
         this.setState({
-            picture: picture[0]
+            picture: picture[picture.length - 1]
         })
     }
 
@@ -122,7 +122,6 @@ class InfoFields extends React.Component {
                                 <div style={{ maxWidth:'35%', minWidth: '55%', maxHeight: '30%', minHeight: '50%', marginLeft: 'auto' }}>
                                     <ImageUploader
                                         withIcon={false}
-                                        withPreview={true}
                                         withLabel={false}
                                         buttonText='Valitse kuva'
                                         onChange={this.onDrop}
@@ -132,7 +131,7 @@ class InfoFields extends React.Component {
 
                                 </div>
                                 <div id='ImagePreview'>
-                                    Tähän kohtaan lassin ihanan kuvan tulisi asettua
+                                    <img src={this.state.picture != null ? URL.createObjectURL(this.state.picture) : <br/>} />
                                 </div>
 
                             </td>

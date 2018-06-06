@@ -55,7 +55,8 @@ class InfoFields extends React.Component {
     }
 
     componentDidMount() {
-
+        console.log("Käpysoppa")
+        console.log(this.props.picture)
 
         if (this.props.values.pcs === undefined) {
             this.setState({
@@ -63,7 +64,7 @@ class InfoFields extends React.Component {
                 size: "< 5",
                 weight: "< 5",
                 description: this.props.values.description,
-                picture: this.props.picture
+                picture: this.props.values.picture
             })
         } else {
             this.setState({
@@ -71,7 +72,7 @@ class InfoFields extends React.Component {
                 size: this.props.values.size,
                 weight: this.props.values.weight,
                 description: this.props.values.description,
-                picture: this.props.picture
+                picture: this.props.values.picture
             })
         }
     }

@@ -49,21 +49,36 @@ class Admin extends Component {
     const users = [];
     console.log(this.state.users);
 
-
+    // get users
     for (let i = 0; i < this.state.users.length; i++) {
-      users.push(
-        <TableRow key={i}>
-          <TableRowColumn>
-            {this.state.users[i].fname}{' ' + this.state.users[i].lname}
-          </TableRowColumn>
-        </TableRow>
-      )
+      if (this.state.rows[i]) {
+        users.push(
+          <TableRow key={i} style={{ height: '200px' }}>
+            <TableRowColumn>
+              Nimi:<br />
+              Sähköposti:<br />
+            </TableRowColumn>
+            <TableRowColumn>
+              {this.state.users[i].fname}{' ' + this.state.users[i].lname}<br />
+              {this.state.users[i].email}<br />
+            </TableRowColumn>
+          </TableRow>
+        )
+      } else {
+        users.push(
+          <TableRow key={i}>
+            <TableRowColumn>
+              {this.state.users[i].fname}{' ' + this.state.users[i].lname}
+            </TableRowColumn>
+          </TableRow>
+        )
+      }
     }
 
 
     return (
       <MuiThemeProvider>
-        <Table style={{ width: '60%', marginLeft: '5%', marginTop: '4%' }}>
+        <Table style={{ width: '60%', marginLeft: '5%', marginTop: '4%' }} onCellClick={rowNumber => this.expand(rowNumber)}>
           <TableBody displayRowCheckbox={false} >
             {users}
           </TableBody>

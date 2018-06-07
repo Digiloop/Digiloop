@@ -80,9 +80,10 @@ module.exports = class misc {
 
     // Add's images. On the server. To be used. In the future.
     //select = categories,subcategories or user
-    imageAdd(files, select) {
+    imageAdd(files, select, name) {
         // categories,subcategories,users
-        folder = this.selector(select, [`./kuvat/categories/${files.name}`, `./kuvat/subcategories/${files.name}`, `./kuvat/users/${files.name}`])
+        let newname = `${name}_${files.name}`;
+        let folder = this.selector(select, [`./kuvat/categories/${newname}`, `./kuvat/subcategories/${newname}`, `./kuvat/items/${newname}`])
         console.log(files);
         /*var userfolder = `./kuvat/users/' + ${req.user.username}`;
         let categories = `./kuvat/categories/${files.name}`;
@@ -90,7 +91,7 @@ module.exports = class misc {
         let users = `./kuvat/users/${files.name}`;
         let choice = [categories, subcategories, users]
         */
-        console.log(folder[0]);
+        //console.log(folder[0]);
         /*
         if (!fs.existsSync(userfolder)) {
 

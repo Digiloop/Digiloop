@@ -179,25 +179,30 @@ class AddressFields extends React.Component {
                         <tr>
                             <td style={{ width: '50%' }}>
                                 <p id="HomeClientHeader">Kotitalous</p>
-                                <img
-                                    src={require('../Materials/OrderPics/home2.gif')}
-                                    style={this.state.isCompany === 0 ? isHouseStyleActive : isHouseStyle}
-                                    className="image-btn btn"
-                                    alt="Kotitalous"
-                                    onClick={(e) => this.updateField("isCompany", 0)}
-                                />
-                                {this.state.isCompany === 0 ? <CheckCircle id="HouseCheckmark"/> : null}
+                                <div style={this.state.isCompany === 0 ? isHouseStyleActive : isHouseStyle}>
+                                    {this.state.isCompany === 0 ? <CheckCircle id="HouseCheckmark"/> : null}
+                                    <img
+                                        src={require('../Materials/OrderPics/home2.gif')}
+                                        style={{width:'100%', height:'100%'}}       
+                                        className="image-btn btn"
+                                        alt="Kotitalous"
+                                        onClick={(e) => this.updateField("isCompany", 0)}
+                                    />    
+                                </div>
+                                
                             </td>
                             <td style={{ width: '50%' }}>
                                 <p id="OrgClientHeader">Organisaatio</p>
-                                {this.state.isCompany === 1 ? <CheckCircle id="OrgCheckmark" /> : null}
-                                <img
-                                    src={require('../Materials/OrderPics/organization2.gif')}
-                                    style={this.state.isCompany === 1 ? isCompanyStyleActive : isCompanyStyle}
-                                    className="image-btn btn"
-                                    alt="Organisaatio"
-                                    onClick={(e) => this.updateField("isCompany", 1)}
-                                />
+                                <div style={this.state.isCompany === 1 ? isCompanyStyleActive : isCompanyStyle}>
+                                    {this.state.isCompany === 1 ? <CheckCircle id="OrgCheckmark" /> : null}
+                                    <img
+                                        src={require('../Materials/OrderPics/organization2.gif')}
+                                        style={{width:'100%', height:'100%'}} 
+                                        className="image-btn btn"
+                                        alt="Organisaatio"
+                                        onClick={(e) => this.updateField("isCompany", 1)}
+                                    />
+                                </div>
                                 
                             </td>
                         </tr>

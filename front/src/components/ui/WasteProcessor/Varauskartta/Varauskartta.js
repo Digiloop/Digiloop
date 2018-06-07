@@ -40,6 +40,7 @@ class WasteProcessor extends Component {
   getJunksData() {
     console.log("VI GETTADE JUNKKADE NUADE")
     getJunkData().then((junks) => {
+      this.props.itemsToStore(junks);
       this.rliFiltering();
     });
   }

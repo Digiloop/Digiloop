@@ -19,8 +19,11 @@ router.post('/itemAdd', (req, res, next) => {
     //console.log(misk.checkValidLength(req.body.itemData, 14))
     //console.log(misk.checkValidValues(req.body.itemData));
     //misk.loopityLoop(req.body.itemData,console.log)
+    //console.log(req.body.itemData)
+    //console.log(Object.keys(req.body.itemData[0].picture).length)
+    //console.log(misk.imageAdd(req.body.itemData[0].req.files.picture, 0));
     const query = 'INSERT INTO junk ( city, iscompany, itemphone, wishbox, pickupaddr, zipcode, latitude, longitude, category, subCat, pcs, size, weight, description, junkdate, junkdateadded, status, owner ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);'
-    const secondary = [Date.now(), misk.dateThing(), 1, req.user.id]//req.user.id
+    const secondary = [Date.now(), misk.dateThing(), 1, 47]//req.user.id
     //misk.fuseItemArray(req.body.itemData, secondary, console.log, query)
     //'2018-05-23 13:06:00'
     //misk.dateThing().toString()

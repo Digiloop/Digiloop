@@ -6,7 +6,6 @@ import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
 import { RaisedButton } from 'material-ui';
 
-//let _ser, _batteries, _showRes
 
 class ReservationListOptions extends Component {
   constructor(props) {

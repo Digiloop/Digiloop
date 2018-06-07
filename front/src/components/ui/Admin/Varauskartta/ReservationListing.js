@@ -9,64 +9,159 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
+import { reserveItem } from '../../../../utils/reserveItems'
+
+import { BASE_URL } from '../../../../settings'
 
 class ReservationListing extends Component {
-constructor(props){
-  super(props);
-  this.state = {
+  constructor(props) {
+    super(props);
+    this.state = {
+      rows: []
+    }
+    //this.reserve = this.reserve.bind(this);
+    //this.createStates = this.createStates.bind(this);
+    this.parseTimeStamp = this.parseTimeStamp.bind(this);
   }
- }
 
-getStatus(status){
-  switch(status){
-    case 0:
-    return "Hidden";
-    break;
+  // change status ID into a displayable status text
+  getStatus(status) {
+    switch (status) {
+      case 0:
+        return "Hidden";
 
-    case 1:
-    return "Vapaa";
-    break;
+      case 1:
+        return "Vapaa";
 
-    case 2:
-    return "Varattu";
-    break;
+      case 2:
+        return "Varattu";
 
-    case 3:
-    return "Matkalla";
-    break;
+      case 3:
+        return "Matkalla";
 
-    case 4:
-    return "Noudettu";
-    break;
+      case 4:
+        return "Noudettu";
 
-    default:
-    break;
+      default:
+        break;
+    }
   }
-}
 
+  
 
-
-render() {
-
-  const items = [];
-
-  for(let i = 0; i < this.props.items.length; i++){
-    items.push(
-      <TableRow key={i} >
-        <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br/>Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
-        <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
-        {this.props.items[i].status === 1 ? <TableRowColumn><RaisedButton label="Varaa" /></TableRowColumn> : <TableRowColumn></TableRowColumn>}
-        <TableRowColumn>Tila { this.getStatus( this.props.items[i].status ) }</TableRowColumn>
-      </TableRow>
-    )
+  // call the reserve API, setting it as reserved
+  // TODO: change into limited version, where only junkID is passed
+  reserve(item) {
+    console.log("Reserving")
+    reserveItem(2, 1, item.junkID).then(
+      this.props.refreshJunks
+    );
   }
+
+  // opening items
+  expand(x) {
+    // create a temp array, because it's easier to edit than the state one
+    let newArray = this.state.rows;
+
+    if(newArray[x]){ // closing the open item
+      newArray[x] = false;
+    } else { // opening another means first closing the open one
+      for (let i = 0; i < newArray.length; i++){
+        if(newArray[i]){
+          newArray[i] = false; // close the open one
+        }
+      }
+      newArray[x] = true; // open the new row
+    }
+    // set the edited version as the new state
+    this.setState({ rows: newArray });
+  }
+
+
+  // create open/closed states for each item row
+  componentWillReceiveProps(nextProps) {
+    let arr = this.state.rows;
+
+    for (let i = 0; i < nextProps.items.length; i++) {
+      arr = [...arr, false]
+    }
+    this.setState({ rows: arr });
+  }
+
+  // "2018-01-15 22:00:00.000Z" -> 15.01.2018
+  parseTimeStamp(timeStamp){
+    let newStamp = timeStamp.split(/[- ]+/);
+    return newStamp[2] + "." + newStamp[1] + "." + newStamp[0];
+  }
+
+  render() {
+    
+    // automatic linebreaks for long texts (description) in item rows
+    const rowStyle = {
+      whiteSpace: 'normal',
+      wordWrap: 'break-word'
+    }
+
+    let items = [];
+
+
+    // create the item rows
+    // because we're reversing the list, but want to keep row numbers correct, we're looping with double variables
+    // i is the regular start to end index for the rownumber
+    // j is the selector for the items list, end to start
+    for (let i = 0, j = this.props.items.length - 1; i < this.props.items.length; i++, j--) {
+
+      // define if the row is open or not. +1 is due to header row.
+      if (this.state.rows[i+1]) {
+
+        let imageUrl = BASE_URL + "/images/items/" + this.props.items[j].picture;
+
+        items.push(
+          <TableRow key={i}  style={{height: '400px'}}>
+            <TableRowColumn style={rowStyle} colSpan="5">
+            {this.props.items[j].category} ({this.props.items[j].subCat})<br />
+            Ilmoitettu: {this.parseTimeStamp(this.props.items[j].junkdateadded)}<br />
+            {this.props.items[j].pcs}kpl<br />
+            {this.props.items[j].size}m<sup>3</sup><br />
+            {this.props.items[j].weight}kg<br />
+
+            <img src={imageUrl} />
+
+            <div>{this.props.items[j].description}</div><br />
+            </TableRowColumn>
+
+            {this.props.items[j].status === 1 ? 
+            <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[j])} /></TableRowColumn> : 
+            <TableRowColumn>{this.getStatus(this.props.items[j].status)}</TableRowColumn>}
+          </TableRow>
+        )
+      } else {
+        items.push(
+          <TableRow key={i}>
+            <TableRowColumn colSpan="4">{this.props.items[j].category} ({this.props.items[j].subCat})<br />Ilmoitettu: {this.props.items[j].date}</TableRowColumn>
+
+            <TableRowColumn></TableRowColumn>
+            {this.props.items[j].status === 1 ? 
+            <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[j])} /></TableRowColumn> : 
+            <TableRowColumn>{this.getStatus(this.props.items[j].status)}</TableRowColumn>}
+
+          </TableRow>
+        )
+      }
+    }
 
     return (
       <MuiThemeProvider>
-        <Table>
+        <Table onCellClick={rowNumber => this.expand(rowNumber)}>
           <TableBody displayRowCheckbox={false}>
+            <TableRow>
+              <TableHeaderColumn>Nimi</TableHeaderColumn>
+              <TableHeaderColumn>Määrä</TableHeaderColumn>
+              <TableHeaderColumn>Tilavuus</TableHeaderColumn>
+              <TableHeaderColumn>Paino</TableHeaderColumn>
+              <TableHeaderColumn>Varaa</TableHeaderColumn>
+              <TableHeaderColumn>Tila</TableHeaderColumn>
+            </TableRow>
             {items}
           </TableBody>
         </Table>

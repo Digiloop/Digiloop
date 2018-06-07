@@ -38,7 +38,9 @@ class WasteProcessor extends Component {
 
   // fetch junk data
   getJunksData() {
+    console.log("VI GETTADE JUNKKADE NUADE")
     getJunkData().then((junks) => {
+      this.props.itemsToStore(junks);
       this.rliFiltering();
     });
   }
@@ -65,7 +67,8 @@ class WasteProcessor extends Component {
 
   // the filter function, that leaves only the necessary stuff to be displayed
   rliFiltering() {
-
+    console.log("NO FILLTTERÖI SIT SAATANA")
+    console.log(this.props.resListItems)
     let resListItemsFiltered = [];
 
 
@@ -138,6 +141,8 @@ class WasteProcessor extends Component {
 
   // refresh function, for when reservationListing has done something to change the items (ie. reserve one)
   refreshJunks() {
+    console.log("PASKAA")
+    console.log("KAN DU WORKKADE NU FÖR HELVETEN")
     this.getJunksData();
   }
 

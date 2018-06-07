@@ -20,8 +20,11 @@ connection.query('USE ' + dbconfig.database);
 //winscp kaatu
 module.exports = (app, passport, users) => {
 
-    app.get('/session', (req, res) => {
-        res.json(req.users);
+    app.get('/users', (req, res) => {
+        connection.query('SELECT * FROM users', (err, result) => {
+            if (err) throw err;
+            res.json(result);
+        });
     });
 
 
@@ -32,12 +35,6 @@ module.exports = (app, passport, users) => {
         });
     });
 
-    app.get('/getUsers', isLoggedIn, (req, res) => {
-        connection.query('SELECT * FROM users', (err, result) => {
-            if (err) throw err;
-            res.json(result);
-        });
-    });
     app.post('/deleteUser', isLoggedIn, (req, res) => {
         if (req.user.userlvl == 0) {
             connection.query('UPDATE users SET Status = 0 WHERE id = ?;', [req.body.id], (err, rows) => {

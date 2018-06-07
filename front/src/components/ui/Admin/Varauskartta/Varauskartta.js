@@ -23,11 +23,11 @@ class WasteProcessor extends Component {
     this.state = {
       showSO: false,
       rliFilt: [],
-      categories: ["SER", "Akut", "Tietoturva"],
-      subCategories: []
     }
     this.rliFiltering = this.rliFiltering.bind(this);
     this.getJunksData = this.getJunksData.bind(this);
+    this.getDistance = this.getDistance.bind(this);
+    this.refreshJunks = this.refreshJunks.bind(this);
   }
 
   handleChange = (value) => {
@@ -38,56 +38,93 @@ class WasteProcessor extends Component {
 
   // fetch junk data
   getJunksData() {
-
+    console.log("VI GETTADE JUNKKADE NUADE")
     getJunkData().then((junks) => {
       this.props.itemsToStore(junks);
       this.rliFiltering();
     });
   }
 
+  // Returns the distance between two coordinates in meters
+  // ©Spaghetti Baker Bros.
+  getDistance(userLat, userLong, targetLat, targetLong) {
+
+    var R = 6371e3;
+    var f1 = targetLat * Math.PI / 180, l1 = targetLong * Math.PI / 180;
+    var f2 = userLat * Math.PI / 180, l2 = userLong * Math.PI / 180;
+    var df = f2 - f1;
+    var dl = l2 - l1;
+
+    var a = Math.sin(df / 2) * Math.sin(df / 2)
+      + Math.cos(f1) * Math.cos(f2)
+      * Math.sin(dl / 2) * Math.sin(dl / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+
+    return d;
+  }
+
 
   // the filter function, that leaves only the necessary stuff to be displayed
   rliFiltering() {
-
-
-    //var dynVar;
-
     let resListItemsFiltered = [];
-    let j = 0;
 
-
-    // Abbreviations for props, reservelist options, catoptions & subcatoptions
-    const p = this.props;
-    const o = this.props.rLOpt;
-
-    
-    let pi;
-    let pass = true;
-
-
-    // move optioned cats and subcats to array for easier usage
-    let catOptions = [];
-    for (let key in o.categories) {
-      if (o.categories.hasOwnProperty(key)) {
-        catOptions = [...catOptions, o.categories[key]]
-      }
-    }
-
-
+    console.log(this.props.resListItems)
+    // loop items
     for (let i = 0; i < this.props.resListItems.length; i++) {
 
-      pi = p.resListItems[i];
-      pass = true;
+      // initialize pass as true, fail it if checks fail
+      let pass = true;
 
-      for (let j = 0; j < this.props.cats.length; j++) {
-        if (catOptions[j] === false && pi.category === this.props.cats[j].CatName) {
+
+      // categorycheck - works perfectly
+      // check the option state at the current item's category spot
+      if (this.props.rLOpt.categories[this.props.resListItems[i].category] !== undefined) { // is initialized? ALl uninitialized are treated as true
+        if (!this.props.rLOpt.categories[this.props.resListItems[i].category]) { // is false?
           pass = false;
         }
       }
 
+      // subcategory check - works perfectly
+      let subCat = this.props.resListItems[i].category + this.props.resListItems[i].subCat; // create the subcat full name
+
+      subCat = subCat.toLowerCase(); // eliminate case-irregularities in item categories
+      if (this.props.rLOpt.subCategories[subCat] !== undefined) { // is initialized? ALl uninitialized are treated as true
+        if (!this.props.rLOpt.subCategories[subCat]) { // is false?
+          pass = false;
+        }
+      }
+
+      // show reserved items - works perfectly
+      if (this.props.resListItems[i].status === 2 && !this.props.rLOpt.showRes) {
+        pass = false;
+      }
+
+      // weight limiters - seems to work
+      if (parseInt(this.props.rLOpt.maxWeight, 10) < this.props.resListItems[i].weight || parseInt(this.props.rLOpt.minWeight, 10) > this.props.resListItems[i].weight) {
+        pass = false;
+      }
+
+      // volume limiters - seems to work
+      if (parseInt(this.props.rLOpt.maxSize, 10) < this.props.resListItems[i].size || parseInt(this.props.rLOpt.minSize, 10) > this.props.resListItems[i].size) {
+        pass = false;
+      }
+
+      // distance limiters - seems to work
+      // first check if location is being used, then compare it to each item and determine of the distance is
+      // longer than what the max distance in options has set
+      if (!this.props.rLOpt.userLocation.locationButtonDisable) {
+
+        if ((this.getDistance(this.props.rLOpt.userLocation.latitude, this.props.rLOpt.userLocation.longitude, this.props.resListItems[i].latitude, this.props.resListItems[i].longitude)) > (this.props.rLOpt.distance * 1000)) {
+          console.log( "Failed: " + this.getDistance(this.props.rLOpt.userLocation.latitude, this.props.rLOpt.userLocation.longitude, this.props.resListItems[i].latitude, this.props.resListItems[i].longitude))
+          pass = false;
+        }
+      }
+
+
+      // if passed all checks, add to items that will be printed
       if (pass) {
-        resListItemsFiltered[j] = this.props.resListItems[i];
-        j++;
+        resListItemsFiltered.push(this.props.resListItems[i]);
       }
     }
 
@@ -99,11 +136,11 @@ class WasteProcessor extends Component {
 
   componentDidMount() {
     this.getJunksData();
-    //this.rliFiltering();
   }
 
-  componentWillReceiveProps() {
-    //this.rliFiltering();
+  // refresh function, for when reservationListing has done something to change the items (ie. reserve one)
+  refreshJunks() {
+    this.getJunksData();
   }
 
   showSearchOptions = () => {
@@ -136,7 +173,9 @@ class WasteProcessor extends Component {
               style={{ float: 'right', backgroundColor: '#004225' }} /></h2>
 
             <div className="subRight">
-              {this.state.showSO ? <ReservationListOptions /> : <ReservationListing items={this.state.rliFilt} />}
+              {this.state.showSO ?
+                <ReservationListOptions /> :
+                <ReservationListing refreshJunks={this.refreshJunks} items={this.state.rliFilt} />}
             </div>
           </div>
         </div>

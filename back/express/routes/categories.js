@@ -20,7 +20,7 @@ router.get('/categories', (req, res, next) => {
   });
 });
 
-router.get('/subcat',(req, res, next) => {
+router.get('/subcat', (req, res, next) => {
   /*if (req.userlvl == 0){const query = 'SELECT * FROM subCat'}
   else{const query = 'SELECT * FROM subCat WHERE Status = 1'}*/
   const query = 'SELECT * FROM subCat'// WHERE Status = 1'
@@ -55,7 +55,7 @@ router.post('/catUpdate', (req, res, next) => {
 router.post('/catStatus', (req, res, next) => {
   //console.log(req.body);
   //console.log(req.body.Status)
-   //sqldatahaku.randomshizzle('moi')
+  //sqldatahaku.randomshizzle('moi')
 
   let cat = misk.selector(req.body.catType, ['Category', 'subCat', 'SubSubCats'], ['CatId', 'subId', 'Id'])
   const query = 'UPDATE ' + cat[0] + ' SET Status = ? WHERE ' + cat[1] + '  = ?'
@@ -86,12 +86,16 @@ router.post('/feikkiCatAdd', (req, res) => {
 
 router.post('/imageAdd', (req, res) => {
   //console.log(req.get('Content-Type'));
-  console.log(req.files);
+  //console.log(req.files);
+  let cat = misk.selector(req.body.catType, ['Category', 'subCat'], ['CatId', 'subId'])
+  const query = 'UPDATE ' + cat[0] + ' SET picture = ? WHERE ' + cat[1] + '  = ?'
+  misk.imageAdd(req.files.img0, req.body.catType, req.body.id)
+  sqldatahaku.querySql(query, [req.body.id, req.body.id])
   //console.log(typeof req.files.image);
   //console.log(req.body.image);
   //console.log(req.body);
   //console.log(typeof req.body);
-  
+
   //console.log(Object.keys(req.body).length)
   //misk.imageAdd(req.files.img0, 0);// categories,subcategories,users = 0/1/2
   res.end();

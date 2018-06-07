@@ -82,8 +82,7 @@ module.exports = class misc {
     //select = categories,subcategories or user
     imageAdd(files, select, name) {
         // categories,subcategories,users
-        let newname = `${name}_${files.name}`;
-        let folder = this.selector(select, [`./kuvat/categories/${newname}`, `./kuvat/subcategories/${newname}`, `./kuvat/items/${newname}`])
+        let folder = this.selector(select, [`./kuvat/categories/${name}`, `./kuvat/subcategories/${name}`, `./kuvat/items/${name}`])
         console.log(files);
         /*var userfolder = `./kuvat/users/' + ${req.user.username}`;
         let categories = `./kuvat/categories/${files.name}`;

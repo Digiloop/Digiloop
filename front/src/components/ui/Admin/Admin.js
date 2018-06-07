@@ -1,137 +1,74 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-import { getCats, getSubCats } from '../../../utils/fetchcategories';
-import { addNewCat, addNewSubCat } from '../../../utils/sendAddCatsData';
+
+// get users
+import { getUsers } from '../../../utils/fetchUsers';
+import { TableRow, TableRowColumn, Table, TableBody } from 'material-ui';
 
 class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
-      cat: '',
-      cats: [],
-      subCats: [],
-      addCat: '',
-      addSubCat: [],
+      users: [],
+      rows: []
     }
   }
 
-  // fetch junk data
-  getCategories() {
-    getCats().then((categories) => {
-      this.setState({ cats: (categories) });
+  // get users
+  getUsersData() {
+    getUsers().then((usersData) => {
+      this.setState({ users: (usersData) });
     });
   }
 
-  getSubCategories() {
-    getSubCats().then((subCategories) => {
-      // console.log(subCategories);
-      this.setState({ subCats: (subCategories) });
-      // this.props.catsToStore(categories.category);
-    });
-  }
+  // opening items
+  expand(x) {
+    // create a temp array, because it's easier to edit than the state one
+    let newArray = this.state.rows;
 
-  // value = Category CatId, cat = Category name
-  getCat = (value, cat) => {
-    this.setState({
-      value: value,
-      cat: cat
-    });
-    // console.log(this.state.cat);
-  }
-
-  // Add Category name
-  addCategory() {
-    var addCatName = {
-      'catname': this.state.addCat
+    if (newArray[x]) { // closing the open item
+      newArray[x] = false;
+    } else { // opening another means first closing the open one
+      for (let i = 0; i < newArray.length; i++) {
+        if (newArray[i]) {
+          newArray[i] = false; // close the open one
+        }
+      }
+      newArray[x] = true; // open the new row
     }
-    addNewCat(JSON.stringify(addCatName)).then(() => {this.getCategories()});
-  }
-
-  // Add SubCategory name
-  addSubCategory() {
-    var addSubCatName = {
-      'catid': this.state.value,
-      'subcatname': this.state.addSubCat,
-    }
-    addNewSubCat(JSON.stringify(addSubCatName)).then(() => {this.getSubCategories()});
+    // set the edited version as the new state
+    this.setState({ rows: newArray });
   }
 
   componentDidMount() {
-    this.getCategories();
-    this.getSubCategories();
+    this.getUsersData();
   }
-
-
 
   render() {
 
-    const cats = [];
-    const subCats = [];
-    // console.log(this.state.cats);
-    // console.log(this.state.cats.length);
-    // console.log(this.state.subCats.length);
-    // console.log(this.state.subCats);
-
-    for (let i = 0; i < this.state.cats.length; i++) {
-      cats.push(
-        <div value={this.state.cats[i].CatName} onClick={() =>
-          this.getCat(this.state.cats[i].CatId, this.state.cats[i].CatName)} key={i} >
-          <h3>{this.state.cats[i].CatName}</h3>
+    const users = [];
+    console.log(this.state.users);
 
 
-          {/*<RaisedButton label="Muokkaa" />*/}
-        </div>
+    for (let i = 0; i < this.state.users.length; i++) {
+      users.push(
+        <TableRow key={i}>
+          <TableRowColumn>
+            {this.state.users[i].fname}{' ' + this.state.users[i].lname}
+          </TableRowColumn>
+        </TableRow>
       )
     }
 
-    for (let j = 0; j < this.state.subCats.length; j++) {
-      if (this.state.subCats[j].CatId === this.state.value) {
-        subCats.push(
-          <div key={j} >
-            {this.state.subCats[j].subName}
-          </div>
-        )
-      }
-    }
 
     return (
       <MuiThemeProvider>
-        <div>
-          <div className='categories'>
-            <div className='cats' style={{ float: 'left', width: '50%' }}>
-              <h1>Kategoriat</h1>{cats}
-              <div className='addCategory' >
-                <p className='addCatLabel'>Lisää kategoria</p>
-                <TextField className='addCatField'
-                  underlineShow={false}
-                  style={{ backgroundColor: 'white', border: '2px solid #004225' }}
-                  hintText='Uusi kategoria'
-                  onChange={(event, newValue) => this.setState({ addCat: newValue })}
-                />
-                <RaisedButton label='Lisää' onClick={() => this.addCategory()} />
-              </div>
-            </div>
-            <div className='subCat' style={{ float: 'right', width: '50%' }}>
-              {subCats.length !== 0 ? <div className='addSubCategory' >
-                <h1>{this.state.cat}-kategorian alakategoriat:</h1>
-                {subCats}{console.log(subCats.length)} <br />
-                <p className='addSubCatLabel'>Lisää alakategoria</p>
-                <TextField className='addSubCatField'
-                  underlineShow={false}
-                  style={{ backgroundColor: 'white', border: '2px solid #004225' }}
-                  hintText='Uusi alakategoria'
-                  onChange={(event, newValue) => this.setState({ addSubCat: newValue })}
-                />
-                <RaisedButton label='Lisää' onClick={() => this.addSubCategory()} />
-              </div> : <div></div>}
-            </div>
-          </div>
-        </div>
+        <Table style={{ width: '60%', marginLeft: '5%', marginTop: '4%' }}>
+          <TableBody displayRowCheckbox={false} >
+            {users}
+          </TableBody>
+        </Table>
       </MuiThemeProvider>
-
     );
   }
 }

@@ -64,7 +64,7 @@ class ModifyCategories extends Component {
     // picture
     onDrop(picture) {
         this.setState({
-            pictures: this.state.pictures.concat(picture)
+            pictures: picture
         });
     }
 
@@ -319,7 +319,7 @@ class ModifyCategories extends Component {
                     <div className='categories'>
                         <div className='cats' style={{ float: 'left', width: '46%', marginRight: '2%', marginLeft: '2%' }}>
                             <div className='modifyStatus' >
-                                <h2>Muokkaa tietoja</h2>
+                                <h2>Muokkaa kategorioita</h2>
                                 <p className='selectCatType'>Valitse kategoriatyyppi:</p>
                                 <SelectField
                                     hintText='Valitse kategoriatyyppi'
@@ -354,13 +354,14 @@ class ModifyCategories extends Component {
                             </Table>
                         </div>
                     </div>
-                    <div className='pictures' style={{ float: 'left', width: '40%', marginTop: '12%' }}>
+                    <div className='pictures' style={{ float: 'left', width: '40%', marginTop: '10%' }}>
                         { this.state.valueC !== 'subCats' ?
                             <div>{ this.state.pic === 'imagereferenssi' || this.state.pic === 'i can haz reference' ?
                             <ImageUploader
-                                withIcon={true}
+                                withIcon={false}
+                                withLabel={false}
                                 withPreview={true}
-                                buttonText='Choose images'
+                                buttonText='Valitse kuva'
                                 onChange={this.onDrop}
                                 imgExtension={['.jpg', '.gif', '.png', '.gif']}
                                 maxFileSize={5242880}

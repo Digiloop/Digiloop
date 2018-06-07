@@ -244,7 +244,7 @@ class CategoriesFields extends React.Component {
 
                     <h1 style={{ margin: '0', fontSize: '4vw', color: '#004225' }}>{this.props.categories[i].CatName}</h1>
                     <div style={this.categoryImageStyler(i, 0)} >
-                        {this.props.categories[i].CatId == this.state.activeCatId ? <CheckCircle id="CatsCheckbox" /> : null}
+                        {this.props.categories[i].CatId == this.state.activeCatId ? <CheckCircle id="CatsCheckmark" /> : null}
                     </div>
                 </td>
             )
@@ -271,7 +271,7 @@ class CategoriesFields extends React.Component {
                                 key={k} >
                                 <h1 style={{ margin: '0', fontSize: '4vw', color: '#004225' }}>{this.props.proxyCategories[k].name}</h1>
                                 <div style={this.categoryImageStyler(k, 1)} >
-                                    {this.props.proxyCategories[k].Id == this.state.activeProxyCatId ? <CheckCircle id="SubCatsCheckbox" /> : null}
+                                    {this.props.proxyCategories[k].Id == this.state.activeProxyCatId ? <CheckCircle id="SubCatsCheckmark" /> : null}
                                 </div>
                             </td>
                         )

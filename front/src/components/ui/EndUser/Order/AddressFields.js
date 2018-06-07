@@ -106,7 +106,7 @@ class AddressFields extends React.Component {
         }
         const isCompanyStyleActive = {
             borderRadius: 4,
-            border: '6px solid red',
+            border: '6px solid #004225',
             marginLeft: '5%',
             textAlign: 'center',
             maxWidth: '80%',
@@ -123,7 +123,7 @@ class AddressFields extends React.Component {
         }
         const isHouseStyleActive = {
             borderRadius: 4,
-            border: '6px solid red',
+            border: '6px solid #004225',
             textAlign: 'center',
             maxWidth: '80%',
             minWidth: '25%',
@@ -186,10 +186,11 @@ class AddressFields extends React.Component {
                                     alt="Kotitalous"
                                     onClick={(e) => this.updateField("isCompany", 0)}
                                 />
-                                {this.state.isCompany === 0 ? <CheckCircle /> : null}
+                                {this.state.isCompany === 0 ? <CheckCircle id="HouseCheckmark"/> : null}
                             </td>
                             <td style={{ width: '50%' }}>
                                 <p id="OrgClientHeader">Organisaatio</p>
+                                {this.state.isCompany === 1 ? <CheckCircle id="OrgCheckmark" /> : null}
                                 <img
                                     src={require('../Materials/OrderPics/organization2.gif')}
                                     style={this.state.isCompany === 1 ? isCompanyStyleActive : isCompanyStyle}
@@ -197,7 +198,7 @@ class AddressFields extends React.Component {
                                     alt="Organisaatio"
                                     onClick={(e) => this.updateField("isCompany", 1)}
                                 />
-                                {this.state.isCompany === 1 ? <CheckCircle /> : null}
+                                
                             </td>
                         </tr>
 

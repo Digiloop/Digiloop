@@ -138,10 +138,12 @@ class Summary extends React.Component {
                             onClick={(event) => this.props.removeItem(i)}
                         />
                         <br />
-                        <Divider style={{ backgroundColor: '#FFF', height: '3px' }} />
+                         <Divider style={{ backgroundColor: '#FFF', height: '3px', marginTop: '5px' }} />
                     </td>
                 </tr>
+               
             )
+            
         }
 
 

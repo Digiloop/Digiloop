@@ -25,18 +25,21 @@ class AdminWasteProcessor extends Component {
     };
   }
 
+  // tabs handler
   handleChange = (value) => {
     this.setState({
       index: value
     });
   };
 
-  handleAppbarChange = (event, value) => {
+  // drawer selector
+  handleDrawerChange = (event, value) => {
     this.setState({
       index: value
     });
   }
 
+  // logout function
   logout = () => {
     logOut();
     localStorage.clear();
@@ -45,13 +48,14 @@ class AdminWasteProcessor extends Component {
     });
   }
 
+  // returns to frontpage
   handleUpdate = (e, value) => {
     this.setState({
       index: 0
     });
   }
 
-
+// opens and closes drawer
   handleToggle = (event) => this.setState({ open: !this.state.open })
   handleClose = () => this.setState({ open: false })
 
@@ -72,7 +76,7 @@ class AdminWasteProcessor extends Component {
               <IconButton onClick={this.handleToggle} iconStyle={styles.largeIcon} style={{ padding: '0', marginRight: '20px' }}>
                 <MenuIcon color='#FFF' />
               </IconButton>
-              <Tabs index={this.state.index} onChange={this.handleChange} style={{ width: '100%' }} 
+              <Tabs index={this.state.index} onChange={this.handleChange} style={{ width: '100%', float: 'left' }} 
               inkBarStyle={{ background: '#AFD43F', height: '3px' }}>
                 <Tab label="Kategoriat" className="menu" value={0} />
                 <Tab label="Varaukset" className="menu" value={1} />
@@ -81,9 +85,9 @@ class AdminWasteProcessor extends Component {
                 <Tab label="Ilmoitukset" className="menu" value={4} />
               </Tabs>
               <div className="frontDrawer">
-                <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({ open })}
+                <Drawer docked={false} width={220} open={this.state.open} onRequestChange={(open) => this.setState({ open })}
                   containerStyle={{ backgroundColor: '#004225' }}>
-                  <Menu value={this.state.value} onChange={this.handleAppbarChange}>
+                  <Menu value={this.state.value} onChange={this.handleDrawerChange}>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={0}>Etusivu</MenuItem>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={5}>Oma profiili</MenuItem>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={4}>Ilmoitukset</MenuItem>

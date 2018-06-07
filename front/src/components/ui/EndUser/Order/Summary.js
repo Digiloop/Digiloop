@@ -123,6 +123,9 @@ class Summary extends React.Component {
                         {this.props.values[i].size}m<sup>3</sup>/kpl   {this.props.values[i].weight} <br />
                         {this.props.values[i].pcs} <br />
                         {this.props.values[i].description}</pre>
+
+                        <div id="SummaryImagePreviews">kuva tähän</div>
+
                         <FlatButton
                             label='Muokkaa'
                             style={{ borderRadius: 25 }}

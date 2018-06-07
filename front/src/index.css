@@ -570,6 +570,56 @@ text-align: right;
   padding: 7px 7px 0 7px;
 }
 
+#CatsCheckmark {
+  float: right;
+  color: #FFF;
+  fill: currentcolor;
+  height: 4vw;
+  width: 4vw;
+  user-select: none;
+  border: 5px solid #004225;
+  border-radius: 100%;
+}
+
+#SubCatsCheckmark {
+  float: right;
+  color: #FFF;
+  fill: currentcolor;
+  height: 4vw;
+  width: 4vw;
+  user-select: none;
+  border: 5px solid #004225;
+  border-radius: 100%;
+}
+
+#HouseCheckmark {
+  position: absolute;
+  margin: 10px 0 0 29vw;
+  float: left;
+  color: #FFF;
+  fill: currentcolor;
+  height: 4vw;
+  width: 4vw;
+  user-select: none;
+  border: 5px solid #004225;
+  border-radius: 100%;
+  transition: none;
+}
+
+#OrgCheckmark {
+  position: absolute;
+  margin: 10px 0 0 4%;
+  float: left;
+  color: #FFF;
+  fill: currentcolor;
+  height: 4vw;
+  width: 4vw;
+  user-select: none;
+  border: 5px solid #004225;
+  border-radius: 100%;
+  transition: none;
+}
+
 /* ADMIN */
 
 .addCatLabel {

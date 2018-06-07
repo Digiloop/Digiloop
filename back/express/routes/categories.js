@@ -10,9 +10,20 @@ var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata; //ha
 
 
 //GET
-router.get('/categories',misk.isLoggedIn, (req, res, next) => {
+router.get('/categories', (req, res, next) => {
   //const query = 'SELECT * FROM Category WHERE Status = 1'
-  const query = 'SELECT * FROM Category WHERE Status = 1'
+  const query = 'SELECT * FROM Category'// WHERE Status = 1'
+  sqldatahaku.queryGet(query, (err, result) => {
+    if (err) throw err;
+    res.json(result);
+    next();
+  });
+});
+
+router.get('/subcat',(req, res, next) => {
+  /*if (req.userlvl == 0){const query = 'SELECT * FROM subCat'}
+  else{const query = 'SELECT * FROM subCat WHERE Status = 1'}*/
+  const query = 'SELECT * FROM subCat'// WHERE Status = 1'
   sqldatahaku.queryGet(query, (err, result) => {
     if (err) throw err;
     res.json(result);
@@ -21,7 +32,7 @@ router.get('/categories',misk.isLoggedIn, (req, res, next) => {
 });
 
 router.get('/feikkiCat', (req, res, next) => {
-  const query = 'SELECT * FROM SubSubCats WHERE Status = 1'
+  const query = 'SELECT * FROM SubSubCats'// WHERE Status = 1'
   sqldatahaku.queryGet(query, (err, result) => {
     if (err) throw err;
     res.json(result);
@@ -29,21 +40,12 @@ router.get('/feikkiCat', (req, res, next) => {
   });
 });
 
-
-router.get('/subcat', (req, res, next) => {
-  const query = 'SELECT * FROM subCat WHERE Status = 1'
-  sqldatahaku.queryGet(query, (err, result) => {
-    if (err) throw err;
-    res.json(result);
-    next();
-  });
-});
 
 //POST
 router.post('/catUpdate', (req, res, next) => {
   //console.log(req.body);
   //console.log(req.body.Status)
-  let cat = misk.selectorThing(req.body.catType, ['Category', 'subCat', 'SubSubCats'], ['CatName', 'subName', 'name'], ['CatId', 'subId', 'Id'])
+  let cat = misk.selector(req.body.catType, ['Category', 'subCat', 'SubSubCats'], ['CatName', 'subName', 'name'], ['CatId', 'subId', 'Id'])
   const query = `UPDATE ${cat[0]} SET ${cat[1]} = ? WHERE ${cat[2]} = ?`
   sqldatahaku.querySql(query, [req.body.name, req.body.id])
 
@@ -53,10 +55,11 @@ router.post('/catUpdate', (req, res, next) => {
 router.post('/catStatus', (req, res, next) => {
   //console.log(req.body);
   //console.log(req.body.Status)
+   //sqldatahaku.randomshizzle('moi')
 
-
-  let cat = misk.selectorThing(req.body.catType, ['Category', 'subCat', 'SubSubCats'], ['CatId', 'subId', 'Id'])
+  let cat = misk.selector(req.body.catType, ['Category', 'subCat', 'SubSubCats'], ['CatId', 'subId', 'Id'])
   const query = 'UPDATE ' + cat[0] + ' SET Status = ? WHERE ' + cat[1] + '  = ?'
+  //console.log(query);
   sqldatahaku.querySql(query, [req.body.Status, req.body.id])
 
   res.end();
@@ -82,7 +85,15 @@ router.post('/feikkiCatAdd', (req, res) => {
 
 
 router.post('/imageAdd', (req, res) => {
-  misk.imageAdd(req.files.sample, 0);// categories,subcategories,users = 0/1/2
+  //console.log(req.get('Content-Type'));
+  console.log(req.files);
+  //console.log(typeof req.files.image);
+  //console.log(req.body.image);
+  //console.log(req.body);
+  //console.log(typeof req.body);
+  
+  //console.log(Object.keys(req.body).length)
+  //misk.imageAdd(req.files.img0, 0);// categories,subcategories,users = 0/1/2
   res.end();
   //console.log(req.files.sample);
 });

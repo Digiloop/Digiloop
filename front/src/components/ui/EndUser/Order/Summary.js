@@ -18,6 +18,7 @@ class Summary extends React.Component {
     convertAddresses() {
 
         let data = this.props.values;
+        let addressData = this.props.addressData;
 
         let address = this.props.addressData.pickupaddr + ", " + this.props.addressData.city;
 
@@ -32,12 +33,12 @@ class Summary extends React.Component {
                 for (let i = 0; i < data.length; i++) {
 
                     finalizedData[i] = {
-                        city: this.props.addressData.city,
-                        iscompany: this.props.addressData.iscompany,
-                        phone: this.props.addressData.phone,
-                        pickupInstructions: this.props.addressData.pickupInstructions,
-                        pickupaddr: this.props.addressData.pickupaddr,
-                        zipcode: this.props.addressData.zipcode,
+                        city: addressData.city,
+                        iscompany: addressData.iscompany,
+                        phone: addressData.phone,
+                        pickupInstructions: addressData.pickupInstructions,
+                        pickupaddr: addressData.pickupaddr,
+                        zipcode: addressData.zipcode,
 
                         latitude: results[0].geometry.viewport.f.b,
                         longitude: results[0].geometry.viewport.b.b,
@@ -175,6 +176,7 @@ class Summary extends React.Component {
                             </td>
                             <td style={{ textAlign: 'center' }}>
                                 <FlatButton
+                                    disabled={this.props.values.length === 0 ? true : false}
                                     label='Lähetä tilaus'
                                     style={{ borderRadius: 25 }}
                                     backgroundColor={'#FFF'}

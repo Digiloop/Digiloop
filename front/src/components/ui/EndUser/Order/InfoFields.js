@@ -120,7 +120,8 @@ class InfoFields extends React.Component {
                             <td>
                                 <label style={{ float: 'left', position: 'absolute', marginLeft: '2%' }}>
                                     {this.props.values.category}/<br />{this.props.values.subCat}</label>
-                                <div style={{ maxWidth:'35%', minWidth: '55%', maxHeight: '30%', minHeight: '50%', marginLeft: 'auto' }}>
+                                <div style={{ maxWidth:'35%', minWidth: '35%', maxHeight: '30%', minHeight: '50%', marginLeft: 'auto', overflow: 'hidden' }}>
+
                                     <ImageUploader
                                         withIcon={false}
                                         withLabel={false}

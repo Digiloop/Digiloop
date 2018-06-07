@@ -3,7 +3,7 @@ import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import ActionInfo from 'material-ui/svg-icons/action/info';
-import { getCredentials } from '../../../utils/login-api';
+import { getCredentials } from '../../../utils/login';
 
 
 

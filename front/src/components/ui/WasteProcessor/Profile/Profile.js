@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Divider, TextField, FlatButton } from 'material-ui';
 import styles from '../../../../index.css';
-import { sendUpdateData } from '../../../../utils/sendUpdateData';
+import { updateUserData } from '../../../../utils/updateUserData';
 
 class Profile extends Component {
   constructor(props) {
@@ -55,7 +55,7 @@ class Profile extends Component {
         "city": this.state.city
       }
       
-      sendUpdateData(updateUserData);
+      updateUserData(updateUserData);
 
       this.props.onUpdate();
       window.alert("Tiedot päivitetty!");

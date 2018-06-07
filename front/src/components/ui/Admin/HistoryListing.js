@@ -9,7 +9,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
-import { getJunkData } from '../../../utils/fetchdata-api';
+import { getJunkData } from '../../../utils/fetchItems';
 
 class HistoryListing extends Component {
 constructor(props){

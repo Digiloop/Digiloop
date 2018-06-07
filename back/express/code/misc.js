@@ -62,12 +62,14 @@ module.exports = class misc {
         }
     }
 
-
-    selectorThing(selector, arr1, arr2, arr3) {
-        let ars1 = arr1[selector]
-        let ars2 = arr2[selector]
-        let ars3 = arr3[selector]
-        return [ars1, ars2, ars3]
+    //array value that will be returned = first argument, rest of the arguments are array[first argument]
+    //returns all arrays with the first arguments value
+    selector() {
+        let all = []
+        for (var i = 0; i < arguments.length-1; i++){
+            all.push(arguments[i+1][arguments[0]])
+        }
+        return all;
     }
 
     dateThing() {
@@ -80,7 +82,7 @@ module.exports = class misc {
     //select = categories,subcategories or user
     imageAdd(files, select) {
         // categories,subcategories,users
-        folder = this.selectorThing(select, [`./kuvat/categories/${files.name}`, `./kuvat/subcategories/${files.name}`, `./kuvat/users/${files.name}`])
+        folder = this.selector(select, [`./kuvat/categories/${files.name}`, `./kuvat/subcategories/${files.name}`, `./kuvat/users/${files.name}`])
         console.log(files);
         /*var userfolder = `./kuvat/users/' + ${req.user.username}`;
         let categories = `./kuvat/categories/${files.name}`;

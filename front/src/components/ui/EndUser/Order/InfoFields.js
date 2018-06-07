@@ -132,7 +132,8 @@ class InfoFields extends React.Component {
 
                                 </div>
                                 <div id='ImagePreview'>
-                                    <img style={{width: '100%', height:'100%'}} src={this.state.picture != null ? URL.createObjectURL(this.state.picture) : <br/>} />
+                                    {this.state.picture != null ? <img style={{width: '100%', height:'100%'}} src={URL.createObjectURL(this.state.picture)} /> : <p>Ei valittua kuvaa</p>}
+                                    
                                 </div>
 
                             </td>

@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+<<<<<<< HEAD
 
 // get users
 import { getUsers } from '../../../utils/fetchUsers';
 import { TableRow, TableRowColumn, Table, TableBody } from 'material-ui';
+=======
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import { getCats, getSubCats } from '../../../utils/fetchCategories';
+import { addNewCat, addNewSubCat } from '../../../utils/editCategories';
+>>>>>>> a4c14f0d87aac37f9744d586ac3cc1441f6fcd24
 
 class Admin extends Component {
   constructor(props) {

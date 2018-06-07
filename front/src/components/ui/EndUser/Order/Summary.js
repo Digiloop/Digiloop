@@ -4,6 +4,7 @@ import { Divider, FlatButton, IconButton } from 'material-ui';
 import { sendItemData, sendItemImageData } from '../../../../utils/sendItem';
 
 
+
 class Summary extends React.Component {
     constructor(props) {
         super(props);
@@ -18,6 +19,7 @@ class Summary extends React.Component {
     convertAddresses() {
 
         let data = this.props.values;
+        let addressData = this.props.addressData;
 
         let address = this.props.addressData.pickupaddr + ", " + this.props.addressData.city;
 
@@ -32,12 +34,12 @@ class Summary extends React.Component {
                 for (let i = 0; i < data.length; i++) {
 
                     finalizedData[i] = {
-                        city: this.props.addressData.city,
-                        iscompany: this.props.addressData.iscompany,
-                        phone: this.props.addressData.phone,
-                        pickupInstructions: this.props.addressData.pickupInstructions,
-                        pickupaddr: this.props.addressData.pickupaddr,
-                        zipcode: this.props.addressData.zipcode,
+                        city: addressData.city,
+                        iscompany: addressData.iscompany,
+                        phone: addressData.phone,
+                        pickupInstructions: addressData.pickupInstructions,
+                        pickupaddr: addressData.pickupaddr,
+                        zipcode: addressData.zipcode,
 
                         latitude: results[0].geometry.viewport.f.b,
                         longitude: results[0].geometry.viewport.b.b,
@@ -57,7 +59,7 @@ class Summary extends React.Component {
                 }
 
 
-                
+
 
 
                 console.log("Bäkkiilähetyssimulaatio testi #6")
@@ -122,9 +124,14 @@ class Summary extends React.Component {
                         {this.props.values[i].size}m<sup>3</sup>/kpl   {this.props.values[i].weight} <br />
                         {this.props.values[i].pcs} <br />
                         {this.props.values[i].description}</pre>
+
+                        <div id="SummaryImagePreviews">
+                            {this.props.values[i].picture != null ? <img style={{ width: '100%', height: '100%' }} src={ URL.createObjectURL(this.props.values[i].picture)} /> : <p>Kuvaa ei valittu</p>}
+                        </div>
+
                         <FlatButton
                             label='Muokkaa'
-                            style={{ borderRadius: 25 }}
+                            style={{ borderRadius: 25, marginRight: '10px' }}
                             backgroundColor={'#FFF'}
                             onClick={(event) => this.props.editItem(i)}
                         />
@@ -135,15 +142,11 @@ class Summary extends React.Component {
                             onClick={(event) => this.props.removeItem(i)}
                         />
                         <br />
-                        <Divider style={{ backgroundColor: '#FFF', height: '3px' }} />
+                         <Divider style={{ backgroundColor: '#FFF', height: '3px', marginTop: '5px', maxWidth: '400px' }} />
                     </td>
-                </tr>
-            )
+                </tr>             
+            )         
         }
-
-
-
-
 
         return (
             <div className="Container">
@@ -155,21 +158,20 @@ class Summary extends React.Component {
                                 <pre>{this.props.addressData.pickupaddr} {this.props.addressData.phone} <br />
                                     {this.props.addressData.zipcode} {this.props.addressData.city}</pre>
 
-                                <Divider style={{ backgroundColor: '#FFF', height: '3px' }} />
+                                <Divider style={{ backgroundColor: '#FFF', height: '3px', maxWidth: '400px'  }} />
                             </td>
                         </tr>
                         {items}
                         <tr>
-                            <td style={{ textAlign: 'center' }}>
+                            <td style={{ textAlign: 'left', width: '30%' }}>
                                 <FlatButton
                                     label='Lisää Laitteita'
-                                    style={{ borderRadius: 25 }}
+                                    style={{ borderRadius: 25, marginRight: '10px'}}
                                     backgroundColor={'#FFF'}
                                     onClick={(event) => this.props.nextItem(event)}
                                 />
-                            </td>
-                            <td style={{ textAlign: 'center' }}>
                                 <FlatButton
+                                    disabled={this.props.values.length === 0 ? true : false}
                                     label='Lähetä tilaus'
                                     style={{ borderRadius: 25 }}
                                     backgroundColor={'#FFF'}

@@ -562,6 +562,13 @@ text-align: right;
   right: 2%;
 }
 
+#SummaryImagePreviews{
+  border: 2px solid red;
+  width: 100px;
+  height: 100px;
+  margin: 10px 0;
+}
+
 /* ADMIN */
 
 .addCatLabel {

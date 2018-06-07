@@ -1,22 +1,14 @@
 import axios from 'axios';
 import { BASE_URL } from './../settings';
 
-//const BASE_URL = 'http://193.166.72.18';
 
-export { sendRegData };
+export { wasteprocessorRegister };
 
-/* function sendRegData(regData) {
-  return axios.post(BASE_URL + '/signup', {
-    regData    
-  })
-    .then(response => response.data)
-    .catch(function (error) {
-      console.log(regData);
-    });
-} */
 
-function sendRegData(regData) {
-  return fetch(BASE_URL + '/signup',{
+function wasteprocessorRegister(regData) {
+  
+
+  return fetch(BASE_URL + '/signupCompany', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -27,6 +19,7 @@ function sendRegData(regData) {
     //.then((response) => response.json())
     .then((response) => {
       console.log(response);
+      // return responseJson;
     })
     .catch((error) => {
       console.log(error);

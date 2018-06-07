@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { BASE_URL } from './../settings';
 
-export { sendUpdateData };
+export { updateUserData };
 
-/* function sendUpdateData(updateUserData) {
+/* function updateUserData(updateUserData) {
   return fetch(BASE_URL + '/updateUser', {
     method: 'POST',
     headers: {
@@ -20,7 +20,7 @@ export { sendUpdateData };
     });
 } */
 
-function sendUpdateData(updateUserData) {
+function updateUserData(updateUserData) {
   return axios.post(BASE_URL + '/updateUser', {
     fname: updateUserData.fname,
     lname: updateUserData.lname,

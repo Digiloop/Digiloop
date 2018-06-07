@@ -11,6 +11,8 @@ import {
 import RaisedButton from 'material-ui/RaisedButton';
 import { reserveItem } from '../../../../utils/reserveItems'
 
+import { BASE_URL } from '../../../../settings'
+
 class ReservationListing extends Component {
   constructor(props) {
     super(props);
@@ -99,11 +101,15 @@ class ReservationListing extends Component {
 
 
     // create the item rows
-    //for (let i = 0; i < this.props.items.length; i++) {
+    // because we're reversing the list, but want to keep row numbers correct, we're looping with double variables
+    // i is the regular start to end index for the rownumber
+    // j is the selector for the items list, end to start
     for (let i = 0, j = this.props.items.length - 1; i < this.props.items.length; i++, j--) {
 
       // define if the row is open or not. +1 is due to header row.
       if (this.state.rows[i+1]) {
+
+        let imageUrl = BASE_URL + "/images/items/" + this.props.items[j].picture;
 
         items.push(
           <TableRow key={i}  style={{height: '400px'}}>
@@ -113,6 +119,8 @@ class ReservationListing extends Component {
             {this.props.items[j].pcs}kpl<br />
             {this.props.items[j].size}m<sup>3</sup><br />
             {this.props.items[j].weight}kg<br />
+
+            <img src={imageUrl} />
 
             <div>{this.props.items[j].description}</div><br />
             </TableRowColumn>

@@ -3,7 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import './index.css';
 
 // remove before build
-import { getCredentials } from './utils/login-api';
+import { getCredentials } from './utils/login';
 
 // switchin alasivut loginlevelin perusteella
 import AdminWasteProcessor from './components/containers/Admin/WasteProcessor.js';
@@ -13,7 +13,7 @@ import Register from './components/containers/Login/Register.js';
 import WasteRegister from './components/containers/Login/WasteRegister.js';
 import Login from './components/containers/Login/Login.js';
 
-import { getCats, getSubCats, getFakeCats } from './utils/fetchcategories';
+import { getCats, getSubCats, getFakeCats } from './utils/fetchCategories';
 class App extends Component {
   constructor(props) {
     super(props);

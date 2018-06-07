@@ -2,7 +2,7 @@ import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-import { sendCompRegData } from '../../../utils/sendCompRegData';
+import { wasteprocessorRegister } from '../../../utils/wasteprocessorRegister';
 import { Checkbox } from 'material-ui';
 
 class WasteRegister extends React.Component {
@@ -87,7 +87,7 @@ class WasteRegister extends React.Component {
             "city": this.state.city
         }
         console.log(JSON.stringify(regData));
-        sendCompRegData(JSON.stringify(regData));
+        wasteprocessorRegister(JSON.stringify(regData));
     }
 
     render() {

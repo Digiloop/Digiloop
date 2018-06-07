@@ -1,15 +1,22 @@
 import axios from 'axios';
 import { BASE_URL } from './../settings';
 
+//const BASE_URL = 'http://193.166.72.18';
 
-export { sendCompRegData };
+export { enduserRegister };
 
+/* function enduserRegister(regData) {
+  return axios.post(BASE_URL + '/signup', {
+    regData    
+  })
+    .then(response => response.data)
+    .catch(function (error) {
+      console.log(regData);
+    });
+} */
 
-function sendCompRegData(regData) {
-  
-  //TODO: Laita route!!
-
-  return fetch(BASE_URL + '/signupCompany', {
+function enduserRegister(regData) {
+  return fetch(BASE_URL + '/signup',{
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -20,7 +27,6 @@ function sendCompRegData(regData) {
     //.then((response) => response.json())
     .then((response) => {
       console.log(response);
-      // return responseJson;
     })
     .catch((error) => {
       console.log(error);

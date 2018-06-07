@@ -7,8 +7,8 @@ import Gmap from './Map/Gmap.js'
 import ReservationListing from './ReservationListing'
 import ReservationListOptions from '../../../containers/Admin/Varauskartta/ReservationListOptions'
 
-import { getJunkData } from '../../../../utils/fetchdata-api';
-//import { getCats, getSubCats } from '../../../../utils/fetchcategories';
+import { getJunkData } from '../../../../utils/fetchItems';
+//import { getCats, getSubCats } from '../../../../utils/fetchCategories';
 // fetch function
 
 

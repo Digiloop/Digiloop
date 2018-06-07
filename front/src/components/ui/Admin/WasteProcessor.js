@@ -3,7 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { AppBar, Drawer, Menu, MenuItem } from 'material-ui';
 import { Toolbar, IconButton, Divider, Tabs, Tab } from 'material-ui';
 import MenuIcon from '@material-ui/icons/Menu';
-import { logOut } from '../../../utils/login-api';
+import { logOut } from '../../../utils/login';
 import Profile from '../../containers/Admin/Profile/Profile'
 
 import HistoryListing from '../../containers/Admin/HistoryListing'

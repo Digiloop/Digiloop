@@ -2,7 +2,7 @@ import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-import { sendRegData } from '../../../utils/sendRegData';
+import { enduserRegister } from '../../../utils/enduserRegister';
 import { Checkbox } from 'material-ui';
 
 class Register extends React.Component {
@@ -97,7 +97,7 @@ class Register extends React.Component {
                 "zipcode": this.state.zipcode,
                 "city": this.state.city
             }
-            sendRegData(JSON.stringify(regData));
+            enduserRegister(JSON.stringify(regData));
             window.alert("Hyvin rekisteröidytty!");
             this.props.onNewLogin({
                 userlvl: -1

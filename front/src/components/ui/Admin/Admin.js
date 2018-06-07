@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import { getCats, getSubCats } from '../../../utils/fetchcategories';
-import { addNewCat, addNewSubCat } from '../../../utils/sendAddCatsData';
+import { getCats, getSubCats } from '../../../utils/fetchCategories';
+import { addNewCat, addNewSubCat } from '../../../utils/editCategories';
 
 class Admin extends Component {
   constructor(props) {

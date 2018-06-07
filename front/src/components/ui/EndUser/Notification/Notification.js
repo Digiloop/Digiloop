@@ -9,7 +9,7 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-import { getNotifications } from '../../../../utils/fetchnotifications';
+import { getNotifications } from '../../../../utils/fetchNotifications';
 
 class Notification extends Component {
   constructor(props) {

@@ -8,8 +8,8 @@ import { TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import ImageUploader from 'react-images-upload';
 
 // fetchies
-import { getCats, getSubCats, getFakeCats } from '../../../../utils/fetchcategories';
-import { addNewCat, addNewSubCat, sendStatus, sendNewCatName } from '../../../../utils/sendAddCatsData';
+import { getCats, getSubCats, getFakeCats } from '../../../../utils/fetchCategories';
+import { addNewCat, addNewSubCat, sendStatus, sendNewCatName } from '../../../../utils/editCategories';
 import { BASE_URL } from '../../../../settings';
 
 class ModifyCategories extends Component {

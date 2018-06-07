@@ -10,7 +10,8 @@ class InfoFields extends React.Component {
             pcs: 1,
             size: 1,
             weight: 1,
-            picture: null
+            picture: null,
+            rakettiryhmä: undefined
         };
         this.handleChange = this.handleChange.bind(this);
         this.onDrop = this.onDrop.bind(this)

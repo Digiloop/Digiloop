@@ -13,7 +13,6 @@ module.exports = class sqldata {
   }
 
   randomshizzle(callback) {
-    console.log(callback)
     //res.json('mo')
   }
 

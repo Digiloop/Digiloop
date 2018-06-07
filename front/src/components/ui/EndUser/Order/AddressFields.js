@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 
-
+import CheckCircle from '@material-ui/icons/CheckCircle';
 
 class AddressFields extends React.Component {
     constructor(props) {
@@ -177,8 +177,8 @@ class AddressFields extends React.Component {
                             </td>
                         </tr>
                         <tr>
-                            <td style={{width: '50%'}}>
-                            <p id="HomeClientHeader">Kotitalous</p>
+                            <td style={{ width: '50%' }}>
+                                <p id="HomeClientHeader">Kotitalous</p>
                                 <img
                                     src={require('../Materials/OrderPics/home2.gif')}
                                     style={this.state.isCompany === 0 ? isHouseStyleActive : isHouseStyle}
@@ -186,9 +186,10 @@ class AddressFields extends React.Component {
                                     alt="Kotitalous"
                                     onClick={(e) => this.updateField("isCompany", 0)}
                                 />
+                                {this.state.isCompany === 0 ? <CheckCircle /> : null}
                             </td>
-                            <td style={{width: '50%'}}>
-                            <p id="OrgClientHeader">Organisaatio</p>
+                            <td style={{ width: '50%' }}>
+                                <p id="OrgClientHeader">Organisaatio</p>
                                 <img
                                     src={require('../Materials/OrderPics/organization2.gif')}
                                     style={this.state.isCompany === 1 ? isCompanyStyleActive : isCompanyStyle}
@@ -196,6 +197,7 @@ class AddressFields extends React.Component {
                                     alt="Organisaatio"
                                     onClick={(e) => this.updateField("isCompany", 1)}
                                 />
+                                {this.state.isCompany === 1 ? <CheckCircle /> : null}
                             </td>
                         </tr>
 

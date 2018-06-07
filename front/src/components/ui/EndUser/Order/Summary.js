@@ -4,6 +4,7 @@ import { Divider, FlatButton, IconButton } from 'material-ui';
 import { sendItemData, sendItemImageData } from '../../../../utils/sendItem';
 
 
+
 class Summary extends React.Component {
     constructor(props) {
         super(props);

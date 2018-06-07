@@ -1,5 +1,6 @@
 import React from 'react';
 
+import CheckCircle from '@material-ui/icons/CheckCircle';
 
 import noImage from './imgMissingTransparent.png'
 import { BASE_URL } from '../../../../settings'
@@ -41,7 +42,7 @@ class CategoriesFields extends React.Component {
             activeProxyCatName: ""
         }, function () {
             // main category is changed -> subcat un-selected -> set forward arrow as disabled until a new subcat is selected
-            this.props.setCategoriesSelected(false); 
+            this.props.setCategoriesSelected(false);
         });
     }
 
@@ -240,9 +241,10 @@ class CategoriesFields extends React.Component {
                     value={this.props.categories[i].CatName}
                     onClick={() => this.setCat(this.props.categories[i].CatId, this.props.categories[i].CatName)}
                     key={i} >
-                    <h1 style={{margin: '0', fontSize: '4vw', color: '#004225'}}>{this.props.categories[i].CatName}</h1>
+
+                    <h1 style={{ margin: '0', fontSize: '4vw', color: '#004225' }}>{this.props.categories[i].CatName}</h1>
                     <div style={this.categoryImageStyler(i, 0)} >
-                        
+                        {this.props.categories[i].CatId == this.state.activeCatId ? <CheckCircle /> : null}
                     </div>
                 </td>
             )
@@ -267,9 +269,9 @@ class CategoriesFields extends React.Component {
                                     this.props.proxyCategories[k].name
                                 )}
                                 key={k} >
-                                <h1 style={{margin: '0', fontSize: '4vw', color: '#004225'}}>{this.props.proxyCategories[k].name}</h1>
+                                <h1 style={{ margin: '0', fontSize: '4vw', color: '#004225' }}>{this.props.proxyCategories[k].name}</h1>
                                 <div style={this.categoryImageStyler(k, 1)} >
-                                    
+                                    {this.props.proxyCategories[k].Id == this.state.activeProxyCatId ? <CheckCircle /> : null}
                                 </div>
                             </td>
                         )

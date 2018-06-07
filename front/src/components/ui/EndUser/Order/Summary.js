@@ -144,15 +144,9 @@ class Summary extends React.Component {
                         <br />
                          <Divider style={{ backgroundColor: '#FFF', height: '3px', marginTop: '5px' }} />
                     </td>
-                </tr>
-               
-            )
-            
+                </tr>             
+            )         
         }
-
-
-
-
 
         return (
             <div className="Container">

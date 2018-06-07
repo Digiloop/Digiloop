@@ -58,7 +58,7 @@ class Summary extends React.Component {
                 }
 
 
-                
+
 
 
                 console.log("Bäkkiilähetyssimulaatio testi #6")
@@ -124,7 +124,9 @@ class Summary extends React.Component {
                         {this.props.values[i].pcs} <br />
                         {this.props.values[i].description}</pre>
 
-                        <div id="SummaryImagePreviews">kuva tähän</div>
+                        <div id="SummaryImagePreviews">
+                            {this.props.values[i].picture != null ? <img style={{ width: '100%', height: '100%' }} src={ URL.createObjectURL(this.props.values[i].picture)} /> : <p>Kuvaa ei valittu</p>}
+                        </div>
 
                         <FlatButton
                             label='Muokkaa'

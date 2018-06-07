@@ -130,7 +130,7 @@ class Summary extends React.Component {
 
                         <FlatButton
                             label='Muokkaa'
-                            style={{ borderRadius: 25 }}
+                            style={{ borderRadius: 25, marginRight: '10px' }}
                             backgroundColor={'#FFF'}
                             onClick={(event) => this.props.editItem(i)}
                         />
@@ -141,7 +141,7 @@ class Summary extends React.Component {
                             onClick={(event) => this.props.removeItem(i)}
                         />
                         <br />
-                         <Divider style={{ backgroundColor: '#FFF', height: '3px', marginTop: '5px' }} />
+                         <Divider style={{ backgroundColor: '#FFF', height: '3px', marginTop: '5px', maxWidth: '400px' }} />
                     </td>
                 </tr>             
             )         
@@ -157,20 +157,18 @@ class Summary extends React.Component {
                                 <pre>{this.props.addressData.pickupaddr} {this.props.addressData.phone} <br />
                                     {this.props.addressData.zipcode} {this.props.addressData.city}</pre>
 
-                                <Divider style={{ backgroundColor: '#FFF', height: '3px' }} />
+                                <Divider style={{ backgroundColor: '#FFF', height: '3px', maxWidth: '400px'  }} />
                             </td>
                         </tr>
                         {items}
                         <tr>
-                            <td style={{ textAlign: 'center' }}>
+                            <td style={{ textAlign: 'left', width: '30%' }}>
                                 <FlatButton
                                     label='Lisää Laitteita'
-                                    style={{ borderRadius: 25 }}
+                                    style={{ borderRadius: 25, marginRight: '10px'}}
                                     backgroundColor={'#FFF'}
                                     onClick={(event) => this.props.nextItem(event)}
                                 />
-                            </td>
-                            <td style={{ textAlign: 'center' }}>
                                 <FlatButton
                                     disabled={this.props.values.length === 0 ? true : false}
                                     label='Lähetä tilaus'

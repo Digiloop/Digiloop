@@ -1,12 +1,5 @@
 import React from 'react';
-import AppBar from 'material-ui/AppBar';
-import MenuItem from 'material-ui/MenuItem';
-import TextField from 'material-ui/TextField';
-import IconButton from 'material-ui/IconButton';
-import Forward from 'material-ui/svg-icons/navigation/arrow-forward';
-import Back from 'material-ui/svg-icons/navigation/arrow-back';
-import styles from '../../../../index.css';
-import { getCats, getSubCats } from '../../../../utils/fetchcategories';
+
 
 import noImage from './imgMissingTransparent.png'
 import { BASE_URL } from '../../../../settings'

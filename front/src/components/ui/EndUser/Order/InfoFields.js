@@ -10,8 +10,7 @@ class InfoFields extends React.Component {
             pcs: 1,
             size: 1,
             weight: 1,
-            picture: null,
-            rakettiryhmä: undefined
+            picture: null
         };
         this.handleChange = this.handleChange.bind(this);
         this.onDrop = this.onDrop.bind(this)
@@ -133,7 +132,8 @@ class InfoFields extends React.Component {
 
                                 </div>
                                 <div id='ImagePreview'>
-                                    <img style={{width: '100%', height:'100%'}} src={this.state.picture != null ? URL.createObjectURL(this.state.picture) : <br/>} />
+                                    {this.state.picture != null ? <img style={{width: '100%', height:'100%'}} src={URL.createObjectURL(this.state.picture)} /> : <p>Ei valittua kuvaa</p>}
+                                    
                                 </div>
 
                             </td>

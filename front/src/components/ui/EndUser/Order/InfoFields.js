@@ -151,19 +151,19 @@ class InfoFields extends React.Component {
                             <td>
                                 <div>
                                     <DropDownMenu value={this.state.pcs} onChange={this.handleChange("pcs")} style={styles.dropDown}>
-                                        <MenuItem value={1} primaryText="1" />
-                                        <MenuItem value={"2-5"} primaryText="2 - 5" />
-                                        <MenuItem value={">5"} primaryText="> 5" />
+                                        <MenuItem value={1} primaryText= "1" />
+                                        <MenuItem value={"2-5"} primaryText= "2 - 5" />
+                                        <MenuItem value={">5"} primaryText= "> 5" />
                                     </DropDownMenu>
                                     <DropDownMenu value={this.state.size} onChange={this.handleChange("size")} style={styles.dropDown}>
-                                        <MenuItem value={"< 5"} primaryText="< 5" />
-                                        <MenuItem value={'0.5-2'} primaryText="> 0.5 - 2" />
-                                        <MenuItem value={'2.5'} primaryText="> 2.5 m" />
+                                        <MenuItem value={"< 5"} primaryText= "< 0.5m" />
+                                        <MenuItem value={'0.5-2'} primaryText= "0.5 - 2m" />
+                                        <MenuItem value={'2.5'} primaryText= "> 2.5m " />
                                     </DropDownMenu>
                                     <DropDownMenu value={this.state.weight} onChange={this.handleChange("weight")} style={styles.dropDown}>
-                                        <MenuItem value={"< 5"} primaryText="< 5" />
-                                        <MenuItem value={'5-20'} primaryText=">5 - 20" />
-                                        <MenuItem value={'>20'} primaryText="> 20" />
+                                        <MenuItem value={"< 5"} primaryText= "< 5kg" />
+                                        <MenuItem value={'5-20'} primaryText= "5 - 20kg" />
+                                        <MenuItem value={'>20'} primaryText= "> 20kg" />
                                     </DropDownMenu>
                                 </div>
                             </td>

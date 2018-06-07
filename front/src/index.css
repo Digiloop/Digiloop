@@ -594,7 +594,7 @@ text-align: right;
 
 #HouseCheckmark {
   position: absolute;
-  margin: 10px 0 0 29vw;
+  margin: 10px 0 0 10px;
   float: left;
   color: #FFF;
   fill: currentcolor;
@@ -608,7 +608,7 @@ text-align: right;
 
 #OrgCheckmark {
   position: absolute;
-  margin: 10px 0 0 4%;
+  margin: 10px 0 0 10px;
   float: left;
   color: #FFF;
   fill: currentcolor;

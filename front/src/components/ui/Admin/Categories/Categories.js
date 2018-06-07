@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { AppBar, Drawer, Menu } from 'material-ui';
-import { Toolbar, Tabs, Tab } from 'material-ui';
+import { Table, TableBody } from 'material-ui/Table';
+import { TableRow, TableRowColumn } from 'material-ui/Table';
 import { TextField, FlatButton } from 'material-ui';
 import { getCats, getSubCats } from '../../../../utils/fetchCategories';
 import { addNewCat, addNewSubCat } from '../../../../utils/editCategories';
 import { Radio, RadioGroup, FormControlLabel } from '@material-ui/core';
-import { MenuItem, DropDownMenu, SelectField } from 'material-ui';
+import { MenuItem, SelectField } from 'material-ui';
 import ActionInfo from 'material-ui/svg-icons/action/info';
-import { black } from 'material-ui/styles/colors';
 
 class Categories extends Component {
     constructor(props) {
@@ -170,10 +169,11 @@ class Categories extends Component {
 
         for (let k = 0; k < this.state.cats.length; k++) {
             showCats.push(
-                <table key={k} value={this.state.cats[k].CatName} >
-                    <tbody><tr onClick={() =>
-                        this.getCat(this.state.cats[k].CatId, this.state.cats[k].CatName)}>
-                        <td key={k}>{this.state.cats[k].CatName}</td></tr></tbody></table>
+                <TableRow key={k} value={this.state.cats[k].CatName} >
+                    <TableRowColumn>
+                        {this.state.cats[k].CatName}
+                    </TableRowColumn>
+                </TableRow>
             )
         }
 
@@ -181,9 +181,11 @@ class Categories extends Component {
         for (let j = 0; j < this.state.subCats.length; j++) {
             if (this.state.subCats[j].CatId === this.state.value) {
                 subCats.push(
-                    <div key={j} >
-                        {this.state.subCats[j].subName}
-                    </div>
+                    <TableRow key={j} >
+                        <TableRowColumn>
+                            {this.state.subCats[j].subName}
+                        </TableRowColumn>
+                    </TableRow>
                 )
             }
         }
@@ -191,72 +193,74 @@ class Categories extends Component {
 
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
-                <div>
-                    <div className='categories'>
-                        <div className='cats' style={{ float: 'left', width: '30%', marginRight: '5%', marginLeft: '2%' }}>
-                            <div className='addCategory' >
-                                <div>
-                                    {this.state.catNameError ?
-                                        <p style={styles.errorStyle}>
-                                            <ActionInfo color={'white'} />
-                                            <b>Kategorian nimi ei saa olla tyhjä!</b> <br />
-                                        </p>
-                                        : <p></p>
-                                    }
-                                    <p className='addCatLabel'>Lisää kategoria:</p>
-                                    <TextField className='addCatField'
-                                        underlineShow={false}
-                                        style={styles.textField}
-                                        hintText='Uusi kategoria'
-                                        value={this.state.addCat}
-                                        onChange={this.handleCatFieldChange}
-                                    />
-                                </div>
-                                <RadioGroup
-                                    value={this.state.valueR}
-                                    onChange={this.handleChange}
-                                >
-                                    <FormControlLabel style={styles.radio} value='catname'
-                                        control={<Radio style={{ color: '#004225' }} />} label='Yläkategoria' />
-                                    <FormControlLabel style={styles.radio} value='subcatname'
-                                        control={<Radio style={{ color: '#004225' }} />} label='Alakategoria' />
-                                </RadioGroup>
-                                <div>
-
-                                    {this.state.catError ?
-                                        <p style={styles.errorStyle}>
-                                            <ActionInfo color={'white'} />
-                                            <b>Valitse kategoria.</b> <br />
-                                        </p>
-                                        : <p></p>
-                                    }
-                                    <SelectField
-                                        hintText='Valitse kategoria'
-                                        value={this.state.valueC}
-                                        onChange={this.handleCatChange}
-                                        style={styles.selectField}
-                                        iconStyle={{ fill: '#004225' }}
-                                    >
-                                        {cats}
-                                    </SelectField></div>
+                <div style={{ width: '100%', marginTop: '2%' }}>
+                    <div className='cats' style={{ float: 'left', width: '30%', marginRight: '5%', marginLeft: '2%' }}>
+                        <div className='addCategory' >
+                            <div>
+                                {this.state.catNameError ?
+                                    <p style={styles.errorStyle}>
+                                        <ActionInfo color={'white'} />
+                                        <b>Kategorian nimi ei saa olla tyhjä!</b> <br />
+                                    </p>
+                                    : <p></p>
+                                }
+                                <p className='addCatLabel'>Lisää kategoria:</p>
+                                <TextField className='addCatField'
+                                    underlineShow={false}
+                                    style={styles.textField}
+                                    hintText='Uusi kategoria'
+                                    value={this.state.addCat}
+                                    onChange={this.handleCatFieldChange}
+                                />
                             </div>
-                            <FlatButton
-                                label='Lisää'
-                                style={styles.button}
-                                backgroundColor={'#FFF'}
-                                onClick={() => this.addCats()}
-                            />
+                            <RadioGroup
+                                value={this.state.valueR}
+                                onChange={this.handleChange}
+                            >
+                                <FormControlLabel style={styles.radio} value='catname'
+                                    control={<Radio style={{ color: '#004225' }} />} label='Yläkategoria' />
+                                <FormControlLabel style={styles.radio} value='subcatname'
+                                    control={<Radio style={{ color: '#004225' }} />} label='Alakategoria' />
+                            </RadioGroup>
+                            <div>
+
+                                {this.state.catError ?
+                                    <p style={styles.errorStyle}>
+                                        <ActionInfo color={'white'} />
+                                        <b>Valitse kategoria.</b> <br />
+                                    </p>
+                                    : <p></p>
+                                }
+                                <SelectField
+                                    hintText='Valitse kategoria'
+                                    value={this.state.valueC}
+                                    onChange={this.handleCatChange}
+                                    style={styles.selectField}
+                                    iconStyle={{ fill: '#004225' }}
+                                >
+                                    {cats}
+                                </SelectField></div>
                         </div>
-                        <div className='Cat' style={{ float: 'left', width: '30%' }}>
-                            {showCats}
-                        </div>
-                        <div className='subCat' style={{ float: 'left', width: '30%' }}>
-                            {subCats}
-                        </div>
+                        <FlatButton
+                            label='Lisää'
+                            style={styles.button}
+                            backgroundColor={'#FFF'}
+                            onClick={() => this.addCats()}
+                        />
                     </div>
+                    <Table className='Cat' style={{ width: '20%', position: 'absolute', marginTop: '3%' }}
+                        onCellClick={(r) => this.getCat(this.state.cats[r].CatId, this.state.cats[r].CatName)} >
+                        <TableBody displayRowCheckbox={false}>
+                            {showCats}
+                        </TableBody>
+                    </Table>
+                    <Table className='subCat' style={{ width: '30%', marginTop: '2.5%', marginLeft: '40%' }}>
+                        <TableBody displayRowCheckbox={false}>
+                            {subCats}
+                        </TableBody>
+                    </Table>
                 </div>
             </MuiThemeProvider>
-
         );
     }
 }

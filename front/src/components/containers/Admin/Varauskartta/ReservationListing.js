@@ -1,12 +1,9 @@
-import ReservationListOptions from '../../../ui/Admin/Varauskartta/ReservationListOptions'
+import ReservationListing from '../../../ui/Admin/Varauskartta/ReservationListing'
 import { connect } from 'react-redux'
-import { setResOpt } from '../../../../actions'
 
 const mapStateToProps = (state, props) =>
   ({
-    rLOpt: state.resListOpt,
-    categories: state.categories,
-    subCategories: state.subCategories
+    rLOpt: state.resListOpt
   })
 
 const mapDispatchToProps = dispatch =>

@@ -2,175 +2,310 @@ import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import styles from '../../../../ArtunCSSsaadot.css';
 
-//let _ser, _batteries, _showRes
+import Checkbox from 'material-ui/Checkbox';
+import TextField from 'material-ui/TextField';
+import { RaisedButton } from 'material-ui';
+
 
 class ReservationListOptions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // categories
-      _ser: true,
-      _batteries: true,
-      _infoSecurity: true,
 
-      // subcategories
-      _serSmallSer: true,
-      _serBigSer: true,
-      _serDataSer: true,
-      _serLampSer: true,
-
-      _battNickelKadium: true,
-      _battNickelMetal: true,
-      _battOther: true,
-
-      _infosecDataSer: true,
-      _infosecPaper: true,
 
       // show reserved
-      _showRes: true,
+      showRes: true,
 
       // properties
-      _minWeight: 0,
-      _maxWeight: 0,
-      _minSize: 0,
-      _maxSize: 0,
-      _distance: 0
+      minWeight: 0,
+      maxWeight: 0,
+      minSize: 0,
+      maxSize: 0,
+      distance: 0,
+
+      // location data
+      userLocation: {
+        latitude: null,
+        longitude: null,
+        locationButtonDisable: true
+      }
     }
+    this.activateLocation = this.activateLocation.bind(this);
+    this.geoLocationSuccess = this.geoLocationSuccess.bind(this);
+    this.geoLocationError = this.geoLocationError.bind(this);
   }
 
 
+  componentDidMount() {
 
+    // get the existing states from store
+    // It will either be the initialstate, or a state set by the user
+    this.setState({
+      minWeight: this.props.rLOpt.minWeight,
+      maxWeight: this.props.rLOpt.maxWeight,
+      minSize: this.props.rLOpt.minSize,
+      maxSize: this.props.rLOpt.maxSize,
+      distance: this.props.rLOpt.distance,
+
+      userLocation: {
+        locationButtonDisable: this.props.rLOpt.userLocation.locationButtonDisable
+      }
+    })
+
+
+    // create states for categories
+    for (let i = 0; i < this.props.categories.length; i++) {
+
+      // create a state for each category, essentially setState({ <catName>: rLOpt.<catName> })
+      // if there is no existing data in store, set true, else set as existing data
+
+      if (this.props.rLOpt.categories[this.props.categories[i].CatName] === undefined) {
+        this.setState({ [this.props.categories[i].CatName]: true })
+      } else {
+        this.setState({ [this.props.categories[i].CatName]: this.props.rLOpt.categories[this.props.categories[i].CatName] })
+      }
+    }
+
+    // same for subcategories
+    for (let i = 0; i < this.props.categories.length; i++) {
+      for (let j = 0; j < this.props.subCategories.length; j++) {
+        if (this.props.subCategories[j].CatId === this.props.categories[i].CatId) {
+
+          // subcat name is created from main cat name + subcat name
+          let subCatState = this.props.categories[i].CatName + this.props.subCategories[j].subName;
+          subCatState = subCatState.toLowerCase();
+
+          if (this.props.rLOpt.subCategories[subCatState] === undefined) {
+            this.setState({ [subCatState]: true })
+          } else {
+            this.setState({ [subCatState]: this.props.rLOpt.subCategories[subCatState] })
+          }
+
+
+        }
+      }
+    }
+
+  }
+
+  // geoLocation success function
+  geoLocationSuccess(position) {
+    this.setState({
+      userLocation: {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+        locationButtonDisable: false
+      }
+    }, function () {
+      console.log("geosuccess")
+      console.log(this.state.userLocation.locationButtonDisable)
+    })
+  }
+
+  // geoLocation error function
+  geoLocationError() {
+    window.alert("Sijainti pitää olla käytössä, jos haluat filtteröidä etäisyyden mukaan.");
+  }
+
+  activateLocation() {
+
+    if (!navigator.geolocation) {
+      window.alert("Selaimesi ei tue sijaintia.");
+      return;
+    }
+
+
+    navigator.geolocation.getCurrentPosition(this.geoLocationSuccess, this.geoLocationError);
+
+  }
+
+
+  // when options' save button is pressed
   submit = e => {
-    e.preventDefault()
+    e.preventDefault() // don't refresh page
 
 
+    // create the cat/subcat packages for sending into store
+    let cats = {};
+    let subCats = {};
 
+    // category package
+    for (let i = 0; i < this.props.categories.length; i++) {
+      cats[this.props.categories[i].CatName] = this.state[this.props.categories[i].CatName];
+    }
+
+    // subcat package
+    for (let i = 0; i < this.props.categories.length; i++) {
+      for (let j = 0; j < this.props.subCategories.length; j++) {
+        if (this.props.subCategories[j].CatId === this.props.categories[i].CatId) {
+
+          // prepare the subcat's statename (parent catname + subname)
+          let subCatState = this.props.categories[i].CatName + this.props.subCategories[j].subName;
+          subCatState = subCatState.toLowerCase();
+          subCats[subCatState] = this.state[subCatState];
+        }
+      }
+    }
+
+    console.log("saving:")
+    console.log(this.state.userLocation)
+    // add the packages to the other settings, update to redux store
     this.props.onNewOptions({
-
       // categories
-      categories: {
-        ser: this.state._ser.checked,
-        batteries: this.state._batteries.checked,
-        infoSecurity: this.state._infoSecurity.checked,
-      },
+      categories: cats,
 
       // subcats
-      subCategories: {
-        serSmallSer: this.state._serSmallSer.checked,
-        serBigSer: this.state._serBigSer.checked,
-        serDataSer: this.state._serDataSer.checked,
-        serLampSer: this.state._serLampSer.checked,
-
-        battNickelKadium: this.state._battNickelKadium.checked,
-        battNickelMetal: this.state._battNickelMetal.checked,
-        battOther: this.state._battOther.checked,
-
-        infosecDataSer: this.state._infosecDataSer.checked,
-        infosecPapaer: this.state._infosecPaper.checked,
-      },
-
+      subCategories: subCats,
 
       // show reserved
-      showRes: this.state._showRes.checked,
+      showRes: this.state.showRes,
 
       // properties
-      minWeight: this.state._minWeight.value,
-      maxWeight: this.state._maxWeight.value,
-      minSize: this.state._minSize.value,
-      maxSize: this.state._maxSize.value,
-      distance: this.state._distance.value,
-    })
+      minWeight: this.state.minWeight,
+      maxWeight: this.state.maxWeight,
+      minSize: this.state.minSize,
+      maxSize: this.state.maxSize,
+      distance: this.state.distance,
+
+      // user's own location and is it in use
+      userLocation: this.state.userLocation,
+    });
   }
 
   render() {
 
+    let catBoxes = [];
+    let subCatBoxes = [];
 
-    // TODO create styling for options
+    // pre-build category checkboxes
+    for (let i = 0; i < this.props.categories.length; i++) {
+      catBoxes.push(
+
+        <tr key={"kattirivi" + i}>
+          <td className="type">{this.props.categories[i].CatName}</td>
+          <td>
+            <Checkbox
+              checked={this.state[this.props.categories[i].CatName]}
+              onCheck={(event, newValue) => this.setState({ [this.props.categories[i].CatName]: newValue })}
+            /></td>
+        </tr>
+      )
+    }
+    // shitty fix for checkboxes breking the div, creating scroll bars
+    catBoxes.push(<tr key={"spagettinenCheckBoxKorjausTableRownKorjausRowJokaVaatiJonkuHelvetinKeynJottaToimii"}><td><br /></td></tr>);
+
+    // pre-build subcategory checkboxes
+    for (let i = 0; i < this.props.categories.length; i++) {
+
+      // create the category-väliotsikot
+      subCatBoxes.push(<tr key={"subKattiOtsikko" + i}><td>{this.props.categories[i].CatName}</td></tr>);
+
+      for (let j = 0; j < this.props.subCategories.length; j++) {
+        if (this.props.subCategories[j].CatId === this.props.categories[i].CatId) {
+
+          // prepare the subcat's statename (parent catname + subname)
+          let subCatState = this.props.categories[i].CatName + this.props.subCategories[j].subName;
+          subCatState = subCatState.toLowerCase();
+          subCatBoxes.push(
+
+            <tr key={"subkattirivi" + j}>
+              <td className="type">{this.props.subCategories[j].subName}</td>
+              <td><Checkbox
+                checked={this.state[subCatState]}
+                onCheck={(event, newValue) => this.setState({ [subCatState]: newValue })}
+              /></td>
+            </tr>
+
+          );
+
+        }
+
+      }
+    }
+
+    const textFieldStyles = {
+      borderRadius: "3px",
+      top: "1px",
+      marginLeft: "3px",
+      width: "100px",
+      color: "white"
+    }
+    const inputStyle = {
+      color: "white"
+    }
+
+
     return (
       <MuiThemeProvider>
         <form onSubmit={this.submit} className="ResListOptForm">
 
           <div id="ResListOptionsPohjadiv">
             <div id="ResListOptionsColorDiv">
+
+              <input type="submit" id="submitButt" value="Tallenna"></input>
+
+              <table id="varatut">
+                <tbody>
+                  <tr>
+                    <td>Näytä varatut</td>
+                    <td><Checkbox
+                      checked={this.state.showRes}
+                      onCheck={(event, newValue) => this.setState({ showRes: newValue })}
+                    /></td>
+                  </tr>
+                </tbody>
+              </table>
+
               <table>
                 <tbody>
                   <tr>
                     <td>Paino (kg)</td>
-                    <td id="weightField"><input id="weight" ref={input => this.state._minWeight = input} type="textbox" maxLength="6" /> - <input id="weight" ref={input => this.state._maxWeight = input} type="textbox" maxLength="6" /></td>
+                    <td id="weightField">
+                      <TextField inputStyle={inputStyle} style={textFieldStyles} id="weightMin" className="weightOption" onChange={(event, newValue) => this.setState({ minWeight: event.target.value })} type="number" min="0" max="1000000" value={this.state.minWeight} />
+                      -
+                      <TextField inputStyle={inputStyle} style={textFieldStyles} id="weightMax" className="weightOption" onChange={(event, newValue) => this.setState({ maxWeight: event.target.value })} type="number" min="0" max="1000000" value={this.state.maxWeight} />
+                    </td>
                   </tr>
                   <tr>
                     <td>Koko (m<sup>3</sup>)</td>
-                    <td id="sizeField"><input id="size" ref={input => this.state._minSize = input} type="textbox" maxLength="6" /> - <input id="size" ref={input => this.state._maxSize = input} type="textbox" maxLength="6" /></td>
+                    <td id="sizeField">
+                      <TextField inputStyle={inputStyle} style={textFieldStyles} id="sizeMin" className="sizeOption" onChange={(event, newValue) => this.setState({ minSize: event.target.value })} type="number" min="0" max="1000000" value={this.state.minSize} />
+                      -
+                      <TextField inputStyle={inputStyle} style={textFieldStyles} id="sizeMax" className="sizeOption" onChange={(event, newValue) => this.setState({ maxSize: event.target.value })} type="number" min="0" max="1000000" value={this.state.maxSize} />
+                    </td>
                   </tr>
                   <tr>
                     <td>Etäisyys (km)</td>
-                    <td id="distanceField"><input id="distance" ref={input => this.state._distance = input} type="textbox" maxLength="6" /></td>
+                    <td id="distanceField">
+                      <TextField inputStyle={inputStyle} style={textFieldStyles} id="distance" onChange={(event, newValue) => this.setState({ distance: event.target.value })} type="number" value={this.state.distance}
+                        disabled={this.state.userLocation.locationButtonDisable} />
+                    </td>
                   </tr>
                   <tr>
-                    <td> &nbsp; </td>
+                    <td><RaisedButton onClick={this.activateLocation} disabled={!this.state.userLocation.locationButtonDisable} id="location" value="Käytä etäisyyttä" label="Käytä etäisyyttä" /></td>
                   </tr>
                 </tbody>
               </table>
 
-              <table>
-                <tbody>
-                  <tr>
-                    <td className="type">Ser</td>
-                    <td><input id="ser" ref={input => this.state._ser = input} type="checkbox" /></td>
 
-                    <td className="type">Akut</td>
-                    <td><input id="akut" ref={input => this.state._batteries = input} type="checkbox" /></td>
 
-                    <td className="type">Tietoturva</td>
-                    <td><input id="akut" ref={input => this.state._infoSecurity = input} type="checkbox" /></td>
-                  </tr>
+              <table id="katit">
 
-                  <tr>
-                    <td className="type">SER - Pieni SER</td>
-                    <td><input id="ser" ref={input => this.state._serSmallSer = input} type="checkbox" /></td>
-
-                    <td className="type">SER - Iso SER</td>
-                    <td><input id="ser" ref={input => this.state._serBigSer = input} type="checkbox" /></td>
-
-                    <td className="type">SER - Data SER</td>
-                    <td><input id="ser" ref={input => this.state._serDataSer = input} type="checkbox" /></td>
-
-                    <td className="type">SER - Lamppu SER</td>
-                    <td><input id="ser" ref={input => this.state._serLampSer = input} type="checkbox" /></td>
-
-                    <td className="type">Akut - Nikkelikadium</td>
-                    <td><input id="ser" ref={input => this.state._battNickelKadium = input} type="checkbox" /></td>
-
-                    <td className="type">Akut - Nikkelimetallihybridi</td>
-                    <td><input id="ser" ref={input => this.state._battNickelMetal = input} type="checkbox" /></td>
-
-                    <td className="type">Akut - Muut</td>
-                    <td><input id="ser" ref={input => this.state._battOther = input} type="checkbox" /></td>
-
-                    <td className="type">Tietoturva - Data SER</td>
-                    <td><input id="ser" ref={input => this.state._infosecDataSer = input} type="checkbox" /></td>
-
-                    <td className="type">Tietoturva - Paperi</td>
-                    <td><input id="ser" ref={input => this.state._infosecPaper = input} type="checkbox" /></td>
-
-                  </tr>
-
-                  <tr>
-                    <td> &nbsp; </td>
-                  </tr>
+                <tbody id="kattibody">
+                  <tr><td><h1 id="katetext">Kategoriat</h1></td></tr>
+                  {catBoxes}
                 </tbody>
               </table>
 
-              <table>
-                <tbody>
-                  <tr>
-                    <td>Näytä varatut</td>
-                    <td><input id="sRes" ref={input => this.state._showRes = input} type="checkbox" /></td>
-                  </tr>
+              <table id="alakatit">
+                <tbody id="alakattibody">
+
+                  <tr><td><h1 id="alakatetext">Alakategoriat</h1></td></tr>
+                  {subCatBoxes}
+
+
                 </tbody>
               </table>
-
-              <input type="submit" id="submitButt"></input>
 
             </div>
           </div>

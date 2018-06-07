@@ -17,7 +17,7 @@ const saveState = () =>
 const store = storeFactory(initialState)
 
 
-if (!debugMode) {
+if (debugMode) {
   // debug tools, don't leave in live version
   window.React = React
   window.Store = store

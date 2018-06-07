@@ -570,6 +570,28 @@ text-align: right;
   padding: 7px 7px 0 7px;
 }
 
+#CatsCheckbox {
+  float: right;
+  color: #FFF;
+  fill: currentcolor;
+  height: 4vw;
+  width: 4vw;
+  user-select: none;
+  border: 5px solid #004225;
+  border-radius: 100%;
+}
+
+#SubCatsCheckbox {
+  float: right;
+  color: #FFF;
+  fill: currentcolor;
+  height: 4vw;
+  width: 4vw;
+  user-select: none;
+  border: 5px solid #004225;
+  border-radius: 100%;
+}
+
 /* ADMIN */
 
 .addCatLabel {

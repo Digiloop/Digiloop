@@ -123,7 +123,7 @@ class CategoriesFields extends React.Component {
             if (this.props.categories[index].CatId === this.state.activeCatId) {
                 returnStyle = {
                     borderRadius: 4,
-                    border: '8px solid red',
+                    border: '8px solid #004225',
                     minWidth: '20vw',
                     maxWidth: 'inherit',
                     maxHeight: '25vw',
@@ -167,7 +167,7 @@ class CategoriesFields extends React.Component {
             if (this.props.proxyCategories[index].Id === this.state.activeProxyCatId) {
                 returnStyle = {
                     borderRadius: 4,
-                    border: '8px solid red',
+                    border: '8px solid #004225',
                     minWidth: '20vw',
                     maxWidth: 'inherit',
                     maxHeight: '20vw',
@@ -244,7 +244,7 @@ class CategoriesFields extends React.Component {
 
                     <h1 style={{ margin: '0', fontSize: '4vw', color: '#004225' }}>{this.props.categories[i].CatName}</h1>
                     <div style={this.categoryImageStyler(i, 0)} >
-                        {this.props.categories[i].CatId == this.state.activeCatId ? <CheckCircle /> : null}
+                        {this.props.categories[i].CatId == this.state.activeCatId ? <CheckCircle id="CatsCheckbox" /> : null}
                     </div>
                 </td>
             )
@@ -271,7 +271,7 @@ class CategoriesFields extends React.Component {
                                 key={k} >
                                 <h1 style={{ margin: '0', fontSize: '4vw', color: '#004225' }}>{this.props.proxyCategories[k].name}</h1>
                                 <div style={this.categoryImageStyler(k, 1)} >
-                                    {this.props.proxyCategories[k].Id == this.state.activeProxyCatId ? <CheckCircle /> : null}
+                                    {this.props.proxyCategories[k].Id == this.state.activeProxyCatId ? <CheckCircle id="SubCatsCheckbox" /> : null}
                                 </div>
                             </td>
                         )

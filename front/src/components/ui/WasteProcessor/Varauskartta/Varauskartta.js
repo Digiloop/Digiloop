@@ -27,6 +27,7 @@ class WasteProcessor extends Component {
     this.rliFiltering = this.rliFiltering.bind(this);
     this.getJunksData = this.getJunksData.bind(this);
     this.getDistance = this.getDistance.bind(this);
+    this.refreshJunks = this.refreshJunks.bind(this);
   }
 
   handleChange = (value) => {
@@ -37,7 +38,9 @@ class WasteProcessor extends Component {
 
   // fetch junk data
   getJunksData() {
+    console.log("VI GETTADE JUNKKADE NUADE")
     getJunkData().then((junks) => {
+      this.props.itemsToStore(junks);
       this.rliFiltering();
     });
   }
@@ -64,7 +67,8 @@ class WasteProcessor extends Component {
 
   // the filter function, that leaves only the necessary stuff to be displayed
   rliFiltering() {
-
+    console.log("NO FILLTTERÖI SIT SAATANA")
+    console.log(this.props.resListItems)
     let resListItemsFiltered = [];
 
 
@@ -111,7 +115,7 @@ class WasteProcessor extends Component {
       // distance limiters - seems to work
       // first check if location is being used, then compare it to each item and determine of the distance is
       // longer than what the max distance in options has set
-      
+
       if (!this.props.rLOpt.userLocation.locationButtonDisable) {
         if ((this.getDistance(this.props.rLOpt.userLocation.latitude, this.props.rLOpt.userLocation.longitude, this.props.resListItems[i].latitude, this.props.resListItems[i].longitude) / 1000) > this.props.rLOpt.distance) {
           pass = false;
@@ -135,6 +139,12 @@ class WasteProcessor extends Component {
     this.getJunksData();
   }
 
+  // refresh function, for when reservationListing has done something to change the items (ie. reserve one)
+  refreshJunks() {
+    console.log("PASKAA")
+    console.log("KAN DU WORKKADE NU FÖR HELVETEN")
+    this.getJunksData();
+  }
 
   showSearchOptions = () => {
     // TODO instead of updating when returning from options page,
@@ -166,7 +176,9 @@ class WasteProcessor extends Component {
               style={{ float: 'right', backgroundColor: '#004225' }} /></h2>
 
             <div className="subRight">
-              {this.state.showSO ? <ReservationListOptions /> : <ReservationListing items={this.state.rliFilt} />}
+              {this.state.showSO ?
+                <ReservationListOptions /> :
+                <ReservationListing refreshJunks={this.refreshJunks} items={this.state.rliFilt} />}
             </div>
           </div>
         </div>

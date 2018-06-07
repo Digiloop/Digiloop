@@ -2,6 +2,7 @@
 
 // set up ======================================================================
 // get all the tools we need
+var http = require('http');
 var https = require('https');
 var express = require('express');
 var session = require('express-session');
@@ -15,6 +16,7 @@ var cert = require('./app/cert')
 var options = cert;
 var maintcheck = require('./app/maint')
 var port = process.env.PORT || 443;
+var port2 = process.env.PORT2 || 80;
 var fileUpload = require('express-fileupload')
 var passport = require('passport');
 var serveIndex = require('serve-index');
@@ -100,12 +102,16 @@ app.use('/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': t
 //app.listen(port);
 //console.log('päkki pystys portissa ' + port);
 
-var server = https.createServer(options, app).listen(port, () => {
+https.createServer(options, app).listen(port, () => {
     console.log(`päkki pyörii portissa ${port}`);
 });
-
 /*
-app.listen(port, () => {
+app.listen(port2, () => {
     console.log("päkki pyörii portissa 80");
 });
 */
+
+http.createServer(function (req, res) {
+    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+    res.end();
+}).listen(80);

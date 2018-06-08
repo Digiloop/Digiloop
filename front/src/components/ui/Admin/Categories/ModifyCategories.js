@@ -76,9 +76,9 @@ class ModifyCategories extends Component {
     // Category id, pic address, rownumber, type: 0=category 1=fakecategory
     getCat = (cid, pic, x, type) => {
         if (type === 0) {
-            this.state.picUrl = '/images/categories/';
+            this.setState({ picUrl: '/images/categories/' });
         } else {
-            this.state.picUrl = '/images/subcategories/';
+            this.setState({ picUrl: '/images/subcategories/' });
         }
         this.setState({
             cid: cid,
@@ -103,7 +103,7 @@ class ModifyCategories extends Component {
             }
             console.log(statusData);
 
-            sendStatus(statusData).then(() => { this.getCategories(), this.getSubCategories(), this.getFakeCategories() });
+            sendStatus(statusData).then(() => { this.getCategories(); this.getSubCategories(); this.getFakeCategories() });
             this.close(y);
         });
     }
@@ -123,7 +123,7 @@ class ModifyCategories extends Component {
                 'name': this.state.newCatName,
                 'id': this.state.id
             }
-            sendNewCatName(renameData).then(() => { this.getCategories(), this.getSubCategories(), this.getFakeCategories() });
+            sendNewCatName(renameData).then(() => { this.getCategories(); this.getSubCategories(); this.getFakeCategories() });
             this.setState({ newCatName: '' })
             this.close(y);
         });

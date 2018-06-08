@@ -3,11 +3,10 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { TextField, FlatButton } from 'material-ui';
 import { getCats, getSubCats, getFakeCats } from '../../../../utils/fetchCategories';
-import { addNewCat, addNewSubCat, addNewFakeCat } from '../../../../utils/editCategories';
+import { addNewFakeCat } from '../../../../utils/editCategories';
 import { MenuItem, SelectField } from 'material-ui';
 import ActionInfo from 'material-ui/svg-icons/action/info';
-import { Table, TableBody, TableHeader } from 'material-ui/Table';
-import { TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
 
 class FakeCategories extends Component {
     constructor(props) {
@@ -182,7 +181,7 @@ class FakeCategories extends Component {
 
         for (let i = 0; i < this.state.cats.length; i++) {
             cats.push(
-                <MenuItem className='menuItems' value={this.state.cats[i].CatName} onClick={() =>
+                <MenuItem className='menuItems' onClick={() =>
                     this.getCat(this.state.cats[i].CatId, this.state.cats[i].CatName)}
                     key={i} value={this.state.cats[i].CatName}
                     primaryText={this.state.cats[i].CatName} />
@@ -192,7 +191,7 @@ class FakeCategories extends Component {
         for (let i = 0; i < this.state.subCats.length; i++) {
             if (this.state.subCats[i].CatId === this.state.value) {
                 subCats.push(
-                    <MenuItem className='menuItems' value={this.state.subCats[i].subName} onClick={() =>
+                    <MenuItem className='menuItems' onClick={() =>
                         this.getSubCat(this.state.subCats[i].subId, this.state.subCats[i].subName)} key={i}
                         value={this.state.subCats[i].subName}
                         primaryText={this.state.subCats[i].subName} />

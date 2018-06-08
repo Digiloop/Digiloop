@@ -54,20 +54,29 @@ class Admin extends Component {
       if (this.state.rows[i]) {
         users.push(
           <TableRow key={i} style={{ height: '200px' }}>
-            <TableRowColumn>
+            <TableRowColumn colSpan='1'>
               Nimi:<br />
+              Osoite:<br />
+              Kaupunki:<br />
               Sähköposti:<br />
+              Puhelinnumero:<br />
             </TableRowColumn>
-            <TableRowColumn>
+            <TableRowColumn colSpan='2'>
               {this.state.users[i].fname}{' ' + this.state.users[i].lname}<br />
+              {this.state.users[i].address}<br />
+              {this.state.users[i].zipcode}{' '+this.state.users[i].city}<br />
               {this.state.users[i].email}<br />
+              {this.state.users[i].phone}
+            </TableRowColumn>
+            <TableRowColumn colSpan='1'>
+              Button tulee tähä
             </TableRowColumn>
           </TableRow>
         )
       } else {
         users.push(
           <TableRow key={i}>
-            <TableRowColumn>
+            <TableRowColumn colSpan='4'>
               {this.state.users[i].fname}{' ' + this.state.users[i].lname}
             </TableRowColumn>
           </TableRow>

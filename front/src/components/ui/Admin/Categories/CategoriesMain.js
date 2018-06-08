@@ -3,8 +3,7 @@ import Categories from './Categories';
 import FakeCategories from './FakeCategories';
 import ModifyCategories from './ModifyCategories';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { AppBar, Menu } from 'material-ui';
-import { Toolbar, Tabs, Tab } from 'material-ui';
+import { Toolbar, Tabs, Tab, AppBar } from 'material-ui';
 
 class CategoriesMain extends Component {
     constructor(props) {

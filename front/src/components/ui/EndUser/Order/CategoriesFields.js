@@ -5,6 +5,8 @@ import CheckCircle from '@material-ui/icons/CheckCircle';
 import noImage from './imgMissingTransparent.png'
 import { BASE_URL } from '../../../../settings'
 
+import WindowSizeListener from 'react-window-size-listener'
+
 class CategoriesFields extends React.Component {
     constructor(props) {
         super(props);
@@ -22,7 +24,9 @@ class CategoriesFields extends React.Component {
 
             images: {
 
-            }
+            },
+
+            windowWidth: window.innerWidth
         };
         this.categoryImageStyler = this.categoryImageStyler.bind(this);
     }
@@ -45,6 +49,7 @@ class CategoriesFields extends React.Component {
             this.props.setCategoriesSelected(false);
         });
     }
+
 
     // CatId = subCategory CatId, subCat = subCategory name
     setSubCat = (subCatId, subCatName, proxyCatId, proxyCatName) => {
@@ -72,6 +77,7 @@ class CategoriesFields extends React.Component {
                 pcs: this.props.values.pcs,
                 size: this.props.values.size,
                 weight: this.props.values.weight,
+                description: this.props.values.description,
 
                 picture: this.props.values.picture
             }
@@ -118,7 +124,7 @@ class CategoriesFields extends React.Component {
                 imageUrl = BASE_URL + "/images/categories/" + this.props.categories[index].ImgReference;
             }
 
-            if(this.props.categories[index].CatId === this.state.activeCatId){
+            if (this.props.categories[index].CatId === this.state.activeCatId) {
                 borderStyle = '8px solid #004225'
             } else {
                 borderStyle = '8px solid white'
@@ -130,7 +136,7 @@ class CategoriesFields extends React.Component {
                 imageUrl = BASE_URL + "/images/subcategories/" + this.props.proxyCategories[index].imgReference;
             }
 
-            if(this.props.proxyCategories[index].Id === this.state.activeProxyCatId){
+            if (this.props.proxyCategories[index].Id === this.state.activeProxyCatId) {
                 borderStyle = '8px solid #004225'
             } else {
                 borderStyle = '8px solid white'
@@ -145,17 +151,9 @@ class CategoriesFields extends React.Component {
             borderRadius: 4,
             border: borderStyle,
 
-            /*
-            minWidth: '20vw',
-            maxWidth: 'inherit',
-            maxHeight: '200px',
-            minHeight: '20vw',
-            */
-            
-
-            width: window.innerWidth > 1000 ? "200px" : "150px",
-            height: "200px",
-
+            minWidth: this.state.windowWidth > 680 ? "150px" : "20vw",
+            maxWidth: this.state.windowWidth > 680 ? "inherit" : "inherit",
+            height: this.state.windowWidth > 680 ? "150px" : "20vw",
 
             marginRight: '1%',
             textAlign: 'center',
@@ -190,10 +188,10 @@ class CategoriesFields extends React.Component {
 
             trStyle: {
                 display: 'block',
-                width: '89%',
+                width: '100%',
                 overflowX: 'scroll',
                 whiteSpace: 'nowrap',
-                maxWidth: '70vw'
+                maxWidth: '100%'
             }
         };
 
@@ -208,9 +206,15 @@ class CategoriesFields extends React.Component {
                     onClick={() => this.setCat(this.props.categories[i].CatId, this.props.categories[i].CatName)}
                     key={i} >
 
-                    <h1 style={{ margin: '0', fontSize: '4vw', color: '#004225' }}>{this.props.categories[i].CatName}</h1>
+                    <h1 style={{ 
+                        margin: '0', 
+                        fontSize: '4vw', 
+                        color: '#004225', 
+                        fontSize: window.innerWidth > 680 ? "100%" : "4vw",
+                        padding: window.innerWidth > 680 ? "0" : "0 20px", 
+                        }}>{this.props.categories[i].CatName}</h1>
                     <div style={this.categoryImageStyler(i, 0)} >
-                        {this.props.categories[i].CatId == this.state.activeCatId ? <CheckCircle id="CatsCheckmark" style={{ height: '20%', width: '20%', margin: '5% 0 0 5%' }} /> : null}
+                        {this.props.categories[i].CatId == this.state.activeCatId ? <CheckCircle id="CatsCheckmark" style={{ height: '4vw', width: '4vw', margin: '5% 0 0 5%', width: window.innerWidth > 680 ? "30px" : "4vw", height: window.innerWidth > 680 ? "30px" : "4vw" }} /> : null}
                     </div>
                 </td>
             )
@@ -235,9 +239,15 @@ class CategoriesFields extends React.Component {
                                     this.props.proxyCategories[k].name
                                 )}
                                 key={k} >
-                                <h1 style={{ margin: '0', fontSize: '4vw', color: '#004225' }}>{this.props.proxyCategories[k].name}</h1>
+                                <h1 style={{ 
+                                    margin: '0', 
+                                    fontSize: '4vw', 
+                                    color: '#004225', 
+                                    fontSize: window.innerWidth > 680 ? "100%" : "4vw",
+                                    padding: window.innerWidth > 680 ? "0" : "0 20px"                                   
+                                    }}>{this.props.proxyCategories[k].name}</h1>
                                 <div style={this.categoryImageStyler(k, 1)} >
-                                    {this.props.proxyCategories[k].Id == this.state.activeProxyCatId ? <CheckCircle id="SubCatsCheckmark" style={{ height: '20%', width: '20%', margin: '5% 0 0 5%' }} /> : null}
+                                    {this.props.proxyCategories[k].Id == this.state.activeProxyCatId ? <CheckCircle id="SubCatsCheckmark" style={{ height: '4vw', width: '4vw', margin: '5% 0 0 5%', width: window.innerWidth > 680 ? "30px" : "4vw", height: window.innerWidth > 680 ? "30px" : "4vw" }} /> : null}
                                 </div>
                             </td>
                         )
@@ -251,14 +261,17 @@ class CategoriesFields extends React.Component {
 
         return (
             <div className="Container">
-                <table className="orderStructure">
-                    <tbody>
+                <table className="orderStructure" style={{display: 'block', minWidth:'99%', maxWidth:'100%'}}>
+                    <tbody style={{display: 'block'}}>
                         <h2 className="orderH2">Pääluokka</h2>
                         <tr style={styles.trStyle} >{cats}</tr>
                         {proxyCats.length !== 0 ? <h2 className="orderH2">Alakategoria</h2> : <tr></tr>}
                         <tr style={styles.trStyle} >{proxyCats}</tr>
                     </tbody>
                 </table>
+                <WindowSizeListener onResize={windowSize => {
+                    this.setState({ windowWidth: windowSize.windowWidth })
+                }} />
             </div >
         );
     }

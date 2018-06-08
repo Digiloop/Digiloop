@@ -8,7 +8,8 @@ class AddressFields extends React.Component {
         super(props);
         this.state = {
             allFilled: false,
-            isCompany: null
+            isCompany: null,
+            pickupInstructions: ""
         };
         this.checkFill = this.checkFill.bind(this);
         this.updateField = this.updateField.bind(this);
@@ -16,6 +17,10 @@ class AddressFields extends React.Component {
 
     // Updates the input fields, used by onChange -events of each field
     updateField(fieldName, newValue) {
+
+        console.log("Setting field:")
+        console.log(fieldName)
+        console.log(newValue)
         this.setState({ [fieldName]: newValue }, function () {
             this.checkFill(); // check's if all the fields are filled
         })

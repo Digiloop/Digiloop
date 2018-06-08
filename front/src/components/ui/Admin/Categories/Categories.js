@@ -19,6 +19,7 @@ class Categories extends Component {
             valueC: '',
             cat: '',
             cats: [],
+            rows: [],
             subCats: [],
             allCats: [],
             addCat: '',
@@ -42,10 +43,12 @@ class Categories extends Component {
     }
 
     // value = Category CatId, cat = Category name
-    getCat = (value, cat) => {
+    getCat = (value, cat, x) => {
         this.setState({
             value: value,
             cat: cat
+        }, function () {
+            this.expand(x);
         });
     }
 
@@ -101,6 +104,32 @@ class Categories extends Component {
     handleCatChange = (event, index, value) => {
         this.setState({ valueC: value, catError: false });
     };
+
+    // open row
+    expand(x) {
+
+        // close open ones
+        for (let i = 0; i < this.state.rows.length; i++) {
+            if (this.state.rows[i]) {
+                this.state.rows[i] = false;
+            }
+        }
+
+        // open new row
+        this.state.rows[x] = true;
+        this.setState({ rows: this.state.rows });
+    }
+
+    // close row
+    close(x) {
+
+        for (let i = 0; i < this.state.rows.length; i++) {
+            if (this.state.rows[i]) {
+                this.state.rows[i] = false;
+            }
+        }
+        this.setState({ rows: this.state.rows });
+    }
 
 
     componentDidMount() {
@@ -168,20 +197,30 @@ class Categories extends Component {
         }
 
         for (let k = 0; k < this.state.cats.length; k++) {
-            showCats.push(
-                <TableRow key={k} value={this.state.cats[k].CatName} >
-                    <TableRowColumn>
-                        {this.state.cats[k].CatName}
-                    </TableRowColumn>
-                </TableRow>
-            )
+            if (this.state.rows[k]) {
+                showCats.push(
+                    <TableRow key={k} style={{ backgroundColor: '#CCC' }} value={this.state.cats[k].CatName} >
+                        <TableRowColumn>
+                            {this.state.cats[k].CatName}
+                        </TableRowColumn>
+                    </TableRow>
+                )
+            } else {
+                showCats.push(
+                    <TableRow key={k} value={this.state.cats[k].CatName} >
+                        <TableRowColumn>
+                            {this.state.cats[k].CatName}
+                        </TableRowColumn>
+                    </TableRow>
+                )
+            }
         }
 
 
         for (let j = 0; j < this.state.subCats.length; j++) {
             if (this.state.subCats[j].CatId === this.state.value) {
                 subCats.push(
-                    <TableRow key={j} >
+                    <TableRow selectable={false} key={j} >
                         <TableRowColumn>
                             {this.state.subCats[j].subName}
                         </TableRowColumn>
@@ -249,8 +288,8 @@ class Categories extends Component {
                         />
                     </div>
                     <Table className='Cat' style={{ width: '20%', position: 'absolute', marginTop: '3%' }}
-                        onCellClick={(r) => this.getCat(this.state.cats[r].CatId, this.state.cats[r].CatName)} >
-                        <TableBody displayRowCheckbox={false}>
+                        onCellClick={(rowNumber) => this.getCat(this.state.cats[rowNumber].CatId, this.state.cats[rowNumber].CatName, rowNumber)} >
+                        <TableBody displayRowCheckbox={false} >
                             {showCats}
                         </TableBody>
                     </Table>

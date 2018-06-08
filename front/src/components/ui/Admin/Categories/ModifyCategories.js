@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { TextField, RaisedButton } from 'material-ui';
-import { MenuItem, SelectField, Divider } from 'material-ui';
-import { Table, TableBody, TableHeader } from 'material-ui/Table';
-import { TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+import { TextField, RaisedButton, FlatButton } from 'material-ui';
+import { MenuItem, SelectField } from 'material-ui';
+import { Table, TableBody } from 'material-ui/Table';
+import { TableRow, TableRowColumn } from 'material-ui/Table';
 import ImageUploader from 'react-images-upload';
 
 // fetchies
 import { getCats, getSubCats, getFakeCats } from '../../../../utils/fetchCategories';
-import { addNewCat, addNewSubCat, sendStatus, sendNewCatName } from '../../../../utils/editCategories';
+import { sendStatus, sendNewCatName, sendImage } from '../../../../utils/editCategories';
 import { BASE_URL } from '../../../../settings';
 
 class ModifyCategories extends Component {
@@ -29,7 +29,7 @@ class ModifyCategories extends Component {
             cats: [],
             subCats: [],
             fakeCats: [],
-            pictures: []
+            pictures: null
         }
         this.onDrop = this.onDrop.bind(this);
     }
@@ -64,16 +64,21 @@ class ModifyCategories extends Component {
     // picture
     onDrop(picture) {
         this.setState({
-            pictures: picture
+            pictures: picture[0]
         });
+    }
+
+    addImage() {
+        sendImage(this.state.pictures, this.state.type, this.state.cid);
+        console.log(this.state.type + ' ' + this.state.cid+' '+this.state.pictures);
     }
 
     // Category id, pic address, rownumber, type: 0=category 1=fakecategory
     getCat = (cid, pic, x, type) => {
         if (type === 0) {
-            this.state.picUrl = '/images/categories/';
+            this.setState({ picUrl: '/images/categories/' });
         } else {
-            this.state.picUrl = '/images/subcategories/';
+            this.setState({ picUrl: '/images/subcategories/' });
         }
         this.setState({
             cid: cid,
@@ -97,8 +102,8 @@ class ModifyCategories extends Component {
                 'id': this.state.id
             }
             console.log(statusData);
-            
-            sendStatus(statusData).then(() => { this.getCategories(), this.getSubCategories(), this.getFakeCategories() });
+
+            sendStatus(statusData).then(() => { this.getCategories(); this.getSubCategories(); this.getFakeCategories() });
             this.close(y);
         });
     }
@@ -118,7 +123,7 @@ class ModifyCategories extends Component {
                 'name': this.state.newCatName,
                 'id': this.state.id
             }
-            sendNewCatName(renameData).then(() => { this.getCategories(), this.getSubCategories(), this.getFakeCategories() });
+            sendNewCatName(renameData).then(() => { this.getCategories(); this.getSubCategories(); this.getFakeCategories() });
             this.setState({ newCatName: '' })
             this.close(y);
         });
@@ -186,21 +191,22 @@ class ModifyCategories extends Component {
             button: {
                 borderRadius: 25,
                 marginTop: '10%',
-                width: '50%'
+                width: '20%'
             }
         };
 
         const muiTheme = getMuiTheme({}, {
             palette: {
                 accent1Color: '#004225',
-            },
+            }
         });
 
         const cats = [];
         const subCats = [];
         const fakeCats = [];
+        console.log(this.state.cats)
         console.log(this.state.fakeCats);
-        
+
 
         // loop categories
         for (let i = 0; i < this.state.cats.length; i++) {
@@ -355,21 +361,28 @@ class ModifyCategories extends Component {
                         </div>
                     </div>
                     <div className='pictures' style={{ float: 'left', width: '40%', marginTop: '10%' }}>
-                        { this.state.valueC !== 'subCats' ?
-                            <div>{ this.state.pic === 'imagereferenssi' || this.state.pic === 'i can haz reference' ?
-                            <ImageUploader
-                                withIcon={false}
-                                withLabel={false}
-                                withPreview={true}
-                                buttonText='Valitse kuva'
-                                onChange={this.onDrop}
-                                imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                                maxFileSize={5242880}
-                            /> : <div>
-                            <img src={BASE_URL + this.state.picUrl + this.state.pic}></img>
-                            </div>
-                        }</div> : <div></div>
-                    }
+                        {this.state.valueC !== 'subCats' ?
+                            <div>{this.state.pic === 'imagereferenssi' || this.state.pic === 'i can haz reference' ?
+                                <div>
+                                <ImageUploader
+                                    withIcon={false}
+                                    withLabel={false}
+                                    withPreview={true}
+                                    buttonText='Valitse kuva'
+                                    onChange={this.onDrop}
+                                    imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                                    maxFileSize={5242880}
+                                />
+                                <FlatButton
+                                    label='Lisää kuva'
+                                    style={styles.button}
+                                    backgroundColor={'#FFF'}
+                                    onClick={() => this.addImage()}
+                                /></div> : <div>
+                                    <img src={BASE_URL + this.state.picUrl + this.state.pic}></img>
+                                </div>
+                            }</div> : <div></div>
+                        }
                     </div>
                 </div>
             </MuiThemeProvider>

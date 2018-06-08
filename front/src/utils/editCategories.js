@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BASE_URL } from './../settings';
 
-export { addNewCat, addNewSubCat, addNewFakeCat, sendStatus, sendNewCatName };
+export { addNewCat, addNewSubCat, addNewFakeCat, sendStatus, sendNewCatName, sendImage };
 
 function addNewCat(addCatName) {
   return fetch(BASE_URL + '/catADD', {
@@ -71,6 +71,28 @@ function sendNewCatName(renameData) {
     catType: renameData.catType,
     id: renameData.id,
     name: renameData.name
+  })
+    .then(response => response.data)
+    .catch(function (error) {
+      return error;
+    });
+}
+
+function sendImage(image, catType, id) {
+  let fd = new FormData();
+
+  console.log(image.length)
+  console.log(image)
+
+  fd.set('pic', image);
+  fd.set('catType', catType)
+  fd.set('id', id);
+
+  return axios({
+    method: 'post',
+    url: BASE_URL + '/imageCatAdd',
+    data: fd,
+    config: {headers: { 'Content-Type': 'multipart/form-data' }}
   })
     .then(response => response.data)
     .catch(function (error) {

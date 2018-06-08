@@ -1,6 +1,5 @@
 import Admin from '../../ui/Admin/Admin'
 import { connect } from 'react-redux'
-import { setResList } from '../../../actions';
 
 const mapStateToProps = (state, props) =>
   ({

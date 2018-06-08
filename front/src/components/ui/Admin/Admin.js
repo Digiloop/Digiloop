@@ -49,21 +49,45 @@ class Admin extends Component {
     const users = [];
     console.log(this.state.users);
 
-
+    // get users
     for (let i = 0; i < this.state.users.length; i++) {
-      users.push(
-        <TableRow key={i}>
-          <TableRowColumn>
-            {this.state.users[i].fname}{' ' + this.state.users[i].lname}
-          </TableRowColumn>
-        </TableRow>
-      )
+      if (this.state.rows[i]) {
+        users.push(
+          <TableRow key={i} style={{ height: '200px' }}>
+            <TableRowColumn colSpan='1'>
+              Nimi:<br />
+              Osoite:<br />
+              Kaupunki:<br />
+              Sähköposti:<br />
+              Puhelinnumero:<br />
+            </TableRowColumn>
+            <TableRowColumn colSpan='2'>
+              {this.state.users[i].fname}{' ' + this.state.users[i].lname}<br />
+              {this.state.users[i].address}<br />
+              {this.state.users[i].zipcode}{' '+this.state.users[i].city}<br />
+              {this.state.users[i].email}<br />
+              {this.state.users[i].phone}
+            </TableRowColumn>
+            <TableRowColumn colSpan='1'>
+              Button tulee tähä
+            </TableRowColumn>
+          </TableRow>
+        )
+      } else {
+        users.push(
+          <TableRow key={i}>
+            <TableRowColumn colSpan='4'>
+              {this.state.users[i].fname}{' ' + this.state.users[i].lname}
+            </TableRowColumn>
+          </TableRow>
+        )
+      }
     }
 
 
     return (
       <MuiThemeProvider>
-        <Table style={{ width: '60%', marginLeft: '5%', marginTop: '4%' }}>
+        <Table style={{ width: '60%', marginLeft: '5%', marginTop: '4%' }} onCellClick={rowNumber => this.expand(rowNumber)}>
           <TableBody displayRowCheckbox={false} >
             {users}
           </TableBody>

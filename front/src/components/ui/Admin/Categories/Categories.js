@@ -160,7 +160,7 @@ class Categories extends Component {
 
         for (let i = 0; i < this.state.cats.length; i++) {
             cats.push(
-                <MenuItem className='menuItems' value={this.state.cats[i].CatName} onClick={() =>
+                <MenuItem className='menuItems' onClick={() =>
                     this.getCat(this.state.cats[i].CatId, this.state.cats[i].CatName)}
                     key={i} value={this.state.cats[i].CatName}
                     primaryText={this.state.cats[i].CatName} />

@@ -62,12 +62,12 @@ class Summary extends React.Component {
 
 
 
-                console.log("Bäkkiilähetyssimulaatio testi #6")
+                console.log("Bäkkiilähetyssimulaatio testi #7")
                 console.log(finalizedData);
                 console.log(imageArray);
 
-                sendItemData(finalizedData);
-                sendItemImageData(imageArray);
+                //sendItemData(finalizedData);
+                sendItemImageData(imageArray, finalizedData);
                 //window.location.reload()
 
             } else {

@@ -108,98 +108,64 @@ class CategoriesFields extends React.Component {
 
         let returnStyle;
 
+        let imageUrl;
+        let borderStyle;
+
         if (type === 0) {
-
-
-            let imageUrl;
             if (!this.props.categoryUrlsExist[index]) {
                 imageUrl = noImage;
             } else {
                 imageUrl = BASE_URL + "/images/categories/" + this.props.categories[index].ImgReference;
             }
 
-
-
-            if (this.props.categories[index].CatId === this.state.activeCatId) {
-                returnStyle = {
-                    borderRadius: 4,
-                    border: '8px solid #004225',
-                    minWidth: '20vw',
-                    maxWidth: 'inherit',
-                    maxHeight: '25vw',
-                    minHeight: '20vw',
-                    marginRight: '1%',
-                    textAlign: 'center',
-                    fontSize: '5vw',
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "contain",
-                    backgroundPosition: "center",
-                    backgroundImage: "url(" + imageUrl + ")"
-                }
+            if(this.props.categories[index].CatId === this.state.activeCatId){
+                borderStyle = '8px solid #004225'
             } else {
-                returnStyle = {
-                    borderRadius: 4,
-                    border: '8px solid white',
-                    minWidth: '20vw',
-                    maxWidth: 'inherit',
-                    maxHeight: '20vw',
-                    minHeight: '20vw',
-                    marginRight: '1%',
-                    textAlign: 'center',
-                    fontSize: '5vw',
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "contain",
-                    backgroundPosition: "center",
-                    backgroundImage: "url(" + imageUrl + ")"
-                }
+                borderStyle = '8px solid white'
             }
-
         } else {
-
-            let imageUrl;
-
             if (!this.props.proxyCategoryUrlsExist[index]) {
                 imageUrl = noImage;
             } else {
                 imageUrl = BASE_URL + "/images/subcategories/" + this.props.proxyCategories[index].imgReference;
             }
 
-            if (this.props.proxyCategories[index].Id === this.state.activeProxyCatId) {
-                returnStyle = {
-                    borderRadius: 4,
-                    border: '8px solid #004225',
-                    minWidth: '20vw',
-                    maxWidth: 'inherit',
-                    maxHeight: '20vw',
-                    minHeight: '20vw',
-                    marginRight: '1%',
-                    textAlign: 'center',
-                    fontSize: '5vw',
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "contain",
-                    backgroundPosition: "center",
-                    backgroundImage: "url(" + imageUrl + ")"
-                }
+            if(this.props.proxyCategories[index].Id === this.state.activeProxyCatId){
+                borderStyle = '8px solid #004225'
             } else {
-                returnStyle = {
-                    borderRadius: 4,
-                    border: '8px solid white',
-                    minWidth: '20vw',
-                    maxWidth: 'inherit',
-                    maxHeight: '20vw',
-                    minHeight: '20vw',
-                    marginRight: '1%',
-                    textAlign: 'center',
-                    fontSize: ' 5vw',
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "contain",
-                    backgroundPosition: "center",
-                    backgroundImage: "url(" + imageUrl + ")"
-                }
+                borderStyle = '8px solid white'
             }
-
         }
 
+        console.log("Rakettiryhmä keittää hernekeittoa")
+        console.log(this.props.categories)
+        console.log(index)
+
+        returnStyle = {
+            borderRadius: 4,
+            border: borderStyle,
+
+            /*
+            minWidth: '20vw',
+            maxWidth: 'inherit',
+            maxHeight: '200px',
+            minHeight: '20vw',
+            */
+            
+
+            width: window.innerWidth > 1000 ? "200px" : "150px",
+            height: "200px",
+
+
+            marginRight: '1%',
+            textAlign: 'center',
+            fontSize: '5vw',
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "contain",
+            backgroundPosition: "center",
+            backgroundImage: "url(" + imageUrl + ")"
+
+        }
         return returnStyle;
 
     }
@@ -244,7 +210,7 @@ class CategoriesFields extends React.Component {
 
                     <h1 style={{ margin: '0', fontSize: '4vw', color: '#004225' }}>{this.props.categories[i].CatName}</h1>
                     <div style={this.categoryImageStyler(i, 0)} >
-                        {this.props.categories[i].CatId == this.state.activeCatId ? <CheckCircle id="CatsCheckmark" style={{height: '20%', width: '20%', margin: '5% 0 0 5%'}}/> : null}
+                        {this.props.categories[i].CatId == this.state.activeCatId ? <CheckCircle id="CatsCheckmark" style={{ height: '20%', width: '20%', margin: '5% 0 0 5%' }} /> : null}
                     </div>
                 </td>
             )
@@ -271,7 +237,7 @@ class CategoriesFields extends React.Component {
                                 key={k} >
                                 <h1 style={{ margin: '0', fontSize: '4vw', color: '#004225' }}>{this.props.proxyCategories[k].name}</h1>
                                 <div style={this.categoryImageStyler(k, 1)} >
-                                    {this.props.proxyCategories[k].Id == this.state.activeProxyCatId ? <CheckCircle id="SubCatsCheckmark" style={{height: '20%', width: '20%', margin: '5% 0 0 5%'}}/> : null}
+                                    {this.props.proxyCategories[k].Id == this.state.activeProxyCatId ? <CheckCircle id="SubCatsCheckmark" style={{ height: '20%', width: '20%', margin: '5% 0 0 5%' }} /> : null}
                                 </div>
                             </td>
                         )
@@ -289,7 +255,7 @@ class CategoriesFields extends React.Component {
                     <tbody>
                         <h2 className="orderH2">Pääluokka</h2>
                         <tr style={styles.trStyle} >{cats}</tr>
-                        {proxyCats.length !== 0 ? <h2 className="orderH2">Alakategoria</h2>: <tr></tr>}
+                        {proxyCats.length !== 0 ? <h2 className="orderH2">Alakategoria</h2> : <tr></tr>}
                         <tr style={styles.trStyle} >{proxyCats}</tr>
                     </tbody>
                 </table>

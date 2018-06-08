@@ -87,17 +87,24 @@ router.post('/feikkiCatAdd', (req, res) => {
 router.post('/imageCatAdd', (req, res) => {
   //console.log(req.get('Content-Type'));
   //console.log(req.files);
-  console.log(req.files)
+  //console.log(req.files)
   //console.log(req.files.pic)
   //console.log(typeof req.files.pic)
-  console.log(req.body)
-
+  //console.log(req.body)
+  let imgname;
   let cat = misk.selector(req.body.catType, ['Category', 'SubSubCats'], ['CatId', 'Id'], ['ImgReference', 'imgReference'])
   const query = 'UPDATE ' + cat[0] + ' SET ' + cat[2] + ' = ? WHERE ' + cat[1] + '  = ?'
-  imgname = `${req.body.id}_${req.files.pic.name}`;
-  misk.imageAdd(req.files.pic, req.body.catType, imgname)
-  sqldatahaku.querySql(query, [imgname, req.body.id])
-
+  //lazy way to make the imagereference null
+  if (req.body.nulli == 1) {
+    imgname = null
+    //misk.imageAdd(req.files.pic, req.body.catType, imgname)
+    console.log(query)
+    sqldatahaku.querySql(query, [imgname, req.body.id])
+  } else {
+    imgname = `${req.body.id}_${req.files.pic.name}`;
+    misk.imageAdd(req.files.pic, req.body.catType, imgname)
+    sqldatahaku.querySql(query, [imgname, req.body.id])
+  }
   //console.log(typeof req.files.image);
   //console.log(req.body.image);
   //console.log(req.body);

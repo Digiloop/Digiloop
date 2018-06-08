@@ -151,9 +151,9 @@ class CategoriesFields extends React.Component {
             borderRadius: 4,
             border: borderStyle,
 
-            minWidth: window.innerWidth > 680 ? "150px" : "20vw",
-            maxWidth: window.innerWidth > 680 ? "inherit" : "inherit",
-            height: window.innerWidth > 680 ? "150px" : "20vw",
+            minWidth: this.state.windowWidth > 680 ? "150px" : "20vw",
+            maxWidth: this.state.windowWidth > 680 ? "inherit" : "inherit",
+            height: this.state.windowWidth > 680 ? "150px" : "20vw",
 
             marginRight: '1%',
             textAlign: 'center',
@@ -188,10 +188,10 @@ class CategoriesFields extends React.Component {
 
             trStyle: {
                 display: 'block',
-                width: '89%',
+                width: '100%',
                 overflowX: 'scroll',
                 whiteSpace: 'nowrap',
-                maxWidth: '70vw'
+                maxWidth: '100%'
             }
         };
 
@@ -261,8 +261,8 @@ class CategoriesFields extends React.Component {
 
         return (
             <div className="Container">
-                <table className="orderStructure">
-                    <tbody>
+                <table className="orderStructure" style={{display: 'block', minWidth:'99%', maxWidth:'100%'}}>
+                    <tbody style={{display: 'block'}}>
                         <h2 className="orderH2">Pääluokka</h2>
                         <tr style={styles.trStyle} >{cats}</tr>
                         {proxyCats.length !== 0 ? <h2 className="orderH2">Alakategoria</h2> : <tr></tr>}

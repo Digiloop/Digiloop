@@ -17,15 +17,27 @@ module.exports = class misc {
         }
         return arr;
     }
+
+    spliceArray(vals) {
+        //here we transform keys from req.body to array
+       //let a = console.log(vals.category0)
+       let arr = []
+       let a = this.keyToArray(vals)
+       for (var i = 0; i < a.length; i++){
+         arr.push(a.splice(0,14))
+       }
+        //splice(0,14)
+     return arr;
+    }
     //takes 2 arrays and concats them together,func should take sqldatahaku.querySql function that does sql query which is the last parameter.
-    fuseItemArray(array1, array2, func, query) {
-        if (this.checkValidLength(array1, 14) === true) {
+    fuseItemArray(array1, array2, array3, func, query) {
             //so this thing here loops trough all req.body data
+            array1 = this.spliceArray(array1);
             for (var i = 0; i < array1.length; i++) {
-                func(query, this.keyToArray(array1[i]).concat(array2))
+                //console.log(this.spliceArray(array1[i]))
+                func(query, this.keyToArray(array1[i]).concat(array2).concat(Date.now() + array3[i].name))
+                this.imageAdd(array3[i], 2, Date.now() + array3[i].name)
             } // change req.body to array and fuse it with data from server.
-        }
-        else { console.log('noup') }
     }
 
     loopityLoop(array1, func) {

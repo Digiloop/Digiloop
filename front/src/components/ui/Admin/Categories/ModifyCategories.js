@@ -57,7 +57,10 @@ class ModifyCategories extends Component {
 
     // select category type
     handleSelectCatChange = (event, index, value) => {
-        this.setState({ valueC: value });
+        this.setState({
+            valueC: value,
+            pic: null
+        });
         this.expand();
     };
 
@@ -372,12 +375,11 @@ class ModifyCategories extends Component {
                             </Table>
                         </div>
                     </div>
-                    <div className='pictures' style={{ float: 'left', width: '40%' }}>
-                        <h2>Muokkaa kuvia</h2>
-                        {this.state.valueC !== 'subCats' ?
+                    <div className='pictures' style={{ float: 'left', width: '40%', marginTop: '8%' }}>                        
+                        {this.state.valueC !== 'subCats' && this.state.rows.length ?
                             <div>{this.state.pic === 'imagereferenssi' || this.state.pic === 'i can haz reference'
                                 || this.state.pic === null ?
-                                <div>
+                                <div><h2>Lisää kuva</h2>
                                     <ImageUploader
                                         withIcon={false}
                                         withLabel={false}
@@ -388,7 +390,7 @@ class ModifyCategories extends Component {
                                         maxFileSize={5242880}
                                     />
                                     <FlatButton
-                                        label='Lisää kuva'
+                                        label='Tallenna'
                                         style={styles.button}
                                         backgroundColor={'#FFF'}
                                         onClick={() => this.addImage()}

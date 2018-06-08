@@ -62,7 +62,7 @@ class Summary extends React.Component {
 
 
 
-                console.log("Bäkkiilähetyssimulaatio testi #6")
+                console.log("Bäkkiilähetyssimulaatio testi #7")
                 console.log(finalizedData);
                 console.log(imageArray);
 

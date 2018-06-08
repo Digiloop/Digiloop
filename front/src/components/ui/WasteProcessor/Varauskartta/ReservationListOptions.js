@@ -279,7 +279,7 @@ class ReservationListOptions extends Component {
                     </td>
                   </tr>
                   <tr>
-                    <td><RaisedButton onClick={this.activateLocation} id="location" value="Käytä etäisyyttä" label="Käytä etäisyyttä" /></td>
+                    <td><RaisedButton onClick={this.activateLocation} disabled={!this.state.userLocation.locationButtonDisable} id="location" value="Käytä etäisyyttä" label="Käytä etäisyyttä" /></td>
                   </tr>
                 </tbody>
               </table>

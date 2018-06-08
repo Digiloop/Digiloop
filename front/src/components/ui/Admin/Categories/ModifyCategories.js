@@ -68,9 +68,14 @@ class ModifyCategories extends Component {
         });
     }
 
+    // add image to category
     addImage() {
-        sendImage(this.state.pictures, this.state.type, this.state.cid);
-        console.log(this.state.type + ' ' + this.state.cid+' '+this.state.pictures);
+        sendImage(this.state.pictures, this.state.type, this.state.cid).then(() => { this.getCategories(); this.getFakeCategories() });
+    }
+
+    // delete picture
+    deleteImage() {
+        sendImage(this.state.pic, this.state.type, this.state.cid, 1).then(() => { this.getCategories(); this.getFakeCategories() });
     }
 
     // Category id, pic address, rownumber, type: 0=category 1=fakecategory
@@ -191,7 +196,14 @@ class ModifyCategories extends Component {
             button: {
                 borderRadius: 25,
                 marginTop: '10%',
-                width: '20%'
+                width: '30%',
+                padding: 0
+            },
+            image: {
+                height: '400px',
+                width: '400px',
+                objectFit: 'contain',
+                border: '1px solid white'
             }
         };
 
@@ -323,7 +335,7 @@ class ModifyCategories extends Component {
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div>
                     <div className='categories'>
-                        <div className='cats' style={{ float: 'left', width: '46%', marginRight: '2%', marginLeft: '2%' }}>
+                        <div className='cats' style={{ float: 'left', width: '36%', marginRight: '5%', marginLeft: '2%' }}>
                             <div className='modifyStatus' >
                                 <h2>Muokkaa kategorioita</h2>
                                 <p className='selectCatType'>Valitse kategoriatyyppi:</p>
@@ -360,27 +372,35 @@ class ModifyCategories extends Component {
                             </Table>
                         </div>
                     </div>
-                    <div className='pictures' style={{ float: 'left', width: '40%', marginTop: '10%' }}>
+                    <div className='pictures' style={{ float: 'left', width: '40%' }}>
+                        <h2>Muokkaa kuvia</h2>
                         {this.state.valueC !== 'subCats' ?
-                            <div>{this.state.pic === 'imagereferenssi' || this.state.pic === 'i can haz reference' ?
+                            <div>{this.state.pic === 'imagereferenssi' || this.state.pic === 'i can haz reference'
+                                || this.state.pic === null ?
                                 <div>
-                                <ImageUploader
-                                    withIcon={false}
-                                    withLabel={false}
-                                    withPreview={true}
-                                    buttonText='Valitse kuva'
-                                    onChange={this.onDrop}
-                                    imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                                    maxFileSize={5242880}
-                                />
-                                <FlatButton
-                                    label='Lisää kuva'
-                                    style={styles.button}
-                                    backgroundColor={'#FFF'}
-                                    onClick={() => this.addImage()}
-                                /></div> : <div>
-                                    <img src={BASE_URL + this.state.picUrl + this.state.pic}></img>
-                                </div>
+                                    <ImageUploader
+                                        withIcon={false}
+                                        withLabel={false}
+                                        withPreview={true}
+                                        buttonText='Valitse kuva'
+                                        onChange={this.onDrop}
+                                        imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                                        maxFileSize={5242880}
+                                    />
+                                    <FlatButton
+                                        label='Lisää kuva'
+                                        style={styles.button}
+                                        backgroundColor={'#FFF'}
+                                        onClick={() => this.addImage()}
+                                    /></div> : <div><div>
+                                        <img style={styles.image} src={BASE_URL + this.state.picUrl + this.state.pic}></img>
+                                    </div><div><FlatButton
+                                        label='Poista kuva'
+                                        style={styles.button}
+                                        backgroundColor={'#FFF'}
+                                        onClick={() => this.deleteImage()}
+                                    />
+                                    </div></div>
                             }</div> : <div></div>
                         }
                     </div>

@@ -217,7 +217,7 @@ class FakeCategories extends Component {
                     }
                 }
                 fakeCats.push(
-                    <TableRow key={i} style={{ height: '150px' }}>
+                    <TableRow key={i} style={{ height: '150px', backgroundColor: '#CCC' }}>
                         <TableRowColumn colSpan='4'>
                             Pääkategoria:<br />
                             Alakategoria:<br />

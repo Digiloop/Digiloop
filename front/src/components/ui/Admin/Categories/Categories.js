@@ -181,7 +181,7 @@ class Categories extends Component {
         for (let j = 0; j < this.state.subCats.length; j++) {
             if (this.state.subCats[j].CatId === this.state.value) {
                 subCats.push(
-                    <TableRow key={j} >
+                    <TableRow selectable={false} key={j} >
                         <TableRowColumn>
                             {this.state.subCats[j].subName}
                         </TableRowColumn>
@@ -249,8 +249,8 @@ class Categories extends Component {
                         />
                     </div>
                     <Table className='Cat' style={{ width: '20%', position: 'absolute', marginTop: '3%' }}
-                        onCellClick={(r) => this.getCat(this.state.cats[r].CatId, this.state.cats[r].CatName)} >
-                        <TableBody displayRowCheckbox={false}>
+                        onCellClick={(rowNumber) => this.getCat(this.state.cats[rowNumber].CatId, this.state.cats[rowNumber].CatName)} >
+                        <TableBody displayRowCheckbox={false} >
                             {showCats}
                         </TableBody>
                     </Table>

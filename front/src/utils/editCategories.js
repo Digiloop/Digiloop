@@ -78,15 +78,16 @@ function sendNewCatName(renameData) {
     });
 }
 
-function sendImage(image, catType, id) {
+function sendImage(image, catType, id, nulli) {
   let fd = new FormData();
 
-  console.log(image.length)
-  console.log(image)
+  // console.log(image.length)
+  // console.log(image)
 
   fd.set('pic', image);
   fd.set('catType', catType)
   fd.set('id', id);
+  fd.set('nulli', nulli);
 
   return axios({
     method: 'post',

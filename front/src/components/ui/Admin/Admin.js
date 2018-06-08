@@ -53,7 +53,7 @@ class Admin extends Component {
     for (let i = 0; i < this.state.users.length; i++) {
       if (this.state.rows[i]) {
         users.push(
-          <TableRow key={i} style={{ height: '200px' }}>
+          <TableRow key={i} style={{ height: '200px', backgroundColor: '#CCC' }}>
             <TableRowColumn colSpan='1'>
               Nimi:<br />
               Osoite:<br />

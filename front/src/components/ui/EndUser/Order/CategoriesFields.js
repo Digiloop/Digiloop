@@ -191,7 +191,7 @@ class CategoriesFields extends React.Component {
                 width: '100%',
                 overflowX: 'scroll',
                 whiteSpace: 'nowrap',
-                maxWidth: '78vw'
+                maxWidth: '100%'
             }
         };
 
@@ -262,7 +262,7 @@ class CategoriesFields extends React.Component {
         return (
             <div className="Container">
                 <table className="orderStructure" style={{display: 'block', minWidth:'99%', maxWidth:'100%'}}>
-                    <tbody>
+                    <tbody style={{display: 'block'}}>
                         <h2 className="orderH2">Pääluokka</h2>
                         <tr style={styles.trStyle} >{cats}</tr>
                         {proxyCats.length !== 0 ? <h2 className="orderH2">Alakategoria</h2> : <tr></tr>}

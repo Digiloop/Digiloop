@@ -10,6 +10,7 @@ class InfoFields extends React.Component {
             pcs: 1,
             size: 1,
             weight: 1,
+            description: "",
             picture: null
         };
         this.handleChange = this.handleChange.bind(this);
@@ -56,7 +57,8 @@ class InfoFields extends React.Component {
 
     componentDidMount() {
         console.log("Käpysoppa")
-        console.log(this.props.picture)
+        console.log(this.props)
+        console.log(this.props.values.description)
 
         if (this.props.values.pcs === undefined) {
             this.setState({
@@ -100,7 +102,7 @@ class InfoFields extends React.Component {
                 width: '31%',
                 backgroundColor: 'white',
                 marginLeft: '2%',
-                float: 'left'
+                float: 'left',
             },
             pTags: {
                 margin: '0',
@@ -120,7 +122,7 @@ class InfoFields extends React.Component {
                             <td>
                                 <label style={{ float: 'left', position: 'absolute', marginLeft: '2%' }}>
                                     {this.props.values.category}/<br />{this.props.values.subCat}</label>
-                                <div style={{ maxWidth:'35%', minWidth: '35%', maxHeight: '30%', minHeight: '50%', marginLeft: 'auto', overflow: 'hidden' }}>
+                                <div style={{ maxWidth:'35%', minWidth: '35%', maxHeight: '30%', minHeight: '50%', marginLeft: 'auto', overflow: 'hidden', padding: '0 0 0 10px' }}>
 
                                     <ImageUploader
                                         withIcon={false}

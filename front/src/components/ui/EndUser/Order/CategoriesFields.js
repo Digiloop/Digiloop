@@ -188,10 +188,10 @@ class CategoriesFields extends React.Component {
 
             trStyle: {
                 display: 'block',
-                width: '89%',
+                width: '100%',
                 overflowX: 'scroll',
                 whiteSpace: 'nowrap',
-                maxWidth: '70vw'
+                maxWidth: '78vw'
             }
         };
 
@@ -261,7 +261,7 @@ class CategoriesFields extends React.Component {
 
         return (
             <div className="Container">
-                <table className="orderStructure">
+                <table className="orderStructure" style={{display: 'block', minWidth:'99%', maxWidth:'100%'}}>
                     <tbody>
                         <h2 className="orderH2">Pääluokka</h2>
                         <tr style={styles.trStyle} >{cats}</tr>

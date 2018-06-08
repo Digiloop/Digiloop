@@ -151,17 +151,9 @@ class CategoriesFields extends React.Component {
             borderRadius: 4,
             border: borderStyle,
 
-            /*
-            minWidth: '20vw',
-            maxWidth: 'inherit',
-            maxHeight: '200px',
-            minHeight: '20vw',
-            */
-
-
-            width: window.innerWidth > 1000 ? "200px" : "150px",
-            height: "200px",
-
+            minWidth: window.innerWidth > 680 ? "150px" : "20vw",
+            maxWidth: window.innerWidth > 680 ? "150px" : "inherit",
+            height: window.innerWidth > 680 ? "150px" : "20vw",
 
             marginRight: '1%',
             textAlign: 'center',
@@ -214,9 +206,15 @@ class CategoriesFields extends React.Component {
                     onClick={() => this.setCat(this.props.categories[i].CatId, this.props.categories[i].CatName)}
                     key={i} >
 
-                    <h1 style={{ margin: '0', fontSize: '4vw', color: '#004225' }}>{this.props.categories[i].CatName}</h1>
+                    <h1 style={{ 
+                        margin: '0', 
+                        fontSize: '4vw', 
+                        color: '#004225', 
+                        fontSize: window.innerWidth > 680 ? "100%" : "4vw",
+                        padding: window.innerWidth > 680 ? "0" : "0 20px", 
+                        }}>{this.props.categories[i].CatName}</h1>
                     <div style={this.categoryImageStyler(i, 0)} >
-                        {this.props.categories[i].CatId == this.state.activeCatId ? <CheckCircle id="CatsCheckmark" style={{ height: '20%', width: '20%', margin: '5% 0 0 5%' }} /> : null}
+                        {this.props.categories[i].CatId == this.state.activeCatId ? <CheckCircle id="CatsCheckmark" style={{ height: '4vw', width: '4vw', margin: '5% 0 0 5%', width: window.innerWidth > 680 ? "30px" : "4vw", height: window.innerWidth > 680 ? "30px" : "4vw" }} /> : null}
                     </div>
                 </td>
             )
@@ -241,9 +239,15 @@ class CategoriesFields extends React.Component {
                                     this.props.proxyCategories[k].name
                                 )}
                                 key={k} >
-                                <h1 style={{ margin: '0', fontSize: '4vw', color: '#004225' }}>{this.props.proxyCategories[k].name}</h1>
+                                <h1 style={{ 
+                                    margin: '0', 
+                                    fontSize: '4vw', 
+                                    color: '#004225', 
+                                    fontSize: window.innerWidth > 680 ? "100%" : "4vw",
+                                    padding: window.innerWidth > 680 ? "0" : "0 20px"                                   
+                                    }}>{this.props.proxyCategories[k].name}</h1>
                                 <div style={this.categoryImageStyler(k, 1)} >
-                                    {this.props.proxyCategories[k].Id == this.state.activeProxyCatId ? <CheckCircle id="SubCatsCheckmark" style={{ height: '20%', width: '20%', margin: '5% 0 0 5%' }} /> : null}
+                                    {this.props.proxyCategories[k].Id == this.state.activeProxyCatId ? <CheckCircle id="SubCatsCheckmark" style={{ height: '4vw', width: '4vw', margin: '5% 0 0 5%', width: window.innerWidth > 680 ? "30px" : "4vw", height: window.innerWidth > 680 ? "30px" : "4vw" }} /> : null}
                                 </div>
                             </td>
                         )

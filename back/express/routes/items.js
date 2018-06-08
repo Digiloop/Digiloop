@@ -14,24 +14,46 @@ router.get('/items', (req, res, next) => {
 });
 
 //POST
+router.post('/imageAdd', (req, res) => {
+    //console.log(req.get('Content-Type'));
+    console.log(req.files)
+    //console.log(req.files.pic)
+    //console.log(typeof req.files.pic)
+    console.log(req.body)
+  /*
+    const query = 'UPDATE junk' +  SET  + cat[2] + ' = ? WHERE ' + cat[1] + '  = ?'
+    imgname = `${req.body.id}_${req.files.pic.name}`;
+    misk.imageAdd(req.files.pic, req.body.catType, imgname)
+    sqldatahaku.querySql(query, [imgname, req.body.id])
+  */
+    //console.log(typeof req.files.image);
+    //console.log(req.body.image);
+    //console.log(req.body);
+    //console.log(typeof req.body);
+  
+    //console.log(Object.keys(req.body).length)
+    //misk.imageAdd(req.files.img0, 0);// categories,subcategories,users = 0/1/2
+    res.end();
+    //console.log(req.files.sample);
+  });
+
+  
 router.post('/itemAdd', (req, res, next) => {
-    //console.log(req.body)
+    //console.log(req.body.itemData)
+        console.log(req.body)
+        //console.log(req.body.pickupInstructions0)
+        //console.log(req.files)
+    //console.log(typeof req.body.itemData)
     //console.log(misk.checkValidLength(req.body.itemData, 14))
     //console.log(misk.checkValidValues(req.body.itemData));
     //misk.loopityLoop(req.body.itemData,console.log)
     //console.log(req.body.itemData)
     //console.log(Object.keys(req.body.itemData[0].picture).length)
     //console.log(misk.imageAdd(req.body.itemData[0].req.files.picture, 0));
-    const query = 'INSERT INTO junk ( city, iscompany, itemphone, wishbox, pickupaddr, zipcode, latitude, longitude, category, subCat, pcs, size, weight, description, junkdate, junkdateadded, status, owner ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);'
-    const secondary = [Date.now(), misk.dateThing(), 1, 47]//req.user.id
-    //misk.fuseItemArray(req.body.itemData, secondary, console.log, query)
-    //'2018-05-23 13:06:00'
-    //misk.dateThing().toString()
-    //misk.dateThing()
-    //console.log(req.body.itemData);
-    //undefined tarkastus
-
-    misk.fuseItemArray(req.body.itemData, secondary, sqldatahaku.querySql, query)//req.body = all items, secondary = data from backend, sqldatahaku.querySql = function that inserts stuff to database, query = sqlquery
+        const query = 'INSERT INTO junk ( category, city, description, iscompany, latitude, longitude, pcs, itemphone, wishbox, pickupaddr,  size, subCat, weight, junkdate, zipcode, junkdateadded, status, owner ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);'
+        const secondary = [Date.now(), misk.dateThing(), 1, 47]//req.user.id
+   
+    misk.fuseItemArray([req.body], secondary, sqldatahaku.querySql, query)//req.body = all items, secondary = data from backend, sqldatahaku.querySql = function that inserts stuff to database, query = sqlquery
     res.end();
 });
 

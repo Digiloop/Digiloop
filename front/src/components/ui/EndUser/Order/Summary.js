@@ -66,8 +66,8 @@ class Summary extends React.Component {
                 console.log(finalizedData);
                 console.log(imageArray);
 
-                sendItemData(finalizedData);
-                sendItemImageData(imageArray);
+                //sendItemData(finalizedData);
+                sendItemImageData(imageArray, finalizedData);
                 //window.location.reload()
 
             } else {

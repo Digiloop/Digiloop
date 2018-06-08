@@ -17,12 +17,10 @@ function sendItemData(itemData) {
 // multipart/form-data also requires a new FormData() method, which apparently sets some mysterious settings that
 // make things work
 
-function sendItemImageData(image) {
+function sendItemImageData(image, itemData) {
   let fd = new FormData();
 
-  console.log(image.length)
-  console.log(image)
-
+  fd.set("itemData", itemData)
   for(let i = 0; i < image.length; i++){
     let slot = "img" + i;
     fd.set(slot, image[i]);

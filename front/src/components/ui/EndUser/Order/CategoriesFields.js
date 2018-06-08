@@ -152,7 +152,7 @@ class CategoriesFields extends React.Component {
             border: borderStyle,
 
             minWidth: window.innerWidth > 680 ? "150px" : "20vw",
-            maxWidth: window.innerWidth > 680 ? "150px" : "inherit",
+            maxWidth: window.innerWidth > 680 ? "inherit" : "inherit",
             height: window.innerWidth > 680 ? "150px" : "20vw",
 
             marginRight: '1%',

@@ -528,6 +528,7 @@ text-align: right;
 
 .orderH2 {
   margin: auto;
+  padding-top: 20px;
 }
 
 .rightOrderField
@@ -571,22 +572,14 @@ text-align: right;
 }
 
 #CatsCheckmark {
-  float: right;
-  color: #FFF;
-  fill: currentcolor;
-  height: 4vw;
-  width: 4vw;
+  float: left;
   user-select: none;
   border: 5px solid #004225;
   border-radius: 100%;
 }
 
 #SubCatsCheckmark {
-  float: right;
-  color: #FFF;
-  fill: currentcolor;
-  height: 4vw;
-  width: 4vw;
+  float: left;
   user-select: none;
   border: 5px solid #004225;
   border-radius: 100%;

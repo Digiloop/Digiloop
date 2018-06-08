@@ -5,6 +5,8 @@ import CheckCircle from '@material-ui/icons/CheckCircle';
 import noImage from './imgMissingTransparent.png'
 import { BASE_URL } from '../../../../settings'
 
+import WindowSizeListener from 'react-window-size-listener'
+
 class CategoriesFields extends React.Component {
     constructor(props) {
         super(props);
@@ -22,7 +24,9 @@ class CategoriesFields extends React.Component {
 
             images: {
 
-            }
+            },
+
+            windowWidth: window.innerWidth
         };
         this.categoryImageStyler = this.categoryImageStyler.bind(this);
     }
@@ -45,6 +49,7 @@ class CategoriesFields extends React.Component {
             this.props.setCategoriesSelected(false);
         });
     }
+
 
     // CatId = subCategory CatId, subCat = subCategory name
     setSubCat = (subCatId, subCatName, proxyCatId, proxyCatName) => {
@@ -72,6 +77,7 @@ class CategoriesFields extends React.Component {
                 pcs: this.props.values.pcs,
                 size: this.props.values.size,
                 weight: this.props.values.weight,
+                description: this.props.values.description,
 
                 picture: this.props.values.picture
             }
@@ -118,7 +124,7 @@ class CategoriesFields extends React.Component {
                 imageUrl = BASE_URL + "/images/categories/" + this.props.categories[index].ImgReference;
             }
 
-            if(this.props.categories[index].CatId === this.state.activeCatId){
+            if (this.props.categories[index].CatId === this.state.activeCatId) {
                 borderStyle = '8px solid #004225'
             } else {
                 borderStyle = '8px solid white'
@@ -130,7 +136,7 @@ class CategoriesFields extends React.Component {
                 imageUrl = BASE_URL + "/images/subcategories/" + this.props.proxyCategories[index].imgReference;
             }
 
-            if(this.props.proxyCategories[index].Id === this.state.activeProxyCatId){
+            if (this.props.proxyCategories[index].Id === this.state.activeProxyCatId) {
                 borderStyle = '8px solid #004225'
             } else {
                 borderStyle = '8px solid white'
@@ -151,7 +157,7 @@ class CategoriesFields extends React.Component {
             maxHeight: '200px',
             minHeight: '20vw',
             */
-            
+
 
             width: window.innerWidth > 1000 ? "200px" : "150px",
             height: "200px",
@@ -259,6 +265,9 @@ class CategoriesFields extends React.Component {
                         <tr style={styles.trStyle} >{proxyCats}</tr>
                     </tbody>
                 </table>
+                <WindowSizeListener onResize={windowSize => {
+                    this.setState({ windowWidth: windowSize.windowWidth })
+                }} />
             </div >
         );
     }

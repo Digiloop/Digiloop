@@ -151,9 +151,9 @@ class CategoriesFields extends React.Component {
             borderRadius: 4,
             border: borderStyle,
 
-            minWidth: window.innerWidth > 680 ? "150px" : "20vw",
-            maxWidth: window.innerWidth > 680 ? "150px" : "inherit",
-            height: window.innerWidth > 680 ? "150px" : "20vw",
+            minWidth: this.state.windowWidth > 680 ? "150px" : "20vw",
+            maxWidth: this.state.windowWidth > 680 ? "150px" : "inherit",
+            height: this.state.windowWidth > 680 ? "150px" : "20vw",
 
             marginRight: '1%',
             textAlign: 'center',

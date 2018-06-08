@@ -40,9 +40,10 @@ router.post('/imageAdd', (req, res) => {
   
 router.post('/itemAdd', (req, res, next) => {
     //console.log(req.body.itemData)
-        console.log(req.body)
+        //console.log(req.body)
         //console.log(req.body.pickupInstructions0)
         //console.log(req.files)
+        //console.log(req.body)
     //console.log(typeof req.body.itemData)
     //console.log(misk.checkValidLength(req.body.itemData, 14))
     //console.log(misk.checkValidValues(req.body.itemData));
@@ -50,10 +51,13 @@ router.post('/itemAdd', (req, res, next) => {
     //console.log(req.body.itemData)
     //console.log(Object.keys(req.body.itemData[0].picture).length)
     //console.log(misk.imageAdd(req.body.itemData[0].req.files.picture, 0));
-        const query = 'INSERT INTO junk ( category, city, description, iscompany, latitude, longitude, pcs, itemphone, wishbox, pickupaddr,  size, subCat, weight, junkdate, zipcode, junkdateadded, status, owner ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);'
+    let third = misk.keyToArray(req.files)
+        const query = 'INSERT INTO junk ( category, city, description, iscompany, latitude, longitude, pcs, itemphone, wishbox, pickupaddr,  size, subCat, weight, zipcode, junkdate, junkdateadded, status, owner, picture ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);'
         const secondary = [Date.now(), misk.dateThing(), 1, 47]//req.user.id
-   
-    misk.fuseItemArray([req.body], secondary, sqldatahaku.querySql, query)//req.body = all items, secondary = data from backend, sqldatahaku.querySql = function that inserts stuff to database, query = sqlquery
+        //let imuguu = misk.keyToArray(req.files)[1].name
+        
+       // console.log(imuguu)
+    misk.fuseItemArray(req.body, secondary, third, sqldatahaku.querySql, query)//req.body = all items, secondary = data from backend, sqldatahaku.querySql = function that inserts stuff to database, query = sqlquery
     res.end();
 });
 

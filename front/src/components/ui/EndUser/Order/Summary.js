@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider, FlatButton, IconButton } from 'material-ui';
 
-import { sendItemData, sendItemImageData } from '../../../../utils/sendItem';
+import { sendItemData} from '../../../../utils/sendItem';
 
 
 
@@ -29,7 +29,7 @@ class Summary extends React.Component {
 
                 // we're creating a finalizedData object, where we'll do some final fixes before sending
                 let finalizedData = [];
-                let imageArray = [];
+                //let imageArray = [];
 
                 for (let i = 0; i < data.length; i++) {
 
@@ -52,10 +52,11 @@ class Summary extends React.Component {
                         weight: data[i].weight,
                         description: data[i].description,
 
+                        image: data[i].picture
                     }
 
                     // images will be saved as a seperate object, since it will need a seperate post request
-                    imageArray[i] = data[i].picture
+                    //imageArray[i] = data[i].picture
                 }
 
 
@@ -64,10 +65,10 @@ class Summary extends React.Component {
 
                 console.log("Bäkkiilähetyssimulaatio testi #7")
                 console.log(finalizedData);
-                console.log(imageArray);
+                //console.log(imageArray);
 
-                //sendItemData(finalizedData);
-                sendItemImageData(imageArray, finalizedData);
+                sendItemData(finalizedData);
+                //sendItemImageData(imageArray, finalizedData);
                 //window.location.reload()
 
             } else {

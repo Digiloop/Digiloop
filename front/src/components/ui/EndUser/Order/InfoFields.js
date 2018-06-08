@@ -10,6 +10,7 @@ class InfoFields extends React.Component {
             pcs: 1,
             size: 1,
             weight: 1,
+            description: "",
             picture: null
         };
         this.handleChange = this.handleChange.bind(this);
@@ -56,7 +57,8 @@ class InfoFields extends React.Component {
 
     componentDidMount() {
         console.log("Käpysoppa")
-        console.log(this.props.picture)
+        console.log(this.props)
+        console.log(this.props.values.description)
 
         if (this.props.values.pcs === undefined) {
             this.setState({

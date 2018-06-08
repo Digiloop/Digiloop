@@ -84,13 +84,20 @@ router.post('/feikkiCatAdd', (req, res) => {
 });
 
 
-router.post('/imageAdd', (req, res) => {
+router.post('/imageCatAdd', (req, res) => {
   //console.log(req.get('Content-Type'));
   //console.log(req.files);
-  let cat = misk.selector(req.body.catType, ['Category', 'subCat'], ['CatId', 'subId'])
-  const query = 'UPDATE ' + cat[0] + ' SET picture = ? WHERE ' + cat[1] + '  = ?'
-  misk.imageAdd(req.files.img0, req.body.catType, req.body.id)
-  sqldatahaku.querySql(query, [req.body.id, req.body.id])
+  console.log(req.files)
+  //console.log(req.files.pic)
+  //console.log(typeof req.files.pic)
+  console.log(req.body)
+
+  let cat = misk.selector(req.body.catType, ['Category', 'SubSubCats'], ['CatId', 'Id'], ['ImgReference', 'imgReference'])
+  const query = 'UPDATE ' + cat[0] + ' SET ' + cat[2] + ' = ? WHERE ' + cat[1] + '  = ?'
+  imgname = `${req.body.id}_${req.files.pic.name}`;
+  misk.imageAdd(req.files.pic, req.body.catType, imgname)
+  sqldatahaku.querySql(query, [imgname, req.body.id])
+
   //console.log(typeof req.files.image);
   //console.log(req.body.image);
   //console.log(req.body);

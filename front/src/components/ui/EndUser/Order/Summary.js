@@ -2,7 +2,7 @@ import React from 'react';
 import { Divider, FlatButton, IconButton } from 'material-ui';
 
 import { sendItemData} from '../../../../utils/sendItem';
-
+import theX from './theX.png'
 
 
 class Summary extends React.Component {
@@ -52,7 +52,7 @@ class Summary extends React.Component {
                         weight: data[i].weight,
                         description: data[i].description,
 
-                        image: data[i].picture
+                        image: data[i].picture == undefined ? theX : data[i].picture
                     }
 
                     // images will be saved as a seperate object, since it will need a seperate post request

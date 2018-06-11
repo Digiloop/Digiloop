@@ -236,9 +236,41 @@ table {
 
 
 /* LOGIN */
+#loginSignin {
+  position: absolute;
+  margin-top: 500px;
+  margin-left: 70px;
+  color: black;
+}
 
 .loginWrapper {
   width: 100%;
+}
+
+.loginHeaders {
+  text-align: left;
+  font-size: 20px;
+  margin: 10px 0 5px 0;
+}
+
+.loginParagraph {
+  margin: 0%;
+  padding: 0;
+}
+
+#loginText {
+  position: absolute;
+  margin-top: 55%;
+  color: #004225;
+  font-size: 15px;
+  padding-left: 10px;
+  width: 80%;
+}
+
+#bottomColor {
+  background-color: white;
+  width: 100%;
+  height: 40vh;
 }
 
 .loginContent {
@@ -246,15 +278,13 @@ table {
   background: url("components/ui/EndUser/Materials/Login-sticker.png"), url("components/ui/EndUser/Materials/käsitausta.png"); 
   background-repeat: no-repeat, no-repeat;
   background-position: 20vh 80vh, top 2vh left;
-  background-size: auto, contain;
-  -webkit-background-size: auto, contain;
-  -moz-background-size: auto, contain;
-  -o-background-size: auto, contain;
-  padding-top: 30vh;
+  background-size: contain;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  padding: 0;
   font-size: 200px;
-  max-width: 940px;   
-  min-width: 100%;
-  min-height: 100vh; 
+  height: 100%; 
   border: 0;
   color: #004225;
   }  

@@ -201,21 +201,21 @@ class FakeCategories extends Component {
 
         for (let i = 0; i < this.state.fakeCats.length; i++) {
             // get category and subcategory names
-            if (this.state.rows[i]) {
-                const tmp = [];
-                const tmp1 = [];
-                for (let j = 0; j < this.state.subCats.length; j++) {
-                    if (this.state.subCats[j].subId === this.state.fakeCats[i].subCatId) {
-                        tmp.push(this.state.subCats[j].subName)
+            const tmp = [];
+            const tmp1 = [];
+            for (let j = 0; j < this.state.subCats.length; j++) {
+                if (this.state.subCats[j].subId === this.state.fakeCats[i].subCatId) {
+                    tmp.push(this.state.subCats[j].subName)
 
-                        for (let k = 0; k < this.state.cats.length; k++) {
-                            if (this.state.cats[k].CatId === this.state.subCats[j].CatId) {
-                                tmp1.push(this.state.cats[k].CatName)
+                    for (let k = 0; k < this.state.cats.length; k++) {
+                        if (this.state.cats[k].CatId === this.state.subCats[j].CatId) {
+                            tmp1.push(this.state.cats[k].CatName)
 
-                            }
                         }
                     }
                 }
+            }
+            if (this.state.rows[i]) {
                 fakeCats.push(
                     <TableRow key={i} style={{ height: '150px', backgroundColor: '#CCC' }}>
                         <TableRowColumn colSpan='4'>
@@ -234,7 +234,7 @@ class FakeCategories extends Component {
                 fakeCats.push(
                     <TableRow key={i} >
                         <TableRowColumn colSpan='8'>
-                            {this.state.fakeCats[i].name}
+                            {tmp1+': '}{this.state.fakeCats[i].name}
                         </TableRowColumn>
                     </TableRow>
                 )

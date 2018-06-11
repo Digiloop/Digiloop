@@ -6,6 +6,7 @@ import { MenuItem, SelectField } from 'material-ui';
 import { Table, TableBody } from 'material-ui/Table';
 import { TableRow, TableRowColumn } from 'material-ui/Table';
 import ImageUploader from 'react-images-upload';
+import Divider from 'material-ui/Divider';
 
 // fetchies
 import { getCats, getSubCats, getFakeCats } from '../../../../utils/fetchCategories';
@@ -219,9 +220,6 @@ class ModifyCategories extends Component {
         const cats = [];
         const subCats = [];
         const fakeCats = [];
-        console.log(this.state.cats)
-        console.log(this.state.fakeCats);
-
 
         // loop categories
         for (let i = 0; i < this.state.cats.length; i++) {
@@ -298,10 +296,26 @@ class ModifyCategories extends Component {
 
         // loop fakecategories
         for (let k = 0; k < this.state.fakeCats.length; k++) {
+            // get category and subcategory names
+            const tmp = [];
+            const tmp1 = [];
+            for (let j = 0; j < this.state.subCats.length; j++) {
+                if (this.state.subCats[j].subId === this.state.fakeCats[k].subCatId) {
+                    tmp.push(this.state.subCats[j].subName)
+
+                    for (let l = 0; l < this.state.cats.length; l++) {
+                        if (this.state.cats[l].CatId === this.state.subCats[j].CatId) {
+                            tmp1.push(this.state.cats[l].CatName)
+
+                        }
+                    }
+                }
+            }
             if (this.state.rows[k]) {
                 fakeCats.push(
-                    <TableRow key={k} style={{ height: '150px' }} >
+                    <TableRow key={k} style={{ height: '150px', borderBottom: '1px solid black' }} >
                         <TableRowColumn colSpan='3'>
+                            {tmp1 + ' / ' + tmp}<br />
                             <TextField
                                 className="ChangeCatName"
                                 hintText="Kategorian nimi"
@@ -322,7 +336,7 @@ class ModifyCategories extends Component {
                 fakeCats.push(
                     <TableRow key={k} >
                         <TableRowColumn colSpan='3'>
-                            {this.state.fakeCats[k].name}
+                            {tmp1 + ': '}{this.state.fakeCats[k].name}
                         </TableRowColumn>
                         <TableRowColumn>
                             <RaisedButton label='Muokkaa' onClick={() => this.getCat(this.state.fakeCats[k].Id,
@@ -375,7 +389,7 @@ class ModifyCategories extends Component {
                             </Table>
                         </div>
                     </div>
-                    <div className='pictures' style={{ float: 'left', width: '40%', marginTop: '8%' }}>                        
+                    <div className='pictures' style={{ float: 'left', width: '40%', marginTop: '8%' }}>
                         {this.state.valueC !== 'subCats' && this.state.rows.length ?
                             <div>{this.state.pic === 'imagereferenssi' || this.state.pic === 'i can haz reference'
                                 || this.state.pic === null ?

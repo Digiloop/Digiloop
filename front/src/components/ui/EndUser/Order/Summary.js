@@ -2,7 +2,7 @@ import React from 'react';
 import { Divider, FlatButton, IconButton } from 'material-ui';
 
 import { sendItemData} from '../../../../utils/sendItem';
-
+import theX from './theX.png'
 
 
 class Summary extends React.Component {
@@ -59,11 +59,12 @@ class Summary extends React.Component {
                     //imageArray[i] = data[i].picture
                 }
 
-
+                
 
 
 
                 console.log("Bäkkiilähetyssimulaatio testi #7")
+                console.log(typeof(results[0].geometry.viewport.b.b))
                 console.log(finalizedData);
                 //console.log(imageArray);
 

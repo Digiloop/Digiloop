@@ -15,6 +15,7 @@ class InfoFields extends React.Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.onDrop = this.onDrop.bind(this)
+        this.removeImage = this.removeImage.bind(this)
     }
 
     onDrop(picture) {
@@ -27,6 +28,12 @@ class InfoFields extends React.Component {
     handleChange = (targetField) => (event, index, obj) => {
         this.setState({
             [targetField]: obj
+        })
+    }
+
+    removeImage(){
+        this.setState({
+            picture: null
         })
     }
 
@@ -121,8 +128,15 @@ class InfoFields extends React.Component {
                         <tr>
                             <td>
                                 <label style={{ float: 'left', position: 'absolute', marginLeft: '2%' }}>
-                                    {this.props.values.category}/<br />{this.props.values.subCat}</label>
+                                    {this.props.values.category}/<br />{this.props.values.proxySubCat}</label>
                                 <div style={{ maxWidth:'35%', minWidth: '35%', maxHeight: '30%', minHeight: '50%', marginLeft: 'auto', overflow: 'hidden', padding: '0 0 0 10px' }}>
+
+                                    <FlatButton
+                                    label="Poista Kuva"
+                                    disabled={this.state.picture == null}
+                                    style={{ borderRadius: 25 }}
+                                    backgroundColor={'#FFF'}
+                                    onClick={this.removeImage} />
 
                                     <ImageUploader
                                         withIcon={false}
@@ -176,8 +190,13 @@ class InfoFields extends React.Component {
                                 <label className="leftOrderLabel">Lisätietoja</label>
                                 <TextField className="rightOrderField"
                                     type="text" hintText='Televisio 32" tai liesi 60cm' style={styles}
-                                    multiLine={true} rows={3} rowsMax={7} defaultValue={this.props.values.description}
-                                    onChange={(event, newValue) => this.setState({ description: newValue })} /><br /><br />
+                                    multiLine={true} 
+                                    rows={3} 
+                                    rowsMax={7} 
+                                    defaultValue={this.props.values.description}
+                                    onChange={(event, newValue) => this.setState({ description: newValue })} 
+                                    maxLength="1000"
+                                    /><br /><br />
                             </td>
                         </tr>
                         <tr>

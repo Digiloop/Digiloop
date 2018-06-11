@@ -14,7 +14,7 @@ class FrontPageRedirect extends Component {
     render() {
 
         return (
-            <div>Redirecting</div>
+            <div>Redirecting...</div>
         );
     }
 

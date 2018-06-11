@@ -30,32 +30,11 @@ class Admin extends Component {
   // opening items
   expand(x, visibleRowsCount) {
 
-    console.log("Sepon spagetit")
-    console.log(x)
-    console.log(visibleRowsCount)
-    console.log(this.state.rows)
-
-    /*
-    // create a temp array, because it's easier to edit than the state one
-    let newArray = this.state.rows;
-
-    if (newArray[x]) { // closing the open item
-      newArray[x] = false;
-    } else { // opening another means first closing the open one
-      for (let i = 0; i < newArray.length; i++) {
-        if (newArray[i]) {
-          newArray[i] = false; // close the open one
-        }
-      }
-      newArray[x] = true; // open the new row
-    }
-    */
-
     let newArray = [];
 
-    for(let i = 0; i < visibleRowsCount; i++){
-      if(i === x){
-        if(this.state.rows[x] == true){
+    for (let i = 0; i < visibleRowsCount; i++) {
+      if (i === x) {
+        if (this.state.rows[x] == true) {
           newArray[i] = false;
         } else {
           newArray[i] = true;
@@ -124,25 +103,26 @@ class Admin extends Component {
 
     return (
       <MuiThemeProvider>
-
+        <div>
+          <Checkbox
+            checked={this.state.listAdmins}
+            onCheck={(event, newValue) => this.setState({ listAdmins: newValue })}
+          /> Sepot
         <Checkbox
-          checked={this.state.listAdmins}
-          onCheck={(event, newValue) => this.setState({ listAdmins: newValue })}
-        /> Sepot
+            checked={this.state.listWasteprocessors}
+            onCheck={(event, newValue) => this.setState({ listWasteprocessors: newValue })}
+          /> Tepot
         <Checkbox
-          checked={this.state.listWasteprocessors}
-          onCheck={(event, newValue) => this.setState({ listWasteprocessors: newValue })}
-        /> Tepot
-        <Checkbox
-          checked={this.state.listEndUsers}
-          onCheck={(event, newValue) => this.setState({ listEndUsers: newValue })}
-        /> Jepet
-
+            checked={this.state.listEndUsers}
+            onCheck={(event, newValue) => this.setState({ listEndUsers: newValue })}
+          /> Jepet
+  
         <Table style={{ width: '60%', marginLeft: '5%', marginTop: '4%' }} onCellClick={rowNumber => this.expand(rowNumber, visibleRowsCount)}>
-          <TableBody displayRowCheckbox={false} >
-            {users}
-          </TableBody>
-        </Table>
+            <TableBody displayRowCheckbox={false} >
+              {users}
+            </TableBody>
+          </Table>
+        </div>
       </MuiThemeProvider>
     );
   }

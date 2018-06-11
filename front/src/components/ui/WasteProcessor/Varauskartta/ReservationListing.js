@@ -125,7 +125,7 @@ class ReservationListing extends Component {
             {this.props.items[j].size}m<sup>3</sup><br />
             {this.props.items[j].weight}kg<br />
 
-            <img src={imageUrl} />
+            <img src={imageUrl} style={{maxWidth: '200px'}}  />
 
             <div>{this.props.items[j].description}</div><br />
             </TableRowColumn>

@@ -143,9 +143,9 @@ class CategoriesFields extends React.Component {
             }
         }
 
-        console.log("Rakettiryhmä keittää hernekeittoa")
-        console.log(this.props.categories)
-        console.log(index)
+        // console.log("Rakettiryhmä keittää hernekeittoa")
+        // console.log(this.props.categories)
+        // console.log(index)
 
         returnStyle = {
             borderRadius: 4,
@@ -263,9 +263,9 @@ class CategoriesFields extends React.Component {
             <div className="Container">
                 <table className="orderStructure" style={{display: 'block', minWidth:'99%', maxWidth:'100%'}}>
                     <tbody style={{display: 'block'}}>
-                        <h2 className="orderH2">Pääluokka</h2>
+                        <tr><td><h2 className="orderH2">Pääluokka</h2></td></tr>
                         <tr style={styles.trStyle} >{cats}</tr>
-                        {proxyCats.length !== 0 ? <h2 className="orderH2">Alakategoria</h2> : <tr></tr>}
+                        {proxyCats.length !== 0 ? <tr><td><h2 className="orderH2">Alakategoria</h2></td></tr> : <tr></tr>}
                         <tr style={styles.trStyle} >{proxyCats}</tr>
                     </tbody>
                 </table>

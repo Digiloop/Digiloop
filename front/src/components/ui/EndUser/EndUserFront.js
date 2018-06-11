@@ -3,6 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { AppBar, Drawer, Menu, MenuItem, ToolbarTitle } from 'material-ui';
 import { Toolbar, IconButton, Divider } from 'material-ui';
 import MenuIcon from '@material-ui/icons/Menu';
+import FrontPageRedirect from './FrontPage/FrontPageRedirect';
 import FrontPage from '../../containers/EndUser/FrontPage/FrontPage';
 import Profile from '../../containers/EndUser/Profile/Profile';
 import Historia from './History/History';
@@ -12,7 +13,7 @@ class EndUserFront extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      index: 0,
+      index: -1,
       open: false,
       frontPageNeedsReset: false
     };
@@ -60,7 +61,7 @@ class EndUserFront extends Component {
       open: false
     }, function(){
       if(this.state.index === 0){
-        window.location.reload()
+        // window.location.reload()
       }
     })
   }
@@ -101,7 +102,7 @@ class EndUserFront extends Component {
                 <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({ open })}
                   containerStyle={{ backgroundColor: '#004225' }}>
                   <Menu index={this.state.index} onChange={this.handleChange}>
-                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={0}>Etusivu</MenuItem>
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={-1}>Etusivu</MenuItem>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={1}>Tilaukset</MenuItem>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={2}>Oma profiili</MenuItem>
                     <Divider />
@@ -112,6 +113,7 @@ class EndUserFront extends Component {
               </div>
             </Toolbar>
           </AppBar>
+          {this.state.index === -1 && <FrontPageRedirect onUpdate={this.handleUpdate} />}
           {this.state.index === 0 && <FrontPage />}
           {this.state.index === 1 && <Historia />}
           {this.state.index === 2 && <Profile onUpdate={this.handleUpdate} />}

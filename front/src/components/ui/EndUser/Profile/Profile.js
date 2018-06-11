@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Divider, TextField, FlatButton } from 'material-ui';
-import styles from '../../../../index.css';
-import FrontPage from '../FrontPage/FrontPage';
 import { updateUserData } from '../../../../utils/updateUserData';
 
 class Profile extends Component {
@@ -47,7 +45,7 @@ class Profile extends Component {
 
   Submit(event) {    
     if (this.state.allFilled) {
-      var updateUserData = {
+      var updateUserdata = {
         "fname": this.state.firstName,
         "lname": this.state.lastName,
         "phone": this.state.phone,
@@ -57,8 +55,8 @@ class Profile extends Component {
       }
 
       console.log("Päivitetty data")
-      console.log(updateUserData)
-      updateUserData(updateUserData);
+      console.log(updateUserdata)
+      updateUserData(updateUserdata);
 
 
       this.props.onUpdate();

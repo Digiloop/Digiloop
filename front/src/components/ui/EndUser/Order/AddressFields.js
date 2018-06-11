@@ -7,6 +7,7 @@ class AddressFields extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            pickupaddr: "",
             allFilled: false,
             isCompany: null,
             pickupInstructions: ""
@@ -17,10 +18,6 @@ class AddressFields extends React.Component {
 
     // Updates the input fields, used by onChange -events of each field
     updateField(fieldName, newValue) {
-
-        console.log("Setting field:")
-        console.log(fieldName)
-        console.log(newValue)
         this.setState({ [fieldName]: newValue }, function () {
             this.checkFill(); // check's if all the fields are filled
         })
@@ -32,8 +29,11 @@ class AddressFields extends React.Component {
 
         let pass = true;
         for (var key in this.state) {
-            if (this.state[key] === '' || this.state[key] === undefined || this.state[key] === null) {
-                if (this.state[key] === this.state.pickupInstructions) continue;
+
+            //console.log(this.state[key])
+            if ((this.state[key] === '' || this.state[key] === undefined || this.state[key] === null) && key !== "pickupInstructions" ) {
+
+                //if (this.state[key] === this.state.pickupInstructions) continue;
                 pass = false;
             }
         }
@@ -176,9 +176,15 @@ class AddressFields extends React.Component {
                         <tr>
                             <td><label className="leftOrderLabel">Nouto-ohjeet:</label></td>
                             <td>    <TextField className="rightOrderField"
-                                type="text" hintText="Perjantai 30.4 klo 16:30. Käynti pääovesta. " style={styles}
-                                multiLine={true} rows={3} rowsMax={7} defaultValue={this.props.addressData.pickupInstructions}
-                                onChange={(event, newValue) => this.updateField("pickupInstructions", newValue)} /><br /><br />
+                                type="text" hintText="Perjantai 30.4 klo 16:30. Käynti pääovesta. " 
+                                style={styles}
+                                multiLine={true} 
+                                rows={3} 
+                                rowsMax={7} 
+                                defaultValue={this.props.addressData.pickupInstructions}
+                                onChange={(event, newValue) => this.updateField("pickupInstructions", newValue)} 
+                                maxLength="1000"
+                                /><br /><br />
                             </td>
                         </tr>
                         <tr>

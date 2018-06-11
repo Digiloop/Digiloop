@@ -78,6 +78,16 @@ class Login extends Component {
           showMenuIconButton={false}
         />
 
+        <div id="loginText">
+          <h2 className="loginHeaders">Digiloop</h2>
+          <p className="loginParagraph">Ilmaiset romun vastaanottopaikat, edulliset noudot ja arvoromun osto</p>
+
+          <h2 className="loginHeaders">Rekisteröidy ja tilaa ensimmäinen noutosi</h2>
+          <p className="loginParagraph">Digiloop on ilmainen. Noutopalveluyritykset ovat hinnoitelleetedulliset noutohinnat. Voit toimittaa myös itse tarpeettoman
+          metalliromun, sähkölaitteet, akut ja paristot Digiloop keräyspisteisiin.
+          </p>
+        </div>
+
         <div className='loginContent'>
           <form>
 
@@ -153,10 +163,13 @@ class Login extends Component {
           </form>
 
           <div className="LoginImage" />
+          
         </div>
-
+        <div id="bottomColor"></div>
       </div>
+      
     );
+    
   }
 }
 

@@ -52,7 +52,7 @@ class Summary extends React.Component {
                         weight: data[i].weight,
                         description: data[i].description,
 
-                        image: data[i].picture == undefined ? theX : data[i].picture
+                        image: data[i].picture
                     }
 
                     // images will be saved as a seperate object, since it will need a seperate post request

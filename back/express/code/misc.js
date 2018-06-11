@@ -9,8 +9,16 @@ module.exports = class misc {
         res.end();
     }
 
+    ifUserLevel(req, res, next) {
+
+        if (req.user.userlvl <= 1)
+            return next();
+
+        res.end();
+    }
+
     keyToArray(vals) {
-        //here we transform keys from req.body to array
+        //here we transform keys from anything to array
         let arr = [];
         for (var key in vals) {
             arr.push(vals[key]);
@@ -19,25 +27,26 @@ module.exports = class misc {
     }
 
     spliceArray(vals) {
-        //here we transform keys from req.body to array
-       //let a = console.log(vals.category0)
-       let arr = []
-       let a = this.keyToArray(vals)
-       for (var i = 0; i < a.length; i++){
-         arr.push(a.splice(0,14))
-       }
+        let arr = []
+        let a = this.keyToArray(vals)
+        for (var i = 0; i < a.length; i++) {
+            arr.push(a.splice(0, 14))
+        }
         //splice(0,14)
-     return arr;
+        return arr;
     }
     //takes 2 arrays and concats them together,func should take sqldatahaku.querySql function that does sql query which is the last parameter.
     fuseItemArray(array1, array2, array3, func, query) {
-            //so this thing here loops trough all req.body data
-            array1 = this.spliceArray(array1);
-            for (var i = 0; i < array1.length; i++) {
-                //console.log(this.spliceArray(array1[i]))
-                func(query, this.keyToArray(array1[i]).concat(array2).concat(Date.now() + array3[i].name))
-                this.imageAdd(array3[i], 2, Date.now() + array3[i].name)
-            } // change req.body to array and fuse it with data from server.
+        //so this thing here loops trough all req.body data
+        array1 = this.spliceArray(array1);
+        for (var i = 0; i < array1.length; i++) {
+            //console.log(this.spliceArray(array1[i]))
+            let datum = Date.now();
+                func(query, this.keyToArray(array1[i]).concat(array2).concat(datum + '_' + array3[i].name))
+                this.imageAdd(array3[i], 2, datum + '_' + array3[i].name)
+                console.log(array3[i].name)
+            
+        } // change req.body to array and fuse it with data from server.
     }
 
     loopityLoop(array1, func) {
@@ -78,8 +87,8 @@ module.exports = class misc {
     //returns all arrays with the first arguments value
     selector() {
         let all = []
-        for (var i = 0; i < arguments.length-1; i++){
-            all.push(arguments[i+1][arguments[0]])
+        for (var i = 0; i < arguments.length - 1; i++) {
+            all.push(arguments[i + 1][arguments[0]])
         }
         return all;
     }
@@ -90,12 +99,26 @@ module.exports = class misc {
         return datum.toISOString().replace(/T/, ' ').replace(/\..+/, '');
     }
 
+    isAdmin(req) {
+        if (req.user.userlvl == 0) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+
     // Add's images. On the server. To be used. In the future.
     //select = categories,subcategories or user
     imageAdd(files, select, name) {
         // categories,subcategories,users
+        if (name == 'p' && name == 'undefined') { 
+            console.log('undefined picture') 
+        }else{
+
+        
         let folder = this.selector(select, [`./kuvat/categories/${name}`, `./kuvat/subcategories/${name}`, `./kuvat/items/${name}`])
-        console.log(files);
+        //console.log(files);
         /*var userfolder = `./kuvat/users/' + ${req.user.username}`;
         let categories = `./kuvat/categories/${files.name}`;
         let subcategories = `./kuvat/subcategories/${files.name}`;
@@ -117,7 +140,7 @@ module.exports = class misc {
                 return res.status(500).send(err);
         })
 
-
+    }
 
     }
 

@@ -10,9 +10,10 @@ var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata; //ha
 
 
 //GET
-router.get('/categories', (req, res, next) => {
+router.get('/categories',(req, res, next) => {
   //const query = 'SELECT * FROM Category WHERE Status = 1'
-  const query = 'SELECT * FROM Category'// WHERE Status = 1'
+  const option = misk.selector(0,['SELECT * FROM Category','SELECT * FROM Category WHERE Status = 1',])
+  const query = option[0]
   sqldatahaku.queryGet(query, (err, result) => {
     if (err) throw err;
     res.json(result);

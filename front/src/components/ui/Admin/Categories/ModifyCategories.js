@@ -220,9 +220,6 @@ class ModifyCategories extends Component {
         const cats = [];
         const subCats = [];
         const fakeCats = [];
-        console.log(this.state.cats)
-        console.log(this.state.fakeCats);
-
 
         // loop categories
         for (let i = 0; i < this.state.cats.length; i++) {

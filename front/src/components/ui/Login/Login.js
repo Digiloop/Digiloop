@@ -62,8 +62,9 @@ class Login extends Component {
   render() {
 
     const errorStyle = {
-      marginTop: '1vh',
-      padding: '1vh',
+      position: 'absolute',
+      paddingTop: '535px',
+      paddingLeft: '15px',
       fontWeight: 400,
       fontSize: '12px',
       color: '#004225'
@@ -78,7 +79,18 @@ class Login extends Component {
           showMenuIconButton={false}
         />
 
-        <div id="loginText">
+        {this.state.loginError ?
+                <p style={errorStyle}>
+                  <ActionInfo color={'#004225'} /> <br />
+                  <b>Kirjautuminen epäonnistui.</b> <br />
+                  Väärä salasana tai käyttäjätunnus.
+                </p>
+                : <p></p>
+        }
+
+        <div id="loginText" style={{
+          marginTop:window.innerWidth > 545 ? "250px" : "175px",
+          width:window.innerWidth > 545 ? "450px" : "350px"}}>
           <h2 className="loginHeaders">Digiloop</h2>
           <p className="loginParagraph">Ilmaiset romun vastaanottopaikat, edulliset noudot ja arvoromun osto</p>
 
@@ -88,20 +100,20 @@ class Login extends Component {
           </p>
         </div>
 
-        <div className='loginContent'>
-          <form>
+        <h2 id="loginSignin">Kirjaudu sisään</h2>
+
+        <div className='loginContent' style={{width:window.innerWidth > 545 ? "545px" : "400px"}}> 
+        
+        
+              
+          <form style={{
+            paddingTop:window.innerWidth > 545 ? "600px" : "605px",
+            height:window.innerWidth > 545 ? "320px" : "95px"}}>
 
 
             <div className="loginGroup">
 
-              {this.state.loginError ?
-                <p style={errorStyle}>
-                  <ActionInfo color={'#004225'} /> <br />
-                  <b>Kirjautuminen epäonnistui.</b> <br />
-                  Väärä salasana tai käyttäjätunnus.
-                </p>
-                : <p></p>
-              }
+             
 
               {this.state.connectionError ?
                 <p style={errorStyle}>
@@ -165,7 +177,11 @@ class Login extends Component {
           <div className="LoginImage" />
           
         </div>
-        <div id="bottomColor"></div>
+        <div id="bottomColor" style={{
+          width:window.innerWidth > 545 ? "532px" : "400px", 
+          height:window.innerWidth > 545 ? "11vh" : "40vh"
+          }}>
+        </div>
       </div>
       
     );

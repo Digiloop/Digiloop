@@ -130,14 +130,15 @@ class InfoFields extends React.Component {
                             <td>
                                 <label style={{ float: 'left', position: 'absolute', marginLeft: '2%' }}>
                                     {this.props.values.category}/<br />{this.props.values.proxySubCat}</label>
-                                <div style={{ maxWidth:'35%', minWidth: '35%', maxHeight: '30%', minHeight: '50%', marginLeft: 'auto', overflow: 'hidden', padding: '0 0 0 10px' }}>
+                                <div style={{ width:'120px', height: '90px', marginLeft: 'auto', overflow: 'hidden', padding: '0 0 0 10px' }}>
 
                                     <FlatButton
                                     label="Poista Kuva"
                                     disabled={this.state.picture == null}
                                     style={{ 
                                         borderRadius: 25,
-                                        position: "absolute"
+                                        position: "absolute",
+                                        marginLeft: "18px"
                                      }}
                                     backgroundColor={'#FFF'}
                                     onClick={this.removeImage} />
@@ -153,11 +154,14 @@ class InfoFields extends React.Component {
                                         style={{
                                             //width: "150px"
                                         }}
+                                        
                                         buttonStyles={{
-                                            width: "120px",
+                                            width: "85px",
+                                            height: "30px",
+                                            padding: "0",
                                             position: "absolute",
                                             contentAlign: "left",
-                                            float: "left"
+                                            margin: '40px 40px 0 0'
                                         }}
                                     />
 

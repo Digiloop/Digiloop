@@ -328,10 +328,12 @@ table {
 /* react image uploader's container  */
 .fileContainer {
   background-color: transparent !important;
+  float: right;
   height: 50px;
   padding: 0px !important;
   margin-top: 0px !important;
-  margin-left: 190px !important;
+  margin-right: 40px !important;
+  box-shadow: none !important;
 }
 
 /* WASTEPROCESSOR.css */

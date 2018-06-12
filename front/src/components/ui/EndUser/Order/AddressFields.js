@@ -72,9 +72,7 @@ class AddressFields extends React.Component {
             'pickupaddr': this.props.addressData.pickupaddr,
             'zipcode': this.props.addressData.zipcode,
             'city': this.props.addressData.city,
-            'phone': this.props.addressData.phone,
-            'pickupInstructions': this.props.pickupInstructions,
-            'isCompany': this.props.addressData.iscompany
+            'phone': this.props.addressData.phone
         })
     }
 

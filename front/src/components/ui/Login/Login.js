@@ -86,14 +86,14 @@ class Login extends Component {
           showMenuIconButton={false}
         />
 
-        {this.state.connectionError ?
+         {this.state.connectionError ?
                 <p style={errorStyle}>
-                  {/* <ActionInfo color={'#004225'} /> <br /> */}
+                   {/*<ActionInfo color={'#004225'} /> <br /> */}
                   <b>Yhteyden muodostaminen epäonnistui.</b> <br />
                   Tarkista verkkoyhteytesi. Mikäli vika jatkuu, odota hetki ja yritä uudelleen.
                 </p>
                 : <p></p>
-        }
+          }
 
         {this.state.loginError ?
                 <p style={errorStyle}>
@@ -129,11 +129,7 @@ class Login extends Component {
             height:window.innerWidth > 545 ? "320px" : "95px"}}>
 
 
-            <div className="loginGroup">
-
-             
-
-              
+            <div className="loginGroup">   
 
               <p className="loginLabel">Sähköpostiosoite</p>
               <TextField className="loginInputField"

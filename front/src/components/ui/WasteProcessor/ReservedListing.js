@@ -10,87 +10,114 @@ import {
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 import { getJunkData } from '../../../utils/fetchItems';
+import { cancelReservation } from '../../../utils/reserveItems';
 
 class ReservedListing extends Component {
-constructor(props){
-  super(props);
-  this.state = {
+  constructor(props) {
+    super(props);
+    this.state = {
       itemList: []
-  }
-  this.listReserved = this.listReserved.bind(this);
- }
-
- // fetch junk data
-getJunksData() {
-  getJunkData().then((junks) => {
-    this.listReserved();
-  });
-}
-
-listReserved(){
-  const items = [];
-  for(let i = 0; i < this.props.items.length; i++){
-    if(this.props.items[i].status === 2){
-    items.push(
-      <TableRow key={i} >
-        <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br/>Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
-        <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
-        <TableRowColumn>Tila { this.getStatus( this.props.items[i].status ) }</TableRowColumn>
-      </TableRow>
-    )
-  }
+    }
+    this.listReserved = this.listReserved.bind(this);
   }
 
-  this.setState({
-    itemList: items
-  })
-}
-
-// get the list of available junks
-componentDidMount(){
-  this.getJunksData();
-}
-
-// turns status id into a printable status
-getStatus(status){
-  switch(status){
-    case 0:
-    return "Hidden";
-    break;
-
-    case 1:
-    return "Vapaa";
-    break;
-
-    case 2:
-    return "Varattu";
-    break;
-
-    case 3:
-    return "Matkalla";
-    break;
-
-    case 4:
-    return "Noudettu";
-    break;
-
-    default:
-    break;
+  // fetch junk data
+  getJunksData() {
+    getJunkData().then((junks) => {
+      this.listReserved();
+    });
   }
-}
 
-render() {
+  // call the cancel reserve API, setting it as free
+  cancelItemReserve(item) {
+    console.log("Cancel reservation!")
+    cancelReservation(item.junkID).then(
+      this.props.refreshJunks
+    );
+  }
+
+  // change item reservation status
+  reserve(status, item) {
+    console.log("Changing reservation")
+    /* reserveItem(status, item.fetcher, item.junkID).then(
+      this.props.refreshJunks
+    ); */
+  }
+
+  listReserved() {
+    const items = [];
+    for (let i = 0; i < this.props.items.length; i++) {
+      if (this.props.items[i].status === 2) {
+        items.push(
+          <TableRow key={i} >
+            <TableRowColumn colSpan='1'>{this.props.items[i].category} ({this.props.items[i].subCat})<br />Ilmoitettu: {this.props.items[i].junkdateadded}</TableRowColumn>
+            <TableRowColumn>Varattu: </TableRowColumn>
+            <TableRowColumn>Tila {this.getStatus(this.props.items[i].status)}</TableRowColumn>
+            <TableRowColumn>
+              <RaisedButton style={{ marginRight: '5%' }}
+                label="Peruuta"
+                onClick={e => this.cancelItemReserve(this.props.items[i])}
+                disabled={this.props.userInfo.id !== this.props.items[i].fetcher}
+              />
+              <RaisedButton
+                label="Noudettu"
+                onClick={e => this.reserve(4, this.props.items[i])}
+                disabled={this.props.userInfo.id !== this.props.items[i].fetcher}
+              />
+            </TableRowColumn>
+          </TableRow>
+        )
+      }
+    }
+
+    this.setState({
+      itemList: items
+    })
+  }
+
+  /* 
+          <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
+          <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
+          <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
+  */
+
+  // get the list of available junks
+  componentDidMount() {
+    this.getJunksData();
+  }
+
+  // turns status id into a printable status
+  getStatus(status) {
+    switch (status) {
+      case 0:
+        return "Hidden";
+
+      case 1:
+        return "Vapaa";
+
+      case 2:
+        return "Varattu";
+
+      case 3:
+        return "Matkalla";
+
+      case 4:
+        return "Noudettu";
+
+      default:
+    }
+  }
+
+  render() {
     return (
       <div className="FrontPageContainer">
-      <MuiThemeProvider>
-        <Table>
-          <TableBody displayRowCheckbox={false}>
-            {this.state.itemList}
-          </TableBody>
-        </Table>
-      </MuiThemeProvider>
+        <MuiThemeProvider>
+          <Table>
+            <TableBody displayRowCheckbox={false}>
+              {this.state.itemList}
+            </TableBody>
+          </Table>
+        </MuiThemeProvider>
       </div>
     );
   }

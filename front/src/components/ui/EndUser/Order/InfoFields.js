@@ -3,6 +3,7 @@ import { MenuItem, DropDownMenu, FlatButton, TextField } from 'material-ui';
 import ImageUploader from 'react-images-upload'
 
 
+
 class InfoFields extends React.Component {
     constructor(props) {
         super(props);
@@ -134,10 +135,13 @@ class InfoFields extends React.Component {
                                     <FlatButton
                                     label="Poista Kuva"
                                     disabled={this.state.picture == null}
-                                    style={{ borderRadius: 25 }}
+                                    style={{ 
+                                        borderRadius: 25,
+                                        position: "absolute"
+                                     }}
                                     backgroundColor={'#FFF'}
                                     onClick={this.removeImage} />
-
+                                    
                                     <ImageUploader
                                         withIcon={false}
                                         withLabel={false}
@@ -145,7 +149,19 @@ class InfoFields extends React.Component {
                                         onChange={this.onDrop}
                                         imgExtension={['.jpg', '.gif', '.png', '.gif']}
                                         maxFileSize={5242880}
+
+                                        style={{
+                                            //width: "150px"
+                                        }}
+                                        buttonStyles={{
+                                            width: "120px",
+                                            position: "absolute",
+                                            contentAlign: "left",
+                                            float: "left"
+                                        }}
                                     />
+
+                                    
 
                                 </div>
                                 <div id='ImagePreview'>
@@ -170,17 +186,17 @@ class InfoFields extends React.Component {
                                     <DropDownMenu value={this.state.pcs} onChange={this.handleChange("pcs")} style={styles.dropDown}>
                                         <MenuItem value={1} primaryText= "1" />
                                         <MenuItem value={"2-5"} primaryText= "2 - 5" />
-                                        <MenuItem value={">5"} primaryText= "> 5" />
+                                        <MenuItem value={"> 5"} primaryText= "> 5" />
                                     </DropDownMenu>
                                     <DropDownMenu value={this.state.size} onChange={this.handleChange("size")} style={styles.dropDown}>
                                         <MenuItem value={"< 5"} primaryText= "< 0.5m" />
                                         <MenuItem value={'0.5-2'} primaryText= "0.5 - 2m" />
-                                        <MenuItem value={'2.5'} primaryText= "> 2.5m " />
+                                        <MenuItem value={'> 2.5'} primaryText= "> 2.5m " />
                                     </DropDownMenu>
                                     <DropDownMenu value={this.state.weight} onChange={this.handleChange("weight")} style={styles.dropDown}>
                                         <MenuItem value={"< 5"} primaryText= "< 5kg" />
                                         <MenuItem value={'5-20'} primaryText= "5 - 20kg" />
-                                        <MenuItem value={'>20'} primaryText= "> 20kg" />
+                                        <MenuItem value={'> 20'} primaryText= "> 20kg" />
                                     </DropDownMenu>
                                 </div>
                             </td>

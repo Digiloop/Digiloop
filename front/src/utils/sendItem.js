@@ -21,21 +21,21 @@ function sendItemData(itemData) {
 
   // need to use this due to the image requiring multipart/form-data
   for (let i = 0; i < itemData.length; i++) {
-    fd.set("category" + i , itemData[i].category)
-    fd.set("city" + i , itemData[i].city)
-    fd.set("description" + i , itemData[i].description)
-    fd.set("iscompany" + i , itemData[i].iscompany)
-    fd.set("latitude" + i , itemData[i].latitude)
-    fd.set("longitude" + i , itemData[i].longitude)
-    fd.set("pcs" + i , itemData[i].pcs)
-    fd.set("phone" + i , itemData[i].phone)
-    fd.set("pickupInstructions" + i , itemData[i].pickupInstructions)
-    fd.set("pickupaddr" + i , itemData[i].pickupaddr)
-    fd.set("size" + i , itemData[i].size)
-    fd.set("subCat" + i , itemData[i].subCat)
-    fd.set("weight" + i ,itemData[i].weight)
-    fd.set("zipcode" + i , itemData[i].zipcode)
-    fd.set("img" + i , itemData[i].image)
+    fd.set(i + "category" , itemData[i].category)
+    fd.set(i + "city" , itemData[i].city)
+    fd.set(i + "description" , itemData[i].description)
+    fd.set(i + "iscompany" , itemData[i].iscompany)
+    fd.set(i + "latitude" , itemData[i].latitude)
+    fd.set(i + "longitude" , itemData[i].longitude)
+    fd.set(i + "pcs" , itemData[i].pcs)
+    fd.set(i + "phone" , itemData[i].phone)
+    fd.set(i + "pickupInstructions" , itemData[i].pickupInstructions)
+    fd.set(i + "pickupaddr" , itemData[i].pickupaddr)
+    fd.set(i + "size" , itemData[i].size)
+    fd.set(i + "subCat" , itemData[i].subCat)
+    fd.set(i + "weight" ,itemData[i].weight)
+    fd.set(i + "zipcode" , itemData[i].zipcode)
+    fd.set(i + "img" , itemData[i].image)
   }
 
 

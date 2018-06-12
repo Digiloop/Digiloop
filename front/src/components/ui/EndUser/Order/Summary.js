@@ -2,7 +2,6 @@ import React from 'react';
 import { Divider, FlatButton, IconButton } from 'material-ui';
 
 import { sendItemData} from '../../../../utils/sendItem';
-import theX from './theX.png'
 
 
 class Summary extends React.Component {
@@ -122,9 +121,9 @@ class Summary extends React.Component {
             items.push(
                 <tr key={"itemPreparationListing" + i}>
                     <td><pre>
-                        {this.props.values[i].category}/{this.props.values[i].subCat}<br />
-                        {this.props.values[i].size}m<sup>3</sup>/kpl   {this.props.values[i].weight} <br />
-                        {this.props.values[i].pcs} <br />
+                        {this.props.values[i].category}/{this.props.values[i].proxySubCat}<br />
+                        {this.props.values[i].size} m<sup>3</sup>/kpl   {this.props.values[i].weight} kg <br />
+                        {this.props.values[i].pcs} kpl<br />
                         {this.props.values[i].description}</pre>
 
                         <div id="SummaryImagePreviews">
@@ -168,7 +167,7 @@ class Summary extends React.Component {
                             <td style={{ textAlign: 'left', width: '30%' }}>
                                 <FlatButton
                                     label='Lisää Laitteita'
-                                    style={{ borderRadius: 25, marginRight: '10px'}}
+                                    style={{ borderRadius: 25, margin: '10px 0'}}
                                     backgroundColor={'#FFF'}
                                     onClick={(event) => this.props.nextItem(event)}
                                 />

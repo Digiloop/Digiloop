@@ -17,11 +17,14 @@ class InfoFields extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.onDrop = this.onDrop.bind(this)
         this.removeImage = this.removeImage.bind(this)
+        this.saveValues = this.saveValues.bind(this)
     }
 
     onDrop(picture) {
         this.setState({
             picture: picture[picture.length - 1]
+        }, function(){
+            this.saveValues();
         })
     }
 
@@ -29,18 +32,20 @@ class InfoFields extends React.Component {
     handleChange = (targetField) => (event, index, obj) => {
         this.setState({
             [targetField]: obj
+        }, function(){
+            this.saveValues();
         })
     }
 
     removeImage(){
         this.setState({
             picture: null
+        }, function(){
+            this.saveValues();
         })
     }
 
-
-    nextStep(event) {
-        event.preventDefault();
+    saveValues(){
         var data = {
 
             categoryId: this.props.values.categoryId,
@@ -59,14 +64,16 @@ class InfoFields extends React.Component {
             picture: this.state.picture
         }
         this.props.saveValues(data);
+    }
+
+    nextStep(event) {
+        event.preventDefault();
+        this.saveValues();
         this.props.nextStep()
 
     }
 
     componentDidMount() {
-        console.log("Käpysoppa")
-        console.log(this.props)
-        console.log(this.props.values.description)
 
         if (this.props.values.pcs === undefined) {
             this.setState({
@@ -209,12 +216,12 @@ class InfoFields extends React.Component {
                             <td>
                                 <label className="leftOrderLabel">Lisätietoja</label>
                                 <TextField className="rightOrderField"
-                                    type="text" hintText='Televisio 32" tai liesi 60cm' style={styles}
+                                    type="text" hintText='Kenraali Teksti Ilmoittautuu, herra Ylisotajumala' style={styles}
                                     multiLine={true} 
                                     rows={3} 
                                     rowsMax={7} 
                                     defaultValue={this.props.values.description}
-                                    onChange={(event, newValue) => this.setState({ description: newValue })} 
+                                    onChange={(event, newValue) => this.setState({ description: newValue }, function(){this.saveValues})} 
                                     maxLength="1000"
                                     /><br /><br />
                             </td>

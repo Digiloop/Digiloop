@@ -46,7 +46,7 @@ class Profile extends Component {
 
   Submit(event) {
     if (this.state.allFilled) {
-      var updateUserData = {
+      var updateUserdata = {
         "fname": this.state.firstName,
         "lname": this.state.lastName,
         "phone": this.state.phone,
@@ -55,7 +55,7 @@ class Profile extends Component {
         "city": this.state.city
       }
       
-      updateUserData(updateUserData);
+      updateUserData(updateUserdata);
 
       this.props.onUpdate();
       window.alert("Tiedot päivitetty!");

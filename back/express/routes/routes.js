@@ -35,7 +35,7 @@ module.exports = (app, passport, users) => {
         });
     });
 
-    app.post('/deleteUser', isLoggedIn, (req, res) => {
+    app.post('/deleteUser', (req, res) => {
         if (req.user.userlvl == 0) {
             connection.query('UPDATE users SET Status = 0 WHERE id = ?;', [req.body.id], (err, rows) => {
                 if (err) throw err;
@@ -58,7 +58,7 @@ module.exports = (app, passport, users) => {
         res.end();
     });
 
-    app.post('/announcementAdd', isLoggedIn, (req, res) => {
+    app.post('/announcementAdd', (req, res) => {
         var newItem = {
             info: req.body.info.toString(),
             dateBegin: req.body.dateBegin.toString(), // use the generateHash function in our user model
@@ -138,33 +138,9 @@ module.exports = (app, passport, users) => {
     // =====================================
     // LOGOUT ==============================
     // =====================================
-    app.get('/logout', isLoggedIn, (req, res) => {
+    app.get('/logout', (req, res) => {
         req.logout();
         //res.redirect('/login');
         res.end();
     });
 };
-
-
-// route middleware to make sure
-function isLoggedIn(req, res, next) {
-
-    // if user is authenticated in the session, carry on
-    if (req.isAuthenticated())
-        return next();
-
-    // if they aren't redirect them to the home page
-    //res.redirect('/');
-    res.end();
-}
-
-function ifUserLevel(req, res, next) {
-    //errori jos ei logannu sisää
-    // if user is authenticated in the session, carry on
-    if (req.user.userlvl <= 1)
-        return next();
-
-    // if they aren't redirect them to the home page
-    //res.redirect('/');
-    res.end();
-}

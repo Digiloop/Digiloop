@@ -2,7 +2,6 @@ import React from 'react';
 import { Divider, FlatButton, IconButton } from 'material-ui';
 
 import { sendItemData} from '../../../../utils/sendItem';
-import theX from './theX.png'
 
 
 class Summary extends React.Component {
@@ -52,7 +51,7 @@ class Summary extends React.Component {
                         weight: data[i].weight,
                         description: data[i].description,
 
-                        image: data[i].picture == undefined ? theX : data[i].picture
+                        image: data[i].picture
                     }
 
                     // images will be saved as a seperate object, since it will need a seperate post request
@@ -122,9 +121,9 @@ class Summary extends React.Component {
             items.push(
                 <tr key={"itemPreparationListing" + i}>
                     <td><pre>
-                        {this.props.values[i].category}/{this.props.values[i].subCat}<br />
-                        {this.props.values[i].size}m<sup>3</sup>/kpl   {this.props.values[i].weight} <br />
-                        {this.props.values[i].pcs} <br />
+                        {this.props.values[i].category}/{this.props.values[i].proxySubCat}<br />
+                        {this.props.values[i].size} m<sup>3</sup>/kpl   {this.props.values[i].weight} kg <br />
+                        {this.props.values[i].pcs} kpl<br />
                         {this.props.values[i].description}</pre>
 
                         <div id="SummaryImagePreviews">

@@ -325,6 +325,14 @@ table {
   padding-top: 7%;
 }
 
+/* react image uploader's container  */
+.fileContainer {
+  background-color: transparent !important;
+  height: 50px;
+  padding: 0px !important;
+  margin-top: 0px !important;
+  margin-left: 190px !important;
+}
 
 /* WASTEPROCESSOR.css */
 

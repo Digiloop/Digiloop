@@ -51,7 +51,7 @@ table {
   background-color: #004225;
   width: 100%;
   height: 100vh;
-  min-width: 400px;
+  min-width: 320px;
 }
 
 .App-logo {
@@ -247,12 +247,6 @@ table {
   width: 100%;
 }
 
-.loginHeaders {
-  text-align: left;
-  font-size: 20px;
-  margin: 10px 0 5px 0;
-}
-
 .loginParagraph {
   margin: 0%;
   padding: 0;
@@ -265,6 +259,8 @@ table {
   font-size: 15px;
   padding-left: 10px;
   width: 80%;
+  overflow: scroll;
+  height: 173px;
 }
 
 #bottomColor {
@@ -394,7 +390,7 @@ button.menu {
   font-family: kanit;
   margin: auto;
   margin-top: 0.1vh;
-  min-width: 400px;
+  min-width: 320px;
 }
 .app-bar-title {
     color: #004225;
@@ -485,7 +481,7 @@ text-align: right;
   margin-top: 15px;
   border-spacing: 1px;
   background-color: #fff;
-  box-shadow: -10px 3px rgb(166, 206, 106);
+  box-shadow: 0px 0px 0px 3px rgb(166, 206, 106);
   border-radius: 15px;
   color: #004225;
   font-family: kanit;
@@ -533,13 +529,13 @@ text-align: right;
 .orderStructure
 { 
   max-width: 90vh;
-  min-width: 100%;
+  min-width: 98%;
   margin: auto;
   padding: 1%;
-  margin-top: 15px;
+  margin-top: 1%;
   border-spacing: 3px;
   background-color: rgb(186, 221, 134);
-  box-shadow: -10px 3px rgb(166, 206, 106);
+  /* box-shadow: -10px 3px rgb(166, 206, 106);*/ /* LIIKAA VARJOJA*/
   border-radius: 15px;
   /*  -webkit-transform: rotate(1deg); */ /*poista jos et halua rotatea*/ 
   /* transform: rotate(1deg); */ /*poista jos et halua rotatea*/ 
@@ -552,7 +548,7 @@ text-align: right;
   font-weight: bold;
   margin: 0 0 0 1vw;
   padding: 0;
-  font-size: 18px;
+  font-size: 15px;
   color:#004225; 
 }
 

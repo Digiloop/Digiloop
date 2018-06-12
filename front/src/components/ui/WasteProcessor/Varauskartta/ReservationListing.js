@@ -43,7 +43,7 @@ class ReservationListing extends Component {
         return "Noudettu";
 
       default:
-        break;
+      break;
     }
   }
 

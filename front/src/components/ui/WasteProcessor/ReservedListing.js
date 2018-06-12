@@ -105,6 +105,7 @@ class ReservedListing extends Component {
         return "Noudettu";
 
       default:
+      break;
     }
   }
 

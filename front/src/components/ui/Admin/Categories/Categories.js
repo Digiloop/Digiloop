@@ -187,6 +187,7 @@ class Categories extends Component {
         const showCats = [];
         const subCats = [];
 
+        // loop menuitems
         for (let i = 0; i < this.state.cats.length; i++) {
             cats.push(
                 <MenuItem className='menuItems' onClick={() =>
@@ -196,6 +197,7 @@ class Categories extends Component {
             )
         }
 
+        // show categories
         for (let k = 0; k < this.state.cats.length; k++) {
             if (this.state.rows[k]) {
                 showCats.push(
@@ -216,7 +218,7 @@ class Categories extends Component {
             }
         }
 
-
+        // loop subcategories
         for (let j = 0; j < this.state.subCats.length; j++) {
             if (this.state.subCats[j].CatId === this.state.value) {
                 subCats.push(

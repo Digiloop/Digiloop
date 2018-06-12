@@ -61,23 +61,18 @@ getStatus(status){
   switch(status){
     case 0:
     return "Hidden";
-    break;
 
     case 1:
     return "Vapaa";
-    break;
 
     case 2:
     return "Varattu";
-    break;
 
     case 3:
     return "Matkalla";
-    break;
 
     case 4:
     return "Noudettu";
-    break;
 
     default:
     break;

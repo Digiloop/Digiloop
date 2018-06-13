@@ -390,6 +390,11 @@ button.menu {
   height: 75vh;
 }
 
+#locationDisabledInfo {
+  position: absolute; 
+  margin: 10px 0 0 0;
+}
+
 /* ENDUSERFRONT.css */
 
 .frontpake {
@@ -403,10 +408,10 @@ button.menu {
   min-width: 320px;
 }
 .app-bar-title {
-    color: #004225;
-    font-family: kanit;
-    font-weight: bold;
-    margin: 0 5vh 0 0;
+  color: #004225;
+  font-family: kanit;
+  font-weight: bold;
+  margin: 0 5vh 0 0;
 }
 
 .frontDrawer {
@@ -587,7 +592,7 @@ text-align: right;
 #ImagePreview {
   float: right;
   min-width: 50px;
-  max-width: 50%;
+  max-width: 35%;
   height: 100%;
   padding: 5px;
 }

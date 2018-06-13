@@ -120,12 +120,12 @@ class InfoFields extends React.Component {
                 float: 'left',
             },
             pTags: {
-                margin: '0',
-                padding: '0',
+                padding: '0px',
                 display: 'inline',
                 float: 'left',
-                marginRight: '13%',
-                marginLeft: '2%'
+                margin: '0px',
+                marginLeft: '3%',
+                width: '30%'
             }
         };
 
@@ -140,13 +140,24 @@ class InfoFields extends React.Component {
                                 <div style={{ width:'120px', height: '90px', marginLeft: 'auto', overflow: 'hidden', padding: '0 0 0 10px' }}>
 
                                     <FlatButton
-                                    label="Poista Kuva"
+                                    label="Poista Kuva" 
+                                    labelStyle={{
+                                        position: 'relative',
+                                        paddingLeft: '10px',
+                                        paddingRight: '10px',
+                                        verticalAlign: 'middle',
+                                        textTransform: 'none',
+                                        letterSpacing: '-1px',
+                                        fontWeight: '600',
+                                        fontSize: '14px',
+                                        color: 'black'
+                                    }}
                                     disabled={this.state.picture == null}
                                     style={{ 
                                         borderRadius: 25,
                                         position: "absolute",
-                                        marginLeft: "18px"
-                                     }}
+                                        marginLeft: "30px"
+                                    }}
                                     backgroundColor={'#FFF'}
                                     onClick={this.removeImage} />
                                     
@@ -175,21 +186,32 @@ class InfoFields extends React.Component {
                                     
 
                                 </div>
-                                <div id='ImagePreview'>
-                                    {this.state.picture != null ? <img style={{width: '100%', height:'100%'}} src={URL.createObjectURL(this.state.picture)} /> : <p>Ei valittua kuvaa</p>}
+                                <div id='ImagePreview' style={{
+                                    border: '2px solid #004225',
+                                    
+                                }}>
+                                    {this.state.picture != null ? <img style={{width: '100%', height:'100%'}} src={URL.createObjectURL(this.state.picture)} /> : <p style={{width: '90px'}}>Ei valittua kuvaa</p>}
                                     
                                 </div>
 
                             </td>
                         </tr>
                         <tr>
-                            <td>
-                                <div style={{ width: '100%', height: 'auto' }} >
-                                    <p style={styles.pTags}>Kpl</p>
-                                    <p style={{float: 'left', margin: '0 0 0 17%'}}>Mitat</p>
-                                    <p style={{float: 'left', margin: '0 0 0 28%'}}>Paino</p>
-                                </div>
-                            </td>
+                            <p style={styles.pTags}>Kpl</p>
+                            <p style={{
+                                textAlign: 'left',
+                                margin: '0px',
+                                width: '30%',
+                                position: 'absolute',
+                                marginLeft: '26%'
+                                }}>Mitat</p>
+                            <p style={{
+                                float: 'left',
+                                textAlign: 'left',
+                                margin: '0 0 0 51%',
+                                width: '30%',
+                                position: 'absolute',
+                                }}>Paino</p>
                         </tr>
                         <tr>   
                             <td>

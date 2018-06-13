@@ -170,7 +170,7 @@ class Login extends Component {
                 /*color="#004225"
                 inputStyle={{color: '#004225'}}
                 style={{ backgroundColor: 'white', border: '2px solid #004225' }} */
-                hintText="Enter your Username"
+                hintText="Sähköpostiosoite"
                 onChange={(event, newValue) => this.setState({ email: newValue })}
               />
             </div>
@@ -181,7 +181,7 @@ class Login extends Component {
                 underlineShow={false}
                 style={{ backgroundColor: 'white', border: '2px solid #004225', paddingLeft: '5px' }}
                 type="password"
-                hintText="Enter your Password"
+                hintText="Salasana"
                 onChange={(event, newValue) => this.setState({ password: newValue })}
               />
             </div>

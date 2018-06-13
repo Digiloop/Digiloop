@@ -7,7 +7,7 @@ import Gmap from './Map/Gmap.js'
 import ReservationListing from './ReservationListing'
 import ReservationListOptions from '../../../containers/Admin/Varauskartta/ReservationListOptions'
 
-import { getJunkData } from '../../../../utils/fetchItems';
+import { getJunkData, updateJunkData } from '../../../../utils/fetchItems';
 //import { getCats, getSubCats } from '../../../../utils/fetchCategories';
 // fetch function
 
@@ -28,6 +28,15 @@ class WasteProcessor extends Component {
     this.getJunksData = this.getJunksData.bind(this);
     this.getDistance = this.getDistance.bind(this);
     this.refreshJunks = this.refreshJunks.bind(this);
+
+    this.updateJunks = this.updateJunks.bind(this)
+  }
+
+  componentDidMount() {
+    this.getJunksData();
+
+    // updates new junks on one minute intervals
+    setInterval(this.updateJunks, 1000 * 60);
   }
 
   handleChange = (value) => {
@@ -38,11 +47,23 @@ class WasteProcessor extends Component {
 
   // fetch junk data
   getJunksData() {
-    console.log("VI GETTADE JUNKKADE NUADE")
     getJunkData().then((junks) => {
       this.props.itemsToStore(junks);
       this.rliFiltering();
     });
+  }
+
+  updateJunks(){
+    console.log("Rakettiryhmä tekee intervallitreeniä")
+    updateJunkData(this.props.resListItems.length).then((junks) => {
+      console.log(junks)
+      let updatedJunks = this.pprops.resListItems;
+      for(let i = 0; i < junks.length; i++){
+        updatedJunks = [...junks[i]]
+      }
+      this.props.itemsToStore(updatedJunks);
+      this.rliFiltering();
+    })
   }
 
   // Returns the distance between two coordinates in meters
@@ -116,7 +137,7 @@ class WasteProcessor extends Component {
       if (!this.props.rLOpt.userLocation.locationButtonDisable) {
 
         if ((this.getDistance(this.props.rLOpt.userLocation.latitude, this.props.rLOpt.userLocation.longitude, this.props.resListItems[i].latitude, this.props.resListItems[i].longitude)) > (this.props.rLOpt.distance * 1000)) {
-          console.log( "Failed: " + this.getDistance(this.props.rLOpt.userLocation.latitude, this.props.rLOpt.userLocation.longitude, this.props.resListItems[i].latitude, this.props.resListItems[i].longitude))
+          console.log("Failed: " + this.getDistance(this.props.rLOpt.userLocation.latitude, this.props.rLOpt.userLocation.longitude, this.props.resListItems[i].latitude, this.props.resListItems[i].longitude))
           pass = false;
         }
       }
@@ -134,9 +155,10 @@ class WasteProcessor extends Component {
     })
   }
 
-  componentDidMount() {
-    this.getJunksData();
-  }
+
+
+
+
 
   // refresh function, for when reservationListing has done something to change the items (ie. reserve one)
   refreshJunks() {

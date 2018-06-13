@@ -210,8 +210,8 @@ class CategoriesFields extends React.Component {
                         margin: '0', 
                         fontSize: '4vw', 
                         color: '#004225', 
-                        fontSize: window.innerWidth > 680 ? "100%" : "4vw",
-                        padding: window.innerWidth > 680 ? "0" : "0 20px", 
+                        fontSize: this.state.windowWidth > 680 ? "100%" : "4vw",
+                        padding: this.state.windowWidth > 680 ? "0" : "0 20px", 
                         }}>{this.props.categories[i].CatName}</h1>
                     <div style={this.categoryImageStyler(i, 0)} >
                         {this.props.categories[i].CatId == this.state.activeCatId ? <CheckCircle id="CatsCheckmark" style={{ height: '4vw', width: '4vw', margin: '5% 0 0 5%', width: window.innerWidth > 680 ? "30px" : "4vw", height: window.innerWidth > 680 ? "30px" : "4vw" }} /> : null}
@@ -243,8 +243,8 @@ class CategoriesFields extends React.Component {
                                     margin: '0', 
                                     fontSize: '4vw', 
                                     color: '#004225', 
-                                    fontSize: window.innerWidth > 680 ? "100%" : "4vw",
-                                    padding: window.innerWidth > 680 ? "0" : "0 20px"                                   
+                                    fontSize: this.state.windowWidth > 680 ? "100%" : "4vw",
+                                    padding: this.state.windowWidth > 680 ? "0" : "0 20px"                                   
                                     }}>{this.props.proxyCategories[k].name}</h1>
                                 <div style={this.categoryImageStyler(k, 1)} >
                                     {this.props.proxyCategories[k].Id == this.state.activeProxyCatId ? <CheckCircle id="SubCatsCheckmark" style={{ height: '4vw', width: '4vw', margin: '5% 0 0 5%', width: window.innerWidth > 680 ? "30px" : "4vw", height: window.innerWidth > 680 ? "30px" : "4vw" }} /> : null}

@@ -125,7 +125,8 @@ class InfoFields extends React.Component {
                 float: 'left',
                 margin: '0px',
                 marginLeft: '3%',
-                width: '30%'
+                width: '30%',
+                fontSize: '15px'
             }
         };
 
@@ -188,7 +189,7 @@ class InfoFields extends React.Component {
                                 </div>
                                 <div id='ImagePreview' style={{
                                     border: '2px solid #004225',
-                                    
+
                                 }}>
                                     {this.state.picture != null ? <img style={{width: '100%', height:'100%'}} src={URL.createObjectURL(this.state.picture)} /> : <p style={{width: '90px'}}>Ei valittua kuvaa</p>}
                                     
@@ -203,33 +204,35 @@ class InfoFields extends React.Component {
                                 margin: '0px',
                                 width: '30%',
                                 position: 'absolute',
-                                marginLeft: '26%'
-                                }}>Mitat</p>
+                                marginLeft: '26%',
+                                fontSize: '15px'
+                                }}>Mitat (m<sup>3</sup>)</p>
                             <p style={{
                                 float: 'left',
                                 textAlign: 'left',
-                                margin: '0 0 0 51%',
+                                margin: '0 0 0 52%',
                                 width: '30%',
                                 position: 'absolute',
-                                }}>Paino</p>
+                                fontSize: '15px'
+                                }}>Paino (kg)</p>
                         </tr>
                         <tr>   
                             <td>
                                 <div>
-                                    <DropDownMenu value={this.state.pcs} onChange={this.handleChange("pcs")} style={styles.dropDown}>
+                                    <DropDownMenu value={this.state.pcs} onChange={this.handleChange("pcs")} style={styles.dropDown} iconStyle={{padding: '0 0 0 40px', fill: '#AAA'}} labelStyle={{padding: '0 10px'}}>
                                         <MenuItem value={1} primaryText= "1" />
                                         <MenuItem value={"2-5"} primaryText= "2 - 5" />
                                         <MenuItem value={"> 5"} primaryText= "> 5" />
                                     </DropDownMenu>
-                                    <DropDownMenu value={this.state.size} onChange={this.handleChange("size")} style={styles.dropDown}>
-                                        <MenuItem value={"< 5"} primaryText= "< 0.5m" />
-                                        <MenuItem value={'0.5-2'} primaryText= "0.5 - 2m" />
-                                        <MenuItem value={'> 2.5'} primaryText= "> 2.5m " />
+                                    <DropDownMenu value={this.state.size} onChange={this.handleChange("size")} style={styles.dropDown} iconStyle={{padding: '0 0 0 40px', fill: '#AAA'}} labelStyle={{padding: '0 10px'}}>
+                                        <MenuItem value={"< 5"} primaryText= "< 0.5" />
+                                        <MenuItem value={'0.5-2'} primaryText= "0.5 - 2" />
+                                        <MenuItem value={'> 2.5'} primaryText= "> 2" />
                                     </DropDownMenu>
-                                    <DropDownMenu value={this.state.weight} onChange={this.handleChange("weight")} style={styles.dropDown}>
-                                        <MenuItem value={"< 5"} primaryText= "< 5kg" />
-                                        <MenuItem value={'5-20'} primaryText= "5 - 20kg" />
-                                        <MenuItem value={'> 20'} primaryText= "> 20kg" />
+                                    <DropDownMenu value={this.state.weight} onChange={this.handleChange("weight")} style={styles.dropDown} iconStyle={{padding: '0 0 0 40px', fill: '#AAA'}} labelStyle={{padding: '0 10px'}}>
+                                        <MenuItem value={"< 5"} primaryText= "< 5" />
+                                        <MenuItem value={'5-20'} primaryText= "5 - 20" />
+                                        <MenuItem value={'> 20'} primaryText= "> 20" />
                                     </DropDownMenu>
                                 </div>
                             </td>

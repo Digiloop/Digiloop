@@ -40,7 +40,8 @@ class WasteProcessor extends Component {
   // logout function
   logout = () => {
     logOut();
-    localStorage.clear();
+    localStorage.removeItem("loginData")
+    //localStorage.clear();
     this.props.onNewLogout({
       userlvl: -1
     });

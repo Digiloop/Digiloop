@@ -120,12 +120,13 @@ class InfoFields extends React.Component {
                 float: 'left',
             },
             pTags: {
-                margin: '0',
-                padding: '0',
+                padding: '0px',
                 display: 'inline',
                 float: 'left',
-                marginRight: '13%',
-                marginLeft: '2%'
+                margin: '0px',
+                marginLeft: '3%',
+                width: '30%',
+                fontSize: '15px'
             }
         };
 
@@ -140,13 +141,24 @@ class InfoFields extends React.Component {
                                 <div style={{ width:'120px', height: '90px', marginLeft: 'auto', overflow: 'hidden', padding: '0 0 0 10px' }}>
 
                                     <FlatButton
-                                    label="Poista Kuva"
+                                    label="Poista Kuva" 
+                                    labelStyle={{
+                                        position: 'relative',
+                                        paddingLeft: '10px',
+                                        paddingRight: '10px',
+                                        verticalAlign: 'middle',
+                                        textTransform: 'none',
+                                        letterSpacing: '-1px',
+                                        fontWeight: '600',
+                                        fontSize: '14px',
+                                        color: 'black'
+                                    }}
                                     disabled={this.state.picture == null}
                                     style={{ 
                                         borderRadius: 25,
                                         position: "absolute",
-                                        marginLeft: "18px"
-                                     }}
+                                        marginLeft: "30px"
+                                    }}
                                     backgroundColor={'#FFF'}
                                     onClick={this.removeImage} />
                                     
@@ -175,39 +187,52 @@ class InfoFields extends React.Component {
                                     
 
                                 </div>
-                                <div id='ImagePreview'>
-                                    {this.state.picture != null ? <img style={{width: '100%', height:'100%'}} src={URL.createObjectURL(this.state.picture)} /> : <p>Ei valittua kuvaa</p>}
+                                <div id='ImagePreview' style={{
+                                    border: '2px solid #004225',
+
+                                }}>
+                                    {this.state.picture != null ? <img style={{width: '100%', height:'100%'}} src={URL.createObjectURL(this.state.picture)} /> : <p style={{width: '90px'}}>Ei valittua kuvaa</p>}
                                     
                                 </div>
 
                             </td>
                         </tr>
                         <tr>
-                            <td>
-                                <div style={{ width: '100%', height: 'auto' }} >
-                                    <p style={styles.pTags}>Kpl</p>
-                                    <p style={{float: 'left', margin: '0 0 0 17%'}}>Mitat</p>
-                                    <p style={{float: 'left', margin: '0 0 0 28%'}}>Paino</p>
-                                </div>
-                            </td>
+                            <p style={styles.pTags}>Kpl</p>
+                            <p style={{
+                                textAlign: 'left',
+                                margin: '0px',
+                                width: '30%',
+                                position: 'absolute',
+                                marginLeft: '26%',
+                                fontSize: '15px'
+                                }}>Mitat (m<sup>3</sup>)</p>
+                            <p style={{
+                                float: 'left',
+                                textAlign: 'left',
+                                margin: '0 0 0 52%',
+                                width: '30%',
+                                position: 'absolute',
+                                fontSize: '15px'
+                                }}>Paino (kg)</p>
                         </tr>
                         <tr>   
                             <td>
                                 <div>
-                                    <DropDownMenu value={this.state.pcs} onChange={this.handleChange("pcs")} style={styles.dropDown}>
+                                    <DropDownMenu value={this.state.pcs} onChange={this.handleChange("pcs")} style={styles.dropDown} iconStyle={{padding: '0 0 0 40px', fill: '#AAA'}} labelStyle={{padding: '0 10px'}}>
                                         <MenuItem value={1} primaryText= "1" />
                                         <MenuItem value={"2-5"} primaryText= "2 - 5" />
                                         <MenuItem value={"> 5"} primaryText= "> 5" />
                                     </DropDownMenu>
-                                    <DropDownMenu value={this.state.size} onChange={this.handleChange("size")} style={styles.dropDown}>
-                                        <MenuItem value={"< 5"} primaryText= "< 0.5m" />
-                                        <MenuItem value={'0.5-2'} primaryText= "0.5 - 2m" />
-                                        <MenuItem value={'> 2.5'} primaryText= "> 2.5m " />
+                                    <DropDownMenu value={this.state.size} onChange={this.handleChange("size")} style={styles.dropDown} iconStyle={{padding: '0 0 0 40px', fill: '#AAA'}} labelStyle={{padding: '0 10px'}}>
+                                        <MenuItem value={"< 5"} primaryText= "< 0.5" />
+                                        <MenuItem value={'0.5-2'} primaryText= "0.5 - 2" />
+                                        <MenuItem value={'> 2.5'} primaryText= "> 2" />
                                     </DropDownMenu>
-                                    <DropDownMenu value={this.state.weight} onChange={this.handleChange("weight")} style={styles.dropDown}>
-                                        <MenuItem value={"< 5"} primaryText= "< 5kg" />
-                                        <MenuItem value={'5-20'} primaryText= "5 - 20kg" />
-                                        <MenuItem value={'> 20'} primaryText= "> 20kg" />
+                                    <DropDownMenu value={this.state.weight} onChange={this.handleChange("weight")} style={styles.dropDown} iconStyle={{padding: '0 0 0 40px', fill: '#AAA'}} labelStyle={{padding: '0 10px'}}>
+                                        <MenuItem value={"< 5"} primaryText= "< 5" />
+                                        <MenuItem value={'5-20'} primaryText= "5 - 20" />
+                                        <MenuItem value={'> 20'} primaryText= "> 20" />
                                     </DropDownMenu>
                                 </div>
                             </td>

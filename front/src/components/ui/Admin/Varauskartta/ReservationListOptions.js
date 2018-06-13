@@ -6,6 +6,9 @@ import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
 import { RaisedButton } from 'material-ui';
 
+import ActionInfo from 'material-ui/svg-icons/action/info';
+import Tooltip from '@material-ui/core/Tooltip';
+
 
 class ReservationListOptions extends Component {
   constructor(props) {
@@ -28,7 +31,9 @@ class ReservationListOptions extends Component {
         latitude: null,
         longitude: null,
         locationButtonDisable: true
-      }
+      },
+
+      geolocationStatus: 0 // 0 not allowed, 1 active, 2 browser doesn't support
     }
     this.activateLocation = this.activateLocation.bind(this);
     this.geoLocationSuccess = this.geoLocationSuccess.bind(this);
@@ -86,6 +91,9 @@ class ReservationListOptions extends Component {
       }
     }
 
+    this.activateLocation();
+    //<RaisedButton onClick={this.activateLocation} disabled={!this.state.userLocation.locationButtonDisable} id="location" value="Käytä etäisyyttä" label="Käytä etäisyyttä" />
+
   }
 
   // geoLocation success function
@@ -95,22 +103,26 @@ class ReservationListOptions extends Component {
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
         locationButtonDisable: false
-      }
-    }, function () {
-      console.log("geosuccess")
-      console.log(this.state.userLocation.locationButtonDisable)
+      },
+      geolocationStatus: 1
     })
   }
 
   // geoLocation error function
   geoLocationError() {
-    window.alert("Sijainti pitää olla käytössä, jos haluat filtteröidä etäisyyden mukaan.");
+    //window.alert("Sijainti pitää olla käytössä, jos haluat rajata etäisyyden mukaan.");
+    this.setState({
+      geolocationStatus: 0
+    })
   }
 
   activateLocation() {
 
     if (!navigator.geolocation) {
-      window.alert("Selaimesi ei tue sijaintia.");
+      //window.alert("Selaimesi ei tue sijaintia.");
+      this.setState({
+        geolocationStatus: 2
+      })
       return;
     }
 
@@ -233,6 +245,9 @@ class ReservationListOptions extends Component {
     const inputStyle = {
       color: "white"
     }
+    const inputStyleDisabled = {
+      color: "grey"
+    }
 
 
     return (
@@ -275,14 +290,34 @@ class ReservationListOptions extends Component {
                     </td>
                   </tr>
                   <tr>
-                    <td>Etäisyys (km)</td>
+                    <td style={this.state.userLocation.locationButtonDisable ? inputStyleDisabled : inputStyle}>Etäisyys (km)</td>
                     <td id="distanceField">
-                      <TextField inputStyle={inputStyle} style={textFieldStyles} id="distance" onChange={(event, newValue) => this.setState({ distance: event.target.value })} type="number" value={this.state.distance}
-                        disabled={this.state.userLocation.locationButtonDisable} />
+                      <TextField
+                        inputStyle={this.state.userLocation.locationButtonDisable ? inputStyleDisabled : inputStyle}
+                        style={textFieldStyles}
+                        id="distance"
+                        onChange={(event, newValue) => this.setState({ distance: event.target.value })}
+                        type="number"
+                        value={this.state.distance}
+                        disabled={this.state.userLocation.locationButtonDisable}
+                      />
+                      &nbsp;
+                      {this.state.geolocationStatus !== 1 ?
+                        <Tooltip
+                          id="tooltip-right"
+                          title={this.state.geolocationStatus === 0 ? 
+                            "Sivu tarvitsee luvan sijainnin käyttöön, jotta voit rajata etäisyyden mukaan." 
+                            : "Selaimesi ei tue sijainnin käyttöä"}
+                          placement="right" >
+                          <ActionInfo id="locationDisabledInfo" color={'#ccc'} />
+                        </Tooltip>
+                        : null
+                      }
                     </td>
+
                   </tr>
                   <tr>
-                    <td><RaisedButton onClick={this.activateLocation} disabled={!this.state.userLocation.locationButtonDisable} id="location" value="Käytä etäisyyttä" label="Käytä etäisyyttä" /></td>
+                    <td></td>
                   </tr>
                 </tbody>
               </table>

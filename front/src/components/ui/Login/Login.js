@@ -78,9 +78,22 @@ class Login extends Component {
       case (this.state.showInfoText && window.innerWidth > 545):
         return "565px"
       case (!this.state.showInfoText && window.innerWidth > 545):
-        return "230px"
+        return "260px"
       case (this.state.showInfoText && window.innerWidth < 545):
         return "340px"
+      case (!this.state.showInfoText && window.innerWidth < 545):
+        return "170px"
+    }
+  }
+
+  errorStyleCreator() {
+    switch (true) {
+      case (this.state.showInfoText && window.innerWidth > 545):
+        return "510px"
+      case (!this.state.showInfoText && window.innerWidth > 545):
+        return "230px"
+      case (this.state.showInfoText && window.innerWidth < 545):
+        return "285px"
       case (!this.state.showInfoText && window.innerWidth < 545):
         return "120px"
     }
@@ -90,12 +103,7 @@ class Login extends Component {
   render() {
 
     const errorStyle = {
-      position: 'absolute',
-      paddingTop: window.innerWidth > 545 ? '535px' : "285px",
-      paddingLeft: '45px',
-      fontWeight: 400,
-      fontSize: '12px',
-      color: 'red'
+      
     }
 
     const loginHeaders = {
@@ -115,7 +123,14 @@ class Login extends Component {
         />
 
         {this.state.connectionError ?
-          <p style={errorStyle}>
+          <p style={{
+            position: 'absolute',
+            paddingLeft: '20px',
+            fontWeight: 400,
+            fontSize: '12px',
+            color: 'red', 
+            paddingTop: this.errorStyleCreator(),}}>
+
             {/*<ActionInfo color={'#004225'} /> <br /> */}
             <b>Yhteyden muodostaminen epäonnistui.</b> <br />
             Tarkista verkkoyhteytesi. Mikäli vika jatkuu, odota hetki ja yritä uudelleen.
@@ -124,7 +139,14 @@ class Login extends Component {
         }
 
         {this.state.loginError ?
-          <p style={errorStyle}>
+          <p style={{
+            position: 'absolute',
+            paddingLeft: '20px',
+            fontWeight: 400,
+            fontSize: '12px',
+            color: 'red',            
+            paddingTop: this.errorStyleCreator(),}}>
+
             {/*<ActionInfo color={'#004225'} /> <br />*/}
             <b>Kirjautuminen epäonnistui.</b> <br />
             Väärä salasana tai käyttäjätunnus.

@@ -26,7 +26,8 @@ class EndUserFront extends Component {
   // logout clears session with backend, empties localStorage session and sets userlevel to logged out
   logout = () => {
     logOut();
-    localStorage.clear();
+    localStorage.removeItem("loginData")
+    //localStorage.clear();
     this.props.onNewLogout({
       userlvl: -1
     });

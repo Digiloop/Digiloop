@@ -248,7 +248,7 @@ class OrderMain extends Component {
             case 1:
                 if ((this.state.step === 1 && !this.state.pageOneAllFilled)
                     || (this.state.step === 2 && !this.state.categoriesSelected)
-                    || this.state.step === 3
+                    //|| this.state.step === 3
                     || this.state.step === 4
                 ) {
                     if (type === 0) {
@@ -268,8 +268,6 @@ class OrderMain extends Component {
 
 
     removeItem(item) {
-        console.log("RAKETTIRYHMÄ LENTÄÄ TAIVAAN TUULIIN")
-        console.log(item);
 
         let values = this.state.values;
         let newValues = [];

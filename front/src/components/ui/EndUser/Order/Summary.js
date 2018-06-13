@@ -167,7 +167,7 @@ class Summary extends React.Component {
                             <td style={{ textAlign: 'left', width: '30%' }}>
                                 <FlatButton
                                     label='Lisää Laitteita'
-                                    style={{ borderRadius: 25, marginRight: '10px'}}
+                                    style={{ borderRadius: 25, margin: '10px 0'}}
                                     backgroundColor={'#FFF'}
                                     onClick={(event) => this.props.nextItem(event)}
                                 />

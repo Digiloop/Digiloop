@@ -34,7 +34,8 @@ class App extends Component {
       // if the connection refused, clear login sessions and display error message
       // I'm not sure if this is the optimal way to check
       if (subCats.message === "Network Error") {
-        localStorage.clear();
+        localStorage.removeItem("loginData")
+        //localStorage.clear();
         this.props.onNewLogout({
           userlvl: -1
         });

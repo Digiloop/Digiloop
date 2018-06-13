@@ -15,7 +15,21 @@ class Login extends Component {
       email: '',
       password: '',
       loginError: false,
-      connectionError: false
+      connectionError: false,
+      showInfoText: true
+    }
+  }
+
+  componentDidMount(){
+    if(localStorage.infoTextSeen === undefined){
+      this.setState({
+        showInfoText: true
+      })
+      localStorage.infoTextSeen = true;
+    } else {
+      this.setState({
+        showInfoText: false
+      })
     }
   }
 
@@ -40,7 +54,7 @@ class Login extends Component {
         // server is down / other problems
       } else {
         console.log("PÄKKI KAATU");
-        this.setState({connectionError: true});
+        this.setState({ connectionError: true });
       }
 
     });
@@ -63,12 +77,19 @@ class Login extends Component {
 
     const errorStyle = {
       position: 'absolute',
-      paddingTop: '535px',
-      paddingLeft: '15px',
+      paddingTop: window.innerWidth > 545 ? '535px' : "285px",
+      paddingLeft: '45px',
       fontWeight: 400,
       fontSize: '12px',
-      color: '#004225'
+      color: 'red'
     }
+
+    const loginHeaders = {
+      textAlign: 'left',
+      fontSize: window.innerWidth > 545 ? "25px" : "17px",
+      margin: '10px 0 5px 0',
+    }
+
 
 
     return (
@@ -79,55 +100,58 @@ class Login extends Component {
           showMenuIconButton={false}
         />
 
-        {this.state.loginError ?
-                <p style={errorStyle}>
-                  <ActionInfo color={'#004225'} /> <br />
-                  <b>Kirjautuminen epäonnistui.</b> <br />
-                  Väärä salasana tai käyttäjätunnus.
+        {this.state.connectionError ?
+          <p style={errorStyle}>
+            {/*<ActionInfo color={'#004225'} /> <br /> */}
+            <b>Yhteyden muodostaminen epäonnistui.</b> <br />
+            Tarkista verkkoyhteytesi. Mikäli vika jatkuu, odota hetki ja yritä uudelleen.
                 </p>
-                : <p></p>
+          : <p></p>
         }
 
+        {this.state.loginError ?
+          <p style={errorStyle}>
+            {/*<ActionInfo color={'#004225'} /> <br />*/}
+            <b>Kirjautuminen epäonnistui.</b> <br />
+            Väärä salasana tai käyttäjätunnus.
+                </p>
+          : <p></p>
+        }
+
+
+
         <div id="loginText" style={{
-          marginTop:window.innerWidth > 545 ? "250px" : "175px",
-          width:window.innerWidth > 545 ? "450px" : "350px"}}>
-          <h2 className="loginHeaders">Digiloop</h2>
+          marginTop: window.innerWidth > 545 ? "250px" : "115px",
+          width: window.innerWidth > 545 ? "450px" : "220px",
+          fontSize: window.innerWidth > 545 ? "15px" : "10px",
+          height: window.innerWidth > 545 ? "290px" : "165px",
+          display: this.state.showInfoText ? "block" : "none"
+        }}>
+          <h2 style={loginHeaders}>Digiloop</h2>
           <p className="loginParagraph">Ilmaiset romun vastaanottopaikat, edulliset noudot ja arvoromun osto</p>
 
-          <h2 className="loginHeaders">Rekisteröidy ja tilaa ensimmäinen noutosi</h2>
-          <p className="loginParagraph">Digiloop on ilmainen. Noutopalveluyritykset ovat hinnoitelleetedulliset noutohinnat. Voit toimittaa myös itse tarpeettoman
+          <h2 style={loginHeaders}>Rekisteröidy ja tilaa ensimmäinen noutosi</h2>
+          <p className="loginParagraph">Digiloop on ilmainen. Noutopalveluyritykset ovat hinnoitelleet edulliset noutohinnat. Voit toimittaa myös itse tarpeettoman
           metalliromun, sähkölaitteet, akut ja paristot Digiloop keräyspisteisiin.
           </p>
         </div>
 
-        <h2 id="loginSignin">Kirjaudu sisään</h2>
+        <div className='loginContent' style={{ width: window.innerWidth > 545 ? "545px" : "320px" }}>
 
-        <div className='loginContent' style={{width:window.innerWidth > 545 ? "545px" : "400px"}}> 
-        
-        
-              
+
+
           <form style={{
-            paddingTop:window.innerWidth > 545 ? "600px" : "605px",
-            height:window.innerWidth > 545 ? "320px" : "95px"}}>
+            paddingTop: window.innerWidth > 545 ? "600px" : "338px",
+            height: window.innerWidth > 545 ? "320px" : "95px"
+          }}>
 
 
             <div className="loginGroup">
 
-             
-
-              {this.state.connectionError ?
-                <p style={errorStyle}>
-                  <ActionInfo color={'#004225'} /> <br />
-                  <b>Yhteyden muodostaminen epäonnistui.</b> <br />
-                  Tarkista verkkoyhteytesi. Mikäli vika jatkuu, odota hetki ja yritä uudelleen.
-                </p>
-                : <p></p>
-              }
-
               <p className="loginLabel">Sähköpostiosoite</p>
               <TextField className="loginInputField"
                 underlineShow={false}
-                style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225' }}
+                style={{ borderRadius: '0', backgroundColor: 'white', border: '2px solid #004225', paddingLeft: '5px' }}
                 /*color="#004225"
                 inputStyle={{color: '#004225'}}
                 style={{ backgroundColor: 'white', border: '2px solid #004225' }} */
@@ -140,7 +164,7 @@ class Login extends Component {
               <p className="loginLabel">Salasana </p>
               <TextField className="loginInputField"
                 underlineShow={false}
-                style={{ backgroundColor: 'white', border: '2px solid #004225' }}
+                style={{ backgroundColor: 'white', border: '2px solid #004225', paddingLeft: '5px' }}
                 type="password"
                 hintText="Enter your Password"
                 onChange={(event, newValue) => this.setState({ password: newValue })}
@@ -175,17 +199,17 @@ class Login extends Component {
           </form>
 
           <div className="LoginImage" />
-          
+
         </div>
         <div id="bottomColor" style={{
-          width:window.innerWidth > 545 ? "532px" : "400px", 
-          height:window.innerWidth > 545 ? "11vh" : "40vh"
-          }}>
+          width: window.innerWidth > 545 ? "532px" : "250px",
+          height: window.innerWidth > 545 ? "11vh" : "40vh"
+        }}>
         </div>
       </div>
-      
+
     );
-    
+
   }
 }
 

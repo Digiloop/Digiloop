@@ -53,7 +53,7 @@ class ReservationListing extends Component {
   // TODO: change into limited version, where only junkID is passed
   reserve(item) {
     console.log("Reserving")
-    reserveItem(2, 1, item.junkID).then(
+    reserveItem(item.junkID).then(
       this.props.refreshJunks
     );
   }

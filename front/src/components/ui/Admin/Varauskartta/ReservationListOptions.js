@@ -301,7 +301,7 @@ class ReservationListOptions extends Component {
                         value={this.state.distance}
                         disabled={this.state.userLocation.locationButtonDisable}
                       />
-                      &nbsp;
+
                       {this.state.geolocationStatus !== 1 ?
                         <Tooltip
                           id="tooltip-right"

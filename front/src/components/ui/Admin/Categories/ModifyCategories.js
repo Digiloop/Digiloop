@@ -164,6 +164,7 @@ class ModifyCategories extends Component {
         this.setState({ rows: this.state.rows });
     }
 
+
     componentDidMount() {
         this.getCategories();
         this.getSubCategories();
@@ -220,6 +221,7 @@ class ModifyCategories extends Component {
         const cats = [];
         const subCats = [];
         const fakeCats = [];
+        
 
         // loop categories
         for (let i = 0; i < this.state.cats.length; i++) {
@@ -259,11 +261,18 @@ class ModifyCategories extends Component {
         }
 
         // loop subcategories
-        for (let j = 0; j < this.state.subCats.length; j++) {
+       for (let j = 0; j < this.state.subCats.length; j++) {
+            const tmp = [];
+            for (let l = 0; l < this.state.cats.length; l++) {
+                if (this.state.cats[l].CatId === this.state.subCats[j].CatId) {
+                    tmp.push(this.state.cats[l].CatName)
+                }
+            }
             if (this.state.rows[j]) {
                 subCats.push(
                     <TableRow key={j} style={{ height: '150px' }} >
                         <TableRowColumn colSpan='3'>
+                            {tmp}<br />
                             <TextField
                                 className="ChangeCatName"
                                 hintText="Kategorian nimi"
@@ -284,7 +293,7 @@ class ModifyCategories extends Component {
                 subCats.push(
                     <TableRow key={j} >
                         <TableRowColumn colSpan='3'>
-                            {this.state.subCats[j].subName}
+                            {tmp + ': ' + this.state.subCats[j].subName}
                         </TableRowColumn>
                         <TableRowColumn>
                             <RaisedButton label='Muokkaa' onClick={() => this.getCat(this.state.subCats[j].subId, null, j, null)} />
@@ -306,11 +315,11 @@ class ModifyCategories extends Component {
                     for (let l = 0; l < this.state.cats.length; l++) {
                         if (this.state.cats[l].CatId === this.state.subCats[j].CatId) {
                             tmp1.push(this.state.cats[l].CatName)
-
                         }
                     }
                 }
             }
+            
             if (this.state.rows[k]) {
                 fakeCats.push(
                     <TableRow key={k} style={{ height: '150px', borderBottom: '1px solid black' }} >
@@ -346,6 +355,35 @@ class ModifyCategories extends Component {
                 )
             }
         }
+        
+
+        // function for dynamic sorting
+        function compareValues(key, order = 'asc') {
+            return function (a, b) {
+                if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+                    // property doesn't exist on either object
+                    return 0;
+                }
+
+                const varA = (typeof a[key] === 'string') ?
+                    a[key].toUpperCase() : a[key];
+                const varB = (typeof b[key] === 'string') ?
+                    b[key].toUpperCase() : b[key];
+
+                let comparison = 0;
+                if (varA > varB) {
+                    comparison = 1;
+                } else if (varA < varB) {
+                    comparison = -1;
+                }
+                return (
+                    (order == 'desc') ? (comparison * -1) : comparison
+                );
+            };
+        }
+
+        this.state.subCats.sort(compareValues('CatId'));
+        // this.state.fakeCats.sort(compareValues('subCatId'));
 
 
         return (

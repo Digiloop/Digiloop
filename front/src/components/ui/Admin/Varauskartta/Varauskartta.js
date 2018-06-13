@@ -56,6 +56,7 @@ class WasteProcessor extends Component {
   updateJunks(){
     console.log("Rakettiryhmä tekee intervallitreeniä")
     updateJunkData(this.props.resListItems.length).then((junks) => {
+      console.log("junkit hunkit")
       console.log(junks)
       let updatedJunks = this.props.resListItems;
       for(let i = 0; i < junks.length; i++){
@@ -89,8 +90,7 @@ class WasteProcessor extends Component {
   // the filter function, that leaves only the necessary stuff to be displayed
   rliFiltering() {
     let resListItemsFiltered = [];
-
-    console.log(this.props.resListItems)
+    
     // loop items
     for (let i = 0; i < this.props.resListItems.length; i++) {
 

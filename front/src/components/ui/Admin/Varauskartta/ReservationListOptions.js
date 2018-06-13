@@ -159,8 +159,6 @@ class ReservationListOptions extends Component {
       }
     }
 
-    console.log("saving:")
-    console.log(this.state.userLocation)
     // add the packages to the other settings, update to redux store
     this.props.onNewOptions({
       // categories
@@ -209,30 +207,34 @@ class ReservationListOptions extends Component {
     // pre-build subcategory checkboxes
     for (let i = 0; i < this.props.categories.length; i++) {
 
-      // create the category-väliotsikot
-      subCatBoxes.push(<tr key={"subKattiOtsikko" + i}><td>{this.props.categories[i].CatName}</td></tr>);
 
-      for (let j = 0; j < this.props.subCategories.length; j++) {
-        if (this.props.subCategories[j].CatId === this.props.categories[i].CatId) {
+      if(this.state[this.props.categories[i].CatName]){
+        // create the category-väliotsikot
+        subCatBoxes.push(<tr key={"subKattiOtsikko" + i}><td>{this.props.categories[i].CatName}</td></tr>);
 
-          // prepare the subcat's statename (parent catname + subname)
-          let subCatState = this.props.categories[i].CatName + this.props.subCategories[j].subName;
-          subCatState = subCatState.toLowerCase();
-          subCatBoxes.push(
+        for (let j = 0; j < this.props.subCategories.length; j++) {
+          if (this.props.subCategories[j].CatId === this.props.categories[i].CatId) {
 
-            <tr key={"subkattirivi" + j}>
-              <td className="type">{this.props.subCategories[j].subName}</td>
-              <td><Checkbox
-                checked={this.state[subCatState]}
-                onCheck={(event, newValue) => this.setState({ [subCatState]: newValue })}
-              /></td>
-            </tr>
+            // prepare the subcat's statename (parent catname + subname)
+            let subCatState = this.props.categories[i].CatName + this.props.subCategories[j].subName;
+            subCatState = subCatState.toLowerCase();
+            subCatBoxes.push(
 
-          );
+              <tr key={"subkattirivi" + j}>
+                <td className="type">{this.props.subCategories[j].subName}</td>
+                <td><Checkbox
+                  checked={this.state[subCatState]}
+                  onCheck={(event, newValue) => this.setState({ [subCatState]: newValue })}
+                /></td>
+              </tr>
+
+            );
+
+          }
 
         }
-
       }
+
     }
 
     const textFieldStyles = {

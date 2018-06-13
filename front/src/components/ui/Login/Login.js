@@ -76,13 +76,13 @@ class Login extends Component {
   formStyleCreator() {
     switch (true) {
       case (this.state.showInfoText && window.innerWidth > 545):
-        return "565px"
+        return "575px"
       case (!this.state.showInfoText && window.innerWidth > 545):
-        return "260px"
+        return "290px"
       case (this.state.showInfoText && window.innerWidth < 545):
-        return "340px"
+        return "370px"
       case (!this.state.showInfoText && window.innerWidth < 545):
-        return "170px"
+        return "200px"
     }
   }
 
@@ -91,7 +91,7 @@ class Login extends Component {
       case (this.state.showInfoText && window.innerWidth > 545):
         return "510px"
       case (!this.state.showInfoText && window.innerWidth > 545):
-        return "230px"
+        return "210px"
       case (this.state.showInfoText && window.innerWidth < 545):
         return "285px"
       case (!this.state.showInfoText && window.innerWidth < 545):
@@ -101,10 +101,6 @@ class Login extends Component {
 
 
   render() {
-
-    const errorStyle = {
-      
-    }
 
     const loginHeaders = {
       textAlign: 'left',
@@ -131,7 +127,7 @@ class Login extends Component {
             color: 'red', 
             paddingTop: this.errorStyleCreator(),}}>
 
-            {/*<ActionInfo color={'#004225'} /> <br /> */}
+            <ActionInfo color={'#004225'} /> <br /> 
             <b>Yhteyden muodostaminen epäonnistui.</b> <br />
             Tarkista verkkoyhteytesi. Mikäli vika jatkuu, odota hetki ja yritä uudelleen.
                 </p>
@@ -147,7 +143,7 @@ class Login extends Component {
             color: 'red',            
             paddingTop: this.errorStyleCreator(),}}>
 
-            {/*<ActionInfo color={'#004225'} /> <br />*/}
+            <ActionInfo color={'#004225'} /> <br />
             <b>Kirjautuminen epäonnistui.</b> <br />
             Väärä salasana tai käyttäjätunnus.
                 </p>
@@ -172,7 +168,10 @@ class Login extends Component {
           </p>
         </div>
 
-        <div className='loginContent' style={{ height: window.innerWidth > 545 ? '751px' : '433px', width: window.innerWidth > 545 ? "545px" : "320px" }}>
+        <div className='loginContent' style={{ 
+          height: window.innerWidth > 545 ? '751px' : '433px', 
+          width: window.innerWidth > 545 ? "545px" : "320px" 
+        }}>
 
 
 
@@ -201,7 +200,11 @@ class Login extends Component {
               <p className="loginLabel">Salasana </p>
               <TextField className="loginInputField"
                 underlineShow={false}
-                style={{ backgroundColor: 'white', border: '2px solid #004225', paddingLeft: '5px' }}
+                style={{ 
+                  backgroundColor: 'white', 
+                  border: '2px solid #004225', 
+                  paddingLeft: '5px' 
+                }}
                 type="password"
                 hintText="Salasana"
                 onChange={(event, newValue) => this.setState({ password: newValue })}
@@ -212,7 +215,9 @@ class Login extends Component {
 
               <FlatButton type="submit" label="Kirjaudu"
                 disableTouchRipple={true}
-                style={{ marginTop: '5px' }}
+                style={{ 
+                  marginTop: '5px' 
+                }}
                 labelStyle={{
                   fontFamily: 'kanit',
                   float: 'left',

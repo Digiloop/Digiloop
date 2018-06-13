@@ -171,18 +171,13 @@ class InfoFields extends React.Component {
                                         imgExtension={['.jpg', '.gif', '.png', '.gif']}
                                         maxFileSize={5242880}
 
-                                        style={{
-                                            //width: "150px"
-                                        }}
-                                        moz
                                         buttonStyles={{                                            
                                             width: "85px",
                                             height: "30px",
                                             padding: "0",
                                             position: "absolute",
                                             contentAlign: "left",
-                                            margin: '40px 40px 0 0',
-                                            
+                                            margin: '40px 40px 0 0',                                         
                                         }}
                                     />
 

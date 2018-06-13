@@ -157,7 +157,7 @@ class InfoFields extends React.Component {
                                     disabled={this.state.picture == null}
                                     style={{ 
                                         borderRadius: 25,
-                                        position: "absolute",
+                                        position: "inherit",
                                         marginLeft: "30px"
                                     }}
                                     backgroundColor={'#FFF'}
@@ -177,7 +177,7 @@ class InfoFields extends React.Component {
                                             padding: "0",
                                             position: "absolute",
                                             contentAlign: "left",
-                                            margin: '40px 40px 0 0',                                         
+                                            margin: '0',                                         
                                         }}
                                     />
 

@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import { getCredentials } from '../../../utils/login';
 
-
+import WindowSizeListener from 'react-window-size-listener'
 
 
 class Login extends Component {
@@ -16,7 +16,8 @@ class Login extends Component {
       password: '',
       loginError: false,
       connectionError: false,
-      showInfoText: true
+      showInfoText: true,
+      windowWidth: window.innerWidth
     }
     this.formStyleCreator = this.formStyleCreator.bind(this)
   }
@@ -75,26 +76,26 @@ class Login extends Component {
 
   formStyleCreator() {
     switch (true) {
-      case (this.state.showInfoText && window.innerWidth > 545):
+      case (this.state.showInfoText && this.state.windowWidth > 545):
         return "575px"
-      case (!this.state.showInfoText && window.innerWidth > 545):
+      case (!this.state.showInfoText && this.state.windowWidth > 545):
         return "290px"
-      case (this.state.showInfoText && window.innerWidth < 545):
+      case (this.state.showInfoText && this.state.windowWidth < 545):
         return "370px"
-      case (!this.state.showInfoText && window.innerWidth < 545):
+      case (!this.state.showInfoText && this.state.windowWidth < 545):
         return "200px"
     }
   }
 
   errorStyleCreator() {
     switch (true) {
-      case (this.state.showInfoText && window.innerWidth > 545):
+      case (this.state.showInfoText && this.state.windowWidth > 545):
         return "510px"
-      case (!this.state.showInfoText && window.innerWidth > 545):
+      case (!this.state.showInfoText && this.state.windowWidth > 545):
         return "210px"
-      case (this.state.showInfoText && window.innerWidth < 545):
+      case (this.state.showInfoText && this.state.windowWidth < 545):
         return "285px"
-      case (!this.state.showInfoText && window.innerWidth < 545):
+      case (!this.state.showInfoText && this.state.windowWidth < 545):
         return "120px"
     }
   }
@@ -104,7 +105,7 @@ class Login extends Component {
 
     const loginHeaders = {
       textAlign: 'left',
-      fontSize: window.innerWidth > 545 ? "25px" : "17px",
+      fontSize: this.state.windowWidth > 545 ? "25px" : "17px",
       margin: '10px 0 5px 0',
     }
 
@@ -124,10 +125,11 @@ class Login extends Component {
             paddingLeft: '20px',
             fontWeight: 400,
             fontSize: '12px',
-            color: 'red', 
-            paddingTop: this.errorStyleCreator(),}}>
+            color: 'red',
+            paddingTop: this.errorStyleCreator(),
+          }}>
 
-            <ActionInfo color={'#004225'} /> <br /> 
+            <ActionInfo color={'#004225'} /> <br />
             <b>Yhteyden muodostaminen epäonnistui.</b> <br />
             Tarkista verkkoyhteytesi. Mikäli vika jatkuu, odota hetki ja yritä uudelleen.
                 </p>
@@ -140,8 +142,9 @@ class Login extends Component {
             paddingLeft: '20px',
             fontWeight: 400,
             fontSize: '12px',
-            color: 'red',            
-            paddingTop: this.errorStyleCreator(),}}>
+            color: 'red',
+            paddingTop: this.errorStyleCreator(),
+          }}>
 
             <ActionInfo color={'#004225'} /> <br />
             <b>Kirjautuminen epäonnistui.</b> <br />
@@ -153,10 +156,10 @@ class Login extends Component {
 
 
         <div id="loginText" style={{
-          marginTop: window.innerWidth > 545 ? "195px" : "115px",
-          width: window.innerWidth > 545 ? "380px" : "220px",
-          fontSize: window.innerWidth > 545 ? "15px" : "10px",
-          height: window.innerWidth > 545 ? "290px" : "165px",
+          marginTop: this.state.windowWidth > 545 ? "195px" : "115px",
+          width: this.state.windowWidth > 545 ? "380px" : "220px",
+          fontSize: this.state.windowWidth > 545 ? "15px" : "10px",
+          height: this.state.windowWidth > 545 ? "290px" : "165px",
           display: this.state.showInfoText ? "block" : "none"
         }}>
           <h2 style={loginHeaders}>Digiloop</h2>
@@ -168,17 +171,17 @@ class Login extends Component {
           </p>
         </div>
 
-        <div className='loginContent' style={{ 
-          height: window.innerWidth > 545 ? '751px' : '433px', 
-          width: window.innerWidth > 545 ? "545px" : "320px" 
+        <div className='loginContent' style={{
+          height: this.state.windowWidth > 545 ? '751px' : '433px',
+          width: this.state.windowWidth > 545 ? "545px" : "320px"
         }}>
 
 
 
           <form style={{
-            //paddingTop: window.innerWidth > 545 ? "600px" : "338px",
+            //paddingTop: this.state.windowWidth > 545 ? "600px" : "338px",
             paddingTop: this.formStyleCreator(),
-            height: window.innerWidth > 545 ? "320px" : "95px"
+            height: this.state.windowWidth > 545 ? "320px" : "95px"
           }}>
 
 
@@ -200,10 +203,10 @@ class Login extends Component {
               <p className="loginLabel">Salasana </p>
               <TextField className="loginInputField"
                 underlineShow={false}
-                style={{ 
-                  backgroundColor: 'white', 
-                  border: '2px solid #004225', 
-                  paddingLeft: '5px' 
+                style={{
+                  backgroundColor: 'white',
+                  border: '2px solid #004225',
+                  paddingLeft: '5px'
                 }}
                 type="password"
                 hintText="Salasana"
@@ -215,8 +218,8 @@ class Login extends Component {
 
               <FlatButton type="submit" label="Kirjaudu"
                 disableTouchRipple={true}
-                style={{ 
-                  marginTop: '5px' 
+                style={{
+                  marginTop: '5px'
                 }}
                 labelStyle={{
                   fontFamily: 'kanit',
@@ -244,11 +247,14 @@ class Login extends Component {
 
         </div>
         <div id="bottomColor" style={{
-          width: window.innerWidth > 545 ? "434px" : "250px",
-          height: window.innerWidth > 545 ? "11vh" : "40vh",
+          width: this.state.windowWidth > 545 ? "434px" : "250px",
+          height: this.state.windowWidth > 545 ? "11vh" : "40vh",
           height: this.state.showInfoText ? "40vh" : "31vh"
         }}>
         </div>
+        <WindowSizeListener onResize={windowSize => {
+          this.setState({ windowWidth: windowSize.windowWidth })
+        }} />
       </div>
 
     );

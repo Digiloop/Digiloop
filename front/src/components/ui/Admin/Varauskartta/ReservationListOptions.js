@@ -86,6 +86,9 @@ class ReservationListOptions extends Component {
       }
     }
 
+    this.activateLocation();
+    //<RaisedButton onClick={this.activateLocation} disabled={!this.state.userLocation.locationButtonDisable} id="location" value="Käytä etäisyyttä" label="Käytä etäisyyttä" />
+
   }
 
   // geoLocation success function
@@ -104,7 +107,7 @@ class ReservationListOptions extends Component {
 
   // geoLocation error function
   geoLocationError() {
-    window.alert("Sijainti pitää olla käytössä, jos haluat filtteröidä etäisyyden mukaan.");
+    window.alert("Sijainti pitää olla käytössä, jos haluat rajata etäisyyden mukaan.");
   }
 
   activateLocation() {
@@ -233,6 +236,9 @@ class ReservationListOptions extends Component {
     const inputStyle = {
       color: "white"
     }
+    const inputStyleDisabled = {
+      color: "grey"
+    }
 
 
     return (
@@ -277,12 +283,19 @@ class ReservationListOptions extends Component {
                   <tr>
                     <td>Etäisyys (km)</td>
                     <td id="distanceField">
-                      <TextField inputStyle={inputStyle} style={textFieldStyles} id="distance" onChange={(event, newValue) => this.setState({ distance: event.target.value })} type="number" value={this.state.distance}
-                        disabled={this.state.userLocation.locationButtonDisable} />
+                      <TextField
+                        inputStyle={this.state.userLocation.locationButtonDisable ? inputStyleDisabled : inputStyle}
+                        style={textFieldStyles}
+                        id="distance"
+                        onChange={(event, newValue) => this.setState({ distance: event.target.value })}
+                        type="number"
+                        value={this.state.distance}
+                        disabled={this.state.userLocation.locationButtonDisable} 
+                        />
                     </td>
                   </tr>
                   <tr>
-                    <td><RaisedButton onClick={this.activateLocation} disabled={!this.state.userLocation.locationButtonDisable} id="location" value="Käytä etäisyyttä" label="Käytä etäisyyttä" /></td>
+                    <td></td>
                   </tr>
                 </tbody>
               </table>

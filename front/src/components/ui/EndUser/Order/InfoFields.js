@@ -142,6 +142,7 @@ class InfoFields extends React.Component {
 
                                     <FlatButton
                                     label="Poista Kuva" 
+                                    
                                     labelStyle={{
                                         position: 'relative',
                                         paddingLeft: '10px',
@@ -173,14 +174,15 @@ class InfoFields extends React.Component {
                                         style={{
                                             //width: "150px"
                                         }}
-                                        
-                                        buttonStyles={{
+                                        moz
+                                        buttonStyles={{                                            
                                             width: "85px",
                                             height: "30px",
                                             padding: "0",
                                             position: "absolute",
                                             contentAlign: "left",
-                                            margin: '40px 40px 0 0'
+                                            margin: '40px 40px 0 0',
+                                            
                                         }}
                                     />
 

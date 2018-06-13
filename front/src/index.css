@@ -587,7 +587,7 @@ text-align: right;
 #ImagePreview {
   float: right;
   min-width: 50px;
-  max-width: 50%;
+  max-width: 30%;
   height: 100%;
   padding: 5px;
 }

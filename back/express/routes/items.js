@@ -13,6 +13,33 @@ router.get('/items', (req, res, next) => {
     });
 });
 
+// fetches missing items for frontend
+router.post('/itemRefresh', (req, res) => {
+
+    const query = 'SELECT * FROM junk'
+
+    sqldatahaku.queryGet(query, (err, result) => {
+        if(err) throw err;
+
+        let diff = result.length - req.body.listLength;
+        console.log("Kanta: "+result.length+" Front: "+req.body.listLength+" Erotus: "+diff)
+        if(diff > 0){
+
+            let responseArray = []
+
+            for(let i = req.body.listLength, j = 0; i < result.length; i++, j++){
+                responseArray[j] = result[i]
+            }
+            res.json(responseArray)
+
+        } else {
+            //do ingenting
+        }
+        res.end();
+    });
+});
+
+
 //POST
 router.post('/imageAdd', (req, res) => {
     //console.log(req.get('Content-Type'));

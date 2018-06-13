@@ -390,6 +390,11 @@ button.menu {
   height: 75vh;
 }
 
+#locationDisabledInfo {
+  position: absolute; 
+  margin: 10px 0 0 0;
+}
+
 /* ENDUSERFRONT.css */
 
 .frontpake {

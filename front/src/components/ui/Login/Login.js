@@ -18,10 +18,11 @@ class Login extends Component {
       connectionError: false,
       showInfoText: true
     }
+    this.formStyleCreator = this.formStyleCreator.bind(this)
   }
 
-  componentDidMount(){
-    if(localStorage.infoTextSeen === undefined){
+  componentDidMount() {
+    if (localStorage.infoTextSeen === undefined) {
       this.setState({
         showInfoText: true
       })
@@ -70,6 +71,19 @@ class Login extends Component {
     this.props.onNewLogin({
       userlvl: -3
     });
+  }
+
+  formStyleCreator() {
+    switch (true) {
+      case (this.state.showInfoText && window.innerWidth > 545):
+        return "565px"
+      case (!this.state.showInfoText && window.innerWidth > 545):
+        return "230px"
+      case (this.state.showInfoText && window.innerWidth < 545):
+        return "340px"
+      case (!this.state.showInfoText && window.innerWidth < 545):
+        return "120px"
+    }
   }
 
 
@@ -121,8 +135,8 @@ class Login extends Component {
 
 
         <div id="loginText" style={{
-          marginTop: window.innerWidth > 545 ? "250px" : "115px",
-          width: window.innerWidth > 545 ? "450px" : "220px",
+          marginTop: window.innerWidth > 545 ? "195px" : "115px",
+          width: window.innerWidth > 545 ? "380px" : "220px",
           fontSize: window.innerWidth > 545 ? "15px" : "10px",
           height: window.innerWidth > 545 ? "290px" : "165px",
           display: this.state.showInfoText ? "block" : "none"
@@ -136,12 +150,13 @@ class Login extends Component {
           </p>
         </div>
 
-        <div className='loginContent' style={{ width: window.innerWidth > 545 ? "545px" : "320px" }}>
+        <div className='loginContent' style={{ height: window.innerWidth > 545 ? '751px' : '433px', width: window.innerWidth > 545 ? "545px" : "320px" }}>
 
 
 
           <form style={{
-            paddingTop: window.innerWidth > 545 ? "600px" : "338px",
+            //paddingTop: window.innerWidth > 545 ? "600px" : "338px",
+            paddingTop: this.formStyleCreator(),
             height: window.innerWidth > 545 ? "320px" : "95px"
           }}>
 
@@ -202,8 +217,9 @@ class Login extends Component {
 
         </div>
         <div id="bottomColor" style={{
-          width: window.innerWidth > 545 ? "532px" : "250px",
-          height: window.innerWidth > 545 ? "11vh" : "40vh"
+          width: window.innerWidth > 545 ? "434px" : "250px",
+          height: window.innerWidth > 545 ? "11vh" : "40vh",
+          height: this.state.showInfoText ? "40vh" : "31vh"
         }}>
         </div>
       </div>

@@ -257,7 +257,7 @@ class ReservationListOptions extends Component {
         <form onSubmit={this.submit} className="ResListOptForm">
 
           <div id="ResListOptionsPohjadiv">
-            <div id="ResListOptionsColorDiv">
+            <div id="ResListOptionsColorDiv" style={{minHeight: '350px'}}>
 
               <input type="submit" id="submitButt" value="Tallenna"></input>
 

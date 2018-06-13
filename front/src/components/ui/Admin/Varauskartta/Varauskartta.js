@@ -57,7 +57,7 @@ class WasteProcessor extends Component {
     console.log("Rakettiryhmä tekee intervallitreeniä")
     updateJunkData(this.props.resListItems.length).then((junks) => {
       console.log(junks)
-      let updatedJunks = this.pprops.resListItems;
+      let updatedJunks = this.props.resListItems;
       for(let i = 0; i < junks.length; i++){
         updatedJunks = [...junks[i]]
       }

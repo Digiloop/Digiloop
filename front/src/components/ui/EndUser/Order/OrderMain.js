@@ -127,9 +127,6 @@ class OrderMain extends Component {
 
         this.setState({
             values: valueArray
-        }, function(){
-            console.log("Sinappikala")
-            console.log(this.state.values)
         })
 
     }

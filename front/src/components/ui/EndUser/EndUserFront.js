@@ -66,13 +66,8 @@ class EndUserFront extends Component {
   handleClose() {
     this.setState({
       open: false
-    }, function () {
-      if (this.state.index === 0) {
-        // window.location.reload()
-      }
     })
   }
-  //handleClose = () => this.setState({ open: false })
 
   // Name to toolbartitle
   getPageName() {
@@ -88,7 +83,8 @@ class EndUserFront extends Component {
 
   toggleAllahuSnackbar() {
     this.setState({
-      allahuSnackbarOpen: true
+      allahuSnackbarOpen: true,
+      index: -1
     }, function(){
       setTimeout(this.hideAllahuSnackbar, 3000)
     })

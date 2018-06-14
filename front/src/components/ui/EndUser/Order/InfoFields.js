@@ -195,8 +195,9 @@ class InfoFields extends React.Component {
                             </td>
                         </tr>
                         <tr>
-                            <p style={styles.pTags}>Kpl</p>
-                            <p style={{
+                            <td>
+                                <p style={styles.pTags}>Kpl</p>
+                                <p style={{
                                 textAlign: 'left',
                                 margin: '0px',
                                 width: '30%',
@@ -204,7 +205,7 @@ class InfoFields extends React.Component {
                                 marginLeft: '26%',
                                 fontSize: '15px'
                                 }}>Mitat (m<sup>3</sup>)</p>
-                            <p style={{
+                                <p style={{
                                 float: 'left',
                                 textAlign: 'left',
                                 margin: '0 0 0 52%',
@@ -212,6 +213,7 @@ class InfoFields extends React.Component {
                                 position: 'absolute',
                                 fontSize: '15px'
                                 }}>Paino (kg)</p>
+                            </td>
                         </tr>
                         <tr>   
                             <td>

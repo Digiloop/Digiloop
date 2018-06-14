@@ -86,35 +86,28 @@ router.post('/feikkiCatAdd', (req, res) => {
 
 
 router.post('/imageCatAdd', (req, res) => {
-  //console.log(req.get('Content-Type'));
-  //console.log(req.files);
-  //console.log(req.files)
-  //console.log(req.files.pic)
-  //console.log(typeof req.files.pic)
-  //console.log(req.body)
+
   let imgname;
   let cat = misk.selector(req.body.catType, ['Category', 'SubSubCats'], ['CatId', 'Id'], ['ImgReference', 'imgReference'])
+
   const query = 'UPDATE ' + cat[0] + ' SET ' + cat[2] + ' = ? WHERE ' + cat[1] + '  = ?'
+
+  // no image -> set reference to null
   //lazy way to make the imagereference null
   if (req.body.nulli == 1) {
     imgname = null
-    //misk.imageAdd(req.files.pic, req.body.catType, imgname)
-    console.log(query)
     sqldatahaku.querySql(query, [imgname, req.body.id])
+
+  // create the image name from (fake)catid + img name to prevent duplicates
+  // removes all spaces, because they for some reason break in end user
   } else {
     imgname = `${req.body.id}_${req.files.pic.name}`;
+    imgname = imgname.replace(/ /g, "")
     misk.imageAdd(req.files.pic, req.body.catType, imgname)
     sqldatahaku.querySql(query, [imgname, req.body.id])
   }
-  //console.log(typeof req.files.image);
-  //console.log(req.body.image);
-  //console.log(req.body);
-  //console.log(typeof req.body);
 
-  //console.log(Object.keys(req.body).length)
-  //misk.imageAdd(req.files.img0, 0);// categories,subcategories,users = 0/1/2
   res.end();
-  //console.log(req.files.sample);
 });
 
 module.exports = router

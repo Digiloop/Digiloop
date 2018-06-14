@@ -127,9 +127,6 @@ class OrderMain extends Component {
 
         this.setState({
             values: valueArray
-        }, function(){
-            console.log("Sinappikala")
-            console.log(this.state.values)
         })
 
     }
@@ -329,7 +326,9 @@ class OrderMain extends Component {
                     saveValues={this.saveValues}
                     nextItem={this.nextItem}
                     editItem={this.editItem}
-                    removeItem={this.removeItem} />
+                    removeItem={this.removeItem}
+
+                   toggleAllahuSnackbar={this.props.toggleAllahuSnackbar} />
         }
     }
 

@@ -55,7 +55,7 @@ class FrontPage extends Component {
         <div className="FrontPageContainer"><br />
           {this.state.etusivu}
 
-          <div>{this.state.value ? <Notification /> : <Order />}</div>
+          <div>{this.state.value ? <Notification /> : <Order toggleAllahuSnackbar={this.props.toggleAllahuSnackbar} />}</div>
         </div>
       </div>
 

@@ -9,18 +9,24 @@ import Profile from '../../containers/EndUser/Profile/Profile';
 import Historia from './History/History';
 import { logOut } from '../../../utils/login';
 
+import /*Allahu*/ Snackbar from '@material-ui/core/Snackbar';
+
 class EndUserFront extends Component {
   constructor(props) {
     super(props);
     this.state = {
       index: -1,
       open: false,
-      frontPageNeedsReset: false
+      frontPageNeedsReset: false,
+      allahuSnackbarOpen: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.getPageName = this.getPageName.bind(this);
 
     this.handleClose = this.handleClose.bind(this);
+
+    this.toggleAllahuSnackbar = this.toggleAllahuSnackbar.bind(this)
+    this.hideAllahuSnackbar = this.hideAllahuSnackbar.bind(this)
   }
 
   // logout clears session with backend, empties localStorage session and sets userlevel to logged out
@@ -60,13 +66,8 @@ class EndUserFront extends Component {
   handleClose() {
     this.setState({
       open: false
-    }, function(){
-      if(this.state.index === 0){
-        // window.location.reload()
-      }
     })
   }
-  //handleClose = () => this.setState({ open: false })
 
   // Name to toolbartitle
   getPageName() {
@@ -80,6 +81,18 @@ class EndUserFront extends Component {
     }
   }
 
+  toggleAllahuSnackbar() {
+    this.setState({
+      allahuSnackbarOpen: true,
+      index: -1
+    }, function(){
+      setTimeout(this.hideAllahuSnackbar, 3000)
+    })
+  }
+
+  hideAllahuSnackbar(){
+    this.setState({allahuSnackbarOpen: false})
+  }
 
   render() {
 
@@ -115,9 +128,15 @@ class EndUserFront extends Component {
             </Toolbar>
           </AppBar>
           {this.state.index === -1 && <FrontPageRedirect onUpdate={this.handleUpdate} />}
-          {this.state.index === 0 && <FrontPage />}
+          {this.state.index === 0 && <FrontPage toggleAllahuSnackbar={this.toggleAllahuSnackbar} />}
           {this.state.index === 1 && <Historia />}
           {this.state.index === 2 && <Profile onUpdate={this.handleUpdate} />}
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={this.state.allahuSnackbarOpen}
+            //onClose={this.handleClose}
+            message={<span id="message-id">ALLAHU SNACKBAR</span>}
+          />
         </div>
       </MuiThemeProvider>
     );

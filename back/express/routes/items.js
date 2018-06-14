@@ -19,15 +19,15 @@ router.post('/itemRefresh', (req, res) => {
     const query = 'SELECT * FROM junk'
 
     sqldatahaku.queryGet(query, (err, result) => {
-        if(err) throw err;
+        if (err) throw err;
 
         let diff = result.length - req.body.listLength;
-        console.log("Kanta: "+result.length+" Front: "+req.body.listLength+" Erotus: "+diff)
-        if(diff > 0){
+        console.log("Kanta: " + result.length + " Front: " + req.body.listLength + " Erotus: " + diff)
+        if (diff > 0) {
 
             let responseArray = []
 
-            for(let i = req.body.listLength, j = 0; i < result.length; i++, j++){
+            for (let i = req.body.listLength, j = 0; i < result.length; i++ , j++) {
                 responseArray[j] = result[i]
             }
             res.json(responseArray)
@@ -41,54 +41,101 @@ router.post('/itemRefresh', (req, res) => {
 
 
 //POST
-router.post('/imageAdd', (req, res) => {
-    //console.log(req.get('Content-Type'));
-    console.log(req.files)
-    //console.log(req.files.pic)
-    //console.log(typeof req.files.pic)
-    console.log(req.body)
-    /*
-      const query = 'UPDATE junk' +  SET  + cat[2] + ' = ? WHERE ' + cat[1] + '  = ?'
-      imgname = `${req.body.id}_${req.files.pic.name}`;
-      misk.imageAdd(req.files.pic, req.body.catType, imgname)
-      sqldatahaku.querySql(query, [imgname, req.body.id])
-    */
-    //console.log(typeof req.files.image);
-    //console.log(req.body.image);
-    //console.log(req.body);
-    //console.log(typeof req.body);
+router.post('/itemAddOld', (req, res, next) => {
 
-    //console.log(Object.keys(req.body).length)
-    //misk.imageAdd(req.files.img0, 0);// categories,subcategories,users = 0/1/2
+    const query = 'INSERT INTO junk ( category, city, description, iscompany, latitude, longitude, pcs, itemphone, wishbox, pickupaddr,  size, subCat, weight, zipcode, junkdate, junkdateadded, status, owner, picture ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);'
+    const secondary = [Date.now(), misk.dateToday(), 1, 47]//req.user.id
+    const third = misk.keyToArray(req.files)
+
+    misk.fuseItemArray(req.body, secondary, third, sqldatahaku.querySql, query)//req.body = all items, secondary = data from backend, sqldatahaku.querySql = function that inserts stuff to database, query = sqlquery
     res.end();
-    //console.log(req.files.sample);
 });
 
 
+
+
+
+
+
+
+
 router.post('/itemAdd', (req, res, next) => {
-    //console.log(req.body.itemData)
-    //console.log(req.body)
-    //console.log(req.body.pickupInstructions0)
-    //console.log(req.files)
-    console.log(req.body)
-    //console.log(typeof req.body.itemData)
-    //console.log(misk.checkValidLength(req.body.itemData, 14))
-    //console.log(misk.checkValidValues(req.body.itemData));
-    //misk.loopityLoop(req.body.itemData,console.log)
-    //console.log(req.body.itemData)
-    //console.log(Object.keys(req.body.itemData[0].picture).length)
-    //console.log(misk.imageAdd(req.body.itemData[0].req.files.picture, 0));
-    //if(req.files == null){third = 'picture'}else{
-    
-    let third = misk.keyToArray(req.files)
-    //}
-   console.log(third)
-    const query = 'INSERT INTO junk ( category, city, description, iscompany, latitude, longitude, pcs, itemphone, wishbox, pickupaddr,  size, subCat, weight, zipcode, junkdate, junkdateadded, status, owner, picture ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);'
-    const secondary = [Date.now(), misk.dateThing(), 1, req.user.id]//req.user.id
-    //let imuguu = misk.keyToArray(req.files)[1].name
-    // console.log(imuguu)
-    misk.fuseItemArray(req.body, secondary, third, sqldatahaku.querySql, query)//req.body = all items, secondary = data from backend, sqldatahaku.querySql = function that inserts stuff to database, query = sqlquery
+
+    let arr = Object.entries(req.body);
+    let arr2 = Object.keys(req.body)
+
+
+    //Amount of arrays received ---------------------------------------------
+    function onlyUnique(value, index, self) {
+        return self.indexOf(value) === index;
+    }
+
+    let onlychar = []
+    arr2.forEach(element => {
+        onlychar.push(element.charAt(0))
+
+    })
+    let amountOfArrays = onlychar.filter(onlyUnique)
+    //--------------------------------------------------------------------
+    let betterarray = []
+    amountOfArrays.forEach((element, i = 0) => {
+    })
+    //console.log(betterarray)
+
+
+    //Arrays that miss image --------------------------------- imgval,undef,indexi
+    let missingImg = []
+    arr.forEach(([key, value], i = 0) => {
+        i++
+        if (key.includes('img')) {
+            //
+            missingImg.push(arr[i - 1].slice().concat([i - 1]))
+        }
+        //console.log(`${key} ${value}`); 
+    });
+    //---------------------------------------------------------------------------
+    let sliceri = []
+    //console.log(arr)
+    //console.log(amountOfArrays[2])
+    //console.log(arr.length)
+    //console.log(missingImg)
+    missingImg.forEach((element,i=0) => {
+
+        arr.splice(element[2]-i, 1)
+        i++
+    })
+    //let a = missingImg[2][2]
+    //console.log(missingImg)
+    //console.log(missingImg[2][2])
+    //arr.splice(a,a)
+    //console.log(missingImg)
+    console.log('---------------------------------------------------')
+    //console.log(missingImg)
+    console.log(arr.splice(0,14))
+    console.log(missingImg)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     res.end();
+
+
 });
 
 router.post('/itemStatus', (req, res, next) => {
@@ -96,20 +143,26 @@ router.post('/itemStatus', (req, res, next) => {
     res.end();
 })
 
+router.post('/itemReserveCancel', (req, res, next) => {
+    sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [1, 0, req.body.junkId])
+    res.end();
+})
+
+//tarttee checking että ei voi varata muitten varattuja
 router.post('/itemReserve', (req, res, next) => {
     sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [2, req.user.id, req.body.junkId])
     res.end();
 })
 
 router.get('/stuff', (req, res, next) => {
-    res.json(misk.dateThing())
+    res.json(misk.dateToday())
 })
 
 //var myDate = new Date();
 //myDate.setHours(myDate.getHours() + 6);
-router.get('/test', (req, res) => { 
+router.get('/test', (req, res) => {
     let a
-    if(1==null){a = 5}else{a=2}
+    if (1 == null) { a = 5 } else { a = 2 }
     res.json(a);
 });
 router.get('/profile', (req, res) => { res.json(req.user) });

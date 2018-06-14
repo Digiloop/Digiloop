@@ -93,7 +93,7 @@ module.exports = class misc {
         return all;
     }
 
-    dateThing() {
+    dateToday() {
         let datum = new Date();
         datum.setHours(datum.getHours() + 3);
         return datum.toISOString().replace(/T/, ' ').replace(/\..+/, '');

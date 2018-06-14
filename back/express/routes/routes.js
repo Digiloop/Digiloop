@@ -106,7 +106,7 @@ module.exports = (app, passport, users) => {
 
         var userObject = {
             address: req.user.address, city: req.user.city, company: req.user.company, email: req.user.email,
-            fname: req.user.fname, id: req.user.id, lname: req.user.lname, phone: req.user.phone, userlvl: req.user.userlvl, username: req.user.username, zipcode: req.user.zipcode
+            fname: req.user.fname, id: req.user.id, lname: req.user.lname, phone: req.user.phone, userlvl: req.user.userlvl, username: req.user.username, zipcode: req.user.zipcode, ytunnus: req.user.ytunnus
         };
 
         res.json({

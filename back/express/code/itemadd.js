@@ -3,6 +3,7 @@ module.exports = class itemAdd {
         this.body = body
         this.bodyEntries = Object.entries(body)
         this.bodyKeys = Object.keys(body)
+        this.bodyValues = Object.values(body)
         this.files = files
     }
     // let arr = Object.entries(req.body);
@@ -44,6 +45,14 @@ module.exports = class itemAdd {
             i++
         })
         return this.bodyEntries;
+    }
+
+    onlyMissingImg() {
+        let onlychar = []
+        this.missingImage().forEach(element => {
+            onlychar.push(element[0].charAt(0))
+        })
+        return onlychar.filter(this.onlyUnique);
     }
 
     logFiles() {

@@ -20,6 +20,8 @@ class Summary extends React.Component {
         let data = this.props.values;
         let addressData = this.props.addressData;
 
+        const snackbar = this.props.toggleAllahuSnackbar();
+
         let address = this.props.addressData.pickupaddr + ", " + this.props.addressData.city;
 
         this.geocoder.geocode({ 'address': address }, function (results, status) {
@@ -68,6 +70,7 @@ class Summary extends React.Component {
                 //console.log(imageArray);
 
                 sendItemData(finalizedData);
+                snackbar;
                 //sendItemImageData(imageArray, finalizedData);
                 //window.location.reload()
 

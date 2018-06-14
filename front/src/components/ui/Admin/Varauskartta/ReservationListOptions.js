@@ -256,12 +256,12 @@ class ReservationListOptions extends Component {
       <MuiThemeProvider>
         <form onSubmit={this.submit} className="ResListOptForm">
 
-          <div id="ResListOptionsPohjadiv">
-            <div id="ResListOptionsColorDiv">
+          <div id="ResListOptionsPohjadiv" style={{width: "fit-content"}}>
+            <div id="ResListOptionsColorDiv" style={{width: "fit-content"}}>
 
-              <input type="submit" id="submitButt" value="Tallenna"></input>
+              <input type="submit" id="submitButt" value="Tallenna" style={{float: 'left', position:'initial'}}></input>
 
-              <table id="varatut">
+              <table id="varatut" style={{position: 'initial', margin: '50px 0 30px 0'}}>
                 <tbody>
                   <tr>
                     <td>Näytä varatut</td>
@@ -325,24 +325,27 @@ class ReservationListOptions extends Component {
               </table>
 
 
-
-              <table id="katit">
-
-                <tbody id="kattibody">
-                  <tr><td><h1 id="katetext">Kategoriat</h1></td></tr>
-                  {catBoxes}
-                </tbody>
+              <table>
+                <tr>
+                  <td id="varausKattiId">
+                    <table id="katit" style={{position: "unset"}}>
+                      <tbody id="kattibody">
+                        <tr><td><h1 id="katetext">Kategoriat</h1></td></tr>
+                        {catBoxes}
+                      </tbody>
+                    </table>
+                  </td>
+                  <td id="varausAlakattiId">
+                    <table id="alakatit" style={{padding: 0}}>
+                      <tbody id="alakattibody">
+                        <tr><td><h1 id="alakatetext">Alakategoriat</h1></td></tr>
+                        {subCatBoxes}
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
               </table>
 
-              <table id="alakatit">
-                <tbody id="alakattibody">
-
-                  <tr><td><h1 id="alakatetext">Alakategoriat</h1></td></tr>
-                  {subCatBoxes}
-
-
-                </tbody>
-              </table>
 
             </div>
           </div>

@@ -395,6 +395,15 @@ button.menu {
   margin: 10px 0 0 0;
 }
 
+#varausKattiId{
+  padding: 0;
+  vertical-align: top;
+}
+#varausAlakattiId {
+  padding: 0;
+  vertical-align: top;
+}
+
 /* ENDUSERFRONT.css */
 
 .frontpake {

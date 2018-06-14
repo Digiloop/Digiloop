@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Divider, TextField, FlatButton } from 'material-ui';
-import styles from '../../../../index.css';
 import { updateUserData } from '../../../../utils/updateUserData';
 
 class Profile extends Component {
@@ -15,8 +14,8 @@ class Profile extends Component {
       city: this.props.userInfo.city,
 
       allFilled: false,
+      phoneNumberValid: false,
 
-      phoneNumberValid: false
     };
     this.checkFill = this.checkFill.bind(this);
   }
@@ -54,11 +53,12 @@ class Profile extends Component {
         "zipcode": this.state.zipcode,
         "city": this.state.city
       }
-
-      updateUserData(updateUserdata);
+            
+      // updateUserData(updateUserdata);
 
       this.props.onUpdate();
-      window.alert("Tiedot päivitetty!");
+
+      // window.alert("Tiedot päivitetty!");
     } else {
       window.alert("Ei saa jättää lootia tyhjiksi!");
     }
@@ -144,7 +144,6 @@ class Profile extends Component {
                 </td>
               </tr>
               <tr><td></td><td><label className="middleRegisterLabel">Yrityksen tiedot:</label> </td></tr>
-              <tr>
                 <tr>
                   <td><label className="leftUpdateLabel">Yrityksen nimi: </label></td>
                   <td><label className="leftUpdateLabel">{this.props.userInfo.company}</label></td>
@@ -153,6 +152,7 @@ class Profile extends Component {
                   <td><label className="leftUpdateLabel">Y-tunnus: </label></td>
                   <td><label className="leftUpdateLabel">{this.props.userInfo.ytunnus}</label></td>
                 </tr>
+              <tr>
                 <td>
                   <label className="leftUpdateLabel">Katuosoite: </label>
                 </td>
@@ -227,7 +227,7 @@ class Profile extends Component {
 
             onClick={(event) => this.Submit(event)} />
           <br />
-        </div >
+        </div >        
       </div>
     );
   }

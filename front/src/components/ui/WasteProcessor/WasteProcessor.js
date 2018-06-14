@@ -4,6 +4,8 @@ import { AppBar, Drawer, Menu, MenuItem } from 'material-ui';
 import { Toolbar, IconButton, Divider, Tabs, Tab } from 'material-ui';
 import MenuIcon from '@material-ui/icons/Menu';
 import { logOut } from '../../../utils/login';
+import { Snackbar } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close'
 
 // Sub-pages
 import Profile from '../../containers/WasteProcessor/Profile/Profile'
@@ -19,7 +21,8 @@ class WasteProcessor extends Component {
     super(props);
     this.state = {
       index: 0,
-      open: false
+      open: false,
+      openSnackBar: false
     }
   }
 
@@ -31,9 +34,10 @@ class WasteProcessor extends Component {
   };
 
    // returns to frontpage
-   handleUpdate = (e, value) => {
+   handleUpdate = (value) => {
     this.setState({
-      index: 0
+      index: 0,
+      openSnackBar: true
     });
   }
 
@@ -52,6 +56,8 @@ class WasteProcessor extends Component {
   // opens and closes drawer
   handleToggle = (event) => this.setState({ open: !this.state.open })
   handleClose = () => this.setState({ open: false })
+
+  handleSnackBarClose = () => this.setState({ openSnackBar: false })
 
   render() {
     
@@ -99,7 +105,26 @@ class WasteProcessor extends Component {
 
           {this.state.index === 4 && <Profile onUpdate={this.handleUpdate} />}
         </div>
-
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          open={this.state.openSnackBar}
+          autoHideDuration={3000}
+          onClose={this.handleSnackBarClose}
+          message={<span id="message-id">Tiedot päivitetty!</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={this.handleSnackBarClose}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
+          />
 
       </MuiThemeProvider>
     );

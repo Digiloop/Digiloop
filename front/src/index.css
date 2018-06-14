@@ -232,6 +232,7 @@ table {
 .rightUpdateFieldUser
 {
  margin-left: 5px;
+ width: 55%;
 }
 
 
@@ -448,6 +449,16 @@ button.menu {
 .newOrder {
   margin-top: 8vh;
   color: white;
+}
+
+.registerButton {
+  float: right;
+  margin: 10px;
+}
+
+.cancelButton {
+  float: left;
+  margin: 10px;
 }
 
 

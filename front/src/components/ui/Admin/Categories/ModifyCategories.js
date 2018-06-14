@@ -60,7 +60,8 @@ class ModifyCategories extends Component {
     handleSelectCatChange = (event, index, value) => {
         this.setState({
             valueC: value,
-            pic: null
+            pic: null,
+            cid: null
         });
         this.expand();
     };
@@ -356,6 +357,7 @@ class ModifyCategories extends Component {
             }
         }
         
+        console.log(this.state.fakeCats);
 
         // function for dynamic sorting
         function compareValues(key, order = 'asc') {
@@ -383,7 +385,7 @@ class ModifyCategories extends Component {
         }
 
         this.state.subCats.sort(compareValues('CatId'));
-        // this.state.fakeCats.sort(compareValues('subCatId'));
+        // fakeCats.sort(compareValues('subCatId'));
 
 
         return (
@@ -428,7 +430,7 @@ class ModifyCategories extends Component {
                         </div>
                     </div>
                     <div className='pictures' style={{ float: 'left', width: '40%', marginTop: '8%' }}>
-                        {this.state.valueC !== 'subCats' && this.state.rows.length ?
+                        {this.state.valueC !== 'subCats' && this.state.cid  ?
                             <div>{this.state.pic === 'imagereferenssi' || this.state.pic === 'i can haz reference'
                                 || this.state.pic === null ?
                                 <div><h2>Lisää kuva</h2>

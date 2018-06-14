@@ -17,28 +17,42 @@ class ModifyCategories extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: '',
-            valueC: 'cats',
+            valueC: 'cats', // current category selected
+
             cat: '',
             newCatName: '',
             newName: '',
             row: 0,
-            cid: '',
-            pic: '',
-            picUrl: '',
-            rows: [],
+
+            categoryId: '',
+            pictureAddress: '',
+            categoryFolder: '',
+
+            rows: [], // each row's open/close boolean as an array
             cats: [],
             subCats: [],
             fakeCats: [],
             pictures: null
         }
         this.onDrop = this.onDrop.bind(this);
+        this.imageExists = this.imageExists.bind(this);
     }
 
     // fetch categories data
+    // since categories are the default to be shown, initialize rows for them
     getCategories() {
         getCats().then((categories) => {
-            this.setState({ cats: (categories) });
+
+            let emptyRows = [];
+            for (let i = 0; i < categories.length; i++) {
+                emptyRows[i] = false;
+            }
+            this.setState({
+                cats: categories,
+                rows: emptyRows
+            });
+
+            //this.setState({ cats: (categories) });
         });
     }
 
@@ -56,114 +70,139 @@ class ModifyCategories extends Component {
         });
     }
 
-    // select category type
+    // select category categoryType
     handleSelectCatChange = (event, index, value) => {
+
+        // reset the rows to false and set it's length as the active cat categoryType's length
+        let emptyRows = [];
+        for (let i = 0; i < this.state[value].length; i++) {
+            emptyRows[i] = false;
+        }
+
         this.setState({
             valueC: value,
-            pic: null,
-            cid: null
+            pictureAddress: null,
+            categoryId: null,
+            rows: emptyRows
         });
-        this.expand();
+        //this.close();
     };
 
     // picture
     onDrop(picture) {
         this.setState({
-            pictures: picture[0]
+            pictures: picture[picture.length -1]
         });
     }
 
     // add image to category
-    addImage() {
-        sendImage(this.state.pictures, this.state.type, this.state.cid).then(() => { this.getCategories(); this.getFakeCategories() });
+    saveImage() {
+        sendImage(this.state.pictures, this.state.categoryType, this.state.categoryId)
+            .then(() => {
+                this.getCategories();
+                this.getFakeCategories()
+            });
     }
 
     // delete picture
     deleteImage() {
-        sendImage(this.state.pic, this.state.type, this.state.cid, 1).then(() => { this.getCategories(); this.getFakeCategories() });
+        this.setState({
+            pictures: null,
+            pictureAddress: null
+        })
+        sendImage(this.state.pictureAddress, this.state.categoryType, this.state.categoryId, 1)
+            .then(() => {
+                this.getCategories();
+                this.getFakeCategories()
+            });
     }
 
-    // Category id, pic address, rownumber, type: 0=category 1=fakecategory
-    getCat = (cid, pic, x, type) => {
-        if (type === 0) {
-            this.setState({ picUrl: '/images/categories/' });
+    imageExists(image_url) {
+        var http = new XMLHttpRequest();
+        http.open('HEAD', image_url, false);
+        http.send();
+        return http.status !== 404;
+    }
+
+    // Category id, pictureAddress address, rownumber, categoryType: 0=category 1=fakecategory
+    getCat = (categoryId, pictureAddress, rownumber, categoryType) => {
+        if (categoryType === 0) {
+            this.setState({ categoryFolder: '/images/categories/' });
         } else {
-            this.setState({ picUrl: '/images/subcategories/' });
+            this.setState({ categoryFolder: '/images/subcategories/' });
         }
         this.setState({
-            cid: cid,
-            pic: pic,
-            type: type
+            categoryId: categoryId,
+            pictureAddress: pictureAddress,
+            categoryType: categoryType
         }, function () {
-            this.expand(x);
+            this.expand(rownumber);
         });
     }
 
     // activate or deactivate category
-    activate(id, status, type, y) {
+    activate(id, status, categoryType, rownumber) {
         this.setState({
             id: id,
-            type: type,
+            categoryType: categoryType,
             status: !status
         }, function () {
-            var statusData = {
-                'catType': this.state.type,
+            let statusData = {
+                'catType': this.state.categoryType,
                 'Status': this.state.status,
                 'id': this.state.id
             }
-            console.log(statusData);
 
             sendStatus(statusData).then(() => { this.getCategories(); this.getSubCategories(); this.getFakeCategories() });
-            this.close(y);
+            this.expand(rownumber);
         });
     }
 
     // change name
-    changeName(id, name, type, y) {
+    changeName(id, name, categoryType, rownumber) {
         if (this.state.newCatName === '') {
             this.setState({ newCatName: name })
         }
         this.setState({
             id: id,
-            type: type,
+            categoryType: categoryType,
             name: name
         }, function () {
             var renameData = {
-                'catType': this.state.type,
+                'catType': this.state.categoryType,
                 'name': this.state.newCatName,
                 'id': this.state.id
             }
-            sendNewCatName(renameData).then(() => { this.getCategories(); this.getSubCategories(); this.getFakeCategories() });
+            sendNewCatName(renameData)
+                .then(() => {
+                    this.getCategories();
+                    this.getSubCategories();
+                    this.getFakeCategories()
+                });
             this.setState({ newCatName: '' })
-            this.close(y);
+            this.expand(rownumber);
         });
     }
 
     // open row
-    expand(x) {
+    expand(rownumber) {
+        let updatedRows = this.state.rows;
+        let prevState = this.state.rows[rownumber];
 
         // close open ones
         for (let i = 0; i < this.state.rows.length; i++) {
             if (this.state.rows[i]) {
-                this.state.rows[i] = false;
+                updatedRows[i] = false;
             }
         }
-
-        // open new row
-        this.state.rows[x] = true;
-        this.setState({ rows: this.state.rows });
+        // set the selected row to reverse
+        updatedRows[rownumber] = !prevState;
+        this.setState({ 
+            rows: updatedRows,
+            pictures: null
+        });
     }
 
-    // close row
-    close(x) {
-
-        for (let i = 0; i < this.state.rows.length; i++) {
-            if (this.state.rows[i]) {
-                this.state.rows[i] = false;
-            }
-        }
-        this.setState({ rows: this.state.rows });
-    }
 
 
     componentDidMount() {
@@ -222,7 +261,7 @@ class ModifyCategories extends Component {
         const cats = [];
         const subCats = [];
         const fakeCats = [];
-        
+
 
         // loop categories
         for (let i = 0; i < this.state.cats.length; i++) {
@@ -262,7 +301,7 @@ class ModifyCategories extends Component {
         }
 
         // loop subcategories
-       for (let j = 0; j < this.state.subCats.length; j++) {
+        for (let j = 0; j < this.state.subCats.length; j++) {
             const tmp = [];
             for (let l = 0; l < this.state.cats.length; l++) {
                 if (this.state.cats[l].CatId === this.state.subCats[j].CatId) {
@@ -320,7 +359,7 @@ class ModifyCategories extends Component {
                     }
                 }
             }
-            
+
             if (this.state.rows[k]) {
                 fakeCats.push(
                     <TableRow key={k} style={{ height: '150px', borderBottom: '1px solid black' }} >
@@ -406,8 +445,7 @@ class ModifyCategories extends Component {
                                     <MenuItem value={'fakeCats'} primaryText="Feikkikategoriat" />
                                 </SelectField>
                             </div>
-                            <Table className='Cat' style={{ float: 'left', width: '100%' }}
-                            >
+                            <Table className='Cat' style={{ float: 'left', width: '100%' }}>
                                 <TableBody displayRowCheckbox={false}>
                                     {
                                         (() => {
@@ -428,14 +466,41 @@ class ModifyCategories extends Component {
                         </div>
                     </div>
                     <div className='pictures' style={{ float: 'left', width: '40%', marginTop: '8%' }}>
-                        {this.state.valueC !== 'subCats' && this.state.cid  ?
-                            <div>{this.state.pic === 'imagereferenssi' || this.state.pic === 'i can haz reference'
-                                || this.state.pic === null ?
-                                <div><h2>Lisää kuva</h2>
+                        {this.state.valueC !== 'subCats' && this.state.categoryId ?
+                            <div>
+
+
+                                <div>
+                                    <h2>Lisää kuva</h2>
+
+                                    <div>
+                                        
+
+                                        {this.state.pictures != null ? 
+                                            <img src={URL.createObjectURL(this.state.pictures)} />
+                                            : (this.imageExists(BASE_URL + this.state.categoryFolder + this.state.pictureAddress) ? 
+                                                <img style={styles.image} src={BASE_URL + this.state.categoryFolder + this.state.pictureAddress} /> 
+                                                : <p style={{width: '90px'}}>Ei valittua kuvaa</p>)
+                                        }
+
+                                        
+
+                                    </div>
+
+                                </div>
+
+                                <div>
+                                    <FlatButton
+                                        label='Poista kuva'
+                                        style={styles.button}
+                                        backgroundColor={'#FFF'}
+                                        onClick={() => this.deleteImage()}
+                                    />
+
                                     <ImageUploader
                                         withIcon={false}
                                         withLabel={false}
-                                        withPreview={true}
+                                        withPreview={false}
                                         buttonText='Valitse kuva'
                                         onChange={this.onDrop}
                                         imgExtension={['.jpg', '.gif', '.png', '.gif']}
@@ -445,17 +510,12 @@ class ModifyCategories extends Component {
                                         label='Tallenna'
                                         style={styles.button}
                                         backgroundColor={'#FFF'}
-                                        onClick={() => this.addImage()}
-                                    /></div> : <div><div>
-                                        <img style={styles.image} src={BASE_URL + this.state.picUrl + this.state.pic}></img>
-                                    </div><div><FlatButton
-                                        label='Poista kuva'
-                                        style={styles.button}
-                                        backgroundColor={'#FFF'}
-                                        onClick={() => this.deleteImage()}
+                                        onClick={() => this.saveImage()}
                                     />
-                                    </div></div>
-                            }</div> : <div></div>
+                                </div>
+                            </div>
+                            :
+                            null
                         }
                     </div>
                 </div>

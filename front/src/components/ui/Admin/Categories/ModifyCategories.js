@@ -395,12 +395,7 @@ class ModifyCategories extends Component {
                 )
             }
         }
-<<<<<<< HEAD
-
-
-=======
         
->>>>>>> 2ce4938047a5322474acec96cf98ab78754bf4f3
         // function for dynamic sorting
         function compareValues(key, order = 'asc') {
             return function (a, b) {

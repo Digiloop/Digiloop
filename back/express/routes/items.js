@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var misc = require('../code/misc.js'); var misk = new misc;
 var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata; //haetaan luokka joka hoitaa sql sydeemeit
+var itemadd = require('../code/itemadd.js');
 
 //GET
 router.get('/items', (req, res, next) => {
@@ -60,7 +61,7 @@ router.post('/itemAddOld', (req, res, next) => {
 
 
 router.post('/itemAdd', (req, res, next) => {
-
+/*
     let arr = Object.entries(req.body);
     let arr2 = Object.keys(req.body)
 
@@ -73,7 +74,6 @@ router.post('/itemAdd', (req, res, next) => {
     let onlychar = []
     arr2.forEach(element => {
         onlychar.push(element.charAt(0))
-
     })
     let amountOfArrays = onlychar.filter(onlyUnique)
     //--------------------------------------------------------------------
@@ -95,33 +95,24 @@ router.post('/itemAdd', (req, res, next) => {
     });
     //---------------------------------------------------------------------------
     let sliceri = []
-    //console.log(arr)
-    //console.log(amountOfArrays[2])
-    //console.log(arr.length)
-    //console.log(missingImg)
-    missingImg.forEach((element,i=0) => {
 
-        arr.splice(element[2]-i, 1)
+    missingImg.forEach((element, i = 0) => {
+
+        arr.splice(element[2] - i, 1)
         i++
     })
-    //let a = missingImg[2][2]
-    //console.log(missingImg)
-    //console.log(missingImg[2][2])
-    //arr.splice(a,a)
-    //console.log(missingImg)
+  
     console.log('---------------------------------------------------')
-    //console.log(missingImg)
-    console.log(arr.splice(0,14))
-    console.log(missingImg)
+    //console.log(arr.splice(0, 14))
+    console.log(missingImg) // deleted elements
+    console.log(amountOfArrays)
+*/
+let itemAdd = new itemadd(req.body,req.files)
 
-
-
-
-
-
-
-
-
+console.log(itemAdd.numberOfItems())
+console.log(itemAdd.missingImage())
+console.log(misk.spliceArray(itemAdd.cleanArray())[1])
+console.log(itemAdd.logFiles())
 
 
 
@@ -139,7 +130,7 @@ router.post('/itemAdd', (req, res, next) => {
 });
 
 router.post('/itemStatus', (req, res, next) => {
-    sqldatahaku.querySql('UPDATE junk SET status = ? WHERE junkID = ?;', [req.body.status, req.body.junkId])
+    sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [req.body.status,req.body.fetcher, req.body.junkId])
     res.end();
 })
 

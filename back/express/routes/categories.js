@@ -102,7 +102,7 @@ router.post('/imageCatAdd', (req, res) => {
   // removes all spaces, because they for some reason break in end user
   } else {
     imgname = `${req.body.id}_${req.files.pic.name}`;
-    imgname = imgname.replace(" ", "")
+    imgname = imgname.replace(/ /g, "")
     misk.imageAdd(req.files.pic, req.body.catType, imgname)
     sqldatahaku.querySql(query, [imgname, req.body.id])
   }

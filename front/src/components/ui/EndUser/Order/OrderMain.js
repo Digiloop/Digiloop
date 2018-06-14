@@ -329,7 +329,9 @@ class OrderMain extends Component {
                     saveValues={this.saveValues}
                     nextItem={this.nextItem}
                     editItem={this.editItem}
-                    removeItem={this.removeItem} />
+                    removeItem={this.removeItem}
+
+                   toggleAllahuSnackbar={this.props.toggleAllahuSnackbar} />
         }
     }
 

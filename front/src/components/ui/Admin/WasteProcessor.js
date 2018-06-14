@@ -29,7 +29,7 @@ class AdminWasteProcessor extends Component {
   handleChange = (value) => {
     this.setState({
       index: value
-    });
+    });    
   };
 
   // drawer selector
@@ -37,6 +37,7 @@ class AdminWasteProcessor extends Component {
     this.setState({
       index: value
     });
+    
   }
 
   // logout function
@@ -60,6 +61,7 @@ class AdminWasteProcessor extends Component {
   handleToggle = (event) => this.setState({ open: !this.state.open })
   handleClose = () => this.setState({ open: false })
 
+
   render() {
 
     const styles = {
@@ -67,6 +69,9 @@ class AdminWasteProcessor extends Component {
         height: 60,
         width: 60
       },
+      inkBarStyle: {
+
+      }
     }
 
     return (
@@ -78,7 +83,7 @@ class AdminWasteProcessor extends Component {
                 <MenuIcon color='#FFF' />
               </IconButton>
               <Tabs index={this.state.index} onChange={this.handleChange} style={{ width: '100%', float: 'left' }} 
-              inkBarStyle={{ background: '#AFD43F', height: '3px' }}>
+              inkBarStyle={{ background: '#AFD43F', height: '3px' }} >
                 <Tab label="Kategoriat" className="menu" value={0} />
                 <Tab label="Varaukset" className="menu" value={1} />
                 <Tab label="Admin" className="menu" value={2} />
@@ -87,7 +92,7 @@ class AdminWasteProcessor extends Component {
               </Tabs>
               <div className="frontDrawer">
                 <Drawer docked={false} width={220} open={this.state.open} onRequestChange={(open) => this.setState({ open })}
-                  containerStyle={{ backgroundColor: '#004225' }}>
+                  containerStyle={{ backgroundColor: '#004225' }} >
                   <Menu value={this.state.value} onChange={this.handleDrawerChange}>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={0}>Etusivu</MenuItem>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={5}>Oma profiili</MenuItem>

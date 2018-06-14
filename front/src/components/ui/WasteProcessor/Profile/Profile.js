@@ -54,7 +54,7 @@ class Profile extends Component {
         "zipcode": this.state.zipcode,
         "city": this.state.city
       }
-      
+
       updateUserData(updateUserdata);
 
       this.props.onUpdate();
@@ -109,6 +109,7 @@ class Profile extends Component {
                   <TextField className="rightUpdateField"
                     underlineStyle={{ borderColor: '#A6CE6B' }}
                     underlineFocusStyle={{ borderColor: '#004225' }}
+                    inputStyle={{ marginLeft: '5px' }}
                     type="text" defaultValue={this.props.userInfo.fname}
                     hintText="Etunimi" style={styles}
                     onChange={(event, newValue) => this.setState({ firstName: newValue })} />
@@ -122,6 +123,7 @@ class Profile extends Component {
                   <TextField className="rightUpdateField"
                     underlineStyle={{ borderColor: '#A6CE6B' }}
                     underlineFocusStyle={{ borderColor: '#004225' }}
+                    inputStyle={{ marginLeft: '5px' }}
                     type="text" defaultValue={this.props.userInfo.lname}
                     hintText="Sukunimi" style={styles}
                     onChange={(event, newValue) => this.setState({ lastName: newValue })} />
@@ -135,6 +137,7 @@ class Profile extends Component {
                   <TextField className="rightUpdateField"
                     underlineStyle={{ borderColor: '#A6CE6B' }}
                     underlineFocusStyle={{ borderColor: '#004225' }}
+                    inputStyle={{ marginLeft: '5px' }}
                     type="text" defaultValue={this.props.userInfo.phone}
                     hintText="Puhelinnumero" style={styles}
                     onChange={(event, newValue) => this.setState({ phone: newValue })} />
@@ -142,6 +145,14 @@ class Profile extends Component {
               </tr>
               <tr><td></td><td><label className="middleRegisterLabel">Yrityksen tiedot:</label> </td></tr>
               <tr>
+                <tr>
+                  <td><label className="leftUpdateLabel">Yrityksen nimi: </label></td>
+                  <td><label className="leftUpdateLabel">{this.props.userInfo.company}</label></td>
+                </tr>
+                <tr>
+                  <td><label className="leftUpdateLabel">Y-tunnus: </label></td>
+                  <td><label className="leftUpdateLabel">{this.props.userInfo.ytunnus}</label></td>
+                </tr>
                 <td>
                   <label className="leftUpdateLabel">Katuosoite: </label>
                 </td>
@@ -149,6 +160,7 @@ class Profile extends Component {
                   <TextField className="rightUpdateField"
                     underlineStyle={{ borderColor: '#A6CE6B' }}
                     underlineFocusStyle={{ borderColor: '#004225' }}
+                    inputStyle={{ marginLeft: '5px' }}
                     type="text" defaultValue={this.props.userInfo.address}
                     hintText="Katuosoite" style={styles}
                     onChange={(event, newValue) => this.setState({ streetAddress: newValue })} />
@@ -162,6 +174,7 @@ class Profile extends Component {
                   <TextField className="rightUpdateField"
                     underlineStyle={{ borderColor: '#A6CE6B' }}
                     underlineFocusStyle={{ borderColor: '#004225' }}
+                    inputStyle={{ marginLeft: '5px' }}
                     type="text" defaultValue={this.props.userInfo.zipcode}
                     hintText="Postinumero" style={styles}
                     onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
@@ -175,6 +188,7 @@ class Profile extends Component {
                   <TextField className="rightUpdateField"
                     underlineStyle={{ borderColor: '#A6CE6B' }}
                     underlineFocusStyle={{ borderColor: '#004225' }}
+                    inputStyle={{ marginLeft: '5px' }}
                     type="text" defaultValue={this.props.userInfo.city}
                     hintText="Postitoimipaikka" style={styles}
                     onChange={(event, newValue) => this.setState({ city: newValue })} />

@@ -28,7 +28,7 @@ class ReservedListing extends Component {
     });
   }
 
-  // call the cancel reserve API, setting it as free
+  // cancel reserved item, setting it as free
   cancelItemReserve(item) {
     console.log("Cancel reservation!")
     cancelReservation(item.junkID).then(
@@ -51,8 +51,8 @@ class ReservedListing extends Component {
         items.push(
           <TableRow key={i} >
             <TableRowColumn colSpan='1'>{this.props.items[i].category} ({this.props.items[i].subCat})<br />Ilmoitettu: {this.props.items[i].junkdateadded}</TableRowColumn>
-            <TableRowColumn>Varattu: </TableRowColumn>
-            <TableRowColumn>Tila {this.getStatus(this.props.items[i].status)}</TableRowColumn>
+            <TableRowColumn>Varaaja: {this.props.items[i].owner}</TableRowColumn>
+            <TableRowColumn>Tila: {this.getStatus(this.props.items[i].status)}</TableRowColumn>
             <TableRowColumn>
               <RaisedButton style={{ marginRight: '5%' }}
                 label="Peruuta"
@@ -73,6 +73,8 @@ class ReservedListing extends Component {
     this.setState({
       itemList: items
     })
+    console.log(this.props.items);
+    
   }
 
   /* 

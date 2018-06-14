@@ -75,7 +75,7 @@ class Profile extends Component {
       borderRadius: '0',
       textAlign: 'center',
       backgroundColor: "grey",
-      margin: '15px'
+      margin: '10px'
 
     };
 
@@ -83,27 +83,33 @@ class Profile extends Component {
       borderRadius: '0',
       textAlign: 'center',
       backgroundColor: "#004225",
-      margin: '15px'
+      margin: '10px'
 
 
     };
 
     const styles = {
-      borderRadius: '0',
+      borderRadius: '5px',
       backgroundColor: 'white',
-      border: '2px solid #004225'
+      border: '2px solid #004225',
+      width: '93%'
     };
 
-
+    const wrapperStyle = {
+      boxShadow: '0px 0px 0 10px rgb(166, 206, 106)',
+      display: 'inline-block',
+      margin: '15px',
+      padding: '1%',
+    }
+    
     return (
       <div>
-        <h1>Täällä voit muokata omia tietojasi</h1>
-
-        <div className="updateWrapperUser">
-          <table className="updateStructureUser">
-            <tbody>
+        <h1 style={{padding: '0 5px'}}>Täällä voit muokata omia tietojasi</h1>
+        <div className="updateWrapperUser" style={{height: '90vh'}}>
+          <table className="updateStructureUser" style={wrapperStyle}>
+            <tbody style={{width: '100%'}}>
               <tr>
-                <td>
+                <td style={{width:'67%'}}>
                   <label className="leftUpdateLabelUser">Etunimi: </label>
                 </td>
                 <td>
@@ -180,37 +186,49 @@ class Profile extends Component {
                     onChange={(event, newValue) => this.setState({ city: newValue })} />
                 </td>
               </tr>
+              <tr>
+                <td>
+                  <FlatButton className="cancelButton"
+                  style={{margin: '10px'}}
+                  label="Peruuta"
+                  hoverColor="#004225"
+                  backgroundColor="#004225"
+                  labelStyle={{
+                    padding: '0 10px',
+                    fontFamily: 'kanit',
+                    float: 'left',
+                    borderRadius: '0',
+                    fontSize: '17px',
+                    color: '#FFFFFF'
+                  }}
+                  onClick={this.props.onUpdate} />
+                </td>
+                <td>
+                  <FlatButton className="registerButton"
+                  style={{margin: '10px'}}
+                  label="Tallenna"
+                  labelStyle={{
+                    padding: '0 10px',
+                    fontFamily: 'kanit',
+                    float: 'left',
+                    borderRadius: '0',
+                    fontSize: '17px',
+                    color: '#FFFFFF'
+                  }}
+
+                  style={this.state.allFilled ? registerActive : registerInactive}
+
+                  onClick={(event) => this.Submit(event)} />
+                </td>
+              </tr>
+
+
+
+
             </tbody>
+
           </table>
 
-          <FlatButton className="cancelButton"
-            label="Peruuta"
-            hoverColor="#004225"
-            backgroundColor="#004225"
-            style={{ margin: '15px' }}
-            labelStyle={{
-              fontFamily: 'kanit',
-              float: 'left',
-              borderRadius: '0',
-              fontSize: '17px',
-              color: '#FFFFFF'
-            }}
-            onClick={this.props.onUpdate} />
-
-          <FlatButton className="registerButton"
-            label="Tallenna"
-            labelStyle={{
-              fontFamily: 'kanit',
-              float: 'left',
-              borderRadius: '0',
-              fontSize: '17px',
-              color: '#FFFFFF'
-            }}
-
-            style={this.state.allFilled ? registerActive : registerInactive}
-
-            onClick={(event) => this.Submit(event)} />
-          <br />
         </div >
       </div>
     );

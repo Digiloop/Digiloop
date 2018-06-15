@@ -4,7 +4,6 @@ import styles from '../../../../ArtunCSSsaadot.css';
 
 import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
-import { RaisedButton } from 'material-ui';
 
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -47,7 +46,7 @@ class ReservationListOptions extends Component {
     // It will either be the initialstate, or a state set by the user
     this.setState({
       showRes: this.props.rLOpt.showRes,
-      
+
       minWeight: this.props.rLOpt.minWeight,
       maxWeight: this.props.rLOpt.maxWeight,
       minSize: this.props.rLOpt.minSize,
@@ -210,7 +209,7 @@ class ReservationListOptions extends Component {
     for (let i = 0; i < this.props.categories.length; i++) {
 
 
-      if(this.state[this.props.categories[i].CatName]){
+      if (this.state[this.props.categories[i].CatName]) {
         // create the category-väliotsikot
         subCatBoxes.push(<tr key={"subKattiOtsikko" + i}><td>{this.props.categories[i].CatName}</td></tr>);
 
@@ -258,12 +257,12 @@ class ReservationListOptions extends Component {
       <MuiThemeProvider>
         <form onSubmit={this.submit} className="ResListOptForm">
 
-          <div id="ResListOptionsPohjadiv" style={{width: "fit-content"}}>
-            <div id="ResListOptionsColorDiv" style={{width: "fit-content"}}>
+          <div id="ResListOptionsPohjadiv" style={{ width: "fit-content" }}>
+            <div id="ResListOptionsColorDiv" style={{ width: "fit-content" }}>
 
-              <input type="submit" id="submitButt" value="Tallenna" style={{float: 'left', position:'initial'}}></input>
+              <input type="submit" id="submitButt" value="Tallenna" style={{ float: 'left', position: 'initial' }}></input>
 
-              <table id="varatut" style={{position: 'initial', margin: '50px 0 30px 0'}}>
+              <table id="varatut" style={{ position: 'initial', margin: '50px 0 30px 0' }}>
                 <tbody>
                   <tr>
                     <td>Näytä varatut</td>
@@ -309,8 +308,8 @@ class ReservationListOptions extends Component {
                       {this.state.geolocationStatus !== 1 ?
                         <Tooltip
                           id="tooltip-right"
-                          title={this.state.geolocationStatus === 0 ? 
-                            "Sivu tarvitsee luvan sijainnin käyttöön, jotta voit rajata etäisyyden mukaan." 
+                          title={this.state.geolocationStatus === 0 ?
+                            "Sivu tarvitsee luvan sijainnin käyttöön, jotta voit rajata etäisyyden mukaan."
                             : "Selaimesi ei tue sijainnin käyttöä"}
                           placement="right" >
                           <ActionInfo id="locationDisabledInfo" color={'#ccc'} />
@@ -328,24 +327,26 @@ class ReservationListOptions extends Component {
 
 
               <table>
-                <tr>
-                  <td id="varausKattiId">
-                    <table id="katit" style={{position: "unset"}}>
-                      <tbody id="kattibody">
-                        <tr><td><h1 id="katetext">Kategoriat</h1></td></tr>
-                        {catBoxes}
-                      </tbody>
-                    </table>
-                  </td>
-                  <td id="varausAlakattiId">
-                    <table id="alakatit" style={{padding: 0}}>
-                      <tbody id="alakattibody">
-                        <tr><td><h1 id="alakatetext">Alakategoriat</h1></td></tr>
-                        {subCatBoxes}
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
+                <tbody>
+                  <tr>
+                    <td id="varausKattiId">
+                      <table id="katit" style={{ position: "unset" }}>
+                        <tbody id="kattibody">
+                          <tr><td><h1 id="katetext">Kategoriat</h1></td></tr>
+                          {catBoxes}
+                        </tbody>
+                      </table>
+                    </td>
+                    <td id="varausAlakattiId">
+                      <table id="alakatit" style={{ padding: 0 }}>
+                        <tbody id="alakattibody">
+                          <tr><td><h1 id="alakatetext">Alakategoriat</h1></td></tr>
+                          {subCatBoxes}
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
 
 

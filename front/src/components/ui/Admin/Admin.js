@@ -104,20 +104,46 @@ class Admin extends Component {
 
     return (
       <MuiThemeProvider>
-        <div>
+        <table style={{
+          marginLeft: '5%',
+          marginTop: '20px'
+        }}>
+          <tr>
+          <td>
+          Sepot
+          </td>
+          <td>
           <Checkbox
             checked={this.state.listAdmins}
             onCheck={(event, newValue) => this.setState({ listAdmins: newValue })}
-          /> Sepot
+          /> 
+          </td>
+        </tr>
+        <tr>
+          <td>
+          Tepot
+          </td>
+          <td>
         <Checkbox
             checked={this.state.listWasteprocessors}
             onCheck={(event, newValue) => this.setState({ listWasteprocessors: newValue })}
-          /> Tepot
+          />
+          </td>
+        </tr>
+        <tr>
+          <td>
+          Jepet
+          </td>
+          <td>
         <Checkbox
             checked={this.state.listEndUsers}
             onCheck={(event, newValue) => this.setState({ listEndUsers: newValue })}
-          /> Jepet
-  
+          /> 
+          </td>
+        </tr>
+        </table>
+
+        <div>
         <Table style={{ width: '60%', marginLeft: '5%', marginTop: '4%' }} onCellClick={rowNumber => this.expand(rowNumber, visibleRowsCount)}>
             <TableBody displayRowCheckbox={false} >
               {users}

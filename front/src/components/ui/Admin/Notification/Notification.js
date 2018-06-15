@@ -54,21 +54,96 @@ class Notification extends Component {
   render() {
     return (
 
-        <MuiThemeProvider>
-          <div className="#NotifContainer" style={{
-            width: '45%',
-            marginTop: '50px',
-            marginLeft: '50px'
-          }}>
+      <MuiThemeProvider>
+        <div className="#NotifContainer" style={{
+          width: '45%',
+          marginTop: '50px',
+          marginLeft: '50px',
+          float: 'left',
+        }}>
           <div className='frontPageBox'>
-          <Table>
-            <TableBody displayRowCheckbox={false}>
-              {this.state.notifList}
-            </TableBody>
-          </Table>
+            <Table>
+              <TableBody displayRowCheckbox={false}>
+                {this.state.notifList}
+              </TableBody>
+            </Table>
           </div>
-          </div>
-        </MuiThemeProvider>
+        </div>
+
+        <div style={{
+          float: 'left',
+          marginTop: '50px',
+          marginLeft: '75px',
+          textAlign: 'left',
+          width: '35%',
+          border: '3px solid white',
+          borderRadius: '10px',
+          padding: '0px 15px',
+        }}>
+
+          <h1 style={{
+            textAlign: 'center',
+            margin: '0 0 20px 0',
+          }}>Lisää Ilmoitus</h1>
+
+          <h2 style={{ margin: '30px 0 0 0', textAlign: 'left' }}>Otsikko</h2>
+          <input text="" placeholder="Tämä osa näkyy käyttäjälle ensimmäisenä" style={{
+            width: '95%',
+            padding: '10px',
+            border: '2px solid #bedb92',
+            borderRadius: '10px',
+            fontFamily: 'Kanit',
+          }} />
+
+          <h2 style={{
+            margin: '30px 0 0 0',
+            textAlign: 'left'
+          }}>Infoteksti</h2>
+
+          <textarea rows='4' cols="50" placeholder="Tähän tarkemmat infot tapahtumasta, aukeaa klikkaamalla ilmoitusta" style={{
+            border: '2px solid #a6ce6a',
+            borderRadius: '7px',
+            height: '100px',
+            width: '95%',
+            fontSize: '16px',
+            padding: '10px',
+            fontFamily: 'Kanit',
+          }} />
+
+          <h2 style={{ margin: '30px 0 0 0', textAlign: 'left' }}>Ilmoituksen kesto</h2>
+
+          <input text="" type="date" style={{
+            width: '130px',
+            border: '2px solid #a6ce6a',
+            borderRadius: '10px',
+            padding: '10px',
+            marginRight: '10px',
+            fontFamily: 'Kanit',
+          }}>
+          </input>
+          -
+            <input text="" type="date" style={{
+            width: '130px',
+            border: '2px solid #a6ce6a',
+            borderRadius: '10px',
+            padding: '10px',
+            marginLeft: '10px',
+            fontFamily: 'Kanit',
+          }}>
+          </input>
+
+          <h3></h3>
+          <button style={{
+            width: '100px',
+            height: '30px',
+            border: '2px solid #004225',
+            borderRadius: '10px',
+            marginBottom: '10px',
+            fontFamily: 'Kanit',
+          }}>Lähetä</button>
+
+        </div>
+      </MuiThemeProvider>
 
     );
   }

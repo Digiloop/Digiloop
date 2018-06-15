@@ -31,7 +31,6 @@ class Profile extends Component {
   // function, that checks if all fields are filled, and updates allFilled -state accordingly
   checkFill() {
     let pass = true;
-    console.log(this.state.allFilled);
     
     for (var key in this.state) {
       if (this.state[key] === '' || this.state[key] === null) {
@@ -230,7 +229,7 @@ class Profile extends Component {
             disabled={!this.state.allFilled}
             style={this.state.allFilled ? registerActive : registerInactive}
 
-            onClick={(event) => this.Submit(event)} />
+            onClick={() => this.Submit()} />
           <br />
         </div >        
       </div>

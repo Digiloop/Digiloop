@@ -99,7 +99,6 @@ class Admin extends Component {
       }
 
     }
-    console.log(this.state.users);
     
 
 

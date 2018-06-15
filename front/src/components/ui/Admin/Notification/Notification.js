@@ -15,7 +15,7 @@ class Notification extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      itemList: []
+      notifList: []
     };
     this.listNotif = this.listNotif.bind(this);
   }
@@ -40,7 +40,7 @@ class Notification extends Component {
     }
 
     this.setState({
-      itemList: items
+      notifList: items
     })
   }
 
@@ -58,7 +58,7 @@ class Notification extends Component {
           <div className='frontPageBox'>
           <Table>
             <TableBody displayRowCheckbox={false}>
-              {this.state.itemList}
+              {this.state.notifList}
             </TableBody>
           </Table>
           </div>

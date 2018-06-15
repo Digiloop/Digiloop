@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Order from '../../../containers/EndUser/Order/OrderMain';
-import Notification from '../../../containers/WasteProcessor/Notification'
+import Notification from '../../../containers/EndUser/Notification'
 import FlatButton from 'material-ui/FlatButton';
 
 class FrontPage extends Component {

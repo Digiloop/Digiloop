@@ -135,7 +135,7 @@ class EndUserFront extends Component {
             anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             open={this.state.allahuSnackbarOpen}
             //onClose={this.handleClose}
-            message={<span id="message-id">Jäte syötetty (kodittomille lapsille)</span>}
+            message={<span id="message-id">Jäte syötetty</span>}
           />
         </div>
       </MuiThemeProvider>

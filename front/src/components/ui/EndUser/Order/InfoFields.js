@@ -240,7 +240,7 @@ class InfoFields extends React.Component {
                             <td>
                                 <label className="leftOrderLabel">Lisätietoja</label>
                                 <TextField className="rightOrderField"
-                                    type="text" hintText='Kenraali Teksti Ilmoittautuu, herra Ylisotajumala' style={styles}
+                                    type="text" hintText='Lisätietoja jätteestä.' style={styles}
                                     multiLine={true} 
                                     rows={3} 
                                     rowsMax={7} 

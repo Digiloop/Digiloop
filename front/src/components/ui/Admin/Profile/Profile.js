@@ -222,6 +222,7 @@ class Profile extends Component {
               color: '#004225'
             }}
 
+            disabled={!this.state.allFilled}
             style={this.state.allFilled ? registerActive : registerInactive}
 
             onClick={(event) => this.Submit(event)} />

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Divider, TextField, FlatButton } from 'material-ui';
+import { TextField, FlatButton } from 'material-ui';
 import { updateUserData } from '../../../../utils/updateUserData';
 
 class Profile extends Component {
@@ -31,6 +31,8 @@ class Profile extends Component {
   // function, that checks if all fields are filled, and updates allFilled -state accordingly
   checkFill() {
     let pass = true;
+    console.log(this.state.allFilled);
+    
     for (var key in this.state) {
       if (this.state[key] === '' || this.state[key] === null) {
         pass = false;
@@ -41,6 +43,10 @@ class Profile extends Component {
     } else if (!pass && this.state.allFilled) {
       this.setState({ allFilled: false })
     }
+  }
+  
+  Cancel() {
+    this.props.onUpdate(false);
   }
 
   Submit(event) {
@@ -56,15 +62,13 @@ class Profile extends Component {
             
       // updateUserData(updateUserdata);
 
-      this.props.onUpdate();
+      this.props.onUpdate(true);
 
       // window.alert("Tiedot päivitetty!");
     } else {
       window.alert("Ei saa jättää lootia tyhjiksi!");
     }
-
   }
-
 
   render() {
 
@@ -209,7 +213,7 @@ class Profile extends Component {
               fontSize: '17px',
               color: '#004225'
             }}
-            onClick={this.props.onUpdate} />
+            onClick={() => this.Cancel()} />
 
           <FlatButton className="updateButton"
             label="Tallenna"
@@ -223,6 +227,7 @@ class Profile extends Component {
               color: '#004225'
             }}
 
+            disabled={!this.state.allFilled}
             style={this.state.allFilled ? registerActive : registerInactive}
 
             onClick={(event) => this.Submit(event)} />

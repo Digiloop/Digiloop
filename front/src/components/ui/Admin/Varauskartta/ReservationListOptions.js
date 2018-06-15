@@ -46,6 +46,8 @@ class ReservationListOptions extends Component {
     // get the existing states from store
     // It will either be the initialstate, or a state set by the user
     this.setState({
+      showRes: this.props.rLOpt.showRes,
+      
       minWeight: this.props.rLOpt.minWeight,
       maxWeight: this.props.rLOpt.maxWeight,
       minSize: this.props.rLOpt.minSize,

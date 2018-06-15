@@ -132,10 +132,10 @@ class EndUserFront extends Component {
           {this.state.index === 1 && <Historia />}
           {this.state.index === 2 && <Profile onUpdate={this.handleUpdate} />}
           <Snackbar
-            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             open={this.state.allahuSnackbarOpen}
             //onClose={this.handleClose}
-            message={<span id="message-id">ALLAHU SNACKBAR</span>}
+            message={<span id="message-id">Jäte syötetty (kodittomille lapsille)</span>}
           />
         </div>
       </MuiThemeProvider>

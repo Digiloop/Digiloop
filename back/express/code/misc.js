@@ -38,15 +38,22 @@ module.exports = class misc {
     //takes 2 arrays and concats them together,func should take sqldatahaku.querySql function that does sql query which is the last parameter.
     fuseItemArray(array1, array2, array3, func, query) {
         //so this thing here loops trough all req.body data
-        array1 = this.spliceArray(array1);
-        for (var i = 0; i < array1.length; i++) {
-            //console.log(this.spliceArray(array1[i]))
-            let datum = Date.now();
-            func(query, this.keyToArray(array1[i]).concat(array2).concat(datum + '_' + array3[i].name))
-            this.imageAdd(array3[i], 2, datum + '_' + array3[i].name)
-            console.log(array3[i].name)
+        //array1 = this.spliceArray(array1);
+        let arr = []
+        let a = []
+        for (let i = 0; i < array1.length; i++) {
+            a = array1[i].concat(array2)
+            console.log(a)
+        }
 
-        } // change req.body to array and fuse it with data from server.
+        for (let j = 0; j < array1[0].length+4; j++) {
+            arr.push(a[j][1])//.concat(array2))
+            //arr.push(a[])
+            //func(query, [array1[i][j][1]].concat(array2).concat(datum + '_' + array3[i].name))
+            //this.imageAdd(array3[i], 2, datum + '_' + array3[i].name)
+            //console.log(array3[i].name)
+        }
+        //console.log(a)
     }
 
     loopityLoop(array1, func) {
@@ -112,12 +119,27 @@ module.exports = class misc {
     //select = categories,subcategories or user
     imageAdd(files, select, name) {
         // categories,subcategories,users
-        if (name == 'undefined') {
+        if (name == 'p' && name == 'undefined') {
             console.log('undefined picture')
         } else {
 
 
             let folder = this.selector(select, [`./kuvat/categories/${name}`, `./kuvat/subcategories/${name}`, `./kuvat/items/${name}`])
+            //console.log(files);
+            /*var userfolder = `./kuvat/users/' + ${req.user.username}`;
+            let categories = `./kuvat/categories/${files.name}`;
+            let subcategories = `./kuvat/subcategories/${files.name}`;
+            let users = `./kuvat/users/${files.name}`;
+            let choice = [categories, subcategories, users]
+            */
+            //console.log(folder[0]);
+            /*
+            if (!fs.existsSync(userfolder)) {
+    
+                fs.mkdirSync(userfolder);
+    
+            }
+    */
 
             // Use the mv() method to place the file somewhere on your server
             files.mv(folder[0], function (err) {
@@ -130,32 +152,3 @@ module.exports = class misc {
     }
 
 };
-
-
-
-
-
-// this code has been commented out, because it probably did not work. <-- it was commented out because it works but is not used here.
-/*       if (req.files) {
-
-    var picture = req.files.picture;
-    var userfolder = `./kuvat/users/' + ${req.user.username}`;
-
-    if (!fs.existsSync(userfolder)) {
-
-        fs.mkdirSync(userfolder);
-
-    }
-
-    var filepath = './kuvat/' + req.user.username + '/' + Date.now() + '.' + picture.name.split('.').pop();
-
-    // Use the mv() method to place the file somewhere on your server
-
-    picture.mv(filepath, function (err) {
-        if (err)
-            return res.status(500).send(err);
-    })
-
-};
-
-*/

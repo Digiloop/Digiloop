@@ -196,7 +196,7 @@ class Profile extends Component {
             </tbody>
           </table>
 
-          <FlatButton className="cancelButton"
+          <FlatButton className="cancelUpdateButton"
             label="Peruuta"
             hoverColor="#FFF"
             backgroundColor="#FFF"
@@ -210,7 +210,7 @@ class Profile extends Component {
             }}
             onClick={this.props.onUpdate} />
 
-          <FlatButton className="registerButton"
+          <FlatButton className="updateButton"
             label="Tallenna"
             hoverColor="#FFF"
             backgroundColor="#FFF"

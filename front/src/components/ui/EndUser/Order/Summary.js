@@ -64,10 +64,8 @@ class Summary extends React.Component {
 
 
 
-                console.log("Bäkkiilähetyssimulaatio testi #7")
-                console.log(typeof(results[0].geometry.viewport.b.b))
+                console.log("Bäkkiilähetyssimulaatio testi #8")
                 console.log(finalizedData);
-                //console.log(imageArray);
 
                 sendItemData(finalizedData);
                 snackbar;

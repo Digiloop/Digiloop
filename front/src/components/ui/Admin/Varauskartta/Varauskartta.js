@@ -54,10 +54,7 @@ class WasteProcessor extends Component {
   }
 
   updateJunks(){
-    console.log("Rakettiryhmä tekee intervallitreeniä")
     updateJunkData(this.props.resListItems.length).then((junks) => {
-      console.log("junkit hunkit")
-      console.log(junks)
       let updatedJunks = this.props.resListItems;
       for(let i = 0; i < junks.length; i++){
         updatedJunks = [...junks[i]]
@@ -137,7 +134,6 @@ class WasteProcessor extends Component {
       if (!this.props.rLOpt.userLocation.locationButtonDisable) {
 
         if ((this.getDistance(this.props.rLOpt.userLocation.latitude, this.props.rLOpt.userLocation.longitude, this.props.resListItems[i].latitude, this.props.resListItems[i].longitude)) > (this.props.rLOpt.distance * 1000)) {
-          console.log("Failed: " + this.getDistance(this.props.rLOpt.userLocation.latitude, this.props.rLOpt.userLocation.longitude, this.props.resListItems[i].latitude, this.props.resListItems[i].longitude))
           pass = false;
         }
       }

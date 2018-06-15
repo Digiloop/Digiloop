@@ -86,7 +86,6 @@ class WasteRegister extends React.Component {
             "zipcode": this.state.zipcode,
             "city": this.state.city
         }
-        console.log(JSON.stringify(regData));
         wasteprocessorRegister(JSON.stringify(regData));
     }
 

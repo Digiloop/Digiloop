@@ -55,7 +55,6 @@ class Login extends Component {
 
         // server is down / other problems
       } else {
-        console.log("PÄKKI KAATU");
         this.setState({ connectionError: true });
       }
 

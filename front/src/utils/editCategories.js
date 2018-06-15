@@ -13,10 +13,10 @@ function addNewCat(addCatName) {
     body: addCatName
   })
     .then((response) => {
-      console.log(response);
+
     })
     .catch((error) => {
-      console.log(error);
+
     });
 }
 
@@ -30,10 +30,10 @@ function addNewSubCat(addSubCatName) {
     body: addSubCatName
   })
     .then((response) => {
-      console.log(response);
+
     })
     .catch((error) => {
-      console.log(error);
+      
     });
 }
 
@@ -47,10 +47,10 @@ function addNewFakeCat(addFakeCatName) {
     body: addFakeCatName
   })
     .then((response) => {
-      console.log(response);
+      
     })
     .catch((error) => {
-      console.log(error);
+      
     });
 }
 

@@ -3,22 +3,6 @@ import { BASE_URL } from './../settings';
 
 export { updateUserData };
 
-/* function updateUserData(updateUserData) {
-  return fetch(BASE_URL + '/updateUser', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: updateUserData
-  })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-} */
 
 function updateUserData(updateUserData) {
   return axios.post(BASE_URL + '/updateUser', {

@@ -31,7 +31,6 @@ class ReservedListing extends Component {
 
   // cancel reserved item, setting it as free
   cancelItemReserve(item) {
-    console.log("Cancel reservation!")
     cancelReservation(item.junkID).then(
       this.props.refreshJunks
     );

@@ -30,7 +30,7 @@ class AddressFields extends React.Component {
         let pass = true;
         for (var key in this.state) {
 
-            //console.log(this.state[key])
+            //(this.state[key])
             if ((this.state[key] === '' || this.state[key] === undefined || this.state[key] === null) && key !== "pickupInstructions" ) {
 
                 //if (this.state[key] === this.state.pickupInstructions) continue;

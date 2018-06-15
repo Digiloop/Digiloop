@@ -52,7 +52,6 @@ class ReservationListing extends Component {
   // call the reserve API, setting it as reserved
   // TODO: change into limited version, where only junkID is passed
   reserve(item) {
-    console.log("Reserving")
     reserveItem(item.junkID).then(
       this.props.refreshJunks
     );

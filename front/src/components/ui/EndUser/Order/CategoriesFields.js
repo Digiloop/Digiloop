@@ -143,9 +143,6 @@ class CategoriesFields extends React.Component {
             }
         }
 
-        // console.log("Rakettiryhmä keittää hernekeittoa")
-        // console.log(this.props.categories)
-        // console.log(index)
 
         returnStyle = {
             borderRadius: 4,

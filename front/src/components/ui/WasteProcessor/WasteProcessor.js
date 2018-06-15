@@ -33,11 +33,11 @@ class WasteProcessor extends Component {
     });
   };
 
-   // returns to frontpage
+   // returns to frontpage, value is value from profile page (true/false)
    handleUpdate = (value) => {
     this.setState({
       index: 0,
-      openSnackBar: true
+      openSnackBar: value
     });
   }
 
@@ -68,9 +68,34 @@ class WasteProcessor extends Component {
       },
     }
 
+    const snack = [];
+    snack.push(
+      <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          open={this.state.openSnackBar}
+          autoHideDuration={250000}
+          onClose={this.handleSnackBarClose}
+          message={<span id="message-id">Tiedot päivitetty!</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={this.handleSnackBarClose}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
+          />
+    )
+
     return (
       <MuiThemeProvider>
         <div>
+        {snack}
           <AppBar showMenuIconButton={false} style={{ backgroundColor: '#004225', padding: '0', margin: '0' }} >
             <Toolbar style={{ backgroundColor: '#004225', width: '80%', marginLeft: '8%', marginRight: 'auto', position: 'absolute' }}>
               <IconButton onClick={this.handleToggle} iconStyle={styles.largeIcon} style={{ padding: '0', marginRight: '20px' }}>
@@ -104,28 +129,7 @@ class WasteProcessor extends Component {
           {this.state.index === 3 && <Notification />}
 
           {this.state.index === 4 && <Profile onUpdate={this.handleUpdate} />}
-        </div>
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}
-          open={this.state.openSnackBar}
-          autoHideDuration={2500}
-          onClose={this.handleSnackBarClose}
-          message={<span id="message-id">Tiedot päivitetty!</span>}
-          action={[
-            <IconButton
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              onClick={this.handleSnackBarClose}
-            >
-              <CloseIcon />
-            </IconButton>,
-          ]}
-          />
-
+        </div>  
       </MuiThemeProvider>
     );
   }

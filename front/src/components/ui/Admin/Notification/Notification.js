@@ -55,12 +55,18 @@ class Notification extends Component {
     return (
 
         <MuiThemeProvider>
+          <div className="#NotifContainer" style={{
+            width: '45%',
+            marginTop: '50px',
+            marginLeft: '50px'
+          }}>
           <div className='frontPageBox'>
           <Table>
             <TableBody displayRowCheckbox={false}>
               {this.state.notifList}
             </TableBody>
           </Table>
+          </div>
           </div>
         </MuiThemeProvider>
 

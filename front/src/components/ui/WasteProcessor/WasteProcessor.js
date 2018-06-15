@@ -111,7 +111,7 @@ class WasteProcessor extends Component {
             horizontal: 'right',
           }}
           open={this.state.openSnackBar}
-          autoHideDuration={3000}
+          autoHideDuration={2500}
           onClose={this.handleSnackBarClose}
           message={<span id="message-id">Tiedot päivitetty!</span>}
           action={[

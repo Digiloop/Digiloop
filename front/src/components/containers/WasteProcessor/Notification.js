@@ -1,4 +1,4 @@
-import Notification from '../../ui/EndUser/Notification/Notification'
+import Notification from '../../ui/Admin/Notification/Notification'
 import { connect } from 'react-redux'
 import { setNotifications } from '../../../actions';
 

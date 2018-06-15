@@ -12,7 +12,7 @@ import Profile from '../../containers/WasteProcessor/Profile/Profile'
 import HistoryListing from '../../containers/WasteProcessor/HistoryListing'
 import ReservedListing from '../../containers/WasteProcessor/ReservedListing'
 import Varauskartta from '../../containers/WasteProcessor/Varauskartta/Varauskartta'
-import Notification from '../../containers/WasteProcessor/Notification'
+import Notification from '../../containers/Admin/Notification'
 
 
 

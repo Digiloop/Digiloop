@@ -71,17 +71,17 @@ module.exports = class misc {
     }
 
 
-/*
-    if(array1[i][0][0].charAt(0) == Object.keys(array3)[i].charAt(0)){
-        console.log('jee')
-    }
-*/
+    /*
+        if(array1[i][0][0].charAt(0) == Object.keys(array3)[i].charAt(0)){
+            console.log('jee')
+        }
+    */
 
 
 
 
 
-    async createArray(array1, array2,array3, func, query,missing) {
+    async createArray(array1, array2, array3, func, query, missing) {
         try {
             let arr = []
             let a = []
@@ -90,13 +90,14 @@ module.exports = class misc {
             //console.log(Object.keys(array3))
             //console.log(array1)
             //console.log(array1)
-//
+            //
             //await console.log(missing)
             await console.log(array1)
+            await console.log('array2 ' + array2)
             await console.log('array3 ' + array3)
             //console.log(array2)
             await console.log('missing ' + missing)
-           // console.log(array2)
+            // console.log(array2)
             //console.log(array1[0][0][0].charAt(0))
             //array3[Object.keys(array3)]
 
@@ -105,32 +106,34 @@ module.exports = class misc {
             //await console.log(typeof array1[0][0][0].charAt(0))
             let keys = await Object.keys(array3).length
 
-            console.log(keys)
+            console.log(keys + ' keys')
             //console.log(array3[Object.keys(array3)[0]].name)
             //console.log(array3.name)
-            //return 'ei tää'
-            let i = await 0;
 
-            let j = await 0;
-
-            for (i,j;i < array1.length, j < keys;i++) {
-                if(await missing.includes(array1[i][0][0].charAt(0))){
-                  await console.log('if ' + i)
-
-                    a = await array1[i].concat(array2).concat([['pic','no pictoor']])
+            for (let i = 0; i < array1.length/*, j < keys*/; i++) {
+                if (await missing.includes(array1[i][0][0].charAt(0))) {
+                    console.log('if ' + i)
+                    console.log(array1.length)
+                    a = await array1[i].concat(array2).concat([['pic', 'no pictoor']])
                     console.log(a)
-                } else {
-                    await console.log('else ' + j)
-                    let imgNames = await array3[Object.keys(array3)[j]].name
-                    //await this.imageAdd(array3[i], 2, datum + '_' + array3[Object.keys(array3)[j]].namee)
-                    //a = await array1[i].concat(array2).concat([['pic',imgNames]])
-                    a = await array1[i].concat(array2).concat([['pic','pictoor']])
-                    j++
-              }
+                }
+                else {
+                    for (let j = 0; j < keys; j++) {
+                        await console.log('else ' + j)
+                        let imgNames = await Date.now() + ' ' + j + ' ' + array3[Object.keys(array3)[j]].name
+                        let filu = await array3[Object.keys(array3)[j]]
+                        //array3[Object.keys(array3)[j]].name
+                        //await console.log(filu) + console.log('itemadin filut')
+                        await this.imageAdd(filu, 2, imgNames)
+                        a = await array1[i].concat(array2).concat([['pic', imgNames]])
+                        //a = await array1[i].concat(array2).concat([['pic','pictoor']])
+                    }
+                }
 
                 //await console.log(a)
                 //console.log(a[4][1])
                 //console.log(array1[i][1])
+
 
                 for (let k = 0; k < a.length; k++) {
                     //console.log(a[j][1]+' -------'+j)
@@ -140,16 +143,15 @@ module.exports = class misc {
 
                 //console.log(a)
             }
-
-
+            await console.log('if done')
 
 
             //return await this.spliceArray(arr,18)
 
-            let finalArr = await this.spliceArray(arr,19) // 19 picturen kanssa 18 ilman
+            let finalArr = await this.spliceArray(arr, 19) // 19 picturen kanssa 18 ilman
 
-            for (let i = 0; i < array1.length; i++) {
-                await func(query, finalArr[i])  //toimii
+            for (let u = 0; u < array1.length; u++) {
+                await func(query, finalArr[u])  //toimii
             }
 
             //return await arr
@@ -160,7 +162,7 @@ module.exports = class misc {
 
 
         } catch (error) {
-          console.log(error)
+            console.log(error)
         }
     }
 
@@ -225,14 +227,14 @@ module.exports = class misc {
 
     // Add's images. On the server. To be used. In the future.
     //select = categories,subcategories or user
-    imageAdd(files, select, name) {
+    async imageAdd(files, select, name) {
         // categories,subcategories,users
-        if (name == 'undefined') {
+        if (await name == 'undefined') {
             console.log('undefined picture')
         } else {
 
 
-            let folder = this.selector(select, [`./kuvat/categories/${name}`, `./kuvat/subcategories/${name}`, `./kuvat/items/${name}`])
+            let folder = await this.selector(select, [`./kuvat/categories/${name}`, `./kuvat/subcategories/${name}`, `./kuvat/items/${name}`])
             //console.log(files);
             /*var userfolder = `./kuvat/users/' + ${req.user.username}`;
             let categories = `./kuvat/categories/${files.name}`;
@@ -248,9 +250,9 @@ module.exports = class misc {
 
             }
     */
-
+            await console.log(files) + console.log('imageadin filut')
             // Use the mv() method to place the file somewhere on your server
-            files.mv(folder[0], function (err) {
+            await files.mv(folder[0], function (err) {
                 if (err)
                     return res.status(500).send(err);
             })

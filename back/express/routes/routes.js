@@ -63,11 +63,12 @@ module.exports = (app, passport, users) => {
             info: req.body.info.toString(),
             dateBegin: req.body.dateBegin.toString(), // use the generateHash function in our user model
             dateEnd: req.body.dateEnd,
+            title: req.body.title
         };
 
-        var insertQuery = "INSERT INTO Announcements ( info, dateBegin, dateEnd) values (?, ?, ?)";
+        var insertQuery = "INSERT INTO Announcements ( info, dateBegin, dateEnd, title) values (?, ?, ?, ?)";
 
-        connection.query(insertQuery, [newItem.info, newItem.dateBegin, newItem.dateEnd], function (err, result) {
+        connection.query(insertQuery, [newItem.info, newItem.dateBegin, newItem.dateEnd, newItem.title], function (err, result) {
             if (err) throw err;
         });
         res.end();

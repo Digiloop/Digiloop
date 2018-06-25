@@ -12,10 +12,6 @@ module.exports = class sqldata {
     //this.getinfo();
   }
 
-  randomshizzle(callback) {
-    //res.json('mo')
-  }
-
   queryGet(query, callback) {
     connection.query(query, (err, result) => {
       callback(err, result);

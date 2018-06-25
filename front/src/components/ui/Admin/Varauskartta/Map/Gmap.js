@@ -63,7 +63,7 @@ class Map extends Component {
 
     const MapComp = compose(
       withProps({
-        googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyAN0SNyI8W4PSk8x6kbS0XRcXGLODokzBw",
+        googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyD2nhR5lmzfGQ_lD4Es_Jres1vPMgn1guQ",
         loadingElement: <div style={{ height: `100%` }} />,
         containerElement: <div style={{ height: `400px` }} />,
         mapElement: <div style={{ height: `100%` }} />,

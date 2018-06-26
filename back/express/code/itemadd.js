@@ -26,7 +26,9 @@ module.exports = class itemAdd {
 
     //Arrays that miss image --------------------------------- imgval,undef,indexi
     missingImage() {
+
         let missingImg = []
+        let result
         this.bodyEntries.forEach(([key, value], i = 0) => {
             i++
             if (key.includes('img')) {
@@ -36,23 +38,30 @@ module.exports = class itemAdd {
             //console.log(`${key} ${value}`); 
 
         });
-        return missingImg;
+        result = missingImg
+        return result;
     }
 
     cleanArray() {
-        this.missingImage().forEach((element, i = 0) => {
+
+        let result
+        let missing = this.missingImage()
+        missing.forEach((element, i = 0) => {
             this.bodyEntries.splice(element[2] - i, 1)
             i++
         })
-        return this.bodyEntries;
+        result = this.bodyEntries
+        return result;
     }
 
     onlyMissingImg() {
         let onlychar = []
+        let result
         this.missingImage().forEach(element => {
             onlychar.push(element[0].charAt(0))
         })
-        return onlychar.filter(this.onlyUnique);
+        result = onlychar.filter(this.onlyUnique);
+        return result
     }
 
     logFiles() {

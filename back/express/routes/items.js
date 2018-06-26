@@ -47,11 +47,11 @@ router.post('/itemAdd',async (req, res, next) => {
     let itemAdd = new itemadd(req.body, req.files)
     let msngImg = ['0']
     msngImg = await itemAdd.onlyMissingImg()
+    
     let splittedArray = await misk.spliceArray(itemAdd.cleanArray(), 14)
-    const secondary = [['date', Date.now()], ['datetoday', misk.dateToday()], ['owner', 1], ['userid', req.user.id]]//req.user.id
     const query = 'INSERT INTO junk ( category, city, description, iscompany, latitude, longitude, pcs, itemphone, wishbox, pickupaddr,  size, subCat, weight, zipcode, junkdate, junkdateadded, status, owner, picture ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);'
+    const secondary = [['date', Date.now()], ['datetoday', misk.dateToday()], ['owner', 1], ['userid', req.user.id]]//req.user.id
 
-    console.log(splittedArray)
     misk.createArray(splittedArray, secondary, req.files, sqldatahaku.querySql, query, msngImg)
     res.end();
 });

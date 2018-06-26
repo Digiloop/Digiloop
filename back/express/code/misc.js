@@ -92,7 +92,7 @@ module.exports = class misc {
             //console.log(array1)
             //
             //await console.log(missing)
-            await console.log(array1)
+            await console.log('arrat1 ' + array1)
             await console.log('array2 ' + array2)
             await console.log('array3 ' + array3)
             //console.log(array2)
@@ -109,8 +109,8 @@ module.exports = class misc {
             console.log(keys + ' keys')
             //console.log(array3[Object.keys(array3)[0]].name)
             //console.log(array3.name)
-
-            for (let i = 0; i < array1.length/*, j < keys*/; i++) {
+            //elikkäs kuvat ei menekkään oikein tulee sama kuva enemmän kuin yhtee
+            for (let i = 0, j = 0; i < array1.length; i++) {
                 if (await missing.includes(array1[i][0][0].charAt(0))) {
                     console.log('if ' + i)
                     console.log(array1.length)
@@ -118,16 +118,15 @@ module.exports = class misc {
                     console.log(a)
                 }
                 else {
-                    for (let j = 0; j < keys; j++) {
-                        await console.log('else ' + j)
-                        let imgNames = await Date.now() + ' ' + j + ' ' + array3[Object.keys(array3)[j]].name
-                        let filu = await array3[Object.keys(array3)[j]]
-                        //array3[Object.keys(array3)[j]].name
-                        //await console.log(filu) + console.log('itemadin filut')
-                        await this.imageAdd(filu, 2, imgNames)
-                        a = await array1[i].concat(array2).concat([['pic', imgNames]])
-                        //a = await array1[i].concat(array2).concat([['pic','pictoor']])
-                    }
+                    await console.log('else ' + j)
+                    let imgNames = await Date.now() + ' ' + j + ' ' + array3[Object.keys(array3)[j]].name
+                    let filu = await array3[Object.keys(array3)[j]]
+                    //array3[Object.keys(array3)[j]].name
+                    //await console.log(filu) + console.log('itemadin filut')
+                    await this.imageAdd(filu, 2, imgNames)
+                    a = await array1[i].concat(array2).concat([['pic', imgNames]])
+                    //a = await array1[i].concat(array2).concat([['pic','pictoor']])
+                    j++
                 }
 
                 //await console.log(a)
@@ -141,6 +140,7 @@ module.exports = class misc {
                     await arr.push(a[k][1])//.concat(array2))
                 }
 
+                await console.log('if not done')
                 //console.log(a)
             }
             await console.log('if done')

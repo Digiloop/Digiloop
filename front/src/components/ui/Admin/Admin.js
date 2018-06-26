@@ -99,56 +99,59 @@ class Admin extends Component {
       }
 
     }
-    
+
 
 
     return (
       <MuiThemeProvider>
-        <table style={{
-          marginLeft: '5%',
-          marginTop: '20px'
-        }}>
-          <tr>
-          <td>
-          Sepot
-          </td>
-          <td>
-          <Checkbox
-            checked={this.state.listAdmins}
-            onCheck={(event, newValue) => this.setState({ listAdmins: newValue })}
-          /> 
-          </td>
-        </tr>
-        <tr>
-          <td>
-          Tepot
-          </td>
-          <td>
-        <Checkbox
-            checked={this.state.listWasteprocessors}
-            onCheck={(event, newValue) => this.setState({ listWasteprocessors: newValue })}
-          />
-          </td>
-        </tr>
-        <tr>
-          <td>
-          Jepet
-          </td>
-          <td>
-        <Checkbox
-            checked={this.state.listEndUsers}
-            onCheck={(event, newValue) => this.setState({ listEndUsers: newValue })}
-          /> 
-          </td>
-        </tr>
-        </table>
-
         <div>
-        <Table style={{ width: '60%', marginLeft: '5%', marginTop: '4%' }} onCellClick={rowNumber => this.expand(rowNumber, visibleRowsCount)}>
-            <TableBody displayRowCheckbox={false} >
-              {users}
-            </TableBody>
-          </Table>
+          <table style={{
+            marginLeft: '5%',
+            marginTop: '20px'
+          }}><tbody>
+              <tr>
+                <td>
+                  Sepot
+          </td>
+                <td>
+                  <Checkbox
+                    checked={this.state.listAdmins}
+                    onCheck={(event, newValue) => this.setState({ listAdmins: newValue })}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Tepot
+          </td>
+                <td>
+                  <Checkbox
+                    checked={this.state.listWasteprocessors}
+                    onCheck={(event, newValue) => this.setState({ listWasteprocessors: newValue })}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Jepet
+          </td>
+                <td>
+                  <Checkbox
+                    checked={this.state.listEndUsers}
+                    onCheck={(event, newValue) => this.setState({ listEndUsers: newValue })}
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div>
+            <Table style={{ width: '60%', marginLeft: '5%', marginTop: '4%' }} onCellClick={rowNumber => this.expand(rowNumber, visibleRowsCount)}>
+              <TableBody displayRowCheckbox={false} >
+                {users}
+              </TableBody>
+            </Table>
+          </div>
         </div>
       </MuiThemeProvider>
     );

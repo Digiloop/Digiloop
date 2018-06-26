@@ -20,8 +20,13 @@ var port2 = process.env.PORT2 || 80;
 var fileUpload = require('express-fileupload')
 var passport = require('passport');
 var serveIndex = require('serve-index');
+//routes
+var router = express.Router()
 var categories = require('./routes/categories')
 var items = require('./routes/items')
+//misc functions and stuff
+var misc = require('./code/misc.js'); var misk = new misc;
+//MemoryStore
 var MemoryStore = require('session-memory-store')(session);
 // configuration ===============================================================
 // connect to our database
@@ -92,7 +97,10 @@ app.use(passport.session()); // persistent login sessions
 require('./routes/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 //router.use(require('./routes/routes.js')(app, passport));
 //app.use('/cat', cats); // http://193.166.72.18/cat/categories
-app.use('/', categories, items); // http://193.166.72.18/categories
+app.use('/', categories)
+app.all('*', misk.isLoggedIn);
+app.use('/', items);
+//app.use('/', categories, items); // http://193.166.72.18/categories
 app.use('/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': true }))
 //app.use('/items5', items);
 //app.use('/birds', birds) //<<- toimia esimerkki

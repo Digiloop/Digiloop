@@ -1,5 +1,5 @@
 module.exports = class itemAdd {
-    constructor(body,files) {
+    constructor(body, files) {
         this.body = body
         this.bodyEntries = Object.entries(body)
         this.bodyKeys = Object.keys(body)
@@ -8,13 +8,13 @@ module.exports = class itemAdd {
     }
     // let arr = Object.entries(req.body);
     //let arr2 = Object.keys(req.body)
-
+    //sd
 
     //unique filter
     onlyUnique(value, index, self) {
         return self.indexOf(value) === index;
     }
-    
+
     //Amount of arrays received ---------------------------------------------
     numberOfItems() {
         let onlychar = []
@@ -34,11 +34,11 @@ module.exports = class itemAdd {
                 missingImg.push(this.bodyEntries[i - 1].slice().concat([i - 1]))
             }
             //console.log(`${key} ${value}`); 
-            
+
         });
         return missingImg;
     }
- 
+
     cleanArray() {
         this.missingImage().forEach((element, i = 0) => {
             this.bodyEntries.splice(element[2] - i, 1)

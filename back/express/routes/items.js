@@ -42,76 +42,18 @@ router.post('/itemRefresh', (req, res) => {
 
 
 //POST
-router.post('/itemAddOld', (req, res, next) => {
-
-    const query = 'INSERT INTO junk ( category, city, description, iscompany, latitude, longitude, pcs, itemphone, wishbox, pickupaddr,  size, subCat, weight, zipcode, junkdate, junkdateadded, status, owner, picture ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);'
-    const secondary = [Date.now(), misk.dateToday(), 1, 47]//req.user.id
-    const third = misk.keyToArray(req.files)
-
-    misk.fuseItemArray(req.body, secondary, third, sqldatahaku.querySql, query)//req.body = all items, secondary = data from backend, sqldatahaku.querySql = function that inserts stuff to database, query = sqlquery
-    res.end();
-});
-
-
-
-
-
-
-
-
-
-router.post('/itemAdd', (req, res, next) => {
+router.post('/itemAdd',async (req, res, next) => {
 
     let itemAdd = new itemadd(req.body, req.files)
-    //console.log(itemAdd.missingImage())
-    //console.log(itemAdd.onlyMissingImg())
-    //console.log(itemAdd.cleanArray())
-
     let msngImg = ['0']
-    msngImg = itemAdd.onlyMissingImg()
-
-
-    let splittedArray = misk.spliceArray(itemAdd.cleanArray(), 14)
-    //console.log(itemAdd.numberOfItems())
-    //console.log(itemAdd.cleanArray()[0])
-
-    //console.log(splittedArray[0].length)
-    //console.log(itemAdd.logFiles())
-    const secondary = [['date', Date.now()], ['datetoday', misk.dateToday()], ['owner', 1], ['userid', req.user.id]]//req.user.id
-    //console.log(splittedArray[0][0][1])
-    //console.log(splittedArray)
+    msngImg = await itemAdd.onlyMissingImg()
+    
+    let splittedArray = await misk.spliceArray(itemAdd.cleanArray(), 14)
     const query = 'INSERT INTO junk ( category, city, description, iscompany, latitude, longitude, pcs, itemphone, wishbox, pickupaddr,  size, subCat, weight, zipcode, junkdate, junkdateadded, status, owner, picture ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);'
-    //const secondary = ['data',[Date.now(), misk.dateToday(), 1, 47]]//req.user.id
-    const third = misk.keyToArray(req.files)
-    //console.log(req.files)
-    //console.log(secondary)
-    //misk.fuseItemArray(splittedArray, secondary, third, sqldatahaku.querySql, query)//req.body = all items, secondary = data from backend, sqldatahaku.querySql = function that inserts stuff to database, query = sqlquery
-    const query2 = 'INSERT INTO junk ( category, city, description, iscompany, latitude, longitude, pcs, itemphone, wishbox, pickupaddr,  size, subCat, weight, zipcode, junkdate, junkdateadded, status, owner) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);'
-    //console.log(splittedArray)
-    //console.log(msngImg)
-    /*
-    console.log(splittedArray)
-    console.log(secondary)
-    console.log(req.files)
-    console.log(query)
-    console.log(msnImg)
-    */
-    if (req.files == null) {
-        console.log('nope')
-        filut = { name: 'tikituubailut' }
-    } else {
-        filut = req.files
-    }
-    misk.createArray(splittedArray, secondary, filut, sqldatahaku.querySql, query, msngImg)
-        .then((result) => {
-            result
-        })
+    const secondary = [['date', Date.now()], ['datetoday', misk.dateToday()], ['owner', 1], ['userid', req.user.id]]//req.user.id
 
+    misk.createArray(splittedArray, secondary, req.files, sqldatahaku.querySql, query, msngImg)
     res.end();
-
-
-
-
 });
 
 router.post('/itemStatus', (req, res, next) => {

@@ -6,7 +6,6 @@ import { MenuItem, SelectField } from 'material-ui';
 import { Table, TableBody } from 'material-ui/Table';
 import { TableRow, TableRowColumn } from 'material-ui/Table';
 import ImageUploader from 'react-images-upload';
-import Divider from 'material-ui/Divider';
 
 // fetchies
 import { getCats, getSubCats, getFakeCats } from '../../../../utils/fetchCategories';
@@ -91,7 +90,7 @@ class ModifyCategories extends Component {
     // picture
     onDrop(picture) {
         this.setState({
-            pictures: picture[picture.length -1]
+            pictures: picture[picture.length - 1]
         });
     }
 
@@ -197,7 +196,7 @@ class ModifyCategories extends Component {
         }
         // set the selected row to reverse
         updatedRows[rownumber] = !prevState;
-        this.setState({ 
+        this.setState({
             rows: updatedRows,
             pictures: null
         });
@@ -395,7 +394,7 @@ class ModifyCategories extends Component {
                 )
             }
         }
-        
+
         // function for dynamic sorting
         function compareValues(key, order = 'asc') {
             return function (a, b) {
@@ -416,12 +415,14 @@ class ModifyCategories extends Component {
                     comparison = -1;
                 }
                 return (
-                    (order == 'desc') ? (comparison * -1) : comparison
+                    (order === 'desc') ? (comparison * -1) : comparison
                 );
             };
         }
 
-        this.state.subCats.sort(compareValues('CatId'));
+        if (this.state.subCats !== '') {
+            this.state.subCats.sort(compareValues('CatId'));
+        }
         // fakeCats.sort(compareValues('subCatId'));
 
 
@@ -474,16 +475,16 @@ class ModifyCategories extends Component {
                                     <h2>Lisää kuva</h2>
 
                                     <div>
-                                        
 
-                                        {this.state.pictures != null ? 
-                                            <img src={URL.createObjectURL(this.state.pictures)} />
-                                            : (this.imageExists(BASE_URL + this.state.categoryFolder + this.state.pictureAddress) ? 
-                                                <img style={styles.image} src={BASE_URL + this.state.categoryFolder + this.state.pictureAddress} /> 
-                                                : <p style={{width: '90px'}}>Ei valittua kuvaa</p>)
+
+                                        {this.state.pictures != null ?
+                                            <img src={URL.createObjectURL(this.state.pictures)} alt=''/>
+                                            : (this.imageExists(BASE_URL + this.state.categoryFolder + this.state.pictureAddress) ?
+                                                <img style={styles.image} src={BASE_URL + this.state.categoryFolder + this.state.pictureAddress} />
+                                                : <p style={{ width: '90px' }}>Ei valittua kuvaa</p>)
                                         }
 
-                                        
+
 
                                     </div>
 

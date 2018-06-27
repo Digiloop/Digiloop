@@ -34,7 +34,7 @@ class Admin extends Component {
 
     for (let i = 0; i < visibleRowsCount; i++) {
       if (i === x) {
-        if (this.state.rows[x] == true) {
+        if (this.state.rows[x] === true) {
           newArray[i] = false;
         } else {
           newArray[i] = true;

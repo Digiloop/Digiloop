@@ -6,7 +6,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { logOut } from '../../../utils/login';
 import Profile from '../../containers/Admin/Profile/Profile'
 
-import HistoryListing from '../../containers/Admin/HistoryListing'
 import ReservedListing from '../../containers/Admin/ReservedListing'
 import CategoriesMain from '../../containers/Admin/Categories/CategoriesMain'
 import Varauskartta from '../../containers/Admin/Varauskartta/Varauskartta'

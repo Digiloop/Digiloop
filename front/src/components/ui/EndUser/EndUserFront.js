@@ -9,7 +9,7 @@ import Profile from '../../containers/EndUser/Profile/Profile';
 import Historia from './History/History';
 import { logOut } from '../../../utils/login';
 
-import /*Allahu*/ Snackbar from '@material-ui/core/Snackbar';
+import /*Allahu*/ Snackbar from 'material-ui/Snackbar';
 
 class EndUserFront extends Component {
   constructor(props) {
@@ -78,6 +78,8 @@ class EndUserFront extends Component {
         return this.props.setNewPageName('Historia');
       case 2:
         return this.props.setNewPageName('Profiili');
+      default:
+        return this.props.setNewPageName('Etusivu');
     }
   }
 
@@ -85,13 +87,11 @@ class EndUserFront extends Component {
     this.setState({
       allahuSnackbarOpen: true,
       index: -1
-    }, function(){
-      setTimeout(this.hideAllahuSnackbar, 3000)
     })
   }
 
-  hideAllahuSnackbar(){
-    this.setState({allahuSnackbarOpen: false})
+  hideAllahuSnackbar() {
+    this.setState({ allahuSnackbarOpen: false })
   }
 
   render() {
@@ -132,10 +132,10 @@ class EndUserFront extends Component {
           {this.state.index === 1 && <Historia />}
           {this.state.index === 2 && <Profile onUpdate={this.handleUpdate} />}
           <Snackbar
-            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             open={this.state.allahuSnackbarOpen}
-            //onClose={this.handleClose}
-            message={<span id="message-id">Jäte syötetty</span>}
+            autoHideDuration={2500}
+            onRequestClose={this.hideAllahuSnackbar}
+            message={<span id="message-id">Jäte syötetty!</span>}
           />
         </div>
       </MuiThemeProvider>

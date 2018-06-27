@@ -3,7 +3,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
   Table,
   TableBody,
-  TableHeader,
   TableHeaderColumn,
   TableRow,
   TableRowColumn,
@@ -124,7 +123,7 @@ class ReservationListing extends Component {
             {this.props.items[j].size}m<sup>3</sup><br />
             {this.props.items[j].weight}kg<br />
 
-            <img src={imageUrl} style={{maxWidth: '200px'}} />
+            <img src={imageUrl} alt='' style={{maxWidth: '200px'}} />
 
             <div>{this.props.items[j].description}</div><br />
             </TableRowColumn>

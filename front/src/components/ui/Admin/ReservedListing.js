@@ -3,7 +3,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
   Table,
   TableBody,
-  TableHeader,
   TableHeaderColumn,
   TableRow,
   TableRowColumn,

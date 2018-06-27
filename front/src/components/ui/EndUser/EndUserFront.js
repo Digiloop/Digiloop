@@ -78,6 +78,8 @@ class EndUserFront extends Component {
         return this.props.setNewPageName('Historia');
       case 2:
         return this.props.setNewPageName('Profiili');
+      default:
+        return this.props.setNewPageName('Etusivu');
     }
   }
 
@@ -85,13 +87,13 @@ class EndUserFront extends Component {
     this.setState({
       allahuSnackbarOpen: true,
       index: -1
-    }, function(){
+    }, function () {
       setTimeout(this.hideAllahuSnackbar, 3000)
     })
   }
 
-  hideAllahuSnackbar(){
-    this.setState({allahuSnackbarOpen: false})
+  hideAllahuSnackbar() {
+    this.setState({ allahuSnackbarOpen: false })
   }
 
   render() {

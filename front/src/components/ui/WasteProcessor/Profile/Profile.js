@@ -59,7 +59,7 @@ class Profile extends Component {
         "city": this.state.city
       }
             
-      // updateUserData(updateUserdata);
+      updateUserData(updateUserdata);
 
       this.props.onUpdate(true);
 

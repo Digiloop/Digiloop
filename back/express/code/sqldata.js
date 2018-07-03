@@ -1,6 +1,7 @@
 var mysql = require('mysql2');
 var dbconfig = require('../app/database');
 var connection = mysql.createConnection(dbconfig.connection);
+//var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
 
 module.exports = class sqldata {
@@ -16,6 +17,15 @@ module.exports = class sqldata {
     connection.query(query, (err, result) => {
       callback(err, result);
     })
+  }
+
+  async queryGetAsync(query) {
+    try {
+      const result = await connection.execute(query)
+      return result
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   querySql(query, values) {
@@ -36,9 +46,9 @@ module.exports = class sqldata {
     }
   }
 
-  async categoryAccess(category,iffi) {
+  async categoryAccess(category,condition) {
     try {
-      if (await iffi) {
+      if (await condition) {
         return `SELECT * FROM ${category}`
       } else {
         return `SELECT * FROM ${category} WHERE Status = 1`

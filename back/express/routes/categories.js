@@ -23,6 +23,9 @@ router.get('/categories', async (req, res, next) => {
     query = 'SELECT * FROM Category WHERE Status = 1'
   }
 */
+  //let result = await sqldatahaku.queryGetAsync(query)
+  //res.json(result)
+  //console.log(result)
 
   sqldatahaku.queryGet(query, (err, result) => {
     if (err) throw err;

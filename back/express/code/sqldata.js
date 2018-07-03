@@ -36,4 +36,23 @@ module.exports = class sqldata {
     }
   }
 
+  async categoryAccess(category,iffi) {
+    try {
+      if (await iffi) {
+        return `SELECT * FROM ${category}`
+      } else {
+        return `SELECT * FROM ${category} WHERE Status = 1`
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
+
+
+
+
+
+
 };

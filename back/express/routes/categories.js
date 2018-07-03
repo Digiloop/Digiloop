@@ -10,28 +10,33 @@ var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata; //ha
 
 
 //GET
-router.get('/categories',(req, res, next) => {
+router.get('/categories', async (req, res, next) => {
   //const query = 'SELECT * FROM Category WHERE Status = 1'
   //const option = misk.selector(0,['SELECT * FROM Category','SELECT * FROM Category WHERE Status = 1'])
-  let query
 
-  if(req.user&&req.user.userlvl&&req.user.userlvl == 0){
+ let query = await sqldatahaku.categoryAccess('Category',req.user && req.user.userlvl && req.user.userlvl == 0)
+
+  /*
+  if (req.user && req.user.userlvl && req.user.userlvl == 0) {
     query = 'SELECT * FROM Category'
-  }else{
+  } else {
     query = 'SELECT * FROM Category WHERE Status = 1'
   }
+*/
 
   sqldatahaku.queryGet(query, (err, result) => {
     if (err) throw err;
     res.json(result);
     next();
   });
+
 });
 
-router.get('/subcat', (req, res, next) => {
+router.get('/subcat', async (req, res, next) => {
   /*if (req.userlvl == 0){const query = 'SELECT * FROM subCat'}
   else{const query = 'SELECT * FROM subCat WHERE Status = 1'}*/
-  const query = 'SELECT * FROM subCat'// WHERE Status = 1'
+  let query = await sqldatahaku.categoryAccess('subCat',req.user && req.user.userlvl && req.user.userlvl == 0)
+  //const query = 'SELECT * FROM subCat'// WHERE Status = 1'
   sqldatahaku.queryGet(query, (err, result) => {
     if (err) throw err;
     res.json(result);
@@ -39,8 +44,9 @@ router.get('/subcat', (req, res, next) => {
   });
 });
 
-router.get('/feikkiCat', (req, res, next) => {
-  const query = 'SELECT * FROM SubSubCats'// WHERE Status = 1'
+router.get('/feikkiCat', async (req, res, next) => {
+  let query = await sqldatahaku.categoryAccess('SubSubCats',req.user && req.user.userlvl && req.user.userlvl == 0)
+  //const query = 'SELECT * FROM SubSubCats'// WHERE Status = 1'
   sqldatahaku.queryGet(query, (err, result) => {
     if (err) throw err;
     res.json(result);
@@ -105,8 +111,8 @@ router.post('/imageCatAdd', (req, res) => {
     imgname = null
     sqldatahaku.querySql(query, [imgname, req.body.id])
 
-  // create the image name from (fake)catid + img name to prevent duplicates
-  // removes all spaces, because they for some reason break in end user
+    // create the image name from (fake)catid + img name to prevent duplicates
+    // removes all spaces, because they for some reason break in end user
   } else {
     imgname = `${req.body.id}_${req.files.pic.name}`;
     imgname = imgname.replace(/ /g, "")

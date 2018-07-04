@@ -31,9 +31,9 @@ class Profile extends Component {
   // function, that checks if all fields are filled, and updates allFilled -state accordingly
   checkFill() {
     let pass = true;
-    
+
     for (var key in this.state) {
-      if (this.state[key] === '' || this.state[key] === null) {
+      if (this.state[key] === '' || this.state[key] === null || this.state[key] === undefined) {
         pass = false;
       }
     }
@@ -43,7 +43,7 @@ class Profile extends Component {
       this.setState({ allFilled: false })
     }
   }
-  
+
   Cancel() {
     this.props.onUpdate(false);
   }
@@ -58,14 +58,11 @@ class Profile extends Component {
         "zipcode": this.state.zipcode,
         "city": this.state.city
       }
-            
+
       updateUserData(updateUserdata);
 
       this.props.onUpdate(true);
 
-      // window.alert("Tiedot päivitetty!");
-    } else {
-      window.alert("Ei saa jättää lootia tyhjiksi!");
     }
   }
 
@@ -147,14 +144,14 @@ class Profile extends Component {
                 </td>
               </tr>
               <tr><td></td><td><label className="middleRegisterLabel">Yrityksen tiedot:</label> </td></tr>
-                <tr>
-                  <td><label className="leftUpdateLabel">Yrityksen nimi: </label></td>
-                  <td><label className="leftUpdateLabel">{this.props.userInfo.company}</label></td>
-                </tr>
-                <tr>
-                  <td><label className="leftUpdateLabel">Y-tunnus: </label></td>
-                  <td><label className="leftUpdateLabel">{this.props.userInfo.ytunnus}</label></td>
-                </tr>
+              <tr>
+                <td><label className="leftUpdateLabel">Yrityksen nimi: </label></td>
+                <td><label className="leftUpdateLabel">{this.props.userInfo.company}</label></td>
+              </tr>
+              <tr>
+                <td><label className="leftUpdateLabel">Y-tunnus: </label></td>
+                <td><label className="leftUpdateLabel">{this.props.userInfo.ytunnus}</label></td>
+              </tr>
               <tr>
                 <td>
                   <label className="leftUpdateLabel">Katuosoite: </label>
@@ -231,7 +228,7 @@ class Profile extends Component {
 
             onClick={() => this.Submit()} />
           <br />
-        </div >        
+        </div >
       </div>
     );
   }

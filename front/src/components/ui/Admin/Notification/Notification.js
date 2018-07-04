@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import Divider from 'material-ui/Divider';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
   Table,
   TableBody,
-  TableHeader,
-  TableHeaderColumn,
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
 import { getNotifications, addNotification } from '../../../../utils/fetchNotifications.js';
 import { TextField, RaisedButton } from 'material-ui';
+import moment from 'moment'
 
 class Notification extends Component {
   constructor(props) {
@@ -24,14 +22,12 @@ class Notification extends Component {
       startDate: '',
       endDate: ''
     };
-    // this.listNotif = this.listNotif.bind(this);
   }
 
   // fetch notifications
   getNotifications() {
     getNotifications().then((notif) => {
       this.props.itemsToStore(notif);
-      // this.listNotif();
     });
   }
 
@@ -46,8 +42,14 @@ class Notification extends Component {
 
   // edit announcement
   editNotification(title, info, startDate, endDate, rowNumber) {
-    console.log(arguments);
-    this.close(rowNumber)
+    this.setState({
+      title: title,
+      info: info,
+      startDate: moment(startDate).utc().format(moment.HTML5_FMT.DATE),
+      endDate: moment(endDate).utc().format(moment.HTML5_FMT.DATE),
+      edit: true
+    })
+    this.close(rowNumber);
   }
 
   // delete annoucement
@@ -82,82 +84,8 @@ class Notification extends Component {
     this.setState({ rows: this.state.rows });
   }
 
-
-  // list notifications
-  /* listNotif() {
-    let validItems = [];
-    let oldItems = [];
-    const oldNotifs = [];
-    let j = 0;
-    let k = 0;
-
-    for (let i = 0; i < this.props.items.length; i++) {
-      // get timestamp to compare if notification has expired
-
-      const today = Date.now();
-      const endDate = Date.parse(this.props.items[i].dateEnd);
-
-      if (today >= endDate) {
-        oldItems[j] = Object.assign({}, this.props.items[i]);
-        j++;
-      } else {
-        validItems[k] = Object.assign({}, this.props.items[i]);
-        k++;
-      }
-    }
-    console.log(oldItems)
-    console.log(validItems)
-
-    this.setState({
-      oldItems: oldItems,
-      validItems: validItems
-    })
-
-    for (let i = 0; i < oldItems.length; i++) {
-
-      oldNotifs.push(
-        <TableRow key={i}>
-            <TableRowColumn colSpan='3' >{oldItems[i].info}</TableRowColumn>
-            <TableRowColumn>
-              <RaisedButton label='Näytä' onClick={() => this.getNotificationInfo(i)} />
-            </TableRowColumn>
-          </TableRow>
-      ) 
-
-       if (this.state.rows[i]) {
-        oldNotifs.push(
-          <TableRow key={i} style={{ height: '150px' }}>
-            <TableRowColumn colSpan='3'>
-              {this.state.oldItems[i].title}<br />
-              {this.state.oldItems[i].info}<br />
-              {this.state.oldItems[i].dateBegin}<br />
-              {this.state.oldItems[i].dateEnd}
-            </TableRowColumn>
-            <TableRowColumn>
-              <RaisedButton label='Näytä' onClick={() => this.getNotificationInfo(i, 1)} />
-            </TableRowColumn>
-          </TableRow>
-        )
-      } else {
-        oldNotifs.push(
-          <TableRow key={i}>
-            <TableRowColumn colSpan='3' >{this.state.oldItems[i].title}</TableRowColumn>
-            <TableRowColumn>
-              <RaisedButton label='Näytä' onClick={() => this.getNotificationInfo(i, 0)} />
-            </TableRowColumn>
-          </TableRow>
-        )
-      } 
-    }
-    this.setState({
-      oldNotifs: oldNotifs
-    }) 
-
-} */
-
   // checks that all are filled
   checkFill() {
-    //console.log(this.state);
 
     let pass = true;
     for (var key in this.state) {
@@ -180,6 +108,16 @@ class Notification extends Component {
     }
   }
 
+  clear() {
+    this.setState({
+      title: '',
+      info: '',
+      startDate: '',
+      endDate: '',
+      edit: false
+    })
+  }
+
   // add new announcement
   submit(event) {
     var notificationData = {
@@ -188,16 +126,23 @@ class Notification extends Component {
       dateBegin: this.state.startDate,
       dateEnd: this.state.endDate
     }
-    //console.log(notificationData);
-    this.getNotifications();/*
+    this.getNotifications();
+    /* 
+    // send notification
     addNotification(notificationData)
       .then(() => {
-        this.getNotifications();
+        this.getNotifications(); // update notifications
       });*/
   }
 
   componentDidMount() {
     this.getNotifications();
+    this.setState({
+      title: this.state.title,
+      info: this.state.info,
+      startDate: this.state.startDate,
+      endDate: this.state.endDate
+    })
     //
     // fetch data from backend
   }
@@ -241,7 +186,10 @@ class Notification extends Component {
               {oldItems[l].dateEnd}
             </TableRowColumn>
             <TableRowColumn>
-              <RaisedButton label='Näytä' onClick={() => this.getNotificationInfo(l, 0)} />
+            <RaisedButton label='Muokkaa' onClick={() =>
+                this.editNotification(oldItems[l].title, oldItems[l].info, oldItems[l].dateBegin, oldItems[l].dateEnd, l)} />
+              <br /><br />
+              <RaisedButton label='Poista' onClick={() => this.deleteNotification(l)} />
             </TableRowColumn>
           </TableRow>
         )
@@ -331,7 +279,7 @@ class Notification extends Component {
             <h1 style={{
               textAlign: 'center',
               margin: '0 0 20px 0',
-            }}>Lisää Ilmoitus</h1>
+            }}>{!this.state.edit ? 'Lisää Ilmoitus' : 'Muokkaa ilmoitusta'}</h1>
 
             <h2 style={{ margin: '30px 0 0 0', textAlign: 'left' }}>Otsikko</h2>
             <TextField
@@ -418,6 +366,18 @@ class Notification extends Component {
             }}
               onClick={(event) => this.checkFill(event)}
             >Lähetä</button>
+
+            <button style={{
+              float: 'right',
+              width: '100px',
+              height: '30px',
+              border: '2px solid #004225',
+              borderRadius: '10px',
+              marginBottom: '10px',
+              fontFamily: 'Kanit'
+            }}
+              onClick={() => this.clear()}
+            >Tyhjennä</button>
 
           </div>
         </div>

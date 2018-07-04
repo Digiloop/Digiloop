@@ -251,6 +251,13 @@ class ModifyCategories extends Component {
             }
         };
 
+        const active = {
+            border: '2px solid green'
+        }
+        const inactive = {
+            border: '2px solid red'
+        }
+
         const muiTheme = getMuiTheme({}, {
             palette: {
                 accent1Color: '#004225',
@@ -291,8 +298,10 @@ class ModifyCategories extends Component {
                             {this.state.cats[i].CatName}
                         </TableRowColumn>
                         <TableRowColumn>
-                            <RaisedButton label='Muokkaa' onClick={() => this.getCat(this.state.cats[i].CatId,
-                                this.state.cats[i].ImgReference, i, 0)} />
+                            <RaisedButton
+                                style={this.state.cats[i].Status ? active : inactive}
+                                label='Muokkaa'
+                                onClick={() => this.getCat(this.state.cats[i].CatId, this.state.cats[i].ImgReference, i, 0)} />
                         </TableRowColumn>
                     </TableRow>
                 )
@@ -335,7 +344,10 @@ class ModifyCategories extends Component {
                             {tmp + ': ' + this.state.subCats[j].subName}
                         </TableRowColumn>
                         <TableRowColumn>
-                            <RaisedButton label='Muokkaa' onClick={() => this.getCat(this.state.subCats[j].subId, null, j, null)} />
+                            <RaisedButton
+                                style={this.state.subCats[j].Status ? active : inactive}
+                                label='Muokkaa'
+                                onClick={() => this.getCat(this.state.subCats[j].subId, null, j, null)} />
                         </TableRowColumn>
                     </TableRow>
                 )
@@ -387,8 +399,10 @@ class ModifyCategories extends Component {
                             {tmp1 + ': '}{this.state.fakeCats[k].name}
                         </TableRowColumn>
                         <TableRowColumn>
-                            <RaisedButton label='Muokkaa' onClick={() => this.getCat(this.state.fakeCats[k].Id,
-                                this.state.fakeCats[k].imgReference, k, 1)} />
+                            <RaisedButton
+                                style={this.state.fakeCats[k].Status ? active : inactive}
+                                label='Muokkaa'
+                                onClick={() => this.getCat(this.state.fakeCats[k].Id, this.state.fakeCats[k].imgReference, k, 1)} />
                         </TableRowColumn>
                     </TableRow>
                 )
@@ -420,7 +434,7 @@ class ModifyCategories extends Component {
             };
         }
 
-        if (this.state.subCats !== '') {
+        if (this.state.subCats.length) {
             this.state.subCats.sort(compareValues('CatId'));
         }
         // fakeCats.sort(compareValues('subCatId'));
@@ -478,7 +492,7 @@ class ModifyCategories extends Component {
 
 
                                         {this.state.pictures != null ?
-                                            <img src={URL.createObjectURL(this.state.pictures)} alt=''/>
+                                            <img src={URL.createObjectURL(this.state.pictures)} alt='' />
                                             : (this.imageExists(BASE_URL + this.state.categoryFolder + this.state.pictureAddress) ?
                                                 <img style={styles.image} src={BASE_URL + this.state.categoryFolder + this.state.pictureAddress} />
                                                 : <p style={{ width: '90px' }}>Ei valittua kuvaa</p>)

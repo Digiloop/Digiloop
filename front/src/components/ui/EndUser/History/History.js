@@ -8,10 +8,7 @@ constructor(props){
   this.state = {
     value: Order,
   };
-  this.handleChange = this.handleChange.bind(this);
  }
-
-handleChange = (event, value) => this.setState({value})
 
 render() {
     return (

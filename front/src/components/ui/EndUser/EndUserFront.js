@@ -17,14 +17,16 @@ class EndUserFront extends Component {
     this.state = {
       index: -1,
       open: false,
-      frontPageNeedsReset: false,
-      allahuSnackbarOpen: false
+      frontPageNeedsReset: false, // junk added snackbar
+      allahuSnackbarOpen: false, // junk added snackbar
+      openSnackBar: false // profile updated snackbar
     };
     this.handleChange = this.handleChange.bind(this);
     this.getPageName = this.getPageName.bind(this);
 
     this.handleClose = this.handleClose.bind(this);
 
+    // junk added snackbar
     this.toggleAllahuSnackbar = this.toggleAllahuSnackbar.bind(this)
     this.hideAllahuSnackbar = this.hideAllahuSnackbar.bind(this)
   }
@@ -50,9 +52,10 @@ class EndUserFront extends Component {
     });
   }
 
-  handleUpdate = (e, value) => {
+  handleUpdate = (value) => {
     this.setState({
-      index: 0
+      index: 0,
+      openSnackBar: value
     }, function () {
       this.getPageName();
     });
@@ -83,6 +86,7 @@ class EndUserFront extends Component {
     }
   }
 
+  // handles junk added snackbar
   toggleAllahuSnackbar() {
     this.setState({
       allahuSnackbarOpen: true,
@@ -93,6 +97,9 @@ class EndUserFront extends Component {
   hideAllahuSnackbar() {
     this.setState({ allahuSnackbarOpen: false })
   }
+  
+   // closes profile updated snackbar
+   handleSnackBarClose = () => this.setState({ openSnackBar: false })
 
   render() {
 
@@ -103,9 +110,21 @@ class EndUserFront extends Component {
       },
     }
 
+    // profile updated snackbar
+    const snack = [];
+    snack.push(
+      <Snackbar
+        open={this.state.openSnackBar}
+        autoHideDuration={2500}
+        onRequestClose={this.handleSnackBarClose}
+        message={<span id="message-id">Tiedot päivitetty!</span>}
+      />
+    )
+
     return (
       <MuiThemeProvider>
         <div className="frontpake">
+        {snack}
           <AppBar showMenuIconButton={false} style={{ backgroundColor: '#004225', padding: '0', margin: '0' }} >
             <Toolbar style={{ backgroundColor: '#FFF', width: '100%', padding: '0' }} >
               <IconButton style={{ padding: '0' }} iconStyle={styles.largeIcon} onClick={this.handleToggle} >

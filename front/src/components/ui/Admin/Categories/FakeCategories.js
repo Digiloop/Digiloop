@@ -176,6 +176,7 @@ class FakeCategories extends Component {
         const cats = [];
         const subCats = [];
         const fakeCats = [];
+        
 
         for (let i = 0; i < this.state.cats.length; i++) {
             cats.push(

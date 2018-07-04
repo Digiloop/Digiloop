@@ -5,6 +5,7 @@ import { Toolbar, IconButton, Divider, Tabs, Tab } from 'material-ui';
 import MenuIcon from '@material-ui/icons/Menu';
 import { logOut } from '../../../utils/login';
 import Profile from '../../containers/Admin/Profile/Profile'
+import Snackbar from 'material-ui/Snackbar'
 
 import ReservedListing from '../../containers/Admin/ReservedListing'
 import CategoriesMain from '../../containers/Admin/Categories/CategoriesMain'
@@ -20,7 +21,8 @@ class AdminWasteProcessor extends Component {
     super(props);
     this.state = {
       index: 0,
-      open: false
+      open: false,
+      openSnackBar: false
     };
   }
 
@@ -50,9 +52,10 @@ class AdminWasteProcessor extends Component {
   }
 
   // returns to frontpage
-  handleUpdate = (e, value) => {
+  handleUpdate = (value) => {
     this.setState({
-      index: 0
+      index: 0,
+      openSnackBar: value 
     });
   }
 
@@ -60,6 +63,8 @@ class AdminWasteProcessor extends Component {
   handleToggle = (event) => this.setState({ open: !this.state.open })
   handleClose = () => this.setState({ open: false })
 
+  // closes snackbar
+  handleSnackBarClose = () => this.setState({ openSnackBar: false })
 
   render() {
 
@@ -73,9 +78,20 @@ class AdminWasteProcessor extends Component {
       }
     }
 
+    const snack = [];
+    snack.push(
+      <Snackbar
+        open={this.state.openSnackBar}
+        autoHideDuration={2500}
+        onRequestClose={this.handleSnackBarClose}
+        message={<span id="message-id">Tiedot päivitetty!</span>}
+      />
+    )
+
     return (
       <MuiThemeProvider>
         <div>
+        {snack}
           <AppBar showMenuIconButton={false} style={{ backgroundColor: '#004225', padding: '0', margin: '0' }} >
             <Toolbar style={{ backgroundColor: '#004225', width: '100%' }}>
               <IconButton onClick={this.handleToggle} iconStyle={styles.largeIcon} style={{ padding: '0', marginRight: '20px' }}>

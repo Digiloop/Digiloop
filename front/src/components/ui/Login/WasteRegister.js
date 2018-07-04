@@ -74,6 +74,7 @@ class WasteRegister extends React.Component {
 
     Submit(event) {
 
+        if (this.state.allFilled) {
         var regData = {
             "email": this.state.email,
             "password": "dangerous",
@@ -87,6 +88,13 @@ class WasteRegister extends React.Component {
             "city": this.state.city
         }
         wasteprocessorRegister(JSON.stringify(regData));
+        window.alert("Hyvin rekisteröidytty!");
+            this.props.onNewLogin({
+                userlvl: -1
+            });
+        } else {
+            window.alert("Ei saa jättää lootia tyhjiksi!");
+        }
     }
 
     render() {

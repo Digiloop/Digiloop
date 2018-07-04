@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Divider, TextField, FlatButton } from 'material-ui';
+import { TextField, FlatButton } from 'material-ui';
 import { updateUserData } from '../../../../utils/updateUserData';
 
 class Profile extends Component {
@@ -32,7 +32,7 @@ class Profile extends Component {
   checkFill() {
     let pass = true;
     for (var key in this.state) {
-      if (this.state[key] === '' || this.state[key] === null) {
+      if (this.state[key] === '' || this.state[key] === null || this.state[key] === undefined) {
         pass = false;
       }
     }
@@ -55,16 +55,13 @@ class Profile extends Component {
       }
 
       updateUserData(updateUserdata);
-
-
-      this.props.onUpdate();
-      window.alert("Tiedot päivitetty!");
-    } else {
-      window.alert("Ei saa jättää lootia tyhjiksi!");
-    }
-
+      this.props.onUpdate(true);
+    } 
   }
 
+  Cancel() {
+    this.props.onUpdate(false);
+  }
 
   render() {
 
@@ -199,7 +196,7 @@ class Profile extends Component {
                     fontSize: '17px',
                     color: '#FFFFFF'
                   }}
-                  onClick={this.props.onUpdate} />
+                  onClick={() => this.Cancel()} />
                 </td>
                 <td>
                   <FlatButton className="registerButton"
@@ -216,7 +213,7 @@ class Profile extends Component {
 
                   style={this.state.allFilled ? registerActive : registerInactive}
 
-                  onClick={(event) => this.Submit(event)} />
+                  onClick={() => this.Submit()} />
                 </td>
               </tr>
 

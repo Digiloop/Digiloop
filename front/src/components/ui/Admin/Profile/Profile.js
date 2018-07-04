@@ -32,7 +32,7 @@ class Profile extends Component {
   checkFill() {
     let pass = true;
     for (var key in this.state) {
-      if (this.state[key] === '' || this.state[key] === null) {
+      if (this.state[key] === '' || this.state[key] === null || this.state[key] === undefined) {
         pass = false;
       }
     }
@@ -44,6 +44,7 @@ class Profile extends Component {
   }
 
   Submit(event) {
+
     if (this.state.allFilled) {
       var updateUserdata = {
         "fname": this.state.firstName,
@@ -56,12 +57,12 @@ class Profile extends Component {
 
       updateUserData(updateUserdata);
 
-      this.props.onUpdate();
-      window.alert("Tiedot päivitetty!");
-    } else {
-      window.alert("Ei saa jättää lootia tyhjiksi!");
-    }
+      this.props.onUpdate(true);
+    } 
+  }
 
+  Cancel() {
+    this.props.onUpdate(false);
   }
 
 
@@ -208,7 +209,7 @@ class Profile extends Component {
               fontSize: '17px',
               color: '#004225'
             }}
-            onClick={this.props.onUpdate} />
+            onClick={() => this.Cancel()} />
 
           <FlatButton className="updateButton"
             label="Tallenna"

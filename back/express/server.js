@@ -12,9 +12,9 @@ var morgan = require('morgan');
 var cors = require('cors'); //tarttee devaukses koska front ei ole samalla palvelimella
 var app = express();
 //certifikaatti sydeemit tässä
-var cert = require('./app/cert')
+var cert = require('./config/cert')
 var options = cert;
-var maintcheck = require('./app/maint')
+var maintcheck = require('./config/maint')
 var port = process.env.PORT || 443;
 var port2 = process.env.PORT2 || 80;
 var fileUpload = require('express-fileupload')
@@ -29,7 +29,9 @@ var misc = require('./code/misc.js'); var misk = new misc;
 //MemoryStore
 var MemoryStore = require('session-memory-store')(session);
 // configuration ===============================================================
-// connect to our database
+
+
+
 
 require('./passport')(passport); // pass passport for configuration
 //require('./config/users')(users);

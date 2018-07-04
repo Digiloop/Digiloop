@@ -1,3 +1,4 @@
+
 // server.js
 
 // set up ======================================================================
@@ -6,7 +7,7 @@ var express  = require('express');
 var session  = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var maintcheck = require('./app/maint')
+//var maintcheck = require('./app/maint')
 var morgan = require('morgan');
 var cors = require('cors'); //tarttee devaukses koska front ei ole samalla palvelimella
 var app      = express();
@@ -33,8 +34,8 @@ app.use(bodyParser.json({
 	limit:'50mb'
 }));
 
-app.use(express.static(maintcheck.mainteanance(false)));
-//app.use(express.static("/home/projectmanager/Digiloop/front/build"));
+//app.use(express.static(maintcheck.mainteanance(false)));
+app.use(express.static("/home/mir/Digiloop/front/build"));
 app.use(fileUpload()); // required for pictures
 
 //Cors tätä tarttee jos haluaa frontin pystyvän devailemaa localhostissa
@@ -86,6 +87,6 @@ app.use('/images', express.static('./kuvat'), serveIndex('./kuvat', {'icons': tr
 //app.listen(port);
 //console.log('päkki pystys portissa ' + port);
 
-app.listen(80, () => {
-    console.log("päkki pyörii epäturvallisessa portissa 80");
+app.listen(7777, () => {
+    console.log("päkki pyörii epäturvallisessa portissa 7777");
 });

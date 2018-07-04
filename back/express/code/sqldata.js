@@ -1,38 +1,34 @@
-var mysql = require('mysql2');
-var dbconfig = require('../app/database');
-var connection = mysql.createConnection(dbconfig.connection);
-connection.query('USE ' + dbconfig.database);
-
+var connection = require('../config/database2')
 module.exports = class sqldata {
   constructor() {
     //tobedone
   }
 
-  get info() {
-    //this.getinfo();
-  }
-
-  queryGet(query, callback) {
-    connection.query(query, (err, result) => {
-      callback(err, result);
-    })
-  }
-
-  querySql(query, values) {
-    if (typeof values == "undefined") {
-      connection.query(query, (err, result) => {
-        if (err) console.log(err);
-        //console.log(result.affectedRows + " record(s) updated");
+  async querySql(query, values) {
+    try {
+      if (typeof values == "undefined") {
+        let result = await connection(query)
         console.log(query);
-      })
-    } else {
-      connection.query(query, values, (err, result) => {
-        //if (err) throw err;
-        if (err) console.log(err);
-        //console.log(result.affectedRows + " record(s) updated");
+        return result
+      } else {
+        connection(query, values)
         console.log(query);
         console.log(values);
-      })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async categoryAccess(category, condition) {
+    try {
+      if (await condition) {
+        return `SELECT * FROM ${category}`
+      } else {
+        return `SELECT * FROM ${category} WHERE Status = 1`
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 

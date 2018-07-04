@@ -1,5 +1,4 @@
-var connection = require('../config/database')
-var connection2 = require('../config/database2')
+var connection = require('../config/database2')
 module.exports = class sqldata {
   constructor() {
     //tobedone
@@ -8,11 +7,11 @@ module.exports = class sqldata {
   async querySql(query, values) {
     try {
       if (typeof values == "undefined") {
-        let result = await connection2(query)
+        let result = await connection(query)
         console.log(query);
         return result
       } else {
-        connection2(query, values)
+        connection(query, values)
         console.log(query);
         console.log(values);
       }

@@ -5,24 +5,17 @@ var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata; //ha
 var itemadd = require('../code/itemadd.js');
 
 //GET
-router.get('/items', (req, res, next) => {
+router.get('/items', async (req, res, next) => {
     const query = 'SELECT * FROM junk'
-    sqldatahaku.queryGet(query, (err, result) => {
-        if (err) throw err;
-        res.json(result);
-        next();
-    });
+    res.json(await sqldatahaku.querySql(query))
 });
-
-
-
 
 // fetches missing items for frontend
 router.post('/itemRefresh', (req, res) => {
 
     const query = 'SELECT * FROM junk'
 
-    sqldatahaku.queryGet(query, (err, result) => {
+    sqldatahaku.querySql(query, (err, result) => {
         if (err) throw err;
 
         let diff = result.length - req.body.listLength;
@@ -45,12 +38,12 @@ router.post('/itemRefresh', (req, res) => {
 
 
 //POST
-router.post('/itemAdd',async (req, res, next) => {
+router.post('/itemAdd', async (req, res, next) => {
 
     let itemAdd = new itemadd(req.body, req.files)
     let msngImg = ['0']
     msngImg = await itemAdd.onlyMissingImg()
-    
+
     let splittedArray = await misk.spliceArray(itemAdd.cleanArray(), 14)
     const query = 'INSERT INTO junk ( category, city, description, iscompany, latitude, longitude, pcs, itemphone, wishbox, pickupaddr,  size, subCat, weight, zipcode, junkdate, junkdateadded, status, owner, picture ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);'
     const secondary = [['date', Date.now()], ['datetoday', misk.dateToday()], ['owner', 1], ['userid', req.user.id]]//req.user.id

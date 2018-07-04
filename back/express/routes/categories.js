@@ -54,7 +54,7 @@ router.get('/subcat', async (req, res, next) => {
   else{const query = 'SELECT * FROM subCat WHERE Status = 1'}*/
   let query = await sqldatahaku.categoryAccess('subCat',req.user && req.user.userlvl && req.user.userlvl == 0)
   //const query = 'SELECT * FROM subCat'// WHERE Status = 1'
-  sqldatahaku.queryGet(query, (err, result) => {
+  sqldatahaku.querySql(query, (err, result) => {
     if (err) throw err;
     res.json(result);
     next();
@@ -64,7 +64,7 @@ router.get('/subcat', async (req, res, next) => {
 router.get('/feikkiCat', async (req, res, next) => {
   let query = await sqldatahaku.categoryAccess('SubSubCats',req.user && req.user.userlvl && req.user.userlvl == 0)
   //const query = 'SELECT * FROM SubSubCats'// WHERE Status = 1'
-  sqldatahaku.queryGet(query, (err, result) => {
+  sqldatahaku.querySql(query, (err, result) => {
     if (err) throw err;
     res.json(result);
     next();
@@ -73,7 +73,7 @@ router.get('/feikkiCat', async (req, res, next) => {
 
 
 //POST
-router.post('/catUpdate', (req, res, next) => {
+router.post('/catUpdate', async (req, res, next) => {
   //console.log(req.body);
   //console.log(req.body.Status)
   let cat = misk.selector(req.body.catType, ['Category', 'subCat', 'SubSubCats'], ['CatName', 'subName', 'name'], ['CatId', 'subId', 'Id'])
@@ -83,7 +83,7 @@ router.post('/catUpdate', (req, res, next) => {
   res.end();
 });
 //Values: 0 = Category, 1 = subCat, 2 = SubSubCats
-router.post('/catStatus', (req, res, next) => {
+router.post('/catStatus', async (req, res, next) => {
   //console.log(req.body);
   //console.log(req.body.Status)
   //sqldatahaku.randomshizzle('moi')
@@ -96,26 +96,26 @@ router.post('/catStatus', (req, res, next) => {
   res.end();
 });
 
-router.post('/catAdd', (req, res) => {
+router.post('/catAdd', async (req, res) => {
   const query = 'INSERT INTO Category ( CatName, Status, RealName, ImgReference ) VALUES (?,?,?,?)'
   sqldatahaku.querySql(query, [req.body.catname, 1, req.body.catname, 'imagereferenssi']);
   res.end();
 });
 
-router.post('/subcatAdd', (req, res) => {
+router.post('/subcatAdd', async (req, res) => {
   const query = 'INSERT INTO subCat ( CatId, subName, Status) VALUES (?,?,?)'
   sqldatahaku.querySql(query, [req.body.catid, req.body.subcatname, 1]);
   res.end();
 });
 
-router.post('/feikkiCatAdd', (req, res) => {
+router.post('/feikkiCatAdd', async (req, res) => {
   const query = 'INSERT INTO SubSubCats ( imgReference, name, subCatId, Status) values (?, ?, ?, ?)'
   sqldatahaku.querySql(query, ['i can haz reference', req.body.name, req.body.subCatId, 1]);
   res.end();
 });
 
 
-router.post('/imageCatAdd', (req, res) => {
+router.post('/imageCatAdd', async (req, res) => {
 
   let imgname;
   let cat = misk.selector(req.body.catType, ['Category', 'SubSubCats'], ['CatId', 'Id'], ['ImgReference', 'imgReference'])

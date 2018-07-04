@@ -5,25 +5,6 @@ module.exports = class sqldata {
     //tobedone
   }
 
-  get info() {
-    //this.getinfo();
-  }
-
-  queryGet(query, callback) {
-    connection.query(query, (err, result) => {
-      callback(err, result);
-    })
-  }
-
-  async queryGetAsync(query) {
-    try {
-      const result = await connection2(query)
-      return result
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
   async querySql(query, values) {
     try {
       if (typeof values == "undefined") {
@@ -35,36 +16,11 @@ module.exports = class sqldata {
         console.log(query);
         console.log(values);
       }
-    }
-
-    catch (error) {
+    } catch (error) {
       console.log(error)
     }
-
   }
 
-
-
-
-  /*
-  querySql(query, values) {
-    if (typeof values == "undefined") {
-      connection.query(query, (err, result) => {
-        if (err) console.log(err);
-        //console.log(result.affectedRows + " record(s) updated");
-        console.log(query);
-      })
-    } else {
-      connection.query(query, values, (err, result) => {
-        //if (err) throw err;
-        if (err) console.log(err);
-        //console.log(result.affectedRows + " record(s) updated");
-        console.log(query);
-        console.log(values);
-      })
-    }
-  }
-  */
   async categoryAccess(category, condition) {
     try {
       if (await condition) {
@@ -75,7 +31,6 @@ module.exports = class sqldata {
     } catch (error) {
       console.log(error)
     }
-
   }
 
 };

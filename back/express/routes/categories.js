@@ -26,14 +26,28 @@ router.get('/categories', async (req, res, next) => {
   //let result = await sqldatahaku.queryGetAsync(query)
   //res.json(result)
   //console.log(result)
-
+/*
   sqldatahaku.queryGet(query, (err, result) => {
     if (err) throw err;
     res.json(result);
     next();
   });
+*/
+res.json(await sqldatahaku.querySql(query))
 
 });
+
+
+router.get('/tusto', async (req, res, next) => {
+  const query = 'SELECT * FROM junk'
+  let a = await sqldatahaku.queryGetAsync(query)
+  res.json(a);
+});
+
+
+
+
+
 
 router.get('/subcat', async (req, res, next) => {
   /*if (req.userlvl == 0){const query = 'SELECT * FROM subCat'}

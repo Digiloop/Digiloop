@@ -1,9 +1,5 @@
-var mysql = require('mysql2');
-var dbconfig = require('../app/database');
-var connection = mysql.createConnection(dbconfig.connection);
-//var connection = mysql.createConnection(dbconfig.connection);
-connection.query('USE ' + dbconfig.database);
-
+var connection = require('../config/database')
+var connection2 = require('../config/database2')
 module.exports = class sqldata {
   constructor() {
     //tobedone
@@ -21,13 +17,36 @@ module.exports = class sqldata {
 
   async queryGetAsync(query) {
     try {
-      const result = await connection.execute(query)
+      const result = await connection2(query)
       return result
     } catch (err) {
       console.log(err)
     }
   }
 
+  async querySql(query, values) {
+    try {
+      if (typeof values == "undefined") {
+        let result = await connection2(query)
+        console.log(query);
+        return result
+      } else {
+        connection2(query, values)
+        console.log(query);
+        console.log(values);
+      }
+    }
+
+    catch (error) {
+      console.log(error)
+    }
+
+  }
+
+
+
+
+  /*
   querySql(query, values) {
     if (typeof values == "undefined") {
       connection.query(query, (err, result) => {
@@ -45,8 +64,8 @@ module.exports = class sqldata {
       })
     }
   }
-
-  async categoryAccess(category,condition) {
+  */
+  async categoryAccess(category, condition) {
     try {
       if (await condition) {
         return `SELECT * FROM ${category}`
@@ -58,11 +77,5 @@ module.exports = class sqldata {
     }
 
   }
-
-
-
-
-
-
 
 };

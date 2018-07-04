@@ -5,13 +5,12 @@
 // load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
 var BearerStrategy	 = require('passport-http-bearer').Strategy;
-// load up the user model
-var mysql = require('mysql2');
-var bcrypt = require('bcrypt-nodejs');
-var dbconfig = require('./app/database');
-var connection = mysql.createConnection(dbconfig.connection);
 
-connection.query('USE ' + dbconfig.database);
+var bcrypt = require('bcrypt-nodejs');
+var connection = require('./config/database');
+
+
+//connection.query('USE ' + dbconfig.database);
 // expose this function to our app using module.exports
 module.exports = function(passport) {
 

@@ -1,23 +1,6 @@
 var express = require('express');
-var router = express.Router(); // load up the user model
-var mysql = require('mysql2');
-var dbconfig = require('../app/database');
-var fileUpload = require('express-fileupload');
-var connection = mysql.createConnection(dbconfig.connection);
-var bcrypt = require('bcrypt-nodejs');
-//var datenow = Date.now();
-const fs = require('fs');
-connection.query('USE ' + dbconfig.database);
+var connection = require('../config/database');
 
-// app/routes.js
-//var catquery = require('../config/catquery');
-//var source = require('../config/users.js');
-//http://catlau.co/how-to-modularize-routes-with-the-express-router/
-//https://blog.grossman.io/expressjs-tips-for-large-applications/
-//https://scotch.io/tutorials/keeping-api-routing-clean-using-express-routers
-//https://www.terlici.com/2014/09/29/express-router.html
-//https://www.caffeinecoding.com/better-express-routing-for-nodejs/
-//winscp kaatu
 module.exports = (app, passport, users) => {
 
     app.get('/users', (req, res) => {

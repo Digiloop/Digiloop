@@ -6,11 +6,13 @@ var itemadd = require('../code/itemadd.js');
 
 //GET
 router.get('/items', async (req, res, next) => {
-    const query = 'SELECT * FROM junk'
-    res.json(await sqldatahaku.querySql(query))
+    let query = 'SELECT * FROM junk'
+    let result = await sqldatahaku.querySql(query)
+    res.json(result)
 });
 
 // fetches missing items for frontend
+/*
 router.post('/itemRefresh', (req, res) => {
 
     const query = 'SELECT * FROM junk'
@@ -35,6 +37,32 @@ router.post('/itemRefresh', (req, res) => {
         res.end();
     });
 });
+*/
+
+router.post('/itemRefresh',async (req, res) => {
+
+    const query = 'SELECT * FROM junk'
+
+    result = await sqldatahaku.querySql(query)
+        let reslength = await result.length
+        let listlength = await req.body.listLength
+        let diff = reslength - listlength
+        await console.log("Kanta: " + reslength + " Front: " + listlength + " Erotus: " + diff)
+        if (diff > 0) {
+
+            let responseArray = []
+
+            for (let i = listlength, j = 0; i < reslength; i++ , j++) {
+                responseArray[j] = result[i]
+            }
+            await res.json(responseArray)
+
+        } else {
+            //do ingenting
+        }
+        res.end();
+});
+
 
 
 //POST

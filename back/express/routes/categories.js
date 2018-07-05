@@ -11,82 +11,31 @@ var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata; //ha
 
 //GET
 router.get('/categories', async (req, res, next) => {
-  //const query = 'SELECT * FROM Category WHERE Status = 1'
-  //const option = misk.selector(0,['SELECT * FROM Category','SELECT * FROM Category WHERE Status = 1'])
-
- let query = await sqldatahaku.categoryAccess('Category',req.user && req.user.userlvl && req.user.userlvl == 0)
-
-  /*
-  if (req.user && req.user.userlvl && req.user.userlvl == 0) {
-    query = 'SELECT * FROM Category'
-  } else {
-    query = 'SELECT * FROM Category WHERE Status = 1'
-  }
-*/
-  //let result = await sqldatahaku.queryGetAsync(query)
-  //res.json(result)
-  //console.log(result)
-/*
-  sqldatahaku.queryGet(query, (err, result) => {
-    if (err) throw err;
-    res.json(result);
-    next();
-  });
-*/
-res.json(await sqldatahaku.querySql(query))
-
+  let query = await sqldatahaku.categoryAccess('Category', req.user && req.user.userlvl && req.user.userlvl == 0)
+  res.json(await sqldatahaku.querySql(query))
 });
-
-
-router.get('/tusto', async (req, res, next) => {
-  const query = 'SELECT * FROM junk'
-  let a = await sqldatahaku.queryGetAsync(query)
-  res.json(a);
-});
-
-
-
-
-
 
 router.get('/subcat', async (req, res, next) => {
-  /*if (req.userlvl == 0){const query = 'SELECT * FROM subCat'}
-  else{const query = 'SELECT * FROM subCat WHERE Status = 1'}*/
-  let query = await sqldatahaku.categoryAccess('subCat',req.user && req.user.userlvl && req.user.userlvl == 0)
-  //const query = 'SELECT * FROM subCat'// WHERE Status = 1'
-  sqldatahaku.querySql(query, (err, result) => {
-    if (err) throw err;
-    res.json(result);
-    next();
-  });
+  let query = await sqldatahaku.categoryAccess('subCat', req.user && req.user.userlvl && req.user.userlvl == 0)
+  res.json(await sqldatahaku.querySql(query))
 });
 
 router.get('/feikkiCat', async (req, res, next) => {
-  let query = await sqldatahaku.categoryAccess('SubSubCats',req.user && req.user.userlvl && req.user.userlvl == 0)
-  //const query = 'SELECT * FROM SubSubCats'// WHERE Status = 1'
-  sqldatahaku.querySql(query, (err, result) => {
-    if (err) throw err;
-    res.json(result);
-    next();
-  });
+  let query = await sqldatahaku.categoryAccess('SubSubCats', req.user && req.user.userlvl && req.user.userlvl == 0)
+  res.json(await sqldatahaku.querySql(query))
 });
-
 
 //POST
 router.post('/catUpdate', async (req, res, next) => {
-  //console.log(req.body);
-  //console.log(req.body.Status)
-  let cat = misk.selector(req.body.catType, ['Category', 'subCat', 'SubSubCats'], ['CatName', 'subName', 'name'], ['CatId', 'subId', 'Id'])
-  const query = `UPDATE ${cat[0]} SET ${cat[1]} = ? WHERE ${cat[2]} = ?`
-  sqldatahaku.querySql(query, [req.body.name, req.body.id])
+  let cat = await misk.selector(await req.body.catType, ['Category', 'subCat', 'SubSubCats'], ['CatName', 'subName', 'name'], ['CatId', 'subId', 'Id'])
+  let arr = await [req.body.name, req.body.id]
+  const query = await `UPDATE ${cat[0]} SET ${cat[1]} = ? WHERE ${cat[2]} = ?`
+  sqldatahaku.querySql(query, arr)
 
   res.end();
 });
 //Values: 0 = Category, 1 = subCat, 2 = SubSubCats
 router.post('/catStatus', async (req, res, next) => {
-  //console.log(req.body);
-  //console.log(req.body.Status)
-  //sqldatahaku.randomshizzle('moi')
 
   let cat = misk.selector(req.body.catType, ['Category', 'subCat', 'SubSubCats'], ['CatId', 'subId', 'Id'])
   const query = 'UPDATE ' + cat[0] + ' SET Status = ? WHERE ' + cat[1] + '  = ?'
@@ -115,7 +64,7 @@ router.post('/feikkiCatAdd', async (req, res) => {
 });
 
 
-router.post('/imageCatAdd', async (req, res) => {
+router.post('/imageCatAdd', (req, res) => {
 
   let imgname;
   let cat = misk.selector(req.body.catType, ['Category', 'SubSubCats'], ['CatId', 'Id'], ['ImgReference', 'imgReference'])

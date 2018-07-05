@@ -176,7 +176,7 @@ class ModifyCategories extends Component {
                 .then(() => {
                     this.getCategories();
                     this.getSubCategories();
-                    this.getFakeCategories()
+                    this.getFakeCategories();
                 });
             this.setState({ newCatName: '' })
             this.expand(rownumber);
@@ -263,6 +263,31 @@ class ModifyCategories extends Component {
                 accent1Color: '#004225',
             }
         });
+
+        // function for dynamic sorting
+        function compareValues(key, order = 'asc') {
+            return function (a, b) {
+                if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+                    // property doesn't exist on either object
+                    return 0;
+                }
+
+                const varA = (typeof a[key] === 'string') ?
+                    a[key].toUpperCase() : a[key];
+                const varB = (typeof b[key] === 'string') ?
+                    b[key].toUpperCase() : b[key];
+
+                let comparison = 0;
+                if (varA > varB) {
+                    comparison = 1;
+                } else if (varA < varB) {
+                    comparison = -1;
+                }
+                return (
+                    (order === 'desc') ? (comparison * -1) : comparison
+                );
+            };
+        }
 
         const cats = [];
         const subCats = [];
@@ -359,6 +384,7 @@ class ModifyCategories extends Component {
             // get category and subcategory names
             const tmp = [];
             const tmp1 = [];
+
             for (let j = 0; j < this.state.subCats.length; j++) {
                 if (this.state.subCats[j].subId === this.state.fakeCats[k].subCatId) {
                     tmp.push(this.state.subCats[j].subName)
@@ -409,36 +435,11 @@ class ModifyCategories extends Component {
             }
         }
 
-        // function for dynamic sorting
-        function compareValues(key, order = 'asc') {
-            return function (a, b) {
-                if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
-                    // property doesn't exist on either object
-                    return 0;
-                }
 
-                const varA = (typeof a[key] === 'string') ?
-                    a[key].toUpperCase() : a[key];
-                const varB = (typeof b[key] === 'string') ?
-                    b[key].toUpperCase() : b[key];
-
-                let comparison = 0;
-                if (varA > varB) {
-                    comparison = 1;
-                } else if (varA < varB) {
-                    comparison = -1;
-                }
-                return (
-                    (order === 'desc') ? (comparison * -1) : comparison
-                );
-            };
-        }
-
+        // sort sub categories by CatId
         if (this.state.subCats.length) {
             this.state.subCats.sort(compareValues('CatId'));
         }
-        // fakeCats.sort(compareValues('subCatId'));
-
 
         return (
             <MuiThemeProvider muiTheme={muiTheme}>

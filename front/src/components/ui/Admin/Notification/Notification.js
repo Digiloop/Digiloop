@@ -45,8 +45,8 @@ class Notification extends Component {
     this.setState({
       title: title,
       info: info,
-      startDate: moment(startDate).utc().format(moment.HTML5_FMT.DATE),
-      endDate: moment(endDate).utc().format(moment.HTML5_FMT.DATE),
+      startDate: moment(startDate).format(moment.HTML5_FMT.DATE),
+      endDate: moment(endDate).format(moment.HTML5_FMT.DATE),
       edit: true
     })
     this.close(rowNumber);
@@ -123,9 +123,10 @@ class Notification extends Component {
     var notificationData = {
       title: this.state.title,
       info: this.state.info,
-      dateBegin: this.state.startDate,
-      dateEnd: this.state.endDate
+      dateBegin: moment(this.state.startDate).format(),
+      dateEnd: moment(this.state.endDate).format()
     }
+    
     this.getNotifications();
     /* 
     // send notification

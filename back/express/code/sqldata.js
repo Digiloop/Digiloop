@@ -6,7 +6,7 @@ module.exports = class sqldata {
 
   async querySql(query, values) {
     try {
-      if (typeof values == "undefined") {
+      if (typeof values == "undefined" || typeof values == "function") {
         let result = await connection(query)
         console.log(query);
         return result

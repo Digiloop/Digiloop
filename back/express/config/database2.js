@@ -1,9 +1,16 @@
-var connection = async function main(query, values) {
-    const mysql = require('mysql2/promise');
-    const db = await require('./db')
-    const connection = await mysql.createPool(db)
-    let [rows, fields] = await connection.execute(query, values);
-    return rows;
+const mysql = require('mysql2/promise');
+const db = require('./db');
+
+var connection = async (query, values) => {
+    try {
+        let pool = await mysql.createPool(db);
+        let [rows, fields] = await pool.query(query,values);
+        pool.end();
+        return rows;
+    } catch (error) {
+        console.log(error)
+        pool.end();
+    }
 };
 
 module.exports = connection;

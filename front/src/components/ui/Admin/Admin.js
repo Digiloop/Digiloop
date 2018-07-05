@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { TableRow, TableRowColumn, Table, TableBody } from 'material-ui';
+import RaisedButton from 'material-ui/RaisedButton'
+import Checkbox from 'material-ui/Checkbox';
 
 // get users
-import { getUsers } from '../../../utils/fetchUsers';
-import { TableRow, TableRowColumn, Table, TableBody } from 'material-ui';
-
-import Checkbox from 'material-ui/Checkbox';
+import { getUsers } from '../../../utils/fetchEditUsers';
 
 class Admin extends Component {
   constructor(props) {
@@ -25,6 +25,11 @@ class Admin extends Component {
     getUsers().then((usersData) => {
       this.setState({ users: (usersData) });
     });
+  }
+
+  // edit userinfo 
+  editUserStatus(id, status) {
+    console.log('id: ' + id + ' status: ' + status);
   }
 
   // opening items
@@ -54,15 +59,55 @@ class Admin extends Component {
 
   render() {
 
+    const active = {
+      border: '2px solid green',
+      width: '100px'
+    }
+    const inactive = {
+      border: '2px solid red',
+      width: '100px'
+    }
+
     const users = [];
     let visibleRowsCount = 0;
+
+    // function for dynamic sorting
+    function compareValues(key, order = 'asc') {
+      return function (a, b) {
+        if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+          // property doesn't exist on either object
+          return 0;
+        }
+
+        const varA = (typeof a[key] === 'string') ?
+          a[key].toUpperCase() : a[key];
+        const varB = (typeof b[key] === 'string') ?
+          b[key].toUpperCase() : b[key];
+
+        let comparison = 0;
+        if (varA > varB) {
+          comparison = 1;
+        } else if (varA < varB) {
+          comparison = -1;
+        }
+        return (
+          (order === 'desc') ? (comparison * -1) : comparison
+        );
+      };
+    }
+
+    // sort users by userlevel
+    if (this.state.users.length) {
+      this.state.users.sort(compareValues('userlvl'));
+    }
+
 
     // get users
     for (let i = 0; i < this.state.users.length; i++) {
 
-      if ((this.state.users[i].userlvl == 0 && this.state.listAdmins)
-        || (this.state.users[i].userlvl == 1 && this.state.listWasteprocessors)
-        || (this.state.users[i].userlvl == 2 && this.state.listEndUsers)
+      if ((this.state.users[i].userlvl === '0' && this.state.listAdmins)
+        || (this.state.users[i].userlvl === '1' && this.state.listWasteprocessors)
+        || (this.state.users[i].userlvl === '2' && this.state.listEndUsers)
       ) {
         if (this.state.rows[visibleRowsCount]) {
           users.push(
@@ -82,15 +127,33 @@ class Admin extends Component {
                 {this.state.users[i].phone}
               </TableRowColumn>
               <TableRowColumn colSpan='1'>
-                Button tulee tähä
+                {this.state.users[i].userlvl === '0' ? 'Admin' : ''}
+                {this.state.users[i].userlvl === '1' ? 'Käsittelijä' : ''}
+                {this.state.users[i].userlvl === '2' ? 'Loppukäyttäjä' : ''}
+              </TableRowColumn>
+              <TableRowColumn colSpan='1'>
+                <RaisedButton
+                  style={{ width: '110px' }}
+                  label={this.state.users[i].Status ? 'Deaktivoi' : 'Aktivoi'}
+                  onClick={event => this.editUserStatus(this.state.users[i].id, this.state.users[i].Status)} />
               </TableRowColumn>
             </TableRow>
           )
         } else {
           users.push(
             <TableRow key={i}>
-              <TableRowColumn colSpan='4'>
+              <TableRowColumn colSpan='3'>
                 {this.state.users[i].fname}{' ' + this.state.users[i].lname}
+              </TableRowColumn>
+              <TableRowColumn colSpan='1'>
+                {this.state.users[i].userlvl === '0' ? 'Admin' : ''}
+                {this.state.users[i].userlvl === '1' ? 'Käsittelijä' : ''}
+                {this.state.users[i].userlvl === '2' ? 'Loppukäyttäjä' : ''}
+              </TableRowColumn>
+              <TableRowColumn colSpan='1'>
+                <RaisedButton
+                  style={this.state.users[i].Status ? active : inactive}
+                  label={this.state.users[i].Status ? 'Active' : 'Inactive'} />
               </TableRowColumn>
             </TableRow>
           )
@@ -99,7 +162,6 @@ class Admin extends Component {
       }
 
     }
-
 
 
     return (
@@ -111,7 +173,7 @@ class Admin extends Component {
           }}><tbody>
               <tr>
                 <td>
-                  Sepot
+                  Adminit
           </td>
                 <td>
                   <Checkbox
@@ -122,7 +184,7 @@ class Admin extends Component {
               </tr>
               <tr>
                 <td>
-                  Tepot
+                  Käsittelijät
           </td>
                 <td>
                   <Checkbox
@@ -133,7 +195,7 @@ class Admin extends Component {
               </tr>
               <tr>
                 <td>
-                  Jepet
+                  Loppukäyttäjät
           </td>
                 <td>
                   <Checkbox

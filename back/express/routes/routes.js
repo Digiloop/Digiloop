@@ -2,14 +2,14 @@ var express = require('express');
 var connection = require('../config/database');
 
 module.exports = (app, passport, users) => {
-
+/*
     app.get('/users', (req, res) => {
         connection.query('SELECT * FROM users', (err, result) => {
             if (err) throw err;
             res.json(result);
         });
     });
-
+*/
     app.post('/deleteUser', (req, res) => {
         if (req.user.userlvl == 0) {
             connection.query('UPDATE users SET Status = 0 WHERE id = ?;', [req.body.id], (err, rows) => {
@@ -32,7 +32,7 @@ module.exports = (app, passport, users) => {
         })
         res.end();
     });
-    
+
     app.get('/', function (req, res) {
         //res.render('index.ejs'); // load the index.ejs file
         //res.sendFile('index.html',{root: __dirname});

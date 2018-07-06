@@ -23,11 +23,19 @@ router.route('/announcement')
     })
     .delete(async (req, res) => {
         let query = 'DELETE FROM Announcements WHERE id = ?'
-        let values = req.body.id
+        let values = await [req.body.id]
+        console.log(req.body.id)
         await sqldatahaku.querySql(query, values)
         res.end()
     })
 
+    
+    router.get('/ip',async (req,res) => {
+        console.log(req.ip)
+        res.json(req.ip)
+    })
+
+    
 /*
 router.get('/jotain/:Add', async (req, res) => {
     console.log(req.params)

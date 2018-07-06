@@ -24,6 +24,7 @@ var serveIndex = require('serve-index');
 var router = express.Router()
 var categories = require('./routes/categories')
 var items = require('./routes/items')
+var announcements = require('./routes/announcements')
 //misc functions and stuff
 var misc = require('./code/misc.js'); var misk = new misc;
 //MemoryStore
@@ -99,7 +100,7 @@ app.use(passport.session()); // persistent login sessions
 require('./routes/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 //router.use(require('./routes/routes.js')(app, passport));
 //app.use('/cat', cats); // http://193.166.72.18/cat/categories
-app.use('/', categories)
+app.use('/', categories, announcements)
 app.all('*', misk.isLoggedIn);
 app.use('/', items);
 //app.use('/', categories, items); // http://193.166.72.18/categories
@@ -108,6 +109,7 @@ app.use('/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': t
 //app.use('/birds', birds) //<<- toimia esimerkki
 //'./app/maint'
 
+
 // launch ======================================================================
 //app.listen(port);
 //console.log('päkki pystys portissa ' + port);
@@ -115,11 +117,6 @@ app.use('/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': t
 https.createServer(options, app).listen(port, () => {
     console.log(`päkki pyörii portissa ${port}`);
 });
-/*
-app.listen(port2, () => {
-    console.log("päkki pyörii portissa 80");
-});
-*/
 
 http.createServer(function (req, res) {
     res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });

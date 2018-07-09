@@ -164,7 +164,7 @@ class Notification extends Component {
   // close dialog
   handleDialogClose = () => {
     this.setState({ open: false })
-    this.getNotificationInfo();
+    this.getNotifications();
   }
 
 

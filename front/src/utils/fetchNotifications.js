@@ -25,4 +25,3 @@ function editNotification(metodi, notificationData) {
       return error;
     });
 }
-// kommentti

@@ -178,7 +178,7 @@ class FakeCategories extends Component {
         const subCats = [];
         const fakeCats = [];
         const newCat = [...this.state.fakeCats, ...this.state.subCats, ...this.state.cats];
-        console.log(newCat);
+        // console.log(newCat);
 
         for (let i = 0; i < this.state.cats.length; i++) {
             cats.push(
@@ -200,9 +200,9 @@ class FakeCategories extends Component {
             }
         }
 
-        for (let i = 0; i < newCat.length; i++) {
+        for (let i = 0; i < this.state.fakeCats.length; i++) {
             // get category and subcategory names
-            /* const tmp = [];
+            const tmp = [];
             const tmp1 = [];
             for (let j = 0; j < this.state.subCats.length; j++) {
                 if (this.state.subCats[j].subId === this.state.fakeCats[i].subCatId) {
@@ -216,7 +216,7 @@ class FakeCategories extends Component {
                         }
                     }
                 }
-            } */
+            }
             if (this.state.rows[i]) {
                 fakeCats.push(
                     <TableRow key={i} style={{ height: '150px', backgroundColor: '#CCC' }}>
@@ -226,9 +226,9 @@ class FakeCategories extends Component {
                             Feikkikategoria:
                         </TableRowColumn>
                         <TableRowColumn colSpan='4'>
-                            {newCat[i].CatName}<br />
-                            {newCat[i].subName}<br />
-                            {newCat[i].name}
+                            {tmp1}<br />
+                            {tmp}<br />
+                            {this.state.fakeCats[i].name}
                         </TableRowColumn>
                     </TableRow>
                 )
@@ -237,7 +237,7 @@ class FakeCategories extends Component {
                     fakeCats.push(
                         <TableRow key={i} >
                             <TableRowColumn colSpan='8'>
-                                {newCat[i].name}
+                                {this.state.fakeCats[i].name}
                             </TableRowColumn>
                         </TableRow>
                     )

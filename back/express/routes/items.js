@@ -5,11 +5,39 @@ var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata; //ha
 var itemadd = require('../code/itemadd.js');
 
 //GET
-router.get('/items', async (req, res, next) => {
-    let query = 'SELECT * FROM junk'
-    let result = await sqldatahaku.querySql(query)
-    res.json(result)
-});
+router.route('/items')
+    .get(async (req, res, next) => {
+        let query;
+        if (req.user.userlvl == 2) {
+            query = `SELECT * FROM junk where owner = ${req.user.id}`
+        } else {
+            query = 'SELECT * FROM junk'
+        }
+
+            let result = await sqldatahaku.querySql(query)
+            res.json(result)
+
+    })
+    .delete(async (req, res, next) => {
+        //let values = req.body.id
+        let check = await sqldatahaku.querySql(`SELECT owner FROM junk WHERE junkID = ${req.body.id}`);
+        let user = await req.user.id
+        let query;
+        console.log(check[0].owner + ' owner id')
+        //console.log(values + ' values')
+        console.log(user + ' user id')
+        if (user == check[0].owner) { 
+            query = `DELETE FROM junk WHERE junkID = ${req.body.id}`
+             console.log('hi')
+             await sqldatahaku.querySql(query)
+        }else{
+            console.log('Cant let you do that')
+        }
+        res.end()
+        //let query = 'DELETE FROM junk WHERE junkID = ?'
+        //let values = [req.body.id]
+        
+    })
 
 // fetches missing items for frontend
 /*
@@ -39,28 +67,28 @@ router.post('/itemRefresh', (req, res) => {
 });
 */
 
-router.post('/itemRefresh',async (req, res) => {
+router.post('/itemRefresh', async (req, res) => {
 
     const query = 'SELECT * FROM junk'
 
     result = await sqldatahaku.querySql(query)
-        let reslength = await result.length
-        let listlength = await req.body.listLength
-        let diff = reslength - listlength
-        await console.log("Kanta: " + reslength + " Front: " + listlength + " Erotus: " + diff)
-        if (diff > 0) {
+    let reslength = await result.length
+    let listlength = await req.body.listLength
+    let diff = reslength - listlength
+    await console.log("Kanta: " + reslength + " Front: " + listlength + " Erotus: " + diff)
+    if (diff > 0) {
 
-            let responseArray = []
+        let responseArray = []
 
-            for (let i = listlength, j = 0; i < reslength; i++ , j++) {
-                responseArray[j] = result[i]
-            }
-            await res.json(responseArray)
-
-        } else {
-            //do ingenting
+        for (let i = listlength, j = 0; i < reslength; i++ , j++) {
+            responseArray[j] = result[i]
         }
-        res.end();
+        await res.json(responseArray)
+
+    } else {
+        //do ingenting
+    }
+    res.end();
 });
 
 

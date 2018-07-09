@@ -8,7 +8,7 @@ var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata; //ha
 //https://javascript.info/async-await
 //https://itnext.io/using-async-await-to-write-cleaner-route-handlers-7fc1d91b220b
 
-
+/*
 router.route('/category/:selector')
   .get(async (req, res) => {
     let cat = await misk.selector(req.params.selector, ['Category', 'subCat', 'SubSubCats'])
@@ -31,7 +31,7 @@ router.route('/category/:selector')
     await sqldatahaku.querySql(query, values)
     res.end()
   })
-
+*/
 
 //GET
 router.get('/categories', async (req, res, next) => {

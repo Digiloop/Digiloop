@@ -15,9 +15,9 @@ router.route('/users')
         await sqldatahaku.querySql(query, values)
         res.end()
     })
-    .delete(async (req, res) => {
-        let query = 'UPDATE users SET Status = 0 WHERE id = ?'
-        let values = req.body.id
+    .post(async (req, res) => {
+        let query = 'UPDATE users SET Status = ? WHERE id = ?'
+        let values = [req.body.Status,req.body.id]
         await sqldatahaku.querySql(query, values)
         res.end()
     })

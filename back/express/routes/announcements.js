@@ -11,7 +11,7 @@ router.route('/announcement')
     })
     .post(async (req, res) => {
         let query = 'INSERT INTO Announcements ( info, dateBegin, dateEnd, title, userid) values (?, ?, ?, ?, ?)'
-        let values = await [req.body.info, req.body.dateBegin, req.body.dateEnd, req.body.title, 47]//req.user.id
+        let values = await [req.body.info, req.body.dateBegin, req.body.dateEnd, req.body.title, req.body.id]//req.user.id
         await sqldatahaku.querySql(query, values)
         res.end()
     })
@@ -29,13 +29,7 @@ router.route('/announcement')
         res.end()
     })
 
-    
-    router.get('/ip',async (req,res) => {
-        console.log(req.ip)
-        res.json(req.ip)
-    })
 
-    
 /*
 router.get('/jotain/:Add', async (req, res) => {
     console.log(req.params)

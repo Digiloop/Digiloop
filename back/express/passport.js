@@ -3,6 +3,7 @@
 // but with this passport you can't even go buy beer from the supermarket
 
 // load all the things we need
+var maileri = require('./code/mailer')
 var LocalStrategy   = require('passport-local').Strategy;
 var BearerStrategy	 = require('passport-http-bearer').Strategy;
 
@@ -90,7 +91,7 @@ module.exports = function(passport) {
                     var insertQuery = "INSERT INTO users ( password, fname, lname, email, phone, address, zipcode, city, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?)";
 
                     connection.query(insertQuery,[newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.userlvl, newUserMysql.Status],(err, rows) => {
-                        newUserMysql.id = rows.insertId;
+                        //newUserMysql.id = rows.insertId;
 
                         return done(null, newUserMysql);
                     });
@@ -135,8 +136,9 @@ module.exports = function(passport) {
                     var insertQuery = "INSERT INTO users ( password, fname, lname, email, phone, address, zipcode, city, company, ytunnus, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?,?,?)";
 
                     connection.query(insertQuery,[newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.company, newUserMysql.ytunnus, newUserMysql.userlvl, newUserMysql.Status],(err, rows) => {
-                        newUserMysql.id = rows.insertId;
+                        //newUserMysql.id = rows.insertId;
 
+                        maileri.mail(newUserMysql.email,'dangerous')
                         return done(null, newUserMysql);
                     });
                 }

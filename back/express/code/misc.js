@@ -1,22 +1,6 @@
 // Seppo D. was here.
 var fs = require('fs');
 module.exports = class misc {
-    isLoggedIn(req, res, next) {
-
-        if (req.isAuthenticated())
-            return next();
-
-        res.end();
-    }
-
-    ifUserLevel(req, res, next) {
-
-        if (req.user.userlvl <= 1)
-            return next();
-
-        res.end();
-    }
-
     keyToArray(vals) {
         //here we transform keys from anything to array
         let arr = [];
@@ -177,24 +161,6 @@ module.exports = class misc {
         let datum = new Date();
         datum.setHours(datum.getHours() + 3);
         return datum.toISOString().replace(/T/, ' ').replace(/\..+/, '');
-    }
-
-    isAdmin(req) {
-        if (req.user.userlvl == 0) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
-    }
-
-    async logIp(req,res,next) {
-        let ip = await req.ip;
-        if (ip.substr(0, 7) == "::ffff:") {
-            ip = ip.substr(7)
-          }
-         console.log('ip '+ip);
-         next()
     }
 
     // Add's images. On the server. To be used. In the future.

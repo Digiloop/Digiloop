@@ -36,7 +36,6 @@ class Notification extends Component {
 
   // get info from notification, type: 0=expired, 1=valid
   getNotificationInfo(rownumber, type) {
-    console.log('rivinumero: ' + rownumber);
     this.setState({
       type: type
     })
@@ -59,7 +58,6 @@ class Notification extends Component {
 
   // delete annoucement
   deleteNotification(rowNumber, messageId) {
-    console.log(messageId)
     this.setState({
       metodi: 'delete',
       messageId: messageId
@@ -95,7 +93,6 @@ class Notification extends Component {
 
   // checks that all are filled
   checkFill() {
-    console.log(this.state)
     let pass = true;
     for (var key in this.state) {
       if ((this.state[key] === undefined || this.state[key] === '') && key !== 'rows') {
@@ -138,7 +135,6 @@ class Notification extends Component {
       dateEnd: moment(this.state.endDate).format(moment.HTML5_FMT.DATETIME_LOCAL),
       id: this.state.messageId
     }
-    console.log(notificationData)
     // send notification
     editNotification(this.state.metodi, notificationData)
       .then(() => {
@@ -181,7 +177,6 @@ class Notification extends Component {
     const dialog = [];
     let j = 0;
     let k = 0;
-    console.log(oldItems)
 
     // sort notifications to valid and expired
     for (let i = 0; i < this.props.items.length; i++) {

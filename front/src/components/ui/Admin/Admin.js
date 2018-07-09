@@ -5,7 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import Checkbox from 'material-ui/Checkbox';
 
 // get users
-import { getUsers } from '../../../utils/fetchEditUsers';
+import { getUsers, changeStatus } from '../../../utils/fetchEditUsers';
 
 class Admin extends Component {
   constructor(props) {
@@ -28,8 +28,17 @@ class Admin extends Component {
   }
 
   // edit userinfo 
-  editUserStatus(id, status) {
+  changeStatus(id, status) {
     console.log('id: ' + id + ' status: ' + status);
+    var userStatus = {
+      Status: !status,
+      id: id
+    }
+    console.log(userStatus);
+    changeStatus(userStatus)
+    .then(() => {
+      this.getUsersData();
+    })
   }
 
   // opening items
@@ -136,7 +145,7 @@ class Admin extends Component {
                 <RaisedButton
                   style={{ width: '110px' }}
                   label={this.state.users[i].Status ? 'Deaktivoi' : 'Aktivoi'}
-                  onClick={event => this.editUserStatus(this.state.users[i].id, this.state.users[i].Status)} />
+                  onClick={event => this.changeStatus(this.state.users[i].id, this.state.users[i].Status)} />
               </TableRowColumn>
             </TableRow>
           )

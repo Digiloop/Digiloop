@@ -5,7 +5,7 @@ export { updateUserData };
 
 
 function updateUserData(updateUserData) {
-  return axios.post(BASE_URL + '/updateUser', {
+  return axios.put(BASE_URL + '/users', {
     fname: updateUserData.fname,
     lname: updateUserData.lname,
     phone: updateUserData.phone,

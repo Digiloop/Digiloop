@@ -11,9 +11,10 @@ function getUsers() {
     });
 }
 
-function changeStatus(id) {
-    return axios.post(BASE_URL + '/deleteUser', {
-        id
+function changeStatus(userStatus) {
+    return axios.post(BASE_URL + '/users', {
+        Status: userStatus.Status,
+        id: userStatus.id
     })
     .then(response => response.data)
     .catch(function (error) {

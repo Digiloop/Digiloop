@@ -6,8 +6,9 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-import { getNotifications, addNotification } from '../../../../utils/fetchNotifications.js';
+import { getNotifications, editNotification } from '../../../../utils/fetchNotifications.js';
 import { TextField, RaisedButton } from 'material-ui';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import moment from 'moment'
 
 class Notification extends Component {
@@ -20,7 +21,9 @@ class Notification extends Component {
       title: '',
       info: '',
       startDate: '',
-      endDate: ''
+      endDate: '',
+      scroll: 'paper',
+      open: false
     };
   }
 
@@ -38,24 +41,30 @@ class Notification extends Component {
       type: type
     })
     this.expand(rownumber);
+    this.handleDialogOpen();
   }
 
   // edit announcement
-  editNotification(title, info, startDate, endDate, rowNumber) {
+  editNotification(title, info, startDate, endDate, rowNumber, messageId) {
     this.setState({
       title: title,
       info: info,
       startDate: moment(startDate).format(moment.HTML5_FMT.DATE),
       endDate: moment(endDate).format(moment.HTML5_FMT.DATE),
-      edit: true
+      messageId: messageId,
+      metodi: 'put'
     })
     this.close(rowNumber);
   }
 
   // delete annoucement
-  deleteNotification(rowNumber) {
-    console.log('deletee pukkaa');
-    this.close(rowNumber)
+  deleteNotification(rowNumber, messageId) {
+    console.log(messageId)
+    this.setState({
+      metodi: 'delete',
+      messageId: messageId
+    }, function () { this.submit() })
+    this.close(rowNumber);
   }
 
   // open row
@@ -86,7 +95,7 @@ class Notification extends Component {
 
   // checks that all are filled
   checkFill() {
-
+    console.log(this.state)
     let pass = true;
     for (var key in this.state) {
       if ((this.state[key] === undefined || this.state[key] === '') && key !== 'rows') {
@@ -100,7 +109,8 @@ class Notification extends Component {
         title: '',
         info: '',
         startDate: '',
-        endDate: ''
+        endDate: '',
+        metodi: 'post'
       })
 
     } else {
@@ -114,26 +124,26 @@ class Notification extends Component {
       info: '',
       startDate: '',
       endDate: '',
-      edit: false
+      metodi: 'post'
     })
   }
 
-  // add new announcement
+  // edit announcement
   submit(event) {
+
     var notificationData = {
       title: this.state.title,
       info: this.state.info,
-      dateBegin: moment(this.state.startDate).format(),
-      dateEnd: moment(this.state.endDate).format()
+      dateBegin: moment(this.state.startDate).format(moment.HTML5_FMT.DATETIME_LOCAL),
+      dateEnd: moment(this.state.endDate).format(moment.HTML5_FMT.DATETIME_LOCAL),
+      id: this.state.messageId
     }
-    
-    this.getNotifications();
-    /* 
+    console.log(notificationData)
     // send notification
-    addNotification(notificationData)
+    editNotification(this.state.metodi, notificationData)
       .then(() => {
         this.getNotifications(); // update notifications
-      });*/
+      });
   }
 
   componentDidMount() {
@@ -142,10 +152,23 @@ class Notification extends Component {
       title: this.state.title,
       info: this.state.info,
       startDate: this.state.startDate,
-      endDate: this.state.endDate
+      endDate: this.state.endDate,
+      metodi: 'post'
     })
+
     //
     // fetch data from backend
+  }
+
+  // open dialog
+  handleDialogOpen = () => {
+    this.setState({ open: true })
+  }
+
+  // close dialog
+  handleDialogClose = () => {
+    this.setState({ open: false })
+    this.getNotificationInfo();
   }
 
 
@@ -155,8 +178,10 @@ class Notification extends Component {
     let oldItems = [];
     const oldNotifs = [];
     const validNotifs = [];
+    const dialog = [];
     let j = 0;
     let k = 0;
+    console.log(oldItems)
 
     // sort notifications to valid and expired
     for (let i = 0; i < this.props.items.length; i++) {
@@ -178,19 +203,37 @@ class Notification extends Component {
     for (let l = 0; l < oldItems.length; l++) {
 
       if (this.state.rows[l] && this.state.type === 0) {
+        dialog.push(
+          <Dialog key={l}
+            open={this.state.open}
+            onClose={this.handleDialogClose}
+            scroll={this.state.scroll}
+            fullWidth={true}
+            aria-labelledby="scroll-dialog-title"
+          >
+            <DialogTitle>{oldItems[l].title}</DialogTitle>
+            <DialogTitle>{oldItems[l].info}</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Alkupäivämäärä: {moment(oldItems[l].dateBegin).format('DD.MM.YYYY')}
+              </DialogContentText>
+              <DialogContentText>
+                Loppupäivämäärä: {moment(oldItems[l].dateEnd).format('DD.MM.YYYY')}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <RaisedButton label='Muokkaa' onClick={() =>
+                this.editNotification(oldItems[l].title, oldItems[l].info, oldItems[l].dateBegin, oldItems[l].dateEnd,
+                  l, oldItems[l].id)} />
+              <RaisedButton label='Poista' onClick={() => this.deleteNotification(l, oldItems[l].id)} />
+            </DialogActions>
+          </Dialog>
+        )
         oldNotifs.push(
-          <TableRow key={l} style={{ height: '150px' }}>
-            <TableRowColumn colSpan='3'>
-              {oldItems[l].title}<br />
-              {oldItems[l].info}<br />
-              {oldItems[l].dateBegin}<br />
-              {oldItems[l].dateEnd}
-            </TableRowColumn>
+          <TableRow key={l}>
+            <TableRowColumn colSpan='3' >{oldItems[l].title}</TableRowColumn>
             <TableRowColumn>
-            <RaisedButton label='Muokkaa' onClick={() =>
-                this.editNotification(oldItems[l].title, oldItems[l].info, oldItems[l].dateBegin, oldItems[l].dateEnd, l)} />
-              <br /><br />
-              <RaisedButton label='Poista' onClick={() => this.deleteNotification(l)} />
+              <RaisedButton label='Näytä' onClick={() => this.getNotificationInfo(l, 0)} />
             </TableRowColumn>
           </TableRow>
         )
@@ -210,19 +253,37 @@ class Notification extends Component {
     for (let m = 0; m < validItems.length; m++) {
 
       if (this.state.rows[m + 1000] && this.state.type === 1) {
-        validNotifs.push(
-          <TableRow key={m} style={{ height: '150px' }}>
-            <TableRowColumn colSpan='3'>
-              Otsikko:  {validItems[m].title}<br />
-              Info:     {validItems[m].info}<br />
-              Alkupvm:  {validItems[m].dateBegin}<br />
-              Loppupvm: {validItems[m].dateEnd}
-            </TableRowColumn>
-            <TableRowColumn>
+        dialog.push(
+          <Dialog key={m}
+            open={this.state.open}
+            onClose={this.handleDialogClose}
+            scroll={this.state.scroll}
+            fullWidth={true}
+            aria-labelledby="scroll-dialog-title"
+          >
+            <DialogTitle>{validItems[m].title}</DialogTitle>
+            <DialogTitle>{validItems[m].info}</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Alkupäivämäärä: {moment(validItems[m].dateBegin).format('DD.MM.YYYY')}
+              </DialogContentText>
+              <DialogContentText>
+                Loppupäivämäärä: {moment(validItems[m].dateEnd).format('DD.MM.YYYY')}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
               <RaisedButton label='Muokkaa' onClick={() =>
-                this.editNotification(validItems[m].title, validItems[m].info, validItems[m].dateBegin, validItems[m].dateEnd, m+1000)} />
-              <br /><br />
-              <RaisedButton label='Poista' onClick={() => this.deleteNotification(m+1000)} />
+                this.editNotification(validItems[m].title, validItems[m].info, validItems[m].dateBegin, validItems[m].dateEnd,
+                  m, validItems[m].id)} />
+              <RaisedButton label='Poista' onClick={() => this.deleteNotification(m, validItems[m].id)} />
+            </DialogActions>
+          </Dialog>
+        )
+        validNotifs.push(
+          <TableRow key={m}>
+            <TableRowColumn colSpan='3' >{validItems[m].title}</TableRowColumn>
+            <TableRowColumn>
+              <RaisedButton label='Näytä' onClick={() => this.getNotificationInfo(m, 0)} />
             </TableRowColumn>
           </TableRow>
         )
@@ -237,6 +298,7 @@ class Notification extends Component {
         )
       }
     }
+
 
     return (
 
@@ -365,7 +427,7 @@ class Notification extends Component {
               marginBottom: '10px',
               fontFamily: 'Kanit'
             }}
-              onClick={(event) => this.checkFill(event)}
+              onClick={(event) => this.checkFill(event, this.state.edit)}
             >Lähetä</button>
 
             <button style={{
@@ -380,6 +442,9 @@ class Notification extends Component {
               onClick={() => this.clear()}
             >Tyhjennä</button>
 
+          </div>
+          <div>
+            {dialog}
           </div>
         </div>
       </MuiThemeProvider>

@@ -19,6 +19,7 @@ class FakeCategories extends Component {
             cats: [],
             subCats: [],
             fakeCats: [],
+            newCat: [],
             addFakeCat: '',
             addSubCat: [],
             rows: [],
@@ -176,7 +177,8 @@ class FakeCategories extends Component {
         const cats = [];
         const subCats = [];
         const fakeCats = [];
-        
+        const newCat = [...this.state.fakeCats, ...this.state.subCats, ...this.state.cats];
+        console.log(newCat);
 
         for (let i = 0; i < this.state.cats.length; i++) {
             cats.push(
@@ -198,12 +200,13 @@ class FakeCategories extends Component {
             }
         }
 
-        for (let i = 0; i < this.state.fakeCats.length; i++) {
+        for (let i = 0; i < newCat.length; i++) {
             // get category and subcategory names
-            const tmp = [];
+            /* const tmp = [];
             const tmp1 = [];
             for (let j = 0; j < this.state.subCats.length; j++) {
                 if (this.state.subCats[j].subId === this.state.fakeCats[i].subCatId) {
+                    fakeCats[j]
                     tmp.push(this.state.subCats[j].subName)
 
                     for (let k = 0; k < this.state.cats.length; k++) {
@@ -213,7 +216,7 @@ class FakeCategories extends Component {
                         }
                     }
                 }
-            }
+            } */
             if (this.state.rows[i]) {
                 fakeCats.push(
                     <TableRow key={i} style={{ height: '150px', backgroundColor: '#CCC' }}>
@@ -223,20 +226,24 @@ class FakeCategories extends Component {
                             Feikkikategoria:
                         </TableRowColumn>
                         <TableRowColumn colSpan='4'>
-                            {tmp1}<br />
-                            {tmp}<br />
-                            {this.state.fakeCats[i].name}
+                            {newCat[i].CatName}<br />
+                            {newCat[i].subName}<br />
+                            {newCat[i].name}
                         </TableRowColumn>
                     </TableRow>
                 )
             } else {
-                fakeCats.push(
-                    <TableRow key={i} >
-                        <TableRowColumn colSpan='8'>
-                            {tmp1+': '}{this.state.fakeCats[i].name}
-                        </TableRowColumn>
-                    </TableRow>
-                )
+                if (newCat[i].Id) {
+                    fakeCats.push(
+                        <TableRow key={i} >
+                            <TableRowColumn colSpan='8'>
+                                {newCat[i].name}
+                            </TableRowColumn>
+                        </TableRow>
+                    )
+                } else {
+
+                }
             }
         }
 

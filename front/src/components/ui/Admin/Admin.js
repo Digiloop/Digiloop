@@ -70,6 +70,7 @@ class Admin extends Component {
 
     const users = [];
     let visibleRowsCount = 0;
+    console.log(this.state.users)
 
     // function for dynamic sorting
     function compareValues(key, order = 'asc') {

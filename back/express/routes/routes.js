@@ -2,22 +2,14 @@ var express = require('express');
 var connection = require('../config/database');
 
 module.exports = (app, passport, users) => {
-
+/*
     app.get('/users', (req, res) => {
         connection.query('SELECT * FROM users', (err, result) => {
             if (err) throw err;
             res.json(result);
         });
     });
-
-
-    app.get('/announcements', (req, res) => {
-        connection.query('SELECT * FROM Announcements', (err, result) => {
-            if (err) throw err;
-            res.json(result);
-        });
-    });
-
+*/
     app.post('/deleteUser', (req, res) => {
         if (req.user.userlvl == 0) {
             connection.query('UPDATE users SET Status = 0 WHERE id = ?;', [req.body.id], (err, rows) => {
@@ -40,23 +32,6 @@ module.exports = (app, passport, users) => {
         })
         res.end();
     });
-
-    app.post('/announcementAdd', (req, res) => {
-        var newItem = {
-            info: req.body.info.toString(),
-            dateBegin: req.body.dateBegin.toString(), // use the generateHash function in our user model
-            dateEnd: req.body.dateEnd,
-            title: req.body.title
-        };
-
-        var insertQuery = "INSERT INTO Announcements ( info, dateBegin, dateEnd, title) values (?, ?, ?, ?)";
-
-        connection.query(insertQuery, [newItem.info, newItem.dateBegin, newItem.dateEnd, newItem.title], function (err, result) {
-            if (err) throw err;
-        });
-        res.end();
-    });
-
 
     app.get('/', function (req, res) {
         //res.render('index.ejs'); // load the index.ejs file

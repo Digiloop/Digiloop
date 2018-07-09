@@ -188,6 +188,15 @@ module.exports = class misc {
         }
     }
 
+    async logIp(req,res,next) {
+        let ip = await req.ip;
+        if (ip.substr(0, 7) == "::ffff:") {
+            ip = ip.substr(7)
+          }
+         console.log('ip '+ip);
+         next()
+    }
+
     // Add's images. On the server. To be used. In the future.
     //select = categories,subcategories or user
     async imageAdd(files, select, name) {

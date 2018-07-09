@@ -9,6 +9,30 @@ var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata; //ha
 //https://itnext.io/using-async-await-to-write-cleaner-route-handlers-7fc1d91b220b
 
 
+router.route('/category/:selector')
+  .get(async (req, res) => {
+    let cat = await misk.selector(req.params.selector, ['Category', 'subCat', 'SubSubCats'])
+    let query = await sqldatahaku.categoryAccess(cat[0], req.user && req.user.userlvl && req.user.userlvl == 0)
+    res.json(await sqldatahaku.querySql(query))
+  })
+  .post(async (req, res) => {
+  
+  })
+  .put(async (req, res) => {
+    let cat = await misk.selector(req.params.selector, ['Category', 'subCat', 'SubSubCats'], ['CatName', 'subName', 'name'], ['CatId', 'subId', 'Id'])
+    let arr = await [req.body.name, req.body.id]
+    const query = await `UPDATE ${cat[0]} SET ${cat[1]} = ? WHERE ${cat[2]} = ?`
+    sqldatahaku.querySql(query, arr)
+    res.end();
+  })
+  .delete(async (req, res) => {
+    let query = 'DELETE FROM Announcements WHERE id = ?'
+    let values = req.body.id
+    await sqldatahaku.querySql(query, values)
+    res.end()
+  })
+
+
 //GET
 router.get('/categories', async (req, res, next) => {
   let query = await sqldatahaku.categoryAccess('Category', req.user && req.user.userlvl && req.user.userlvl == 0)

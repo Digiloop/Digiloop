@@ -1,15 +1,13 @@
 const mysql = require('mysql2/promise');
 const db = require('./db');
+let pool = mysql.createPool(db);
 
 var connection = async (query, values) => {
     try {
-        let pool = await mysql.createPool(db);
-        let [rows, fields] = await pool.query(query,values);
-        pool.end();
+        let [rows, fields] = await pool.query(query, values);
         return rows;
     } catch (error) {
         console.log(error)
-        pool.end();
     }
 };
 

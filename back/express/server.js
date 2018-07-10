@@ -102,9 +102,10 @@ require('./routes/routes.js')(app, passport); // load our routes and pass in our
 //router.use(require('./routes/routes.js')(app, passport));
 //app.use('/cat', cats); // http://193.166.72.18/cat/categories
 //app.use('*', middleware.logIp)
+//app.use('*', middleware.wrap)
 //app.set('trust proxy', true)
 app.use('/', categories, announcements, users)
-app.all('*', middleware.isLoggedIn);
+app.all('*', /*middleware.isLoggedIn*/);
 app.use('/', items);
 //app.use('/', categories, items); // http://193.166.72.18/categories
 app.use('/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': true }))
@@ -112,6 +113,15 @@ app.use('/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': t
 //app.use('/birds', birds) //<<- toimia esimerkki
 //'./app/maint'
 
+//* Error Handler
+app.use((error, req, res, next) => {
+    console.log('###################ERROR##################')
+    console.log(error.message)
+    console.log('###################ERROR##################')
+    res.end()
+    //res.json({ message: error.message });
+  });
+  
 
 // launch ======================================================================
 //app.listen(port);

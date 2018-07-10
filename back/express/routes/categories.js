@@ -3,6 +3,9 @@ var express = require('express');
 var router = express.Router();
 var misc = require('../code/misc.js'); var misk = new misc;
 var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata; //haetaan luokka joka hoitaa sql sydeemeit
+var middleware = require('../code/middleware.js');
+
+
 //var fileUpload = require('express-fileupload');
 //var randomiii = new sqldata();
 //https://javascript.info/async-await

@@ -2,6 +2,8 @@ import axios from 'axios';
 import { BASE_URL } from '../settings';
 
 
+// credential true
+axios.defaults.withCredentials = true;
 
 export {getCats, getSubCats, getFakeCats};
 
@@ -28,3 +30,5 @@ function getFakeCats() {
     return error;
   })
 }
+
+

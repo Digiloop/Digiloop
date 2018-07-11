@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { BASE_URL } from '../../../../settings';
 
-import { Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
-import { Paper } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableHead, TableRow, Paper } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText } from '@material-ui/core';
+import { RaisedButton } from 'material-ui';
 import moment from 'moment'
 
 import { getJunkData } from '../../../../utils/fetchItems';
@@ -14,7 +16,10 @@ class History extends Component {
       order: 'asc',
       orderBy: 'junkdateadded',
       rowCount: 0,
-      selected: []
+      selected: [],
+      open: false,
+      scroll: 'paper',
+      dialog: []
     };
   }
 
@@ -25,17 +30,24 @@ class History extends Component {
     });
   }
 
-  handleClick = (event, id) => {
-    console.log(id)
-    
+  handleClick = (event, data) => {
+    console.log(data)
+    this.handleDialogOpen();
+    console.log(this.state.open)
+    this.showItemDialog(data);
   };
 
+  showItemDialog(data) {
+    console.log(data.category)
+    this.setState({
+      data: data
+    })
+  }
 
-  /* createData(Lisätty, Kategoria, Alakategoria, Kpl, Koko) {
-    let counter = 0;
-    counter += 1;
-    return { items: Lisätty, Kategoria, Alakategoria, Kpl, Koko };
-  } */
+  deleteItem(id) {
+    console.log(id);
+    this.handleDialogClose();
+  }
 
   // sorting function
   getSorting(order, orderBy) {
@@ -43,6 +55,17 @@ class History extends Component {
     return order === 'desc'
       ? (a, b) => (b[orderBy] < a[orderBy] ? -1 : 1)
       : (a, b) => (a[orderBy] < b[orderBy] ? -1 : 1);
+  }
+
+  // open dialog
+  handleDialogOpen = () => {
+    this.setState({ open: true })
+  }
+
+  // close dialog
+  handleDialogClose = () => {
+    this.setState({ open: false })
+    this.getItems();
   }
 
 
@@ -57,12 +80,57 @@ class History extends Component {
         width: '90%',
         marginLeft: '5%',
         marginTop: '3%'
+      },
+      image: {
+        width: '300px'
       }
     }
+
     console.log(this.state.items)
+
+    const dialog = [];
+    if (this.state.open) {
+      dialog.push(
+        <Dialog key={this.state.data.junkID}
+          open={this.state.open}
+          onClose={this.handleDialogClose}
+          scroll={this.state.scroll}
+          fullWidth={true}
+          aria-labelledby="scroll-dialog-title"
+        >
+          <DialogTitle>{this.state.data.category} / {this.state.data.subCat}</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Nouto-osoite: {this.state.data.pickupaddr}, {this.state.data.zipcode} {this.state.data.city}
+              </DialogContentText>
+            <DialogContentText>
+              Ilmoitettu: {moment(this.state.data.junkdateadded).format('DD.MM.YYYY')}
+              </DialogContentText>
+              <DialogContentText>
+              Tila: {this.state.data.status}
+            </DialogContentText>
+            <DialogContentText>
+              Nouto-ohjeet: {this.state.data.wishbox}
+            </DialogContentText>
+            <DialogContentText>
+              Kuvaus: {this.state.data.description}
+            </DialogContentText>
+            <DialogContentText>
+              Kuva: <img style={styles.image} src={BASE_URL + '/images/items/' + this.state.data.picture} alt='ei kuvaa' />
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <RaisedButton label='Takaisin' onClick={() => this.handleDialogClose()} />
+            <RaisedButton label='Poista' onClick={() => this.deleteItem(this.state.data.junkID)} />
+          </DialogActions>
+        </Dialog>
+      )
+    }
+
     return (
       <Paper style={styles.paper}>
         <Table>
+          {dialog}
           <TableHead
             order={this.state.order}
           // orderBy={this.state.orderBy}
@@ -80,7 +148,7 @@ class History extends Component {
                 return (
                   <TableRow
                     hover
-                    onClick={event => this.handleClick(event, n.junkID)}
+                    onClick={event => this.handleClick(event, n)}
                     key={n.junkID}>
                     <TableCell>{moment(n.junkdateadded).format('DD.MM.YYYY')}<br />{n.category + ' / '}{n.subCat}<br />{n.pcs + 'kpl / '}{n.size}m<sup>3</sup></TableCell>
                     <TableCell>{n.status === 1 ? 'Ilmoitettu' : null}</TableCell>

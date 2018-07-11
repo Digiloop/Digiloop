@@ -93,7 +93,7 @@ module.exports = function(passport) {
                     connection.query(insertQuery,[newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.userlvl, newUserMysql.Status],(err, rows) => {
                         //newUserMysql.id = rows.insertId;
 
-                        return done(null, newUserMysql);
+                        //return done(null, 8);
                     });
                 }
             });
@@ -139,7 +139,7 @@ module.exports = function(passport) {
                         //newUserMysql.id = rows.insertId;
 
                         maileri.mail(newUserMysql.email,'dangerous')
-                        return done(null, newUserMysql);
+                        //return done(null, newUserMysql);
                     });
                 }
             });

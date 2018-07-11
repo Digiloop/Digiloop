@@ -3,12 +3,15 @@ var express = require('express');
 var router = express.Router();
 var misc = require('../code/misc.js'); var misk = new misc;
 var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata; //haetaan luokka joka hoitaa sql sydeemeit
+var middleware = require('../code/middleware.js');
+
+
 //var fileUpload = require('express-fileupload');
 //var randomiii = new sqldata();
 //https://javascript.info/async-await
 //https://itnext.io/using-async-await-to-write-cleaner-route-handlers-7fc1d91b220b
 
-
+/*
 router.route('/category/:selector')
   .get(async (req, res) => {
     let cat = await misk.selector(req.params.selector, ['Category', 'subCat', 'SubSubCats'])
@@ -31,7 +34,7 @@ router.route('/category/:selector')
     await sqldatahaku.querySql(query, values)
     res.end()
   })
-
+*/
 
 //GET
 router.get('/categories', async (req, res, next) => {

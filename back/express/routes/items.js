@@ -3,13 +3,52 @@ var router = express.Router();
 var misc = require('../code/misc.js'); var misk = new misc;
 var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata; //haetaan luokka joka hoitaa sql sydeemeit
 var itemadd = require('../code/itemadd.js');
-
+var itemC = require('../code/itemsC.js');
+var middleware = require('../code/middleware.js');
 //GET
-router.get('/items', async (req, res, next) => {
-    let query = 'SELECT * FROM junk'
-    let result = await sqldatahaku.querySql(query)
-    res.json(result)
-});
+router.route('/items')
+    .get(middleware.wrap(async (req, res, next) => {
+  
+            let result = await itemC.itemGet(req.user.id, req.user.userlvl, 2)
+            res.json(result)
+ 
+        
+            
+        /*
+        let query;
+        if (true) {//! menee vasemmalle puolelle req.user.userlvl == 2
+            query = `SELECT * FROM junk where owner = 8 AND status = 1`
+            //query = `SELECT * FROM junk where owner = ${req.user.id} AND status = 1`// kasin tilalle takas !important
+        } else {
+            query = 'SELECT * FROM junk'
+        }
+
+        let result = await sqldatahaku.querySql(query)
+        res.json(result)
+        */
+
+    }))
+    .delete(middleware.wrap(async (req, res, next) => {
+        //let values = req.body.id
+        let check = await sqldatahaku.querySql(`SELECT owner FROM junk WHERE junkID = ${req.body.id}`);
+        let user = await req.user.id
+        let query;
+        console.log(check[0].owner + ' owner id')
+        //console.log(values + ' values')
+        console.log(user + ' user id')
+        if (user == check[0].owner) {
+            //query = `DELETE FROM junk WHERE junkID = ${req.body.id}`
+            query = 'UPDATE junk SET STATUS = ? WHERE junkID = ?'
+            values = [0, req.body.id]
+            await sqldatahaku.querySql(query, values)
+        } else {
+            console.log('Cant let you do that')
+        }
+        res.end()
+        //let query = 'DELETE FROM junk WHERE junkID = ?'
+        //let values = [req.body.id]
+
+    }))
 
 // fetches missing items for frontend
 /*
@@ -39,34 +78,36 @@ router.post('/itemRefresh', (req, res) => {
 });
 */
 
-router.post('/itemRefresh',async (req, res) => {
-
+router.post('/itemRefresh', middleware.wrap(async (req, res) => {
+res.end()
+    /*
     const query = 'SELECT * FROM junk'
 
     result = await sqldatahaku.querySql(query)
-        let reslength = await result.length
-        let listlength = await req.body.listLength
-        let diff = reslength - listlength
-        await console.log("Kanta: " + reslength + " Front: " + listlength + " Erotus: " + diff)
-        if (diff > 0) {
+    let reslength = await result.length
+    let listlength = await req.body.listLength
+    let diff = reslength - listlength
+    await console.log("Kanta: " + reslength + " Front: " + listlength + " Erotus: " + diff)
+    if (diff > 0) {
 
-            let responseArray = []
+        let responseArray = []
 
-            for (let i = listlength, j = 0; i < reslength; i++ , j++) {
-                responseArray[j] = result[i]
-            }
-            await res.json(responseArray)
-
-        } else {
-            //do ingenting
+        for (let i = listlength, j = 0; i < reslength; i++ , j++) {
+            responseArray[j] = result[i]
         }
-        res.end();
-});
+        await res.json(responseArray)
+
+    } else {
+        //do ingenting
+    }
+    res.end();
+    */
+}));
 
 
 
 //POST
-router.post('/itemAdd', async (req, res, next) => {
+router.post('/itemAdd', middleware.wrap(async (req, res, next) => {
 
     let itemAdd = new itemadd(req.body, req.files)
     let msngImg = ['0']
@@ -78,7 +119,7 @@ router.post('/itemAdd', async (req, res, next) => {
 
     misk.createArray(splittedArray, secondary, req.files, sqldatahaku.querySql, query, msngImg)
     res.end();
-});
+}));
 
 router.post('/itemStatus', (req, res, next) => {
     sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [req.body.status, req.body.fetcher, req.body.junkId])

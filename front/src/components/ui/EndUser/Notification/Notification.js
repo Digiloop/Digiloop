@@ -136,7 +136,7 @@ class Notification extends Component {
         )
         validNotifs.push(
           <TableRow key={l}>
-            <TableRowColumn colSpan='3' >{validItems[l].title}</TableRowColumn>
+            <TableRowColumn colSpan='2' >{validItems[l].title}</TableRowColumn>
             <TableRowColumn>
               <RaisedButton label='Näytä' onClick={() => this.getNotificationInfo(l)} />
             </TableRowColumn>
@@ -145,7 +145,7 @@ class Notification extends Component {
       } else {
         validNotifs.push(
           <TableRow key={l}>
-            <TableRowColumn colSpan='3' >{validItems[l].title}</TableRowColumn>
+            <TableRowColumn colSpan='2' >{validItems[l].title}</TableRowColumn>
             <TableRowColumn>
               <RaisedButton label='Näytä' onClick={() => this.getNotificationInfo(l)} />
             </TableRowColumn>

@@ -17,9 +17,10 @@ class EndUserFront extends Component {
     this.state = {
       index: -1,
       open: false,
+      value: false,
       frontPageNeedsReset: false, // junk added snackbar
       allahuSnackbarOpen: false, // junk added snackbar
-      openSnackBar: false // profile updated snackbar
+      openSnackBar: false, // profile updated snackbar
     };
     this.handleChange = this.handleChange.bind(this);
     this.getPageName = this.getPageName.bind(this);
@@ -97,9 +98,9 @@ class EndUserFront extends Component {
   hideAllahuSnackbar() {
     this.setState({ allahuSnackbarOpen: false })
   }
-  
-   // closes profile updated snackbar
-   handleSnackBarClose = () => this.setState({ openSnackBar: false })
+
+  // closes profile updated snackbar
+  handleSnackBarClose = () => this.setState({ openSnackBar: false })
 
   render() {
 
@@ -110,21 +111,16 @@ class EndUserFront extends Component {
       },
     }
 
-    // profile updated snackbar
-    const snack = [];
-    snack.push(
-      <Snackbar
-        open={this.state.openSnackBar}
-        autoHideDuration={2500}
-        onRequestClose={this.handleSnackBarClose}
-        message={<span id="message-id">Tiedot päivitetty!</span>}
-      />
-    )
-
+    
     return (
       <MuiThemeProvider>
         <div className="frontpake">
-        {snack}
+          <Snackbar // profile updated snackbar
+            open={this.state.openSnackBar}
+            autoHideDuration={2500}
+            onRequestClose={this.handleSnackBarClose}
+            message={<span id="message-id-userUpdate">Tiedot päivitetty!</span>}
+          />
           <AppBar showMenuIconButton={false} style={{ backgroundColor: '#004225', padding: '0', margin: '0' }} >
             <Toolbar style={{ backgroundColor: '#FFF', width: '100%', padding: '0' }} >
               <IconButton style={{ padding: '0' }} iconStyle={styles.largeIcon} onClick={this.handleToggle} >
@@ -150,7 +146,7 @@ class EndUserFront extends Component {
           {this.state.index === 0 && <FrontPage toggleAllahuSnackbar={this.toggleAllahuSnackbar} />}
           {this.state.index === 1 && <Historia />}
           {this.state.index === 2 && <Profile onUpdate={this.handleUpdate} />}
-          <Snackbar
+          <Snackbar // junk added
             open={this.state.allahuSnackbarOpen}
             autoHideDuration={2500}
             onRequestClose={this.hideAllahuSnackbar}

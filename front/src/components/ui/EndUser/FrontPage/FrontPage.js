@@ -29,12 +29,13 @@ class FrontPage extends Component {
   
 
   render() {
+    let i=0;
 
     if (this.state.value === Notification) {
       this.state.etusivu.push(
-        <h2>Tervetuloa, {this.props.items.fname !== null ? this.props.items.fname : this.props.items.username}!</h2>)
+        <h2 key={i} >Tervetuloa, {this.props.items.fname !== null ? this.props.items.fname : this.props.items.username}!</h2>)
 
-      this.state.etusivu.push(<FlatButton
+      this.state.etusivu.push(<FlatButton key={i+1}
         label="Uusi tavaratilaus" onClick={this.handleChange}
         hoverColor="#8CE30B"
         style={{ margin: '5px' /*transform: 'rotate(-2deg)'*/ }}

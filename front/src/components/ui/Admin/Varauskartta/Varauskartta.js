@@ -29,14 +29,14 @@ class WasteProcessor extends Component {
     this.getDistance = this.getDistance.bind(this);
     this.refreshJunks = this.refreshJunks.bind(this);
 
-    this.updateJunks = this.updateJunks.bind(this)
+    // this.updateJunks = this.updateJunks.bind(this)
   }
 
   componentDidMount() {
     this.getJunksData();
 
     // updates new junks on one minute intervals
-    setInterval(this.updateJunks, 1000 * 60);
+    // setInterval(this.updateJunks, 1000 * 60);
   }
 
   handleChange = (value) => {
@@ -53,7 +53,7 @@ class WasteProcessor extends Component {
     });
   }
 
-  updateJunks(){
+  /* updateJunks(){
     updateJunkData(this.props.resListItems.length).then((junks) => {
       let updatedJunks = this.props.resListItems;
       for(let i = 0; i < junks.length; i++){
@@ -62,7 +62,7 @@ class WasteProcessor extends Component {
       this.props.itemsToStore(updatedJunks);
       this.rliFiltering();
     })
-  }
+  } */
 
   // Returns the distance between two coordinates in meters
   // ©Spaghetti Baker Bros.

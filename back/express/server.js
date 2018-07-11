@@ -27,7 +27,7 @@ var items = require('./routes/items')
 var announcements = require('./routes/announcements')
 var users = require('./routes/users')
 //misc functions and stuff
-var middleware = require('./code/middleware.js'); 
+var middleware = require('./code/middleware.js');
 //MemoryStore
 var MemoryStore = require('session-memory-store')(session);
 // configuration ===============================================================
@@ -37,6 +37,27 @@ var MemoryStore = require('session-memory-store')(session);
 
 require('./passport')(passport); // pass passport for configuration
 //require('./config/users')(users);
+var corsOptions = {
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs,nodejs) choke on 204
+    credentials: true
+  }
+app.use(cors(corsOptions));
+app.use(function (req, res, next) {
+        // Website you wish to allow to connect
+        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');//*
+
+        // Request methods you wish to allow
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+        // Request headers you wish to allow
+        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Accept');
+
+        // Set to true if you need the website to include cookies in the requests sent
+        // to the API (e.g. in case you use sessions)
+        res.setHeader('Access-Control-Allow-Credentials', true);
+        next();
+});
 
 
 // set up our express application
@@ -60,26 +81,13 @@ app.use(fileUpload()); // required for pictures
 
 //Cors tätä tarttee jos haluaa frontin pystyvän devailemaa localhostissa
 
-app.use(cors());
-app.use(function (req, res, next) {
 
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', '*');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
+app.options("/*", function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    res.send(200);
 });
-
 
 
 // XD
@@ -116,12 +124,13 @@ app.use('/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': t
 //* Error Handler
 app.use((error, req, res, next) => {
     console.log('###################ERROR##################')
+    //console.log(error.message)
     console.log(error.message)
     console.log('###################ERROR##################')
     res.end()
     //res.json({ message: error.message });
-  });
-  
+});
+
 
 // launch ======================================================================
 //app.listen(port);

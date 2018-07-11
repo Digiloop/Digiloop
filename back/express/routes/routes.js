@@ -71,7 +71,6 @@ module.exports = (app, passport, users) => {
         res.json({
             userdata: userObject
         });
-        res.end();
     });
 
     // =====================================

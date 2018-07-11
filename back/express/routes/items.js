@@ -9,12 +9,12 @@ var middleware = require('../code/middleware.js');
 router.route('/items')
     .get(middleware.wrap(async (req, res, next) => {
   
-            let result = await itemC.itemGet(req.user.id, req.user.userlvl, 2)
-            res.json(result)
+           // let result = await itemC.itemGet(req.user.id, req.user.userlvl, 2)
+            //res.json(result)
  
         
             
-        /*
+        
         let query;
         if (true) {//! menee vasemmalle puolelle req.user.userlvl == 2
             query = `SELECT * FROM junk where owner = 8 AND status = 1`
@@ -25,7 +25,7 @@ router.route('/items')
 
         let result = await sqldatahaku.querySql(query)
         res.json(result)
-        */
+        
 
     }))
     .delete(middleware.wrap(async (req, res, next) => {
@@ -50,62 +50,6 @@ router.route('/items')
 
     }))
 
-// fetches missing items for frontend
-/*
-router.post('/itemRefresh', (req, res) => {
-
-    const query = 'SELECT * FROM junk'
-
-    sqldatahaku.querySql(query, (err, result) => {
-        if (err) throw err;
-
-        let diff = result.length - req.body.listLength;
-        console.log("Kanta: " + result.length + " Front: " + req.body.listLength + " Erotus: " + diff)
-        if (diff > 0) {
-
-            let responseArray = []
-
-            for (let i = req.body.listLength, j = 0; i < result.length; i++ , j++) {
-                responseArray[j] = result[i]
-            }
-            res.json(responseArray)
-
-        } else {
-            //do ingenting
-        }
-        res.end();
-    });
-});
-*/
-
-router.post('/itemRefresh', middleware.wrap(async (req, res) => {
-res.end()
-    /*
-    const query = 'SELECT * FROM junk'
-
-    result = await sqldatahaku.querySql(query)
-    let reslength = await result.length
-    let listlength = await req.body.listLength
-    let diff = reslength - listlength
-    await console.log("Kanta: " + reslength + " Front: " + listlength + " Erotus: " + diff)
-    if (diff > 0) {
-
-        let responseArray = []
-
-        for (let i = listlength, j = 0; i < reslength; i++ , j++) {
-            responseArray[j] = result[i]
-        }
-        await res.json(responseArray)
-
-    } else {
-        //do ingenting
-    }
-    res.end();
-    */
-}));
-
-
-
 //POST
 router.post('/itemAdd', middleware.wrap(async (req, res, next) => {
 
@@ -121,34 +65,23 @@ router.post('/itemAdd', middleware.wrap(async (req, res, next) => {
     res.end();
 }));
 
-router.post('/itemStatus', (req, res, next) => {
-    sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [req.body.status, req.body.fetcher, req.body.junkId])
+router.post('/itemStatus',middleware.wrap(async (req, res, next) => {
+    await sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [req.body.status, req.body.fetcher, req.body.junkId])
     res.end();
-})
+}));
 
-router.post('/itemReserveCancel', (req, res, next) => {
-    sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [1, 0, req.body.junkId])
+router.post('/itemReserveCancel',middleware.wrap(async (req, res, next) => {
+    await sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [1, 0, req.body.junkId])
     res.end();
-})
+}));
 
 //tarttee checking että ei voi varata muitten varattuja
-router.post('/itemReserve', (req, res, next) => {
-    sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [2, req.user.id, req.body.junkId])
-    console.log(req.body)
+router.post('/itemReserve',middleware.wrap(async (req, res, next) => {
+    await sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [2, req.user.id, req.body.junkId])
     res.end();
-})
+}));
 
-router.get('/stuff', (req, res, next) => {
-    res.json(misk.dateToday())
-})
 
-//var myDate = new Date();
-//myDate.setHours(myDate.getHours() + 6);
-router.get('/test', (req, res) => {
-    let a
-    if (1 == null) { a = 5 } else { a = 2 }
-    res.json(a);
-});
 router.get('/profile', (req, res) => { res.json(req.user) });
 
 module.exports = router

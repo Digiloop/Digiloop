@@ -3,7 +3,7 @@ var router = express.Router();
 var misc = require('../code/misc.js'); var misk = new misc;
 var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata;
 var middleware = require('../code/middleware.js');
-
+var bcrypt = require('bcrypt-nodejs');
 
 router.route('/users')
     .get(middleware.wrap(async (req, res) => {
@@ -23,4 +23,18 @@ router.route('/users')
         res.end()
     }))
 
+    router.post('/changePassword', middleware.wrap(async (req, res, next) => {
+        //let check = await sqldatahaku.querySql('SELECT email FROM users WHERE email = ?',[req.body.email]);
+        let query = 'UPDATE users SET password = ? WHERE id = ?'
+        let pass = await req.body.password
+        let oldpass = await bcrypt.hashSync(req.body.oldpassword)
+        if (oldpass == req.user.password){
+            let newpass = await bcrypt.hashSync(pass, null, null)
+            let values = await [newpass, req.user.id]
+            await sqldatahaku.querySql(query, values)
+        }else{
+            res.json('Ei toimi')
+        }
+        res.end();
+    }));
 module.exports = router

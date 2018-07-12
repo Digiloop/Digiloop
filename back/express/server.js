@@ -26,10 +26,13 @@ var categories = require('./routes/categories')
 var items = require('./routes/items')
 var announcements = require('./routes/announcements')
 var users = require('./routes/users')
+var recoverPassword = require('./routes/recoverPassword')
 //misc functions and stuff
 var middleware = require('./code/middleware.js');
 //MemoryStore
 var MemoryStore = require('session-memory-store')(session);
+
+
 // configuration ===============================================================
 
 
@@ -37,15 +40,18 @@ var MemoryStore = require('session-memory-store')(session);
 
 require('./passport')(passport); // pass passport for configuration
 //require('./config/users')(users);
+let origins = ['http://localhost:3000', 'http://35.228.197.233:3000'];
+let origiino = origins[0]
 var corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: origiino,
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs,nodejs) choke on 204
     credentials: true
   }
 app.use(cors(corsOptions));
 app.use(function (req, res, next) {
         // Website you wish to allow to connect
-        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');//*
+        
+        res.setHeader('Access-Control-Allow-Origin', origiino);//*
 
         // Request methods you wish to allow
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -70,27 +76,13 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json({
     limit: '50mb'
 }));
-
 // onko mainteanance true/false
 app.use(express.static(maintcheck.mainteanance(false)));
-
 
 //app.use(express.static("/home/projectmanager/Digiloop/back/express/app"));
 //app.use(express.static("/home/projectmanager/Digiloop/front/build"));
 app.use(fileUpload()); // required for pictures
 
-//Cors tätä tarttee jos haluaa frontin pystyvän devailemaa localhostissa
-
-
-app.options("/*", function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-    res.send(200);
-});
-
-
-// XD
 // required for passport
 
 app.use(session({
@@ -112,8 +104,9 @@ require('./routes/routes.js')(app, passport); // load our routes and pass in our
 //app.use('*', middleware.logIp)
 //app.use('*', middleware.wrap)
 //app.set('trust proxy', true)
+app.use('/', recoverPassword);
+app.all('*', middleware.isLoggedIn);
 app.use('/', categories, announcements, users)
-app.all('*', /*middleware.isLoggedIn*/);
 app.use('/', items);
 //app.use('/', categories, items); // http://193.166.72.18/categories
 app.use('/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': true }))
@@ -125,7 +118,7 @@ app.use('/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': t
 app.use((error, req, res, next) => {
     console.log('###################ERROR##################')
     //console.log(error.message)
-    console.log(error.message)
+    console.log(error)
     console.log('###################ERROR##################')
     res.end()
     //res.json({ message: error.message });

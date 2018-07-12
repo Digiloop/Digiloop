@@ -4,7 +4,12 @@ var router = express.Router();
 var misc = require('../code/misc.js'); var misk = new misc;
 var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata; //haetaan luokka joka hoitaa sql sydeemeit
 var middleware = require('../code/middleware.js');
-
+var imgCache = require('image-cache');
+imgCache.setOptions({
+  compressed: false,
+  dir:'../kuvat/cache'
+  // write your custom options here
+});
 //GET
 router.get('/categories', middleware.wrap(async (req, res, next) => {
   let query = await sqldatahaku.categoryAccess('Category', req.user && req.user.userlvl && req.user.userlvl == 0)
@@ -13,6 +18,9 @@ router.get('/categories', middleware.wrap(async (req, res, next) => {
 
 router.get('/subcat', middleware.wrap(async (req, res, next) => {
   let query = await sqldatahaku.categoryAccess('subCat', req.user && req.user.userlvl && req.user.userlvl == 0)
+  url = 'https://kierratys.lamk.fi/images/categories/1_akku.png'
+  var exists = imgCache.isCachedSync(url);
+  console.log(exists)
   res.json(await sqldatahaku.querySql(query))
 }));
 

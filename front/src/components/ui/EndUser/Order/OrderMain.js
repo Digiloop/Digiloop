@@ -87,14 +87,14 @@ class OrderMain extends Component {
     }
 
     // checks if the image actually exists on the server
-    imageExists(image_url) {
+    async imageExists(image_url) {
 
         var http = new XMLHttpRequest();
 
-        http.open('HEAD', image_url, false);
-        http.send();
-
-        return http.status !== 404;
+        await http.open('HEAD', image_url, false);
+        await http.send();
+	let result = await http.status !== 404;
+        return result;
 
     }
 

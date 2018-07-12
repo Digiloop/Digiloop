@@ -2,6 +2,8 @@ import axios from 'axios';
 import { BASE_URL } from '../settings';
 
 
+// credentials set to true, so localhost can fetch all
+axios.defaults.withCredentials = true;
 
 export {getCats, getSubCats, getFakeCats};
 
@@ -28,3 +30,5 @@ function getFakeCats() {
     return error;
   })
 }
+
+

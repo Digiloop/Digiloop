@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
+import { AppBar, FlatButton, TextField } from 'material-ui';
+import { Dialog, DialogTitle, DialogActions } from '@material-ui/core';
+import { DialogContent, DialogContentText, Button } from '@material-ui/core';
 import ActionInfo from 'material-ui/svg-icons/action/info';
+
 import { getCredentials } from '../../../utils/login';
+import { resetPassword }from '../../../utils/editPassword';
 
 import WindowSizeListener from 'react-window-size-listener'
 
@@ -17,7 +19,9 @@ class Login extends Component {
       loginError: false,
       connectionError: false,
       showInfoText: true,
-      windowWidth: window.innerWidth
+      windowWidth: window.innerWidth,
+      open: false,
+      passwordResetEmail: ''
     }
     this.formStyleCreator = this.formStyleCreator.bind(this)
   }
@@ -59,6 +63,23 @@ class Login extends Component {
       }
 
     });
+  }
+
+
+  // open dialog
+  forgotPassword = () => {
+    this.setState({ open: true })
+  }
+
+  // send email
+  emailSender = () => {
+    resetPassword(this.state.passwordResetEmail);
+    this.handleDialogClose();
+  }
+
+  // close dialog
+  handleDialogClose = () => {
+    this.setState({ open: false })
   }
 
   register = () => {
@@ -107,12 +128,60 @@ class Login extends Component {
       fontSize: this.state.windowWidth > 545 ? "25px" : "17px",
       margin: '10px 0 5px 0',
     }
+    const styles = {
+      button: {
+        borderRadius: 25,
+        width: '40%',
+        backgroundColor: '#004225',
+        color: 'white',
+        marginRight: '30%'
+      },
+      textField: {
+          margin: '3% 0 3% 0',
+          width: '100%',
+          backgroundColor: 'white',
+          border: '2px solid #004225',
+          borderRadius: '10px',
+          paddingLeft: '5px'
+          
+      }
+    }
 
 
+    const dialog = [];
+    if (this.state.open) {
+      dialog.push(
+        <Dialog key={'passu'}
+          open={this.state.open}
+          onClose={this.handleDialogClose}
+          fullWidth={true}
+        >
+          <DialogTitle>Unohtunut salasana?</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Kirjoita sähköpostiosoitteesi, jota käytit rekisteröitymiseen.
+              Lähetämme sinulle sähköpostiviestin, joka sisältää uuden salasanan.
+              Toivomme sinun vaihtavan tämän salasanan sisäänkirjautumisen jälkeen.
+              Salasanan vaihto löytyy oman profiilin alta.
+            </DialogContentText>
+            <TextField className='email'
+            underlineShow={false}
+            style={styles.textField}
+            hintText="Sähköpostiosoite"
+            onChange={(event, newValue) => this.setState({ passwordResetEmail: newValue })}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button style={styles.button} onClick={this.emailSender} >Lähetä</Button>
+          </DialogActions>
+        </Dialog>
+      )
+    }
 
     return (
 
       <div className="loginWrapper">
+        {dialog}
         <AppBar style={{ backgroundColor: '#FFF' }}
           title={<div className="app-bar-title">Kirjautuminen</div>}
           showMenuIconButton={false}
@@ -236,7 +305,7 @@ class Login extends Component {
 
 
             <div className="loginGroup">
-              <a href="">Unohtunut salasana?</a><br />
+              <a onClick={() => { this.forgotPassword() }} >Unohtunut salasana?</a><br />
               <a onClick={() => { this.wasteRegister() }} >Hae yrityskäyttäjäksi</a><br />
               <a onClick={() => { this.register() }}>Rekisteröidy</a><br />
             </div>

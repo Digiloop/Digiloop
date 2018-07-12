@@ -5,7 +5,7 @@ import { Toolbar, IconButton, Divider } from 'material-ui';
 import MenuIcon from '@material-ui/icons/Menu';
 import FrontPageRedirect from './FrontPage/FrontPageRedirect';
 import FrontPage from '../../containers/EndUser/FrontPage/FrontPage';
-import Profile from '../../containers/EndUser/Profile/Profile';
+import Profile from './Profile/ProfileMain';
 import Historia from './History/History';
 import { logOut } from '../../../utils/login';
 
@@ -18,7 +18,6 @@ class EndUserFront extends Component {
       index: -1,
       open: false,
       value: false,
-      frontPageNeedsReset: false, // junk added snackbar
       allahuSnackbarOpen: false, // junk added snackbar
       openSnackBar: false, // profile updated snackbar
     };

@@ -87,19 +87,18 @@ class OrderMain extends Component {
     }
 
     // checks if the image actually exists on the server
-    imageExists(image_url) {
+    async imageExists(image_url) {
 
         var http = new XMLHttpRequest();
 
-        http.open('HEAD', image_url, false);
+        await http.open('HEAD', image_url, false);
 
         // only for localhost
-        http.withCredentials = true; 
+        http.withCredentials = true;
 
-        
-        http.send();
-
-        return http.status !== 404;
+        await http.send();
+        let result = await http.status !== 404;
+        return result;
 
     }
 
@@ -147,7 +146,7 @@ class OrderMain extends Component {
                 'pickupInstructions': value.pickupInstructions,
                 'iscompany': value.iscompany
             }
-            
+
         })
 
     }
@@ -231,8 +230,7 @@ class OrderMain extends Component {
         switch (arrowDirection) {
             case 0:
 
-                if (this.state.step === 1) 
-                {
+                if (this.state.step === 1) {
                     if (type === 0) {
                         return true; // disabled true
                     } else {
@@ -275,9 +273,9 @@ class OrderMain extends Component {
         let newValues = [];
         let itemPassed = false;
 
-        for(let i = 0; i < values.length; i++){
-            if(!itemPassed){
-                if (item !== i){
+        for (let i = 0; i < values.length; i++) {
+            if (!itemPassed) {
+                if (item !== i) {
                     newValues[i] = values[i]
                 } else {
                     itemPassed = true
@@ -333,7 +331,7 @@ class OrderMain extends Component {
                     editItem={this.editItem}
                     removeItem={this.removeItem}
 
-                   toggleAllahuSnackbar={this.props.toggleAllahuSnackbar} />
+                    toggleAllahuSnackbar={this.props.toggleAllahuSnackbar} />
         }
     }
 

@@ -1,21 +1,12 @@
 import React, { Component } from 'react';
 import { TextField, FlatButton } from 'material-ui';
-import { updateUserData } from '../../../../utils/updateUserData';
+import { changePassword } from '../../../../utils/editPassword';
 
-class Profile extends Component {
+class ChangePassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: this.props.userInfo.fname,
-      lastName: this.props.userInfo.lname,
-      phone: this.props.userInfo.phone,
-      streetAddress: this.props.userInfo.address,
-      zipcode: this.props.userInfo.zipcode,
-      city: this.props.userInfo.city,
-
-      allFilled: false,
-
-      phoneNumberValid: false
+      allFilled: false
     };
     this.checkFill = this.checkFill.bind(this);
   }
@@ -45,22 +36,17 @@ class Profile extends Component {
 
   Submit(event) {    
     if (this.state.allFilled) {
-      var updateUserdata = {
-        "fname": this.state.firstName,
-        "lname": this.state.lastName,
-        "phone": this.state.phone,
-        "address": this.state.streetAddress,
-        "zipcode": this.state.zipcode,
-        "city": this.state.city
+      var passwordChange = {
       }
 
-      updateUserData(updateUserdata);
-      this.props.onUpdate(true);
+      console.log(passwordChange)
+      // changePassword(passwordChange);
+      this.props.handleSnackbar(true);
     } 
   }
 
   Cancel() {
-    this.props.onUpdate(false);
+    this.props.handleSnackbar(false);
   }
 
   render() {
@@ -99,87 +85,51 @@ class Profile extends Component {
     
     return (
       <div>
-        <h1 style={{padding: '0 5px'}}>Täällä voit muokata omia tietojasi</h1>
+        <h1 style={{padding: '0 5px'}}>Täällä voit vaihtaa salasanan</h1>
         <div className="updateWrapperUser" style={{height: '90vh'}}>
           <table className="updateStructureUser" style={wrapperStyle}>
             <tbody style={{width: '100%'}}>
               <tr>
                 <td style={{width:'67%'}}>
-                  <label className="leftUpdateLabelUser">Etunimi: </label>
+                  <label className="leftUpdateLabelUser">Vanha salasana*: </label>
                 </td>
                 <td>
                   <TextField className="rightUpdateFieldUser"
                     underlineStyle={{ borderColor: '#A6CE6B' }}
                     underlineFocusStyle={{ borderColor: '#004225' }}
-                    type="text" defaultValue={this.props.userInfo.fname}
-                    hintText="Etunimi" style={styles}
-                    onChange={(event, newValue) => this.setState({ firstName: newValue })} />
+                    type="password" 
+                    hintText="Vanha salasana" style={styles}
+                    onChange={(event, newValue) => this.setState({ oldPassword: newValue })} />
                 </td>
               </tr>
               <tr>
                 <td>
-                  <label className="leftUpdateLabelUser">Sukunimi: </label>
+                  <label className="leftUpdateLabelUser">Uusi salasana*: </label>
                 </td>
                 <td>
                   <TextField className="rightUpdateFieldUser"
                     underlineStyle={{ borderColor: '#A6CE6B' }}
                     underlineFocusStyle={{ borderColor: '#004225' }}
-                    type="text" defaultValue={this.props.userInfo.lname}
-                    hintText="Sukunimi" style={styles}
-                    onChange={(event, newValue) => this.setState({ lastName: newValue })} />
+                    type="password"
+                    hintText="Uusi salasana" style={styles}
+                    onChange={(event, newValue) => this.setState({ newPassword: newValue })} />
                 </td>
               </tr>
               <tr>
                 <td>
-                  <label className="leftUpdateLabelUser">Puhelinnumero: </label>
+                  <label className="leftUpdateLabelUser">Uusi salasana uudelleen*:</label>
                 </td>
                 <td>
                   <TextField className="rightUpdateFieldUser"
                     underlineStyle={{ borderColor: '#A6CE6B' }}
                     underlineFocusStyle={{ borderColor: '#004225' }}
-                    type="text" defaultValue={this.props.userInfo.phone}
-                    hintText="Puhelinnumero" style={styles}
-                    onChange={(event, newValue) => this.setState({ phone: newValue })} />
+                    type="password"
+                    hintText="Uusi salasana uudelleen" style={styles}
+                    onChange={(event, newValue) => this.setState({ newPasswordAgain: newValue })} />
                 </td>
               </tr>
               <tr>
-                <td>
-                  <label className="leftUpdateLabelUser">Katuosoite: </label>
-                </td>
-                <td>
-                  <TextField className="rightUpdateFieldUser"
-                    underlineStyle={{ borderColor: '#A6CE6B' }}
-                    underlineFocusStyle={{ borderColor: '#004225' }}
-                    type="text" defaultValue={this.props.userInfo.address}
-                    hintText="Katuosoite" style={styles}
-                    onChange={(event, newValue) => this.setState({ streetAddress: newValue })} />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label className="leftUpdateLabelUser">Postinumero: </label>
-                </td>
-                <td>
-                  <TextField className="rightUpdateFieldUser"
-                    underlineStyle={{ borderColor: '#A6CE6B' }}
-                    underlineFocusStyle={{ borderColor: '#004225' }}
-                    type="text" defaultValue={this.props.userInfo.zipcode}
-                    hintText="Postinumero" style={styles}
-                    onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label className="leftUpdateLabelUser">Postitoimipaikka: </label>
-                </td>
-                <td>
-                  <TextField className="rightUpdateFieldUser"
-                    underlineStyle={{ borderColor: '#A6CE6B' }}
-                    underlineFocusStyle={{ borderColor: '#004225' }}
-                    type="text" defaultValue={this.props.userInfo.city}
-                    hintText="Postitoimipaikka" style={styles}
-                    onChange={(event, newValue) => this.setState({ city: newValue })} />
-                </td>
+                
               </tr>
               <tr>
                 <td>
@@ -216,17 +166,11 @@ class Profile extends Component {
                   onClick={() => this.Submit()} />
                 </td>
               </tr>
-
-
-
-
             </tbody>
-
           </table>
-
         </div >
       </div>
     );
   }
 }
-export default Profile;
+export default ChangePassword;

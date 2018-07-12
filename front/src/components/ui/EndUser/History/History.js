@@ -33,12 +33,10 @@ class History extends Component {
   handleClick = (event, data) => {
     console.log(data)
     this.handleDialogOpen();
-    console.log(this.state.open)
     this.showItemDialog(data);
   };
 
   showItemDialog(data) {
-    console.log(data.category)
     this.setState({
       data: data
     })
@@ -85,8 +83,6 @@ class History extends Component {
         width: '300px'
       }
     }
-
-    console.log(this.state.items)
 
     const dialog = [];
     if (this.state.open) {
@@ -142,7 +138,8 @@ class History extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.state.items
+            {this.state.items.length ?
+              this.state.items
               .sort(this.getSorting(this.state.order))
               .map(n => {
                 return (
@@ -154,7 +151,7 @@ class History extends Component {
                     <TableCell>{n.status === 1 ? 'Ilmoitettu' : null}</TableCell>
                   </TableRow>
                 )
-              })}
+              }) : <TableRow><TableCell>Et ole ilmoittanut mitään</TableCell></TableRow>}
           </TableBody>
         </Table>
       </Paper>

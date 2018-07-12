@@ -2,7 +2,7 @@ import axios from 'axios';
 import { BASE_URL } from '../settings';
 
 
-// credential true
+// credentials set to true, so localhost can fetch all
 axios.defaults.withCredentials = true;
 
 export {getCats, getSubCats, getFakeCats};

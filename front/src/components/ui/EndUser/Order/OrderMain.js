@@ -92,6 +92,11 @@ class OrderMain extends Component {
         var http = new XMLHttpRequest();
 
         http.open('HEAD', image_url, false);
+
+        // only for localhost
+        http.withCredentials = true; 
+
+        
         http.send();
 
         return http.status !== 404;

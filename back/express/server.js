@@ -105,8 +105,9 @@ require('./routes/routes.js')(app, passport); // load our routes and pass in our
 //app.use('*', middleware.wrap)
 //app.set('trust proxy', true)
 app.use('/', recoverPassword);
+app.use('/', categories)
 app.all('*', middleware.isLoggedIn);
-app.use('/', categories, announcements, users)
+app.use('/', announcements, users)
 app.use('/', items);
 //app.use('/', categories, items); // http://193.166.72.18/categories
 app.use('/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': true }))

@@ -4,6 +4,7 @@ module.exports = {
         if (req.isAuthenticated())
             return next();
 
+        res.status(401)
         res.end();
     },
 

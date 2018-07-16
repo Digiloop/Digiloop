@@ -1,14 +1,7 @@
 var express = require('express');
 
 module.exports = (app, passport, users) => {
-/*
-    app.get('/users', (req, res) => {
-        connection.query('SELECT * FROM users', (err, result) => {
-            if (err) throw err;
-            res.json(result);
-        });
-    });
-*/
+
  
     app.get('/', function (req, res) {});
 
@@ -24,7 +17,6 @@ module.exports = (app, passport, users) => {
 
 
     // process the login form
-    //mahdollinen ratkaisu palautukseen ilman flashia
     //https://github.com/jaredhanson/passport-local/issues/4
     app.post('/login', passport.authenticate('local-login', { session: true }), (req, res) => {
         console.log(req.user.email + " logged in.");
@@ -58,13 +50,6 @@ module.exports = (app, passport, users) => {
     // process the signup form
     app.post('/signup', passport.authenticate('local-signup', {}));
     app.post('/signupCompany', passport.authenticate('local-company', {}));
-
-    // =====================================
-    // PROFILE SECTION =========================
-    // =====================================
-    // we will want this protected so you have to be logged in to visit
-    // we will use route middleware to verify this (the isLoggedIn function)
-
     // =====================================
     // LOGOUT ==============================
     // =====================================

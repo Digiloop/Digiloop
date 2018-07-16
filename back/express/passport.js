@@ -7,6 +7,7 @@ var maileri = require('./code/mailer')
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcrypt-nodejs');
 var sqldata = require('./code/sqldata'); var sqldatahaku = new sqldata;
+var middleware = require('./code/middleware.js');
 //connection.query('USE ' + dbconfig.database);
 // expose this function to our app using module.exports
 module.exports = function (passport) {
@@ -73,7 +74,7 @@ module.exports = function (passport) {
                 //return done(null, 8);
             }
         })
-    );
+        );
 
     passport.use(
         'local-company',
@@ -115,7 +116,7 @@ module.exports = function (passport) {
                 //return done(null, newUserMysql);
             }
         })
-    );
+        );
 
 
     // =========================================================================

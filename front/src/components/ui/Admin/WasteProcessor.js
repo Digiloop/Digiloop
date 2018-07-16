@@ -4,7 +4,7 @@ import { AppBar, Drawer, Menu, MenuItem } from 'material-ui';
 import { Toolbar, IconButton, Divider, Tabs, Tab } from 'material-ui';
 import MenuIcon from '@material-ui/icons/Menu';
 import { logOut } from '../../../utils/login';
-import Profile from '../../containers/Admin/Profile/Profile'
+import ProfileMain from './Profile/ProfileMain'
 import Snackbar from 'material-ui/Snackbar'
 
 import ReservedListing from '../../containers/Admin/ReservedListing'
@@ -110,7 +110,7 @@ class AdminWasteProcessor extends Component {
                   containerStyle={{ backgroundColor: '#004225' }} >
                   <Menu value={this.state.value} onChange={this.handleDrawerChange}>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={0}>Etusivu</MenuItem>
-                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={5}>Oma profiili</MenuItem>
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={5}>Profiili</MenuItem>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={4}>Ilmoitukset</MenuItem>
                     <Divider />
                     <br />
@@ -126,7 +126,7 @@ class AdminWasteProcessor extends Component {
           {this.state.index === 3 && <Varauskartta />}
           {this.state.index === 4 && <Notification />}
 
-          {this.state.index === 5 && <Profile onUpdate={this.handleUpdate} />}
+          {this.state.index === 5 && <ProfileMain onUpdate={this.handleUpdate} />}
         </div>
       </MuiThemeProvider>
     );

@@ -13,11 +13,14 @@ function resetPassword(maili) {
         });
 }
 
-function changePassword(oldPassword, newPassword) {
-    return axios.post(BASE_URL + '/', {
-        oldPassword, newPassword
+function changePassword(passwordChange) {
+    return axios.post(BASE_URL + '/changePassword', {
+        oldpassword: passwordChange.oldPassword,
+        password: passwordChange.newPassword
     })
-        .then(response => response.data)
+        .then(function(response) {
+            return response.status;
+        })
         .catch(function (error) {
             return error;
         });

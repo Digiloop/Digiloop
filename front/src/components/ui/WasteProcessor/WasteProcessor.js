@@ -7,7 +7,7 @@ import { logOut } from '../../../utils/login';
 import Snackbar from 'material-ui/Snackbar'
 
 // Sub-pages
-import Profile from '../../containers/WasteProcessor/Profile/Profile'
+import ProfileMain from './Profile/ProfileMain'
 import HistoryListing from '../../containers/WasteProcessor/HistoryListing'
 import ReservedListing from '../../containers/WasteProcessor/ReservedListing'
 import Varauskartta from '../../containers/WasteProcessor/Varauskartta/Varauskartta'
@@ -98,7 +98,7 @@ class WasteProcessor extends Component {
                   containerStyle={{ backgroundColor: '#004225' }}>
                   <Menu value={this.state.value} onChange={this.handleDrawerChange}>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={0}>Etusivu</MenuItem>
-                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={4}>Oma profiili</MenuItem>
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={4}>Profiili</MenuItem>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={3}>Ilmoitukset</MenuItem>
                     <Divider />
                     <br />
@@ -113,7 +113,7 @@ class WasteProcessor extends Component {
           {this.state.index === 2 && <Varauskartta />}
           {this.state.index === 3 && <Notification />}
 
-          {this.state.index === 4 && <Profile onUpdate={this.handleUpdate} />}
+          {this.state.index === 4 && <ProfileMain onUpdate={this.handleUpdate} />}
         </div>
       </MuiThemeProvider>
     );

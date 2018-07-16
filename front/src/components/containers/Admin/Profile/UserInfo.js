@@ -1,4 +1,4 @@
-import Profile from '../../../ui/Admin/Profile/Profile'
+import UserInfo from '../../../ui/Admin/Profile/UserInfo'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state, props) =>
@@ -10,6 +10,6 @@ const mapDispatchToProps = dispatch =>
   ({
   })
 
-const Container = connect(mapStateToProps, mapDispatchToProps)(Profile)
+const Container = connect(mapStateToProps, mapDispatchToProps)(UserInfo)
 
 export default Container

@@ -108,15 +108,15 @@ class ChangePassword extends Component {
           message={<span id="message-id-userUpdate">Tarkista salasana!</span>}
         />
         <h1 style={{ padding: '0 5px' }}>Täällä voit vaihtaa salasanan</h1>
-        <div className="updateWrapperUser" style={{ height: '90vh' }}>
-          <table className="updateStructureUser" style={wrapperStyle}>
+        <div className="updateWrapper" style={{ height: '90vh' }}>
+          <table className="updateStructure" style={wrapperStyle}>
             <tbody style={{ width: '100%' }}>
               <tr>
                 <td style={{ width: '67%' }}>
-                  <label className="leftUpdateLabelUser">Vanha salasana*: </label>
+                  <label className="leftUpdateLabel">Vanha salasana*: </label>
                 </td>
                 <td>
-                  <TextField className="rightUpdateFieldUser"
+                  <TextField className="rightUpdateField"
                     underlineStyle={{ borderColor: '#A6CE6B' }}
                     underlineFocusStyle={{ borderColor: '#004225' }}
                     type="password"
@@ -126,10 +126,10 @@ class ChangePassword extends Component {
               </tr>
               <tr>
                 <td>
-                  <label className="leftUpdateLabelUser">Uusi salasana*: </label>
+                  <label className="leftUpdateLabel">Uusi salasana*: </label>
                 </td>
                 <td>
-                  <TextField className="rightUpdateFieldUser"
+                  <TextField className="rightUpdateField"
                     underlineStyle={{ borderColor: '#A6CE6B' }}
                     underlineFocusStyle={{ borderColor: '#004225' }}
                     type="password"
@@ -139,7 +139,7 @@ class ChangePassword extends Component {
               </tr>
               <tr>
                 <td>
-                  <label className="leftUpdateLabelUser">Uusi salasana uudelleen*:</label>
+                  <label className="leftUpdateLabel">Uusi salasana uudelleen*:</label>
                 </td>
                 <td>
                   <TextField className="rightUpdateFieldUser"

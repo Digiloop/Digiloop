@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FlatButton } from 'material-ui'
-import UserInfo from '../../../containers/EndUser/Profile/UserInfo'
+import UserInfo from '../../../containers/Admin/Profile/UserInfo'
 import ChangePassword from './ChangePassword'
 
 class ProfileMain extends Component {
@@ -28,7 +28,7 @@ class ProfileMain extends Component {
                 <FlatButton key={'i'}
                     label={this.state.value ? "Vaihda salasana" : 'Muokkaa tietoja'} onClick={this.handleChange}
                     hoverColor="#8CE30B"
-                    style={{ margin: '5px' }}
+                    style={{ margin: '3%' }}
                     backgroundColor="#A6CE6B"
                     labelStyle={{
                         fontFamily: 'kanit',

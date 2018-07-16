@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { TextField, FlatButton } from 'material-ui';
 import { updateUserData } from '../../../../utils/updateUserData';
 
-class Profile extends Component {
+class UserInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,8 +14,8 @@ class Profile extends Component {
       city: this.props.userInfo.city,
 
       allFilled: false,
+      phoneNumberValid: false,
 
-      phoneNumberValid: false
     };
     this.checkFill = this.checkFill.bind(this);
   }
@@ -31,6 +31,7 @@ class Profile extends Component {
   // function, that checks if all fields are filled, and updates allFilled -state accordingly
   checkFill() {
     let pass = true;
+
     for (var key in this.state) {
       if (this.state[key] === '' || this.state[key] === null || this.state[key] === undefined) {
         pass = false;
@@ -43,8 +44,11 @@ class Profile extends Component {
     }
   }
 
-  Submit(event) {
+  Cancel() {
+    this.props.handleSnackbar(false);
+  }
 
+  Submit(event) {
     if (this.state.allFilled) {
       var updateUserdata = {
         "fname": this.state.firstName,
@@ -55,17 +59,12 @@ class Profile extends Component {
         "city": this.state.city
       }
 
-      // update userinfo
       updateUserData(updateUserdata);
 
-      this.props.onUpdate(true);
-    } 
-  }
+      this.props.handleSnackbar(true);
 
-  Cancel() {
-    this.props.onUpdate(false);
+    }
   }
-
 
   render() {
 
@@ -227,11 +226,11 @@ class Profile extends Component {
             disabled={!this.state.allFilled}
             style={this.state.allFilled ? registerActive : registerInactive}
 
-            onClick={(event) => this.Submit(event)} />
+            onClick={() => this.Submit()} />
           <br />
         </div >
       </div>
     );
   }
 }
-export default Profile;
+export default UserInfo;

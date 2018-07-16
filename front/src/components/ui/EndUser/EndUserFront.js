@@ -132,7 +132,7 @@ class EndUserFront extends Component {
                   <Menu index={this.state.index} onChange={this.handleChange}>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={-1}>Etusivu</MenuItem>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={1}>Tilaukset</MenuItem>
-                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={2}>Oma profiili</MenuItem>
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={2}>Profiili</MenuItem>
                     <Divider />
                     <br />
                     <MenuItem style={{ color: 'white' }} onClick={this.logout} value={'Logout'}>Kirjaudu ulos</MenuItem>

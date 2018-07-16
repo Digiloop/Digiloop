@@ -1,5 +1,4 @@
 var express = require('express');
-var connection = require('../config/database');
 
 module.exports = (app, passport, users) => {
 /*
@@ -10,35 +9,8 @@ module.exports = (app, passport, users) => {
         });
     });
 */
-    app.post('/deleteUser', (req, res) => {
-        if (req.user.userlvl == 0) {
-            connection.query('UPDATE users SET Status = 0 WHERE id = ?;', [req.body.id], (err, rows) => {
-                if (err) throw err;
-                console.log(rows.affectedRows + " record(s) updated");
-            });
-            res.end();
-        }
-    });
-
-
-    app.post('/updateUser', (req, res) => {
-        let stuff = [req.body.fname, req.body.lname, req.body.address, req.body.zipcode, req.body.city, req.body.phone, req.user.id]
-        console.log(req.body);
-        console.log(stuff)
-        connection.query('UPDATE users SET fname = ?, lname = ?, address = ?, zipcode = ?, city = ?, phone = ? WHERE id = ?;', stuff, (err, result) => {
-            //if (err) throw err;
-            //console.log(result);
-            console.log(result.affectedRows + " record(s) updated");
-        })
-        res.end();
-    });
-
-    app.get('/', function (req, res) {
-        //res.render('index.ejs'); // load the index.ejs file
-        //res.sendFile('index.html',{root: __dirname});
-        //res.sendFile('/home/projectmanager/Digiloop/front/build/index.html');
-        console.log(__dirname);
-    });
+ 
+    app.get('/', function (req, res) {});
 
     // =====================================
     // LOGIN ===============================

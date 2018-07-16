@@ -1,44 +1,9 @@
 var express = require('express');
-var connection = require('../config/database');
 
 module.exports = (app, passport, users) => {
-/*
-    app.get('/users', (req, res) => {
-        connection.query('SELECT * FROM users', (err, result) => {
-            if (err) throw err;
-            res.json(result);
-        });
-    });
-*/
-    app.post('/deleteUser', (req, res) => {
-        if (req.user.userlvl == 0) {
-            connection.query('UPDATE users SET Status = 0 WHERE id = ?;', [req.body.id], (err, rows) => {
-                if (err) throw err;
-                console.log(rows.affectedRows + " record(s) updated");
-            });
-            res.end();
-        }
-    });
 
-
-    app.post('/updateUser', (req, res) => {
-        let stuff = [req.body.fname, req.body.lname, req.body.address, req.body.zipcode, req.body.city, req.body.phone, req.user.id]
-        console.log(req.body);
-        console.log(stuff)
-        connection.query('UPDATE users SET fname = ?, lname = ?, address = ?, zipcode = ?, city = ?, phone = ? WHERE id = ?;', stuff, (err, result) => {
-            //if (err) throw err;
-            //console.log(result);
-            console.log(result.affectedRows + " record(s) updated");
-        })
-        res.end();
-    });
-
-    app.get('/', function (req, res) {
-        //res.render('index.ejs'); // load the index.ejs file
-        //res.sendFile('index.html',{root: __dirname});
-        //res.sendFile('/home/projectmanager/Digiloop/front/build/index.html');
-        console.log(__dirname);
-    });
+ 
+    app.get('/', function (req, res) {});
 
     // =====================================
     // LOGIN ===============================
@@ -52,7 +17,6 @@ module.exports = (app, passport, users) => {
 
 
     // process the login form
-    //mahdollinen ratkaisu palautukseen ilman flashia
     //https://github.com/jaredhanson/passport-local/issues/4
     app.post('/login', passport.authenticate('local-login', { session: true }), (req, res) => {
         console.log(req.user.email + " logged in.");
@@ -86,13 +50,6 @@ module.exports = (app, passport, users) => {
     // process the signup form
     app.post('/signup', passport.authenticate('local-signup', {}));
     app.post('/signupCompany', passport.authenticate('local-company', {}));
-
-    // =====================================
-    // PROFILE SECTION =========================
-    // =====================================
-    // we will want this protected so you have to be logged in to visit
-    // we will use route middleware to verify this (the isLoggedIn function)
-
     // =====================================
     // LOGOUT ==============================
     // =====================================

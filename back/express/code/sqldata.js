@@ -11,9 +11,10 @@ module.exports = class sqldata {
         console.log(query);
         return result
       } else {
-        connection(query, values)
+        let result = connection(query, values)
         console.log(query);
         console.log(values);
+        return result
       }
     } catch (error) {
       console.log(error)

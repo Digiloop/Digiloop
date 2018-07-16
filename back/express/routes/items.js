@@ -5,27 +5,13 @@ var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata; //ha
 var itemadd = require('../code/itemadd.js');
 var itemC = require('../code/itemsC.js');
 var middleware = require('../code/middleware.js');
+
 //GET
 router.route('/items')
     .get(middleware.wrap(async (req, res, next) => {
-  
-           // let result = await itemC.itemGet(req.user.id, req.user.userlvl, 2)
-            //res.json(result)
- 
-        
-            
-        
-        let query;
-        if (true) {//! menee vasemmalle puolelle req.user.userlvl == 2
-            query = `SELECT * FROM junk where owner = 8 AND status = 1`
-            //query = `SELECT * FROM junk where owner = ${req.user.id} AND status = 1`// kasin tilalle takas !important
-        } else {
-            query = 'SELECT * FROM junk'
-        }
 
-        let result = await sqldatahaku.querySql(query)
+        let result = await itemC.itemGet(req.user.id, req.user.userlvl, 2)
         res.json(result)
-        
 
     }))
     .delete(middleware.wrap(async (req, res, next) => {
@@ -61,22 +47,22 @@ router.post('/itemAdd', middleware.wrap(async (req, res, next) => {
     const query = 'INSERT INTO junk ( category, city, description, iscompany, latitude, longitude, pcs, itemphone, wishbox, pickupaddr,  size, subCat, weight, zipcode, junkdate, junkdateadded, status, owner, picture ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);'
     const secondary = [['date', Date.now()], ['datetoday', misk.dateToday()], ['owner', 1], ['userid', req.user.id]]//req.user.id
 
-    misk.createArray(splittedArray, secondary, req.files, sqldatahaku.querySql, query, msngImg)
+    await misk.createArray(splittedArray, secondary, req.files, sqldatahaku.querySql, query, msngImg)
     res.end();
 }));
 
-router.post('/itemStatus',middleware.wrap(async (req, res, next) => {
+router.post('/itemStatus', middleware.wrap(async (req, res, next) => {
     await sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [req.body.status, req.body.fetcher, req.body.junkId])
     res.end();
 }));
 
-router.post('/itemReserveCancel',middleware.wrap(async (req, res, next) => {
+router.post('/itemReserveCancel', middleware.wrap(async (req, res, next) => {
     await sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [1, 0, req.body.junkId])
     res.end();
 }));
 
 //tarttee checking että ei voi varata muitten varattuja
-router.post('/itemReserve',middleware.wrap(async (req, res, next) => {
+router.post('/itemReserve', middleware.wrap(async (req, res, next) => {
     await sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [2, req.user.id, req.body.junkId])
     res.end();
 }));

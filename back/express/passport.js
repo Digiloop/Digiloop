@@ -7,8 +7,7 @@ var maileri = require('./code/mailer')
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcrypt-nodejs');
 var sqldata = require('./code/sqldata'); var sqldatahaku = new sqldata;
-var middleware = require('./code/middleware.js');
-//connection.query('USE ' + dbconfig.database);
+var generatePassword = require('password-generator');
 // expose this function to our app using module.exports
 module.exports = function (passport) {
 
@@ -36,7 +35,7 @@ module.exports = function (passport) {
     // =========================================================================
     // we are using named strategies since we have one for login and one for signup
     // by default, if there was no name, it would just be called 'local'
-
+    
     passport.use(
         'local-signup',
         new LocalStrategy({
@@ -45,6 +44,7 @@ module.exports = function (passport) {
             passwordField: 'password',
             passReqToCallback: true // allows us to pass back the entire request to the callback
         }, async (req, email, password, done) => {
+            let pass = await generatePassword(12, false)
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
             let result = await sqldatahaku.querySql("SELECT * FROM users WHERE email = ?", [email])
@@ -52,10 +52,10 @@ module.exports = function (passport) {
                 return done(null, false, console.log('signupMessage', 'That email is already taken.'));
             } else {
                 // if there is no user with that email
-                // create the user
+                // create the user let pass = await generatePassword(12, false)
                 var newUserMysql = {
                     email: email.toString(),
-                    password: bcrypt.hashSync(password, null, null),  // use the generateHash function in our user model
+                    password: bcrypt.hashSync(pass, null, null),  // use the generateHash function in our user model
                     fname: req.body.fname.toString(),
                     lname: req.body.lname.toString(),
                     phone: req.body.phone.toString(),
@@ -69,6 +69,7 @@ module.exports = function (passport) {
                 var insertQuery = "INSERT INTO users ( password, fname, lname, email, phone, address, zipcode, city, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?)";
 
                 await sqldatahaku.querySql(insertQuery, [newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.userlvl, newUserMysql.Status])
+                await maileri.mail(newUserMysql.email,pass)
                 //newUserMysql.id = rows.insertId;
 
                 //return done(null, 8);
@@ -84,6 +85,7 @@ module.exports = function (passport) {
             passwordField: 'password',
             passReqToCallback: true // allows us to pass back the entire request to the callback
         }, async (req, email, password, done) => {
+            let pass = await generatePassword(12, false)
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
             let result = await sqldatahaku.querySql("SELECT * FROM users WHERE email = ?", [email])
@@ -94,7 +96,7 @@ module.exports = function (passport) {
                 // create the user
                 var newUserMysql = {
                     email: email.toString(),
-                    password: bcrypt.hashSync(password, null, null),  // rng password in company
+                    password: bcrypt.hashSync(pass, null, null),  // rng password in company
                     fname: req.body.fname.toString(),
                     lname: req.body.lname.toString(),
                     phone: req.body.phone.toString(),
@@ -112,7 +114,7 @@ module.exports = function (passport) {
                 await sqldatahaku.querySql(insertQuery, [newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.company, newUserMysql.ytunnus, newUserMysql.userlvl, newUserMysql.Status])
                 //newUserMysql.id = rows.insertId;
 
-                await maileri.mail(newUserMysql.email, 'dangerous')
+                await maileri.mail(newUserMysql.email, pass)
                 //return done(null, newUserMysql);
             }
         })

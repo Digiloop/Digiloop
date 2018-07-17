@@ -10,29 +10,14 @@ var middleware = require('../code/middleware.js');
 router.route('/items')
     .get(middleware.wrap(async (req, res, next) => {
 
-        let result = await itemC.itemGet(req.user.id, req.user.userlvl, 2)
+        let result = await itemC.itemGet(req.user.id, req.user.userlvl, 2, 1)//userid, userlvl, userlvlrequired, status = hidden or visible 0 / 1
         res.json(result)
 
     }))
     .delete(middleware.wrap(async (req, res, next) => {
-        //let values = req.body.id
-        let check = await sqldatahaku.querySql(`SELECT owner FROM junk WHERE junkID = ${req.body.id}`);
-        let user = await req.user.id
-        let query;
-        console.log(check[0].owner + ' owner id')
-        //console.log(values + ' values')
-        console.log(user + ' user id')
-        if (user == check[0].owner) {
-            //query = `DELETE FROM junk WHERE junkID = ${req.body.id}`
-            query = 'UPDATE junk SET STATUS = ? WHERE junkID = ?'
-            values = [0, req.body.id]
-            await sqldatahaku.querySql(query, values)
-        } else {
-            console.log('Cant let you do that')
-        }
+
+        await itemC.itemGet(req.user.id,req.body.id)
         res.end()
-        //let query = 'DELETE FROM junk WHERE junkID = ?'
-        //let values = [req.body.id]
 
     }))
 

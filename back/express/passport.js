@@ -35,7 +35,7 @@ module.exports = function (passport) {
     // =========================================================================
     // we are using named strategies since we have one for login and one for signup
     // by default, if there was no name, it would just be called 'local'
-    
+
     passport.use(
         'local-signup',
         new LocalStrategy({
@@ -69,13 +69,16 @@ module.exports = function (passport) {
                 var insertQuery = "INSERT INTO users ( password, fname, lname, email, phone, address, zipcode, city, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?)";
 
                 await sqldatahaku.querySql(insertQuery, [newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.userlvl, newUserMysql.Status])
-                await maileri.mail(newUserMysql.email,pass)
+                //await maileri.mail(newUserMysql.email,pass)
                 //newUserMysql.id = rows.insertId;
-
+                //let final = await sqldatahaku.querySql('select * from users where email = ?', newUserMysql.email)
+                //return done(null, final)
                 //return done(null, 8);
+                let final = await sqldatahaku.querySql("SELECT * FROM users WHERE email = ?", [email])
+                return done(null, final[0])
             }
         })
-        );
+    );
 
     passport.use(
         'local-company',
@@ -116,9 +119,11 @@ module.exports = function (passport) {
 
                 await maileri.mail(newUserMysql.email, pass)
                 //return done(null, newUserMysql);
+                let final = await sqldatahaku.querySql("SELECT * FROM users WHERE email = ?", [email])
+                return done(null, final[0])
             }
         })
-        );
+    );
 
 
     // =========================================================================

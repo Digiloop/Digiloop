@@ -2,8 +2,8 @@ var express = require('express');
 
 module.exports = (app, passport, users) => {
 
- 
-    app.get('/', function (req, res) {});
+
+    app.get('/', function (req, res) { });
 
     // =====================================
     // LOGIN ===============================
@@ -48,8 +48,14 @@ module.exports = (app, passport, users) => {
     });
 */
     // process the signup form
-    app.post('/signup', passport.authenticate('local-signup', {}));
-    app.post('/signupCompany', passport.authenticate('local-company', {}));
+    app.post('/signup', passport.authenticate('local-signup'), (req, res, next) => {
+        res.end()
+    });
+
+
+    app.post('/signupCompany', passport.authenticate('local-company'), (req, res, next) => {
+        res.end()
+    });
     // =====================================
     // LOGOUT ==============================
     // =====================================

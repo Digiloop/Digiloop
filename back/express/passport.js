@@ -38,51 +38,51 @@ module.exports = function (passport) {
 
 
 
-        passport.use(
-            'local-signup',
-            new LocalStrategy({
-                // by default, local strategy uses username and password, we will override with email
-                usernameField: 'email',
-                passwordField: 'email',
-                passReqToCallback: true // allows us to pass back the entire request to the callback
-            }, async (req, email, password, done) => {
-                await console.log(req.body)
-                let pass = await generatePassword(12, false)
-                // find a user whose email is the same as the forms email
-                // we are checking to see if the user trying to login already exists
-                let result = await sqldatahaku.querySql("SELECT * FROM users WHERE email = ?", [email])
-                if (result.length) {
-                    return done(null, false, console.log('signupMessage', 'That email is already taken.'));
-                } else {
-                    // if there is no user with that email
-                    // create the user let pass = await generatePassword(12, false)
-                    var newUserMysql = {
-                        email: email.toString(),
-                        password: await bcrypt.hash(pass, 10),  // use the generateHash function in our user model
-                        fname: req.body.fname.toString(),
-                        lname: req.body.lname.toString(),
-                        phone: req.body.phone.toString(),
-                        address: req.body.address.toString(),
-                        zipcode: req.body.zipcode.toString(),
-                        city: req.body.city.toString(),
-                        userlvl: 2,
-                        Status: 1
-                    };
-                    /*console.log(leveli + "  leveli");*/
-                    var insertQuery = "INSERT INTO users ( password, fname, lname, email, phone, address, zipcode, city, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?)";
+    passport.use(
+        'local-signup',
+        new LocalStrategy({
+            // by default, local strategy uses username and password, we will override with email
+            usernameField: 'email',
+            passwordField: 'email',
+            passReqToCallback: true // allows us to pass back the entire request to the callback
+        }, async (req, email, password, done) => {
+            await console.log(req.body)
+            let pass = await generatePassword(12, false)
+            // find a user whose email is the same as the forms email
+            // we are checking to see if the user trying to login already exists
+            let result = await sqldatahaku.querySql("SELECT * FROM users WHERE email = ?", [email])
+            if (result.length) {
+                return done(null, false, console.log('signupMessage', 'That email is already taken.'));
+            } else {
+                // if there is no user with that email
+                // create the user let pass = await generatePassword(12, false)
+                var newUserMysql = {
+                    email: email.toString(),
+                    password: await bcrypt.hash(pass, 10),  // use the generateHash function in our user model
+                    fname: req.body.fname.toString(),
+                    lname: req.body.lname.toString(),
+                    phone: req.body.phone.toString(),
+                    address: req.body.address.toString(),
+                    zipcode: req.body.zipcode.toString(),
+                    city: req.body.city.toString(),
+                    userlvl: 2,
+                    Status: 1
+                };
+                /*console.log(leveli + "  leveli");*/
+                var insertQuery = "INSERT INTO users ( password, fname, lname, email, phone, address, zipcode, city, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?)";
 
-                    await sqldatahaku.querySql(insertQuery, [newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.userlvl, newUserMysql.Status])
-                    //await maileri.mail(newUserMysql.email,pass)
-                    //newUserMysql.id = rows.insertId;
-                    //let final = await sqldatahaku.querySql('select * from users where email = ?', newUserMysql.email)
-                    //return done(null, final)
-                    //return done(null, 8);
-                    console.log(pass)
-                    let final = await sqldatahaku.querySql("SELECT * FROM users WHERE email = ?", [email])
-                    return done(null, final[0])
-                }
-            })
-        );
+                await sqldatahaku.querySql(insertQuery, [newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.userlvl, newUserMysql.Status])
+                //await maileri.mail(newUserMysql.email,pass)
+                //newUserMysql.id = rows.insertId;
+                //let final = await sqldatahaku.querySql('select * from users where email = ?', newUserMysql.email)
+                //return done(null, final)
+                //return done(null, 8);
+                console.log(pass)
+                let final = await sqldatahaku.querySql("SELECT * FROM users WHERE email = ?", [email])
+                return done(null, final[0])
+            }
+        })
+    );
 
     passport.use(
         'local-company',
@@ -138,6 +138,7 @@ module.exports = function (passport) {
             passwordField: 'password',
             passReqToCallback: true // allows us to pass back the entire request to the callback
         }, async (req, email, password, done) => {
+            await console.log(req.body)
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
             let result = await sqldatahaku.querySql("SELECT * FROM users WHERE email = ?", [email])
@@ -146,6 +147,9 @@ module.exports = function (passport) {
             } else {
                 // if there is no user with that email
                 // create the user
+
+                let infocomp = await req.user.company.toString()
+                let infoytunnus = await req.user.ytunnus.toString()
                 var newUserMysql = {
                     email: email.toString(),
                     password: await bcrypt.hash(password, 10),  // rng password in company
@@ -155,8 +159,8 @@ module.exports = function (passport) {
                     address: req.body.address.toString(),
                     zipcode: req.body.zipcode.toString(),
                     city: req.body.city.toString(),
-                    company: req.user.company.toString(),
-                    ytunnus: req.user.ytunnus.toString(),
+                    company: infocomp,
+                    ytunnus: infoytunnus,
                     userlvl: 3,
                     Status: 1
                 };

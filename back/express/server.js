@@ -68,6 +68,7 @@ app.use(function (req, res, next) {
 
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
+//app.use(morgan('combined'));
 app.use(cookieParser('tikiruuma1337')); // read cookies (needed for auth)
 app.use(bodyParser.urlencoded({
     limit: '50mb',
@@ -105,8 +106,9 @@ require('./routes/routes.js')(app, passport); // load our routes and pass in our
 //app.use('*', middleware.wrap)
 //app.set('trust proxy', true)
 app.use('/', recoverPassword);
+app.use('/', categories)
 app.all('*', middleware.isLoggedIn);
-app.use('/', categories, announcements, users)
+app.use('/', announcements, users)
 app.use('/', items);
 //app.use('/', categories, items); // http://193.166.72.18/categories
 app.use('/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': true }))

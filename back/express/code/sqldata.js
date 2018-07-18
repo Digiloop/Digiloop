@@ -12,8 +12,7 @@ module.exports = class sqldata {
         return result
       } else {
         let result = connection(query, values)
-        console.log(query);
-        console.log(values);
+        console.log(query + ' ' + values);
         return result
       }
     } catch (error) {
@@ -23,10 +22,12 @@ module.exports = class sqldata {
 
   async categoryAccess(category, condition) {
     try {
-      if (await condition) {
-        return `SELECT * FROM ${category}`
+      if (condition) {
+        let result = await `SELECT * FROM ${category}`
+        return result
       } else {
-        return `SELECT * FROM ${category} WHERE Status = 1`
+        let result = await `SELECT * FROM ${category} WHERE Status = 1`
+        return result
       }
     } catch (error) {
       console.log(error)

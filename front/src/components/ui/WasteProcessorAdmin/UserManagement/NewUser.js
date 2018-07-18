@@ -5,9 +5,9 @@ import FlatButton from 'material-ui/FlatButton';
 import { Dialog, DialogTitle } from '@material-ui/core';
 import { Checkbox } from 'material-ui';
 
-import { enduserRegister } from '../../../utils/enduserRegister';
+import { companyUser } from '../../../../utils/wasteprocessorRegister'
 
-class Register extends Component {
+class NewUser extends Component {
     constructor(props) {
         super(props);
 
@@ -16,9 +16,8 @@ class Register extends Component {
             firstName: '',
             lastName: '',
             phone: '',
-            streetAddress: '',
-            zipcode: '',
-            city: '',
+            email: '',
+            password: '',
 
             submitted: false,
             termsAndConditions: false,
@@ -50,9 +49,9 @@ class Register extends Component {
     }
 
     Cancel(event) {
-        this.props.onNewLogin({
+        /* this.props.onNewLogin({
             userlvl: -1
-        });
+        });*/
     }
 
 
@@ -89,17 +88,18 @@ class Register extends Component {
 
 
         if (this.state.allFilled) {
-            var regData = {
-                "fname": this.state.firstName,
-                "lname": this.state.lastName,
-                "email": this.state.email,
-                "phone": this.state.phone,
-                "address": this.state.streetAddress,
-                "zipcode": this.state.zipcode,
-                "city": this.state.city
+            var compUser = {
+                fname: this.state.firstName,
+                lname: this.state.lastName,
+                email: this.state.email,
+                phone: this.state.phone,
+                password: this.state.password,
+                address: this.props.companyInfo.address,
+                zipcode: this.props.companyInfo.zipcode,
+                city: this.props.companyInfo.city
             }
-            console.log(regData);
-            enduserRegister(JSON.stringify(regData)).then((res) => {
+            console.log(compUser);
+            companyUser(compUser).then((res) => {
                 console.log(res);
                 if (res.status === 401) {
                     this.handleDialogOpen();
@@ -135,9 +135,9 @@ class Register extends Component {
     // close successdialog
     handleSuccessDialogClose = () => {
         this.setState({ successOpen: false })
-        this.props.onNewLogin({
+        /* this.props.onNewLogin({
             userlvl: -1
-        });
+        });*/
     }
 
 
@@ -149,7 +149,6 @@ class Register extends Component {
             borderRadius: '0',
             textAlign: 'center',
             backgroundColor: "grey",
-            //border: '2px solid #004225',
             margin: '15px'
 
         };
@@ -157,19 +156,13 @@ class Register extends Component {
         const registerActive = {
             borderRadius: '0',
             textAlign: 'center',
-            backgroundColor: "#004225",
-            border: '0px solid #004225',
+            backgroundColor: "#FFF",
             margin: '15px'
 
 
         };
 
         const styles = {
-            /*
-            width: 250, backgroundColor: '#FFFFFF', borderRadius: 0,
-            borderWidth: 0.5, border: '2px solid #004225',
-            borderColor: '#d6d7da'
-            */
             borderRadius: '0',
             backgroundColor: 'white',
             border: '2px solid #004225'
@@ -177,99 +170,71 @@ class Register extends Component {
 
 
         return (
-            <div className="registerWrapper">
+            <div className="updateWrapper">
 
-                <AppBar style={{ backgroundColor: '#FFF' }}
-                    title={<div className="app-bar-title">Rekisteröityminen</div>}
-                    showMenuIconButton={false}
-                />
+                <h1>Lisää käyttäjä</h1>
 
-
-                <table className="registerStructure">
+                <table className="updateStructure">
                     <tbody>
                         <tr>
                             <td>
-                                <label className="leftRegisterLabel">Etunimi*: </label>
+                                <label className="leftUpdateLabel">Etunimi*: </label>
                             </td>
                             <td>
-                                <TextField className="rightRegisterField"
+                                <TextField className="rightUpdateField"
                                     underlineStyle={{ borderColor: '#A6CE6B' }}
                                     underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="text" hintText="esim. Matti" style={styles}
+                                    type="text" hintText="Matti" style={styles}
                                     onChange={(event, newValue) => this.setState({ firstName: newValue })} />
 
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <label className="leftRegisterLabel">Sukunimi*: </label>
+                                <label className="leftUpdateLabel">Sukunimi*: </label>
                             </td>
                             <td>
-                                <TextField className="rightRegisterField"
+                                <TextField className="rightUpdateField"
                                     underlineStyle={{ borderColor: '#A6CE6B' }}
                                     underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="text" hintText="esim. Meikäläinen" style={styles}
+                                    type="text" hintText="Meikäläinen" style={styles}
                                     onChange={(event, newValue) => this.setState({ lastName: newValue })} />
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <label className="leftRegisterLabel">Sähköposti*: </label>
+                                <label className="leftUpdateLabel">Sähköposti*: </label>
                             </td>
                             <td>
-                                <TextField className="rightRegisterField"
+                                <TextField className="rightUpdateField"
                                     underlineStyle={{ borderColor: '#A6CE6B' }}
                                     underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="text" hintText="esim. etunimi.sukunimi@lamk.fi" style={styles}
+                                    type="text" hintText="etunimi.sukunimi@email.com" style={styles}
                                     onChange={(event, newValue) => this.setState({ email: newValue })} />
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <label className="leftRegisterLabel">Puhelinnumero*: </label>
+                                <label className="leftUpdateLabel">Puhelinnumero*: </label>
                             </td>
                             <td>
-                                <TextField className="rightRegisterField"
+                                <TextField className="rightUpdateField"
                                     underlineStyle={{ borderColor: '#A6CE6B' }}
                                     underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="text" hintText="esim. 044 708 1347​" style={styles}
+                                    type="text" hintText="044 708 1347​" style={styles}
                                     onChange={(event, newValue) => this.setState({ phone: newValue })} />
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <label className="leftRegisterLabel">Katuosoite*: </label>
+                                <label className="leftUpdateLabel">Salasana*: </label>
                             </td>
                             <td>
-                                <TextField className="rightRegisterField"
+                                <TextField className="rightUpdateField"
                                     underlineStyle={{ borderColor: '#A6CE6B' }}
                                     underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="text" hintText="esim. Ståhlberginkatu 10" style={styles}
-                                    onChange={(event, newValue) => this.setState({ streetAddress: newValue })} />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label className="leftRegisterLabel">Postinumero*: </label>
-                            </td>
-                            <td>
-                                <TextField className="rightRegisterField"
-                                    underlineStyle={{ borderColor: '#A6CE6B' }}
-                                    underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="text" hintText="esim. 15110" style={styles}
-                                    onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label className="leftRegisterLabel">Postitoimipaikka*: </label>
-                            </td>
-                            <td>
-                                <TextField className="rightRegisterField"
-                                    underlineStyle={{ borderColor: '#A6CE6B' }}
-                                    underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="text" hintText="esim. Lahti" style={styles}
-                                    onChange={(event, newValue) => this.setState({ city: newValue })} />
+                                    type="password" hintText="Salasana" style={styles}
+                                    onChange={(event, newValue) => this.setState({ password: newValue })} />
                             </td>
                         </tr>
                         <tr>
@@ -298,28 +263,28 @@ class Register extends Component {
                     </tbody>
                 </table>
 
-                <FlatButton className="cancelButton"
+                <FlatButton className="cancelUpdateButton"
                     label="Peruuta"
-                    hoverColor="#004225"
-                    backgroundColor="#004225"
+                    hoverColor="#FFF"
+                    backgroundColor="#FFF"
                     style={{ margin: '15px' }}
                     labelStyle={{
                         fontFamily: 'kanit',
                         float: 'left',
                         borderRadius: '0',
                         fontSize: '17px',
-                        color: '#FFFFFF'
+                        color: '#004225'
                     }}
                     onClick={(event) => this.Cancel(event)} />
 
-                <FlatButton className="registerButton"
+                <FlatButton className="updateButton"
                     label="Rekisteröidy"
                     labelStyle={{
                         fontFamily: 'kanit',
                         float: 'left',
                         borderRadius: '0',
                         fontSize: '17px',
-                        color: '#FFFFFF'
+                        color: '#004225'
                     }}
 
                     disabled={!this.state.termsAndConditions}
@@ -350,7 +315,6 @@ class Register extends Component {
                     aria-labelledby="scroll-dialog-title"
                 >
                     <DialogTitle>Rekisteröityminen onnistui.</DialogTitle>
-                    <DialogTitle>Salasana on lähetetty sähköpostiin {this.state.email}.</DialogTitle>
                 </Dialog >
 
             </div >
@@ -359,4 +323,4 @@ class Register extends Component {
     }
 }
 
-export default Register;
+export default NewUser;

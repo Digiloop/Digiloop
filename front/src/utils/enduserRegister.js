@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { BASE_URL } from './../settings';
 
-//const BASE_URL = 'http://193.166.72.18';
-
 export { enduserRegister };
 
 function enduserRegister(regData) {
@@ -15,10 +13,10 @@ function enduserRegister(regData) {
     body: regData
   })
     //.then((response) => response.json())
-    .then((response) => {
-      
+    .then(function(response) {
+      return response;
     })
     .catch((error) => {
-      
+      return error;
     });
 }

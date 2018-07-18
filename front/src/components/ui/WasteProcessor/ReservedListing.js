@@ -47,7 +47,8 @@ class ReservedListing extends Component {
         items.push(
           <TableRow key={i} >
             <TableRowColumn colSpan='1'>{this.props.items[i].category} ({this.props.items[i].subCat})<br />Ilmoitettu: {this.props.items[i].junkdateadded}</TableRowColumn>
-            <TableRowColumn>Varaaja: {this.props.items[i].owner}</TableRowColumn>
+            <TableRowColumn>Ilmoittaja: {this.props.items[i].owner}<br />
+              Varaaja: {this.props.items[i].fetcher}</TableRowColumn>
             <TableRowColumn>Tila: {this.getStatus(this.props.items[i].status)}</TableRowColumn>
             <TableRowColumn>
               <RaisedButton style={{ marginRight: '5%' }}
@@ -69,7 +70,7 @@ class ReservedListing extends Component {
     this.setState({
       itemList: items
     })
-    
+
   }
 
   /* 
@@ -102,7 +103,7 @@ class ReservedListing extends Component {
         return "Noudettu";
 
       default:
-      break;
+        break;
     }
   }
 

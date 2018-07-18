@@ -68,6 +68,7 @@ app.use(function (req, res, next) {
 
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
+//app.use(morgan('combined'));
 app.use(cookieParser('tikiruuma1337')); // read cookies (needed for auth)
 app.use(bodyParser.urlencoded({
     limit: '50mb',

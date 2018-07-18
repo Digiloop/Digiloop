@@ -56,6 +56,10 @@ module.exports = (app, passport, users) => {
     app.post('/signupCompany', passport.authenticate('local-company'), (req, res, next) => {
         res.end()
     });
+
+    app.post('/signupCompanyUser', passport.authenticate('local-subuser'), (req, res, next) => {
+        res.end()
+    });
     // =====================================
     // LOGOUT ==============================
     // =====================================

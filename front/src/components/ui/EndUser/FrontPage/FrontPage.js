@@ -46,7 +46,7 @@ class FrontPage extends Component {
           borderRadius: '0',
           fontSize: '17px',
           color: '#004225'
-        }} />)
+        }} />) 
     }
     else {
       this.state.etusivu = [];

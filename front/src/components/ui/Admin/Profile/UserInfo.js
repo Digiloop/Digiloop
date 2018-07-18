@@ -56,7 +56,7 @@ class UserInfo extends Component {
       }
 
       // update userinfo
-      updateUserData(updateUserdata);
+      updateUserData(updateUserdata);      
 
       this.props.handleSnackbar(true);
     } 

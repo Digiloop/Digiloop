@@ -31,7 +31,6 @@ class History extends Component {
   }
 
   handleClick = (event, data) => {
-    console.log(data)
     this.handleDialogOpen();
     this.showItemDialog(data);
   };

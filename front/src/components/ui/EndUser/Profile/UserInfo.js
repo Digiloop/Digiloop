@@ -54,7 +54,22 @@ class UserInfo extends Component {
         "city": this.state.city
       }
 
+      var userdata = {        
+        "fname": this.state.firstName,
+        "lname": this.state.lastName,
+        'phone': this.state.phone,
+        "address": this.state.streetAddress,
+        "zipcode": this.state.zipcode,
+        "city": this.state.city,
+        company: this.props.userInfo.company,
+        id: this.props.userInfo.id,
+        userlvl: this.props.userInfo.userlvl,
+        ytunnus: this.props.userInfo.ytunnus
+      }
       updateUserData(updateUserdata);
+      this.props.localStorageLogin(userdata);
+
+      
       this.props.handleSnackbar(true);
     } 
   }

@@ -143,7 +143,7 @@ class AddressFields extends React.Component {
                 <table className="orderStructure">
                     <tbody>
                         <tr>
-                            <td style={styles.tdStyle} ><label className="leftOrderLabel">Hakuosoite:</label></td>
+                            <td style={styles.tdStyle} ><label className="leftOrderLabel">Hakuosoite*:</label></td>
                             <td>   <TextField className="rightOrderField"
                                 type="text" hintText="Ståhlberginkatu 10"
                                 style={styles} defaultValue={this.props.addressData.pickupaddr}
@@ -152,7 +152,7 @@ class AddressFields extends React.Component {
                             </td>
                         </tr>
                         <tr>
-                            <td><label className="leftOrderLabel">Postinumero:</label></td>
+                            <td><label className="leftOrderLabel">Postinumero*:</label></td>
                             <td>  <TextField className="rightOrderField"
                                 type="text" hintText="15110" style={styles}
                                 defaultValue={this.props.addressData.zipcode}
@@ -160,7 +160,7 @@ class AddressFields extends React.Component {
                             </td>
                         </tr>
                         <tr>
-                            <td><label className="leftOrderLabel">Postitoimipaikka:</label></td>
+                            <td><label className="leftOrderLabel">Postitoimipaikka*:</label></td>
                             <td> <TextField className="rightOrderField"
                                 type="text" hintText="Lahti" style={styles}
                                 defaultValue={this.props.addressData.city}
@@ -168,7 +168,7 @@ class AddressFields extends React.Component {
                             </td>
                         </tr>
                         <tr>
-                            <td><label className="leftOrderLabel">Puhelinnumero:</label></td>
+                            <td><label className="leftOrderLabel">Puhelinnumero*:</label></td>
                             <td>   <TextField className="rightOrderField"
                                 type="text" hintText="044 708 1347​" style={styles}
                                 defaultValue={this.props.addressData.phone}

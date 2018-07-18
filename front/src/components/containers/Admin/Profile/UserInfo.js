@@ -1,5 +1,6 @@
 import UserInfo from '../../../ui/Admin/Profile/UserInfo'
 import { connect } from 'react-redux'
+import { login } from '../../../../actions'
 
 const mapStateToProps = (state, props) =>
   ({

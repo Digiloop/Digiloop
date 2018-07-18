@@ -6,8 +6,9 @@ import './index.css';
 import { getCredentials } from './utils/login';
 
 // switchin alasivut loginlevelin perusteella
-import AdminWasteProcessor from './components/containers/Admin/WasteProcessor.js';
-import WasteProcessor from './components/containers/WasteProcessor/WasteProcessor.js';
+import Admin from './components/containers/Admin/WasteProcessor.js';
+import WasteProcessorAdmin from './components/containers/WasteProcessorAdmin/WasteProcessorAdmin';
+import WasteProcessor from './components/containers/WasteProcessor/WasteProcessor';
 import Front from './components/containers/EndUser/EndUserFront';
 import Register from './components/containers/Login/Register.js';
 import WasteRegister from './components/containers/Login/WasteRegister.js';
@@ -58,7 +59,6 @@ class App extends Component {
             getCredentials(loginData.userdata.email, "dangerous")
           }
 
-
           this.props.localStorageLogin(loginData.userdata);
         }
       }
@@ -89,13 +89,16 @@ class App extends Component {
                     return <Register />;
 
                   case '0':
-                    return <AdminWasteProcessor />;
+                    return <Admin />;
 
                   case '1':
-                    return <WasteProcessor />;
+                    return <WasteProcessorAdmin />;
 
                   case '2':
                     return <Front />;
+
+                  case '3':
+                    return <WasteProcessor />
 
                   default:
                     return <Login />;

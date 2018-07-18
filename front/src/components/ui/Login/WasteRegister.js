@@ -1,9 +1,11 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
-import { wasteprocessorRegister } from '../../../utils/wasteprocessorRegister';
 import { Checkbox } from 'material-ui';
+import FlatButton from 'material-ui/FlatButton';
+import { Dialog, DialogTitle } from '@material-ui/core';
+
+import { wasteprocessorRegister } from '../../../utils/wasteprocessorRegister';
 
 class WasteRegister extends React.Component {
     constructor(props) {
@@ -21,7 +23,10 @@ class WasteRegister extends React.Component {
             termsAndConditions: false,
             allFilled: false,
             emailValid: false,
-            submitted: false
+            submitted: false,
+
+            open: false, // email is taken dialog
+            successOpen: false // registration success
         };
         this.checkFill = this.checkFill.bind(this);
         this.emailCheck = this.emailCheck.bind(this);
@@ -75,26 +80,54 @@ class WasteRegister extends React.Component {
     Submit(event) {
 
         if (this.state.allFilled) {
-        var regData = {
-            "email": this.state.email,
-            "password": "dangerous",
-            "company": this.state.corpName,
-            "ytunnus": this.state.ytunnus,
-            "fname": this.state.fname,
-            "lname": this.state.lname,
-            "phone": this.state.phone,
-            "address": this.state.streetAddress,
-            "zipcode": this.state.zipcode,
-            "city": this.state.city
-        }
-        wasteprocessorRegister(JSON.stringify(regData));
-        window.alert("Hyvin rekisteröidytty!");
-            this.props.onNewLogin({
-                userlvl: -1
+            var regData = {
+                "email": this.state.email,
+                "company": this.state.corpName,
+                "ytunnus": this.state.ytunnus,
+                "fname": this.state.fname,
+                "lname": this.state.lname,
+                "phone": this.state.phone,
+                "address": this.state.streetAddress,
+                "zipcode": this.state.zipcode,
+                "city": this.state.city
+            }
+            wasteprocessorRegister(JSON.stringify(regData)).then((res) => {
+                console.log(res);
+                if (res.status === 401) {
+                    this.handleDialogOpen();
+                }
+                else if (res.status === 200) {
+                    this.handleSuccessDialogOpen();
+                } else {
+                    window.alert('Jotain meni vikaan!')
+                }
             });
         } else {
             window.alert("Ei saa jättää lootia tyhjiksi!");
         }
+    }
+
+    // open dialog
+    handleDialogOpen = () => {
+        this.setState({ open: true })
+    }
+
+    // close dialog
+    handleDialogClose = () => {
+        this.setState({ open: false })
+    }
+
+    // open successdialog
+    handleSuccessDialogOpen = () => {
+        this.setState({ successOpen: true })
+    }
+
+    // close successdialog
+    handleSuccessDialogClose = () => {
+        this.setState({ successOpen: false })
+        this.props.onNewLogin({
+            userlvl: -1
+        });
     }
 
     render() {
@@ -283,6 +316,31 @@ class WasteRegister extends React.Component {
                     style={this.state.termsAndConditions ? registerActive : registerInactive}
 
                     onClick={(event) => this.Submit(event)} />
+
+                <Dialog key={'i'} // if email is already in use
+                    style={{ visibility: 'visible' }}
+                    open={this.state.open}
+                    onClose={this.handleDialogClose}
+                    fullWidth={true}
+                    scroll={'paper'}
+                    aria-labelledby="scroll-dialog-title"
+                >
+                    <DialogTitle>Antamasi sähköposti {this.state.email} on jo käytössä.</DialogTitle>
+                </Dialog >
+
+
+                <Dialog key={'s'} // if registration is success
+                    style={{ visibility: 'visible' }}
+                    open={this.state.successOpen}
+                    onClose={this.handleSuccessDialogClose}
+                    fullWidth={true}
+                    scroll={'paper'}
+                    aria-labelledby="scroll-dialog-title"
+                >
+                    <DialogTitle>Rekisteröityminen onnistui.</DialogTitle>
+                    <DialogTitle>Salasana lähetetään sähköpostiin {this.state.email},
+                    kun tili on hyväksytty.</DialogTitle>
+                </Dialog >
             </div >
 
         );

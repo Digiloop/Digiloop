@@ -41,9 +41,10 @@ module.exports = function (passport) {
         new LocalStrategy({
             // by default, local strategy uses username and password, we will override with email
             usernameField: 'email',
-            passwordField: 'password',
+            passwordField: 'email',
             passReqToCallback: true // allows us to pass back the entire request to the callback
         }, async (req, email, password, done) => {
+            await console.log(req.body)
             let pass = await generatePassword(12, false)
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists

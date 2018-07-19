@@ -25,7 +25,13 @@ router.get('/fetcher/:id', middleware.wrap(async (req, res) => {
     let query = 'SELECT * FROM users WHERE id = ?'
     let values = await [req.params.id]
     let result = await sqldatahaku.querySql(query, values)
-    res.json(result[0].company)
+    let fetcher = {
+        company: result[0].company,
+        fname: result[0].fname,
+        lname: result[0].lname,
+        email: result[0].email
+    }
+    res.json(fetcher)
 }))
 
 router.post('/changePassword', middleware.wrap(async (req, res, next) => {

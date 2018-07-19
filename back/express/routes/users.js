@@ -21,6 +21,13 @@ router.route('/users')
         res.end()
     }))
 
+router.get('/fetcher/:id', middleware.wrap(async (req, res) => {
+    let query = 'SELECT * FROM users WHERE id = ?'
+    let values = await [req.params.id]
+    let result = await sqldatahaku.querySql(query, values)
+    res.json(result[0].company)
+}))
+
 router.post('/changePassword', middleware.wrap(async (req, res, next) => {
     let result = await generatepassword.changePassword(req.user.id, req.body.password, req.body.oldpassword, req.user.password);//id, password, oldpassword
     if (result == false) { res.status(406) }

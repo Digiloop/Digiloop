@@ -16,11 +16,8 @@ module.exports = {
     },
 
     async changePassword(id, password, oldpassword, hashpass) {
-        console.log(id, password, oldpassword)
 
         let query = 'UPDATE users SET password = ? WHERE id = ?'
-        //let pass = await password;
-        //let oldpass = await oldpassword;
         let compareAsync = await bcrypt.compare(oldpassword, hashpass)
         await console.log(compareAsync)
         if (compareAsync) {

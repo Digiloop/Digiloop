@@ -34,6 +34,37 @@ router.get('/fetcher/:id', middleware.wrap(async (req, res) => {
     res.json(fetcher)
 }))
 
+router.get('/usersCompany', middleware.wrap(async (req, res) => {
+    let query = 'SELECT * FROM users WHERE userlvl = ? AND company = ? AND Status = ?' //AND company = ?'
+    let values = await [3, req.user.company, 1]//req.user.company
+    let result = await sqldatahaku.querySql(query, values)
+    let i = 0;
+    let arr = [];
+
+
+
+    for (i; i < result.length; i++) {
+        let user = {
+            id: result[i].id,
+            fname: result[i].fname,
+            lname: result[i].lname,
+            email: result[i].email,
+            phone: result[i].phone,
+            address: result[i].address,
+            zipcode: result[i].zipcode,
+            city: result[i].city,
+            company: result[i].company,
+            ytunnus: result[i].ytunnus,
+        }
+
+        arr.push(user)
+    }
+
+    res.json(arr)
+
+}))
+
+
 router.post('/changePassword', middleware.wrap(async (req, res, next) => {
     let result = await generatepassword.changePassword(req.user.id, req.body.password, req.body.oldpassword, req.user.password);//id, password, oldpassword
     if (result == false) { res.status(406) }

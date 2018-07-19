@@ -1,6 +1,6 @@
 var bcrypt = require('bcrypt');
 var generatePassword = require('password-generator');
-
+var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata;
 
 module.exports = {
 
@@ -13,7 +13,24 @@ module.exports = {
             hashpass: hash
         }
         return info;
-    }
+    },
 
+    async changePassword(id, password, oldpassword, hashpass) {
+        console.log(id, password, oldpassword)
+
+        let query = 'UPDATE users SET password = ? WHERE id = ?'
+        //let pass = await password;
+        //let oldpass = await oldpassword;
+        let compareAsync = await bcrypt.compare(oldpassword, hashpass)
+        await console.log(compareAsync)
+        if (compareAsync) {
+            let newpass = await bcrypt.hash(password, 10)
+            let values = await [newpass, id]
+            await sqldatahaku.querySql(query, values)
+        } else {
+            return false;
+        }
+
+    }
 
 }

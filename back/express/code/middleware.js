@@ -20,7 +20,8 @@ module.exports = {
         if (req.user.userlvl == 0)
             return next();
 
-        res.end()
+        res.status(403)
+        res.end();
     },
 
     logIp(req, res, next) {

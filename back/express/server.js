@@ -40,31 +40,46 @@ var MemoryStore = require('session-memory-store')(session);
 
 require('./passport')(passport); // pass passport for configuration
 //require('./config/users')(users);
-let origins = ['http://localhost:3000', 'http://35.228.197.233:3000'];
-let origiino = origins[0]
+
+
+
+
+
+
+let origins = ['http://localhost:3000', 'http://35.228.227.224:3000'];
+
 var corsOptions = {
-    origin: origiino,
+    origin: origins[0],
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs,nodejs) choke on 204
     credentials: true
-  }
-app.use(cors(corsOptions));
+}
+app.use(cors(corsOptions))
+
+
 app.use(function (req, res, next) {
-        // Website you wish to allow to connect
-        
-        res.setHeader('Access-Control-Allow-Origin', origiino);//*
+    // Website you wish to allow to connect
 
-        // Request methods you wish to allow
-        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Origin', origins[0]);//*
 
-        // Request headers you wish to allow
-        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Accept');
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
-        // Set to true if you need the website to include cookies in the requests sent
-        // to the API (e.g. in case you use sessions)
-        res.setHeader('Access-Control-Allow-Credentials', true);
-        next();
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Accept');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+
+    next();
 });
 
+try {
+    
+} catch (error) {
+    
+}
 
 // set up our express application
 app.use(morgan('dev')); // log every request to the console

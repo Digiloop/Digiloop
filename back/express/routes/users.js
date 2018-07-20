@@ -5,8 +5,10 @@ var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata;
 var middleware = require('../code/middleware.js');
 var activator = require('../code/accountActivation')
 var generatepassword = require('../code/passGen')
+
+
 router.route('/users')
-    .get(middleware.wrap(async (req, res) => {
+    .get(middleware.isAdmin,middleware.wrap(async (req, res) => {
         let query = 'SELECT * FROM users'
         res.json(await sqldatahaku.querySql(query))
     }))
@@ -55,6 +57,7 @@ router.get('/usersCompany', middleware.wrap(async (req, res) => {
             city: result[i].city,
             company: result[i].company,
             ytunnus: result[i].ytunnus,
+            status: result[i].Status
         }
 
         arr.push(user)

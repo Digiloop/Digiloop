@@ -20,6 +20,7 @@
     "passport-http-bearer": "^1.0.1",
     "passport-local": "^1.0.0",
     "password-generator": "^2.2.0",
+    "redis": "^2.8.0",
     "serve-index": "^1.9.1",
     "session-memory-store": "^0.2.2"
   },

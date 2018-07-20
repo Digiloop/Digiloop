@@ -6,6 +6,7 @@ import Checkbox from 'material-ui/Checkbox';
 
 // get users
 import { getUsers, changeStatus } from '../../../utils/fetchEditUsers';
+import SelectInput from '../../../../node_modules/@material-ui/core/Select/SelectInput';
 
 class Admin extends Component {
   constructor(props) {
@@ -29,16 +30,16 @@ class Admin extends Component {
 
   // edit userinfo 
   changeStatus(id, status) {
-    console.log('id: ' + id + ' status: ' + status);
     var userStatus = {
       Status: !status,
       id: id
     }
-    console.log(userStatus);
     changeStatus(userStatus)
-    .then(() => {
-      this.getUsersData();
-    })
+      .then(() => {
+        setTimeout( () => {
+          this.getUsersData();
+        }, 1000)
+      })
   }
 
   // opening items

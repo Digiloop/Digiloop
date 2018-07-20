@@ -7,7 +7,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
-import { getJunkData } from '../../../utils/fetchItems';
+import { getJunkData, getJunkOwnerData } from '../../../utils/fetchItems';
 import { cancelReservation } from '../../../utils/reserveItems';
 
 class ReservedListing extends Component {
@@ -26,6 +26,14 @@ class ReservedListing extends Component {
     });
   }
 
+  getJunkOwnerDatas(id) {
+    getJunkOwnerData(id).then((data) => {    
+      // this.setState({ data: data })
+      return data.company;
+    })    
+    
+  }
+
   // cancel reserved item, setting it as free
   cancelItemReserve(item) {
     cancelReservation(item.junkID).then(
@@ -35,6 +43,7 @@ class ReservedListing extends Component {
 
   // change item reservation status
   reserve(status, item) {
+    console.log(item.junkID)
     /* reserveItem(status, item.fetcher, item.junkID).then(
       this.props.refreshJunks
     ); */
@@ -42,13 +51,17 @@ class ReservedListing extends Component {
 
   listReserved() {
     const items = [];
+
     for (let i = 0; i < this.props.items.length; i++) {
+
       if (this.props.items[i].status === 2) {
+
         items.push(
           <TableRow key={i} >
-            <TableRowColumn colSpan='1'>{this.props.items[i].category} ({this.props.items[i].subCat})<br />Ilmoitettu: {this.props.items[i].junkdateadded}</TableRowColumn>
+            <TableRowColumn colSpan='1'>{this.props.items[i].category} ({this.props.items[i].subCat})<br />
+              Ilmoitettu: {this.props.items[i].junkdateadded}</TableRowColumn>
             <TableRowColumn>Ilmoittaja: {this.props.items[i].owner}<br />
-              Varaaja: {this.props.items[i].fetcher}</TableRowColumn>
+              Varaaja: {this.getJunkOwnerDatas(this.props.items[i].fetcher)}</TableRowColumn>
             <TableRowColumn>Tila: {this.getStatus(this.props.items[i].status)}</TableRowColumn>
             <TableRowColumn>
               <RaisedButton style={{ marginRight: '5%' }}
@@ -108,6 +121,7 @@ class ReservedListing extends Component {
   }
 
   render() {
+
     return (
       <div className="FrontPageContainer">
         <MuiThemeProvider>

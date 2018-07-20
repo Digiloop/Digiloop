@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import { Dialog, DialogTitle } from '@material-ui/core';
 import { Checkbox } from 'material-ui';
+import { Table, TableBody, TableCell, TableHead, TableRow, Paper } from '@material-ui/core';
 
-import { companyUser } from '../../../../utils/wasteprocessorRegister'
+import { newCompanyUser } from '../../../../utils/wasteprocessorRegister'
+import { companyUsers } from '../../../../utils/fetchEditUsers'
 
 class NewUser extends Component {
     constructor(props) {
@@ -26,18 +27,28 @@ class NewUser extends Component {
             emailValid: false,
             phoneNumberValid: false,
             open: false,
-            successOpen: false
+            successOpen: false,
+            users: []
         };
         this.checkFill = this.checkFill.bind(this);
         this.emailCheck = this.emailCheck.bind(this);
         //this.emailChange = this.emailChange.bind(this);
     }
 
-
+    // get company subUsers
+    getCompanyUsers() {
+        companyUsers().then((compUsers) => {
+            this.setState({ users: compUsers })
+        });
+    }
 
     componentDidUpdate() {
         this.emailCheck();
         this.checkFill();
+    }
+
+    componentDidMount() {
+        this.getCompanyUsers();
     }
 
     updateCheckConfirm() {
@@ -99,13 +110,21 @@ class NewUser extends Component {
                 city: this.props.companyInfo.city
             }
             console.log(compUser);
-            companyUser(compUser).then((res) => {
+            newCompanyUser(compUser).then((res) => {
                 console.log(res);
                 if (res.status === 401) {
                     this.handleDialogOpen();
                 }
                 else if (res.status === 200) {
                     this.handleSuccessDialogOpen();
+                    this.getCompanyUsers();
+                    this.setState({
+                        firstName: '',
+                        lastName: '',
+                        email: '',
+                        phone: '',
+                        password: ''
+                    })
                 } else {
                     window.alert('Jotain meni vikaan!')
                 }
@@ -165,134 +184,169 @@ class NewUser extends Component {
         const styles = {
             borderRadius: '0',
             backgroundColor: 'white',
-            border: '2px solid #004225'
+            border: '2px solid #004225',
+
+            paper: {
+                width: '90%',
+                marginLeft: '5%',
+                marginTop: '3%'
+            }
         };
 
-
         return (
-            <div className="updateWrapper">
+            <div className="newUserWrapper">
+                <div className='leftSide'>
+                    <h1>Lisää käyttäjä</h1>
 
-                <h1>Lisää käyttäjä</h1>
+                    <table className="newUserStructure">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label className="leftNewUserLabel">Etunimi*: </label>
+                                </td>
+                                <td>
+                                    <TextField className="rightNewUserField"
+                                        underlineStyle={{ borderColor: '#A6CE6B' }}
+                                        underlineFocusStyle={{ borderColor: '#004225' }}
+                                        type="text" hintText="Matti" style={styles}
+                                        value={this.state.firstName}
+                                        onChange={(event, newValue) => this.setState({ firstName: newValue })} />
 
-                <table className="updateStructure">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <label className="leftUpdateLabel">Etunimi*: </label>
-                            </td>
-                            <td>
-                                <TextField className="rightUpdateField"
-                                    underlineStyle={{ borderColor: '#A6CE6B' }}
-                                    underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="text" hintText="Matti" style={styles}
-                                    onChange={(event, newValue) => this.setState({ firstName: newValue })} />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label className="leftNewUserLabel">Sukunimi*: </label>
+                                </td>
+                                <td>
+                                    <TextField className="rightNewUserField"
+                                        underlineStyle={{ borderColor: '#A6CE6B' }}
+                                        underlineFocusStyle={{ borderColor: '#004225' }}
+                                        type="text" hintText="Meikäläinen" style={styles}
+                                        value={this.state.lastName}
+                                        onChange={(event, newValue) => this.setState({ lastName: newValue })} />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label className="leftNewUserLabel">Sähköposti*: </label>
+                                </td>
+                                <td>
+                                    <TextField className="rightNewUserField"
+                                        underlineStyle={{ borderColor: '#A6CE6B' }}
+                                        underlineFocusStyle={{ borderColor: '#004225' }}
+                                        type="text" hintText="etunimi.sukunimi@email.com" style={styles}
+                                        value={this.state.email}
+                                        onChange={(event, newValue) => this.setState({ email: newValue })} />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label className="leftNewUserLabel">Puhelinnumero*: </label>
+                                </td>
+                                <td>
+                                    <TextField className="rightNewUserField"
+                                        underlineStyle={{ borderColor: '#A6CE6B' }}
+                                        underlineFocusStyle={{ borderColor: '#004225' }}
+                                        type="text" hintText="044 708 1347​" style={styles}
+                                        value={this.state.phone}
+                                        onChange={(event, newValue) => this.setState({ phone: newValue })} />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label className="leftNewUserLabel">Salasana*: </label>
+                                </td>
+                                <td>
+                                    <TextField className="rightNewUserField"
+                                        underlineStyle={{ borderColor: '#A6CE6B' }}
+                                        underlineFocusStyle={{ borderColor: '#004225' }}
+                                        type="password" hintText="Salasana" style={styles}
+                                        value={this.state.password}
+                                        onChange={(event, newValue) => this.setState({ password: newValue })} />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label className="leftUpdateLabel">Sukunimi*: </label>
-                            </td>
-                            <td>
-                                <TextField className="rightUpdateField"
-                                    underlineStyle={{ borderColor: '#A6CE6B' }}
-                                    underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="text" hintText="Meikäläinen" style={styles}
-                                    onChange={(event, newValue) => this.setState({ lastName: newValue })} />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label className="leftUpdateLabel">Sähköposti*: </label>
-                            </td>
-                            <td>
-                                <TextField className="rightUpdateField"
-                                    underlineStyle={{ borderColor: '#A6CE6B' }}
-                                    underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="text" hintText="etunimi.sukunimi@email.com" style={styles}
-                                    onChange={(event, newValue) => this.setState({ email: newValue })} />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label className="leftUpdateLabel">Puhelinnumero*: </label>
-                            </td>
-                            <td>
-                                <TextField className="rightUpdateField"
-                                    underlineStyle={{ borderColor: '#A6CE6B' }}
-                                    underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="text" hintText="044 708 1347​" style={styles}
-                                    onChange={(event, newValue) => this.setState({ phone: newValue })} />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label className="leftUpdateLabel">Salasana*: </label>
-                            </td>
-                            <td>
-                                <TextField className="rightUpdateField"
-                                    underlineStyle={{ borderColor: '#A6CE6B' }}
-                                    underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="password" hintText="Salasana" style={styles}
-                                    onChange={(event, newValue) => this.setState({ password: newValue })} />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
+                                </td>
+                                <td>
+                                    <Checkbox style={{ width: '70%', fontWeight: 400 }}
+                                        labelStyle={{
+                                            fontFamily: 'kanit',
+                                            float: 'left',
+                                            borderRadius: '0',
+                                            fontSize: '12px',
+                                            color: '#004225'
+                                        }}
+                                        id="confirmationCheck"
+                                        iconStyle={{ fill: '#004225' }}
+                                        checked={this.state.termsAndConditions}
+                                        onCheck={this.updateCheckConfirm.bind(this)}
+                                        label="Vakuutan edellä antamani tiedot oikeiksi, ja hyväksyn palvelun käyttöehdot."
+                                        disabled={!this.state.allFilled}
+                                    />
 
-                            </td>
-                            <td>
-                                <Checkbox style={{ width: '70%', fontWeight: 400 }}
-                                    labelStyle={{
-                                        fontFamily: 'kanit',
-                                        float: 'left',
-                                        borderRadius: '0',
-                                        fontSize: '12px',
-                                        color: '#004225'
-                                    }}
-                                    id="confirmationCheck"
-                                    iconStyle={{ fill: '#004225' }}
-                                    checked={this.state.termsAndConditions}
-                                    onCheck={this.updateCheckConfirm.bind(this)}
-                                    label="Vakuutan edellä antamani tiedot oikeiksi, ja hyväksyn palvelun käyttöehdot."
-                                    disabled={!this.state.allFilled}
-                                />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <FlatButton className="cancelUpdateButton"
+                        label="Peruuta"
+                        hoverColor="#FFF"
+                        backgroundColor="#FFF"
+                        style={{ margin: '15px' }}
+                        labelStyle={{
+                            fontFamily: 'kanit',
+                            float: 'left',
+                            borderRadius: '0',
+                            fontSize: '17px',
+                            color: '#004225'
+                        }}
+                        onClick={(event) => this.Cancel(event)} />
 
-                <FlatButton className="cancelUpdateButton"
-                    label="Peruuta"
-                    hoverColor="#FFF"
-                    backgroundColor="#FFF"
-                    style={{ margin: '15px' }}
-                    labelStyle={{
-                        fontFamily: 'kanit',
-                        float: 'left',
-                        borderRadius: '0',
-                        fontSize: '17px',
-                        color: '#004225'
-                    }}
-                    onClick={(event) => this.Cancel(event)} />
+                    <FlatButton className="updateButton"
+                        label="Rekisteröidy"
+                        labelStyle={{
+                            fontFamily: 'kanit',
+                            float: 'left',
+                            borderRadius: '0',
+                            fontSize: '17px',
+                            color: '#004225'
+                        }}
 
-                <FlatButton className="updateButton"
-                    label="Rekisteröidy"
-                    labelStyle={{
-                        fontFamily: 'kanit',
-                        float: 'left',
-                        borderRadius: '0',
-                        fontSize: '17px',
-                        color: '#004225'
-                    }}
+                        disabled={!this.state.termsAndConditions}
 
-                    disabled={!this.state.termsAndConditions}
+                        style={this.state.termsAndConditions ? registerActive : registerInactive}
 
-                    style={this.state.termsAndConditions ? registerActive : registerInactive}
+                        onClick={(event) => this.Submit(event)} />
+                    <br />
+                </div>
 
-                    onClick={(event) => this.Submit(event)} />
-                <br />
+
+                <div className='rightSide'>
+                    <Paper style={styles.paper}>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Käyttäjälista</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {this.state.users.length ? this.state.users
+                                    .map(n => {
+                                        return (
+                                            <TableRow key={n.id} >
+                                                <TableCell>{n.fname} {n.lname}</TableCell>
+                                            </TableRow>
+                                        )
+                                    }) : <TableRow><TableCell>Sinulla ei ole alakäyttäjiä</TableCell></TableRow>}
+                            </TableBody>
+                        </Table>
+                    </Paper>
+
+                </div>
 
                 <Dialog key={'i'} // if email is already in use
                     style={{ visibility: 'visible' }}

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { FlatButton } from 'material-ui'
 import NewUser from '../../../containers/WasteProcessorAdmin/NewUser'
+import UserManagement from '../../../containers/WasteProcessorAdmin/UserManagement'
 
-class UserManagement extends Component {
+class UserManagementMain extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -36,9 +37,9 @@ class UserManagement extends Component {
                         fontSize: '17px',
                         color: '#004225'
                     }} />
-                {this.state.value ? <NewUser handleSnackbar={this.handleSnackbar} /> : null }
+                {this.state.value ? <NewUser handleSnackbar={this.handleSnackbar} /> : <UserManagement /> }
             </div>
         );
     }
 }
-export default UserManagement
+export default UserManagementMain

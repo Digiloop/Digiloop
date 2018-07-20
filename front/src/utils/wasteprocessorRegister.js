@@ -2,7 +2,7 @@ import axios from 'axios';
 import { BASE_URL } from './../settings';
 
 
-export { wasteprocessorRegister, companyUser };
+export { wasteprocessorRegister, newCompanyUser };
 
 
 function wasteprocessorRegister(regData) {
@@ -24,7 +24,7 @@ function wasteprocessorRegister(regData) {
     });
 }
 
-function companyUser(compUser) {
+function newCompanyUser(compUser) {
   return axios.post(BASE_URL + '/signupCompanyUser', {
     fname: compUser.fname,
     lname: compUser.lname,

@@ -8,6 +8,8 @@ import InfoFields from '../../../containers/EndUser/Order/InfoFields';
 import Summary from '../../../containers/EndUser/Order/Summary';
 
 import { BASE_URL, debugMode } from '../../../../settings';
+import axios from 'axios';
+axios.defaults.withCredentials = true;
 
 class OrderMain extends Component {
     constructor(props) {
@@ -81,17 +83,14 @@ class OrderMain extends Component {
 
     // checks if the image actually exists on the server
     async imageExists(image_url) {
-
-        var http = new XMLHttpRequest();
-
-        await http.open('HEAD', image_url, false);
-
-        // only for localhost
-        http.withCredentials = true;
-
-        await http.send();
-        let result = await http.status !== 404;
-        return result;
+try{
+        let result = await axios.head(image_url)
+        let finalres = result.status !== 404
+        return finalres
+}
+catch(error){
+console.log(error)
+}
 
     }
 

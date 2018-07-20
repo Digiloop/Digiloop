@@ -190,6 +190,60 @@ table {
  margin-left: 5px;
 }
 
+/* WASTEPROSESSOR NEWUSER */
+
+.newUserWrapper
+{
+  margin: auto;
+  width: 100%;
+  background-attachment: local;
+  background-position: center bottom;
+  background-size: contain;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  align-content: center;
+}
+
+.leftSide 
+{
+  width: 55%;
+  float: left;
+}
+
+.rightSide
+{
+  width: 44%;
+  float: right;
+}
+
+.newUserStructure
+{ 
+  max-width: 55vh;
+  margin: auto;
+  padding: 2%;
+  margin-top: 15px;
+  border-spacing: 3px;
+  background-color: rgb(186, 221, 134);
+  box-shadow: -10px 3px rgb(166, 206, 106);
+  border-radius: 15px;
+}
+
+.leftNewUserLabel
+{
+  font-family: kanit;
+  text-align: left;
+  font-weight: bold;
+  margin-left: 5%;
+  font-size: 18px;
+  color:#004225; 
+}
+
+.rightNewUserField
+{
+ margin-left: 5px;
+}
+
 /* ENDUSER UPDATE */
 
 .updateWrapperUser

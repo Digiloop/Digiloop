@@ -206,7 +206,6 @@ class FakeCategories extends Component {
             const tmp1 = [];
             for (let j = 0; j < this.state.subCats.length; j++) {
                 if (this.state.subCats[j].subId === this.state.fakeCats[i].subCatId) {
-                    fakeCats[j]
                     tmp.push(this.state.subCats[j].subName)
 
                     for (let k = 0; k < this.state.cats.length; k++) {
@@ -237,7 +236,7 @@ class FakeCategories extends Component {
                     fakeCats.push(
                         <TableRow key={i} >
                             <TableRowColumn colSpan='8'>
-                                {this.state.fakeCats[i].name}
+                                {tmp1} / {this.state.fakeCats[i].name}
                             </TableRowColumn>
                         </TableRow>
                     )

@@ -172,7 +172,6 @@ class ChangePassword extends Component {
                 </td>
                 <td>
                   <FlatButton className="registerButton"
-                    style={{ margin: '10px' }}
                     label="Tallenna"
                     labelStyle={{
                       padding: '0 10px',

@@ -83,14 +83,18 @@ class OrderMain extends Component {
 
     // checks if the image actually exists on the server
     async imageExists(image_url) {
-try{
-        let result = await axios.head(image_url)
-        let finalres = result.status !== 404
-        return finalres
-}
-catch(error){
-console.log(error)
-}
+        try {
+            let result = await axios.get(image_url)
+            /*let result = axios(image_url, {
+                method: "get",
+                withCredentials: true
+            })*/
+            let finalres = result.status !== 404
+            return finalres
+        }
+        catch (error) {
+            console.log(error)
+        }
 
     }
 

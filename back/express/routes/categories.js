@@ -43,7 +43,7 @@ router.post('/catStatus', middleware.wrap(async (req, res, next) => {
 
 router.post('/catAdd', middleware.wrap(async (req, res) => {
   const query = 'INSERT INTO Category ( CatName, Status, RealName, ImgReference ) VALUES (?,?,?,?)'
-  await sqldatahaku.querySql(query, [req.body.catname, 1, req.body.catname, 'imagereferenssi']);
+  await sqldatahaku.querySql(query, [req.body.catname, 1, req.body.catname, 'imgmissing.png']);
   res.end();
 }));
 
@@ -55,7 +55,7 @@ router.post('/subcatAdd', middleware.wrap(async (req, res) => {
 
 router.post('/feikkiCatAdd', middleware.wrap(async (req, res) => {
   const query = 'INSERT INTO SubSubCats ( imgReference, name, subCatId, Status) values (?, ?, ?, ?)'
-  await sqldatahaku.querySql(query, ['i can haz reference', req.body.name, req.body.subCatId, 1]);
+  await sqldatahaku.querySql(query, ['imgmissing.png', req.body.name, req.body.subCatId, 1]);
   res.end();
 }));
 
@@ -69,7 +69,7 @@ router.post('/imageCatAdd', (req, res) => {
 
   // no image -> set reference to null
   if (req.body.nulli == 1) {
-    imgname = null
+    imgname = 'imgmissing.png'
     sqldatahaku.querySql(query, [imgname, req.body.id])
 
     // create the image name from (fake)catid + img name to prevent duplicates

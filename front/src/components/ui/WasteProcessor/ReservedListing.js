@@ -8,7 +8,7 @@ import {
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 import { getJunkData, getJunkOwnerData } from '../../../utils/fetchItems';
-import { cancelReservation } from '../../../utils/reserveItems';
+import { changeReservationStatus, cancelReservation } from '../../../utils/reserveItems';
 
 class ReservedListing extends Component {
   constructor(props) {
@@ -22,16 +22,17 @@ class ReservedListing extends Component {
   // fetch junk data
   getJunksData() {
     getJunkData().then((junks) => {
+      // this.setState({ junks: junks })
       this.listReserved();
     });
   }
 
   getJunkOwnerDatas(id) {
-    getJunkOwnerData(id).then((data) => {    
-      // this.setState({ data: data })
+    getJunkOwnerData(id).then((data) => {
+      console.log(data);
       return data.company;
-    })    
-    
+    })
+
   }
 
   // cancel reserved item, setting it as free
@@ -43,10 +44,9 @@ class ReservedListing extends Component {
 
   // change item reservation status
   reserve(status, item) {
-    console.log(item.junkID)
-    /* reserveItem(status, item.fetcher, item.junkID).then(
+    changeReservationStatus(status + 1, item.fetcher, item.junkID).then(
       this.props.refreshJunks
-    ); */
+    );
   }
 
   listReserved() {
@@ -54,14 +54,25 @@ class ReservedListing extends Component {
 
     for (let i = 0; i < this.props.items.length; i++) {
 
-      if (this.props.items[i].status === 2) {
+      if (this.props.items[i].status === 2 || this.props.items[i].status === 3) {
+
+        const tmp = [];
+        const tmp1 = [];
+        getJunkOwnerData(this.props.items[i].fetcher).then((data) => {
+          this.setState({ data: data }, function () { tmp.push(this.state.data.company) })
+        })
+
+        getJunkOwnerData(this.props.items[i].owner).then((owner) => {
+          tmp1.push(owner.fname + ' ' + owner.lname)
+          this.setState({ owner: owner })
+        })
 
         items.push(
           <TableRow key={i} >
             <TableRowColumn colSpan='1'>{this.props.items[i].category} ({this.props.items[i].subCat})<br />
               Ilmoitettu: {this.props.items[i].junkdateadded}</TableRowColumn>
-            <TableRowColumn>Ilmoittaja: {this.props.items[i].owner}<br />
-              Varaaja: {this.getJunkOwnerDatas(this.props.items[i].fetcher)}</TableRowColumn>
+            <TableRowColumn>Ilmoittaja: {tmp1}<br />
+              Varaaja: {tmp}</TableRowColumn>
             <TableRowColumn>Tila: {this.getStatus(this.props.items[i].status)}</TableRowColumn>
             <TableRowColumn>
               <RaisedButton style={{ marginRight: '5%' }}
@@ -70,8 +81,8 @@ class ReservedListing extends Component {
                 disabled={this.props.userInfo.id !== this.props.items[i].fetcher}
               />
               <RaisedButton
-                label="Noudettu"
-                onClick={e => this.reserve(4, this.props.items[i])}
+                label='Varattu'
+                onClick={e => this.reserve(this.props.items[i].status, this.props.items[i])}
                 disabled={this.props.userInfo.id !== this.props.items[i].fetcher}
               />
             </TableRowColumn>
@@ -122,8 +133,9 @@ class ReservedListing extends Component {
 
   render() {
 
+
     return (
-      <div className="FrontPageContainer">
+      <div className="ReservedPageContainer">
         <MuiThemeProvider>
           <Table>
             <TableBody displayRowCheckbox={false}>

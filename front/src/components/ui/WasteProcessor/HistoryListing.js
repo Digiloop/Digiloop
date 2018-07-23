@@ -83,7 +83,7 @@ render() {
 
 
     return (
-      <div className="FrontPageContainer">
+      <div className="ReservedPageContainer">
       <MuiThemeProvider>
         <Table>
           <TableBody displayRowCheckbox={false}> 

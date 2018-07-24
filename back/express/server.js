@@ -4,6 +4,7 @@
 // get all the tools we need
 var http = require('http');
 var https = require('https');
+https.globalAgent.maxSockets = 50;
 var express = require('express');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
@@ -30,12 +31,22 @@ var recoverPassword = require('./routes/recoverPassword')
 //misc functions and stuff
 var middleware = require('./code/middleware.js');
 //MemoryStore
+var RedisStore = require('connect-redis')(session)
 var MemoryStore = require('session-memory-store')(session);
-
-
+var compression = require('compression')
+var apicache = require('apicache')
+var redis = require('redis')
 // configuration ===============================================================
+//app.use(cache('7 days'))
 
-
+let cacheredis = apicache.options({
+    redisClient: redis.createClient(),
+    debug: true,
+    statusCodes: {
+        exclude: [],             // list status codes to specifically exclude (e.g. [404, 403] cache all responses unless they had a 404 or 403 status)
+        include: [200],             // list status codes to require (e.g. [200] caches ONLY responses with a success/200 code)
+    },
+}).middleware
 
 
 require('./passport')(passport); // pass passport for configuration
@@ -44,7 +55,7 @@ require('./passport')(passport); // pass passport for configuration
 
 
 
-
+//CORS
 let whitelist = ['http://localhost:3000', 'http://35.228.227.224:3000'];
 
 var corsOptions = {
@@ -77,7 +88,9 @@ app.use(bodyParser.json({
     limit: '50mb'
 }));
 // onko mainteanance true/false
-app.use(express.static(maintcheck.mainteanance(false)));
+app.use(compression())
+
+
 
 //app.use(express.static("/home/projectmanager/Digiloop/back/express/app"));
 //app.use(express.static("/home/projectmanager/Digiloop/front/build"));
@@ -88,14 +101,17 @@ app.use(fileUpload()); // required for pictures
 app.use(session({
     secret: 'tikiruuma1337',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { secure: true },
-    store: new MemoryStore(options)
-    //name: 'KierratettyKeksi.sid'
+    //store: new MemoryStore(options)
+    store: new RedisStore,
+    name: 'KierratettyKeksi.sid'
 })); // session secret
+
+
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-
+app.use(express.static(maintcheck.mainteanance(false)));
 // routes ======================================================================
 //https://expressjs.com/en/guide/routing.html
 require('./routes/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
@@ -104,11 +120,11 @@ require('./routes/routes.js')(app, passport); // load our routes and pass in our
 //app.use('*', middleware.logIp)
 //app.use('*', middleware.wrap)
 //app.set('trust proxy', true)
+app.use(cacheredis('2 minutes'))
 app.use('/', recoverPassword);
 app.use('/', categories)
-app.all('*', middleware.isLoggedIn);
-app.use('/', announcements, users)
-app.use('/', items);
+app.all('*', middleware.isLoggedIn)
+app.use('/', announcements, users, items)
 //app.use('/', categories, items); // http://193.166.72.18/categories
 app.use('/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': true }))
 //app.use('/items5', items);

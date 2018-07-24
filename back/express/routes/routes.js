@@ -1,8 +1,10 @@
 var express = require('express');
-
+var apicache = require('apicache')
 module.exports = (app, passport, users) => {
 
-
+    app.get('/session', function (req, res) {res.json(req.session) });
+    app.get('/apicache', function (req, res) {res.json(apicache.getIndex()) });
+    app.get('/cacheclear', function (req, res) {res.json(apicache.clear()) });
     app.get('/', function (req, res) { });
 
     // =====================================

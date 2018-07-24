@@ -5,11 +5,11 @@ var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata; //ha
 var itemadd = require('../code/itemadd.js');
 var itemC = require('../code/itemsC.js');
 var middleware = require('../code/middleware.js');
-
+var apicache = require('apicache')
 //GET
 router.route('/items')
     .get(middleware.wrap(async (req, res, next) => {
-
+        req.apicacheGroup = 'tavarat'
         let result = await itemC.itemGet(req.user.id, req.user.userlvl, 2, 1)//userid, userlvl, userlvlrequired, status = hidden or visible 0 / 1
         res.json(result)
 
@@ -17,6 +17,7 @@ router.route('/items')
     .delete(middleware.wrap(async (req, res, next) => {
 
         await itemC.itemGet(req.user.id,req.body.id)
+        await apicache.clear('tavarat')
         res.end()
 
     }))
@@ -33,22 +34,26 @@ router.post('/itemAdd', middleware.wrap(async (req, res, next) => {
     const secondary = [['date', Date.now()], ['datetoday', misk.dateToday()], ['owner', 1], ['userid', req.user.id]]//req.user.id
 
     await misk.createArray(splittedArray, secondary, req.files, sqldatahaku.querySql, query, msngImg)
+    await apicache.clear('tavarat')
     res.end();
 }));
 
 router.post('/itemStatus', middleware.wrap(async (req, res, next) => {
     await sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [req.body.status, req.body.fetcher, req.body.junkId])
+    await apicache.clear('tavarat')
     res.end();
 }));
 
 router.post('/itemReserveCancel', middleware.wrap(async (req, res, next) => {
     await sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [1, 0, req.body.junkId])
+    await apicache.clear('tavarat')
     res.end();
 }));
 
 //tarttee checking että ei voi varata muitten varattuja
 router.post('/itemReserve', middleware.wrap(async (req, res, next) => {
     await sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [2, req.user.id, req.body.junkId])
+    await apicache.clear('tavarat')
     res.end();
 }));
 

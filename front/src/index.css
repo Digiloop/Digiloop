@@ -244,6 +244,18 @@ table {
  margin-left: 5px;
 }
 
+/* WASTEPROSSER RESERVED- AND HISTORYLISTING */
+
+.ReservedPageContainer {
+  font-weight: bold;
+  font-family: kanit;
+  margin: auto;
+  width: 98%;
+  max-width: 100%;
+  min-height: 100vh;
+  align-content: center;
+}
+
 /* ENDUSER UPDATE */
 
 .updateWrapperUser

@@ -80,7 +80,6 @@ class Admin extends Component {
 
     const users = [];
     let visibleRowsCount = 0;
-    console.log(this.state.users)
 
     // function for dynamic sorting
     function compareValues(key, order = 'asc') {
@@ -146,7 +145,9 @@ class Admin extends Component {
                 <RaisedButton
                   style={{ width: '110px' }}
                   label={this.state.users[i].Status ? 'Deaktivoi' : 'Aktivoi'}
-                  onClick={event => this.changeStatus(this.state.users[i].id, this.state.users[i].Status)} />
+                  onClick={event => this.changeStatus(this.state.users[i].id, this.state.users[i].Status)} 
+                  disabled={this.state.users[i].id === this.props.userInfo.id}
+                  />
               </TableRowColumn>
             </TableRow>
           )

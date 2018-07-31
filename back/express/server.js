@@ -35,6 +35,8 @@ var RedisStore = require('connect-redis')(session)
 var compression = require('compression')
 var apicache = require('apicache')
 var redis = require('redis')
+var baseurl = '/prod'
+var routes = require('./routes/routes.js');
 // configuration ===============================================================
 //app.use(cache('7 days'))
 
@@ -103,22 +105,26 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-app.use(express.static(maintcheck.mainteanance(false)));
+//app.use(express.static(maintcheck.mainteanance(false)));
 // routes ======================================================================
 //https://expressjs.com/en/guide/routing.html
-require('./routes/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+ // load our routes and pass in our app and fully configured passport
 //router.use(require('./routes/routes.js')(app, passport));
 //app.use('/cat', cats); // http://193.166.72.18/cat/categories
-app.use('*', middleware.logIp)
+//app.use('*', middleware.logIp)
 //app.use('*', middleware.wrap) 
+
 app.set('trust proxy', true)
+
+require('./routes/routes.js')(app, passport,baseurl);
+//app.use(baseurl, routes)
 //app.use(cacheredis('2 minutes'))
-app.use('/', recoverPassword);
-app.use('/', categories)
+app.use(baseurl, recoverPassword);
+app.use(baseurl, categories)
 app.all('*', middleware.isLoggedIn)
-app.use('/', announcements, users, items)
+app.use(baseurl, announcements, users, items)
 //app.use('/', categories, items); // http://193.166.72.18/categories
-app.use('/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': true }))
+app.use(baseurl + '/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': true }))
 //app.use('/items5', items);
 //app.use('/birds', birds) //<<- toimia esimerkki
 //'./app/maint'

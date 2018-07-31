@@ -1,17 +1,18 @@
 var express = require('express');
-var apicache = require('apicache')
-module.exports = (app, passport, users) => {
+var apicache = require('apicache');
+//var baseurl = '/prod'
+module.exports = (app, passport, baseurl) => {
 
-    app.get('/session', function (req, res) {res.json(req.session) });
-    app.get('/apicache', function (req, res) {res.json(apicache.getIndex()) });
-    app.get('/cacheclear', function (req, res) {res.json(apicache.clear()) });
-    app.get('/', function (req, res) { });
+    //app.get('/prod/session', function (req, res) {res.json(baseurl) });
+    //app.get('/apicache', function (req, res) {res.json(apicache.getIndex()) });
+    //app.get('/cacheclear', function (req, res) {apicache.clear()});
+    //app.get('/', function (req, res) { });
 
     // =====================================
     // LOGIN ===============================
     // =====================================
     // show the login form
-    app.get('/login', function (req, res) {
+    app.get(baseurl+'/login', function (req, res) {
         res.json({
             user: '-1'
         });
@@ -20,7 +21,7 @@ module.exports = (app, passport, users) => {
 
     // process the login form
     //https://github.com/jaredhanson/passport-local/issues/4
-    app.post('/login', passport.authenticate('local-login', { session: true }), (req, res) => {
+    app.post(baseurl+'/login', passport.authenticate('local-login', { session: true }), (req, res) => {
         console.log(req.user.email + " logged in.");
 
         if (req.body.remember) {
@@ -50,16 +51,16 @@ module.exports = (app, passport, users) => {
     });
 */
     // process the signup form
-    app.post('/signup', passport.authenticate('local-signup'), (req, res, next) => {
+    app.post(baseurl+'/signup', passport.authenticate('local-signup'), (req, res, next) => {
         res.end()
     });
 
 
-    app.post('/signupCompany', passport.authenticate('local-company'), (req, res, next) => {
+    app.post(baseurl+'/signupCompany', passport.authenticate('local-company'), (req, res, next) => {
         res.end()
     });
 
-    app.post('/signupCompanyUser',passport.authenticate('local-subuser'), (req, res, next) => {
+    app.post(baseurl+'/signupCompanyUser',passport.authenticate('local-subuser'), (req, res, next) => {
         console.log(req.body)
         //
         res.end()
@@ -67,7 +68,7 @@ module.exports = (app, passport, users) => {
     // =====================================
     // LOGOUT ==============================
     // =====================================
-    app.get('/logout', (req, res) => {
+    app.get(baseurl+'/logout', (req, res) => {
         req.logout();
         //res.redirect('/login');
         res.end();

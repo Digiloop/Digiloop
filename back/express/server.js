@@ -14,7 +14,6 @@ var cors = require('cors'); //tarttee devaukses koska front ei ole samalla palve
 var app = express();
 //certifikaatti sydeemit tässä
 var cert = require('./config/cert')
-var options = cert;
 var maintcheck = require('./config/maint')
 var port = process.env.PORT || 443;
 var port2 = process.env.PORT2 || 80;
@@ -32,10 +31,12 @@ var recoverPassword = require('./routes/recoverPassword')
 var middleware = require('./code/middleware.js');
 //MemoryStore
 var RedisStore = require('connect-redis')(session)
-var MemoryStore = require('session-memory-store')(session);
+//var MemoryStore = require('session-memory-store')(session);
 var compression = require('compression')
 var apicache = require('apicache')
 var redis = require('redis')
+var baseurl = '/prod'
+var routes = require('./routes/routes.js');
 // configuration ===============================================================
 //app.use(cache('7 days'))
 
@@ -48,18 +49,14 @@ let cacheredis = apicache.options({
     },
 }).middleware
 
-
 require('./passport')(passport); // pass passport for configuration
 //require('./config/users')(users);
 
-
-
-
 //CORS
-let whitelist = ['http://localhost:3000', 'http://35.228.227.224:3000'];
+let whitelist = ['http://localhost:3000', 'http://35.228.227.224:3000','http://127.0.0.1'];
 
 var corsOptions = {
-    origin:/* whitelist[0],*/ function (origin, callback) {
+    origin: function (origin, callback) {
         if (whitelist.indexOf(origin) !== -1) {
             callback(null, true)
         } else {
@@ -87,10 +84,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json({
     limit: '50mb'
 }));
-// onko mainteanance true/false
 app.use(compression())
-
-
 
 //app.use(express.static("/home/projectmanager/Digiloop/back/express/app"));
 //app.use(express.static("/home/projectmanager/Digiloop/front/build"));
@@ -111,22 +105,26 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-app.use(express.static(maintcheck.mainteanance(false)));
+//app.use(express.static(maintcheck.mainteanance(false)));
 // routes ======================================================================
 //https://expressjs.com/en/guide/routing.html
-require('./routes/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+ // load our routes and pass in our app and fully configured passport
 //router.use(require('./routes/routes.js')(app, passport));
 //app.use('/cat', cats); // http://193.166.72.18/cat/categories
 //app.use('*', middleware.logIp)
-//app.use('*', middleware.wrap)
-//app.set('trust proxy', true)
-app.use(cacheredis('2 minutes'))
-app.use('/', recoverPassword);
-app.use('/', categories)
+//app.use('*', middleware.wrap) 
+
+app.set('trust proxy', true)
+
+require('./routes/routes.js')(app, passport,baseurl);
+//app.use(baseurl, routes)
+//app.use(cacheredis('2 minutes'))
+app.use(baseurl, recoverPassword);
+app.use(baseurl, categories)
 app.all('*', middleware.isLoggedIn)
-app.use('/', announcements, users, items)
+app.use(baseurl, announcements, users, items)
 //app.use('/', categories, items); // http://193.166.72.18/categories
-app.use('/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': true }))
+app.use(baseurl + '/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': true }))
 //app.use('/items5', items);
 //app.use('/birds', birds) //<<- toimia esimerkki
 //'./app/maint'
@@ -146,11 +144,17 @@ app.use((error, req, res, next) => {
 //app.listen(port);
 //console.log('päkki pystys portissa ' + port);
 
-https.createServer(options, app).listen(port, () => {
+/*
+https.createServer(cert, app).listen(port, () => {
     console.log(`päkki pyörii portissa ${port}`);
 });
+
 
 http.createServer(function (req, res) {
     res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
     res.end();
 }).listen(80);
+*/
+
+
+app.listen(5000);

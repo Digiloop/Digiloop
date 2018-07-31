@@ -35,7 +35,7 @@ var RedisStore = require('connect-redis')(session)
 var compression = require('compression')
 var apicache = require('apicache')
 var redis = require('redis')
-var baseurl = '/prod'
+var baseurl = '/dev'
 var routes = require('./routes/routes.js');
 // configuration ===============================================================
 //app.use(cache('7 days'))
@@ -157,4 +157,4 @@ http.createServer(function (req, res) {
 */
 
 
-app.listen(5000);
+app.listen(5001);

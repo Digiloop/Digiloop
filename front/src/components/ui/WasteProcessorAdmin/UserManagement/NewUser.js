@@ -154,9 +154,6 @@ class NewUser extends Component {
     // close successdialog
     handleSuccessDialogClose = () => {
         this.setState({ successOpen: false })
-        /* this.props.onNewLogin({
-            userlvl: -1
-        });*/
     }
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider, FlatButton, IconButton } from 'material-ui';
 
-import { sendItemData} from '../../../../utils/sendItem';
+import { sendItemData } from '../../../../utils/sendItem';
 
 
 class Summary extends React.Component {
@@ -26,7 +26,6 @@ class Summary extends React.Component {
 
         this.geocoder.geocode({ 'address': address }, function (results, status) {
             if (status === window.google.maps.GeocoderStatus.OK) {
-
 
                 // we're creating a finalizedData object, where we'll do some final fixes before sending
                 let finalizedData = [];
@@ -60,7 +59,7 @@ class Summary extends React.Component {
                     //imageArray[i] = data[i].picture
                 }
 
-                
+
 
 
 
@@ -128,7 +127,7 @@ class Summary extends React.Component {
                         {this.props.values[i].description}</pre>
 
                         <div id="SummaryImagePreviews">
-                            {this.props.values[i].picture != null ? <img style={{ width: '100%', height: '100%' }} src={ URL.createObjectURL(this.props.values[i].picture)} /> : <p>Kuvaa ei valittu</p>}
+                            {this.props.values[i].picture != null ? <img style={{ width: '100%', height: '100%' }} src={URL.createObjectURL(this.props.values[i].picture)} /> : <p>Kuvaa ei valittu</p>}
                         </div>
 
                         <FlatButton
@@ -144,10 +143,10 @@ class Summary extends React.Component {
                             onClick={(event) => this.props.removeItem(i)}
                         />
                         <br />
-                         <Divider style={{ backgroundColor: '#FFF', height: '3px', marginTop: '5px', maxWidth: '400px' }} />
+                        <Divider style={{ backgroundColor: '#FFF', height: '3px', marginTop: '5px', maxWidth: '400px' }} />
                     </td>
-                </tr>             
-            )         
+                </tr>
+            )
         }
 
         return (
@@ -160,7 +159,7 @@ class Summary extends React.Component {
                                 <pre>{this.props.addressData.pickupaddr} {this.props.addressData.phone} <br />
                                     {this.props.addressData.zipcode} {this.props.addressData.city}</pre>
 
-                                <Divider style={{ backgroundColor: '#FFF', height: '3px', maxWidth: '400px'  }} />
+                                <Divider style={{ backgroundColor: '#FFF', height: '3px', maxWidth: '400px' }} />
                             </td>
                         </tr>
                         {items}
@@ -168,7 +167,7 @@ class Summary extends React.Component {
                             <td style={{ textAlign: 'left', width: '30%' }}>
                                 <FlatButton
                                     label='Lisää Laitteita'
-                                    style={{ borderRadius: 25, margin: '10px 0'}}
+                                    style={{ borderRadius: 25, margin: '10px 0' }}
                                     backgroundColor={'#FFF'}
                                     onClick={(event) => this.props.nextItem(event)}
                                 />

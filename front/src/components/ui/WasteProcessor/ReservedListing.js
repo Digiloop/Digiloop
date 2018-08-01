@@ -15,7 +15,7 @@ class ReservedListing extends Component {
     super(props);
     this.state = {
       itemList: [],
-      showAll: true,
+      showAll: false,
       newList: []
     }
   }
@@ -47,6 +47,7 @@ class ReservedListing extends Component {
     let newObject2 = [];
     let j = 0;
     let k = 0;
+    
 
     for (let i = 0; i < this.props.items.length; i++) {
 
@@ -59,68 +60,72 @@ class ReservedListing extends Component {
             k++
           })
           j++
-        })
-        this.setState({
-          newList: newObject2
-        })
+        })        
       }
-    }
-    console.log(this.state.newList)
-    // this.listReserved();
+    } 
+    this.props.junksToStore(newObject2);
+    this.setState({
+      newList: newObject2
+    }, () => { this.listReserved() })
+    
+    
+    
+    
+    
     // timeout because setState is too slow
-    setTimeout(() => { this.listReserved() }, 500)
-
+    // setTimeout(() => { this.listReserved() }, 500)
 
   }
 
   listReserved() {
-    const items = [];
-    console.log(this.props.userInfo)
+    const items = [];    
 
-    for (let i = 0; i < this.state.newList.length; i++) {
 
-      if (this.state.newList[i].data.company === this.props.userInfo.company && this.state.showAll) {
+    for (let i = 0; i < this.props.itemsWithOwners.length; i++) {
+
+      if (this.props.itemsWithOwners[i].data.company === this.props.userInfo.company && !this.state.showAll) {
         items.push(
           <TableRow key={i} >
-            <TableRowColumn colSpan='1'>{this.state.newList[i].category} ({this.state.newList[i].subCat})<br />
-              Ilmoitettu: {this.state.newList[i].junkdateadded}</TableRowColumn>
-            <TableRowColumn>Ilmoittaja: {this.state.newList[i].junkOwner.fname} {this.state.newList[i].junkOwner.lname}<br />
-              Varaaja: {this.state.newList[i].data.company} / {this.state.newList[i].data.lname}</TableRowColumn>
-            <TableRowColumn>Tila: {this.getStatus(this.state.newList[i].status)}</TableRowColumn>
+            <TableRowColumn colSpan='1'>{this.props.itemsWithOwners[i].category} ({this.props.itemsWithOwners[i].subCat})<br />
+              Ilmoitettu: {this.props.itemsWithOwners[i].junkdateadded}</TableRowColumn>
+            <TableRowColumn>Ilmoittaja: {this.props.itemsWithOwners[i].junkOwner.fname} {this.props.itemsWithOwners[i].junkOwner.lname}<br />
+              Varaaja: {this.props.itemsWithOwners[i].data.company} / {this.props.itemsWithOwners[i].data.lname}</TableRowColumn>
+            <TableRowColumn>Tila: {this.getStatus(this.props.itemsWithOwners[i].status)}</TableRowColumn>
             <TableRowColumn>
               <RaisedButton style={{ marginRight: '5%' }}
                 label="Peruuta"
-                onClick={e => this.cancelItemReserve(this.state.newList[i])}
-                disabled={this.props.userInfo.userlvl === '1' ? null : this.props.userInfo.id !== this.state.newList[i].fetcher
-                  /*(this.props.userInfo.id !== this.state.newList[i].fetcher) || this.props.userInfo.userlvl !== '2'*/}
+                onClick={e => this.cancelItemReserve(this.props.itemsWithOwners[i])}
+                disabled={this.props.userInfo.userlvl === '1' ? null : this.props.userInfo.id !== this.props.itemsWithOwners[i].fetcher}
               />
               <RaisedButton
                 label='-->'
-                onClick={e => this.reserve(this.state.newList[i].status, this.state.newList[i])}
-                disabled={this.props.userInfo.userlvl === '1' ? null : this.props.userInfo.id !== this.state.newList[i].fetcher}
+                onClick={e => this.reserve(this.props.itemsWithOwners[i].status, this.props.itemsWithOwners[i])}
+                disabled={this.props.userInfo.userlvl === '1' ? null : this.props.userInfo.id !== this.props.itemsWithOwners[i].fetcher}
               />
             </TableRowColumn>
           </TableRow>
         )
       }
-      if (!this.state.showAll) {
+      if (this.state.showAll) {
         items.push(
           <TableRow key={i} >
-            <TableRowColumn colSpan='1'>{this.state.newList[i].category} ({this.state.newList[i].subCat})<br />
-              Ilmoitettu: {this.state.newList[i].junkdateadded}</TableRowColumn>
-            <TableRowColumn>Ilmoittaja: {this.state.newList[i].junkOwner.fname} {this.state.newList[i].junkOwner.lname}<br />
-              Varaaja: {this.state.newList[i].data.company}</TableRowColumn>
-            <TableRowColumn>Tila: {this.getStatus(this.state.newList[i].status)}</TableRowColumn>
+            <TableRowColumn colSpan='1'>{this.props.itemsWithOwners[i].category} ({this.props.itemsWithOwners[i].subCat})<br />
+              Ilmoitettu: {this.props.itemsWithOwners[i].junkdateadded}</TableRowColumn>
+            <TableRowColumn>Ilmoittaja: {this.props.itemsWithOwners[i].junkOwner.fname} {this.props.itemsWithOwners[i].junkOwner.lname}<br />
+              Varaaja: {this.props.itemsWithOwners[i].data.company}</TableRowColumn>
+            <TableRowColumn>Tila: {this.getStatus(this.props.itemsWithOwners[i].status)}</TableRowColumn>
             <TableRowColumn>
               <RaisedButton style={{ marginRight: '5%' }}
                 label="Peruuta"
-                onClick={e => this.cancelItemReserve(this.state.newList[i])}
-                disabled={this.props.userInfo.id !== this.state.newList[i].fetcher}
+                onClick={e => this.cancelItemReserve(this.props.itemsWithOwners[i])}
+                disabled={this.props.userInfo.userlvl === '1' ? 
+                this.props.itemsWithOwners[i].data.company !== this.props.userInfo.company : this.props.userInfo.id !== this.props.itemsWithOwners[i].fetcher}
               />
               <RaisedButton
                 label='-->'
-                onClick={e => this.reserve(this.state.newList[i].status, this.state.newList[i])}
-                disabled={this.props.userInfo.id !== this.state.newList[i].fetcher}
+                onClick={e => this.reserve(this.props.itemsWithOwners[i].status, this.props.itemsWithOwners[i])}
+                disabled={this.props.userInfo.userlvl === '1' ? 
+                this.props.itemsWithOwners[i].data.company !== this.props.userInfo.company : this.props.userInfo.id !== this.props.itemsWithOwners[i].fetcher}
               />
             </TableRowColumn>
           </TableRow>
@@ -129,7 +134,7 @@ class ReservedListing extends Component {
     }
     this.setState({
       itemList: items
-    })
+    })    
   }
 
   // get the list of available junks
@@ -162,19 +167,19 @@ class ReservedListing extends Component {
   }
 
   render() {
-
+    
 
     return (
       <div className="ReservedPageContainer">
         <RaisedButton
           style={{ margin: '2%' }}
-          label={this.state.showAll ? 'Näytä kaikki' : 'Näytä omat'}
+          label={!this.state.showAll ? 'Näytä kaikki' : 'Näytä omat'}
           onClick={(event) => this.setState({ showAll: !this.state.showAll }, function () { this.listReserved() })}
         />
         <MuiThemeProvider>
           <Table>
             <TableBody displayRowCheckbox={false}>
-              {this.state.itemList}
+              { this.state.itemList }
             </TableBody>
           </Table>
         </MuiThemeProvider>

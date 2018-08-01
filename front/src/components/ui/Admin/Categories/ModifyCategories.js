@@ -89,6 +89,8 @@ class ModifyCategories extends Component {
 
     // picture
     onDrop(picture) {
+        console.log('Kukkuu')
+        console.log(picture)
         this.setState({
             pictures: picture[picture.length - 1]
         });
@@ -292,7 +294,6 @@ class ModifyCategories extends Component {
         const cats = [];
         const subCats = [];
         const fakeCats = [];
-
 
         // loop categories
         for (let i = 0; i < this.state.cats.length; i++) {

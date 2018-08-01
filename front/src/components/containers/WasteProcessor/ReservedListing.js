@@ -1,18 +1,19 @@
 import ReservedListing from '../../ui/WasteProcessor/ReservedListing'
 import { connect } from 'react-redux'
-import { setResList } from '../../../actions';
+import { setResListOwners } from '../../../actions';
 
 const mapStateToProps = (state, props) =>
   ({
     items: state.resList,
+    itemsWithOwners: state.resListWithOwnersData,
     userInfo: state.loginInfo
   })
 
 const mapDispatchToProps = dispatch =>
   ({
-    itemsToStore(resList){
+    junksToStore(resListWithOwnersData){
       dispatch(
-        setResList(resList)
+        setResListOwners(resListWithOwnersData)
       )
     }
   })

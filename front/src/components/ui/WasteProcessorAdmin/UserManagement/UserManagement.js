@@ -21,7 +21,6 @@ class UserManagement extends Component {
     }
 
     handleClick = (event, data) => {
-        console.log(data);
         this.setState({ data: data });
         this.handleDialogOpen();
 

@@ -111,12 +111,11 @@ class Admin extends Component {
       this.state.users.sort(compareValues('userlvl'));
     }
 
-
     // get users
     for (let i = 0; i < this.state.users.length; i++) {
 
       if ((this.state.users[i].userlvl === '0' && this.state.listAdmins)
-        || (this.state.users[i].userlvl === '1' && this.state.listWasteprocessors)
+        || (this.state.users[i].userlvl === '1' || this.state.users[i].userlvl === '3' && this.state.listWasteprocessors)
         || (this.state.users[i].userlvl === '2' && this.state.listEndUsers)
       ) {
         if (this.state.rows[visibleRowsCount]) {
@@ -138,8 +137,9 @@ class Admin extends Component {
               </TableRowColumn>
               <TableRowColumn colSpan='1'>
                 {this.state.users[i].userlvl === '0' ? 'Admin' : ''}
-                {this.state.users[i].userlvl === '1' ? 'Käsittelijä' : ''}
+                {this.state.users[i].userlvl === '1' ? 'Käsittelijä-Admin' : ''}
                 {this.state.users[i].userlvl === '2' ? 'Loppukäyttäjä' : ''}
+                {this.state.users[i].userlvl === '3' ? 'Käsittelijä' : ''}
               </TableRowColumn>
               <TableRowColumn colSpan='1'>
                 <RaisedButton
@@ -154,13 +154,14 @@ class Admin extends Component {
         } else {
           users.push(
             <TableRow key={i}>
-              <TableRowColumn colSpan='3'>
+              <TableRowColumn colSpan='2'>
                 {this.state.users[i].fname}{' ' + this.state.users[i].lname}
               </TableRowColumn>
-              <TableRowColumn colSpan='1'>
+              <TableRowColumn colSpan='2'>
                 {this.state.users[i].userlvl === '0' ? 'Admin' : ''}
-                {this.state.users[i].userlvl === '1' ? 'Käsittelijä' : ''}
+                {this.state.users[i].userlvl === '1' ? 'Käsittelijä-Admin' : ''}
                 {this.state.users[i].userlvl === '2' ? 'Loppukäyttäjä' : ''}
+                {this.state.users[i].userlvl === '3' ? 'Käsittelijä' : ''}
               </TableRowColumn>
               <TableRowColumn colSpan='1'>
                 <RaisedButton

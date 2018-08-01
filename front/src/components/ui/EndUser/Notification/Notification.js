@@ -151,7 +151,7 @@ class Notification extends Component {
             </TableRowColumn>
           </TableRow>
         )
-      }
+      }      
     }
 
     return (
@@ -160,7 +160,7 @@ class Notification extends Component {
         <div className='frontPageBox'>
           <Table>
             <TableBody displayRowCheckbox={false}>
-              {validNotifs}
+              {!validNotifs.length ? <p>Ei ilmoituksia</p> : validNotifs }
             </TableBody>
           </Table>
           {dialog}

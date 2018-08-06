@@ -124,7 +124,7 @@ app.use(baseurl, categories)
 app.all('*', middleware.isLoggedIn)
 app.use(baseurl, announcements, users, items)
 //app.use('/', categories, items); // http://193.166.72.18/categories
-app.use(baseurl + '/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': true }))
+app.use(baseurl+'/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': true }))
 //app.use('/items5', items);
 //app.use('/birds', birds) //<<- toimia esimerkki
 //'./app/maint'

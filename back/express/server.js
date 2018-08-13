@@ -30,7 +30,7 @@ var recoverPassword = require('./routes/recoverPassword')
 var middleware = require('./code/middleware.js');
 //MemoryStore
 var RedisStore = require('connect-redis')(session)
-//var MemoryStore = require('session-memory-store')(session);
+var MemoryStore = require('session-memory-store')(session);
 var compression = require('compression')
 var apicache = require('apicache')
 var redis = require('redis')
@@ -51,7 +51,7 @@ let cacheredis = apicache.options({
 require('./passport')(passport); // pass passport for configuration
 
 //CORS
-let whitelist = ['http://localhost:3000', 'http://35.228.227.224:3000', 'http://127.0.0.1'];
+let whitelist = ['http://localhost:3000', 'http://35.228.227.224:3000'];
 var corsOptions = {
     origin: function (origin, callback) {
         if (whitelist.indexOf(origin) !== -1) {
@@ -93,7 +93,8 @@ app.use(session({
     saveUninitialized: false,
     cookie: { secure: true },
     store: new RedisStore,
-    name: 'KierratettyKeksi.sid'
+    //store: new MemoryStore,
+    name: 'DeviKeksi.sid'
 }));
 
 
@@ -116,7 +117,7 @@ require('./routes/routes.js')(app, passport, baseurl);
 //app.use(cacheredis('2 minutes'))
 app.use(baseurl, recoverPassword);
 app.use(baseurl, categories)
-app.all('*', middleware.isLoggedIn)
+//app.all('*', middleware.isLoggedIn)
 app.use(baseurl, announcements, users, items)
 //app.use('/', categories, items); // http://193.166.72.18/categories
 app.use(baseurl + '/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': true }))

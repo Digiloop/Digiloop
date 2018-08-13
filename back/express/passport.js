@@ -72,7 +72,7 @@ module.exports = function (passport) {
                 var insertQuery = "INSERT INTO users ( password, fname, lname, email, phone, address, zipcode, city, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?)";
 
                 await sqldatahaku.querySql(insertQuery, [newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.userlvl, newUserMysql.Status])
-                //await maileri.mail(newUserMysql.email,pass)
+                await maileri.mail(newUserMysql.email,pass)
                 //newUserMysql.id = rows.insertId;
                 //let final = await sqldatahaku.querySql('select * from users where email = ?', newUserMysql.email)
                 //return done(null, final)
@@ -121,7 +121,7 @@ module.exports = function (passport) {
                 await sqldatahaku.querySql(insertQuery, [newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.company, newUserMysql.ytunnus, newUserMysql.userlvl, newUserMysql.Status])
                 //newUserMysql.id = rows.insertId;
 
-                //await maileri.mail(newUserMysql.email, pass)
+                await maileri.mail(newUserMysql.email, pass)
                 //return done(null, newUserMysql);
                 let final = await sqldatahaku.querySql("SELECT * FROM users WHERE email = ?", [email])
                 return done(null, final[0])
@@ -170,7 +170,7 @@ module.exports = function (passport) {
                 await sqldatahaku.querySql(insertQuery, [newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.company, newUserMysql.ytunnus, newUserMysql.userlvl, newUserMysql.Status])
                 //newUserMysql.id = rows.insertId;
 
-                //await maileri.mail(newUserMysql.email, pass)
+                await maileri.mail(newUserMysql.email, pass)
                 //return done(null, newUserMysql);
                 let final = await sqldatahaku.querySql("SELECT * FROM users WHERE email = ?", [email])
                 return done(null, final[0])

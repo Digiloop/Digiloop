@@ -156,7 +156,8 @@ class WasteProcessor extends Component {
 
   // refresh function, for when reservationListing has done something to change the items (ie. reserve one)
   refreshJunks() {
-    this.getJunksData();
+    this.props.refreshItem();
+    this.getJunksData();    
   }
 
   showSearchOptions = () => {

@@ -7,7 +7,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
-import { getJunkData } from '../../../utils/fetchItems';
+import { getJunkData, getJunkOwnerData } from '../../../utils/fetchItems';
 
 class HistoryListing extends Component {
 constructor(props){
@@ -17,16 +17,6 @@ constructor(props){
   }
   this.listHistory = this.listHistory.bind(this);
  }
-
-
-
- // fetch junk data
-getJunksData() {
-  getJunkData().then((junks) => {
-    this.props.itemsToStore(junks);
-    this.listHistory();
-  });
-}
 
 
 listHistory(){
@@ -51,7 +41,7 @@ listHistory(){
 }
 
 componentDidMount(){
-  this.getJunksData();
+  this.listHistory();  
 }
 
 getStatus(status){

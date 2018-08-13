@@ -14,6 +14,9 @@ import Varauskartta from '../../containers/WasteProcessor/Varauskartta/Varauskar
 import Notification from '../../containers/Admin/Notification'
 import UserManagementMain from './UserManagement/UserManagementMain'
 
+// fetches
+import { getJunkData, getJunkOwnerData } from '../../../utils/fetchItems';
+
 
 
 class WasteProcessorAdmin extends Component {
@@ -24,7 +27,39 @@ class WasteProcessorAdmin extends Component {
       open: false,
       openSnackBar: false
     }
+    this.refreshItems = this.refreshItems.bind(this);
   }
+
+  // fetch junk data
+getJunksData() {
+  getJunkData().then((junks) => {
+    this.props.itemsToStore(junks);
+    this.createNewList();
+  });
+}
+
+createNewList() {
+  let newObject = [];
+  let newObject2 = [];
+  let j = 0;
+  let k = 0;
+  
+  for (let i = 0; i < this.props.items.length; i++) {
+
+    if (this.props.items[i].status === 2 || this.props.items[i].status === 3) {
+
+      getJunkOwnerData(this.props.items[i].fetcher).then((data) => {
+        newObject[j] = Object.assign({ data }, this.props.items[i])
+        getJunkOwnerData(this.props.items[i].owner).then((junkOwner) => {
+          newObject2[k] = Object.assign({ junkOwner }, newObject[k])
+          k++
+        })
+        j++
+      })        
+    }
+  } 
+  this.props.junksToStore(newObject2);  
+}
 
   // changes the tabs
   handleChange = (value) => {
@@ -49,6 +84,14 @@ class WasteProcessorAdmin extends Component {
     this.props.onNewLogout({
       userlvl: -1
     });
+  }
+
+  refreshItems() {
+    this.getJunksData();  
+  }
+
+  componentDidMount(){
+    this.getJunksData();  
   }
 
   // drawer selector
@@ -111,8 +154,8 @@ class WasteProcessorAdmin extends Component {
             </Toolbar>
           </AppBar>
           {this.state.index === 0 && <HistoryListing />}
-          {this.state.index === 1 && <ReservedListing />}
-          {this.state.index === 2 && <Varauskartta />}
+          {this.state.index === 1 && <ReservedListing refreshItem={this.refreshItems} />}
+          {this.state.index === 2 && <Varauskartta refreshItem={this.refreshItems} />}
           {this.state.index === 3 && <Notification />}
           {this.state.index === 5 && <UserManagementMain />}
 

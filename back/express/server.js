@@ -117,7 +117,7 @@ require('./routes/routes.js')(app, passport, baseurl);
 //app.use(cacheredis('2 minutes'))
 app.use(baseurl, recoverPassword);
 app.use(baseurl, categories)
-//app.all('*', middleware.isLoggedIn)
+app.all('*', middleware.isLoggedIn)
 app.use(baseurl, announcements, users, items)
 //app.use('/', categories, items); // http://193.166.72.18/categories
 app.use(baseurl + '/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': true }))

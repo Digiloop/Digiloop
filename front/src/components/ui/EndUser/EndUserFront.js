@@ -3,13 +3,17 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { AppBar, Drawer, Menu, MenuItem, ToolbarTitle } from 'material-ui';
 import { Toolbar, IconButton, Divider } from 'material-ui';
 import MenuIcon from '@material-ui/icons/Menu';
+import /*Allahu*/ Snackbar from 'material-ui/Snackbar';
+import { Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText } from '@material-ui/core';
+
+// subpages
 import FrontPageRedirect from './FrontPage/FrontPageRedirect';
 import FrontPage from '../../containers/EndUser/FrontPage/FrontPage';
 import Profile from './Profile/ProfileMain';
 import Historia from './History/History';
-import { logOut } from '../../../utils/login';
 
-import /*Allahu*/ Snackbar from 'material-ui/Snackbar';
+// fetches
+import { logOut } from '../../../utils/login';
 
 class EndUserFront extends Component {
   constructor(props) {
@@ -20,6 +24,8 @@ class EndUserFront extends Component {
       value: false,
       allahuSnackbarOpen: false, // junk added snackbar
       openSnackBar: false, // profile updated snackbar
+      scroll: 'paper',
+      dialogOpen: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.getPageName = this.getPageName.bind(this);
@@ -101,6 +107,19 @@ class EndUserFront extends Component {
   // closes profile updated snackbar
   handleSnackBarClose = () => this.setState({ openSnackBar: false })
 
+  // open dialog
+  handleDialogOpen = () => {
+    this.setState({
+      open: false,
+      dialogOpen: true
+    })
+  }
+
+  // close dialog
+  handleDialogClose = () => {
+    this.setState({ dialogOpen: false })
+  }
+
   render() {
 
     const styles = {
@@ -110,7 +129,22 @@ class EndUserFront extends Component {
       },
     }
 
-    
+    let i = 0;
+    const dialog = [];
+
+    dialog.push(
+      <Dialog key={i}
+        style={{ visibility: 'visible' }}
+        open={this.state.dialogOpen}
+        onClose={this.handleDialogClose}
+        scroll={this.state.scroll}
+        fullWidth={true}
+      >
+        <DialogTitle>Anna palautetta</DialogTitle>
+      </Dialog>
+    )
+
+
     return (
       <MuiThemeProvider>
         <div className="frontpake">
@@ -133,6 +167,7 @@ class EndUserFront extends Component {
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={-1}>Etusivu</MenuItem>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={1}>Tilaukset</MenuItem>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={2}>Profiili</MenuItem>
+                    <MenuItem onClick={this.handleDialogOpen} style={{ color: 'white' }}>Anna palautetta</MenuItem>
                     <Divider />
                     <br />
                     <MenuItem style={{ color: 'white' }} onClick={this.logout} value={'Logout'}>Kirjaudu ulos</MenuItem>
@@ -145,6 +180,7 @@ class EndUserFront extends Component {
           {this.state.index === 0 && <FrontPage toggleAllahuSnackbar={this.toggleAllahuSnackbar} />}
           {this.state.index === 1 && <Historia />}
           {this.state.index === 2 && <Profile onUpdate={this.handleUpdate} />}
+          {dialog}
           <Snackbar // junk added
             open={this.state.allahuSnackbarOpen}
             autoHideDuration={2500}

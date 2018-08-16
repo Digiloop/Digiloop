@@ -60,9 +60,13 @@ class NewUser extends Component {
     }
 
     Cancel(event) {
-        /* this.props.onNewLogin({
-            userlvl: -1
-        });*/
+        this.setState({
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+            password: ''
+        })
     }
 
 
@@ -290,7 +294,7 @@ class NewUser extends Component {
                     </table>
 
                     <FlatButton className="cancelUpdateButton"
-                        label="Peruuta"
+                        label="Tyhjennä"
                         hoverColor="#FFF"
                         backgroundColor="#FFF"
                         style={{ margin: '15px' }}

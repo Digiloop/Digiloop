@@ -162,9 +162,10 @@ class Notification extends Component {
   }
 
   // close dialog
-  handleDialogClose = () => {
-    this.setState({ open: false })
-    this.getNotifications();
+  handleDialogClose = () => {    
+    this.setState({ open: false }) 
+    // sets rownumber to undef 
+    this.getNotificationInfo();
   }
 
 

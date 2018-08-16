@@ -6,7 +6,7 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-import { getJunkData } from '../../../utils/fetchItems';
+import { getOwnJunkData } from '../../../utils/fetchItems';
 
 class HistoryListing extends Component {
 constructor(props){
@@ -21,8 +21,10 @@ constructor(props){
 
  // fetch junk data
 getJunksData() {
-  getJunkData().then((junks) => {
-    this.props.itemsToStore(junks);
+  getOwnJunkData().then((junks) => {
+    this.setState({
+      items: junks
+    })
     this.listHistory();
   });
 }
@@ -30,17 +32,17 @@ getJunksData() {
 
 listHistory(){
   const items = [];
-  for(let i = 0; i < this.props.items.length; i++){
-    if(this.props.items[i].status === 4){
+  for(let i = 0; i < this.state.items.length; i++){
+    if(this.state.items[i].status === 4){
     items.push(
       <TableRow key={i} >
-        <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br/>Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
-        <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].owner}</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].fetcher}</TableRowColumn>
-        <TableRowColumn>Tila { this.getStatus( this.props.items[i].status ) }</TableRowColumn>
+        <TableRowColumn>{this.state.items[i].category} ({this.state.items[i].subCat})<br/>Ilmoitettu: {this.state.items[i].date}</TableRowColumn>
+        <TableRowColumn>{this.state.items[i].pcs}kpl</TableRowColumn>
+        <TableRowColumn>{this.state.items[i].size}m<sup>3</sup></TableRowColumn>
+        <TableRowColumn>{this.state.items[i].weight}kg</TableRowColumn>
+        <TableRowColumn>{this.state.items[i].owner}</TableRowColumn>
+        <TableRowColumn>{this.state.items[i].company}</TableRowColumn>
+        <TableRowColumn>Tila { this.getStatus( this.state.items[i].status ) }</TableRowColumn>
       </TableRow>
     )
   }
@@ -53,8 +55,6 @@ listHistory(){
 
 componentDidMount(){
   this.getJunksData();
-    //
-    // fetch data from backend
 }
 
 getStatus(status){
@@ -86,6 +86,7 @@ render() {
 
 
     return (
+      <div className="ReservedPageContainer">
       <MuiThemeProvider>
         <Table>
           <TableBody displayRowCheckbox={false}>
@@ -93,6 +94,7 @@ render() {
           </TableBody>
         </Table>
       </MuiThemeProvider>
+      </div>
     );
   }
 }

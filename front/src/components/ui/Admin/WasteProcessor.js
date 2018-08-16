@@ -7,6 +7,7 @@ import { logOut } from '../../../utils/login';
 import ProfileMain from './Profile/ProfileMain'
 import Snackbar from 'material-ui/Snackbar'
 
+import HistoryListing from '../../containers/Admin/HistoryListing'
 import ReservedListing from '../../containers/Admin/ReservedListing'
 import CategoriesMain from '../../containers/Admin/Categories/CategoriesMain'
 import Varauskartta from '../../containers/Admin/Varauskartta/Varauskartta'
@@ -140,6 +141,7 @@ class AdminWasteProcessor extends Component {
                 inkBarStyle={{ display: 'none' }} > 
                 <Tab style={ this.state.index === 0 ? styles.tabActive : styles.tabNotActive } label="Kategoriat" className="menu" value={0} />
                 <Tab style={ this.state.index === 1 ? styles.tabActive : styles.tabNotActive } label="Varaukset" className="menu" value={1} />
+                <Tab style={ this.state.index === 6 ? styles.tabActive : styles.tabNotActive } label="Historia" className="menu" value={6} />
                 <Tab style={ this.state.index === 2 ? styles.tabActive : styles.tabNotActive } label="Admin" className="menu" value={2} />
                 <Tab style={ this.state.index === 3 ? styles.tabActive : styles.tabNotActive } label="Varauskartta" className="menu" value={3} />
                 <Tab style={ this.state.index === 4 ? styles.tabActive : styles.tabNotActive } label="Ilmoitukset" className="menu" value={4} />
@@ -164,6 +166,7 @@ class AdminWasteProcessor extends Component {
           {this.state.index === 2 && <Admin />}
           {this.state.index === 3 && <Varauskartta refreshItem={this.refreshItems} />}
           {this.state.index === 4 && <Notification />}
+          {this.state.index === 6 && <HistoryListing refreshItem={this.refreshItems} />}
 
           {this.state.index === 5 && <ProfileMain onUpdate={this.handleUpdate} />}
         </div>

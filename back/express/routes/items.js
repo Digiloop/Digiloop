@@ -61,7 +61,7 @@ router.post('/itemReserve', middleware.wrap(async (req, res, next) => {
 
 router.get('/itemReservations', middleware.wrap(async (req, res, next) => {
     //await sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [2, req.user.id, req.body.junkId])
-    result = await itemC.itemReservations(req.user.company);
+    result = await itemC.itemReservations();
     res.json(result)
 }));
 

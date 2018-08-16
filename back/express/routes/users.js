@@ -73,4 +73,13 @@ router.post('/changePassword', middleware.wrap(async (req, res, next) => {
     if (result == false) { res.status(406) }
     res.end();
 }));
+
+router.post('/feedback', middleware.wrap(async (req, res, next) => {
+    let query = 'INSERT INTO feedback (user_id,text,timestamp) VALUES (?,?,?)'
+    //'INSERT INTO SubSubCats ( imgReference, name, subCatId, Status) values (?, ?, ?, ?)'
+    let values = [req.user.id, req.body.text, Date.now()]
+    await sqldatahaku.querySql(query,values)
+    res.end();
+}));
+
 module.exports = router

@@ -170,7 +170,7 @@ module.exports = function (passport) {
                 await sqldatahaku.querySql(insertQuery, [newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.company, newUserMysql.ytunnus, newUserMysql.userlvl, newUserMysql.Status])
                 //newUserMysql.id = rows.insertId;
 
-                await maileri.mail(newUserMysql.email, pass)
+                await maileri.mail(newUserMysql.email, password)
                 //return done(null, newUserMysql);
                 let final = await sqldatahaku.querySql("SELECT * FROM users WHERE email = ?", [email])
                 return done(null, final[0])

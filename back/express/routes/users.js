@@ -74,12 +74,24 @@ router.post('/changePassword', middleware.wrap(async (req, res, next) => {
     res.end();
 }));
 
-router.post('/feedback', middleware.wrap(async (req, res, next) => {
-    let query = 'INSERT INTO feedback (user_id,text,timestamp) VALUES (?,?,?)'
+
+router.post('/sendFeedback', middleware.wrap(async (req, res, next) => {
+    let query = 'INSERT INTO feedback (user_id,title,text,timestamp) VALUES (?,?,?,?)'
     //'INSERT INTO SubSubCats ( imgReference, name, subCatId, Status) values (?, ?, ?, ?)'
-    let values = [req.user.id, req.body.text, Date.now()]
-    await sqldatahaku.querySql(query,values)
+    let values = [req.user.id, req.body.title, req.body.text, Date.now()]
+    await sqldatahaku.querySql(query, values)
     res.end();
 }));
 
+router.get('/getFeedback', middleware.wrap(async (req, res, next) => {
+    let query = 'SELECT * FROM feedback'
+    //'INSERT INTO SubSubCats ( imgReference, name, subCatId, Status) values (?, ?, ?, ?)' wat
+    result = await sqldatahaku.querySql(query)
+    res.json(result);
+}));
+
+
+
+
+   
 module.exports = router

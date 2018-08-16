@@ -97,7 +97,7 @@ module.exports = class misc {
 
             //return await this.spliceArray(arr,18)
 
-            let finalArr = await this.spliceArray(arr, 19) // 19 picturen kanssa 18 ilman
+            let finalArr = await this.spliceArray(arr, 19) // 20+ picturen kanssa 18 ilman
 
             for (let u = 0; u < array1.length; u++) {
                 await func(query, finalArr[u])  //toimii

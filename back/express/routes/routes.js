@@ -3,9 +3,9 @@ var apicache = require('apicache');
 //var baseurl = '/prod'
 module.exports = (app, passport, baseurl) => {
 
-    //app.get('/prod/session', function (req, res) {res.json(baseurl) });
-    //app.get('/apicache', function (req, res) {res.json(apicache.getIndex()) });
-    //app.get('/cacheclear', function (req, res) {apicache.clear()});
+    app.get(baseurl+'/prod/session', function (req, res) {res.json(baseurl) });
+    app.get(baseurl+'/apicache', function (req, res) {res.json(apicache.getIndex()) });
+    app.get(baseurl+'/cacheclear', function (req, res) {apicache.clear()});
     //app.get('/', function (req, res) { });
 
     // =====================================

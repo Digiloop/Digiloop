@@ -6,8 +6,7 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-import RaisedButton from 'material-ui/RaisedButton';
-import { getJunkData, getJunkOwnerData } from '../../../utils/fetchItems';
+import { getOwnJunkData } from '../../../utils/fetchItems';
 
 class HistoryListing extends Component {
 constructor(props){
@@ -18,18 +17,29 @@ constructor(props){
   this.listHistory = this.listHistory.bind(this);
  }
 
+   // fetch junk data
+getJunksData() {
+  getOwnJunkData().then((junks) => {
+    this.setState({
+      items: junks
+    })
+    this.listHistory();
+  });
+}
+
 
 listHistory(){
   const items = [];
-  for(let i = 0; i < this.props.items.length; i++){
-    if(this.props.items[i].status === 4){
+  console.log(this.state.items)
+  for(let i = 0; i < this.state.items.length; i++){
+    if(this.state.items[i].status === 4 && this.state.items[i].company === this.props.userInfo.company){
     items.push(
       <TableRow key={i} >
-        <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br/>Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
-        <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
-        <TableRowColumn>Tila { this.getStatus( this.props.items[i].status ) }</TableRowColumn>
+        <TableRowColumn>{this.state.items[i].category} ({this.state.items[i].subCat})<br/>Ilmoitettu: {this.state.items[i].date}</TableRowColumn>
+        <TableRowColumn>{this.state.items[i].pcs}kpl</TableRowColumn>
+        <TableRowColumn>{this.state.items[i].size}m<sup>3</sup></TableRowColumn>
+        <TableRowColumn>{this.state.items[i].weight}kg</TableRowColumn>
+        <TableRowColumn>Tila { this.getStatus( this.state.items[i].status ) }</TableRowColumn>
       </TableRow>
     )
   }
@@ -41,7 +51,7 @@ listHistory(){
 }
 
 componentDidMount(){
-  this.listHistory();  
+  this.getJunksData();
 }
 
 getStatus(status){

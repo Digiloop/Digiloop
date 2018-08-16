@@ -8,13 +8,6 @@ import ReservationListing from './ReservationListing'
 import ReservationListOptions from '../../../containers/Admin/Varauskartta/ReservationListOptions'
 
 import { getJunkData, updateJunkData } from '../../../../utils/fetchItems';
-//import { getCats, getSubCats } from '../../../../utils/fetchCategories';
-// fetch function
-
-
-// import Slider from 'material-ui/Slider';
-// import { Container, Row, Col } from 'reactstrap';
-// import AppBar from 'material-ui/AppBar';
 
 
 class WasteProcessor extends Component {
@@ -23,20 +16,28 @@ class WasteProcessor extends Component {
     this.state = {
       showSO: false,
       rliFilt: [],
+      update: false,
+      lastTimestamp: undefined
     }
     this.rliFiltering = this.rliFiltering.bind(this);
     this.getJunksData = this.getJunksData.bind(this);
     this.getDistance = this.getDistance.bind(this);
     this.refreshJunks = this.refreshJunks.bind(this);
 
-    // this.updateJunks = this.updateJunks.bind(this)
+    this.updateJunks = this.updateJunks.bind(this)
   }
 
   componentDidMount() {
     this.getJunksData();
 
-    // updates new junks on one minute intervals
-    // setInterval(this.updateJunks, 1000 * 60);
+    // updates new junks on 10 seconds intervals
+    let intervalId = setInterval(this.updateJunks, 10000);
+    this.setState({ intervalId: intervalId })
+  }
+
+  componentWillUnmount() {
+    // stops the interval when page is change
+    clearInterval(this.state.intervalId)
   }
 
   handleChange = (value) => {
@@ -53,16 +54,27 @@ class WasteProcessor extends Component {
     });
   }
 
-  /* updateJunks(){
-    updateJunkData(this.props.resListItems.length).then((junks) => {
-      let updatedJunks = this.props.resListItems;
-      for(let i = 0; i < junks.length; i++){
-        updatedJunks = [...junks[i]]
+  // update junks if timestamp is changed
+  updateJunks() {
+    updateJunkData().then((res) => {
+
+      // stores first timestamp value, when entered to page
+      if (this.state.lastTimestamp === undefined) { this.state.lastTimestamp = res }
+
+      // checks if timestamp is changed
+      if (this.state.lastTimestamp !== res) {
+        this.state.update = true;
       }
-      this.props.itemsToStore(updatedJunks);
-      this.rliFiltering();
+
+      if (this.state.update) {
+        this.getJunksData();
+        this.setState({
+          update: false,
+          lastTimestamp: res // store current value to lastTimestamp
+        })
+      }
     })
-  } */
+  }
 
   // Returns the distance between two coordinates in meters
   // ©Spaghetti Baker Bros.
@@ -87,62 +99,65 @@ class WasteProcessor extends Component {
   // the filter function, that leaves only the necessary stuff to be displayed
   rliFiltering() {
     let resListItemsFiltered = [];
-    
     // loop items
     for (let i = 0; i < this.props.resListItems.length; i++) {
 
-      // initialize pass as true, fail it if checks fail
-      let pass = true;
+      if (this.props.resListItems[i].status !== 3 && this.props.resListItems[i].status !== 4) {
+
+        // initialize pass as true, fail it if checks fail
+        let pass = true;
 
 
-      // categorycheck - works perfectly
-      // check the option state at the current item's category spot
-      if (this.props.rLOpt.categories[this.props.resListItems[i].category] !== undefined) { // is initialized? ALl uninitialized are treated as true
-        if (!this.props.rLOpt.categories[this.props.resListItems[i].category]) { // is false?
+        // categorycheck - works perfectly
+        // check the option state at the current item's category spot
+        if (this.props.rLOpt.categories[this.props.resListItems[i].category] !== undefined) { // is initialized? ALl uninitialized are treated as true
+          if (!this.props.rLOpt.categories[this.props.resListItems[i].category]) { // is false?
+            pass = false;
+          }
+        }
+
+        // subcategory check - works perfectly
+        let subCat = this.props.resListItems[i].category + this.props.resListItems[i].subCat; // create the subcat full name
+
+        subCat = subCat.toLowerCase(); // eliminate case-irregularities in item categories
+        if (this.props.rLOpt.subCategories[subCat] !== undefined) { // is initialized? ALl uninitialized are treated as true
+          if (!this.props.rLOpt.subCategories[subCat]) { // is false?
+            pass = false;
+          }
+        }
+
+        // show reserved items - works perfectly
+        if (this.props.resListItems[i].status === 2 && !this.props.rLOpt.showRes) {
           pass = false;
+        }
+
+        // weight limiters - seems to work
+        if (parseInt(this.props.rLOpt.maxWeight, 10) < this.props.resListItems[i].weight || parseInt(this.props.rLOpt.minWeight, 10) > this.props.resListItems[i].weight) {
+          pass = false;
+        }
+
+        // volume limiters - seems to work
+        if (parseInt(this.props.rLOpt.maxSize, 10) < this.props.resListItems[i].size || parseInt(this.props.rLOpt.minSize, 10) > this.props.resListItems[i].size) {
+          pass = false;
+        }
+
+        // distance limiters - seems to work
+        // first check if location is being used, then compare it to each item and determine of the distance is
+        // longer than what the max distance in options has set
+        if (!this.props.rLOpt.userLocation.locationButtonDisable) {
+
+          if ((this.getDistance(this.props.rLOpt.userLocation.latitude, this.props.rLOpt.userLocation.longitude, this.props.resListItems[i].latitude, this.props.resListItems[i].longitude)) > (this.props.rLOpt.distance * 1000)) {
+            pass = false;
+          }
+        }
+
+
+        // if passed all checks, add to items that will be printed
+        if (pass) {
+          resListItemsFiltered.push(this.props.resListItems[i]);
         }
       }
 
-      // subcategory check - works perfectly
-      let subCat = this.props.resListItems[i].category + this.props.resListItems[i].subCat; // create the subcat full name
-
-      subCat = subCat.toLowerCase(); // eliminate case-irregularities in item categories
-      if (this.props.rLOpt.subCategories[subCat] !== undefined) { // is initialized? ALl uninitialized are treated as true
-        if (!this.props.rLOpt.subCategories[subCat]) { // is false?
-          pass = false;
-        }
-      }
-
-      // show reserved items - works perfectly
-      if (this.props.resListItems[i].status === 2 && !this.props.rLOpt.showRes) {
-        pass = false;
-      }
-
-      // weight limiters - seems to work
-      if (parseInt(this.props.rLOpt.maxWeight, 10) < this.props.resListItems[i].weight || parseInt(this.props.rLOpt.minWeight, 10) > this.props.resListItems[i].weight) {
-        pass = false;
-      }
-
-      // volume limiters - seems to work
-      if (parseInt(this.props.rLOpt.maxSize, 10) < this.props.resListItems[i].size || parseInt(this.props.rLOpt.minSize, 10) > this.props.resListItems[i].size) {
-        pass = false;
-      }
-
-      // distance limiters - seems to work
-      // first check if location is being used, then compare it to each item and determine of the distance is
-      // longer than what the max distance in options has set
-      if (!this.props.rLOpt.userLocation.locationButtonDisable) {
-
-        if ((this.getDistance(this.props.rLOpt.userLocation.latitude, this.props.rLOpt.userLocation.longitude, this.props.resListItems[i].latitude, this.props.resListItems[i].longitude)) > (this.props.rLOpt.distance * 1000)) {
-          pass = false;
-        }
-      }
-
-
-      // if passed all checks, add to items that will be printed
-      if (pass) {
-        resListItemsFiltered.push(this.props.resListItems[i]);
-      }
     }
 
     // set the filtered array in state, from which it's sent as props to children
@@ -158,6 +173,7 @@ class WasteProcessor extends Component {
 
   // refresh function, for when reservationListing has done something to change the items (ie. reserve one)
   refreshJunks() {
+    this.props.refreshItem();
     this.getJunksData();
   }
 

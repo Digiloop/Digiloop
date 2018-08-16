@@ -8,6 +8,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Dialog, DialogTitle } from '@material-ui/core';
 import { reserveItem } from '../../../../utils/reserveItems'
 
 import { BASE_URL } from '../../../../settings'
@@ -16,7 +17,8 @@ class ReservationListing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rows: []
+      rows: [],
+      open: false
     }
     //this.reserve = this.reserve.bind(this);
     //this.createStates = this.createStates.bind(this);
@@ -46,14 +48,28 @@ class ReservationListing extends Component {
     }
   }
 
- 
+
 
   // call the reserve API, setting it as reserved
-  // TODO: change into limited version, where only junkID is passed
   reserve(item) {
-    reserveItem(item.junkID).then(
-      this.props.refreshJunks
-    );
+    reserveItem(item.junkID).then((res) => {
+      if (res.status === 200) {
+        this.props.refreshJunks();
+      } else {
+        this.handleDialogOpen();
+        this.props.refreshJunks();
+      }
+    });
+  }
+
+  // open dialog
+  handleDialogOpen = () => {
+    this.setState({ open: true })
+  }
+
+  // close dialog
+  handleDialogClose = () => {
+    this.setState({ open: false })
   }
 
   // opening items
@@ -61,11 +77,11 @@ class ReservationListing extends Component {
     // create a temp array, because it's easier to edit than the state one
     let newArray = this.state.rows;
 
-    if(newArray[x]){ // closing the open item
+    if (newArray[x]) { // closing the open item
       newArray[x] = false;
     } else { // opening another means first closing the open one
-      for (let i = 0; i < newArray.length; i++){
-        if(newArray[i]){
+      for (let i = 0; i < newArray.length; i++) {
+        if (newArray[i]) {
           newArray[i] = false; // close the open one
         }
       }
@@ -87,13 +103,13 @@ class ReservationListing extends Component {
   }
 
   // "2018-01-15 22:00:00.000Z" -> 15.01.2018
-  parseTimeStamp(timeStamp){
+  parseTimeStamp(timeStamp) {
     let newStamp = timeStamp.split(/[- ]+/);
     return newStamp[2] + "." + newStamp[1] + "." + newStamp[0];
   }
 
   render() {
-    
+
     // automatic linebreaks for long texts (description) in item rows
     const rowStyle = {
       whiteSpace: 'normal',
@@ -107,30 +123,30 @@ class ReservationListing extends Component {
     // because we're reversing the list, but want to keep row numbers correct, we're looping with double variables
     // i is the regular start to end index for the rownumber
     // j is the selector for the items list, end to start
-    for (let i = 0, j = this.props.items.length - 1; i < this.props.items.length; i++, j--) {
+    for (let i = 0, j = this.props.items.length - 1; i < this.props.items.length; i++ , j--) {
 
       // define if the row is open or not. +1 is due to header row.
-      if (this.state.rows[i+1]) {
+      if (this.state.rows[i + 1]) {
 
         let imageUrl = BASE_URL + "/images/items/" + this.props.items[j].picture;
 
         items.push(
-          <TableRow key={i}  style={{height: '400px'}}>
+          <TableRow key={i} style={{ height: '400px' }}>
             <TableRowColumn style={rowStyle} colSpan="5">
-            {this.props.items[j].category} ({this.props.items[j].subCat})<br />
-            Ilmoitettu: {this.parseTimeStamp(this.props.items[j].junkdateadded)}<br />
-            {this.props.items[j].pcs}kpl<br />
-            {this.props.items[j].size}m<sup>3</sup><br />
-            {this.props.items[j].weight}kg<br />
+              {this.props.items[j].category} ({this.props.items[j].subCat})<br />
+              Ilmoitettu: {this.parseTimeStamp(this.props.items[j].junkdateadded)}<br />
+              {this.props.items[j].pcs}kpl<br />
+              {this.props.items[j].size}m<sup>3</sup><br />
+              {this.props.items[j].weight}kg<br />
 
-            <img src={imageUrl} alt='' style={{maxWidth: '200px'}} />
+              <img src={imageUrl} alt='' style={{ maxWidth: '200px' }} />
 
-            <div>{this.props.items[j].description}</div><br />
+              <div>{this.props.items[j].description}</div><br />
             </TableRowColumn>
 
-            {this.props.items[j].status === 1 ? 
-            <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[j])} /></TableRowColumn> : 
-            <TableRowColumn>{this.getStatus(this.props.items[j].status)}</TableRowColumn>}
+            {this.props.items[j].status === 1 ?
+              <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[j])} /></TableRowColumn> :
+              <TableRowColumn>{this.getStatus(this.props.items[j].status)}</TableRowColumn>}
           </TableRow>
         )
       } else {
@@ -139,9 +155,9 @@ class ReservationListing extends Component {
             <TableRowColumn colSpan="4">{this.props.items[j].category} ({this.props.items[j].subCat})<br />Ilmoitettu: {this.props.items[j].date}</TableRowColumn>
 
             <TableRowColumn></TableRowColumn>
-            {this.props.items[j].status === 1 ? 
-            <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[j])} /></TableRowColumn> : 
-            <TableRowColumn>{this.getStatus(this.props.items[j].status)}</TableRowColumn>}
+            {this.props.items[j].status === 1 ?
+              <TableRowColumn><RaisedButton label="Varaa" onClick={e => this.reserve(this.props.items[j])} /></TableRowColumn> :
+              <TableRowColumn>{this.getStatus(this.props.items[j].status)}</TableRowColumn>}
 
           </TableRow>
         )
@@ -150,19 +166,32 @@ class ReservationListing extends Component {
 
     return (
       <MuiThemeProvider>
-        <Table onCellClick={rowNumber => this.expand(rowNumber)}>
-          <TableBody displayRowCheckbox={false}>
-            <TableRow>
-              <TableHeaderColumn>Nimi</TableHeaderColumn>
-              <TableHeaderColumn>Määrä</TableHeaderColumn>
-              <TableHeaderColumn>Tilavuus</TableHeaderColumn>
-              <TableHeaderColumn>Paino</TableHeaderColumn>
-              <TableHeaderColumn>Varaa</TableHeaderColumn>
-              <TableHeaderColumn>Tila</TableHeaderColumn>
-            </TableRow>
-            {items}
-          </TableBody>
-        </Table>
+        <div>
+          <Table onCellClick={rowNumber => this.expand(rowNumber)}>
+            <TableBody displayRowCheckbox={false}>
+              <TableRow>
+                <TableHeaderColumn>Nimi</TableHeaderColumn>
+                <TableHeaderColumn>Määrä</TableHeaderColumn>
+                <TableHeaderColumn>Tilavuus</TableHeaderColumn>
+                <TableHeaderColumn>Paino</TableHeaderColumn>
+                <TableHeaderColumn>Varaa</TableHeaderColumn>
+                <TableHeaderColumn>Tila</TableHeaderColumn>
+              </TableRow>
+              {items}
+            </TableBody>
+          </Table>
+
+          <Dialog key={'i'} // if item has been reserved
+            style={{ visibility: 'visible' }}
+            open={this.state.open}
+            onClose={this.handleDialogClose}
+            fullWidth={true}
+            scroll={'paper'}
+            aria-labelledby="scroll-dialog-title"
+          >
+            <DialogTitle>Tuotetta ei voi varata, se saattaa olla jo varattu.</DialogTitle>
+          </Dialog >
+        </div>
       </MuiThemeProvider>
     );
   }

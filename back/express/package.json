@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "apicache": "^1.2.3",
+    "async-redis": "^1.1.4",
     "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",
@@ -25,7 +26,8 @@
     "passport-local": "^1.0.0",
     "password-generator": "^2.2.0",
     "redis": "^2.8.0",
-    "serve-index": "^1.9.1"
+    "serve-index": "^1.9.1",
+    "session-memory-store": "^0.2.2"
   },
   "devDependencies": {}
 }

@@ -4,20 +4,20 @@ var misc = require('../code/misc.js'); var misk = new misc;
 var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata; //haetaan luokka joka hoitaa sql sydeemeit
 var itemadd = require('../code/itemadd.js');
 var itemC = require('../code/itemsC.js');
+var redis = require('../config/redisdb.js')
 var middleware = require('../code/middleware.js');
-var apicache = require('apicache')
 //GET
 router.route('/items')
     .get(middleware.wrap(async (req, res, next) => {
-        req.apicacheGroup = 'tavarat'
-        let result = await itemC.itemGet(req.user.id, req.user.userlvl, 2, 1)//userid, userlvl, userlvlrequired, status = hidden or visible 0 / 1
+        let result = await itemC.itemGet(req.user.userlvl)//userid, userlvl, userlvlrequired, status = hidden or visible 0 / 1
+        
         res.json(result)
 
     }))
     .delete(middleware.wrap(async (req, res, next) => {
-
-        await itemC.itemGet(req.user.id,req.body.id)
-        await apicache.clear('tavarat')
+        console.log('tätä logataan ' + req.body)
+        console.log(req.body)
+        await itemC.itemDelete(req.user.id, req.body.id)
         res.end()
 
     }))
@@ -34,29 +34,43 @@ router.post('/itemAdd', middleware.wrap(async (req, res, next) => {
     const secondary = [['date', Date.now()], ['datetoday', misk.dateToday()], ['owner', 1], ['userid', req.user.id]]//req.user.id
 
     await misk.createArray(splittedArray, secondary, req.files, sqldatahaku.querySql, query, msngImg)
-    await apicache.clear('tavarat')
+    redis.setTimestamp();
     res.end();
 }));
 
 router.post('/itemStatus', middleware.wrap(async (req, res, next) => {
     await sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [req.body.status, req.body.fetcher, req.body.junkId])
-    await apicache.clear('tavarat')
+    redis.setTimestamp();
     res.end();
 }));
 
 router.post('/itemReserveCancel', middleware.wrap(async (req, res, next) => {
     await sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [1, 0, req.body.junkId])
-    await apicache.clear('tavarat')
+    redis.setTimestamp();
     res.end();
 }));
 
 //tarttee checking että ei voi varata muitten varattuja
 router.post('/itemReserve', middleware.wrap(async (req, res, next) => {
-    await sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [2, req.user.id, req.body.junkId])
-    await apicache.clear('tavarat')
+    //await sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [2, req.user.id, req.body.junkId])
+    result = await itemC.itemReserve(req.user.id, req.body.junkId, req.user.company);
+    if (result == 410) { res.status(410) } else { result }
+    redis.setTimestamp();
     res.end();
 }));
 
+router.get('/itemReservations', middleware.wrap(async (req, res, next) => {
+    //await sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [2, req.user.id, req.body.junkId])
+    result = await itemC.itemReservations(req.user.company);
+    res.json(result)
+}));
+
+router.get('/itemStamp', middleware.wrap(async (req, res, next) => {
+
+    timestamppi = await redis.getTimestamp()
+    res.json(timestamppi);
+
+}));
 
 router.get('/profile', (req, res) => { res.json(req.user) });
 

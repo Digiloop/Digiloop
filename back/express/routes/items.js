@@ -10,7 +10,7 @@ var middleware = require('../code/middleware.js');
 router.route('/items')
     .get(middleware.wrap(async (req, res, next) => {
         let result = await itemC.itemGet(req.user.userlvl)//userid, userlvl, userlvlrequired, status = hidden or visible 0 / 1
-        
+
         res.json(result)
 
     }))
@@ -21,6 +21,28 @@ router.route('/items')
         res.end()
 
     }))
+
+router.get('/itemReservations', middleware.wrap(async (req, res, next) => {
+    //await sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [2, req.user.id, req.body.junkId])
+    result = await itemC.itemReservations();
+    res.json(result)
+}));
+
+router.get('/itemHistory', middleware.wrap(async (req, res, next) => {
+    //await sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [2, req.user.id, req.body.junkId])
+    result = await itemC.itemHistory(req.user.id);
+    res.json(result)
+}));
+
+router.get('/itemStamp', middleware.wrap(async (req, res, next) => {
+
+    timestamppi = await redis.getTimestamp()
+    res.json(timestamppi);
+
+}));
+
+router.get('/profile', (req, res) => { res.json(req.user) });
+
 
 //POST
 router.post('/itemAdd', middleware.wrap(async (req, res, next) => {
@@ -59,19 +81,5 @@ router.post('/itemReserve', middleware.wrap(async (req, res, next) => {
     res.end();
 }));
 
-router.get('/itemReservations', middleware.wrap(async (req, res, next) => {
-    //await sqldatahaku.querySql('UPDATE junk SET status = ?,fetcher = ? WHERE junkID = ?;', [2, req.user.id, req.body.junkId])
-    result = await itemC.itemReservations();
-    res.json(result)
-}));
-
-router.get('/itemStamp', middleware.wrap(async (req, res, next) => {
-
-    timestamppi = await redis.getTimestamp()
-    res.json(timestamppi);
-
-}));
-
-router.get('/profile', (req, res) => { res.json(req.user) });
 
 module.exports = router

@@ -17,8 +17,8 @@ router.route('/announcement')
         res.end()
     }))
     .put(middleware.wrap(async (req, res) => {
-        let query = 'UPDATE Announcements SET info = ?, dateBegin = ?, dateEnd = ?, title = ? WHERE id = ?'
-        let values = [req.body.info, req.body.dateBegin, req.body.dateEnd, req.body.title, req.user.id]
+        let query = 'UPDATE Announcements SET info = ?, dateBegin = ?, dateEnd = ?, title = ?, company = ? WHERE id = ?'
+        let values = [req.body.info, req.body.dateBegin, req.body.dateEnd, req.body.title, req.body.company, req.body.id]
         await sqldatahaku.querySql(query, values)
         res.end()
     }))

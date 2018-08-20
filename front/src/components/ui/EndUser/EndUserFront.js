@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { AppBar, Drawer, Menu, MenuItem, ToolbarTitle } from 'material-ui';
 import { Toolbar, IconButton, Divider } from 'material-ui';
 import MenuIcon from '@material-ui/icons/Menu';
+import /*Allahu*/ Snackbar from 'material-ui/Snackbar';
+import { Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText, TextField, Button } from '@material-ui/core';
+
+// subpages
 import FrontPageRedirect from './FrontPage/FrontPageRedirect';
 import FrontPage from '../../containers/EndUser/FrontPage/FrontPage';
 import Profile from './Profile/ProfileMain';
 import Historia from './History/History';
-import { logOut } from '../../../utils/login';
 
-import /*Allahu*/ Snackbar from 'material-ui/Snackbar';
+// fetches
+import { logOut } from '../../../utils/login';
 
 class EndUserFront extends Component {
   constructor(props) {
@@ -20,6 +23,14 @@ class EndUserFront extends Component {
       value: false,
       allahuSnackbarOpen: false, // junk added snackbar
       openSnackBar: false, // profile updated snackbar
+
+      // feedback dialog
+      scroll: 'paper',
+      dialogOpen: false,
+
+      // feedback text
+      title: '',
+      text: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.getPageName = this.getPageName.bind(this);
@@ -101,6 +112,36 @@ class EndUserFront extends Component {
   // closes profile updated snackbar
   handleSnackBarClose = () => this.setState({ openSnackBar: false })
 
+  handleFeedbackChange = name => event => {
+    this.setState({
+      [name]: event.target.value
+    })
+  };
+
+
+  sendFeedback = () => {
+    this.handleDialogClose();
+  }
+
+  // open dialog
+  handleDialogOpen = () => {
+    this.setState({
+      open: false,
+      dialogOpen: true
+    })
+  }
+
+  // close dialog
+  handleDialogClose = () => {
+    console.log(this.state.title)
+    console.log(this.state.text)
+    this.setState({
+      dialogOpen: false,
+      title: '',
+      text: ''
+    })
+  }
+
   render() {
 
     const styles = {
@@ -110,49 +151,86 @@ class EndUserFront extends Component {
       },
     }
 
-    
+    const dialog = [];
+    if (this.state.dialogOpen) {
+      dialog.push(
+        <Dialog key={'feedback'} // Feedback dialog
+          open={this.state.dialogOpen}
+          scroll={this.state.scroll}
+          fullWidth
+        >
+          <DialogTitle>Anna palautetta / Ilmoita viasta</DialogTitle>
+          <DialogContent>
+            <DialogContentText></DialogContentText>
+            <TextField
+              id='title'
+              autoFocus
+              fullWidth
+              label='Aihe'
+              onChange={this.handleFeedbackChange('title')}
+            />
+            <TextField
+              id='text'
+              label='Kirjoita tähän selite'
+              fullWidth
+              multiline
+              rows='3'
+              rowsMax='8'
+              onChange={this.handleFeedbackChange('text')}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleDialogClose}>Peruuta</Button>
+            <Button onClick={this.sendFeedback}>Lähetä</Button>
+          </DialogActions>
+        </Dialog>
+      )
+    }
     return (
-      <MuiThemeProvider>
-        <div className="frontpake">
-          <Snackbar // profile updated snackbar
-            open={this.state.openSnackBar}
-            autoHideDuration={2500}
-            onRequestClose={this.handleSnackBarClose}
-            message={<span id="message-id-userUpdate">Tiedot päivitetty!</span>}
-          />
-          <AppBar showMenuIconButton={false} style={{ backgroundColor: '#004225', padding: '0', margin: '0' }} >
-            <Toolbar style={{ backgroundColor: '#FFF', width: '100%', padding: '0' }} >
-              <IconButton style={{ padding: '0' }} iconStyle={styles.largeIcon} onClick={this.handleToggle} >
-                <MenuIcon color='#004225' />
-              </IconButton>
-              <ToolbarTitle className='ToolBarTitle' text={this.props.pageName} style={{ width: '100%', color: '#004225', fontSize: '30px' }} />
-              <div className="frontDrawer">
-                <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({ open })}
-                  containerStyle={{ backgroundColor: '#004225' }}>
-                  <Menu index={this.state.index} onChange={this.handleChange}>
-                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={-1}>Etusivu</MenuItem>
-                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={1}>Tilaukset</MenuItem>
-                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={2}>Profiili</MenuItem>
-                    <Divider />
-                    <br />
-                    <MenuItem style={{ color: 'white' }} onClick={this.logout} value={'Logout'}>Kirjaudu ulos</MenuItem>
-                  </Menu>
-                </Drawer>
-              </div>
-            </Toolbar>
-          </AppBar>
-          {this.state.index === -1 && <FrontPageRedirect onUpdate={this.handleUpdate} />}
-          {this.state.index === 0 && <FrontPage toggleAllahuSnackbar={this.toggleAllahuSnackbar} />}
-          {this.state.index === 1 && <Historia />}
-          {this.state.index === 2 && <Profile onUpdate={this.handleUpdate} />}
-          <Snackbar // junk added
-            open={this.state.allahuSnackbarOpen}
-            autoHideDuration={2500}
-            onRequestClose={this.hideAllahuSnackbar}
-            message={<span id="message-id">Jäte syötetty!</span>}
-          />
-        </div>
-      </MuiThemeProvider>
+      <div className="frontpake">
+        <Snackbar // profile updated snackbar
+          open={this.state.openSnackBar}
+          autoHideDuration={2500}
+          onRequestClose={this.handleSnackBarClose}
+          message={<span id="message-id-userUpdate">Tiedot päivitetty!</span>}
+        />
+        <AppBar showMenuIconButton={false} style={{ backgroundColor: '#004225', padding: '0', margin: '0' }} >
+          <Toolbar style={{ backgroundColor: '#FFF', width: '100%', padding: '0' }} >
+            <IconButton style={{ padding: '0', height: '60px', width: '60px' }} iconStyle={styles.largeIcon} onClick={this.handleToggle} >
+              <MenuIcon color='#004225' />
+            </IconButton>
+            <ToolbarTitle className='ToolBarTitle' text={this.props.pageName} style={{ width: '100%', color: '#004225', fontSize: '30px' }} />
+            <div className="frontDrawer">
+              <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({ open })}
+                containerStyle={{ backgroundColor: '#004225' }}>
+                <Menu index={this.state.index} onChange={this.handleChange}>
+                  <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={-1}>Etusivu</MenuItem>
+                  <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={1}>Tilaukset</MenuItem>
+                  <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={2}>Profiili</MenuItem>
+                  <MenuItem onClick={this.handleDialogOpen} style={{ color: 'white' }}>Anna palautetta</MenuItem>
+                  <Divider />
+                  <br />
+                  <MenuItem style={{ color: 'white' }} onClick={this.logout} value={'Logout'}>Kirjaudu ulos</MenuItem>
+                </Menu>
+              </Drawer>
+            </div>
+          </Toolbar>
+        </AppBar>
+        {this.state.index === -1 && <FrontPageRedirect onUpdate={this.handleUpdate} />}
+        {this.state.index === 0 && <FrontPage toggleAllahuSnackbar={this.toggleAllahuSnackbar} />}
+        {this.state.index === 1 && <Historia />}
+        {this.state.index === 2 && <Profile onUpdate={this.handleUpdate} />}
+
+
+        <Snackbar // junk added
+          open={this.state.allahuSnackbarOpen}
+          autoHideDuration={2500}
+          onRequestClose={this.hideAllahuSnackbar}
+          message={<span id="message-id">Jäte syötetty!</span>}
+        />
+
+        {dialog}
+      </div>
     );
   }
 }

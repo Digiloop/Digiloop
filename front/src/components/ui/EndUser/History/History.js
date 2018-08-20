@@ -6,7 +6,7 @@ import { Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText } 
 import { RaisedButton } from 'material-ui';
 import moment from 'moment'
 
-import { getJunkData } from '../../../../utils/fetchItems';
+import { getEnduserJunks, deleteJunk } from '../../../../utils/fetchItems';
 
 class History extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class History extends Component {
 
   // fetch junk data
   getItems() {
-    getJunkData().then((junks) => {
+    getEnduserJunks().then((junks) => {
       this.setState({ items: (junks) });
     });
   }
@@ -41,8 +41,12 @@ class History extends Component {
     })
   }
 
+  // item delete, if not reserved
   deleteItem(id) {
     console.log(id);
+    deleteJunk(id).then(() => {
+      this.getItems();
+    });
     this.handleDialogClose();
   }
 
@@ -65,6 +69,27 @@ class History extends Component {
     this.getItems();
   }
 
+  getStatus(status) {
+    switch (status) {
+      case 0:
+        return "Hidden";
+
+      case 1:
+        return "Ilmoitettu";
+
+      case 2:
+        return "Varattu";
+
+      case 3:
+        return "Matkalla";
+
+      case 4:
+        return "Noudettu";
+
+      default:
+        break;
+    }
+  }
 
   componentDidMount() {
     this.getItems();
@@ -97,11 +122,11 @@ class History extends Component {
           <DialogContent>
             <DialogContentText>
               Nouto-osoite: {this.state.data.pickupaddr}, {this.state.data.zipcode} {this.state.data.city}
-              </DialogContentText>
+            </DialogContentText>
             <DialogContentText>
               Ilmoitettu: {moment(this.state.data.junkdateadded).format('DD.MM.YYYY')}
-              </DialogContentText>
-              <DialogContentText>
+            </DialogContentText>
+            <DialogContentText>
               Tila: {this.state.data.status}
             </DialogContentText>
             <DialogContentText>
@@ -139,18 +164,18 @@ class History extends Component {
           <TableBody>
             {this.state.items.length ?
               this.state.items
-              .sort(this.getSorting(this.state.order))
-              .map(n => {
-                return (
-                  <TableRow
-                    hover
-                    onClick={event => this.handleClick(event, n)}
-                    key={n.junkID}>
-                    <TableCell>{moment(n.junkdateadded).format('DD.MM.YYYY')}<br />{n.category + ' / '}{n.subCat}<br />{n.pcs + 'kpl / '}{n.size}m<sup>3</sup></TableCell>
-                    <TableCell>{n.status === 1 ? 'Ilmoitettu' : null}</TableCell>
-                  </TableRow>
-                )
-              }) : <TableRow><TableCell>Et ole ilmoittanut mitään</TableCell></TableRow>}
+                .sort(this.getSorting(this.state.order))
+                .map(n => {
+                  return (
+                    <TableRow
+                      hover
+                      onClick={event => this.handleClick(event, n)}
+                      key={n.junkID}>
+                      <TableCell>{moment(n.junkdateadded).format('DD.MM.YYYY')}<br />{n.category + ' / '}{n.subCat}<br />{n.pcs + 'kpl / '}{n.size}m<sup>3</sup></TableCell>
+                      <TableCell>{this.getStatus(n.status)}</TableCell>
+                    </TableRow>
+                  )
+                }) : <TableRow><TableCell>Et ole ilmoittanut mitään</TableCell></TableRow>}
           </TableBody>
         </Table>
       </Paper>

@@ -22,7 +22,7 @@ class OrderMain extends Component {
                 city: this.props.userInfo.city,
                 phone: this.props.userInfo.phone,
                 pickupInstructions: '',
-                iscompany: '',
+                iscompany: 0,
             },
 
             values: [{

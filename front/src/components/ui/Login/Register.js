@@ -350,7 +350,7 @@ class Register extends Component {
                     aria-labelledby="scroll-dialog-title"
                 >
                     <DialogTitle>Rekisteröityminen onnistui.</DialogTitle>
-                    <DialogTitle>Salasana on lähetetty sähköpostiin {this.state.email}.</DialogTitle>
+                    <DialogTitle>Salasana on lähetetty sähköpostiin {this.state.email}</DialogTitle>
                 </Dialog >
 
             </div >

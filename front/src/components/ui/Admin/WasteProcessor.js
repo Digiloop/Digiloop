@@ -7,14 +7,15 @@ import { logOut } from '../../../utils/login';
 import ProfileMain from './Profile/ProfileMain'
 import Snackbar from 'material-ui/Snackbar'
 
+import HistoryListing from '../../containers/Admin/HistoryListing'
 import ReservedListing from '../../containers/Admin/ReservedListing'
 import CategoriesMain from '../../containers/Admin/Categories/CategoriesMain'
 import Varauskartta from '../../containers/Admin/Varauskartta/Varauskartta'
 import Admin from '../../containers/Admin/Admin'
-
 import Notification from '../../containers/Admin/Notification'
 
-
+// fetches
+import { getOwnJunkData, getJunkOwnerData } from '../../../utils/fetchItems';
 
 class AdminWasteProcessor extends Component {
   constructor(props) {
@@ -24,13 +25,47 @@ class AdminWasteProcessor extends Component {
       open: false,
       openSnackBar: false
     };
+    this.refreshItems = this.refreshItems.bind(this);
+  }
+
+  // fetch junk data
+  getJunksData() {
+    getOwnJunkData().then((junks) => {
+      this.props.itemsToStore(junks);
+      this.createNewList();
+    });
+  }
+
+  createNewList() {
+    let newObject = [];
+    let j = 0;
+
+    for (let i = 0; i < this.props.items.length; i++) {
+
+      if (this.props.items[i].status === 2 || this.props.items[i].status === 3) {
+
+        getJunkOwnerData(this.props.items[i].owner).then((junkOwner) => {
+          newObject[j] = Object.assign({ junkOwner }, this.props.items[i])
+          j++
+        })
+      }
+    }
+    this.props.junksToStore(newObject);
+  }
+
+  refreshItems() {
+    this.getJunksData();
+  }
+
+  componentDidMount() {
+    this.getJunksData();
   }
 
   // tabs handler
   handleChange = (value) => {
     this.setState({
       index: value
-    });    
+    });
   };
 
   // drawer selector
@@ -38,7 +73,7 @@ class AdminWasteProcessor extends Component {
     this.setState({
       index: value
     });
-    
+
   }
 
   // logout function
@@ -55,11 +90,11 @@ class AdminWasteProcessor extends Component {
   handleUpdate = (value) => {
     this.setState({
       index: 0,
-      openSnackBar: value 
+      openSnackBar: value
     });
   }
 
-// opens and closes drawer
+  // opens and closes drawer
   handleToggle = (event) => this.setState({ open: !this.state.open })
   handleClose = () => this.setState({ open: false })
 
@@ -73,8 +108,13 @@ class AdminWasteProcessor extends Component {
         height: 60,
         width: 60
       },
-      inkBarStyle: {
-
+      tabActive: {
+        borderBottom: '3px solid #AFD43F',
+        color: 'rgba(255, 255, 255, 0.7)'
+      },
+      tabNotActive: {
+        borderBottom: '3px solid #004225',
+        color: 'rgba(255, 255, 255, 0.7)'
       }
     }
 
@@ -91,19 +131,21 @@ class AdminWasteProcessor extends Component {
     return (
       <MuiThemeProvider>
         <div>
-        {snack}
+          {snack}
           <AppBar showMenuIconButton={false} style={{ backgroundColor: '#004225', padding: '0', margin: '0' }} >
             <Toolbar style={{ backgroundColor: '#004225', width: '100%' }}>
-              <IconButton onClick={this.handleToggle} iconStyle={styles.largeIcon} style={{ padding: '0', marginRight: '20px' }}>
+              <IconButton onClick={this.handleToggle} iconStyle={styles.largeIcon} 
+              style={{ padding: '0', marginRight: '20px', height: '60px', width: '60px' }} >
                 <MenuIcon color='#FFF' />
               </IconButton>
-              <Tabs index={this.state.index} onChange={this.handleChange} style={{ width: '100%', float: 'left' }} 
-              inkBarStyle={{ background: '#AFD43F', height: '3px' }} >
-                <Tab label="Kategoriat" className="menu" value={0} />
-                <Tab label="Varaukset" className="menu" value={1} />
-                <Tab label="Admin" className="menu" value={2} />
-                <Tab label="Varauskartta" className="menu" value={3} />
-                <Tab label="Ilmoitukset" className="menu" value={4} />
+              <Tabs index={this.state.index} onChange={this.handleChange} style={{ width: '100%', float: 'left' }}
+                inkBarStyle={{ display: 'none' }} > 
+                <Tab style={ this.state.index === 0 ? styles.tabActive : styles.tabNotActive } label="Kategoriat" className="menu" value={0} />
+                <Tab style={ this.state.index === 1 ? styles.tabActive : styles.tabNotActive } label="Varaukset" className="menu" value={1} />
+                <Tab style={ this.state.index === 6 ? styles.tabActive : styles.tabNotActive } label="Historia" className="menu" value={6} />
+                <Tab style={ this.state.index === 2 ? styles.tabActive : styles.tabNotActive } label="Admin" className="menu" value={2} />
+                <Tab style={ this.state.index === 3 ? styles.tabActive : styles.tabNotActive } label="Varauskartta" className="menu" value={3} />
+                <Tab style={ this.state.index === 4 ? styles.tabActive : styles.tabNotActive } label="Ilmoitukset" className="menu" value={4} />
               </Tabs>
               <div className="frontDrawer">
                 <Drawer docked={false} width={220} open={this.state.open} onRequestChange={(open) => this.setState({ open })}
@@ -121,10 +163,11 @@ class AdminWasteProcessor extends Component {
             </Toolbar>
           </AppBar>
           {this.state.index === 0 && <CategoriesMain />}
-          {this.state.index === 1 && <ReservedListing />}
+          {this.state.index === 1 && <ReservedListing refreshItem={this.refreshItems} />}
           {this.state.index === 2 && <Admin />}
-          {this.state.index === 3 && <Varauskartta />}
+          {this.state.index === 3 && <Varauskartta refreshItem={this.refreshItems} />}
           {this.state.index === 4 && <Notification />}
+          {this.state.index === 6 && <HistoryListing refreshItem={this.refreshItems} />}
 
           {this.state.index === 5 && <ProfileMain onUpdate={this.handleUpdate} />}
         </div>

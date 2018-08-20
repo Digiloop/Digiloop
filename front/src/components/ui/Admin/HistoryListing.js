@@ -1,98 +1,120 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {
-  Table,
-  TableBody,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
-import { getJunkData } from '../../../utils/fetchItems';
+import { Table, TableBody, TableCell, TableHead, TableRow, Paper } from '@material-ui/core';
+
+// fetches
+import { getOwnJunkData } from '../../../utils/fetchItems';
+import { getUsers } from '../../../utils/fetchEditUsers';
 
 class HistoryListing extends Component {
-constructor(props){
-  super(props);
-  this.state = {
-    itemList: []
-  }
-  this.listHistory = this.listHistory.bind(this);
- }
-
-
-
- // fetch junk data
-getJunksData() {
-  getJunkData().then((junks) => {
-    this.props.itemsToStore(junks);
-    this.listHistory();
-  });
-}
-
-
-listHistory(){
-  const items = [];
-  for(let i = 0; i < this.props.items.length; i++){
-    if(this.props.items[i].status === 4){
-    items.push(
-      <TableRow key={i} >
-        <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br/>Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
-        <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].owner}</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].fetcher}</TableRowColumn>
-        <TableRowColumn>Tila { this.getStatus( this.props.items[i].status ) }</TableRowColumn>
-      </TableRow>
-    )
-  }
+  constructor(props) {
+    super(props);
+    this.state = {
+      historyList: [],
+      users: []
+    }
   }
 
-  this.setState({
-    itemList: items
-  })
-}
-
-componentDidMount(){
-  this.getJunksData();
-    //
-    // fetch data from backend
-}
-
-getStatus(status){
-  switch(status){
-    case 0:
-    return "Hidden";
-
-    case 1:
-    return "Vapaa";
-
-    case 2:
-    return "Varattu";
-
-    case 3:
-    return "Matkalla";
-
-    case 4:
-    return "Noudettu";
-
-    default:
-    break;
+  // fetch junk data
+  getJunksData() {
+    getOwnJunkData().then((junks) => {
+      this.setState({
+        historyList: junks
+      }, () => { console.log(this.state.historyList) })
+    });
   }
-}
+
+  // get users
+  getUsersData() {
+    getUsers().then((usersData) => {
+      this.setState({ users: (usersData) });
+    });
+  }
+
+  handleClick = (event, data) => {
+    console.log(data)
+  }
+
+  getName = (id) => {
+
+    for (let i = 0; i < this.state.users.length; i++) {
+      if (this.state.users[i].id === id) {
+        return this.state.users[i].fname + ' ' + this.state.users[i].lname
+      }
+    }    
+  }
+
+
+  componentDidMount() {
+    this.getJunksData();
+    this.getUsersData();
+  }
+
+  getStatus(status) {
+    switch (status) {
+      case 0:
+        return "Hidden";
+
+      case 1:
+        return "Vapaa";
+
+      case 2:
+        return "Varattu";
+
+      case 3:
+        return "Matkalla";
+
+      case 4:
+        return "Noudettu";
+
+      default:
+        break;
+    }
+  }
 
 
 
-render() {
+  render() {
 
+    const styles = {
+      paper: {
+        width: '90%',
+        marginLeft: '5%',
+        marginTop: '3%'
+      }
+    }
 
 
     return (
-      <MuiThemeProvider>
+      <Paper style={styles.paper} >
         <Table>
-          <TableBody displayRowCheckbox={false}>
-            {this.state.itemList}
+          <TableHead>
+            <TableRow>
+              <TableCell>Kategoria / alakategoria:</TableCell>
+              <TableCell>Lisätty:</TableCell>
+              <TableCell>Ilmoittaja:</TableCell>
+              <TableCell>Käsittelijä:</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {this.state.historyList
+              .map(n => {                 
+                return n.status === 4 ? (
+                  <TableRow
+                    hover
+                    onClick={event => this.handleClick(event, n)}
+                    key={n.junkID}
+                  >
+                    <TableCell>{n.category} / {n.subCat}</TableCell>
+                    <TableCell>{n.junkdateadded}</TableCell>
+                    <TableCell>{this.getName(n.owner)}</TableCell>
+                    <TableCell>{n.company} / {n.fname} {n.lname}</TableCell>
+                  </TableRow>
+                )  : null
+              })
+            }
           </TableBody>
         </Table>
-      </MuiThemeProvider>
+      </Paper>
     );
   }
 }

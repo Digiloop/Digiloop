@@ -7,9 +7,9 @@ class AddressFields extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            pickupaddr: "",
+            // pickupaddr: "",
             allFilled: false,
-            isCompany: null,
+            // isCompany: null,
             pickupInstructions: ""
         };
         this.checkFill = this.checkFill.bind(this);
@@ -32,7 +32,7 @@ class AddressFields extends React.Component {
 
             //(this.state[key])
             if ((this.state[key] === '' || this.state[key] === undefined || this.state[key] === null) && key !== "pickupInstructions" ) {
-
+               
                 //if (this.state[key] === this.state.pickupInstructions) continue;
                 pass = false;
             }
@@ -59,7 +59,7 @@ class AddressFields extends React.Component {
             city: this.state.city,
             phone: this.state.phone,
             pickupInstructions: this.state.pickupInstructions,
-            iscompany: this.state.isCompany
+            iscompany: this.props.addressData.iscompany
         }
         this.props.saveAddressData(data);
 
@@ -74,8 +74,8 @@ class AddressFields extends React.Component {
             'city': this.props.addressData.city,
             'phone': this.props.addressData.phone,
             'pickupInstructions': this.props.addressData.pickupInstructions,
-            'isCompany': this.props.addressData.iscompany
-        })
+            'iscompany': this.props.addressData.iscompany
+        }, () => {this.checkFill()})
     }
 
 
@@ -189,7 +189,7 @@ class AddressFields extends React.Component {
                                 /><br /><br />
                             </td>
                         </tr>
-                        <tr>
+                        {/*<tr>
                             <td style={{ width: '50%' }}>
                                 <p id="HomeClientHeader">Kotitalous</p>
                                 <div style={this.state.isCompany === 0 ? isHouseStyleActive : isHouseStyle}>
@@ -218,7 +218,7 @@ class AddressFields extends React.Component {
                                 </div>
                                 
                             </td>
-                        </tr>
+                        </tr>*/}
 
 
                     </tbody>

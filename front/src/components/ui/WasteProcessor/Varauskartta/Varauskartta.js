@@ -7,13 +7,6 @@ import ReservationListing from './ReservationListing'
 import ReservationListOptions from '../../../containers/WasteProcessor/Varauskartta/ReservationListOptions'
 
 import { getJunkData, updateJunkData } from '../../../../utils/fetchItems';
-//import { getCats, getSubCats } from '../../../../utils/fetchCategories';
-// fetch function
-
-
-// import Slider from 'material-ui/Slider';
-// import { Container, Row, Col } from 'reactstrap';
-// import AppBar from 'material-ui/AppBar';
 
 class WasteProcessor extends Component {
   constructor(props) {
@@ -21,20 +14,27 @@ class WasteProcessor extends Component {
     this.state = {
       showSO: false,
       rliFilt: [],
+      update: false
     }
     this.rliFiltering = this.rliFiltering.bind(this);
     this.getJunksData = this.getJunksData.bind(this);
     this.getDistance = this.getDistance.bind(this);
     this.refreshJunks = this.refreshJunks.bind(this);
 
-    // this.updateJunks = this.updateJunks.bind(this)
+    this.updateJunks = this.updateJunks.bind(this)
   }
 
   componentDidMount() {
     this.getJunksData();
 
-    // updates new junks on one minute intervals
-    // setInterval(this.updateJunks, 1000 * 60);
+    // updates new junks on 10 seconds intervals
+    let intervalId = setInterval(this.updateJunks, 10000);
+    this.setState({ intervalId: intervalId })
+  }
+
+  componentWillUnmount() {
+    // stops the interval when page is change
+    clearInterval(this.state.intervalId)
   }
 
   handleChange = (value) => {
@@ -51,16 +51,25 @@ class WasteProcessor extends Component {
     });
   }
 
-  /* updateJunks(){
-    updateJunkData(this.props.resListItems.length).then((junks) => {
-      let updatedJunks = this.props.resListItems;
-      for(let i = 0; i < junks.length; i++){
-        updatedJunks = [...junks[i]]
-      }
-      this.props.itemsToStore(updatedJunks);
-      this.rliFiltering();
-    })
-  } */
+// update junks if timestamp is changed
+updateJunks() {
+  updateJunkData().then((res) => {
+
+    // stores first timestamp value, when entered to page
+    if (this.state.lastTimestamp === undefined) { this.state.lastTimestamp = res }
+    console.log(this.state.lastTimestamp)
+    // checks if timestamp is changed
+    if (this.state.lastTimestamp !== res) { this.state.update = true }
+
+    if (this.state.update) {
+      this.getJunksData();
+      this.setState({
+        update: false,
+        lastTimestamp: res // store current value to lastTimestamp
+      })
+    }
+  })
+}
 
   // Returns the distance between two coordinates in meters
   // ©Spaghetti Baker Bros.
@@ -85,7 +94,6 @@ class WasteProcessor extends Component {
   // the filter function, that leaves only the necessary stuff to be displayed
   rliFiltering() {
     let resListItemsFiltered = [];
-    
     // loop items
     for (let i = 0; i < this.props.resListItems.length; i++) {
 
@@ -156,6 +164,7 @@ class WasteProcessor extends Component {
 
   // refresh function, for when reservationListing has done something to change the items (ie. reserve one)
   refreshJunks() {
+    this.props.refreshItem();
     this.getJunksData();
   }
 

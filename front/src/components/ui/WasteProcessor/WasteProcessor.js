@@ -13,7 +13,8 @@ import ReservedListing from '../../containers/WasteProcessor/ReservedListing'
 import Varauskartta from '../../containers/WasteProcessor/Varauskartta/Varauskartta'
 import Notification from '../../containers/Admin/Notification'
 
-
+// fetches
+import { getJunkData, getOwnJunkData, getJunkOwnerData } from '../../../utils/fetchItems';
 
 class WasteProcessor extends Component {
   constructor(props) {
@@ -23,6 +24,40 @@ class WasteProcessor extends Component {
       open: false,
       openSnackBar: false
     }
+    this.refreshItems = this.refreshItems.bind(this);
+  }
+
+  // fetch junk data
+  getJunksData() {
+    getOwnJunkData().then((junks) => {
+      this.props.itemsToStore(junks);
+      this.createNewList();
+    });
+  }
+
+  createNewList() {
+    let newObject = [];
+    let j = 0;
+
+    for (let i = 0; i < this.props.items.length; i++) {
+
+      if (this.props.items[i].status === 2 || this.props.items[i].status === 3) {
+
+        getJunkOwnerData(this.props.items[i].owner).then((junkOwner) => {
+          newObject[j] = Object.assign({ junkOwner }, this.props.items[i])
+          j++
+        })
+      }
+    }
+    this.props.junksToStore(newObject);
+  }
+
+  refreshItems() {
+    this.getJunksData();
+  }
+
+  componentDidMount() {
+    this.getJunksData();
   }
 
   // changes the tabs
@@ -65,6 +100,14 @@ class WasteProcessor extends Component {
         height: 60,
         width: 60
       },
+      tabActive: {
+        borderBottom: '3px solid #AFD43F',
+        color: 'rgba(255, 255, 255, 0.7)'
+      },
+      tabNotActive: {
+        borderBottom: '3px solid #004225',
+        color: 'rgba(255, 255, 255, 0.7)'
+      }
     }
 
     const snack = [];
@@ -87,11 +130,11 @@ class WasteProcessor extends Component {
                 <MenuIcon color='#FFF' />
               </IconButton>
               <Tabs index={this.state.index} onChange={this.handleChange} style={{ width: '100%', float: 'left' }}
-                inkBarStyle={{ background: '#AFD43F', height: '3px' }}>
-                <Tab label="Historia" className="menu" value={0} />
-                <Tab label="Varaukset" className="menu" value={1} />
-                <Tab label="Varauskartta" className="menu" value={2} />
-                <Tab label="Ilmoitukset" className="menu" value={3} />
+                inkBarStyle={{ display: 'none' }}>
+                <Tab style={this.state.index === 0 ? styles.tabActive : styles.tabNotActive} label="Historia" className="menu" value={0} />
+                <Tab style={this.state.index === 1 ? styles.tabActive : styles.tabNotActive} label="Varaukset" className="menu" value={1} />
+                <Tab style={this.state.index === 2 ? styles.tabActive : styles.tabNotActive} label="Varauskartta" className="menu" value={2} />
+                <Tab style={this.state.index === 3 ? styles.tabActive : styles.tabNotActive} label="Ilmoitukset" className="menu" value={3} />
               </Tabs>
               <div className="frontDrawer">
                 <Drawer docked={false} width={220} open={this.state.open} onRequestChange={(open) => this.setState({ open })}
@@ -109,8 +152,8 @@ class WasteProcessor extends Component {
             </Toolbar>
           </AppBar>
           {this.state.index === 0 && <HistoryListing />}
-          {this.state.index === 1 && <ReservedListing />}
-          {this.state.index === 2 && <Varauskartta />}
+          {this.state.index === 1 && <ReservedListing refreshItem={this.refreshItems} />}
+          {this.state.index === 2 && <Varauskartta refreshItem={this.refreshItems} />}
           {this.state.index === 3 && <Notification />}
 
           {this.state.index === 4 && <ProfileMain onUpdate={this.handleUpdate} />}

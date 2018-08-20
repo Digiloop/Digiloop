@@ -7,7 +7,9 @@ function reserveItem(junkId) { // target status, id of who fetched, id of item t
   return axios.post(BASE_URL + '/itemReserve', {
     junkId
   })
-    .then(response => response.data)
+    .then(function (response) {
+      return response;
+    })
     .catch(function (error) {
       // return the error to the component, so that a proper error message can be displayed
       return error;

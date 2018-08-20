@@ -1,98 +1,97 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {
-  Table,
-  TableBody,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
-import { getJunkData } from '../../../utils/fetchItems';
+import { Table, TableBody, TableCell, TableHead, TableRow, Paper } from '@material-ui/core';
+
+// fetches
+import { getOwnJunkData } from '../../../utils/fetchItems';
 
 class HistoryListing extends Component {
-constructor(props){
-  super(props);
-  this.state = {
-    itemList: []
-  }
-  this.listHistory = this.listHistory.bind(this);
- }
-
-
-
- // fetch junk data
-getJunksData() {
-  getJunkData().then((junks) => {
-    this.props.itemsToStore(junks);
-    this.listHistory();
-  });
-}
-
-
-listHistory(){
-  const items = [];
-  for(let i = 0; i < this.props.items.length; i++){
-    if(this.props.items[i].status === 4){
-    items.push(
-      <TableRow key={i} >
-        <TableRowColumn>{this.props.items[i].category} ({this.props.items[i].subCat})<br/>Ilmoitettu: {this.props.items[i].date}</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].pcs}kpl</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].size}m<sup>3</sup></TableRowColumn>
-        <TableRowColumn>{this.props.items[i].weight}kg</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].owner}</TableRowColumn>
-        <TableRowColumn>{this.props.items[i].fetcher}</TableRowColumn>
-        <TableRowColumn>Tila { this.getStatus( this.props.items[i].status ) }</TableRowColumn>
-      </TableRow>
-    )
-  }
+  constructor(props) {
+    super(props);
+    this.state = {
+      historyList: []
+    }
   }
 
-  this.setState({
-    itemList: items
-  })
-}
-
-componentDidMount(){
-  this.getJunksData();
-    //
-    // fetch data from backend
-}
-
-getStatus(status){
-  switch(status){
-    case 0:
-    return "Hidden";
-
-    case 1:
-    return "Vapaa";
-
-    case 2:
-    return "Varattu";
-
-    case 3:
-    return "Matkalla";
-
-    case 4:
-    return "Noudettu";
-
-    default:
-    break;
+  // fetch junk data
+  getJunksData() {
+    getOwnJunkData().then((junks) => {
+      this.setState({
+        historyList: junks
+      })
+    });
+    console.log(this.state.historyList)
   }
-}
+
+  handleClick = (event, data) => {
+    console.log(data)
+  }
+
+
+  componentDidMount() {
+    this.getJunksData();
+  }
+
+  getStatus(status) {
+    switch (status) {
+      case 0:
+        return "Hidden";
+
+      case 1:
+        return "Vapaa";
+
+      case 2:
+        return "Varattu";
+
+      case 3:
+        return "Matkalla";
+
+      case 4:
+        return "Noudettu";
+
+      default:
+        break;
+    }
+  }
 
 
 
-render() {
+  render() {
 
+    const styles = {
+      paper: {
+        width: '90%',
+        marginLeft: '5%',
+        marginTop: '3%'
+      }
+    }
 
 
     return (
-      <MuiThemeProvider>
+      <Paper style={ styles.paper } >
         <Table>
-          <TableBody displayRowCheckbox={false}>
-            {this.state.itemList}
+          <TableHead>
+            <TableRow>
+              <TableCell>Lisätty:</TableCell>
+              <TableCell>Ilmoittaja:</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {this.state.historyList
+              .map(n => {
+                return (
+                  <TableRow
+                    hover
+                    onClick={event => this.handleClick(event, n)}
+                    key={n.junkID}>
+                  <TableCell>{n.junkdateadded}</TableCell>
+                  <TableCell>{n.owner}</TableCell>
+                  </TableRow>
+                )
+              })
+            }
           </TableBody>
         </Table>
-      </MuiThemeProvider>
+        </Paper>
     );
   }
 }

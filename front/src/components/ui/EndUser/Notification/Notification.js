@@ -72,13 +72,11 @@ class Notification extends Component {
   // close dialog
   handleDialogClose = () => {
     this.setState({ open: false })
-    // this.getNotificationInfo();
+    this.getNotificationInfo();
   }
 
   componentDidMount() {
     this.getNotifications();
-    //
-    // fetch data from backend
   }
 
 

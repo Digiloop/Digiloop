@@ -1,11 +1,11 @@
 import HistoryListing from '../../ui/WasteProcessor/HistoryListing'
 import { connect } from 'react-redux'
-import { setResList } from '../../../actions';
+import { setResList, setResListOwners } from '../../../actions';
 
 const mapStateToProps = (state, props) =>
   ({
-    items: state.resList
-
+    items: state.resList,
+    userInfo: state.loginInfo
   })
 
 const mapDispatchToProps = dispatch =>
@@ -13,6 +13,11 @@ const mapDispatchToProps = dispatch =>
     itemsToStore(resList){
       dispatch(
         setResList(resList)
+      )
+    },
+    junksToStore(resListWithOwnersData){
+      dispatch(
+        setResListOwners(resListWithOwnersData)
       )
     }
   })

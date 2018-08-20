@@ -48,9 +48,13 @@ class Map extends Component {
       this.setState({
         needClearing: true
       });
+      console.log(this.state.needClearing)
     }
   }
 
+  componentDidMount() {
+    this.clear();
+  }
 
 
   render() {

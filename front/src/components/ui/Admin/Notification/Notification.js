@@ -307,15 +307,15 @@ class Notification extends Component {
             float: 'left',
           }}>
             <h3>Voimassa olevat ilmoitukset</h3>
-            <div className='frontPageBox'>
+            <div className={validNotifs.length ? 'frontPageBox' : null}>
               <Table>
                 <TableBody displayRowCheckbox={false}>
                   {validNotifs}
                 </TableBody>
               </Table>
             </div>
-            <h3>Vanhat ilmoitukset</h3>
-            <div className='frontPageBox'>
+            <h3>{oldNotifs.length ? 'Vanhat ilmoitukset' : null}</h3>
+            <div className={oldNotifs.length ? 'frontPageBox' : null}>
               <Table>
                 <TableBody displayRowCheckbox={false}>
                   {oldNotifs}

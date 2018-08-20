@@ -155,10 +155,10 @@ class Notification extends Component {
     return (
 
       <MuiThemeProvider>
-        <div className='frontPageBox'>
+        <div className={validNotifs.length ? 'frontPageBox' : null}>
           <Table>
             <TableBody displayRowCheckbox={false}>
-              {!validNotifs.length ? <p>Ei ilmoituksia</p> : validNotifs }
+              {!validNotifs.length ? null : validNotifs }
             </TableBody>
           </Table>
           {dialog}

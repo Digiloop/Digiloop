@@ -15,7 +15,7 @@ import Admin from '../../containers/Admin/Admin'
 import Notification from '../../containers/Admin/Notification'
 
 // fetches
-import { getJunkData, getOwnJunkData, getJunkOwnerData } from '../../../utils/fetchItems';
+import { getOwnJunkData, getJunkOwnerData } from '../../../utils/fetchItems';
 
 class AdminWasteProcessor extends Component {
   constructor(props) {
@@ -134,7 +134,8 @@ class AdminWasteProcessor extends Component {
           {snack}
           <AppBar showMenuIconButton={false} style={{ backgroundColor: '#004225', padding: '0', margin: '0' }} >
             <Toolbar style={{ backgroundColor: '#004225', width: '100%' }}>
-              <IconButton onClick={this.handleToggle} iconStyle={styles.largeIcon} style={{ padding: '0', marginRight: '20px' }}>
+              <IconButton onClick={this.handleToggle} iconStyle={styles.largeIcon} 
+              style={{ padding: '0', marginRight: '20px', height: '60px', width: '60px' }} >
                 <MenuIcon color='#FFF' />
               </IconButton>
               <Tabs index={this.state.index} onChange={this.handleChange} style={{ width: '100%', float: 'left' }}

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { BASE_URL } from '../settings';
 
 
-export { getJunkData, getOwnJunkData, updateJunkData, getJunkOwnerData, deleteJunk };
+export { getJunkData, getOwnJunkData, getEnduserJunks, updateJunkData, getJunkOwnerData, deleteJunk };
 
 // get all items
 function getJunkData() {
@@ -12,6 +12,11 @@ function getJunkData() {
 // get only own company items
 function getOwnJunkData() {
   return axios.get(BASE_URL + '/itemReservations').then(response => response.data);
+}
+
+// get only own enduser items
+function getEnduserJunks() {
+  return axios.get(BASE_URL + '/itemHistory').then(response => response.data)
 }
 
 // enduser item delete

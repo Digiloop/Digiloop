@@ -7,7 +7,7 @@ module.exports = {
     
 
 
-    async itemGet(userlvl) {
+    async itemGet(userlvl,userid) {
         let query;
         
         if (userlvl != 0) {
@@ -27,6 +27,13 @@ module.exports = {
         //`SELECT junk.*,users.fname,users.lname,users.company FROM junk,users WHERE junk.fetcher = users.id AND users.company = ?`
         query = longquery + 'junk.status = 2 OR junk.status = 3 OR junk.status = 4'
         let result = await sqldatahaku.querySql(query)
+        return result
+    },
+
+    async itemHistory(userid) {
+        let query;
+        query = longquery + 'junk.status = 1 OR junk.status = 2 OR junk.status = 3 OR junk.status = 4 AND junk.owner = ?'
+        let result = await sqldatahaku.querySql(query,userid)
         return result
     },
 

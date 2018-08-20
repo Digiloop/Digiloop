@@ -84,7 +84,7 @@ router.post('/sendFeedback', middleware.wrap(async (req, res, next) => {
 
 router.get('/getFeedback', middleware.wrap(async (req, res, next) => {
     let query = 'SELECT * FROM feedback'
-    //'INSERT INTO SubSubCats ( imgReference, name, subCatId, Status) values (?, ?, ?, ?)'
+    //'INSERT INTO SubSubCats ( imgReference, name, subCatId, Status) values (?, ?, ?, ?)' wat
     result = await sqldatahaku.querySql(query)
     res.json(result);
 }));

@@ -1,13 +1,18 @@
 var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata;
+let longquery = `SELECT junk.junkID,junk.category,junk.subCat,junk.weight,junk.size,junk.description,junk.picture,junk.pcs,junk.pickupaddr,junk.junkdate,
+    junk.junkdateadded,junk.status,junk.owner,junk.fetcher,junk.city,junk.zipcode,junk.latitude,junk.longitude,junk.wishbox,
+    junk.iscompany,junk.itemphone,users.fname,users.lname,users.company 
+    FROM junk LEFT JOIN users ON junk.fetcher = users.id WHERE `// junk.status = 1 OR junk.status = 2`
 module.exports = {
+    
+
+
     async itemGet(userlvl) {
         let query;
+        
         if (userlvl != 0) {
             //query = `SELECT * FROM junk where owner = 8 AND status = 1`
-            query = `SELECT junk.junkID,junk.category,junk.subCat,junk.weight,junk.size,junk.description,junk.picture,junk.pcs,junk.pickupaddr,junk.junkdate,
-            junk.junkdateadded,junk.status,junk.owner,junk.fetcher,junk.city,junk.zipcode,junk.latitude,junk.longitude,junk.wishbox,
-            junk.iscompany,junk.itemphone,users.fname,users.lname,users.company 
-            FROM junk INNER JOIN users ON junk.owner = users.id WHERE junk.status = 1 OR junk.status = 2`
+            query = longquery + 'junk.status = 1 OR junk.status = 2'
         } else {
             query = 'SELECT * FROM junk INNER JOIN users ON junk.owner = users.id'
         }
@@ -16,11 +21,12 @@ module.exports = {
         return result
     },
 
-    async itemReservations(company) {
+    async itemReservations() {
         let query;
         //`SELECT junk.*,users.* FROM junk INNER JOIN users ON junk.fetcher = users.id WHERE users.company = ?`
-        query = `SELECT junk.*,users.fname,users.lname,users.company FROM junk,users WHERE junk.fetcher = users.id AND users.company = ?`
-        let result = await sqldatahaku.querySql(query, company)
+        //`SELECT junk.*,users.fname,users.lname,users.company FROM junk,users WHERE junk.fetcher = users.id AND users.company = ?`
+        query = longquery + 'junk.status = 2 OR junk.status = 3 OR junk.status = 4'
+        let result = await sqldatahaku.querySql(query)
         return result
     },
 

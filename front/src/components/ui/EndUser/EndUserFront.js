@@ -9,7 +9,7 @@ import FrontPageRedirect from './FrontPage/FrontPageRedirect';
 import FrontPage from '../../containers/EndUser/FrontPage/FrontPage';
 import Profile from './Profile/ProfileMain';
 import Historia from './History/History';
-import Feedback from '../Admin/Feedback'
+import Feedback from '../WasteProcessor/Feedback'
 
 // fetches
 import { logOut } from '../../../utils/login';

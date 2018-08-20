@@ -13,7 +13,6 @@ import CategoriesMain from '../../containers/Admin/Categories/CategoriesMain'
 import Varauskartta from '../../containers/Admin/Varauskartta/Varauskartta'
 import Admin from '../../containers/Admin/Admin'
 import Notification from '../../containers/Admin/Notification'
-import Feedback from './Feedback'
 
 // fetches
 import { getOwnJunkData, getJunkOwnerData } from '../../../utils/fetchItems';
@@ -155,7 +154,6 @@ class AdminWasteProcessor extends Component {
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={0}>Etusivu</MenuItem>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={5}>Profiili</MenuItem>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={4}>Ilmoitukset</MenuItem>
-                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={7}>Anna palautetta</MenuItem>
                     <Divider />
                     <br />
                     <MenuItem style={{ color: 'white' }} onClick={this.logout} value={'Logout'}>Kirjaudu ulos</MenuItem>
@@ -171,7 +169,6 @@ class AdminWasteProcessor extends Component {
           {this.state.index === 4 && <Notification />}
           {this.state.index === 6 && <HistoryListing refreshItem={this.refreshItems} />}
 
-          {this.state.index === 7 && <Feedback onUpdate={this.handleUpdate} />}
           {this.state.index === 5 && <ProfileMain onUpdate={this.handleUpdate} />}
         </div>
       </MuiThemeProvider>

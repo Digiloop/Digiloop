@@ -13,7 +13,7 @@ import ReservedListing from '../../containers/WasteProcessor/ReservedListing'
 import Varauskartta from '../../containers/WasteProcessor/Varauskartta/Varauskartta'
 import Notification from '../../containers/Admin/Notification'
 import UserManagementMain from './UserManagement/UserManagementMain'
-import Feedback from '../Admin/Feedback'
+import Feedback from '../WasteProcessor/Feedback'
 
 // fetches
 import { getJunkData, getOwnJunkData, getJunkOwnerData } from '../../../utils/fetchItems';

@@ -13,6 +13,7 @@ import CategoriesMain from '../../containers/Admin/Categories/CategoriesMain'
 import Varauskartta from '../../containers/Admin/Varauskartta/Varauskartta'
 import Admin from '../../containers/Admin/Admin'
 import Notification from '../../containers/Admin/Notification'
+import Feedback from './Feedback'
 
 // fetches
 import { getOwnJunkData, getJunkOwnerData } from '../../../utils/fetchItems';
@@ -134,18 +135,18 @@ class AdminWasteProcessor extends Component {
           {snack}
           <AppBar showMenuIconButton={false} style={{ backgroundColor: '#004225', padding: '0', margin: '0' }} >
             <Toolbar style={{ backgroundColor: '#004225', width: '100%' }}>
-              <IconButton onClick={this.handleToggle} iconStyle={styles.largeIcon} 
-              style={{ padding: '0', marginRight: '20px', height: '60px', width: '60px' }} >
+              <IconButton onClick={this.handleToggle} iconStyle={styles.largeIcon}
+                style={{ padding: '0', marginRight: '20px', height: '60px', width: '60px' }} >
                 <MenuIcon color='#FFF' />
               </IconButton>
               <Tabs index={this.state.index} onChange={this.handleChange} style={{ width: '100%', float: 'left' }}
-                inkBarStyle={{ display: 'none' }} > 
-                <Tab style={ this.state.index === 0 ? styles.tabActive : styles.tabNotActive } label="Kategoriat" className="menu" value={0} />
-                <Tab style={ this.state.index === 1 ? styles.tabActive : styles.tabNotActive } label="Varaukset" className="menu" value={1} />
-                <Tab style={ this.state.index === 6 ? styles.tabActive : styles.tabNotActive } label="Historia" className="menu" value={6} />
-                <Tab style={ this.state.index === 2 ? styles.tabActive : styles.tabNotActive } label="Admin" className="menu" value={2} />
-                <Tab style={ this.state.index === 3 ? styles.tabActive : styles.tabNotActive } label="Varauskartta" className="menu" value={3} />
-                <Tab style={ this.state.index === 4 ? styles.tabActive : styles.tabNotActive } label="Ilmoitukset" className="menu" value={4} />
+                inkBarStyle={{ display: 'none' }} >
+                <Tab style={this.state.index === 0 ? styles.tabActive : styles.tabNotActive} label="Kategoriat" className="menu" value={0} />
+                <Tab style={this.state.index === 1 ? styles.tabActive : styles.tabNotActive} label="Varaukset" className="menu" value={1} />
+                <Tab style={this.state.index === 6 ? styles.tabActive : styles.tabNotActive} label="Historia" className="menu" value={6} />
+                <Tab style={this.state.index === 2 ? styles.tabActive : styles.tabNotActive} label="Admin" className="menu" value={2} />
+                <Tab style={this.state.index === 3 ? styles.tabActive : styles.tabNotActive} label="Varauskartta" className="menu" value={3} />
+                <Tab style={this.state.index === 4 ? styles.tabActive : styles.tabNotActive} label="Ilmoitukset" className="menu" value={4} />
               </Tabs>
               <div className="frontDrawer">
                 <Drawer docked={false} width={220} open={this.state.open} onRequestChange={(open) => this.setState({ open })}
@@ -154,6 +155,7 @@ class AdminWasteProcessor extends Component {
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={0}>Etusivu</MenuItem>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={5}>Profiili</MenuItem>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={4}>Ilmoitukset</MenuItem>
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={7}>Anna palautetta</MenuItem>
                     <Divider />
                     <br />
                     <MenuItem style={{ color: 'white' }} onClick={this.logout} value={'Logout'}>Kirjaudu ulos</MenuItem>
@@ -169,6 +171,7 @@ class AdminWasteProcessor extends Component {
           {this.state.index === 4 && <Notification />}
           {this.state.index === 6 && <HistoryListing refreshItem={this.refreshItems} />}
 
+          {this.state.index === 7 && <Feedback onUpdate={this.handleUpdate} />}
           {this.state.index === 5 && <ProfileMain onUpdate={this.handleUpdate} />}
         </div>
       </MuiThemeProvider>

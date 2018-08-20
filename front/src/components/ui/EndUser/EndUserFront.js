@@ -3,13 +3,13 @@ import { AppBar, Drawer, Menu, MenuItem, ToolbarTitle } from 'material-ui';
 import { Toolbar, IconButton, Divider } from 'material-ui';
 import MenuIcon from '@material-ui/icons/Menu';
 import /*Allahu*/ Snackbar from 'material-ui/Snackbar';
-import { Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText, TextField, Button } from '@material-ui/core';
 
 // subpages
 import FrontPageRedirect from './FrontPage/FrontPageRedirect';
 import FrontPage from '../../containers/EndUser/FrontPage/FrontPage';
 import Profile from './Profile/ProfileMain';
 import Historia from './History/History';
+import Feedback from '../Admin/Feedback'
 
 // fetches
 import { logOut } from '../../../utils/login';
@@ -24,13 +24,6 @@ class EndUserFront extends Component {
       allahuSnackbarOpen: false, // junk added snackbar
       openSnackBar: false, // profile updated snackbar
 
-      // feedback dialog
-      scroll: 'paper',
-      dialogOpen: false,
-
-      // feedback text
-      title: '',
-      text: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.getPageName = this.getPageName.bind(this);
@@ -89,9 +82,11 @@ class EndUserFront extends Component {
       case 0:
         return this.props.setNewPageName('Etusivu');
       case 1:
-        return this.props.setNewPageName('Historia');
+        return this.props.setNewPageName('Tilaukset');
       case 2:
         return this.props.setNewPageName('Profiili');
+      case 3:
+        return this.props.setNewPageName('Anna palautetta');
       default:
         return this.props.setNewPageName('Etusivu');
     }
@@ -112,36 +107,6 @@ class EndUserFront extends Component {
   // closes profile updated snackbar
   handleSnackBarClose = () => this.setState({ openSnackBar: false })
 
-  handleFeedbackChange = name => event => {
-    this.setState({
-      [name]: event.target.value
-    })
-  };
-
-
-  sendFeedback = () => {
-    this.handleDialogClose();
-  }
-
-  // open dialog
-  handleDialogOpen = () => {
-    this.setState({
-      open: false,
-      dialogOpen: true
-    })
-  }
-
-  // close dialog
-  handleDialogClose = () => {
-    console.log(this.state.title)
-    console.log(this.state.text)
-    this.setState({
-      dialogOpen: false,
-      title: '',
-      text: ''
-    })
-  }
-
   render() {
 
     const styles = {
@@ -151,41 +116,6 @@ class EndUserFront extends Component {
       },
     }
 
-    const dialog = [];
-    if (this.state.dialogOpen) {
-      dialog.push(
-        <Dialog key={'feedback'} // Feedback dialog
-          open={this.state.dialogOpen}
-          scroll={this.state.scroll}
-          fullWidth
-        >
-          <DialogTitle>Anna palautetta / Ilmoita viasta</DialogTitle>
-          <DialogContent>
-            <DialogContentText></DialogContentText>
-            <TextField
-              id='title'
-              autoFocus
-              fullWidth
-              label='Aihe'
-              onChange={this.handleFeedbackChange('title')}
-            />
-            <TextField
-              id='text'
-              label='Kirjoita tähän selite'
-              fullWidth
-              multiline
-              rows='3'
-              rowsMax='8'
-              onChange={this.handleFeedbackChange('text')}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleDialogClose}>Peruuta</Button>
-            <Button onClick={this.sendFeedback}>Lähetä</Button>
-          </DialogActions>
-        </Dialog>
-      )
-    }
     return (
       <div className="frontpake">
         <Snackbar // profile updated snackbar
@@ -207,7 +137,7 @@ class EndUserFront extends Component {
                   <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={-1}>Etusivu</MenuItem>
                   <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={1}>Tilaukset</MenuItem>
                   <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={2}>Profiili</MenuItem>
-                  <MenuItem onClick={this.handleDialogOpen} style={{ color: 'white' }}>Anna palautetta</MenuItem>
+                  <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={3}>Anna palautetta</MenuItem>
                   <Divider />
                   <br />
                   <MenuItem style={{ color: 'white' }} onClick={this.logout} value={'Logout'}>Kirjaudu ulos</MenuItem>
@@ -220,6 +150,7 @@ class EndUserFront extends Component {
         {this.state.index === 0 && <FrontPage toggleAllahuSnackbar={this.toggleAllahuSnackbar} />}
         {this.state.index === 1 && <Historia />}
         {this.state.index === 2 && <Profile onUpdate={this.handleUpdate} />}
+        {this.state.index === 3 && <Feedback onUpdate={this.handleUpdate} />}
 
 
         <Snackbar // junk added
@@ -228,8 +159,6 @@ class EndUserFront extends Component {
           onRequestClose={this.hideAllahuSnackbar}
           message={<span id="message-id">Jäte syötetty!</span>}
         />
-
-        {dialog}
       </div>
     );
   }

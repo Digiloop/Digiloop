@@ -12,6 +12,7 @@ import HistoryListing from '../../containers/WasteProcessor/HistoryListing'
 import ReservedListing from '../../containers/WasteProcessor/ReservedListing'
 import Varauskartta from '../../containers/WasteProcessor/Varauskartta/Varauskartta'
 import Notification from '../../containers/Admin/Notification'
+import Feedback from '../Admin/Feedback'
 
 // fetches
 import { getJunkData, getOwnJunkData, getJunkOwnerData } from '../../../utils/fetchItems';
@@ -126,8 +127,8 @@ class WasteProcessor extends Component {
           {snack}
           <AppBar showMenuIconButton={false} style={{ backgroundColor: '#004225', padding: '0', margin: '0' }} >
             <Toolbar style={{ backgroundColor: '#004225', width: '80%', marginLeft: '8%', marginRight: 'auto', position: 'absolute' }}>
-              <IconButton onClick={this.handleToggle} iconStyle={styles.largeIcon} 
-              style={{ padding: '0', marginRight: '20px', height: '60px', width: '60px' }}>
+              <IconButton onClick={this.handleToggle} iconStyle={styles.largeIcon}
+                style={{ padding: '0', marginRight: '20px', height: '60px', width: '60px' }}>
                 <MenuIcon color='#FFF' />
               </IconButton>
               <Tabs index={this.state.index} onChange={this.handleChange} style={{ width: '100%', float: 'left' }}
@@ -144,6 +145,8 @@ class WasteProcessor extends Component {
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={0}>Etusivu</MenuItem>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={4}>Profiili</MenuItem>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={3}>Ilmoitukset</MenuItem>
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={6}>Anna palautetta</MenuItem>
+
                     <Divider />
                     <br />
                     <MenuItem style={{ color: 'white' }} onClick={this.logout} value={'Logout'}>Kirjaudu ulos</MenuItem>
@@ -157,6 +160,7 @@ class WasteProcessor extends Component {
           {this.state.index === 2 && <Varauskartta refreshItem={this.refreshItems} />}
           {this.state.index === 3 && <Notification />}
 
+          {this.state.index === 6 && <Feedback onUpdate={this.handleUpdate} />}
           {this.state.index === 4 && <ProfileMain onUpdate={this.handleUpdate} />}
         </div>
       </MuiThemeProvider>

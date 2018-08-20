@@ -266,6 +266,9 @@ class Notification extends Component {
               <DialogContentText>
                 Loppupäivämäärä: {moment(validItems[m].dateEnd).format('DD.MM.YYYY')}
               </DialogContentText>
+              <DialogContentText style={{ marginTop: '3%' }}>
+              Ilmoittaja: {validItems[m].company}
+              </DialogContentText>
             </DialogContent>
             <DialogActions>
               <RaisedButton label='Muokkaa' onClick={() =>

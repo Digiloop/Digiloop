@@ -115,7 +115,7 @@ class Admin extends Component {
     for (let i = 0; i < this.state.users.length; i++) {
 
       if ((this.state.users[i].userlvl === '0' && this.state.listAdmins)
-        || (this.state.users[i].userlvl === '1' || this.state.users[i].userlvl === '3' && this.state.listWasteprocessors)
+        || ((this.state.users[i].userlvl === '1' || this.state.users[i].userlvl === '3') && this.state.listWasteprocessors)
         || (this.state.users[i].userlvl === '2' && this.state.listEndUsers)
       ) {
         if (this.state.rows[visibleRowsCount]) {

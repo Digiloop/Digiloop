@@ -13,6 +13,7 @@ import ReservedListing from '../../containers/WasteProcessor/ReservedListing'
 import Varauskartta from '../../containers/WasteProcessor/Varauskartta/Varauskartta'
 import Notification from '../../containers/Admin/Notification'
 import UserManagementMain from './UserManagement/UserManagementMain'
+import Feedback from '../Admin/Feedback'
 
 // fetches
 import { getJunkData, getOwnJunkData, getJunkOwnerData } from '../../../utils/fetchItems';
@@ -30,39 +31,39 @@ class WasteProcessorAdmin extends Component {
   }
 
   // fetch junk data
-getJunksData() {
-  getOwnJunkData().then((junks) => {
-    this.props.itemsToStore(junks);
-    this.createNewList();
-  });
-}
+  getJunksData() {
+    getOwnJunkData().then((junks) => {
+      this.props.itemsToStore(junks);
+      this.createNewList();
+    });
+  }
 
-/* getOwnData(){
-  getOwnJunkData().then((ownJunks) => {
-    console.log(ownJunks)
-  })
-} */
+  /* getOwnData(){
+    getOwnJunkData().then((ownJunks) => {
+      console.log(ownJunks)
+    })
+  } */
 
-createNewList() {
-  let newObject = [];
-  let j = 0;
+  createNewList() {
+    let newObject = [];
+    let j = 0;
 
-  for (let i = 0; i < this.props.items.length; i++) {
+    for (let i = 0; i < this.props.items.length; i++) {
 
-    if (this.props.items[i].status === 2 || this.props.items[i].status === 3) {
+      if (this.props.items[i].status === 2 || this.props.items[i].status === 3) {
 
-      getJunkOwnerData(this.props.items[i].owner).then((junkOwner) => {
-        newObject[j] = Object.assign({ junkOwner }, this.props.items[i])       
-        j++;
-      })
-       this.setState({
+        getJunkOwnerData(this.props.items[i].owner).then((junkOwner) => {
+          newObject[j] = Object.assign({ junkOwner }, this.props.items[i])
+          j++;
+        })
+        this.setState({
           newItemlist: newObject
         })
+      }
     }
+    console.log(this.state.newItemlist)
+    this.props.junksToStore(this.state.newItemlist);
   }
-  console.log(this.state.newItemlist)
-  this.props.junksToStore(this.state.newItemlist);
-}
 
   // changes the tabs
   handleChange = (value) => {
@@ -90,11 +91,11 @@ createNewList() {
   }
 
   refreshItems() {
-    this.getJunksData();  
+    this.getJunksData();
   }
 
-  componentDidMount(){
-    this.getJunksData();  
+  componentDidMount() {
+    this.getJunksData();
     // this.getOwnData();
   }
 
@@ -140,17 +141,17 @@ createNewList() {
           {snack}
           <AppBar showMenuIconButton={false} style={{ backgroundColor: '#004225', padding: '0', margin: '0' }} >
             <Toolbar style={{ backgroundColor: '#004225', width: '95%', marginLeft: '1%', marginRight: 'auto', position: 'absolute' }}>
-              <IconButton onClick={this.handleToggle} iconStyle={styles.largeIcon} 
-              style={{ padding: '0', marginRight: '20px', height: '60px', width: '60px' }}>
+              <IconButton onClick={this.handleToggle} iconStyle={styles.largeIcon}
+                style={{ padding: '0', marginRight: '20px', height: '60px', width: '60px' }}>
                 <MenuIcon color='#FFF' />
               </IconButton>
               <Tabs index={this.state.index} onChange={this.handleChange} style={{ width: '100%', float: 'left' }}
                 inkBarStyle={{ display: 'none' }}>
-                <Tab style={ this.state.index === 0 ? styles.tabActive : styles.tabNotActive } label="Historia" className="menu" value={0} />
-                <Tab style={ this.state.index === 1 ? styles.tabActive : styles.tabNotActive } label="Varaukset" className="menu" value={1} />
-                <Tab style={ this.state.index === 2 ? styles.tabActive : styles.tabNotActive } label="Varauskartta" className="menu" value={2} />
-                <Tab style={ this.state.index === 3 ? styles.tabActive : styles.tabNotActive } label="Ilmoitukset" className="menu" value={3} />
-                <Tab style={ this.state.index === 5 ? styles.tabActive : styles.tabNotActive } label='Hallinnoi käyttäjiä' className='menu' value={5} />
+                <Tab style={this.state.index === 0 ? styles.tabActive : styles.tabNotActive} label="Historia" className="menu" value={0} />
+                <Tab style={this.state.index === 1 ? styles.tabActive : styles.tabNotActive} label="Varaukset" className="menu" value={1} />
+                <Tab style={this.state.index === 2 ? styles.tabActive : styles.tabNotActive} label="Varauskartta" className="menu" value={2} />
+                <Tab style={this.state.index === 3 ? styles.tabActive : styles.tabNotActive} label="Ilmoitukset" className="menu" value={3} />
+                <Tab style={this.state.index === 5 ? styles.tabActive : styles.tabNotActive} label='Hallinnoi käyttäjiä' className='menu' value={5} />
               </Tabs>
               <div className="frontDrawer">
                 <Drawer docked={false} width={220} open={this.state.open} onRequestChange={(open) => this.setState({ open })}
@@ -159,6 +160,7 @@ createNewList() {
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={0}>Etusivu</MenuItem>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={4}>Profiili</MenuItem>
                     <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={3}>Ilmoitukset</MenuItem>
+                    <MenuItem onClick={this.handleClose} style={{ color: 'white' }} value={6}>Anna palautetta</MenuItem>
                     <Divider />
                     <br />
                     <MenuItem style={{ color: 'white' }} onClick={this.logout} value={'Logout'}>Kirjaudu ulos</MenuItem>
@@ -173,6 +175,7 @@ createNewList() {
           {this.state.index === 3 && <Notification />}
           {this.state.index === 5 && <UserManagementMain />}
 
+          {this.state.index === 6 && <Feedback onUpdate={this.handleUpdate} />}
           {this.state.index === 4 && <ProfileMain onUpdate={this.handleUpdate} />}
         </div>
       </MuiThemeProvider>

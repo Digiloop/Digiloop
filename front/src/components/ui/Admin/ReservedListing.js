@@ -8,7 +8,6 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
-import { getJunkData } from '../../../utils/fetchItems';
 import { changeReservationStatus, cancelReservation } from '../../../utils/reserveItems';
 
 class ReservedListing extends Component {
@@ -38,6 +37,7 @@ class ReservedListing extends Component {
 
   listChecker(value) { // check that props are ready and set render true
     if (this.props.itemsWithOwners.length === value) {
+      console.log(this.props.itemsWithOwners.length)
       this.setState({ rendaa: true })
     }
   }

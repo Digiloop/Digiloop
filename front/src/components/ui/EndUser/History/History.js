@@ -6,7 +6,7 @@ import { Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText } 
 import { RaisedButton } from 'material-ui';
 import moment from 'moment'
 
-import { getJunkData, deleteJunk } from '../../../../utils/fetchItems';
+import { getEnduserJunks, deleteJunk } from '../../../../utils/fetchItems';
 
 class History extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class History extends Component {
 
   // fetch junk data
   getItems() {
-    getJunkData().then((junks) => {
+    getEnduserJunks().then((junks) => {
       this.setState({ items: (junks) });
     });
   }
@@ -69,6 +69,27 @@ class History extends Component {
     this.getItems();
   }
 
+  getStatus(status) {
+    switch (status) {
+      case 0:
+        return "Hidden";
+
+      case 1:
+        return "Ilmoitettu";
+
+      case 2:
+        return "Varattu";
+
+      case 3:
+        return "Matkalla";
+
+      case 4:
+        return "Noudettu";
+
+      default:
+        break;
+    }
+  }
 
   componentDidMount() {
     this.getItems();
@@ -151,7 +172,7 @@ class History extends Component {
                       onClick={event => this.handleClick(event, n)}
                       key={n.junkID}>
                       <TableCell>{moment(n.junkdateadded).format('DD.MM.YYYY')}<br />{n.category + ' / '}{n.subCat}<br />{n.pcs + 'kpl / '}{n.size}m<sup>3</sup></TableCell>
-                      <TableCell>{n.status === 1 ? 'Ilmoitettu' : null}</TableCell>
+                      <TableCell>{this.getStatus(n.status)}</TableCell>
                     </TableRow>
                   )
                 }) : <TableRow><TableCell>Et ole ilmoittanut mitään</TableCell></TableRow>}

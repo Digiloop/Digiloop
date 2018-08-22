@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableRow, Paper } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText } from '@material-ui/core';
 
 // fetches
-import { getOwnJunkData } from '../../../utils/fetchItems';
-import { getUsers } from '../../../utils/fetchEditUsers';
+import { getOwnJunkData, updateJunkData } from '../../../utils/fetchItems';
 
 class HistoryListing extends Component {
   constructor(props) {
     super(props);
     this.state = {
       historyList: [],
-      users: []
+      update: false,
+      lastTimestamp: undefined,
+      open: false
     }
+    this.updateJunks = this.updateJunks.bind(this);
   }
 
   // fetch junk data
@@ -19,34 +22,60 @@ class HistoryListing extends Component {
     getOwnJunkData().then((junks) => {
       this.setState({
         historyList: junks
-      }, () => { console.log(this.state.historyList) })
-    });
-  }
-
-  // get users
-  getUsersData() {
-    getUsers().then((usersData) => {
-      this.setState({ users: (usersData) });
+      })
     });
   }
 
   handleClick = (event, data) => {
-    console.log(data)
+    console.log(data);
+    this.setState({ data: data })
+    this.handleDialogOpen();
   }
 
-  getName = (id) => {
 
-    for (let i = 0; i < this.state.users.length; i++) {
-      if (this.state.users[i].id === id) {
-        return this.state.users[i].fname + ' ' + this.state.users[i].lname
+  // open dialog
+  handleDialogOpen = () => {
+    this.setState({ open: true })
+  }
+
+  // close dialog
+  handleDialogClose = () => {
+    this.setState({ open: false })
+  }
+
+  // update junks if timestamp is changed
+  updateJunks() {
+    updateJunkData().then((res) => {
+
+      // stores first timestamp value, when entered to page
+      if (this.state.lastTimestamp === undefined) { this.state.lastTimestamp = res }
+
+      // checks if timestamp is changed
+      if (this.state.lastTimestamp !== res) {
+        this.state.update = true;
       }
-    }    
-  }
 
+      if (this.state.update) {
+        this.getJunksData();
+        this.setState({
+          update: false,
+          lastTimestamp: res // store current value to lastTimestamp
+        })
+      }
+    })
+  }
 
   componentDidMount() {
     this.getJunksData();
-    this.getUsersData();
+
+    // updates new junks on 10 seconds intervals
+    let intervalId = setInterval(this.updateJunks, 50000);
+    this.setState({ intervalId: intervalId })
+  }
+
+  componentWillUnmount() {
+    // stops the interval when page is change
+    clearInterval(this.state.intervalId)
   }
 
   getStatus(status) {
@@ -83,37 +112,64 @@ class HistoryListing extends Component {
       }
     }
 
+    const dialog = [];
+    if (this.state.open) {
+      dialog.push(
+        <Dialog key='data'
+          open={this.state.open}
+          onClose={this.handleDialogClose}
+          scroll='paper'
+          fullWidth
+        >
+          <DialogTitle>{this.state.data.category} / {this.state.data.subCat}</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Ilmoittaja: {this.state.data.fnameOwner} {this.state.data.lnameOwner}
+            </DialogContentText>
+            <DialogContentText>
+              Käsittelijä: {this.state.data.fname} {this.state.data.lname} / {this.state.data.company}
+            </DialogContentText>
+            <DialogContentText>
+              Ilmoitettu: {this.state.data.junkdateadded}
+            </DialogContentText>
+          </DialogContent>
+        </Dialog>
+      )
+    }
 
     return (
       <Paper style={styles.paper} >
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Kategoria / alakategoria:</TableCell>
-              <TableCell>Lisätty:</TableCell>
-              <TableCell>Ilmoittaja:</TableCell>
-              <TableCell>Käsittelijä:</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {this.state.historyList
-              .map(n => {                 
-                return n.status === 4 ? (
-                  <TableRow
-                    hover
-                    onClick={event => this.handleClick(event, n)}
-                    key={n.junkID}
-                  >
-                    <TableCell>{n.category} / {n.subCat}</TableCell>
-                    <TableCell>{n.junkdateadded}</TableCell>
-                    <TableCell>{this.getName(n.owner)}</TableCell>
-                    <TableCell>{n.company} / {n.fname} {n.lname}</TableCell>
-                  </TableRow>
-                )  : null
-              })
-            }
-          </TableBody>
-        </Table>
+        {this.state.historyList.length ?
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Kategoria / alakategoria:</TableCell>
+                <TableCell>Lisätty:</TableCell>
+                <TableCell>Ilmoittaja:</TableCell>
+                <TableCell>Käsittelijä:</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {this.state.historyList
+                .map(n => {
+                  return n.status === 4 ? (
+                    <TableRow
+                      hover
+                      onClick={event => this.handleClick(event, n)}
+                      key={n.junkID}
+                    >
+                      <TableCell>{n.category} / {n.subCat}</TableCell>
+                      <TableCell>{n.junkdateadded}</TableCell>
+                      <TableCell>{n.fnameOwner} {n.lnameOwner}</TableCell>
+                      <TableCell>{n.company} / {n.fname} {n.lname}</TableCell>
+                    </TableRow>
+                  ) : null
+                })
+              }
+            </TableBody>
+          </Table>
+          : null}
+        {dialog}
       </Paper>
     );
   }

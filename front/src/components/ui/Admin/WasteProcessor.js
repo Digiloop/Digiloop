@@ -14,8 +14,6 @@ import Varauskartta from '../../containers/Admin/Varauskartta/Varauskartta'
 import Admin from '../../containers/Admin/Admin'
 import Notification from '../../containers/Admin/Notification'
 
-// fetches
-import { getOwnJunkData, getJunkOwnerData } from '../../../utils/fetchItems';
 
 class AdminWasteProcessor extends Component {
   constructor(props) {
@@ -25,41 +23,7 @@ class AdminWasteProcessor extends Component {
       open: false,
       openSnackBar: false
     };
-    this.refreshItems = this.refreshItems.bind(this);
-  }
-
-  // fetch junk data
-  getJunksData() {
-    getOwnJunkData().then((junks) => {
-      this.props.itemsToStore(junks);
-      this.createNewList();
-    });
-  }
-
-  createNewList() {
-    let newObject = [];
-    let j = 0;
-
-    for (let i = 0; i < this.props.items.length; i++) {
-
-      if (this.props.items[i].status === 2 || this.props.items[i].status === 3) {
-
-        getJunkOwnerData(this.props.items[i].owner).then((junkOwner) => {
-          newObject[j] = Object.assign({ junkOwner }, this.props.items[i])
-          j++
-        })
-      }
-    }
-    this.props.junksToStore(newObject);
-  }
-
-  refreshItems() {
-    this.getJunksData();
-  }
-
-  componentDidMount() {
-    this.getJunksData();
-  }
+  } 
 
   // tabs handler
   handleChange = (value) => {
@@ -163,11 +127,11 @@ class AdminWasteProcessor extends Component {
             </Toolbar>
           </AppBar>
           {this.state.index === 0 && <CategoriesMain />}
-          {this.state.index === 1 && <ReservedListing refreshItem={this.refreshItems} />}
+          {this.state.index === 1 && <ReservedListing />}
           {this.state.index === 2 && <Admin />}
-          {this.state.index === 3 && <Varauskartta refreshItem={this.refreshItems} />}
+          {this.state.index === 3 && <Varauskartta />}
           {this.state.index === 4 && <Notification />}
-          {this.state.index === 6 && <HistoryListing refreshItem={this.refreshItems} />}
+          {this.state.index === 6 && <HistoryListing />}
 
           {this.state.index === 5 && <ProfileMain onUpdate={this.handleUpdate} />}
         </div>

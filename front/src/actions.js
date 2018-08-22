@@ -47,10 +47,10 @@ export const setResOpt = (options) =>
   })
 
 // Reserved list with owner and fetcher data
-export const setResListOwners = (resListWithOwnersData) =>
+export const setReservedResList = (reservedResList) =>
 ({
-  type: C.SET_RLI_WITH_OWNERS,
-  payload: resListWithOwnersData
+  type: C.SET_RESERVED_LIST,
+  payload: reservedResList
 })
   
 

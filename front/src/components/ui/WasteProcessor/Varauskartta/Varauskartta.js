@@ -164,7 +164,6 @@ updateJunks() {
 
   // refresh function, for when reservationListing has done something to change the items (ie. reserve one)
   refreshJunks() {
-    this.props.refreshItem();
     this.getJunksData();
   }
 

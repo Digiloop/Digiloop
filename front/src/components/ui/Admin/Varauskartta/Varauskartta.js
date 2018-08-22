@@ -24,7 +24,7 @@ class WasteProcessor extends Component {
     this.getDistance = this.getDistance.bind(this);
     this.refreshJunks = this.refreshJunks.bind(this);
 
-    this.updateJunks = this.updateJunks.bind(this)
+    this.updateJunks = this.updateJunks.bind(this);
   }
 
   componentDidMount() {
@@ -57,7 +57,7 @@ class WasteProcessor extends Component {
   // update junks if timestamp is changed
   updateJunks() {
     updateJunkData().then((res) => {
-
+      
       // stores first timestamp value, when entered to page
       if (this.state.lastTimestamp === undefined) { this.state.lastTimestamp = res }
 
@@ -173,7 +173,6 @@ class WasteProcessor extends Component {
 
   // refresh function, for when reservationListing has done something to change the items (ie. reserve one)
   refreshJunks() {
-    this.props.refreshItem();
     this.getJunksData();
   }
 

@@ -1,10 +1,9 @@
 import WasteProcessorAdmin from '../../ui/WasteProcessorAdmin/WasteProcessorAdmin'
 import { connect } from 'react-redux'
-import { login, setResList, setResListOwners } from '../../../actions'
+import { login } from '../../../actions'
 
 const mapStateToProps = (state, props) =>
   ({
-    items: state.resList
   })
 
 const mapDispatchToProps = dispatch =>
@@ -12,16 +11,6 @@ const mapDispatchToProps = dispatch =>
     onNewLogout(loginInfo) {
       dispatch(
         login(loginInfo)
-      )
-    },
-    itemsToStore(resList){
-      dispatch(
-        setResList(resList)
-      )
-    },
-    junksToStore(resListWithOwnersData){
-      dispatch(
-        setResListOwners(resListWithOwnersData)
       )
     }
   })

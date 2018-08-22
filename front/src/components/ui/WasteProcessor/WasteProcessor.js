@@ -14,8 +14,6 @@ import Varauskartta from '../../containers/WasteProcessor/Varauskartta/Varauskar
 import Notification from '../../containers/Admin/Notification'
 import Feedback from './Feedback'
 
-// fetches
-import { getJunkData, getOwnJunkData, getJunkOwnerData } from '../../../utils/fetchItems';
 
 class WasteProcessor extends Component {
   constructor(props) {
@@ -25,40 +23,6 @@ class WasteProcessor extends Component {
       open: false,
       openSnackBar: false
     }
-    this.refreshItems = this.refreshItems.bind(this);
-  }
-
-  // fetch junk data
-  getJunksData() {
-    getOwnJunkData().then((junks) => {
-      this.props.itemsToStore(junks);
-      this.createNewList();
-    });
-  }
-
-  createNewList() {
-    let newObject = [];
-    let j = 0;
-
-    for (let i = 0; i < this.props.items.length; i++) {
-
-      if (this.props.items[i].status === 2 || this.props.items[i].status === 3) {
-
-        getJunkOwnerData(this.props.items[i].owner).then((junkOwner) => {
-          newObject[j] = Object.assign({ junkOwner }, this.props.items[i])
-          j++
-        })
-      }
-    }
-    this.props.junksToStore(newObject);
-  }
-
-  refreshItems() {
-    this.getJunksData();
-  }
-
-  componentDidMount() {
-    this.getJunksData();
   }
 
   // changes the tabs
@@ -68,11 +32,11 @@ class WasteProcessor extends Component {
     });
   };
 
-  // returns to frontpage, value is value from profile page (true/false)
-  handleUpdate = (value) => {
+  // returns to frontpage, snackValue is value from profile page (true/false)
+  handleUpdate = (snackValue) => {
     this.setState({
       index: 0,
-      openSnackBar: value
+      openSnackBar: snackValue
     });
   }
 
@@ -156,8 +120,8 @@ class WasteProcessor extends Component {
             </Toolbar>
           </AppBar>
           {this.state.index === 0 && <HistoryListing />}
-          {this.state.index === 1 && <ReservedListing refreshItem={this.refreshItems} />}
-          {this.state.index === 2 && <Varauskartta refreshItem={this.refreshItems} />}
+          {this.state.index === 1 && <ReservedListing />}
+          {this.state.index === 2 && <Varauskartta />}
           {this.state.index === 3 && <Notification />}
 
           {this.state.index === 6 && <Feedback onUpdate={this.handleUpdate} />}

@@ -11,8 +11,8 @@ export const resListOpt = (state = [], action) =>
 export const resList = (state = [], action) =>
   (action.type === C.SET_RLI) ? action.payload : state
 
-export const resListWithOwnersData = (state = [], action) =>
-  (action.type === C.SET_RLI_WITH_OWNERS) ? action.payload : state
+export const reservedResList = (state = [], action) =>
+  (action.type === C.SET_RESERVED_LIST) ? action.payload : state
 
 export const categories = (state = [], action) =>
   (action.type === C.SET_CATEGORIES) ? action.payload : state
@@ -34,7 +34,7 @@ export default combineReducers({
   loginInfo,
   resListOpt,
   resList,
-  resListWithOwnersData,
+  reservedResList,
 
   categories,
   subCategories,

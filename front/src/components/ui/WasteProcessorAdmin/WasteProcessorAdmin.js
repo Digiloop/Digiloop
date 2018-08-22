@@ -15,8 +15,6 @@ import Notification from '../../containers/Admin/Notification'
 import UserManagementMain from './UserManagement/UserManagementMain'
 import Feedback from '../WasteProcessor/Feedback'
 
-// fetches
-import { getJunkData, getOwnJunkData, getJunkOwnerData } from '../../../utils/fetchItems';
 
 class WasteProcessorAdmin extends Component {
   constructor(props) {
@@ -24,45 +22,8 @@ class WasteProcessorAdmin extends Component {
     this.state = {
       index: 0,
       open: false,
-      openSnackBar: false,
-      newItemlist: []
+      openSnackBar: false
     }
-    this.refreshItems = this.refreshItems.bind(this);
-  }
-
-  // fetch junk data
-  getJunksData() {
-    getOwnJunkData().then((junks) => {
-      this.props.itemsToStore(junks);
-      this.createNewList();
-    });
-  }
-
-  /* getOwnData(){
-    getOwnJunkData().then((ownJunks) => {
-      console.log(ownJunks)
-    })
-  } */
-
-  createNewList() {
-    let newObject = [];
-    let j = 0;
-
-    for (let i = 0; i < this.props.items.length; i++) {
-
-      if (this.props.items[i].status === 2 || this.props.items[i].status === 3) {
-
-        getJunkOwnerData(this.props.items[i].owner).then((junkOwner) => {
-          newObject[j] = Object.assign({ junkOwner }, this.props.items[i])
-          j++;
-        })
-        this.setState({
-          newItemlist: newObject
-        })
-      }
-    }
-    console.log(this.state.newItemlist)
-    this.props.junksToStore(this.state.newItemlist);
   }
 
   // changes the tabs
@@ -88,15 +49,6 @@ class WasteProcessorAdmin extends Component {
     this.props.onNewLogout({
       userlvl: -1
     });
-  }
-
-  refreshItems() {
-    this.getJunksData();
-  }
-
-  componentDidMount() {
-    this.getJunksData();
-    // this.getOwnData();
   }
 
   // drawer selector
@@ -170,8 +122,8 @@ class WasteProcessorAdmin extends Component {
             </Toolbar>
           </AppBar>
           {this.state.index === 0 && <HistoryListing />}
-          {this.state.index === 1 && <ReservedListing refreshItem={this.refreshItems} />}
-          {this.state.index === 2 && <Varauskartta refreshItem={this.refreshItems} />}
+          {this.state.index === 1 && <ReservedListing />}
+          {this.state.index === 2 && <Varauskartta />}
           {this.state.index === 3 && <Notification />}
           {this.state.index === 5 && <UserManagementMain />}
 

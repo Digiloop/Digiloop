@@ -9,6 +9,11 @@ const mapStateToProps = (state, props) =>
 
 const mapDispatchToProps = dispatch =>
   ({
+    localStorageLogin(userData){
+      dispatch(
+        login(userData)
+      )
+    }
   })
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(UserInfo)

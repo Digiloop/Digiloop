@@ -195,7 +195,7 @@ class Register extends Component {
                                 <TextField className="rightRegisterField"
                                     underlineStyle={{ borderColor: '#A6CE6B' }}
                                     underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="text" hintText="esim. Matti" style={styles}
+                                    type="text" hintText="Matti" style={styles}
                                     onChange={(event, newValue) => this.setState({ firstName: newValue })} />
 
                             </td>
@@ -208,7 +208,7 @@ class Register extends Component {
                                 <TextField className="rightRegisterField"
                                     underlineStyle={{ borderColor: '#A6CE6B' }}
                                     underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="text" hintText="esim. Meikäläinen" style={styles}
+                                    type="text" hintText="Meikäläinen" style={styles}
                                     onChange={(event, newValue) => this.setState({ lastName: newValue })} />
                             </td>
                         </tr>
@@ -220,7 +220,7 @@ class Register extends Component {
                                 <TextField className="rightRegisterField"
                                     underlineStyle={{ borderColor: '#A6CE6B' }}
                                     underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="text" hintText="esim. etunimi.sukunimi@lamk.fi" style={styles}
+                                    type="text" hintText="etunimi.sukunimi@lamk.fi" style={styles}
                                     onChange={(event, newValue) => this.setState({ email: newValue })} />
                             </td>
                         </tr>
@@ -232,7 +232,7 @@ class Register extends Component {
                                 <TextField className="rightRegisterField"
                                     underlineStyle={{ borderColor: '#A6CE6B' }}
                                     underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="text" hintText="esim. 044 708 1347​" style={styles}
+                                    type="text" hintText="044 708 1347​" style={styles}
                                     onChange={(event, newValue) => this.setState({ phone: newValue })} />
                             </td>
                         </tr>
@@ -244,7 +244,7 @@ class Register extends Component {
                                 <TextField className="rightRegisterField"
                                     underlineStyle={{ borderColor: '#A6CE6B' }}
                                     underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="text" hintText="esim. Ståhlberginkatu 10" style={styles}
+                                    type="text" hintText="Ståhlberginkatu 10" style={styles}
                                     onChange={(event, newValue) => this.setState({ streetAddress: newValue })} />
                             </td>
                         </tr>
@@ -256,7 +256,7 @@ class Register extends Component {
                                 <TextField className="rightRegisterField"
                                     underlineStyle={{ borderColor: '#A6CE6B' }}
                                     underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="text" hintText="esim. 15110" style={styles}
+                                    type="text" hintText="15110" style={styles} maxLength='5'
                                     onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
                             </td>
                         </tr>
@@ -268,7 +268,7 @@ class Register extends Component {
                                 <TextField className="rightRegisterField"
                                     underlineStyle={{ borderColor: '#A6CE6B' }}
                                     underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="text" hintText="esim. Lahti" style={styles}
+                                    type="text" hintText="Lahti" style={styles}
                                     onChange={(event, newValue) => this.setState({ city: newValue })} />
                             </td>
                         </tr>

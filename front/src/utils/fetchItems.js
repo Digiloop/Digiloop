@@ -9,7 +9,7 @@ function getJunkData() {
   return axios.get(BASE_URL + '/items').then(response => response.data);
 }
 
-// get only own company items
+// get reserved items
 function getOwnJunkData() {
   return axios.get(BASE_URL + '/itemReservations').then(response => response.data);
 }
@@ -40,7 +40,7 @@ function updateJunkData() {
     });
 }
 
-
+// not in use at this moment
 function getJunkOwnerData(id) {
   return axios.get(BASE_URL + '/fetcher/' + id)
     .then(response => response.data)

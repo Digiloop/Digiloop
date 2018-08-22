@@ -14,7 +14,7 @@ function getOwnJunkData() {
   return axios.get(BASE_URL + '/itemReservations').then(response => response.data);
 }
 
-// get only own enduser items
+// get only endusers own items
 function getEnduserJunks() {
   return axios.get(BASE_URL + '/itemHistory').then(response => response.data)
 }

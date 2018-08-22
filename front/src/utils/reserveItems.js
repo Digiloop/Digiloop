@@ -3,7 +3,7 @@ import { BASE_URL } from './../settings';
 
 export { reserveItem, cancelReservation, changeReservationStatus };
 
-function reserveItem(junkId) { // target status, id of who fetched, id of item to be changed
+function reserveItem(junkId) { // id of item to be changed
   return axios.post(BASE_URL + '/itemReserve', {
     junkId
   })
@@ -16,6 +16,7 @@ function reserveItem(junkId) { // target status, id of who fetched, id of item t
     });
 }
 
+// cancel reservation by id
 function cancelReservation(junkId) {
   return axios.post(BASE_URL + '/itemReserveCancel', {
     junkId
@@ -26,6 +27,7 @@ function cancelReservation(junkId) {
     });
 }
 
+// changes reserved item status
 function changeReservationStatus(status, fetcher, junkId) {
   return axios.post(BASE_URL + '/itemStatus', {
     status, fetcher, junkId

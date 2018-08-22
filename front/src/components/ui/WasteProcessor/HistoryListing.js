@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Table, TableBody, TableCell, TableHead, TableRow, Paper } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableHead, TableRow, Paper, Button } from '@material-ui/core';
 import { Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText } from '@material-ui/core';
 
 // fetches
+import { changeReservationStatus } from '../../../utils/reserveItems'
 import { getOwnJunkData, updateJunkData } from '../../../utils/fetchItems';
 
 class HistoryListing extends Component {
@@ -40,6 +41,13 @@ class HistoryListing extends Component {
   // close dialog
   handleDialogClose = () => {
     this.setState({ open: false })
+  }
+
+  cancelCollected(item) {
+    changeReservationStatus(2, item.fetcher, item.junkID).then(() => {
+      this.getJunksData(),
+      this.handleDialogClose()
+    })
   }
 
   // update junks if timestamp is changed
@@ -132,6 +140,9 @@ class HistoryListing extends Component {
               Ilmoitettu: {this.state.data.junkdateadded}
             </DialogContentText>
           </DialogContent>
+          <DialogActions>
+            <Button onClick={e => this.cancelCollected(this.state.data)} >Peruuta</Button>
+          </DialogActions>
         </Dialog>
       )
     }

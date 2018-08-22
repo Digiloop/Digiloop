@@ -34,16 +34,16 @@ class ReservedListing extends Component {
 
   // cancel reserved item, setting it as free
   cancelItemReserve(item) {
-    cancelReservation(item.junkID).then(
+    cancelReservation(item.junkID).then(() => {
       this.getJunksData()
-    );
+    });
   }
 
   // change item reservation status
   reserve(status, item) {
-    changeReservationStatus(status + 1, item.fetcher, item.junkID).then(
+    changeReservationStatus(status + 1, item.fetcher, item.junkID).then(() => {
       this.getJunksData()
-    );
+    });
   }
 
   listHistory() {

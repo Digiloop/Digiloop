@@ -5,7 +5,6 @@ var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata;
 var middleware = require('../code/middleware.js');
 var activator = require('../code/accountActivation')
 var generatepassword = require('../code/passGen')
-var emailActivation = require('../code/emailActivation')
 
 router.route('/users')
     .get(middleware.isAdmin, middleware.wrap(async (req, res) => {
@@ -96,15 +95,7 @@ router.get('/getFeedback', middleware.wrap(async (req, res, next) => {
     res.json(result);
 }));
 
-router.get(`/aktivaatiocheck/:ak`, middleware.wrap(async (req, res, next) => {
-    
-    result = await emailActivation.checkActivation(req.user.email,req.params.ak)
-    res.json(result)
-}));
 
-router.post('/aktivaatio', middleware.wrap(async (req, res, next) => {
-   result = await emailActivation.sendActivation(req.user.email)
-   res.json(result)
-}));
+
 
 module.exports = router

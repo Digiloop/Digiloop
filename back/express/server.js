@@ -26,6 +26,7 @@ var items = require('./routes/items')
 var announcements = require('./routes/announcements')
 var users = require('./routes/users')
 var recoverPassword = require('./routes/recoverPassword')
+var accountVerify = require('./routes/accountVerify')
 //misc functions and stuff
 var middleware = require('./code/middleware.js');
 //MemoryStore
@@ -117,6 +118,7 @@ require('./routes/routes.js')(app, passport, baseurl);
 //app.use(cacheredis('2 minutes'))
 app.use(baseurl, recoverPassword);
 app.use(baseurl, categories)
+app.use(baseurl, accountVerify)
 app.all('*', middleware.isLoggedIn)
 app.use(baseurl, announcements, users, items)
 //app.use('/', categories, items); // http://193.166.72.18/categories

@@ -1,4 +1,7 @@
 const redis = require("async-redis");
+const crypto = require("crypto");
+
+
 
 
 const client = redis.createClient();
@@ -18,7 +21,10 @@ module.exports = {
     },
 
     async setEmailActivation(email) {
-        urli = await client.set(`emailurl: ${email}`, `${email}${Date.now()}`, 'NX', 'EX', 120)
+        //hash = await bcrypt.hash(email+Date.now(),1)
+        const val = await crypto.randomBytes(30).toString('hex');
+        urli = await client.set(`emailurl: ${email}`, val, 'NX', 'EX', 1200)
+        // urli = await client.set(`emailurl: ${email}`, `${email}${Date.now()}`, 'NX', 'EX', 120)
     },
 
     async getEmailActivation(email) {

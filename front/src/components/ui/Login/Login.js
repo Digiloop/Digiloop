@@ -5,7 +5,7 @@ import { DialogContent, DialogContentText, Button } from '@material-ui/core';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 
 import { getCredentials } from '../../../utils/login';
-import { resetPassword }from '../../../utils/editPassword';
+import { resetPassword } from '../../../utils/editPassword';
 
 import WindowSizeListener from 'react-window-size-listener'
 
@@ -137,13 +137,13 @@ class Login extends Component {
         marginRight: '30%'
       },
       textField: {
-          margin: '3% 0 3% 0',
-          width: '100%',
-          backgroundColor: 'white',
-          border: '2px solid #004225',
-          borderRadius: '10px',
-          paddingLeft: '5px'
-          
+        margin: '3% 0 3% 0',
+        width: '100%',
+        backgroundColor: 'white',
+        border: '2px solid #004225',
+        borderRadius: '10px',
+        paddingLeft: '5px'
+
       }
     }
 
@@ -165,10 +165,10 @@ class Login extends Component {
               Salasanan vaihto löytyy oman profiilin alta.
             </DialogContentText>
             <TextField className='email'
-            underlineShow={false}
-            style={styles.textField}
-            hintText="Sähköpostiosoite"
-            onChange={(event, newValue) => this.setState({ passwordResetEmail: newValue })}
+              underlineShow={false}
+              style={styles.textField}
+              hintText="Sähköpostiosoite"
+              onChange={(event, newValue) => this.setState({ passwordResetEmail: newValue })}
             />
           </DialogContent>
           <DialogActions>
@@ -284,7 +284,8 @@ class Login extends Component {
 
             <div className="loginGroup">
 
-              <FlatButton type="submit" label="Kirjaudu"
+              <FlatButton type="submit"
+                label="Kirjaudu"
                 disableTouchRipple={true}
                 style={{
                   marginTop: '5px'

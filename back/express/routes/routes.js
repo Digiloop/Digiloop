@@ -25,7 +25,7 @@ module.exports = (app, passport, baseurl) => {
         console.log(req.user.email + " logged in.");
 
         if (req.body.remember) {
-            req.session.cookie.maxAge = 1000 * 60 * 30000;
+            req.session.cookie.maxAge = 1000 * 60 * 30;
         } else {
             req.session.cookie.expires = false;
         }

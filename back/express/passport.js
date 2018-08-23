@@ -8,6 +8,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcrypt');
 var sqldata = require('./code/sqldata'); var sqldatahaku = new sqldata;
 var generatePassword = require('password-generator');
+var emailActivation = require('./code/emailActivation')
 // expose this function to our app using module.exports
 module.exports = function (passport) {
 
@@ -66,18 +67,17 @@ module.exports = function (passport) {
                     zipcode: req.body.zipcode.toString(),
                     city: req.body.city.toString(),
                     userlvl: 2,
-                    Status: 1
+                    Status: 0
                 };
                 /*console.log(leveli + "  leveli");*/
                 var insertQuery = "INSERT INTO users ( password, fname, lname, email, phone, address, zipcode, city, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?)";
-
+                emailurl = await emailActivation.sendActivation(newUserMysql.email)
                 await sqldatahaku.querySql(insertQuery, [newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.userlvl, newUserMysql.Status])
-                await maileri.mail(newUserMysql.email,pass)
+                await maileri.mail(newUserMysql.email,'Email activation url: kierratys.lamk.fi/dev/activation/'+emailurl+'<br>'+'password: '+pass)
                 //newUserMysql.id = rows.insertId;
                 //let final = await sqldatahaku.querySql('select * from users where email = ?', newUserMysql.email)
                 //return done(null, final)
                 //return done(null, 8);
-                console.log(pass)
                 let final = await sqldatahaku.querySql("SELECT * FROM users WHERE email = ?", [email])
                 return done(null, final[0])
             }

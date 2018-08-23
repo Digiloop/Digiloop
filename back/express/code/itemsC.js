@@ -1,8 +1,12 @@
 var sqldata = require('../code/sqldata.js'); var sqldatahaku = new sqldata;
 let longquery = `SELECT junk.junkID,junk.category,junk.subCat,junk.weight,junk.size,junk.description,junk.picture,junk.pcs,junk.pickupaddr,junk.junkdate,
     junk.junkdateadded,junk.status,junk.owner,junk.fetcher,junk.city,junk.zipcode,junk.latitude,junk.longitude,junk.wishbox,
-    junk.iscompany,junk.itemphone,users.fname,users.lname,users.company 
+    junk.iscompany,junk.itemphone,users.fname,users.lname,users.company
     FROM junk LEFT JOIN users ON junk.fetcher = users.id WHERE `// junk.status = 1 OR junk.status = 2`
+
+let longqueryOwner = `SELECT junk.junkID,junk.owner,junk.status,
+    users.fname,users.lname
+    FROM junk LEFT JOIN users ON junk.owner = users.id WHERE `
 module.exports = {
     
 
@@ -22,12 +26,58 @@ module.exports = {
     },
 
     async itemReservations() {
-        let query;
+
         //`SELECT junk.*,users.* FROM junk INNER JOIN users ON junk.fetcher = users.id WHERE users.company = ?`
         //`SELECT junk.*,users.fname,users.lname,users.company FROM junk,users WHERE junk.fetcher = users.id AND users.company = ?`
-        query = longquery + 'junk.status = 2 OR junk.status = 3 OR junk.status = 4'
+        let where = 'junk.status = 2 OR junk.status = 3 OR junk.status = 4'
+        let query = longquery + where
+        let query2 = longqueryOwner + where
         let result = await sqldatahaku.querySql(query)
-        return result
+        let result2 = await sqldatahaku.querySql(query2)
+        //return result
+
+    let i = 0;
+    let arr = [];
+//console.log(result.length)
+//console.log(result2.length)
+
+
+    for (i; i < result.length; i++) {
+        let iteminfo = {
+        junkID: result[i].junkID,
+        category: result[i].category,
+        subCat: result[i].subCat,
+        weight: result[i].weight,
+        size: result[i].size,
+        description: result[i].description,
+        picture: result[i].picture,
+        pcs: result[i].pcs,
+        pickupaddr: result[i].pickupaddr,
+        junkdate: result[i].junkdate,
+        junkdateadded: result[i].junkdateadded,
+        status: result[i].status,
+        owner: result[i].owner,
+        fetcher: result[i].fetcher,
+        city: result[i].city,
+        zipcode: result[i].zipcode,
+        latitude: result[i].latitude,
+        longitude: result[i].longitude,
+        wishbox: result[i].wishbox,
+        iscompany: result[i].iscompany,
+        itemphone: result[i].itemphone,
+        fname: result[i].fname,
+        lname: result[i].lname,
+        company: result[i].company,
+        fnameOwner: result2[i].fname,
+        lnameOwner: result2[i].lname
+        }
+
+
+        arr.push(iteminfo)
+    }
+
+    return arr
+
     },
 
     async itemHistory(userid) {

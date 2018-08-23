@@ -35,7 +35,7 @@ var MemoryStore = require('session-memory-store')(session);
 var compression = require('compression')
 var apicache = require('apicache')
 var redis = require('redis')
-var baseurl = '/dev'
+var baseurl = '/prod'
 // configuration ===============================================================
 //app.use(cache('7 days'))
 
@@ -95,7 +95,7 @@ app.use(session({
     cookie: { secure: true },
     store: new RedisStore,
     //store: new MemoryStore,
-    name: 'DeviKeksi.sid'
+    name: 'ProdiKeksi.sid'
 }));
 
 
@@ -155,4 +155,4 @@ http.createServer(function (req, res) {
 */
 
 
-app.listen(5001);
+app.listen(5000);

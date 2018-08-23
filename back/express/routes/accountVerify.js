@@ -28,16 +28,10 @@ router.post('/aktivaatio', middleware.wrap(async (req, res, next) => {
 }));
 */
 
-router.get('/testia', middleware.wrap(async (req, res, next) => {
-    let result = 2;
-        if([1,2,3].indexOf(result) +1){
-        console.log('1,2 tai 3')
-    }else if(result == 4||result == 5){
-        console.log('4 tai 5')
-    }else {
-        console.log('muu')
-    }
-    res.end()
+router.get('/delerno', middleware.wrap(async (req, res, next) => {
+    query = 'DELETE FROM users WHERE email = "erno.viitanen@gmail.com"'
+    await sqldatahaku.querySql(query)
+    res.json('Erno was deleted!')
     }));
 
 module.exports = router

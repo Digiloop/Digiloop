@@ -11,8 +11,8 @@ router.route('/announcement')
         res.json(await sqldatahaku.querySql(query))
     }))
     .post(middleware.wrap(async (req, res) => {
-        let query = 'INSERT INTO Announcements ( info, dateBegin, dateEnd, title, userid) values (?, ?, ?, ?, ?)'
-        let values = await [req.body.info, req.body.dateBegin, req.body.dateEnd, req.body.title, req.user.id]//req.user.id
+        let query = 'INSERT INTO Announcements ( info, dateBegin, dateEnd, title, company, userid) values (?, ?, ?, ?, ?, ?)'
+        let values = await [req.body.info, req.body.dateBegin, req.body.dateEnd, req.body.title,req.user.company, req.user.id]//req.user.id
         await sqldatahaku.querySql(query, values)
         res.end()
     }))

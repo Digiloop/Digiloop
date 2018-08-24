@@ -142,7 +142,7 @@ class HistoryListing extends Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={e => this.cancelCollected(this.state.data)} >Peruuta</Button>
+            <Button onClick={e => this.cancelCollected(this.state.data)} >Palauta varatuksi</Button>
           </DialogActions>
         </Dialog>
       )

@@ -3,17 +3,20 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { TableRow, TableRowColumn, Table, TableBody } from 'material-ui';
 import RaisedButton from 'material-ui/RaisedButton'
 import Checkbox from 'material-ui/Checkbox';
+import { Button } from '@material-ui/core'
 
 // get users
 import { getUsers, changeStatus } from '../../../utils/fetchEditUsers';
-import SelectInput from '../../../../node_modules/@material-ui/core/Select/SelectInput';
+import { getFeedback } from '../../../utils/editFeedback'
 
 class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
       users: [],
+      feedbacks: [],
       rows: [],
+      showFeedback: false,
 
       listAdmins: true,
       listWasteprocessors: true,
@@ -28,6 +31,13 @@ class Admin extends Component {
     });
   }
 
+  getFeedbacks() {
+    getFeedback().then((feedback) => {
+      console.log(feedback)
+      this.setState({ feedbacks: feedback })
+    });
+  }
+
   // edit userinfo 
   changeStatus(id, status) {
     var userStatus = {
@@ -36,7 +46,7 @@ class Admin extends Component {
     }
     changeStatus(userStatus)
       .then(() => {
-        setTimeout( () => {
+        setTimeout(() => {
           this.getUsersData();
         }, 1000)
       })
@@ -63,19 +73,54 @@ class Admin extends Component {
     this.setState({ rows: newArray });
   }
 
+  getStatus(userlvl) {
+    switch (userlvl) {
+      case '0':
+        return "Admin";
+
+      case '1':
+        return "Käsittelijä-Admin";
+
+      case '2':
+        return "Loppukäyttäjä";
+
+      case '3':
+        return "Käsittelijä";
+
+      default:
+        break;
+    }
+  }
+
+  handleClick = (rowNumber, data) => {
+    console.log(rowNumber)
+    console.log('kukkuu')
+  }
+
   componentDidMount() {
     this.getUsersData();
+    this.getFeedbacks();
   }
 
   render() {
 
-    const active = {
-      border: '2px solid green',
-      width: '100px'
-    }
-    const inactive = {
-      border: '2px solid red',
-      width: '100px'
+    const styles = {
+
+      active: {
+        border: '2px solid green',
+        width: '100px'
+      },
+      inactive: {
+        border: '2px solid red',
+        width: '100px'
+      },
+      button: {
+        borderRadius: 25,
+        marginTop: '2%',
+        width: '30%',
+        backgroundColor: 'white',
+        color: '#004225'
+      }
     }
 
     const users = [];
@@ -136,18 +181,15 @@ class Admin extends Component {
                 {this.state.users[i].phone}
               </TableRowColumn>
               <TableRowColumn colSpan='1'>
-                {this.state.users[i].userlvl === '0' ? 'Admin' : ''}
-                {this.state.users[i].userlvl === '1' ? 'Käsittelijä-Admin' : ''}
-                {this.state.users[i].userlvl === '2' ? 'Loppukäyttäjä' : ''}
-                {this.state.users[i].userlvl === '3' ? 'Käsittelijä' : ''}
+                {this.getStatus(this.state.users[i].userlvl)}
               </TableRowColumn>
               <TableRowColumn colSpan='1'>
                 <RaisedButton
                   style={{ width: '110px' }}
                   label={this.state.users[i].Status ? 'Deaktivoi' : 'Aktivoi'}
-                  onClick={event => this.changeStatus(this.state.users[i].id, this.state.users[i].Status)} 
+                  onClick={event => this.changeStatus(this.state.users[i].id, this.state.users[i].Status)}
                   disabled={this.state.users[i].id === this.props.userInfo.id}
-                  />
+                />
               </TableRowColumn>
             </TableRow>
           )
@@ -158,14 +200,11 @@ class Admin extends Component {
                 {this.state.users[i].fname}{' ' + this.state.users[i].lname}
               </TableRowColumn>
               <TableRowColumn colSpan='2'>
-                {this.state.users[i].userlvl === '0' ? 'Admin' : ''}
-                {this.state.users[i].userlvl === '1' ? 'Käsittelijä-Admin' : ''}
-                {this.state.users[i].userlvl === '2' ? 'Loppukäyttäjä' : ''}
-                {this.state.users[i].userlvl === '3' ? 'Käsittelijä' : ''}
+                {this.getStatus(this.state.users[i].userlvl)}
               </TableRowColumn>
               <TableRowColumn colSpan='1'>
                 <RaisedButton
-                  style={this.state.users[i].Status ? active : inactive}
+                  style={this.state.users[i].Status ? styles.active : styles.inactive}
                   label={this.state.users[i].Status ? 'Active' : 'Inactive'} />
               </TableRowColumn>
             </TableRow>
@@ -180,53 +219,80 @@ class Admin extends Component {
     return (
       <MuiThemeProvider>
         <div>
-          <table style={{
-            marginLeft: '5%',
-            marginTop: '20px'
-          }}><tbody>
-              <tr>
-                <td>
-                  Adminit
+          <Button style={styles.button}
+            onClick={() => this.setState({ showFeedback: !this.state.showFeedback })}
+          >
+            {!this.state.showFeedback ? 'Näytä palauteet' : 'Näytä käyttäjät'}
+          </Button>
+          {!this.state.showFeedback ?
+            <div>
+              <table style={{
+                marginLeft: '15%',
+                marginTop: '20px'
+              }}><tbody>
+                  <tr>
+                    <td>
+                      Adminit
           </td>
-                <td>
-                  <Checkbox
-                    checked={this.state.listAdmins}
-                    onCheck={(event, newValue) => this.setState({ listAdmins: newValue })}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Käsittelijät
+                    <td>
+                      <Checkbox
+                        checked={this.state.listAdmins}
+                        onCheck={(event, newValue) => this.setState({ listAdmins: newValue })}
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Käsittelijät
           </td>
-                <td>
-                  <Checkbox
-                    checked={this.state.listWasteprocessors}
-                    onCheck={(event, newValue) => this.setState({ listWasteprocessors: newValue })}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Loppukäyttäjät
+                    <td>
+                      <Checkbox
+                        checked={this.state.listWasteprocessors}
+                        onCheck={(event, newValue) => this.setState({ listWasteprocessors: newValue })}
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Loppukäyttäjät
           </td>
-                <td>
-                  <Checkbox
-                    checked={this.state.listEndUsers}
-                    onCheck={(event, newValue) => this.setState({ listEndUsers: newValue })}
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                    <td>
+                      <Checkbox
+                        checked={this.state.listEndUsers}
+                        onCheck={(event, newValue) => this.setState({ listEndUsers: newValue })}
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
 
-          <div>
-            <Table style={{ width: '60%', marginLeft: '5%', marginTop: '4%' }} onCellClick={rowNumber => this.expand(rowNumber, visibleRowsCount)}>
-              <TableBody displayRowCheckbox={false} >
-                {users}
-              </TableBody>
-            </Table>
-          </div>
+              <div>
+                <Table style={{ width: '70%', margin: 'auto', marginTop: '2%' }} onCellClick={rowNumber => this.expand(rowNumber, visibleRowsCount)}>
+                  <TableBody displayRowCheckbox={false} >
+                    {users}
+                  </TableBody>
+                </Table>
+              </div>
+            </div> :
+            <div>
+              <h1>Palauteboksi</h1>
+              <Table style={{ width: '70%', margin: 'auto', marginTop: '2%' }}>
+                <TableBody displayRowCheckbox={false}>
+                  {this.state.feedbacks.length ?
+                    this.state.feedbacks
+                      .map(n => {
+                        return (
+                          <TableRow key={n.feedback_id}>
+                          <TableRowColumn>{n.title}</TableRowColumn>
+                            <TableRowColumn>{n.text}</TableRowColumn>
+                          </TableRow>
+                        )
+                      })
+                    : null}
+                </TableBody>
+              </Table>
+            </div>
+          }
         </div>
       </MuiThemeProvider>
     );

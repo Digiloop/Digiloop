@@ -77,6 +77,7 @@ class App extends Component {
     return (
       <MuiThemeProvider>
         <div className="App">
+        {/*console.log(window.location.href)*/}
 
           <div>
             {

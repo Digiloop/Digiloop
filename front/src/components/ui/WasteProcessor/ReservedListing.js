@@ -83,8 +83,8 @@ class ReservedListing extends Component {
           }
           if (this.state.showAll) {
             historylistFiltered.push(
-              <TableRow key={i} 
-              style={{ backgroundColor : this.props.reservedItems[i].company === this.props.userInfo.company ? '#DCEDC8' : null }} 
+              <TableRow key={i}
+                style={{ backgroundColor: this.props.reservedItems[i].company === this.props.userInfo.company ? '#DCEDC8' : null }}
               >
                 <TableRowColumn colSpan='1'>{this.props.reservedItems[i].category} ({this.props.reservedItems[i].subCat})<br />
                   Ilmoitettu: {this.props.reservedItems[i].junkdateadded}</TableRowColumn>

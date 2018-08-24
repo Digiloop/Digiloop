@@ -95,6 +95,7 @@ class Notification extends Component {
   checkFill() {
     let pass = true;
     for (var key in this.state) {
+      
       if ((this.state[key] === undefined || this.state[key] === '') && key !== 'rows') {
         pass = false;
       }

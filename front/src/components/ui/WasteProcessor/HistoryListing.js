@@ -46,7 +46,7 @@ class HistoryListing extends Component {
   cancelCollected(item) {
     changeReservationStatus(2, item.fetcher, item.junkID).then(() => {
       this.getJunksData(),
-      this.handleDialogClose()
+        this.handleDialogClose()
     })
   }
 
@@ -70,7 +70,7 @@ class HistoryListing extends Component {
         })
       }
     })
-  }
+  }  
 
   componentDidMount() {
     this.getJunksData();
@@ -141,7 +141,7 @@ class HistoryListing extends Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={e => this.cancelCollected(this.state.data)} >Peruuta</Button>
+            <Button onClick={e => this.cancelCollected(this.state.data)} >Palauta varatuksi</Button>
           </DialogActions>
         </Dialog>
       )

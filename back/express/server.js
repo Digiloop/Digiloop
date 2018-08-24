@@ -26,6 +26,7 @@ var items = require('./routes/items')
 var announcements = require('./routes/announcements')
 var users = require('./routes/users')
 var recoverPassword = require('./routes/recoverPassword')
+var accountVerify = require('./routes/accountVerify')
 //misc functions and stuff
 var middleware = require('./code/middleware.js');
 //MemoryStore
@@ -34,7 +35,7 @@ var MemoryStore = require('session-memory-store')(session);
 var compression = require('compression')
 var apicache = require('apicache')
 var redis = require('redis')
-var baseurl = '/prod'
+var baseurl = '/dev'
 // configuration ===============================================================
 //app.use(cache('7 days'))
 
@@ -94,7 +95,7 @@ app.use(session({
     cookie: { secure: true },
     store: new RedisStore,
     //store: new MemoryStore,
-    name: 'ProdiKeksi.sid'
+    name: 'DeviKeksi.sid'
 }));
 
 
@@ -117,6 +118,7 @@ require('./routes/routes.js')(app, passport, baseurl);
 //app.use(cacheredis('2 minutes'))
 app.use(baseurl, recoverPassword);
 app.use(baseurl, categories)
+app.use(baseurl, accountVerify)
 app.all('*', middleware.isLoggedIn)
 app.use(baseurl, announcements, users, items)
 //app.use('/', categories, items); // http://193.166.72.18/categories
@@ -153,4 +155,4 @@ http.createServer(function (req, res) {
 */
 
 
-app.listen(5000);
+app.listen(5001);

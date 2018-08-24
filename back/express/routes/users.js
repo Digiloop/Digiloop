@@ -6,7 +6,6 @@ var middleware = require('../code/middleware.js');
 var activator = require('../code/accountActivation')
 var generatepassword = require('../code/passGen')
 
-
 router.route('/users')
     .get(middleware.isAdmin, middleware.wrap(async (req, res) => {
         let query = 'SELECT * FROM users'
@@ -82,11 +81,21 @@ router.post('/sendFeedback', middleware.wrap(async (req, res, next) => {
     res.end();
 }));
 
+router.get('/endUsers', middleware.wrap(async (req, res, next) => {
+    let query = 'SELECT fname,lname FROM users WHERE userlvl = 2'
+    //'INSERT INTO SubSubCats ( imgReference, name, subCatId, Status) values (?, ?, ?, ?)' wat
+    result = await sqldatahaku.querySql(query)
+    res.json(result);
+}));
+
 router.get('/getFeedback', middleware.wrap(async (req, res, next) => {
     let query = 'SELECT * FROM feedback'
     //'INSERT INTO SubSubCats ( imgReference, name, subCatId, Status) values (?, ?, ?, ?)' wat
     result = await sqldatahaku.querySql(query)
     res.json(result);
 }));
+
+
+
 
 module.exports = router

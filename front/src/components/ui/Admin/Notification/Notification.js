@@ -112,7 +112,7 @@ class Notification extends Component {
       })
 
     } else {
-      window.alert("Täytä lootat!");
+      window.alert("Täytä kentät!");
     }
   }
 

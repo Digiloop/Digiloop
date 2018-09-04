@@ -89,7 +89,6 @@ class ModifyCategories extends Component {
 
     // picture
     onDrop(picture) {
-        console.log('Kukkuu')
         console.log(picture)
         this.setState({
             pictures: picture[picture.length - 1]

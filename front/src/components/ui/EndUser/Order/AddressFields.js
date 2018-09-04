@@ -120,7 +120,7 @@ class AddressFields extends React.Component {
             minWidth: '25%',
             float: 'left'
         }
-        const isHouseStyle = {
+        const isHouseStyle = { // koti tai yritysvalinta (ei käytössä tällä hetkellä)
             borderRadius: 4,
             border: '6px solid white',
             textAlign: 'center',
@@ -128,7 +128,7 @@ class AddressFields extends React.Component {
             minWidth: '25%',
             float: 'right'
         }
-        const isHouseStyleActive = {
+        const isHouseStyleActive = { // koti tai yritysvalinta (ei käytössä tällä hetkellä)
             borderRadius: 4,
             border: '6px solid #004225',
             textAlign: 'center',
@@ -142,6 +142,7 @@ class AddressFields extends React.Component {
             <div className="Container">
                 <table className="orderStructure">
                     <tbody>
+                        <tr><td><label className="leftOrderLabel">Nimi:</label></td><td className='rightOrderField'>{this.props.userInfo.fname} {this.props.userInfo.lname}</td></tr>
                         <tr>
                             <td style={styles.tdStyle} ><label className="leftOrderLabel">Hakuosoite*:</label></td>
                             <td>   <TextField className="rightOrderField"

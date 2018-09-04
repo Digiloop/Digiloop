@@ -6,7 +6,9 @@ import { getCats, getSubCats, getFakeCats } from '../../../../utils/fetchCategor
 import { addNewFakeCat } from '../../../../utils/editCategories';
 import { MenuItem, SelectField } from 'material-ui';
 import ActionInfo from 'material-ui/svg-icons/action/info';
-import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
+
+import { Table, TableBody, TableCell, TableRow } from '@material-ui/core';
+// import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
 
 class FakeCategories extends Component {
     constructor(props) {
@@ -126,6 +128,9 @@ class FakeCategories extends Component {
         this.setState({ rows: newArray });
     }
 
+    handleClick = (event, data) => {
+        console.log(data)
+    };
 
     componentDidMount() {
         this.getCategories();
@@ -177,8 +182,32 @@ class FakeCategories extends Component {
         const cats = [];
         const subCats = [];
         const fakeCats = [];
-        const newCat = [...this.state.fakeCats, ...this.state.subCats, ...this.state.cats];
-        // console.log(newCat);
+
+        // function for dynamic sorting
+        /*function compareValues(key, order = 'asc') {
+            return function (a, b) {
+                if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+                    // property doesn't exist on either object
+                    return 0;
+                }
+
+                const varA = (typeof a[key] === 'string') ?
+                    a[key].toUpperCase() : a[key];
+                const varB = (typeof b[key] === 'string') ?
+                    b[key].toUpperCase() : b[key];
+
+                let comparison = 0;
+                if (varA > varB) {
+                    comparison = 1;
+                } else if (varA < varB) {
+                    comparison = -1;
+                }
+                return (
+                    (order === 'desc') ? (comparison * -1) : comparison
+                );
+            };
+        } */
+
 
         for (let i = 0; i < this.state.cats.length; i++) {
             cats.push(
@@ -202,49 +231,49 @@ class FakeCategories extends Component {
 
         for (let i = 0; i < this.state.fakeCats.length; i++) {
             // get category and subcategory names
-            const tmp = [];
-            const tmp1 = [];
+            let tmp = [];
+            let tmp1 = [];
             for (let j = 0; j < this.state.subCats.length; j++) {
                 if (this.state.subCats[j].subId === this.state.fakeCats[i].subCatId) {
-                    tmp.push(this.state.subCats[j].subName)
+                    tmp = Object.assign(this.state.subCats[j], this.state.fakeCats[i])
+                    // tmp.push(this.state.subCats[j].subName)
 
                     for (let k = 0; k < this.state.cats.length; k++) {
                         if (this.state.cats[k].CatId === this.state.subCats[j].CatId) {
-                            tmp1.push(this.state.cats[k].CatName)
-
-                        }
+                            tmp1 = Object.assign(tmp, this.state.cats[k])
+                            // tmp1.push(this.state.cats[k].CatName)
+                        }                        
                     }
                 }
             }
             if (this.state.rows[i]) {
                 fakeCats.push(
                     <TableRow key={i} style={{ height: '150px', backgroundColor: '#CCC' }}>
-                        <TableRowColumn colSpan='4'>
+                        <TableCell colSpan='4'>
                             Pääkategoria:<br />
                             Alakategoria:<br />
                             Feikkikategoria:
-                        </TableRowColumn>
-                        <TableRowColumn colSpan='4'>
-                            {tmp1}<br />
-                            {tmp}<br />
-                            {this.state.fakeCats[i].name}
-                        </TableRowColumn>
+                        </TableCell>
+                        <TableCell colSpan='4'>
+                            {tmp1.CatName}<br />
+                            {tmp1.subName}<br />
+                            {tmp1.name}
+                        </TableCell>
                     </TableRow>
                 )
             } else {
-                if (newCat[i].Id) {
-                    fakeCats.push(
-                        <TableRow key={i} >
-                            <TableRowColumn colSpan='8'>
-                                {tmp1} / {this.state.fakeCats[i].name}
-                            </TableRowColumn>
-                        </TableRow>
-                    )
-                } else {
-
-                }
+                fakeCats.push(
+                    <TableRow key={i}
+                        style={{ backgroundColor: '#FFF' }}
+                        hover
+                        onClick={() => this.expand(i)}                        >
+                        <TableCell colSpan='8'>
+                            {tmp1.CatName}  / {tmp1.name}
+                        </TableCell>
+                    </TableRow>
+                )
             }
-        }
+        }        
 
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
@@ -313,8 +342,8 @@ class FakeCategories extends Component {
                                 onClick={() => this.addCats()}
                             />
                         </div>
-                        <Table className='subCat' style={{ float: 'left', width: '60%', marginLeft: '5%' }} onCellClick={rowNumber => this.expand(rowNumber)}>
-                            <TableBody displayRowCheckbox={false}>
+                        <Table className='subCat' style={{ float: 'left', width: '60%', marginLeft: '5%' }} >
+                            <TableBody>
                                 {fakeCats}
                             </TableBody>
                         </Table>

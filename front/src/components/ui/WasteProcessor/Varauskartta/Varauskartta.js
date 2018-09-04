@@ -57,7 +57,7 @@ updateJunks() {
 
     // stores first timestamp value, when entered to page
     if (this.state.lastTimestamp === undefined) { this.state.lastTimestamp = res }
-    console.log(this.state.lastTimestamp)
+    // console.log(this.state.lastTimestamp)
     // checks if timestamp is changed
     if (this.state.lastTimestamp !== res) { this.state.update = true }
 
@@ -94,6 +94,8 @@ updateJunks() {
   // the filter function, that leaves only the necessary stuff to be displayed
   rliFiltering() {
     let resListItemsFiltered = [];
+
+    console.log(this.props.resListItems)
     // loop items
     for (let i = 0; i < this.props.resListItems.length; i++) {
 
@@ -163,7 +165,7 @@ updateJunks() {
 
 
   // refresh function, for when reservationListing has done something to change the items (ie. reserve one)
-  refreshJunks() {
+  refreshJunks() {    
     this.getJunksData();
   }
 
@@ -199,7 +201,7 @@ updateJunks() {
             <div className="subRight">
               {this.state.showSO ?
                 <ReservationListOptions /> :
-                <ReservationListing refreshJunks={this.refreshJunks} items={this.state.rliFilt} />}
+                <ReservationListing refreshJunks={this.refreshJunks} items={this.state.rliFilt}/>}
             </div>
           </div>
         </div>

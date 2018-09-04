@@ -181,7 +181,7 @@ class ReservationListing extends Component {
             </TableBody>
           </Table>
 
-          <Dialog key={'i'} // if email is already in use
+          <Dialog key={'r'} // if item is already reserved
             style={{ visibility: 'visible' }}
             open={this.state.open}
             onClose={this.handleDialogClose}

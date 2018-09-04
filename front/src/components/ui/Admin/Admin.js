@@ -33,7 +33,7 @@ class Admin extends Component {
 
   getFeedbacks() {
     getFeedback().then((feedback) => {
-      console.log(feedback)
+      // console.log(feedback)
       this.setState({ feedbacks: feedback })
     });
   }
@@ -88,13 +88,12 @@ class Admin extends Component {
         return "Käsittelijä";
 
       default:
+        return null
         break;
     }
   }
 
   handleClick = (rowNumber, data) => {
-    console.log(rowNumber)
-    console.log('kukkuu')
   }
 
   componentDidMount() {
@@ -222,7 +221,7 @@ class Admin extends Component {
           <Button style={styles.button}
             onClick={() => this.setState({ showFeedback: !this.state.showFeedback })}
           >
-            {!this.state.showFeedback ? 'Näytä palauteet' : 'Näytä käyttäjät'}
+            {!this.state.showFeedback ? 'Näytä palautteet' : 'Näytä käyttäjät'}
           </Button>
           {!this.state.showFeedback ?
             <div>

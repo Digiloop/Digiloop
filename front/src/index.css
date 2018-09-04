@@ -144,7 +144,7 @@ table {
 
 .rightRegisterField
 {
- margin-left: 5px;
+ padding-left: 4px;
 }
 
 /* ADMIN/WASTEPROSSOR UPDATE */
@@ -661,7 +661,7 @@ text-align: right;
 
 .rightOrderField
 {
- margin-left: 5px;
+ padding-left: 4px;
 }
 
 #HomeClientHeader {

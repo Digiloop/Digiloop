@@ -95,7 +95,6 @@ updateJunks() {
   rliFiltering() {
     let resListItemsFiltered = [];
 
-    console.log(this.props.resListItems)
     // loop items
     for (let i = 0; i < this.props.resListItems.length; i++) {
 

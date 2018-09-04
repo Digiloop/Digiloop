@@ -160,7 +160,7 @@ class Summary extends React.Component {
                                     {this.props.addressData.pickupaddr}<br />                                    
                                     {this.props.addressData.zipcode} {this.props.addressData.city}<br />
                                     {this.props.addressData.phone}</pre>
-                                    Nouto-ohjeet: {this.props.addressData.pickupInstructions}
+                                    {this.props.addressData.pickupInstructions ? ('Nouto-ohjeet:'+this.props.addressData.pickupInstructions) : null}
                                 <Divider style={{ backgroundColor: '#FFF', height: '3px' }} />
                             </td>                            
                         </tr>

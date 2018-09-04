@@ -140,7 +140,9 @@ class History extends Component {
           </DialogContent>
           <DialogActions>
             <RaisedButton label='Takaisin' onClick={() => this.handleDialogClose()} />
-            <RaisedButton label='Poista' onClick={() => this.deleteItem(this.state.data.junkID)} />
+            <RaisedButton label='Poista' onClick={() => this.deleteItem(this.state.data.junkID)}
+              disabled={this.state.data.status !== 1}
+            />
           </DialogActions>
         </Dialog>
       )

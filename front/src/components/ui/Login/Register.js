@@ -98,7 +98,6 @@ class Register extends Component {
                 "zipcode": this.state.zipcode,
                 "city": this.state.city
             }
-            console.log(regData);
             enduserRegister(JSON.stringify(regData)).then((res) => {
                 console.log(res);
                 if (res.status === 401) {
@@ -232,7 +231,7 @@ class Register extends Component {
                                 <TextField className="rightRegisterField"
                                     underlineStyle={{ borderColor: '#A6CE6B' }}
                                     underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="text" hintText="044 708 1347​" style={styles}
+                                    type="number" hintText="044 708 1347​" style={styles}
                                     onChange={(event, newValue) => this.setState({ phone: newValue })} />
                             </td>
                         </tr>
@@ -256,7 +255,7 @@ class Register extends Component {
                                 <TextField className="rightRegisterField"
                                     underlineStyle={{ borderColor: '#A6CE6B' }}
                                     underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="text" hintText="15110" style={styles} maxLength='5'
+                                    maxLength='5' type="number" hintText="15110" style={styles} 
                                     onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
                             </td>
                         </tr>

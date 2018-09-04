@@ -120,7 +120,7 @@ class Summary extends React.Component {
         for (let i = 0; i < this.props.values.length; i++) {
             items.push(
                 <tr key={"itemPreparationListing" + i}>
-                    <td><pre>
+                    <td><pre style={{ fontFamily: 'kanit' }}>
                         {this.props.values[i].category}/{this.props.values[i].proxySubCat}<br />
                         {this.props.values[i].size} m<sup>3</sup>/kpl   {this.props.values[i].weight} kg <br />
                         {this.props.values[i].pcs} kpl<br />
@@ -143,7 +143,7 @@ class Summary extends React.Component {
                             onClick={(event) => this.props.removeItem(i)}
                         />
                         <br />
-                        <Divider style={{ backgroundColor: '#FFF', height: '3px', marginTop: '5px', maxWidth: '400px' }} />
+                        <Divider style={{ backgroundColor: '#FFF', height: '3px', marginTop: '5px' }} />
                     </td>
                 </tr>
             )
@@ -155,12 +155,14 @@ class Summary extends React.Component {
                     <tbody>
                         <tr>
                             <td>
-                                <label style={{ float: 'left', position: 'absolute', marginLeft: '2%' }}>Yhteystiedot</label><br />
-                                <pre>{this.props.addressData.pickupaddr} {this.props.addressData.phone} <br />
-                                    {this.props.addressData.zipcode} {this.props.addressData.city}</pre>
-
-                                <Divider style={{ backgroundColor: '#FFF', height: '3px', maxWidth: '400px' }} />
-                            </td>
+                                <label style={{ float: 'left', position: 'absolute' }}>Yhteystiedot:</label><br />
+                                <pre style={{ fontFamily: 'kanit' }}>{this.props.userInfo.fname} {this.props.userInfo.lname}<br />
+                                    {this.props.addressData.pickupaddr}<br />                                    
+                                    {this.props.addressData.zipcode} {this.props.addressData.city}<br />
+                                    {this.props.addressData.phone}</pre>
+                                    Nouto-ohjeet: {this.props.addressData.pickupInstructions}
+                                <Divider style={{ backgroundColor: '#FFF', height: '3px' }} />
+                            </td>                            
                         </tr>
                         {items}
                         <tr>

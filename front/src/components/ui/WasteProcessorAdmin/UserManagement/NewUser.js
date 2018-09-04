@@ -113,7 +113,6 @@ class NewUser extends Component {
                 zipcode: this.props.companyInfo.zipcode,
                 city: this.props.companyInfo.city
             }
-            console.log(compUser);
             newCompanyUser(compUser).then((res) => {
                 console.log(res);
                 if (res.status === 401) {
@@ -249,7 +248,7 @@ class NewUser extends Component {
                                     <TextField className="rightNewUserField"
                                         underlineStyle={{ borderColor: '#A6CE6B' }}
                                         underlineFocusStyle={{ borderColor: '#004225' }}
-                                        type="text" hintText="044 708 1347​" style={styles}
+                                        type="number" hintText="044 708 1347​" style={styles}
                                         value={this.state.phone}
                                         onChange={(event, newValue) => this.setState({ phone: newValue })} />
                                 </td>

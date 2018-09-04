@@ -43,7 +43,6 @@ class History extends Component {
 
   // item delete, if not reserved
   deleteItem(id) {
-    console.log(id);
     deleteJunk(id).then(() => {
       this.getItems();
     });

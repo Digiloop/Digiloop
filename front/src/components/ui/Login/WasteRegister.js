@@ -210,7 +210,7 @@ class WasteRegister extends React.Component {
                             <td>   <TextField className="rightRegisterField"
                                 underlineStyle={{ borderColor: '#A6CE6B' }}
                                 underlineFocusStyle={{ borderColor: '#004225' }}
-                                type="text" hintText="15110" style={styles} maxLength='5'
+                                type="number" hintText="15110" style={styles} maxLength='5'
                                 onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
                             </td>
                         </tr>
@@ -260,7 +260,7 @@ class WasteRegister extends React.Component {
                             <td>   <TextField className="rightRegisterField"
                                 underlineStyle={{ borderColor: '#A6CE6B' }}
                                 underlineFocusStyle={{ borderColor: '#004225' }}
-                                type="text" hintText="044 708 1347​" style={styles}
+                                type="number" hintText="044 708 1347​" style={styles}
                                 onChange={(event, newValue) => this.setState({ phone: newValue })} />
                             </td>
                         </tr>

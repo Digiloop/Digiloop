@@ -16,22 +16,11 @@ router.get(`/activation/:url`, middleware.wrap(async (req, res, next) => {
         let query = 'UPDATE users SET Status = ? WHERE email = ?'
         let values = [1, req.user.email]
         await sqldatahaku.querySql(query,values)
-        res.redirect('https://kierratys.lamk.fi/devclient')
+        res.redirect('https://kierratys.lamk.fi')
     }
     res.end()
 }));
 
-/* 
-router.post('/aktivaatio', middleware.wrap(async (req, res, next) => {
-   result = await emailActivation.sendActivation(req.user.email)
-   res.json(result)
-}));
-*/
 
-router.get('/delerno', middleware.wrap(async (req, res, next) => {
-    query = 'DELETE FROM users WHERE email = "erno.viitanen@gmail.com"'
-    await sqldatahaku.querySql(query)
-    res.json('Erno was deleted!')
-    }));
 
 module.exports = router

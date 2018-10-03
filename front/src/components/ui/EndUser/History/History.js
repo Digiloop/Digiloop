@@ -13,7 +13,7 @@ class History extends Component {
     super(props);
     this.state = {
       items: [],
-      order: 'asc',
+      order: 'desc',
       orderBy: 'junkdateadded',
       rowCount: 0,
       selected: [],
@@ -126,7 +126,7 @@ class History extends Component {
               Ilmoitettu: {moment(this.state.data.junkdateadded).format('DD.MM.YYYY')}
             </DialogContentText>
             <DialogContentText>
-              Tila: {this.state.data.status}
+              Tila: {this.getStatus(this.state.data.status)}
             </DialogContentText>
             <DialogContentText>
               Nouto-ohjeet: {this.state.data.wishbox}

@@ -181,6 +181,7 @@ class ReservationListOptions extends Component {
       // user's own location and is it in use
       userLocation: this.state.userLocation,
     });
+    this.props.submitChange();
   }
 
   render() {
@@ -257,8 +258,8 @@ class ReservationListOptions extends Component {
       <MuiThemeProvider>
         <form onSubmit={this.submit} className="ResListOptForm">
 
-          <div id="ResListOptionsPohjadiv" style={{ width: "fit-content" }}>
-            <div id="ResListOptionsColorDiv" style={{ width: "fit-content" }}>
+          <div id="ResListOptionsPohjadiv" style={{ width: "auto" }}>
+            <div id="ResListOptionsColorDiv" style={{ width: "auto" }}>
 
               <input type="submit" id="submitButt" value="Tallenna" style={{ float: 'left', position: 'initial' }}></input>
 

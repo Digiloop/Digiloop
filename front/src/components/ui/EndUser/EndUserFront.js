@@ -157,7 +157,7 @@ class EndUserFront extends Component {
           open={this.state.allahuSnackbarOpen}
           autoHideDuration={2500}
           onRequestClose={this.hideAllahuSnackbar}
-          message={<span id="message-id">Jäte syötetty!</span>}
+          message={<span id="message-id">Tilaus lähetetty!</span>}
         />
       </div>
     );

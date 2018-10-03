@@ -100,6 +100,7 @@ class WasteProcessor extends Component {
   rliFiltering() {
     let resListItemsFiltered = [];
     // loop items
+
     for (let i = 0; i < this.props.resListItems.length; i++) {
 
       if (this.props.resListItems[i].status !== 3 && this.props.resListItems[i].status !== 4) {
@@ -163,7 +164,7 @@ class WasteProcessor extends Component {
     // set the filtered array in state, from which it's sent as props to children
     this.setState({
       rliFilt: resListItemsFiltered
-    })
+    }, () => {console.log(this.state.rliFilt)})
   }
 
 
@@ -174,6 +175,10 @@ class WasteProcessor extends Component {
   // refresh function, for when reservationListing has done something to change the items (ie. reserve one)
   refreshJunks() {
     this.getJunksData();
+  }
+
+  submitChange = () => {
+    this.showSearchOptions();
   }
 
   showSearchOptions = () => {
@@ -207,7 +212,7 @@ class WasteProcessor extends Component {
 
             <div className="subRight">
               {this.state.showSO ?
-                <ReservationListOptions /> :
+                <ReservationListOptions submitChange={this.submitChange} /> :
                 <ReservationListing refreshJunks={this.refreshJunks} items={this.state.rliFilt} />}
             </div>
           </div>

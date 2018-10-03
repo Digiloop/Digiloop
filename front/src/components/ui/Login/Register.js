@@ -92,7 +92,7 @@ class Register extends Component {
             var regData = {
                 "fname": this.state.firstName,
                 "lname": this.state.lastName,
-                "email": this.state.email,
+                "email": String(this.state.email).toLowerCase(),
                 "phone": this.state.phone,
                 "address": this.state.streetAddress,
                 "zipcode": this.state.zipcode,
@@ -231,7 +231,7 @@ class Register extends Component {
                                 <TextField className="rightRegisterField"
                                     underlineStyle={{ borderColor: '#A6CE6B' }}
                                     underlineFocusStyle={{ borderColor: '#004225' }}
-                                    type="number" hintText="044 708 1347​" style={styles}
+                                    type="number" hintText="0447081347​" style={styles}
                                     onChange={(event, newValue) => this.setState({ phone: newValue })} />
                             </td>
                         </tr>
@@ -255,7 +255,7 @@ class Register extends Component {
                                 <TextField className="rightRegisterField"
                                     underlineStyle={{ borderColor: '#A6CE6B' }}
                                     underlineFocusStyle={{ borderColor: '#004225' }}
-                                    maxLength='5' type="number" hintText="15110" style={styles} 
+                                    maxLength='5' type="number" hintText="15110" style={styles}
                                     onChange={(event, newValue) => this.setState({ zipcode: newValue })} />
                             </td>
                         </tr>

@@ -12,10 +12,6 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var cors = require('cors');
 var app = express();
-//certifikaatti sydeemit tässä, hoidetaan nginx kautta.
-//var cert = require('./config/cert')
-//var port = process.env.PORT || 443;
-//var port2 = process.env.PORT2 || 80;
 var fileUpload = require('express-fileupload')
 var passport = require('passport');
 var serveIndex = require('serve-index');
@@ -31,24 +27,12 @@ var accountVerify = require('./routes/accountVerify')
 var middleware = require('./code/middleware.js');
 //MemoryStore
 var RedisStore = require('connect-redis')(session)
-var MemoryStore = require('session-memory-store')(session);
 var compression = require('compression')
-var apicache = require('apicache')
 var redis = require('redis')
-var baseurl = '/dev'
+var baseurl = '/prod'
+var sessionInfo = require('./config/sessionInfo')
 // configuration ===============================================================
-//app.use(cache('7 days'))
 
-/*
-let cacheredis = apicache.options({
-    redisClient: redis.createClient(),
-    debug: true,
-    statusCodes: {
-        exclude: [],             // list status codes to specifically exclude (e.g. [404, 403] cache all responses unless they had a 404 or 403 status)
-        include: [],             // list status codes to require (e.g. [200] caches ONLY responses with a success/200 code)
-    },
-}).middleware
-*/
 require('./passport')(passport); // pass passport for configuration
 
 //CORS
@@ -74,7 +58,7 @@ app.use(cors(corsOptions))
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
 //app.use(morgan('combined'));
-app.use(cookieParser('tikiruuma1337')); // read cookies (needed for auth)
+
 app.use(bodyParser.urlencoded({
     limit: '50mb',
     extended: true
@@ -87,17 +71,8 @@ app.use(compression())
 //app.use(express.static("/home/projectmanager/Digiloop/back/express/app"));
 //app.use(express.static("/home/projectmanager/Digiloop/front/build"));
 app.use(fileUpload()); // required for pictures
-
-app.use(session({
-    secret: 'tikiruuma1337',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: true },
-    store: new RedisStore,
-    //store: new MemoryStore,
-    name: 'DeviKeksi.sid'
-}));
-
+app.use(cookieParser(sessionInfo.secret)); // read cookies (needed for auth)
+app.use(session(sessionInfo,new RedisStore));
 
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
@@ -114,18 +89,13 @@ app.use(passport.session()); // persistent login sessions
 app.set('trust proxy', true)//required for nginx, cant serve files otherwise.
 
 require('./routes/routes.js')(app, passport, baseurl);
-//app.use(baseurl, routes)
-//app.use(cacheredis('2 minutes'))
 app.use(baseurl, recoverPassword);
 app.use(baseurl, categories)
 app.use(baseurl, accountVerify)
 app.all('*', middleware.isLoggedIn)
 app.use(baseurl, announcements, users, items)
-//app.use('/', categories, items); // http://193.166.72.18/categories
 app.use(baseurl+'/images', express.static('./kuvat'), serveIndex('./kuvat', { 'icons': true }))
-//app.use('/items5', items);
-//app.use('/birds', birds) //<<- toimia esimerkki
-//'./app/maint'
+
 
 //* Error Handler
 app.use((error, req, res, next) => {
@@ -138,21 +108,4 @@ app.use((error, req, res, next) => {
 });
 
 
-// launch ======================================================================
-//app.listen(port);
-//console.log('päkki pystys portissa ' + port);
-
-/*
-https.createServer(cert, app).listen(port, () => {
-    console.log(`päkki pyörii portissa ${port}`);
-});
-
-
-http.createServer(function (req, res) {
-    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
-    res.end();
-}).listen(80);
-*/
-
-
-app.listen(5001);
+app.listen(5000);

@@ -73,7 +73,7 @@ module.exports = function (passport) {
                 var insertQuery = "INSERT INTO users ( password, fname, lname, email, phone, address, zipcode, city, userlvl, Status ) values (?,?,?,?,?,?,?,?,?,?)";
                 emailurl = await emailActivation.sendActivation(newUserMysql.email)
                 await sqldatahaku.querySql(insertQuery, [newUserMysql.password, newUserMysql.fname, newUserMysql.lname, newUserMysql.email, newUserMysql.phone, newUserMysql.address, newUserMysql.zipcode, newUserMysql.city, newUserMysql.userlvl, newUserMysql.Status])
-                await maileri.mail(newUserMysql.email,'Email activation url: kierratys.lamk.fi/dev/activation/'+emailurl+'<br>'+'password: '+pass)
+                await maileri.mail(newUserMysql.email,'Email activation url: kierratys.lamk.fi/prod/activation/'+emailurl+'<br>'+'password: '+pass)
                 //newUserMysql.id = rows.insertId;
                 //let final = await sqldatahaku.querySql('select * from users where email = ?', newUserMysql.email)
                 //return done(null, final)

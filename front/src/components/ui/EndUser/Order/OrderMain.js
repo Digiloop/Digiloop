@@ -221,18 +221,19 @@ class OrderMain extends Component {
 
     // function for handling all the forward/backward button disable conditions
     // direction: 0=back, 1=forward. type: 0=bool , 1=style
+    // type tells us if the called function wants to know if it's active, or if it wants the styles
     isButtonDisabled(arrowDirection, type) {
 
         switch (arrowDirection) {
             case 0:
 
-                if (this.state.step === 1) {
+                // can't go back from the first page, or from the last page if no items are in "cart"
+                if (this.state.step === 1 || (this.state.step === 4 && this.state.values.length < 1 ) ) {
                     if (type === 0) {
                         return true; // disabled true
                     } else {
                         return this.state.buttonDisabled
                     }
-
                 } else {
                     if (type === 0) {
                         return false; // disabled false; button enabled

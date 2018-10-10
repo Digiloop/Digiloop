@@ -11,7 +11,7 @@ import HistoryListing from '../../containers/Admin/HistoryListing'
 import ReservedListing from '../../containers/Admin/ReservedListing'
 import CategoriesMain from '../../containers/Admin/Categories/CategoriesMain'
 import Varauskartta from '../../containers/Admin/Varauskartta/Varauskartta'
-import Admin from '../../containers/Admin/Admin'
+import Admin from './UserControlAndFeedback/AdminIndex'
 import Notification from '../../containers/Admin/Notification'
 
 

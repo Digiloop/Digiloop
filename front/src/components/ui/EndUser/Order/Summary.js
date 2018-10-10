@@ -29,7 +29,6 @@ class Summary extends React.Component {
 
                 // we're creating a finalizedData object, where we'll do some final fixes before sending
                 let finalizedData = [];
-                //let imageArray = [];
 
                 for (let i = 0; i < data.length; i++) {
 

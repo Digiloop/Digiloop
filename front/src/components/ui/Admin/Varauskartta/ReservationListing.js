@@ -144,7 +144,7 @@ class ReservationListing extends Component {
               <div>{this.props.items[j].description}</div><br />
               <div style={{ marginTop: '5%' }}>
                 Ilmoittaja: {this.props.items[j].fname} {this.props.items[j].lname}<br />
-                Puhelinnumero: {this.props.items[j].phone}<br />
+                Puhelinnumero: {this.props.items[j].itemphone}<br />
                 Nouto-osoite: {this.props.items[j].pickupaddr}, {this.props.items[j].zipcode} {this.props.items[j].city}<br />
                 {this.props.items[j].wishbox ? 'Nouto-ohjeet:' + this.props.items[j].wishbox : null}
               </div>

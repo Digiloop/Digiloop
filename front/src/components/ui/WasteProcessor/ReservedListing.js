@@ -145,7 +145,7 @@ class ReservedListing extends Component {
   // update junks if timestamp is changed
   updateJunks() {
     updateJunkData().then((res) => {
-      console.log(res)
+
       // stores first timestamp value, when entered to page
       if (this.state.lastTimestamp === undefined) { this.state.lastTimestamp = res }
 
@@ -189,7 +189,7 @@ class ReservedListing extends Component {
         />
         <MuiThemeProvider>
           <Table>
-            <TableBody displayRowCheckbox={false}>
+            <TableBody displayRowCheckbox={false} >
               {this.state.historyList}
             </TableBody>
           </Table>

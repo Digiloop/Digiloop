@@ -212,7 +212,7 @@ class WasteProcessor extends Component {
 
             <div className="subRight">
               {this.state.showSO ?
-                <ReservationListOptions submitChange={this.submitChange} /> :
+                <ReservationListOptions /> :
                 <ReservationListing refreshJunks={this.refreshJunks} items={this.state.rliFilt} />}
             </div>
           </div>

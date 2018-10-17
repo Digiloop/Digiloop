@@ -181,7 +181,7 @@ class ReservationListOptions extends Component {
       // user's own location and is it in use
       userLocation: this.state.userLocation,
     });
-    this.props.submitChange();
+    // this.props.submitChange();
   }
 
   render() {

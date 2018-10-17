@@ -133,15 +133,15 @@ class ReservationListing extends Component {
         items.push(
           <TableRow key={i} style={{ height: '400px' }}>
             <TableRowColumn style={rowStyle} colSpan="5">
-              {this.props.items[j].category} ({this.props.items[j].subCat})<br />
+              <h2>{this.props.items[j].category} ({this.props.items[j].subCat})</h2><br />
               Ilmoitettu: {this.parseTimeStamp(this.props.items[j].junkdateadded)}<br />
-              {this.props.items[j].pcs}kpl<br />
-              {this.props.items[j].size}m<sup>3</sup><br />
-              {this.props.items[j].weight}kg<br />
+              Määrä: {this.props.items[j].pcs}kpl<br />
+              Koko: {this.props.items[j].size}m<sup>3</sup><br />
+              Paino: {this.props.items[j].weight}kg<br />
 
               <img src={imageUrl} alt='' style={{ maxWidth: '200px' }} />
 
-              <div>{this.props.items[j].description}</div><br />
+              <div>Lisätiedot: {this.props.items[j].description}</div><br />
               <div style={{ marginTop: '5%' }}>
                 Ilmoittaja: {this.props.items[j].fname} {this.props.items[j].lname}<br />
                 Puhelinnumero: {this.props.items[j].itemphone}<br />
@@ -176,12 +176,8 @@ class ReservationListing extends Component {
           <Table onCellClick={rowNumber => this.expand(rowNumber)}>
             <TableBody displayRowCheckbox={false}>
               <TableRow>
-                <TableHeaderColumn>Nimi</TableHeaderColumn>
-                <TableHeaderColumn>Määrä</TableHeaderColumn>
-                <TableHeaderColumn>Tilavuus</TableHeaderColumn>
-                <TableHeaderColumn>Paino</TableHeaderColumn>
-                <TableHeaderColumn>Varaa</TableHeaderColumn>
-                <TableHeaderColumn>Tila</TableHeaderColumn>
+                <TableHeaderColumn colSpan='5'>Nimi</TableHeaderColumn>
+                <TableHeaderColumn>Varaa / Tila</TableHeaderColumn>
               </TableRow>
               {items}
             </TableBody>

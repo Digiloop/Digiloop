@@ -297,7 +297,7 @@ class Register extends Component {
                     </tbody>
                 </table>
 
-                <FlatButton className="cancelButton"
+                <FlatButton className="cancelRegisterButton"
                     label="Peruuta"
                     hoverColor="#004225"
                     backgroundColor="#004225"
@@ -311,7 +311,7 @@ class Register extends Component {
                     }}
                     onClick={(event) => this.Cancel(event)} />
 
-                <FlatButton className="registerButton"
+                <FlatButton className="sendRegistrationButton"
                     label="Rekisteröidy"
                     labelStyle={{
                         fontFamily: 'kanit',

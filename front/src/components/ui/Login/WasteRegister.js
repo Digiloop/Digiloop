@@ -289,7 +289,7 @@ class WasteRegister extends React.Component {
                         </tr>
                     </tbody>
                 </table>
-                <FlatButton className="cancelButton"
+                <FlatButton className="cancelRegisterButton"
                     label="Peruuta"
                     hoverColor="#004225"
                     style={{ margin: '15px' }}
@@ -302,7 +302,7 @@ class WasteRegister extends React.Component {
                         color: '#FFFFFF'
                     }}
                     onClick={(event) => this.Cancel(event)} />
-                <FlatButton className="registerButton"
+                <FlatButton className="sendRegistrationButton"
                     label="Rekisteröidy"
                     labelStyle={{
                         fontFamily: 'kanit',

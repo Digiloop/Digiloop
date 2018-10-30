@@ -27,7 +27,7 @@ class Summary extends React.Component {
         this.geocoder.geocode({ 'address': address }, function (results, status) {
             if (status === window.google.maps.GeocoderStatus.OK) {
 
-                // console.log(results[0].geometry.location)
+                console.log(results[0].geometry.location)
 
                 // we're creating a finalizedData object, where we'll do some final fixes before sending
                 let finalizedData = [];

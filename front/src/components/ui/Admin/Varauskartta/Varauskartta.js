@@ -164,7 +164,7 @@ class WasteProcessor extends Component {
     // set the filtered array in state, from which it's sent as props to children
     this.setState({
       rliFilt: resListItemsFiltered
-    }, () => {console.log(this.state.rliFilt)})
+    })
   }
 
 

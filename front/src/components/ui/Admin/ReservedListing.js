@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {
-  Table,
-  TableBody,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
+import { Table, TableBody, TableCell, TableRow } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText } from '@material-ui/core';
 import RaisedButton from 'material-ui/RaisedButton';
+import moment from 'moment'
 
 // fetches
 import { changeReservationStatus, cancelReservation } from '../../../utils/reserveItems';
@@ -19,7 +15,8 @@ class ReservedListing extends Component {
     this.state = {
       historyList: [],
       update: false,
-      lastTimestamp: undefined
+      lastTimestamp: undefined,
+      open: false
     }
     this.updateJunks = this.updateJunks.bind(this);
   }
@@ -54,49 +51,63 @@ class ReservedListing extends Component {
 
       for (let i = 0; i < this.props.reservedItems.length; i++) {
 
-        if ([2, 3].indexOf(this.props.reservedItems[i].status) +1 ) {
+        if ([2, 3].indexOf(this.props.reservedItems[i].status) + 1) {
 
           if (this.props.reservedItems[i].company === this.props.userInfo.company && !this.state.showAll) {
             historylistFiltered.push(
-              <TableRow key={i} >
-                <TableRowColumn colSpan='1'>{this.props.reservedItems[i].category} ({this.props.reservedItems[i].subCat})<br />
-                  Ilmoitettu: {this.props.reservedItems[i].junkdateadded}</TableRowColumn>
-                <TableRowColumn>Ilmoittaja: {this.props.reservedItems[i].fnameOwner} {this.props.reservedItems[i].lnameOwner}<br />
-                  Varaaja: {this.props.reservedItems[i].fname} {this.props.reservedItems[i].lname} / {this.props.reservedItems[i].company}</TableRowColumn>
-                <TableRowColumn>Tila: {this.getStatus(this.props.reservedItems[i].status)}</TableRowColumn>
-                <TableRowColumn>
-                  <RaisedButton style={{ marginRight: '5%' }}
+              <TableRow key={i}
+                onClick={event => this.handleClick(event, this.props.reservedItems[i])}
+              >
+                <TableCell>
+                  {this.props.reservedItems[i].category} ({this.props.reservedItems[i].subCat})<br />
+                  Ilmoitettu: {this.props.reservedItems[i].junkdateadded}
+                </TableCell>
+                <TableCell>
+                  Ilmoittaja: {this.props.reservedItems[i].fnameOwner} {this.props.reservedItems[i].lnameOwner}<br />
+                  Varaaja: {this.props.reservedItems[i].fname} {this.props.reservedItems[i].lname} / {this.props.reservedItems[i].company}
+                </TableCell>
+                <TableCell>
+                  Tila: {this.getStatus(this.props.reservedItems[i].status)}
+                </TableCell>
+                <TableCell>
+                  <RaisedButton style={{ marginRight: '5%', width: '95px' }}
                     label="Peruuta"
                     onClick={e => this.cancelItemReserve(this.props.reservedItems[i])}
                   />
-                  <RaisedButton
+                  <RaisedButton style={{ marginTop: '2%', width: '95px' }}
                     label='-->'
                     onClick={e => this.reserve(this.props.reservedItems[i].status, this.props.reservedItems[i])}
                   />
-                </TableRowColumn>
+                </TableCell>
               </TableRow>
             )
           }
           if (this.state.showAll) {
             historylistFiltered.push(
               <TableRow key={i}
-              style={{ backgroundColor : this.props.reservedItems[i].company === this.props.userInfo.company ? '#DCEDC8' : null }} 
+                style={{ backgroundColor: this.props.reservedItems[i].company === this.props.userInfo.company ? '#DCEDC8' : null }}
               >
-                <TableRowColumn colSpan='1'>{this.props.reservedItems[i].category} ({this.props.reservedItems[i].subCat})<br />
-                  Ilmoitettu: {this.props.reservedItems[i].junkdateadded}</TableRowColumn>
-                <TableRowColumn>Ilmoittaja: {this.props.reservedItems[i].fnameOwner} {this.props.reservedItems[i].lnameOwner}<br />
-                  Varaaja: {this.props.reservedItems[i].fname} {this.props.reservedItems[i].lname} / {this.props.reservedItems[i].company}</TableRowColumn>
-                <TableRowColumn>Tila: {this.getStatus(this.props.reservedItems[i].status)}</TableRowColumn>
-                <TableRowColumn>
-                  <RaisedButton style={{ marginRight: '5%' }}
+                <TableCell>
+                  {this.props.reservedItems[i].category} ({this.props.reservedItems[i].subCat})<br />
+                  Ilmoitettu: {this.props.reservedItems[i].junkdateadded}
+                </TableCell>
+                <TableCell>
+                  Ilmoittaja: {this.props.reservedItems[i].fnameOwner} {this.props.reservedItems[i].lnameOwner}<br />
+                  Varaaja: {this.props.reservedItems[i].fname} {this.props.reservedItems[i].lname} / {this.props.reservedItems[i].company}
+                </TableCell>
+                <TableCell>
+                  Tila: {this.getStatus(this.props.reservedItems[i].status)}
+                </TableCell>
+                <TableCell>
+                  <RaisedButton style={{ marginRight: '5%', width: '95px' }}
                     label="Peruuta"
                     onClick={e => this.cancelItemReserve(this.props.reservedItems[i])}
                   />
-                  <RaisedButton
+                  <RaisedButton style={{ marginTop: '2%', width: '95px' }}
                     label='-->'
                     onClick={e => this.reserve(this.props.reservedItems[i].status, this.props.reservedItems[i])}
                   />
-                </TableRowColumn>
+                </TableCell>
               </TableRow>
             )
           }
@@ -152,6 +163,21 @@ class ReservedListing extends Component {
     })
   }
 
+  handleClick = (event, data) => {
+    this.setState({ data: data })
+    this.handleDialogOpen();
+  }
+
+  // open dialog
+  handleDialogOpen = () => {
+    this.setState({ open: true })
+  }
+
+  // close dialog
+  handleDialogClose = () => {
+    this.setState({ open: false })
+  }
+
   componentDidMount() {
     this.getJunksData();
     this.updateJunks();
@@ -168,6 +194,20 @@ class ReservedListing extends Component {
 
   render() {
 
+    const dialog = [];
+    if (this.state.open) {
+      dialog.push(
+        <Dialog key={this.state.data.junkID}
+          open={this.state.open}
+          onClose={this.handleDialogClose}
+          scroll='paper'
+          fullWidth
+        >
+          <DialogTitle>{this.state.data.category} / {this.state.data.subCat}</DialogTitle>
+        </Dialog>
+      )
+    }
+
     return (
       <div className="ReservedPageContainer">
         <RaisedButton
@@ -176,12 +216,13 @@ class ReservedListing extends Component {
           onClick={(event) => this.setState({ showAll: !this.state.showAll }, () => { this.listHistory() })}
         />
         <MuiThemeProvider>
-          <Table>
-            <TableBody displayRowCheckbox={false}>
+          <Table style={{ backgroundColor: 'white' }}>
+            <TableBody>
               {this.state.historyList}
             </TableBody>
           </Table>
         </MuiThemeProvider>
+        {dialog}
       </div>
     );
   }

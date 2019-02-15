@@ -563,14 +563,27 @@ text-align: right;
   -o-background-size: contain;
 }
 
-.FrontPageContainer {
-  font-weight: bold;
-  font-family: kanit;
-  margin: auto;
-  width: 98%;
-  max-width: 80%;
-  min-height: 100vh;
-  align-content: center;
+@media (max-width: 1280px) {
+  .FrontPageContainer {
+    max-width: 80%;
+    font-weight: bold;
+    font-family: kanit;
+    margin: auto;
+    width: 98%;
+    min-height: 100vh;
+    align-content: center;
+  }
+}
+@media (min-width: 1280px) {
+  .FrontPageContainer {
+    max-width: 60%;
+    font-weight: bold;
+    font-family: kanit;
+    margin: auto;
+    width: 98%;
+    min-height: 100vh;
+    align-content: center;
+  }
 }
 
 .frontPageBox

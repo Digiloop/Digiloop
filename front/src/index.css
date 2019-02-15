@@ -563,7 +563,7 @@ text-align: right;
   -o-background-size: contain;
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1179px) {
   .FrontPageContainer {
     max-width: 80%;
     font-weight: bold;
